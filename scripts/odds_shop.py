@@ -47,7 +47,14 @@ from src import market_pricer as mp
 from src.predict import _canon
 
 API_BASE = "https://api.the-odds-api.com/v4"
-SPORT = "soccer_fifa_world_cup"
+# Sport key da The Odds API para o dominio (config odds_shop.sport;
+# "soccer_brazil_campeonato" = Brasileirao Serie A no catalogo /v4/sports —
+# confirme com GET /v4/sports?apiKey=... na primeira rodada de coleta).
+try:
+    from src.ingest import load_config as _lc
+    SPORT = (_lc().get("odds_shop") or {}).get("sport", "soccer_brazil_campeonato")
+except Exception:
+    SPORT = "soccer_brazil_campeonato"
 
 # Zonas de confianca do modelo (auditoria 2026-07-02):
 #   - totais (over/under): calibrados, sem vies de favorito
@@ -71,7 +78,7 @@ _quota = {"remaining": None, "used": None}   # headers da última chamada
 
 
 def _fetch(url: str) -> dict | list:
-    req = urllib.request.Request(url, headers={"User-Agent": "wc-predictor-v2"})
+    req = urllib.request.Request(url, headers={"User-Agent": "brasileirao-predictor"})
     ctx = ssl.create_default_context()
     with urllib.request.urlopen(req, timeout=30, context=ctx) as r:
         # quota do plano gratuito (500 req/mes): sem isto o operador descobre

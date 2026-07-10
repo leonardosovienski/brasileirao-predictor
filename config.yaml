@@ -52,6 +52,11 @@ player_stats:
   rate_limit_seconds: 4
   competitions: []   # FBref bloqueado (403) desde a Copa — fora do pipeline
 
+odds_shop:
+  # sport key da The Odds API (catálogo /v4/sports). Confirmar na primeira
+  # coleta com chave real: GET /v4/sports?apiKey=...
+  sport: soccer_brazil_campeonato
+
 sofascore:
   cache_dir: data/sofascore_cache
   rate_limit_seconds: 1.5

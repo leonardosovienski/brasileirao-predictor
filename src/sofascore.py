@@ -57,7 +57,7 @@ _HEADERS = {
     "Accept": "*/*",
     "Accept-Language": "en-US,en;q=0.9",
     "Referer": "https://www.sofascore.com/",
-    "x-requested-with": "wc-predictor",
+    "x-requested-with": "brasileirao-predictor",
     "sec-fetch-dest": "empty",
     "sec-fetch-mode": "cors",
     "sec-fetch-site": "same-origin",

@@ -1,7 +1,7 @@
 """Observabilidade: logging estruturado da stdlib (não loguru — sem dependência).
 
-Um logger nomeado 'wc' com dois destinos: console (nível INFO, limpo para o
-operador) e arquivo rotativo data/wc.log (nível DEBUG, para investigar a falha
+Um logger nomeado 'brasileirao' com dois destinos: console (nível INFO, limpo para o
+operador) e arquivo rotativo data/brasileirao.log (nível DEBUG, para investigar a falha
 das 3h da manhã). setup_logging é idempotente — chamável de qualquer entrypoint.
 """
 import logging
