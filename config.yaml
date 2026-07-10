@@ -1,0 +1,74 @@
+# Identidade do domínio (PASSO 1.3): consumida por display/simulator no lugar
+# das constantes "World Cup 2026" herdadas do wc-predictor-v2.
+league: "Brasileirão Série A 2026"
+# Nome de torneio gravado em matches.tournament pelo espelho sofascore→matches
+# (scripts/sync_matches_from_sofascore.py). Também é a chave de k_factor.
+tournament_name: "Brasileirão Série A"
+
+# HERANÇA DO WC: o CSV martj42 é SÓ de seleções — não existe equivalente para
+# clubes. No Brasileirão a tabela `matches` é alimentada pelo espelho do
+# Sofascore (scripts/sync_matches_from_sofascore.py); NÃO rode `python -m
+# src.ingest` neste domínio (repovoaria a base com seleções).
+source:
+  url: null
+  local_fallback: null
+
+database: data/matches.db
+
+elo:
+  initial_rating: 1500
+  home_advantage: 100
+  # corte duro: só partidas dos últimos N anos entram no cálculo. Nada antes.
+  window_years: 6
+  # meia-vida da "memória" em anos: resultado dessa idade pesa 50%.
+  form_half_life_years: 4.0
+  k_factors:
+    # liga nacional de clubes: importância regular — mesmo peso do default.
+    "Brasileirão Série A": 30
+    default: 30
+    "Friendly": 20
+
+model:
+  # calibra o Poisson só na forma recente (2024-2025 cabem inteiras na janela)
+  calibration_window_years: 4
+  max_goals: 12
+
+backtest:
+  # janela de edge apostável: estanca o sangramento das duas extremidades.
+  # < min_edge = ruído engolido pelo vig; > max_edge = informação ausente no
+  # modelo (lesão, time misto). O sweet spot validado na Copa fica no meio.
+  min_edge: 0.02
+  max_edge: 0.15
+  over_under_line: 2.5   # linha principal de gols auditada além do 1X2
+  # bootstrap de significância (python -m src.bootstrap) — IC 95% da média
+  bootstrap_iterations: 1000
+  bootstrap_seed: 13
+  # walk-forward (scripts/eval_walkforward_brasileirao.py): tamanho do bloco
+  # de teste em RODADAS da Série A (38 = 1 temporada; 19 = 1 turno)
+  walk_forward_window_rounds: 19
+
+player_stats:
+  cache_dir: data/fbref_cache
+  rate_limit_seconds: 4
+  competitions: []   # FBref bloqueado (403) desde a Copa — fora do pipeline
+
+sofascore:
+  cache_dir: data/sofascore_cache
+  rate_limit_seconds: 1.5
+  # ut_id 325 = Brasileirão Série A (season 20/21 na lista = temporada COVID,
+  # assinatura da liga). season_ids descobertos via
+  # `python -m src.ingest_sofascore --seasons 325` em 2026-07-10.
+  competitions:
+    - name: Brasileirão Série A 2024
+      season: "2024"
+      ut_id: 325
+      season_id: 58766
+    - name: Brasileirão Série A 2025
+      season: "2025"
+      ut_id: 325
+      season_id: 72034
+    - name: Brasileirão Série A 2026
+      season: "2026"
+      ut_id: 325
+      season_id: 87678
+      upcoming: true
