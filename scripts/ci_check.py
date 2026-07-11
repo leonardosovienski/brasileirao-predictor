@@ -67,6 +67,8 @@ SERVING_ALLOWLIST = {
     "src/status.py",              # painel (leitura de contagens)
     "src/kernel_daemon.py",       # daemon de serving (v3)
     "scripts/odds_shop.py",       # serving pre-jogo (le o Elo corrente de proposito)
+    "scripts/sombra.py",          # serving pre-jogo da H3: preve jogos FUTUROS com
+                                  # o Elo corrente — lookahead impossivel por construcao
     "scripts/prever.py",          # CLI de serving (previsao completa / live)
     "scripts/ci_check.py",        # este arquivo (regex da propria barreira)
 }
