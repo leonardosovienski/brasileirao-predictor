@@ -1,0 +1,49 @@
+[
+  {
+    "name": "h1-ou25-edge-2-15-walkforward",
+    "registered_at": "2026-07-11T00:55:18Z",
+    "params": {
+      "market": "ou25",
+      "min_edge": 0.02,
+      "max_edge": 0.15,
+      "stake": "fixo-1u",
+      "params_mode": "walk_forward",
+      "walk_forward_window_rounds": 19,
+      "league": "Brasileirão Série A",
+      "seasons": [
+        "2024",
+        "2025"
+      ]
+    },
+    "sharpe": 0.0722,
+    "notes": "H1: mesma hipótese da Copa (única com CLV comprovado lá: +16,11% na população open). GO exige PSR≥0.80, IC_lower>0, DSR≥0.95 no walk-forward 2024-2025. | RESULTADO 2026-07-10: n=455, ROI +7.9%, CLV open +19.55%, PSR 0.94, IC95 [-0.0218,+0.1719], DSR 0.94 -> NO-GO (IC cruza zero; DSR na trave). Documentado no HANDOFF.",
+    "test_period": [
+      "2024-01-01",
+      "2025-12-31"
+    ]
+  },
+  {
+    "name": "h2-periodo-1t-conf60",
+    "registered_at": "2026-07-11T00:55:18Z",
+    "params": {
+      "market": "ou_1T",
+      "lines": [
+        1.5,
+        2.5
+      ],
+      "min_conf": 0.6,
+      "fracao": "ht_goal_fraction forward-only",
+      "league": "Brasileirão Série A",
+      "seasons": [
+        "2024",
+        "2025"
+      ]
+    },
+    "sharpe": null,
+    "notes": "H2: picks de período 1T com prob≥60% — INFORMATIVA (sem odds de período na base → sem ROI/CLV). Valida se acerto real ≥ 60%. | RESULTADO 2026-07-10: n=1493, acerto real 79.0% vs confianca media 79.8% -> VALIDADA (informativa; sem odds de periodo, sharpe nao se aplica).",
+    "test_period": [
+      "2024-01-01",
+      "2025-12-31"
+    ]
+  }
+]

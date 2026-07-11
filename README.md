@@ -4,10 +4,12 @@
 >
 > Projeto criado a partir do **backup limpo do wc-predictor-v2** pós-Copa 2026,
 > adaptado para o **Campeonato Brasileiro Série A**. Vendor no predictor_core
-> **v1.1.0** (`sync_core --check` OK). Livros zerados (banca nova, ciclo novo).
-> **Nenhuma aposta real até o backtest walk-forward 2024–2025 concluir com GO**
-> (PSR ≥ 0,80, IC_lower > 0, DSR ≥ 0,95) — hipóteses pré-registradas no
-> TrialRegistry do core ANTES de qualquer leitura de resultado.
+> **v1.1.0**. Backtest walk-forward 2024–2025 **CONCLUÍDO em 2026-07-10 com
+> veredito NO-GO** (OU2.5: CLV open +19,55% mas IC95 do pnl cruza zero;
+> DSR 0,94) — **operação em MODO SOMBRA, zero dinheiro real** até o N crescer
+> (2023 + rodadas de 2026). H2 (picks 1T) validada informativa (79% de
+> acerto). Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte 241
+> verdes, CI 5/5.
 
 Sistema CLI em Python para previsão e apostas de valor no Brasileirão Série A,
 rodando 100% local (Python + SQLite). Fonte única de dados: **Sofascore**

@@ -1,0 +1,87 @@
+{
+  "season": "2026",
+  "source": "sofascore ut_id=325 season_id=87678",
+  "n_teams": 20,
+  "teams": {
+    "Athletico": {
+      "sofascore_id": 1967,
+      "slug": "athletico"
+    },
+    "Atlético Mineiro": {
+      "sofascore_id": 1977,
+      "slug": "atletico-mineiro"
+    },
+    "Bahia": {
+      "sofascore_id": 1955,
+      "slug": "bahia"
+    },
+    "Botafogo": {
+      "sofascore_id": 1958,
+      "slug": "botafogo"
+    },
+    "Chapecoense": {
+      "sofascore_id": 21845,
+      "slug": "chapecoense"
+    },
+    "Corinthians": {
+      "sofascore_id": 1957,
+      "slug": "corinthians"
+    },
+    "Coritiba": {
+      "sofascore_id": 1982,
+      "slug": "coritiba"
+    },
+    "Cruzeiro": {
+      "sofascore_id": 1954,
+      "slug": "cruzeiro"
+    },
+    "Flamengo": {
+      "sofascore_id": 5981,
+      "slug": "flamengo"
+    },
+    "Fluminense": {
+      "sofascore_id": 1961,
+      "slug": "fluminense"
+    },
+    "Grêmio": {
+      "sofascore_id": 5926,
+      "slug": "gremio"
+    },
+    "Internacional": {
+      "sofascore_id": 1966,
+      "slug": "internacional"
+    },
+    "Mirassol": {
+      "sofascore_id": 21982,
+      "slug": "mirassol"
+    },
+    "Palmeiras": {
+      "sofascore_id": 1963,
+      "slug": "palmeiras"
+    },
+    "Red Bull Bragantino": {
+      "sofascore_id": 1999,
+      "slug": "red-bull-bragantino"
+    },
+    "Remo": {
+      "sofascore_id": 2012,
+      "slug": "remo"
+    },
+    "Santos": {
+      "sofascore_id": 1968,
+      "slug": "santos"
+    },
+    "São Paulo": {
+      "sofascore_id": 1981,
+      "slug": "sao-paulo"
+    },
+    "Vasco da Gama": {
+      "sofascore_id": 1974,
+      "slug": "vasco-da-gama"
+    },
+    "Vitória": {
+      "sofascore_id": 1962,
+      "slug": "vitoria"
+    }
+  }
+}

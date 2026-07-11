@@ -1,7 +1,13 @@
 # Dados de runtime (o v2 LÊ a produção read-only; nada de dado versionado)
 # ANCORADO na raiz: a regra não-ancorada 'data/' engolia o PACOTE de código
 # vendor/predictor_core/data/ (mesmo incidente do previsao-cripto, 2026-07-07)
-/data/
+# '/data/*' (não '/data/') para as EXCEÇÕES de governança funcionarem:
+# trials.json + atestado são VERSIONADOS de propósito (o desconto do DSR só é
+# honesto se o denominador sobreviver ao esquecimento seletivo — core trials.py)
+/data/*
+!/data/trials.json
+!/data/trials.harness_attestation.json
+!/data/teams_brasileirao.json
 *.db
 *.log
 events.jsonl

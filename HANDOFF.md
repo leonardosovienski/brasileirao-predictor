@@ -1,5 +1,25 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## 🔴 BACKTEST CONCLUÍDO — VEREDITO NO-GO (2026-07-10, mesmo dia)
+>
+> Ciclo completo executado: coleta (1.165 eventos, 2024+2025+2026 parcial) →
+> espelho (937 jogos + 228 fixtures) → cache (a=0.199 b=0.708 α=0.0006
+> ρ=0.014) → harness PASSOU → H1/H2 pré-registradas → walk-forward (4 blocos
+> de 19 rodadas, 1.673 apostas no funil).
+>
+> **H1 (OU2.5): NO-GO.** n=455, ROI +7,9%, **CLV open +19,55%**, PSR 0,94 —
+> mas IC95 do pnl [−0,022, +0,172] cruza zero e DSR 0,94 < 0,95. Sinal de
+> preço forte, conversão em lucro ainda sem significância. **Zero aposta
+> real.** Investigação: ingerir 2023 (season_id 48982) e rodar 2026 em modo
+> SOMBRA para ampliar N; NÃO variar configuração (N+1 deflaciona).
+> **H2 (picks 1T ≥60%): VALIDADA informativa** — n=1.493, acerto 79,0% vs
+> confiança 79,8%. **1X2 reproduziu a Copa: ROI −15,4%, CLV −6% — nunca.**
+> Sharpes observados gravados no trials.json (denominador imortal).
+>
+> Detalhes e plano da retomada (16-17/07 jogos atrasados; rodada cheia
+> 21/07): `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte **241 verdes**,
+> CI 5/5. odds_shop --from-file validado com snapshot de teste.
+
 > ## 🟢 CRIAÇÃO DO DOMÍNIO (2026-07-10)
 >
 > **Projeto criado a partir do wc-predictor-v2 pós-Copa.** Backup limpo
