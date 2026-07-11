@@ -72,6 +72,38 @@ de período na base → sem ROI/CLV possível; uso permitido igual ao da Copa
 (registro e stake reduzido opt-in via `BETLOG_MAX_INFO_STAKE`), nunca como
 população principal.
 
+## Adendo 2026-07-11 — Estratificação do CLV (população H1, 455 apostas)
+
+O CLV +19,55% NÃO é uniforme:
+
+| Estrato | n | ROI | CLV | Bate fechamento |
+|---|---:|---:|---:|---:|
+| **under** | 414 | +6,8% | **+21,5%** | 88% |
+| over | 41 | +19,3% | −0,5% | 46% |
+| edge 2–5% | 91 | **−7,3%** | −1,2% | 47% |
+| edge 5–10% | 184 | +5,6% | +14,8% | 87% |
+| **edge 10–15%** | 180 | +17,9% | **+34,9%** | **99%** |
+
+Por tempo: CLV positivo nos 4 blocos (+14,9% a +26,5%) e nas 3 temporadas —
+estável, não é sorte de um período. Por odd: concentrado na faixa 2,10–2,60.
+
+**Leitura**: as casas abrem a linha de gols "genérica" e o mercado aperta
+para o UNDER até o fechamento; o modelo, calibrado numa liga de poucos gols,
+enxerga isso na abertura. A faixa 2–5% de edge é ruído pagando vig (ROI
+negativo) — o sinal vive em 5–15%. **A pergunta que o backtest não responde:
+o `initialFractionalValue` é um preço capturável na vida real, ou
+abertura-fantasma?** É exatamente o que a H3 mede.
+
+### H3 — modo sombra (registrada em 2026-07-11)
+
+`h3-ou25-sombra-2026` no TrialRegistry: mesmo funil pré-registrado (SEM mudar
+gatilho — otimizar sub-janela seria tentativa N+1), captura de odds correntes
+pré-apito via `scripts/sombra.py --capture`, settle pós-jogo com CLV vs
+fechamento. **Decisão com n ≥ 100 liquidados**: CLV IC95 > 0 e ROI aceitável
+→ nova leitura de H1 com N ampliado; senão, abertura-fantasma documentada e
+linha encerrada. Primeiro pick já capturado (Botafogo × Santos 16/07, under
+2.5 @1,95). Relatório estratificado por seleção/faixa é observacional.
+
 ## Plano de operação — retomada do Brasileirão 2026
 
 A Série A retoma em **16-17/07** (5 jogos atrasados) e a rodada cheia começa

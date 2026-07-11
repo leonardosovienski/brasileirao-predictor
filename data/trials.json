@@ -45,5 +45,25 @@
       "2024-01-01",
       "2025-12-31"
     ]
+  },
+  {
+    "name": "h3-ou25-sombra-2026",
+    "registered_at": "2026-07-11T05:55:57Z",
+    "params": {
+      "market": "ou25",
+      "min_edge": 0.02,
+      "max_edge": 0.15,
+      "stake": "sombra-0u",
+      "mode": "paper",
+      "captura": "odds correntes pré-apito via scripts/sombra.py --capture (após ingest); settle pós-jogo com CLV vs Shin do fechamento",
+      "league": "Brasileirão Série A",
+      "season": "2026-returno"
+    },
+    "sharpe": null,
+    "notes": "H3: validação AO VIVO do CLV +19,55% do walk-forward (NO-GO por IC do pnl). Estratificação 2026-07-11: sinal concentrado em UNDER (414/455; CLV +21,5%) e crescente com edge (10-15%: CLV +34,9%, beat 99%); estável nos 4 blocos. Pergunta da H3: o preço de abertura do Sofascore é capturável na vida real? DECISÃO quando n>=100 picks liquidados: CLV médio > 0 com IC95 (bootstrap cluster por jogo) fora do zero E ROI IC_lower > -2% mantém a linha viva -> nova leitura de H1 com N ampliado; caso contrário, abertura-fantasma documentada e linha encerrada. Relatório estratificado (seleção, faixa de edge) meramente observacional — mudar o gatilho é tentativa N+1.",
+    "test_period": [
+      "2026-07-16",
+      "2026-09-30"
+    ]
   }
 ]
