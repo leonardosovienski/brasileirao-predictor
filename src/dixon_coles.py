@@ -24,7 +24,8 @@ from __future__ import annotations
 
 import math
 
-__all__ = ["dc_tau", "time_decay_weight", "DixonColesMatrix"]
+__all__ = ["dc_tau", "time_decay_weight", "DixonColesMatrix",
+           "fit_dixon_coles_parameters"]
 
 
 def dc_tau(home_goals: int, away_goals: int, lam: float, mu: float,
@@ -142,3 +143,89 @@ class DixonColesMatrix:
                 else:
                     away += p
         return {"home": home, "draw": draw, "away": away}
+
+
+# ---------------------------------------------------------------------------
+# H4 — Otimizador MLE (roadmap de setembro). scipy é importado LAZY dentro da
+# função (padrão A do core): o módulo continua "Python puro" para quem só usa
+# a matemática de correlação acima.
+# ---------------------------------------------------------------------------
+
+def fit_dixon_coles_parameters(
+    games: "list[dict] | object",
+    xi_fixed: float,
+    *,
+    max_goals: int = 10,
+    rho_bounds: tuple[float, float] = (-0.35, 0.35),
+    mean_attack_penalty: float = 100.0,
+) -> dict:
+    """Estima (α por time, β por time, γ, ρ) por MV pesada no tempo (WNLL).
+
+    `games`: DataFrame OU lista de dicts, cada jogo com as chaves/colunas
+      home, away (str), home_goals, away_goals (int), days_ago (float,
+      relativo ao corte do treino — 0 = jogo mais recente).
+    `xi_fixed`: decaimento temporal ξ FIXO (hiperparâmetro do domínio, não é
+      otimizado aqui — otimizar ξ dentro do fit contaminaria a seleção com o
+      próprio conjunto de avaliação; escolha-o por walk-forward externo).
+
+    Modelo: λ = α_casa · β_fora · γ  e  μ = α_fora · β_casa, com o placar
+    tirado da DixonColesMatrix (Poisson×Poisson · τ(ρ), renormalizada).
+    Objetivo: Σ_i φ(Δt_i) · [-log P_i(placar_i)] + penalidade de identificação
+    `mean_attack_penalty · mean(log α)²` (sem ela, multiplicar todo α por c e
+    dividir todo β por c dá o MESMO ajuste — colinearidade estrita).
+
+    Otimização: scipy L-BFGS-B sobre (log α, log β, log γ, ρ) — o log garante
+    α, β, γ > 0 sem bounds ativos; ρ tem bounds explícitos e, se um par
+    (λ, μ) tornar ρ inválido pela Eq. 4.3, o objetivo devolve +inf (o
+    otimizador recua sozinho).
+
+    Retorna {"attack": {time: α}, "defense": {time: β}, "home_advantage": γ,
+    "rho": ρ, "xi": ξ, "converged": bool, "wnll": float}."""
+    import numpy as np
+    from scipy.optimize import minimize
+
+    rows: list[dict] = (games.to_dict("records")
+                        if hasattr(games, "to_dict") else list(games))
+    if not rows:
+        raise ValueError("fit_dixon_coles_parameters: sem jogos")
+    teams: list[str] = sorted({r["home"] for r in rows} | {r["away"] for r in rows})
+    if len(teams) < 2:
+        raise ValueError("fit exige >= 2 times distintos")
+    idx: dict[str, int] = {t: i for i, t in enumerate(teams)}
+    n = len(teams)
+
+    weights = [time_decay_weight(float(r["days_ago"]), xi_fixed) for r in rows]
+
+    def objective(theta: "np.ndarray") -> float:
+        log_a, log_b = theta[:n], theta[n:2 * n]
+        log_gamma, rho = theta[2 * n], theta[2 * n + 1]
+        total = 0.0
+        for r, w in zip(rows, weights):
+            lam = math.exp(log_a[idx[r["home"]]] + log_b[idx[r["away"]]] + log_gamma)
+            mu = math.exp(log_a[idx[r["away"]]] + log_b[idx[r["home"]]])
+            lo, hi = DixonColesMatrix.valid_rho_bounds(lam, mu)
+            if not (lo < rho < hi):
+                return float("inf")
+            m = DixonColesMatrix(lam, mu, rho, max_goals=max_goals)
+            h = min(int(r["home_goals"]), max_goals)
+            a = min(int(r["away_goals"]), max_goals)
+            total += -w * math.log(m.score_prob(h, a))
+        total += mean_attack_penalty * float(np.mean(log_a)) ** 2
+        return total
+
+    theta0 = np.zeros(2 * n + 2)
+    theta0[2 * n] = math.log(1.3)  # chute inicial: vantagem de casa típica
+    bounds = ([(None, None)] * (2 * n + 1)
+              + [(rho_bounds[0], rho_bounds[1])])
+    res = minimize(objective, theta0, method="L-BFGS-B", bounds=bounds)
+
+    log_a, log_b = res.x[:n], res.x[n:2 * n]
+    return {
+        "attack": {t: float(math.exp(log_a[idx[t]])) for t in teams},
+        "defense": {t: float(math.exp(log_b[idx[t]])) for t in teams},
+        "home_advantage": float(math.exp(res.x[2 * n])),
+        "rho": float(res.x[2 * n + 1]),
+        "xi": xi_fixed,
+        "converged": bool(res.success),
+        "wnll": float(res.fun),
+    }
