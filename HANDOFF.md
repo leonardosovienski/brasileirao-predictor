@@ -1,5 +1,29 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## 🔵 AUDITORIA DE INTEGRAÇÃO COM O CORE v1.3.0 (2026-07-12)
+>
+> **Sincronização 100%**: vendor em **predictor_core v1.3.0-ga-20260711**
+> (aggregate `3445e37f43c458cc`, sync 2026-07-12), byte a byte idêntico ao
+> core canônico — drift zero. Consumo real: `contracts`, `testing`,
+> `measurement`, `obs`; os 7 módulos não importados (kernel/rating, ledger,
+> data, etc.) são omissões intencionais do roadmap (agosto/2026).
+>
+> **Duas duplicações identificadas — dívida de manutenção para a próxima
+> janela de código** (não urgente em modo de observação):
+> 1. Shin de-vig: `src/math_utils.shin_probabilities` (12 arquivos usam) vs
+>    `core.measurement.calibration.shin_devig` (0 usam). A local devolve
+>    `(probs, z, overround)` — interface mais rica; convergir quando o core
+>    expor o equivalente.
+> 2. Bootstrap: `src/bootstrap.py` reimplementa percentile bootstrap em vez
+>    de compor sobre `core.measurement.bootstrap.bootstrap_ci` (que outros
+>    scripts do repo já usam) — duas fontes de IC95% no projeto.
+>
+> Pendência W2 herdada do wc (bet_id no livro): **já fechada** — bet_log.py
+> sincronizado com o fix de 2026-07-11 do wc-predictor-v2 + test_bet_id.py.
+> Brasileirão em **modo de observação** (sombra automática; próxima marca:
+> reexecutar varredura forward com N=40 —
+> `docs/RELATORIO_FORWARD_18JOGOS_2026-07-12.md`).
+
 > ## 🔴 BACKTEST CONCLUÍDO — VEREDITO NO-GO (2026-07-10, mesmo dia)
 >
 > Ciclo completo executado: coleta (1.165 eventos, 2024+2025+2026 parcial) →
@@ -26,7 +50,8 @@
 > (sem .venv/__pycache__/.pytest_cache/worktrees/caches de coleta), repo git
 > NOVO (histórico da Copa fica no wc-predictor-v2 original, intocado).
 > Vendor no **predictor_core v1.1.0** — `sync_core --check` reporta os 4
-> consumidores em sincronia, incluindo este.
+> consumidores em sincronia, incluindo este. *(Superado: v1.3.0 desde
+> 2026-07-11 — ver auditoria 2026-07-12 no topo.)*
 >
 > **Limpeza da Copa (PASSO 1.2)**: bets/bankroll/predictions/period_predictions
 > zerados (arquivos mantidos); `results.jsonl` da Copa preservado como
