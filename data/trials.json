@@ -65,5 +65,35 @@
       "2026-07-16",
       "2026-09-30"
     ]
+  },
+  {
+    "name": "H4_DIXON_COLES_CALIBRATED",
+    "registered_at": "2026-07-12T01:50:24Z",
+    "params": {
+      "model": "dixon_coles_wnll",
+      "half_life_days": 360,
+      "min_history": 200,
+      "retrain_every": 100,
+      "max_goals": 8,
+      "grid": [
+        30,
+        60,
+        90,
+        120,
+        180,
+        360
+      ],
+      "cutoff": "2026-07-11"
+    },
+    "sharpe": null,
+    "notes": "H4: varredura de half-life por walk-forward. RPS=0.21132 (n=737), rho_final=0.0162. Grade completa: 360d=0.21132; 180d=0.21231; 120d=0.21364; 90d=0.21524; 60d=0.21770; 30d=0.22012 | VEREDITO (2026-07-11): H4 REFUTADA vs Elo puro — ΔRPS médio=0.00235, IC95%=[-0.00216, 0.00684], bootstrap n=10000 seed=42, pareado n=737. IC 95% cruza zero — a redução de erro sobre o Elo puro é indistinguível de sorte",
+    "status": "refutada",
+    "rps_dixon": 0.21132302123419175,
+    "rps_elo_baseline": 0.2089681187812412,
+    "delta_rps_ci95": [
+      -0.0021604816075752454,
+      0.0068398522564665195
+    ],
+    "metric": "rps"
   }
 ]
