@@ -202,23 +202,74 @@ literal de significância dos dois lados. `config.yaml` permanece inalterado.
 O próximo ponto de decisão real é N=80, quando o IC pode apertar o
 suficiente pra separar sinal de ruído.
 
+## Resultados — N=80 (2026-07-15)
+
+Reexecução com o dobro da amostra de novo (jogos até 2026-04-01; a base
+local tem 177 jogos disputados disponíveis no momento, então N=80 ainda tem
+folga).
+
+| Métrica | N=18 | N=40 | **N=80** | Tendência |
+|---|---:|---:|---:|---|
+| 1X2 hit-rate | 38,9% | 42,5% | **47,5%** | melhorando |
+| OU2.5 hit-rate (bruto) | 44,4% | 47,5% | **56,2%** | melhorando bem |
+| DC hit-rate (bruto) | 72,2% | 77,5% | 75,0% | estável |
+| Brier (calibração, piso uniforme=0,667) | 0,657 | 0,656 | **0,625** | **saiu da estagnação** |
+| OU2.5 EV — apostas | 10 | 25 | 47 | — |
+| **OU2.5 EV — ROI** | −14,5% | −33,8% | **−22,9%** | melhorando (ainda negativo) |
+| DC EV — ROI | −25,7% | −16,5% | **−11,4%** | melhorando |
+
+**Primeiro sinal real de melhora**: o Brier saiu da estagnação das duas
+marcas anteriores (0,656-0,657) e caiu pra 0,625 — a calibração está
+melhorando conforme a temporada avança, consistente com a hipótese de que
+parte do viés inicial era efeito de abertura de temporada (elenco/ritmo
+ainda não refletido no histórico), não um bug estrutural do modelo. O ROI de
+OU2.5 também vem melhorando (−33,8%→−22,9%), ainda no vermelho mas na
+direção certa — não voltou a piorar como tinha acontecido de N=18 para N=40.
+
+### Bootstrap do candidato `calibration_window_years=0,5` — N=80
+
+| cy | Apostas | ROI médio | IC 95% | Veredito |
+|---|---:|---:|---|---|
+| 0,5 | 43 | +13,5% | [−17,6%, +43,6%] | ainda NÃO significativo |
+| 4,0 (atual) | 47 | −22,9% | [−50,6%, +7,0%] | ainda NÃO significativo |
+
+Os intervalos **encolheram** frente a N=40 (cy=0,5: amplitude de 88pp→61pp;
+config atual: 80pp→58pp) — comportamento esperado com mais dado. Nenhum
+cruzou a linha de significância ainda, mas o config atual (4,0) está perto
+pelo lado negativo (limite superior +7,0%, quase todo o intervalo no
+vermelho). Ainda sem base pra mudar `config.yaml`.
+
+### Quebra por time — achado novo
+
+**Botafogo despencou em defesa**: ΔDefesa foi de −2,92 (N=18) para −8,25
+(N=80) — sofreu 18 gols contra 9,75 esperados pelo modelo, o maior desvio
+isolado observado até agora neste teste. Palmeiras (+4,45) e Grêmio (+3,24)
+mantêm o mesmo viés de ataque desde N=18 (modelo subestima os dois de forma
+consistente nas três marcas). Cruzeiro segue mal calibrado em defesa
+(ΔDefesa −5,47, crescendo desde N=18).
+
 ## Compromisso de reexecução
 
-**Reexecutar esta varredura na marca de 80 jogos disputados** (dobro
-novamente, mantendo a cadência 18→40→80), quando o IC95% do ROI/RPS já
-fecha o suficiente para separar sinal de ruído — mesmo critério usado no
-veredito H4 (`docs/CONCLUSOES.md`, `data/h4_verdict.log`). Comandos:
+**Reexecutar esta varredura na marca de 160 jogos disputados** (dobro
+novamente; a base local tem 177 disponíveis hoje, então 160 já cobre quase
+toda a temporada disputada até aqui — pode ser necessário sincronizar dados
+novos via `scripts/sync_matches_from_sofascore.py` antes de rodar). Comandos:
 
 ```
-python scripts/predict_walkforward_ev.py 80
-python scripts/predict_first18_teams.py 80
-python scripts/investigate_calibration_window.py 80
+python scripts/predict_walkforward_ev.py 160
+python scripts/predict_first18_teams.py 160
+python scripts/investigate_calibration_window.py 160
+python scripts/bootstrap_calibration_window.py 0.5 160
+python scripts/bootstrap_calibration_window.py 4.0 160
 ```
 
-Se o candidato cy=0,5 continuar com ROI positivo em N=80 (com bootstrap
-IC95% não cruzando zero), aí sim vira proposta de mudança de
-`calibration_window_years` em `config.yaml` — com pré-registro formal, igual
-ao H1 original, não como ajuste ad-hoc.
+Se o IC95% do config atual (4,0) fechar totalmente negativo em N=160, isso
+vira evidência real de que o OU2.5 forward não está reproduzindo o edge do
+backtest (não é mais "cedo demais"). Se o candidato cy=0,5 fechar
+positivo, vira proposta formal de mudança de `calibration_window_years` —
+com pré-registro, igual ao H1 original, não como ajuste ad-hoc. Se os dois
+continuarem cruzando zero, o teste segue inconclusivo e a decisão é esperar
+mais uma marca.
 
 ## Status operacional
 
