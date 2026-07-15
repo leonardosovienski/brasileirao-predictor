@@ -122,28 +122,76 @@ expectativa**. Em N=18 a leitura foi "cedo demais pra refutar o backtest de
   "aprendendo" a temporada 2026 conforme mais jogos entram nessa janela de
   40, e o viés por time (Palmeiras/Grêmio/Botafogo pra cima,
   Internacional/Cruzeiro pra baixo) se manteve entre as duas marcas.
-- **Hipótese de causa raiz não descartada, agora mais provável**: o
-  `form_half_life_years=4.0` do Elo pesando demais o histórico 2024/25 pra
-  times que mudaram elenco/técnico. Vale investigar diretamente (não só
-  esperar mais N) na próxima janela de código — comparar meia-vida mais
-  curta especificamente nos times com viés persistente.
+- **Investigação de causa raiz aberta** (ver seção dedicada abaixo): duas
+  hipóteses testadas por sweep de hiperparâmetro, uma refutada
+  (`form_half_life_years`) e uma confirmada com efeito grande
+  (`calibration_window_years`), pendente de validação estatística antes de
+  virar mudança de config.
+
+## Investigação de causa raiz — sweep de hiperparâmetros (2026-07-15)
+
+Scripts: [scripts/investigate_half_life.py](../scripts/investigate_half_life.py) `[N]`,
+[scripts/investigate_calibration_window.py](../scripts/investigate_calibration_window.py) `[N]`
+— ambos read-only (não tocam `config.yaml`), recomputam Elo/Poisson do zero
+por valor do grid e reportam Brier, hit-rate, viés nos 5 times flagged
+(Palmeiras/Grêmio/Botafogo/Internacional/Cruzeiro) e EV/ROI real de OU2.5
+(Shin de-vig, regra 2%–15%) — tudo em N=40.
+
+### `form_half_life_years` — REFUTADA
+
+Grid 0,5 a 6,0 anos + sem decaimento. Confirmado que o sweep muda os ratings
+de verdade (rating final do Palmeiras varia de 1650 a 1748 conforme o valor),
+mas o impacto nas métricas de teste é irrisório: Brier 0,649→0,658 (1,4% de
+variação), viés nos times flagged 26,45→26,99 (2%). **O valor atual (4,0) já
+está essencialmente no ótimo do grid.** Não é a causa do viés persistente.
+
+### `calibration_window_years` — CONFIRMADA, efeito grande, pendente de validação
+
+| cy (anos) | n_train | hit OU2.5 | Brier | Apostas EV | Vitórias | **ROI** |
+|---|---:|---:|---:|---:|---:|---:|
+| 0,25 | 84 | 52,5% | 0,660 | 11 | 63,6% | **+22,1%** |
+| **0,50** | 222 | 55,0% | 0,667 | 21 | 61,9% | **+25,7%** |
+| 0,75 | 320 | 50,0% | 0,662 | 31 | 41,9% | −12,9% |
+| 1,00 | 380 | 50,0% | 0,661 | 28 | 32,1% | −33,8% |
+| 1,5–4,0 (atual) | 572–760 | 47,5% | 0,656 | 25 | 32,0% | −33,8% |
+
+A partir de cy≈1,75 o resultado satura (dataset só tem histórico desde
+abril/2024, então cy=2, 3, 4 e "sem limite" processam exatamente os mesmos
+760 jogos de treino — por isso ficam idênticos). O corte que importa é
+cy≤0,5 (calibrar só com dados de meados/fim de 2025, sem misturar 2024).
+
+**Ressalvas antes de tratar como confirmado**:
+- N pequeno nos dois lados (11–21 apostas) — dá pra virar com poucos jogos a
+  mais, não é prova ainda.
+- `n_train` cai de 760 para 222 jogos em cy=0,5 — menos dado pra estimar
+  `alpha`/`rho` (dispersão e correlação Dixon-Coles), risco real de
+  overfitting num padrão de curto prazo em vez de sinal genuíno.
+- **cy=0,75–1,0 é um "vale" com ROI pior que o extremo longo** (−12,9% e
+  −33,8%) — não é uma curva suave rumo ao ótimo, é uma transição abrupta
+  entre dois regimes. Isso pede cautela: parece mais "o modelo muda de lado"
+  do que "convergência gradual".
+
+**Decisão**: não alterar `config.yaml` ainda. Antes de qualquer mudança de
+produção, bootstrap do IC95% do ROI em cy=0,5 (mesmo padrão usado no veredito
+H1/H4) e confirmação em N=80.
 
 ## Compromisso de reexecução
 
 **Reexecutar esta varredura na marca de 80 jogos disputados** (dobro
 novamente, mantendo a cadência 18→40→80), quando o IC95% do ROI/RPS já
 fecha o suficiente para separar sinal de ruído — mesmo critério usado no
-veredito H4 (`docs/CONCLUSOES.md`, `data/h4_verdict.log`). Comando:
+veredito H4 (`docs/CONCLUSOES.md`, `data/h4_verdict.log`). Comandos:
 
 ```
 python scripts/predict_walkforward_ev.py 80
 python scripts/predict_first18_teams.py 80
+python scripts/investigate_calibration_window.py 80
 ```
 
-Se o ROI de OU2.5 continuar piorando em N=80, isso deixa de ser "cedo
-demais" e vira caso pra investigar o `form_half_life_years` antes de
-acumular mais jogos — não adianta esperar mais dados se a causa é um
-hiperparâmetro mal ajustado pro início de temporada.
+Se o candidato cy=0,5 continuar com ROI positivo em N=80 (com bootstrap
+IC95% não cruzando zero), aí sim vira proposta de mudança de
+`calibration_window_years` em `config.yaml` — com pré-registro formal, igual
+ao H1 original, não como ajuste ad-hoc.
 
 ## Status operacional
 
