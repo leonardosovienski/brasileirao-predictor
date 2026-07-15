@@ -1,10 +1,10 @@
-"""Walk-forward: OU2.5 e dupla-chance (1X/X2) para os primeiros 18 jogos do
+"""Walk-forward: OU2.5 e dupla-chance (1X/X2) para os primeiros N jogos do
 Brasileirao 2026. Mesma metodologia sem lookahead de scripts/predict_first18_2026.py
 (Elo forward + Poisson/Dixon-Coles calibrado so com pre-temporada). Foco em
 hit-rate bruto; odds de fechamento (se existirem) sao so anotadas para EV
 numa 2a etapa, nao usadas para decidir a previsao.
 
-Uso: python scripts/predict_first18_ou_dc.py
+Uso: python scripts/predict_first18_ou_dc.py [N_JOGOS]  (default 18)
 """
 import os
 import sys
@@ -15,6 +15,7 @@ from src import db, model, ratings
 from src.ingest import ROOT, load_config
 from src.predict import _canon
 
+N_GAMES = int(sys.argv[1]) if len(sys.argv) > 1 else 18
 cfg = load_config()
 conn = db.connect(str(ROOT / cfg["database"]))
 
@@ -31,7 +32,7 @@ _, history = ratings.compute_ratings(rows, cfg["elo"])
 
 FIRST_SEASON_DATE = "2026-01-28"
 test_idx = [i for i, r in enumerate(rows)
-            if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:18]
+            if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
 
 cy = cfg["model"].get("calibration_window_years")
 ccut = (date.fromisoformat(FIRST_SEASON_DATE) - timedelta(days=int(cy * 365.25))).isoformat()
