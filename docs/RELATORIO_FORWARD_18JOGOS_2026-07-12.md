@@ -248,28 +248,92 @@ mantêm o mesmo viés de ataque desde N=18 (modelo subestima os dois de forma
 consistente nas três marcas). Cruzeiro segue mal calibrado em defesa
 (ΔDefesa −5,47, crescendo desde N=18).
 
+## Resultados — N=160 (2026-07-15)
+
+Reexecução com o dobro da amostra mais uma vez (base local tinha 177 jogos
+disputados disponíveis; 160 já cobre quase toda a temporada até aqui).
+
+| Métrica | N=18 | N=40 | N=80 | **N=160** |
+|---|---:|---:|---:|---:|
+| 1X2 hit-rate | 38,9% | 42,5% | 47,5% | **48,8%** |
+| OU2.5 hit-rate (bruto) | 44,4% | 47,5% | 56,2% | **53,1%** |
+| Brier (piso uniforme=0,667) | 0,657 | 0,656 | 0,625 | **0,631** |
+| OU2.5 EV — apostas | 10 | 25 | 47 | **98** |
+| **OU2.5 EV — ROI (config atual)** | −14,5% | −33,8% | −22,9% | **−22,1%** |
+| DC EV — ROI | −25,7% | −16,5% | −11,4% | **−10,8%** |
+
+O ROI de OU2.5 com o config atual **estabilizou** em torno de −22% entre
+N=80 e N=160 (−22,9%→−22,1%), depois de duas marcas de melhora — primeiro
+sinal de que o valor pode estar convergindo pra um patamar real, não mais
+oscilando por causa do tamanho de amostra.
+
+### Bootstrap do candidato `calibration_window_years=0,5` — N=160: os dois critérios bateram
+
+| cy | Apostas | ROI médio | IC 95% | Veredito |
+|---|---:|---:|---|---|
+| **0,5** | 82 | +23,0% | **[+1,0%, +43,8%]** | **SIGNIFICATIVO (positivo)** |
+| **4,0 (atual)** | 98 | −22,1% | **[−42,0%, −2,2%]** | **SIGNIFICATIVO (negativo)** |
+
+Os dois critérios definidos no compromisso anterior bateram simultaneamente:
+o config atual fechou totalmente negativo e o candidato cy=0,5 fechou
+totalmente positivo, nenhum cruzando zero.
+
+**Ressalva séria antes de tratar como confirmado — comparação múltipla não
+corrigida.** Este resultado veio de um **grid de 9 valores** de
+`calibration_window_years` testados em `investigate_calibration_window.py`
+(0,25 a 4,0 + sem limite), e só depois escolhi o de melhor ROI (cy=0,5) pra
+rodar o bootstrap isolado. Testar 9 configurações e destacar a vencedora
+antes de medir significância é o mesmo problema que o H1 original tratava
+descontando o DSR pelas tentativas de registro
+(`docs/RELATORIO_BACKTEST_2026-07-10.md`: *"DSR descontado pelas 2
+tentativas do registro"*, regra explícita *"NÃO variar configuração — N+1
+deflaciona"*). O IC95% de [+1,0%, +43,8%] é o IC do "melhor entre 9
+candidatos testados nestes mesmos 160 jogos", não o IC verdadeiro de "cy=0,5
+tem edge" — sistematicamente mais otimista do que um teste único teria dado.
+
+**Isso não invalida o achado — muda o que ele significa.** Deixa de ser
+"decisão pra aplicar em config.yaml" e vira **candidato forte pra um H-novo
+pré-registrado**, no mesmo padrão do H1/H4: declarar `calibration_window_years
+= 0,5` como hipótese única, ANTES de olhar mais dados, e testar num
+walk-forward fresco — idealmente sobre jogos que ainda não entraram nesta
+exploração (não reaproveitar estes mesmos 160 usados pra escolher o
+candidato, sob pena de repetir o viés de seleção).
+
+### Quebra por time — reversão importante
+
+**Os "5 times flagged" das marcas anteriores não são mais o quadro
+completo — dois deles reverteram de sinal.** Em N=80, Palmeiras (+4,45) e
+Grêmio (+3,24) pareciam ter viés de ataque persistente; em N=160,
+**Palmeiras caiu pra −0,74 e Grêmio pra −0,88** — o viés inverteu
+completamente. Internacional também inverteu (de −1,65 em N=80 pra **+1,38**
+em N=160). Isso é um alerta importante: **o padrão que eu vinha chamando de
+"persistente" entre N=18/40/80 era, na verdade, fragilidade de amostra
+pequena por time** (cada time só tinha 1-5 jogos nas marcas anteriores) —
+não uma característica real e estável do modelo para esses times.
+
+Times com viés que **cresceu e se manteve na mesma direção** (esses sim
+parecem reais): **Botafogo** (ΔDefesa −2,92→−8,25→**−11,04**, sofrendo cada
+vez mais gols do que o modelo prevê) e **Cruzeiro** (ΔDefesa −2,50→−4,17→
+**−6,60**). **Chapecoense** surge como novo extremo (ΔDefesa −10,33, ainda
+sem histórico nas marcas anteriores pra confirmar persistência).
+
 ## Compromisso de reexecução
 
-**Reexecutar esta varredura na marca de 160 jogos disputados** (dobro
-novamente; a base local tem 177 disponíveis hoje, então 160 já cobre quase
-toda a temporada disputada até aqui — pode ser necessário sincronizar dados
-novos via `scripts/sync_matches_from_sofascore.py` antes de rodar). Comandos:
+**Não é mais "dobrar N e reavaliar"** — a investigação de
+`calibration_window_years` mudou de fase exploratória para candidata a
+pré-registro formal. Próximos passos, em ordem:
 
-```
-python scripts/predict_walkforward_ev.py 160
-python scripts/predict_first18_teams.py 160
-python scripts/investigate_calibration_window.py 160
-python scripts/bootstrap_calibration_window.py 0.5 160
-python scripts/bootstrap_calibration_window.py 4.0 160
-```
-
-Se o IC95% do config atual (4,0) fechar totalmente negativo em N=160, isso
-vira evidência real de que o OU2.5 forward não está reproduzindo o edge do
-backtest (não é mais "cedo demais"). Se o candidato cy=0,5 fechar
-positivo, vira proposta formal de mudança de `calibration_window_years` —
-com pré-registro, igual ao H1 original, não como ajuste ad-hoc. Se os dois
-continuarem cruzando zero, o teste segue inconclusivo e a decisão é esperar
-mais uma marca.
+1. **Pré-registrar `calibration_window_years=0,5`** como hipótese única
+   (H-novo), seguindo o padrão de `scripts/governanca.py` — sem mais variar
+   o valor depois de registrado.
+2. **Testar em dados que ainda não entraram nesta exploração** — aguardar
+   jogos novos além dos 177 já usados (sincronizar via
+   `scripts/sync_matches_from_sofascore.py` quando a temporada avançar) em
+   vez de reaproveitar os mesmos 160 jogos que escolheram o candidato.
+3. Continuar monitorando **Botafogo e Cruzeiro** na quebra por time — os
+   únicos dois times com viés crescente e consistente nas quatro marcas,
+   candidatos a um problema real e localizado (não de hiperparâmetro
+   global).
 
 ## Status operacional
 
