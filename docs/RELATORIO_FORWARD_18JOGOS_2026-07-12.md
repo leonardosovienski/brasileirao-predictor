@@ -122,11 +122,11 @@ expectativa**. Em N=18 a leitura foi "cedo demais pra refutar o backtest de
   "aprendendo" a temporada 2026 conforme mais jogos entram nessa janela de
   40, e o viés por time (Palmeiras/Grêmio/Botafogo pra cima,
   Internacional/Cruzeiro pra baixo) se manteve entre as duas marcas.
-- **Investigação de causa raiz aberta** (ver seção dedicada abaixo): duas
-  hipóteses testadas por sweep de hiperparâmetro, uma refutada
-  (`form_half_life_years`) e uma confirmada com efeito grande
-  (`calibration_window_years`), pendente de validação estatística antes de
-  virar mudança de config.
+- **Investigação de causa raiz concluída para N=40** (ver seção dedicada
+  abaixo): duas hipóteses testadas por sweep de hiperparâmetro,
+  `form_half_life_years` refutada e `calibration_window_years` com efeito
+  grande na média mas **sem significância estatística** no bootstrap —
+  nenhuma virou mudança de config.
 
 ## Investigação de causa raiz — sweep de hiperparâmetros (2026-07-15)
 
@@ -145,7 +145,7 @@ mas o impacto nas métricas de teste é irrisório: Brier 0,649→0,658 (1,4% de
 variação), viés nos times flagged 26,45→26,99 (2%). **O valor atual (4,0) já
 está essencialmente no ótimo do grid.** Não é a causa do viés persistente.
 
-### `calibration_window_years` — CONFIRMADA, efeito grande, pendente de validação
+### `calibration_window_years` — efeito grande na média, SEM significância estatística
 
 | cy (anos) | n_train | hit OU2.5 | Brier | Apostas EV | Vitórias | **ROI** |
 |---|---:|---:|---:|---:|---:|---:|
@@ -171,9 +171,36 @@ cy≤0,5 (calibrar só com dados de meados/fim de 2025, sem misturar 2024).
   entre dois regimes. Isso pede cautela: parece mais "o modelo muda de lado"
   do que "convergência gradual".
 
-**Decisão**: não alterar `config.yaml` ainda. Antes de qualquer mudança de
-produção, bootstrap do IC95% do ROI em cy=0,5 (mesmo padrão usado no veredito
-H1/H4) e confirmação em N=80.
+**Decisão inicial**: não alterar `config.yaml` ainda. Antes de qualquer
+mudança de produção, bootstrap do IC95% do ROI em cy=0,5 (mesmo padrão usado
+no veredito H1/H4) e confirmação em N=80.
+
+### Bootstrap do IC95% (2026-07-15) — nenhum candidato é significativo
+
+Script: [scripts/bootstrap_calibration_window.py](../scripts/bootstrap_calibration_window.py) `[CY] [N]`
+— cluster bootstrap por jogo (`src.bootstrap.ci_mean_cluster`, não i.i.d. por
+aposta: OVER/UNDER do mesmo jogo compartilham o choque do resultado), 1000
+iterações, seed 13 — mesma config oficial usada no veredito H1/H4.
+
+| cy | Apostas | ROI médio | IC 95% | Veredito |
+|---|---:|---:|---|---|
+| 0,25 | 11 | +22,1% | [−30,9%, +75,5%] | NÃO significativo |
+| **0,50** | 21 | +25,7% | **[−22,2%, +66,2%]** | **NÃO significativo** |
+| 4,0 (atual) | 25 | −33,8% | [−69,6%, +10,2%] | NÃO significativo |
+
+**Nenhum dos três é evidência real** — todos os IC95% cruzam zero. O ROI de
++25,7% em cy=0,5 que parecia sinal forte na tabela bruta tem intervalo de
+−22,2% a +66,2%: totalmente compatível com edge real zero (ou negativo) e o
+resultado observado sendo sorte de amostra pequena (21 apostas). O mesmo vale
+pro −33,8% do config atual — também não é estatisticamente diferente de
+zero.
+
+**Decisão final**: com N=40, este teste **não tem poder estatístico pra
+decidir nada** — nem confirmar cy=0,5, nem refutar o config atual (4,0). Não
+é só "cautela por N pequeno" (como a decisão inicial dizia) — é ausência
+literal de significância dos dois lados. `config.yaml` permanece inalterado.
+O próximo ponto de decisão real é N=80, quando o IC pode apertar o
+suficiente pra separar sinal de ruído.
 
 ## Compromisso de reexecução
 
