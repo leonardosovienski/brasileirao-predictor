@@ -1,5 +1,6 @@
 import argparse
 import sys
+from datetime import date
 
 from . import db, model
 from .ingest import ROOT, load_config
@@ -41,6 +42,23 @@ _ALIASES = {
     "cabo verde": "cape verde", "côte d'ivoire": "ivory coast",
     "bosnia & herzegovina": "bosnia and herzegovina",  # Sofascore usa '&', base usa 'and'
 }
+
+
+def upcoming_fixtures(conn, limit: int, *, as_of: str | None = None):
+    """Return only fixtures that have not yet reached their scheduled date.
+
+    The Sofascore mirror intentionally keeps unscored events so late results
+    can still be reconciled.  Some old events can remain without a score,
+    however, and must not be presented as the next fixtures in serving.
+    ``as_of`` exists primarily to make the date boundary deterministic in
+    tests; normal serving uses the local calendar date.
+    """
+    cutoff = as_of or date.today().isoformat()
+    return conn.execute(
+        """SELECT date, home_team, away_team, neutral FROM matches
+           WHERE home_score IS NULL AND date >= ? ORDER BY date LIMIT ?""",
+        (cutoff, limit),
+    ).fetchall()
 
 
 def _canon(name):
@@ -204,10 +222,7 @@ def main():
         return
 
     if args.fixtures:
-        rows = conn.execute(
-            """SELECT date, home_team, away_team, neutral FROM matches
-               WHERE home_score IS NULL ORDER BY date LIMIT ?""",
-            (args.fixtures,)).fetchall()
+        rows = upcoming_fixtures(conn, args.fixtures)
         batch = []
         for date, h, a, n in rows:
             # o prefixo "[date]" e' so pro modo texto legivel — em --json ele

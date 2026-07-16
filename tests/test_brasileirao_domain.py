@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "vendor"))
 
-from src import db, model, ratings                      # noqa: E402
+from src import db, model, predict, ratings             # noqa: E402
 from src.settle import record_result                    # noqa: E402
 
 _CFG_ELO = {"initial_rating": 1500, "home_advantage": 100,
@@ -128,6 +128,26 @@ def test_odds_shop_sport_key_do_config():
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     assert mod.SPORT == "soccer_brazil_campeonato"
+
+
+def test_proximos_fixtures_excluem_eventos_passados_sem_placar():
+    """Um fixture antigo sem score precisa continuar conciliável, mas nunca
+    pode aparecer como o próximo jogo no serving."""
+    conn = db.connect(":memory:")
+    conn.executemany(
+        "INSERT INTO matches (date, home_team, away_team, tournament, neutral) "
+        "VALUES (?, ?, ?, ?, 0)",
+        [
+            ("2024-04-17", "Stale FC", "Old FC", "Brasileirão Série A"),
+            ("2026-07-16", "Hoje FC", "Visitante FC", "Brasileirão Série A"),
+            ("2026-07-17", "Amanhã FC", "Outro FC", "Brasileirão Série A"),
+        ],
+    )
+    rows = predict.upcoming_fixtures(conn, 10, as_of="2026-07-16")
+    assert [(row[0], row[1]) for row in rows] == [
+        ("2026-07-16", "Hoje FC"),
+        ("2026-07-17", "Amanhã FC"),
+    ]
 
 
 def test_ht_fraction_forward_only():
