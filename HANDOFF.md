@@ -1,5 +1,25 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## 🟢 FLAG LIGADA + H5 PRÉ-REGISTRADA (2026-07-17, mesmo dia)
+>
+> **`ensemble_xg.enabled: true`** — o serving (predict/prever/display) agora
+> blenda com o atk/def-xG; toda predição blended sai carimbada
+> `model: ensemble_xg` no predictions.jsonl. Após o merge, rodar
+> `python -m src.cron_update_models` no repo principal para criar o cache
+> (sem ele o serving degrada para baseline com aviso, nunca cai).
+>
+> **H5 pré-registrada**: `h5-ensemble-xg-sombra-2026` no trials.json
+> (`scripts/registrar_h5.py` — script separado do governanca.py de
+> propósito: re-rodar o governanca apagaria o sharpe 0.0722 observado da
+> H1). Funil idêntico ao da H3 (OU2.5, edge 2–15%, sombra 0u), só muda a
+> fonte da probabilidade. Decisão com n≥100 liquidados: CLV IC95 > 0 ∧
+> ROI IC_lower > −2%. **A H3 segue baseline puro por construção**
+> (sombra.py chama model.predict_match direto, imune à flag); a H5 roda em
+> PARALELO nos mesmos jogos via `sombra_h5_*.jsonl` — o agendador diário
+> (cron → settle → capture → report) cobre as duas sem mudança. Mudar
+> blend/hiperparâmetros do ensemble é tentativa N+1. Suíte **298 verdes**,
+> CI 5/5.
+
 > ## 🟢 ENSEMBLE ATK/DEF-xG INTEGRADO AO SERVING, ATRÁS DE FLAG (2026-07-17)
 >
 > A simulação walk-forward 2025+2026 (`docs/SIMULACAO_2025_2026.md`)

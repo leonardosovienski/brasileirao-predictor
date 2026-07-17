@@ -22,6 +22,13 @@ Arquivos (append-only, fora do git):
 Regras duras: SÓ o mercado da H1 (OU 2.5), SÓ a janela pré-registrada
 [min_edge, max_edge], SÓ jogo cujo apito está no futuro no momento da
 captura. Banco em read-only.
+
+H5 (h5-ensemble-xg-sombra-2026, registrada 2026-07-17): população PARALELA
+com as probabilidades do ensemble atk/def-xG (src/xg_model.py) — mesmos
+jogos, mesma janela, mesmas odds; arquivos separados (sombra_h5_*.jsonl).
+A H3 continua BASELINE PURO (chama model.predict_match direto — imune à
+flag ensemble_xg do serving). Capturar/settle da H5 só acontece com a flag
+ligada E o cache do cron presente; sem eles, a H5 é pulada e a H3 não sente.
 """
 import argparse
 import json
@@ -40,6 +47,14 @@ from src.math_utils import shin_probabilities          # noqa: E402
 
 PICKS = ROOT / "data" / "sombra_picks.jsonl"
 RESULTS = ROOT / "data" / "sombra_results.jsonl"
+TRIAL = "h3-ou25-sombra-2026"
+
+# H5 (ensemble atk/def-xG): população PARALELA à H3 — mesmos jogos, mesma
+# janela de edge, mesmas odds; só muda a probabilidade do modelo. Arquivos
+# separados para nunca contaminar a população da H3.
+PICKS_H5 = ROOT / "data" / "sombra_h5_picks.jsonl"
+RESULTS_H5 = ROOT / "data" / "sombra_h5_results.jsonl"
+TRIAL_H5 = "h5-ensemble-xg-sombra-2026"
 
 
 def _load_jsonl(path: Path) -> list[dict]:
@@ -54,20 +69,16 @@ def _append(path: Path, row: dict) -> None:
         f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
-def capture(cfg, conn) -> int:
+def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
+    """Funil pré-registrado (OU2.5, janela [min_edge, max_edge]) sobre jogos
+    futuros — genérico na FONTE da probabilidade (`predictor(home, away) -> r`
+    no formato de model.predict_match). A janela e o mercado NUNCA variam
+    entre populações: é o que mantém H3 e H5 pareadas."""
     bt = cfg["backtest"]
     min_edge, max_edge = float(bt["min_edge"]), float(bt["max_edge"])
     ou_line = float(bt.get("over_under_line", 2.5))
-    max_goals = cfg["model"]["max_goals"]
-    home_adv = float(cfg["elo"]["home_advantage"])
 
-    elo = db.load_elo(conn)
-    prow = db.load_params(conn)
-    if not elo or not prow:
-        sys.exit("cache vazio — rode python -m src.cron_update_models")
-    params = (prow[0], prow[1], prow[2], prow[3])
-
-    ja = {(p["event_id"], p["selection"]) for p in _load_jsonl(PICKS)}
+    ja = {(p["event_id"], p["selection"]) for p in _load_jsonl(picks_path)}
     now = datetime.now(timezone.utc)
     hoje = now.strftime("%Y-%m-%d")
 
@@ -78,10 +89,9 @@ def capture(cfg, conn) -> int:
         "AND odds_over IS NOT NULL AND odds_under IS NOT NULL "
         "ORDER BY date", (hoje,)).fetchall()
     for eid, d, home, away, o_over, o_under in rows:
-        if home not in elo or away not in elo:
+        r = predictor(home, away)
+        if r is None:
             continue
-        r = model.predict_match(elo[home], elo[away], params, home_adv,
-                                max_goals=max_goals)
         p_over = r["over"].get(ou_line)
         if p_over is None:
             continue
@@ -92,7 +102,7 @@ def capture(cfg, conn) -> int:
             edge = p_m - 1.0 / odd
             if not (min_edge < edge <= max_edge):
                 continue
-            _append(PICKS, {
+            _append(picks_path, {
                 "captured_at": now.isoformat(timespec="seconds"),
                 "event_id": eid, "date": d, "home": home, "away": away,
                 "market": f"ou{ou_line}", "selection": sel,
@@ -100,19 +110,75 @@ def capture(cfg, conn) -> int:
                 "model_prob": round(p_m, 4),
                 "lambda_home": round(r["lambda_a"], 3),
                 "lambda_away": round(r["lambda_b"], 3),
-                "trial": "h3-ou25-sombra-2026"})
+                "trial": trial})
             ja.add((eid, sel))
             n += 1
-            print(f"  pick: {d} {home} x {away} — {sel} {ou_line} @{odd} "
-                  f"(edge {edge:+.1%})")
+            print(f"  pick [{trial.split('-')[0]}]: {d} {home} x {away} — "
+                  f"{sel} {ou_line} @{odd} (edge {edge:+.1%})")
     return n
 
 
-def settle(cfg, conn) -> int:
+def capture(cfg, conn) -> int:
+    """H3: baseline puro (mesmo motor desde o registro — imune à flag do
+    ensemble por construção)."""
+    max_goals = cfg["model"]["max_goals"]
+    home_adv = float(cfg["elo"]["home_advantage"])
+    elo = db.load_elo(conn)
+    prow = db.load_params(conn)
+    if not elo or not prow:
+        sys.exit("cache vazio — rode python -m src.cron_update_models")
+    params = (prow[0], prow[1], prow[2], prow[3])
+
+    def predictor(home, away):
+        if home not in elo or away not in elo:
+            return None
+        return model.predict_match(elo[home], elo[away], params, home_adv,
+                                   max_goals=max_goals)
+
+    return _capture_funil(cfg, conn, predictor, PICKS, TRIAL)
+
+
+def capture_h5(cfg, conn) -> int:
+    """H5: ensemble baseline × atk/def-xG (mesma mistura do serving). Roda em
+    PARALELO à H3 sobre os mesmos jogos; exige a flag ligada E o cache do
+    cron — sem eles, pula com aviso (a H3 não depende disto)."""
+    if not (cfg.get("ensemble_xg") or {}).get("enabled"):
+        return 0
+    from src import xg_model
+    row = db.load_xg_params(conn)
+    if not row:
+        print("  [H5 pulada: ensemble_xg ligado mas sem cache — rode "
+              "python -m src.cron_update_models]")
+        return 0
+    xgp = row[0]
+    max_goals = cfg["model"]["max_goals"]
+    home_adv = float(cfg["elo"]["home_advantage"])
+    w = float(cfg["ensemble_xg"].get("blend_weight", 0.5))
+    elo = db.load_elo(conn)
+    prow = db.load_params(conn)
+    if not elo or not prow:
+        sys.exit("cache vazio — rode python -m src.cron_update_models")
+    params = (prow[0], prow[1], prow[2], prow[3])
+
+    def predictor(home, away):
+        if home not in elo or away not in elo:
+            return None
+        rb = model.predict_match(elo[home], elo[away], params, home_adv,
+                                 max_goals=max_goals)
+        rx = xg_model.predict(xgp, home, away, neutral=False,
+                              max_goals=max_goals)
+        return xg_model.blend(rb, rx, w_base=w)
+
+    return _capture_funil(cfg, conn, predictor, PICKS_H5, TRIAL_H5)
+
+
+def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
+           trial=TRIAL) -> int:
     ou_line = float(cfg["backtest"].get("over_under_line", 2.5))
-    liquidados = {(r["event_id"], r["selection"]) for r in _load_jsonl(RESULTS)}
+    liquidados = {(r["event_id"], r["selection"])
+                  for r in _load_jsonl(results_path)}
     n = 0
-    for p in _load_jsonl(PICKS):
+    for p in _load_jsonl(picks_path):
         key = (p["event_id"], p["selection"])
         if key in liquidados:
             continue
@@ -131,13 +197,13 @@ def settle(cfg, conn) -> int:
             sh, _z, _o = shin_probabilities([c_over, c_under])
             p_close = sh[0] if p["selection"] == "over" else sh[1]
             clv = round(p["odd"] * float(p_close) - 1.0, 4)
-        _append(RESULTS, {
+        _append(results_path, {
             "settled_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "event_id": p["event_id"], "selection": p["selection"],
             "date": p["date"], "home": p["home"], "away": p["away"],
             "odd": p["odd"], "edge": p["edge"], "score": f"{hs}-{as_}",
             "won": won, "pnl": round((p["odd"] - 1.0) if won else -1.0, 3),
-            "clv": clv, "trial": "h3-ou25-sombra-2026"})
+            "clv": clv, "trial": trial})
         n += 1
         print(f"  settle: {p['home']} {hs}x{as_} {p['away']} — "
               f"{p['selection']} {'GANHOU' if won else 'perdeu'}"
@@ -145,10 +211,10 @@ def settle(cfg, conn) -> int:
     return n
 
 
-def report() -> None:
-    res = _load_jsonl(RESULTS)
-    abertos = len(_load_jsonl(PICKS)) - len(res)
-    print(f"H3 modo sombra — {len(res)} liquidados, {abertos} em aberto")
+def _report_populacao(rotulo, picks_path, results_path) -> None:
+    res = _load_jsonl(results_path)
+    abertos = len(_load_jsonl(picks_path)) - len(res)
+    print(f"{rotulo} — {len(res)} liquidados, {abertos} em aberto")
     if not res:
         return
     pnl = [r["pnl"] for r in res]
@@ -160,8 +226,13 @@ def report() -> None:
         b = [r for r in res if r["selection"] == sel]
         if b:
             print(f"  {sel:<6} n={len(b):<4} ROI {st.mean(r['pnl'] for r in b):+.1%}")
-    print("  (decisão da H3 = IC do core sobre esta população quando n ≥ 100; "
-          "critério no trials.json)")
+
+
+def report() -> None:
+    _report_populacao("H3 modo sombra (baseline)", PICKS, RESULTS)
+    _report_populacao("H5 modo sombra (ensemble xG)", PICKS_H5, RESULTS_H5)
+    print("  (decisao de cada linha = IC do core sobre a propria populacao "
+          "quando n >= 100; criterios no trials.json)")
 
 
 def main():
@@ -180,9 +251,15 @@ def main():
     if args.capture:
         n = capture(cfg, conn)
         print(f"{n} pick(s) novos em {PICKS.name}")
+        n5 = capture_h5(cfg, conn)
+        if n5:
+            print(f"{n5} pick(s) novos em {PICKS_H5.name}")
     else:
         n = settle(cfg, conn)
         print(f"{n} pick(s) liquidados em {RESULTS.name}")
+        n5 = settle(cfg, conn, PICKS_H5, RESULTS_H5, TRIAL_H5)
+        if n5:
+            print(f"{n5} pick(s) liquidados em {RESULTS_H5.name}")
 
 
 if __name__ == "__main__":

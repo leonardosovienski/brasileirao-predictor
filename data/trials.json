@@ -95,5 +95,26 @@
       0.0068398522564665195
     ],
     "metric": "rps"
+  },
+  {
+    "name": "h5-ensemble-xg-sombra-2026",
+    "registered_at": "2026-07-17T04:01:36Z",
+    "params": {
+      "market": "ou25",
+      "min_edge": 0.02,
+      "max_edge": 0.15,
+      "stake": "sombra-0u",
+      "mode": "paper",
+      "model": "ensemble 0.5·baseline(Elo+cosh) + 0.5·atkdef-xG (w_xg=0.85, half_life=0.75a, ridge=1.0) — src/xg_model.py, blend das grades de placar, cache do cron_update_models",
+      "captura": "scripts/sombra.py --capture — população paralela à H3 (mesmos jogos, mesma janela, mesmas odds correntes pré-apito), arquivos sombra_h5_*.jsonl",
+      "league": "Brasileirão Série A",
+      "season": "2026-returno"
+    },
+    "sharpe": null,
+    "notes": "H5: o ensemble validado em PREVISÃO no walk-forward 2025+2026 (docs/SIMULACAO_2025_2026.md: dBrier 1X2 −0,0073, IC95 [−0,0122, −0,0019], OU2.5 preservado) sustenta o funil OU2.5 em CLV/ROI ao vivo? Hiperparâmetros congelados pela validação 2024-H2 ANTES de ver 2025/2026 — mudar blend/w_xg/half_life/ridge é tentativa N+1. DECISÃO com n≥100 picks liquidados (mesmo gate da H3): CLV médio IC95 (bootstrap cluster por jogo, 1000 iter, seed 13) > 0 E ROI IC_lower > −2% mantém a linha viva; senão, linha encerrada. Comparação pareada vs H3 nos jogos comuns é OBSERVACIONAL (mesma regra da estratificação da H3: não muda gatilho).",
+    "test_period": [
+      "2026-07-17",
+      "2026-09-30"
+    ]
   }
 ]
