@@ -72,6 +72,8 @@ def compute(name_a, name_b, elo, params, cfg, neutral, conn=None):
     adv = 0.0 if neutral else cfg["elo"]["home_advantage"]
     r = model.predict_match(elo[name_a], elo[name_b], params, adv,
                             max_goals=cfg["model"]["max_goals"])
+    from .xg_model import maybe_blend
+    r = maybe_blend(r, conn, cfg, name_a, name_b, neutral)
     g = r["grid"]
     mk = _market_probs(conn, name_a, name_b) if conn is not None else None
 

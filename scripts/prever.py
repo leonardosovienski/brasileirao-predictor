@@ -166,6 +166,9 @@ def main():
         match_date = row[0] if row else None
         r = model.predict_match(elo[ta], elo[tb], params, adv,
                                 max_goals=cfg["model"]["max_goals"])
+        # mesmo blend do display.compute — o log tem que congelar o que foi EXIBIDO
+        from src.xg_model import maybe_blend
+        r = maybe_blend(r, conn, cfg, ta, tb, not args.mando)
         log_prediction(ta, tb, not args.mando, elo[ta], elo[tb], params, r,
                        match_date=match_date, market=data["core"]["market"])
     except Exception as e:

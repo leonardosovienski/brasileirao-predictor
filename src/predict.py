@@ -149,6 +149,8 @@ def show(name_a, name_b, elo, params, cfg, neutral, conn=None, match_date=None,
     adv = 0.0 if neutral else cfg["elo"]["home_advantage"]
     r = model.predict_match(elo[name_a], elo[name_b], params, adv,
                             max_goals=cfg["model"]["max_goals"])
+    from .xg_model import maybe_blend
+    r = maybe_blend(r, conn, cfg, name_a, name_b, neutral)
     mk = _market_probs(conn, name_a, name_b, match_date=match_date) \
         if conn is not None else None
 
@@ -167,7 +169,8 @@ def show(name_a, name_b, elo, params, cfg, neutral, conn=None, match_date=None,
                         "p_win": round(float(r["p_win"]), 4),
                         "p_draw": round(float(r["p_draw"]), 4),
                         "p_loss": round(float(r["p_loss"]), 4)},
-               metadata={"model": "NegBin+DixonColes",
+               metadata={"model": "Ensemble(NB+DC, AtkDef-xG)"
+                         if r.get("ensemble") else "NegBin+DixonColes",
                          "fixture_id": f"{name_a}_vs_{name_b}",
                          "neutral": neutral})
 

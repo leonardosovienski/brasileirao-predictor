@@ -1,5 +1,45 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## 🟢 FLAG LIGADA + H5 PRÉ-REGISTRADA (2026-07-17, mesmo dia)
+>
+> **`ensemble_xg.enabled: true`** — o serving (predict/prever/display) agora
+> blenda com o atk/def-xG; toda predição blended sai carimbada
+> `model: ensemble_xg` no predictions.jsonl. Após o merge, rodar
+> `python -m src.cron_update_models` no repo principal para criar o cache
+> (sem ele o serving degrada para baseline com aviso, nunca cai).
+>
+> **H5 pré-registrada**: `h5-ensemble-xg-sombra-2026` no trials.json
+> (`scripts/registrar_h5.py` — script separado do governanca.py de
+> propósito: re-rodar o governanca apagaria o sharpe 0.0722 observado da
+> H1). Funil idêntico ao da H3 (OU2.5, edge 2–15%, sombra 0u), só muda a
+> fonte da probabilidade. Decisão com n≥100 liquidados: CLV IC95 > 0 ∧
+> ROI IC_lower > −2%. **A H3 segue baseline puro por construção**
+> (sombra.py chama model.predict_match direto, imune à flag); a H5 roda em
+> PARALELO nos mesmos jogos via `sombra_h5_*.jsonl` — o agendador diário
+> (cron → settle → capture → report) cobre as duas sem mudança. Mudar
+> blend/hiperparâmetros do ensemble é tentativa N+1. Suíte **298 verdes**,
+> CI 5/5.
+
+> ## 🟢 ENSEMBLE ATK/DEF-xG INTEGRADO AO SERVING, ATRÁS DE FLAG (2026-07-17)
+>
+> A simulação walk-forward 2025+2026 (`docs/SIMULACAO_2025_2026.md`)
+> diagnosticou o modelo como calibrado-mas-sem-resolução e validou o
+> **ensemble 50/50 baseline × atk/def estimado em xG**: dBrier 1X2 −0,0073,
+> IC95 [−0,0122, −0,0019], significativo em cada ano isolado, OU2.5
+> preservado. Acerto 1X2: 50,3% → 52,1%.
+>
+> **Integração**: `src/xg_model.py` (fit em 2 etapas: forças em
+> 0,85·xG+0,15·gols, α/ρ nos gols reais; hiperparâmetros congelados pela
+> validação 2024-H2) + cache `xg_model_parameters` (JSON, escrito pelo
+> `cron_update_models` quando ligado) + hook único `maybe_blend` nos 3
+> caminhos de serving (predict.show, display.compute, prever.py). Predição
+> blended é carimbada `model: ensemble_xg` no predictions.jsonl.
+>
+> **`ensemble_xg.enabled: false` por padrão** — H1/H3 foram medidas com o
+> baseline puro; ligar em produção exige pré-registro novo (governança).
+> Flag OFF = serving byte a byte idêntico (testado). Suíte **293 verdes**,
+> CI 5/5. Falha do ensemble degrada para baseline com aviso, nunca derruba.
+
 > ## 🔵 AUDITORIA DE INTEGRAÇÃO COM O CORE v1.3.0 (2026-07-12)
 >
 > **Sincronização 100%**: vendor em **predictor_core v1.3.0-ga-20260711**

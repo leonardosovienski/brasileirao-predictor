@@ -33,6 +33,19 @@ model:
   calibration_window_years: 4
   max_goals: 12
 
+# Ensemble baseline × atk/def-xG (src/xg_model.py). Validado em walk-forward
+# 2025+2026: dBrier 1X2 -0.0073, IC95 [-0.0122, -0.0019], OU2.5 preservado
+# (docs/SIMULACAO_2025_2026.md). DESLIGADO por padrão: as hipóteses
+# pré-registradas (H1/H3) foram medidas com o baseline puro — ligar em
+# produção exige pré-registro novo (padrão scripts/governanca.py).
+# Hiperparâmetros CONGELADOS pela validação 2024-H2 — não recalibrar avulso.
+ensemble_xg:
+  enabled: true
+  blend_weight: 0.5        # peso do baseline na mistura das grades
+  w_xg: 0.85               # peso do xG no alvo misto da etapa 1
+  half_life_years: 0.75    # meia-vida do decaimento temporal
+  ridge_reg: 1.0           # L2 sobre as forças atk/def
+
 backtest:
   # janela de edge apostável: estanca o sangramento das duas extremidades.
   # < min_edge = ruído engolido pelo vig; > max_edge = informação ausente no
