@@ -58,6 +58,7 @@ RESEARCH_DB_FILES = [
     "src/research/survival_test.py",
     "scripts/sim_2025_2026.py",
     "scripts/sim_melhorias.py",
+    "scripts/backtest_close.py",
 ]
 
 # Modulos de SERVING: unicos autorizados a tocar current_elo/load_elo.

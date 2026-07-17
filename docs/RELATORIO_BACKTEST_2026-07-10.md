@@ -134,6 +134,35 @@ ingest, corroboradas por `odds_snapshots` com timestamp) e permanecem a
 medição válida. Nenhuma mudança de config; a decisão continua com o gate
 pré-registrado das sombras.
 
+### Falsificação executada — backtest refeito a preço de FECHAMENTO
+
+`scripts/backtest_close.py` (mesmo walk-forward, mesmos blocos, mesmo
+funil; única mudança: preço pactuado = fechamento, o único com evidência
+de ser real). Resultado:
+
+| População | Abertura (oficial) | **Fechamento** |
+|---|---|---|
+| OU2.5 (H1) | n=455, ROI **+7,9%**, PSR 0,94, IC [−0,022, +0,172] | n=280, ROI **−7,8%**, acerto 39,6%, PSR **0,14**, IC [−0,226, +0,055] |
+| 1X2 | ROI −15,4% | ROI −23,4% |
+| DC | ROI −13,1% | ROI −15,0% |
+| OU1.5 | ROI −8,6% | ROI −13,4% |
+
+**Conclusão: o "edge" da H1 morava inteiramente na abertura-fantasma.**
+A preço real (fechamento) o modelo não bate o mercado em NENHUM mercado
+relevante (btts +2,1% e ou3.5 +2,9% são ruído). Coerente com o teste
+forward de 2026 (ROI −22% com odds correntes,
+`RELATORIO_FORWARD_18JOGOS_2026-07-12.md`) — as duas medições com preço
+real contam a mesma história. Consequências:
+
+1. O caminho "ampliar N para reavaliar H1" perde a motivação — o CLV
+   +19,55% que o justificava é artefato de preço fictício, não sinal.
+2. A pergunta da H3 ("a abertura é capturável?") está respondida pela
+   fonte: **não existe abertura negociável nos dados**. O que a H3/H5
+   ainda medem — e segue valendo — é o funil a odds CORRENTES.
+3. Zero aposta real permanece a única postura defensável. Qualquer GO
+   futuro terá que nascer de CLV/ROI positivo nas populações de sombra
+   (preço corrente com timestamp), nunca mais de backtest em abertura.
+
 ## Plano de operação — retomada do Brasileirão 2026
 
 A Série A retoma em **16-17/07** (5 jogos atrasados) e a rodada cheia começa

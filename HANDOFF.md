@@ -1,5 +1,21 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## 🔴 ABERTURA-FANTASMA CONFIRMADA — O SINAL DA H1 ERA ARTEFATO (2026-07-17)
+>
+> Auditoria da fonte + falsificação executada (adendos 2026-07-17 em
+> `docs/RELATORIO_BACKTEST_2026-07-10.md`): o `initialFractionalValue` do
+> Sofascore é abertura-template (favorece OVER em ~64% vs ~14% no
+> fechamento; 60% dos pares ficam mais perto do fechamento INVERTIDO;
+> parser inocentado). **Backtest refeito a preço de fechamento
+> (`scripts/backtest_close.py`): OU2.5 vira ROI −7,8%, PSR 0,14** — o
+> +7,9%/CLV +19,55% da H1 morava inteiramente na abertura fictícia.
+> Coerente com o forward 2026 (ROI −22% a odds correntes).
+>
+> Consequências: (1) "ampliar N da H1" perdeu a motivação; (2) nunca mais
+> julgar edge por backtest em abertura — só populações de sombra a odds
+> CORRENTES com timestamp (H3 baseline, H5 ensemble) decidem GO; (3) zero
+> aposta real continua sendo a única postura defensável.
+
 > ## 🟢 FLAG LIGADA + H5 PRÉ-REGISTRADA (2026-07-17, mesmo dia)
 >
 > **`ensemble_xg.enabled: true`** — o serving (predict/prever/display) agora
