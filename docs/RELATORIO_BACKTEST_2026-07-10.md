@@ -104,6 +104,36 @@ fechamento. **Decisão com n ≥ 100 liquidados**: CLV IC95 > 0 e ROI aceitável
 linha encerrada. Primeiro pick já capturado (Botafogo × Santos 16/07, under
 2.5 @1,95). Relatório estratificado por seleção/faixa é observacional.
 
+## Adendo 2026-07-17 — auditoria da FONTE das odds de abertura
+
+Investigação disparada pela observação de que, nos jogos de 17/07, as odds
+de abertura eram o **espelho exato** das odds vivas (Mirassol×Grêmio: open
+over/under 1,60/2,30 vs corrente 2,30/1,60 — constante em 10 snapshots ao
+longo de 6 dias). O parser foi **inocentado**: abertura
+(`initialFractionalValue`) e preço atual (`fractionalValue`) são lidos do
+MESMO objeto `choice` casado por nome — troca por parsing é impossível.
+A inversão vem da própria fonte. Quantificação nos jogos disputados com
+ambos os preços:
+
+| Ano | n | Espelho EXATO | Par de abertura mais perto do FECHAMENTO INVERTIDO | Over favorito na abertura | Over favorito no fechamento |
+|---|---:|---:|---:|---:|---:|
+| 2024 | 246 | 6% | 60% | 64% | 14% |
+| 2025 | 374 | 8% | 59% | 61% | 12% |
+| 2026 | 177 | 11% | 60% | 66% | 20% |
+
+**Leitura**: o `initialFractionalValue` do Sofascore favorece o OVER em
+~64% das aberturas, enquanto o fechamento favorece o UNDER em ~86% — e em
+60% dos jogos o par de abertura se parece mais com o fechamento INVERTIDO
+do que com ele mesmo. Isso é mais compatível com **abertura-template
+(fantasma)** do que com drift de mercado real. Implicação direta: o CLV
+open +19,55% da H1 (apostas a preço de abertura, 88% dos unders "batendo o
+fechamento") pode ser em grande parte artefato dessa abertura não
+negociável — exatamente o cenário que a H3 foi registrada para testar.
+**As populações H3/H5 usam odds CORRENTES** (colunas atualizadas a cada
+ingest, corroboradas por `odds_snapshots` com timestamp) e permanecem a
+medição válida. Nenhuma mudança de config; a decisão continua com o gate
+pré-registrado das sombras.
+
 ## Plano de operação — retomada do Brasileirão 2026
 
 A Série A retoma em **16-17/07** (5 jogos atrasados) e a rodada cheia começa
