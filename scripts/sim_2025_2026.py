@@ -20,7 +20,7 @@ from src.ingest import ROOT, load_config
 from src.math_utils import shin_probabilities
 
 cfg = load_config()
-conn = db.connect(str(ROOT / cfg["database"]))
+conn = db.connect(str(ROOT / cfg["database"]), read_only=True)
 
 rows = conn.execute(
     "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "

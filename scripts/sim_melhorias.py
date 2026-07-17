@@ -30,7 +30,7 @@ from src.math_utils import shin_probabilities
 from src.model import _score_grid, _grid_stats, _nb_logpmf, _tau
 
 cfg = load_config()
-conn = db.connect(str(ROOT / cfg["database"]))
+conn = db.connect(str(ROOT / cfg["database"]), read_only=True)
 MAXG = cfg["model"]["max_goals"]
 CY = cfg["model"]["calibration_window_years"]
 
