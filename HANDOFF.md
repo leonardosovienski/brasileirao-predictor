@@ -1,5 +1,25 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## 🟢 ENSEMBLE ATK/DEF-xG INTEGRADO AO SERVING, ATRÁS DE FLAG (2026-07-17)
+>
+> A simulação walk-forward 2025+2026 (`docs/SIMULACAO_2025_2026.md`)
+> diagnosticou o modelo como calibrado-mas-sem-resolução e validou o
+> **ensemble 50/50 baseline × atk/def estimado em xG**: dBrier 1X2 −0,0073,
+> IC95 [−0,0122, −0,0019], significativo em cada ano isolado, OU2.5
+> preservado. Acerto 1X2: 50,3% → 52,1%.
+>
+> **Integração**: `src/xg_model.py` (fit em 2 etapas: forças em
+> 0,85·xG+0,15·gols, α/ρ nos gols reais; hiperparâmetros congelados pela
+> validação 2024-H2) + cache `xg_model_parameters` (JSON, escrito pelo
+> `cron_update_models` quando ligado) + hook único `maybe_blend` nos 3
+> caminhos de serving (predict.show, display.compute, prever.py). Predição
+> blended é carimbada `model: ensemble_xg` no predictions.jsonl.
+>
+> **`ensemble_xg.enabled: false` por padrão** — H1/H3 foram medidas com o
+> baseline puro; ligar em produção exige pré-registro novo (governança).
+> Flag OFF = serving byte a byte idêntico (testado). Suíte **293 verdes**,
+> CI 5/5. Falha do ensemble degrada para baseline com aviso, nunca derruba.
+
 > ## 🔵 AUDITORIA DE INTEGRAÇÃO COM O CORE v1.3.0 (2026-07-12)
 >
 > **Sincronização 100%**: vendor em **predictor_core v1.3.0-ga-20260711**

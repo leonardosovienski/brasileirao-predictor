@@ -52,6 +52,10 @@ def log_prediction(home, away, neutral, elo_home, elo_away, params, pred,
         "params": {"a": round(a, 4), "b": round(b, 4),
                    "alpha": round(alpha, 4), "rho": round(rho, 4)},
     }
+    if pred.get("ensemble"):
+        # o blend com atk/def-xG estava LIGADO nesta predição — sem esta marca
+        # a avaliação pós-jogo não separa as populações baseline × ensemble.
+        record["model"] = "ensemble_xg"
     if market is not None:                       # comparação vs mercado, se houver odds
         # edge vs PREÇO ofertado (1/odd) de CADA seleção — o gatilho validado no
         # backtest, não o Shin (só mede CLV depois do fato) e não inferido

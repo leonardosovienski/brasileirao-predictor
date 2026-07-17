@@ -99,9 +99,12 @@ no ensemble (dBrierOU +0,0008, IC cruza zero) — importante porque OU2.5 é a
 
 ## Recomendação
 
-1. **Adotar o C4 (ensemble) como candidato de serving** atrás de flag/config,
-   mantendo o baseline como está para as hipóteses pré-registradas em curso.
+1. ~~Adotar o C4 (ensemble) como candidato de serving atrás de flag/config~~
+   **FEITO (2026-07-17)**: `src/xg_model.py` + cache no cron + hook
+   `maybe_blend` nos 3 caminhos de serving; `ensemble_xg.enabled: false`
+   por padrão (flag OFF = baseline byte a byte); predições blended saem
+   carimbadas `model: ensemble_xg` no log. 17 testes novos (293 no total).
 2. Pré-registrar (H-novo) o efeito do C4 no funil OU2.5/CLV em modo sombra —
-   sem tocar em H1/H3.
+   sem tocar em H1/H3. **É o pré-requisito para ligar a flag em produção.**
 3. Leads menores, em ordem: prior negativo para promovidos (~17 pts de erro
    em 2025), peso do ensemble, λ_total dependente de confronto no OU.

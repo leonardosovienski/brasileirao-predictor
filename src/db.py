@@ -1,3 +1,4 @@
+import json
 import sqlite3
 from pathlib import Path
 
@@ -98,6 +99,11 @@ CREATE TABLE IF NOT EXISTS model_parameters (
     id          INTEGER PRIMARY KEY CHECK (id = 1),
     param_a     REAL, param_b REAL, param_alpha REAL, param_rho REAL,
     n_matches   INTEGER, config_hash TEXT, computed_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS xg_model_parameters (
+    id          INTEGER PRIMARY KEY CHECK (id = 1),
+    params_json TEXT, n_matches INTEGER, config_hash TEXT, computed_at TEXT
 );
 """
 
@@ -394,3 +400,26 @@ def load_params(conn):
             "FROM model_parameters WHERE id = 1").fetchone()
     except sqlite3.OperationalError:
         return None
+
+
+def save_xg_params(conn, params: dict, n_matches, config_hash, computed_at):
+    """Cache do modelo atk/def-xG (src/xg_model.py) — dict inteiro como JSON
+    (forças por time não cabem em colunas fixas como o baseline)."""
+    conn.execute(
+        "INSERT OR REPLACE INTO xg_model_parameters "
+        "(id, params_json, n_matches, config_hash, computed_at) VALUES (1, ?, ?, ?, ?)",
+        (json.dumps(params, sort_keys=True), n_matches, config_hash, computed_at))
+    conn.commit()
+
+
+def load_xg_params(conn):
+    """Devolve (params_dict, n_matches, config_hash, computed_at) ou None."""
+    try:
+        row = conn.execute(
+            "SELECT params_json, n_matches, config_hash, computed_at "
+            "FROM xg_model_parameters WHERE id = 1").fetchone()
+    except sqlite3.OperationalError:
+        return None
+    if not row or not row[0]:
+        return None
+    return (json.loads(row[0]), row[1], row[2], row[3])
