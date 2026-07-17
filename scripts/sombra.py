@@ -231,6 +231,35 @@ def _report_populacao(rotulo, picks_path, results_path) -> None:
 def report() -> None:
     _report_populacao("H3 modo sombra (baseline)", PICKS, RESULTS)
     _report_populacao("H5 modo sombra (ensemble xG)", PICKS_H5, RESULTS_H5)
+
+    # confronto pareado por jogo: onde os dois motores compraram, divergiram
+    # ou so um entrou no funil (leitura observacional — nao muda gatilho)
+    p3 = {p["event_id"]: p for p in _load_jsonl(PICKS)}
+    p5 = {p["event_id"]: p for p in _load_jsonl(PICKS_H5)}
+    eventos = sorted(set(p3) | set(p5),
+                     key=lambda e: (p3.get(e) or p5[e])["date"])
+    if eventos:
+        print("\nH3 vs H5 por jogo (picks capturados):")
+        print(f"  {'data':<10} {'jogo':<32} {'H3 (baseline)':<18} H5 (ensemble)")
+        for e in eventos:
+            ref = p3.get(e) or p5[e]
+            jogo = f"{ref['home']} x {ref['away']}"[:32]
+            f3 = (f"{p3[e]['selection']} @{p3[e]['odd']}" if e in p3 else "—")
+            f5 = (f"{p5[e]['selection']} @{p5[e]['odd']}" if e in p5 else "—")
+            marca = ("=" if e in p3 and e in p5
+                     and p3[e]["selection"] == p5[e]["selection"] else
+                     "X" if e in p3 and e in p5 else " ")
+            print(f"  {ref['date']:<10} {jogo:<32} {f3:<18} {f5}  {marca}")
+        print("  (= mesma selecao | X selecoes opostas no mesmo jogo)")
+
+    r3 = {(r["event_id"], r["selection"]): r for r in _load_jsonl(RESULTS)}
+    r5 = {(r["event_id"], r["selection"]): r for r in _load_jsonl(RESULTS_H5)}
+    comuns = set(r3) & set(r5)
+    if comuns:
+        d3 = [r3[k]["pnl"] for k in comuns]
+        d5 = [r5[k]["pnl"] for k in comuns]
+        print(f"\npareado (mesmo jogo E mesma selecao, n={len(comuns)}): "
+              f"ROI H3 {st.mean(d3):+.1%} | H5 {st.mean(d5):+.1%}")
     print("  (decisao de cada linha = IC do core sobre a propria populacao "
           "quando n >= 100; criterios no trials.json)")
 
