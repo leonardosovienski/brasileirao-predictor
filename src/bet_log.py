@@ -98,8 +98,12 @@ def add_bet(home, away, market, selection, odds, *, book=None, stake=1.0,
             ko = datetime.fromisoformat(kickoff.replace("Z", "+00:00"))
             now = datetime.fromisoformat(now_iso.replace("Z", "+00:00"))
             late = now >= ko
-        except ValueError:
-            kickoff, late = None, None       # kickoff ilegível: ignora, não trava
+        except (ValueError, TypeError):
+            # ValueError: string ilegível. TypeError: comparar naive x aware
+            # (ex.: logged_at colado sem timezone) — auditoria hostil
+            # 2026-07-17: antes só ValueError era pego, TypeError propagava
+            # cru e abortava add_bet inteiro sem registrar a aposta.
+            kickoff, late = None, None       # timestamp ilegível/ambíguo: ignora, não trava
     # aviso de bilhete duplicado: mesma partida+mercado+seleção ainda aberta
     from .predict import _canon
     target = frozenset((_canon(home), _canon(away)))
@@ -155,38 +159,75 @@ def _close_shin_prob(home, away, selection, match_date=None):
 
 
 def settle_bet(home, away, home_score, away_score, *, ht=None, path=None,
-               recorded_at=None) -> list[dict]:
-    """Fecha TODAS as apostas abertas deste confronto contra o placar final.
+               recorded_at=None, match_date=None) -> list[dict]:
+    """Fecha as apostas abertas deste confronto contra o placar final.
     Grava uma linha 'settlement' por aposta (append-only — a aposta original
     não é editada). Devolve os settlements gravados.
 
     `ht` = placar do intervalo (tupla ou 'H-A'), na MESMA ordem casa/fora do
     placar final informado — obrigatório pra fechar apostas de 1T/2T; sem ele
-    essas ficam abertas (aviso no CLI), as de jogo inteiro fecham normal."""
+    essas ficam abertas (aviso no CLI), as de jogo inteiro fecham normal.
+
+    `match_date` desambigua confronto REPETIDO (turno x returno, ou dois jogos
+    do mesmo par de times — auditoria hostil 2026-07-17: frozenset(casa,fora)
+    sozinho não distingue as duas partidas, e fechar sem desambiguar liquidava
+    AMBAS com o mesmo placar, inclusive a que ainda não tinha acontecido). Se
+    houver mais de uma data distinta entre as apostas abertas candidatas e
+    `match_date` não for informado, a função recusa a liquidação em vez de
+    adivinhar."""
     from .predict import _canon
     if isinstance(ht, str):
         ht = tuple(int(x) for x in ht.split("-", 1))
-    if int(home_score) < 0 or int(away_score) < 0 or \
+    try:
+        home_score, away_score = int(home_score), int(away_score)
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"placar inválido: home={home_score!r} away={away_score!r} "
+                         f"— {exc}") from exc
+    if home_score < 0 or away_score < 0 or \
             (ht is not None and (int(ht[0]) < 0 or int(ht[1]) < 0)):
         raise ValueError("placar negativo não existe — erro de digitação")
-    total_ft = int(home_score) + int(away_score)
+    total_ft = home_score + away_score
     total_ht = None if ht is None else int(ht[0]) + int(ht[1])
     if total_ht is not None and total_ht > total_ft:
         raise ValueError(f"placar do intervalo ({total_ht} gols) maior que o final "
                          f"({total_ft}) — erro de digitação? dinheiro real exige "
                          "placar certo")
     target = frozenset((_canon(home), _canon(away)))
-    open_ids, settled_ids = {}, set()
+    open_ids, settled_ids, settled_bet_ids = {}, set(), set()
     for i, r in enumerate(_read(path)):
         key = frozenset((_canon(r["home"]), _canon(r["away"])))
         if r["kind"] == "bet" and key == target:
             open_ids[i] = r
         elif r["kind"] == "settlement" and key == target:
             settled_ids.add(r["bet_line_no"])
+            if r.get("bet_id"):
+                settled_bet_ids.add(r["bet_id"])
+
+    def _already_settled(i, b):
+        # W? (auditoria hostil 2026-07-17): bet_id é estável e sobrevive a
+        # reescrita/reordenação do arquivo; bet_line_no (posição) só é usado
+        # como fallback para apostas legadas pré-W2 sem bet_id. Confiar só na
+        # posição permitia pagar a MESMA aposta duas vezes se o arquivo fosse
+        # reescrito com uma linha nova inserida antes das existentes.
+        if b.get("bet_id"):
+            return b["bet_id"] in settled_bet_ids
+        return i in settled_ids
+
+    candidates = {i: b for i, b in open_ids.items() if not _already_settled(i, b)}
+    dates = {b.get("match_date") or (b.get("kickoff") or "")[:10] or None
+            for b in candidates.values()}
+    dates.discard(None)
+    if match_date is None and len(dates) > 1:
+        raise ValueError(
+            f"confronto {home} x {away} tem apostas abertas de {len(dates)} datas "
+            f"diferentes ({sorted(dates)}) — passe match_date para desambiguar "
+            "qual jogo está sendo liquidado (turno/returno ou confronto repetido)")
+    if match_date is not None:
+        candidates = {i: b for i, b in candidates.items()
+                      if (b.get("match_date") or (b.get("kickoff") or "")[:10] or None)
+                      == match_date}
     out = []
-    for line_no, bet in open_ids.items():
-        if line_no in settled_ids:
-            continue
+    for line_no, bet in candidates.items():
         period = bet.get("period", "FT")
         if period == "FT":
             total = total_ft
@@ -396,6 +437,10 @@ def main():
     s.add_argument("home_score", type=int); s.add_argument("away_score", type=int)
     s.add_argument("--ht", help="placar do intervalo 'H-A' (obrigatório pra "
                                 "fechar apostas de 1T/2T)")
+    s.add_argument("--date", dest="match_date",
+                   help="data do jogo (YYYY-MM-DD) — obrigatório se houver "
+                        "apostas abertas do mesmo confronto em datas diferentes "
+                        "(turno/returno)")
 
     sub.add_parser("summary", help="ROI/CLV acumulado por mercado")
 
@@ -461,7 +506,7 @@ def main():
                   f"= R$ {st['open_money']:.2f} | unidade R$ {st['unit']:.2f}")
     elif args.cmd == "settle":
         recs = settle_bet(args.home, args.away, args.home_score, args.away_score,
-                          ht=args.ht)
+                          ht=args.ht, match_date=args.match_date)
         if not recs:
             print("nenhuma aposta aberta para este confronto")
         for r in recs:

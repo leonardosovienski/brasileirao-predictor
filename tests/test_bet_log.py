@@ -189,3 +189,67 @@ def test_banca_none_sem_init(tmp_path):
         bank_init(-5, 1, path=tmp_path / "bankroll.jsonl")
     with pytest.raises(ValueError):
         bank_flow("roubo", 10, path=tmp_path / "bankroll.jsonl")
+
+
+# ---------------- auditoria hostil 2026-07-17: bugs CRÍTICOS de settlement ----------------
+
+def test_settle_confronto_repetido_exige_match_date_para_desambiguar(tmp_path):
+    # Regressão: turno (2026-05-01) e returno (2026-06-01) do mesmo par de
+    # times eram liquidados JUNTOS com o mesmo placar quando settle_bet só
+    # casava por frozenset(casa,fora) — a aposta do returno (ainda não
+    # jogado) era fechada com o placar do turno. Agora, com 2 datas abertas
+    # e sem match_date, a função recusa em vez de adivinhar.
+    p = tmp_path / "bets.jsonl"
+    add_bet("Flamengo", "Vasco", "ou25", "over", 2.0, match_date="2026-05-01", path=p)
+    add_bet("Vasco", "Flamengo", "ou25", "under", 2.0, match_date="2026-06-01", path=p)
+    with pytest.raises(ValueError, match="datas diferentes"):
+        settle_bet("Flamengo", "Vasco", 3, 1, path=p)
+    # com match_date, liquida SÓ o jogo daquela data
+    recs = settle_bet("Flamengo", "Vasco", 3, 1, match_date="2026-05-01", path=p)
+    assert len(recs) == 1
+    assert recs[0]["won"] is True                 # over 2.5 bateu (3+1=4)
+    ainda_abertas = [b for b in list_bets(path=p) if b["result"] is None]
+    assert len(ainda_abertas) == 1
+    assert ainda_abertas[0]["match_date"] == "2026-06-01"    # returno intocado
+
+
+def test_settle_idempotente_sobrevive_a_reordenacao_do_arquivo(tmp_path):
+    # Regressão: settled_ids era chaveado por bet_line_no (índice posicional).
+    # Se o arquivo fosse reescrito com uma linha nova inserida ANTES das
+    # existentes, o índice da aposta original mudava e a checagem de
+    # duplicata não batia mais — settle_bet pagava a MESMA aposta 2x.
+    # Com dedup por bet_id (estável), isso não acontece mais.
+    p = tmp_path / "bets.jsonl"
+    rec = add_bet("A", "B", "ou25", "over", 2.0, bet_id="fixed-id-1", path=p)
+    settle_bet("A", "B", 3, 1, path=p)
+    original_lines = p.read_text(encoding="utf-8").splitlines()
+    # simula reescrita concorrente: insere uma linha nova ANTES das existentes
+    nova_linha = json.dumps({**rec, "bet_id": "outra-aposta", "home": "X", "away": "Y"})
+    p.write_text(nova_linha + "\n" + "\n".join(original_lines) + "\n", encoding="utf-8")
+    # tentar liquidar "A x B" de novo não deve gerar um segundo settlement
+    recs_de_novo = settle_bet("A", "B", 3, 1, path=p)
+    assert recs_de_novo == []
+    st = summary(path=p)
+    assert st["ou25"]["n"] == 1                   # não duplicou
+    assert st["ou25"]["staked"] == 1.0
+
+
+def test_settle_placar_none_levanta_valueerror_claro(tmp_path):
+    p = tmp_path / "bets.jsonl"
+    add_bet("A", "B", "ou25", "over", 2.0, path=p)
+    with pytest.raises(ValueError, match="placar inválido"):
+        settle_bet("A", "B", None, 1, path=p)
+
+
+def test_add_bet_naive_vs_aware_nao_crasha(tmp_path):
+    p = tmp_path / "bets.jsonl"
+    # logged_at sem timezone (erro comum de operador colando horário BR),
+    # kickoff com 'Z' — antes disso levantava TypeError não tratado e a
+    # aposta não era registrada; agora cai no mesmo tratamento de
+    # "timestamp ilegível", registra normalmente com late=None.
+    rec = add_bet("A", "B", "ou25", "over", 2.0,
+                  kickoff="2026-08-01T19:00:00Z",
+                  logged_at="2026-08-01T16:00:00",  # naive, sem offset
+                  path=p)
+    assert rec["kind"] == "bet"
+    assert rec["late"] is None
