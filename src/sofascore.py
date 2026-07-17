@@ -108,8 +108,14 @@ class Sofascore:
         return [(s["id"], s.get("year")) for s in (d or {}).get("seasons", [])]
 
     def season_events(self, ut_id: int, season_id: int, upcoming: bool = False):
-        """kind='last' = jogos já encerrados (imutáveis, cache seguro).
-        kind='next' = fixtures futuros — placeholder de bracket ('W83', '3C/3E/...')
+        """kind='last' = jogos já encerrados. Cada EVENTO é imutável, mas a
+        LISTA cresce a cada rodada — então só é seguro cachear as páginas de
+        'last' em temporada ENCERRADA (upcoming=False). Em temporada corrente
+        o cache congelava a lista no dia da 1ª coleta e nenhum resultado novo
+        entrava (bug achado em 2026-07-17: Botafogo×Santos de 16/07 nunca
+        chegou ao banco — as páginas cacheadas eram de 10/07, e como nenhum
+        jogo tinha terminado desde a criação do projeto, só apareceu agora).
+        kind='next' = fixtures futuros — placeholder de bracket ('W83', ...)
         vira nome de time real conforme as fases anteriores terminam no Sofascore;
         cachear essa lista congela o placeholder pra sempre (bug: coleta repetida
         nunca via o nome resolvido). NUNCA cachear 'next', mesmo pós-apito o pipeline
@@ -119,7 +125,7 @@ class Sofascore:
             page = 0
             while page <= 20:
                 d = self._get(f"unique-tournament/{ut_id}/season/{season_id}/events/{kind}/{page}",
-                              cache=(kind == "last"))
+                              cache=(kind == "last" and not upcoming))
                 batch = (d or {}).get("events", [])
                 if not batch:
                     break
