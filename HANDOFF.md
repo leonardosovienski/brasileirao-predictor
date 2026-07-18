@@ -1,5 +1,19 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## ADENDO ECOSSISTEMA (2026-07-18)
+>
+> Vendor de `predictor_core` byte-idêntico ao canônico (`sync_core.py --check`,
+> `tools/vendor_byte_audit.py`), sincronizado em `5276f65`. Suíte: **302
+> passed**. Settlement teve 2 bugs financeiros reais corrigidos numa rodada
+> anterior (`e54a55d`: `match_date` para desambiguar confrontos repetidos;
+> idempotência por `bet_id` em vez de posição de arquivo) — ver
+> `FINAL_FORENSIC_REVIEW.md`. Auditoria hostil adicional 2026-07-18 (goal
+> model com histórico vazio/degenerado, odds inválidas, placar negativo):
+> nenhum bug novo encontrado. Sem incidente de segurança próprio. Pendências
+> reais: `PENDENCIAS_ABERTAS.md` (SCI-5 amostra do shadow mode, DEBT-3
+> `brier` duplicado em scripts scratch — nenhuma bloqueante). Documento
+> canônico do ecossistema: `../ECOSYSTEM_HANDOFF.md`.
+>
 > ## 🔴 ABERTURA-FANTASMA CONFIRMADA — O SINAL DA H1 ERA ARTEFATO (2026-07-17)
 >
 > Auditoria da fonte + falsificação executada (adendos 2026-07-17 em
