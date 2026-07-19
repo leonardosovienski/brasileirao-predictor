@@ -1,5 +1,34 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## 🔵 AUDITORIA HOSTIL DE ROBUSTEZ — RODADA 2 (2026-07-18/19)
+>
+> Rodada dedicada a este domínio (branch `claude/brasileirao-predictor-audit-11f575`).
+> B3b/B4 (settlement com `match_date` + idempotência por `bet_id`, `e54a55d`)
+> **reconfirmados no código e nos testes que os protegem**
+> (`test_settle_confronto_repetido_exige_match_date_para_desambiguar`,
+> `test_settle_idempotente_sobrevive_a_reordenacao_do_arquivo`). Vendor
+> byte-idêntico (44/44), `sync_core --check` OK, CI 5/5.
+>
+> **5 correções de robustez reais** (commit `ba0bd7d`, nenhuma científica):
+> (1) `shin_probabilities` rejeita odds 0/negativa/NaN/Inf/None com ValueError
+> claro; (2) `_market_probs` ignora linhas-placeholder do Sofascore
+> (1X2=1.0/1.0/1.0 — 4 reais na base viravam p=⅓ fabricado); (3) `sombra.settle`
+> ganhou dedupe intra-execução (pick duplicado não liquida 2×), CLV só com
+> fechamento válido (nunca NaN no ledger) e recusa de linha O/U inteira (push
+> não implementado); (4) `record_result` rejeita placar negativo; (5) comentário
+> do `config.yaml` reconciliado com a flag `ensemble_xg` ligada. Suíte
+> **302 → 320 verdes** (+18 hostis: Shin degenerado, liquidação duplicada,
+> banco truncado, concorrência WAL, etc. — `tests/test_hostil_2026_07_18.py`).
+>
+> **Sombra (2026-07-19)**: H3 = 4 picks / 2 liquidados (ROI +17,5%, CLV médio
+> −5,03%); H5 = 2 picks / 1 liquidado (CLV −6,87%). CLV negativo em 3/3 —
+> coerente com a abertura-fantasma, mas amostra irrisória: **nenhuma conclusão
+> antes de 100 liquidados** (marco congelado no trials.json). Achado
+> operacional: run noturno de 2026-07-18 02:00Z morreu com exit 0xC000013A
+> (processo interrompido — shutdown/logoff), heartbeat ficou `STARTED` e o
+> lock ficou órfão; o runner sabe recuperar lock órfão (precedente de
+> 2026-07-16) — observar o próximo run noturno.
+
 > ## ADENDO ECOSSISTEMA (2026-07-18)
 >
 > Vendor de `predictor_core` byte-idêntico ao canônico (`sync_core.py --check`,

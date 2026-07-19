@@ -8,7 +8,7 @@
 > veredito NO-GO** (OU2.5: CLV open +19,55% mas IC95 do pnl cruza zero;
 > DSR 0,94) — **operação em MODO SOMBRA, zero dinheiro real** até o N crescer
 > (2023 + rodadas de 2026). H2 (picks 1T) validada informativa (79% de
-> acerto). Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte 302
+> acerto). Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte 320
 > verdes, CI 5/5.
 
 Sistema CLI em Python para previsão e apostas de valor no Brasileirão Série A,
@@ -78,7 +78,7 @@ python scripts/odds_shop.py --from-file snapshot.json
 python -m src.bet_log banca|list|settle|summary
 
 # Testes
-python -m pytest            # 302 verdes
+python -m pytest            # 320 verdes
 python scripts/ci_check.py  # 5 barreiras
 ```
 
@@ -116,7 +116,7 @@ scripts/
   prever.py, odds_shop.py, ci_check.py, …
 vendor/predictor_core/    # core v1.3.1 (NÃO editar aqui; sync_core --write)
 data/                     # matches.db, livros jsonl, trials.json (fora do git)
-tests/                    # 302 testes
+tests/                    # 320 testes
 ```
 
 Histórico da Copa preservado em `data/results_wc2026_historico.jsonl` e no
