@@ -35,9 +35,10 @@ model:
 
 # Ensemble baseline × atk/def-xG (src/xg_model.py). Validado em walk-forward
 # 2025+2026: dBrier 1X2 -0.0073, IC95 [-0.0122, -0.0019], OU2.5 preservado
-# (docs/SIMULACAO_2025_2026.md). DESLIGADO por padrão: as hipóteses
-# pré-registradas (H1/H3) foram medidas com o baseline puro — ligar em
-# produção exige pré-registro novo (padrão scripts/governanca.py).
+# (docs/SIMULACAO_2025_2026.md). LIGADO em 2026-07-17 com o pré-registro da
+# H5 (h5-ensemble-xg-sombra-2026, scripts/registrar_h5.py) — exigência de
+# governança cumprida. A H3 segue baseline puro por construção (sombra.py
+# chama model.predict_match direto, imune a esta flag).
 # Hiperparâmetros CONGELADOS pela validação 2024-H2 — não recalibrar avulso.
 ensemble_xg:
   enabled: true

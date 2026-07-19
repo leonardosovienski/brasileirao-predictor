@@ -32,6 +32,7 @@ ligada E o cache do cron presente; sem eles, a H5 é pulada e a H3 não sente.
 """
 import argparse
 import json
+import math
 import statistics as st
 import sys
 from datetime import datetime, timezone
@@ -69,6 +70,22 @@ def _append(path: Path, row: dict) -> None:
         f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
+def _exige_meia_linha(ou_line: float) -> None:
+    """O settle da sombra não implementa PUSH: em linha INTEIRA (ex.: 3.0),
+    total == linha seria marcado como derrota nos DOIS lados — PNL errado em
+    silêncio. As hipóteses pré-registradas (H3/H5) usam 2.5; qualquer outra
+    linha inteira no config é erro de configuração e falha em voz alta."""
+    if float(ou_line) == int(ou_line):
+        sys.exit(f"over_under_line={ou_line} é linha INTEIRA — push não é "
+                 "suportado pelo settle da sombra (H3/H5 pré-registradas em 2.5)")
+
+
+def _odd_valida(o) -> bool:
+    """Odd decimal real: finita e > 1.0 (0/negativa/NaN/Inf viram inválidas —
+    CLV com odd-lixo do fechamento seria gravado NaN/absurdo no ledger)."""
+    return isinstance(o, (int, float)) and math.isfinite(o) and o > 1.0
+
+
 def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
     """Funil pré-registrado (OU2.5, janela [min_edge, max_edge]) sobre jogos
     futuros — genérico na FONTE da probabilidade (`predictor(home, away) -> r`
@@ -77,6 +94,7 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
     bt = cfg["backtest"]
     min_edge, max_edge = float(bt["min_edge"]), float(bt["max_edge"])
     ou_line = float(bt.get("over_under_line", 2.5))
+    _exige_meia_linha(ou_line)
 
     ja = {(p["event_id"], p["selection"]) for p in _load_jsonl(picks_path)}
     now = datetime.now(timezone.utc)
@@ -175,6 +193,7 @@ def capture_h5(cfg, conn) -> int:
 def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
            trial=TRIAL) -> int:
     ou_line = float(cfg["backtest"].get("over_under_line", 2.5))
+    _exige_meia_linha(ou_line)
     liquidados = {(r["event_id"], r["selection"])
                   for r in _load_jsonl(results_path)}
     n = 0
@@ -182,6 +201,11 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
         key = (p["event_id"], p["selection"])
         if key in liquidados:
             continue
+        # dedupe INTRA-execução: pick duplicado no ledger (edição manual,
+        # captura concorrente) liquidaria 2x na MESMA passada — o conjunto
+        # `liquidados` era congelado na entrada e não via o que esta
+        # execução já gravou (auditoria hostil 2026-07-18). PNL dobrado.
+        liquidados.add(key)
         row = conn.execute(
             "SELECT home_score, away_score, odds_over, odds_under "
             "FROM sofascore_matches WHERE event_id = ?",
@@ -193,7 +217,7 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
         won = int((total > ou_line) if p["selection"] == "over"
                   else (total < ou_line))
         clv = None
-        if c_over and c_under:
+        if _odd_valida(c_over) and _odd_valida(c_under):
             sh, _z, _o = shin_probabilities([c_over, c_under])
             p_close = sh[0] if p["selection"] == "over" else sh[1]
             clv = round(p["odd"] * float(p_close) - 1.0, 4)

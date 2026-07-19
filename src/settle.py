@@ -93,6 +93,12 @@ def record_result(home, away, home_score, away_score, *, match_date=None,
                   recorded_at=None) -> dict:
     """Grava uma linha em results.jsonl: palpite + resultado + nota + stats crus.
     `stats` = dict com chaves de STAT_KEYS, cada valor [casa, fora]."""
+    hs, as_ = int(home_score), int(away_score)
+    if hs < 0 or as_ < 0:
+        # mesmo guarda do bet_log.settle_bet: placar negativo é erro de
+        # digitação — sem isto a nota (winner/OU/BTTS) saía sem sentido e
+        # entrava calada no results.jsonl (auditoria hostil 2026-07-18)
+        raise ValueError(f"placar negativo não existe: {hs}x{as_} — erro de digitação")
     pred = _find_prediction(home, away, match_date, pred_path)
     if pred is not None:
         pred = _orient(pred, home, away)
@@ -100,7 +106,6 @@ def record_result(home, away, home_score, away_score, *, match_date=None,
         # disso TODO results.jsonl saía com match_date nulo (auditoria 2026-07-07)
         if match_date is None:
             match_date = pred.get("match_date")
-    hs, as_ = int(home_score), int(away_score)
     record = {
         "recorded_at": recorded_at or datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "match_date": match_date, "home": home, "away": away,

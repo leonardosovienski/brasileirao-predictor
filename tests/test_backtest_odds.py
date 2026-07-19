@@ -182,6 +182,8 @@ def test_mercado_parcial_pula_o_mercado_nao_o_jogo(conn, capsys):
 
 def test_shin_estoura_com_odd_none():
     # O porquê do guard acima: shin não tolera None na lista — quem deixa
-    # mercado parcial chegar nele derruba o processo.
-    with pytest.raises(TypeError):
+    # mercado parcial chegar nele derruba o processo. Desde a auditoria
+    # hostil 2026-07-18 a falha é ValueError com mensagem clara (antes era
+    # TypeError cru da divisão) — a semântica "estoura em voz alta" é a mesma.
+    with pytest.raises(ValueError, match="odd inválida"):
         shin_probabilities([2.5, None, 3.0])

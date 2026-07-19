@@ -96,9 +96,20 @@ def _market_probs(conn, name_a, name_b, match_date=None):
             target = date.fromisoformat(str(match_date)[:10])
         except ValueError:
             target = None                 # data ilegível: cai no modo sem data
+    # odd decimal REAL é finita e > 1.0 — a base tem linhas-placeholder do
+    # Sofascore com 1X2 = 1.0/1.0/1.0 (mercado suspenso/voidado); passá-las
+    # ao Shin fabricava p_home=p_draw=p_away=1/3 em silêncio (auditoria
+    # hostil 2026-07-18). Linha sem 1X2 válido não é candidata.
+    import math as _math
+
+    def _odd_ok(o):
+        return o is not None and _math.isfinite(o) and o > 1.0
+
     best = None                           # (chave_de_desempate, linha)
     for d, h, a, oh, od, oa, o_over, o_under in rows:
         if {_canon(h), _canon(a)} != {na, nb}:
+            continue
+        if not (_odd_ok(oh) and _odd_ok(od) and _odd_ok(oa)):
             continue
         if target is not None:
             try:
@@ -126,7 +137,7 @@ def _market_probs(conn, name_a, name_b, match_date=None):
         "odds_over": None, "odds_under": None,
         "p_over": None, "p_under": None, "overround_ou25": None,
     }
-    if o_over and o_under:
+    if _odd_ok(o_over) and _odd_ok(o_under):
         p2, _z2, over2 = shin_probabilities([o_over, o_under])
         out.update(odds_over=o_over, odds_under=o_under,
                   p_over=float(p2[0]), p_under=float(p2[1]), overround_ou25=over2)
