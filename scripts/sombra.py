@@ -33,6 +33,7 @@ ligada E o cache do cron presente; sem eles, a H5 é pulada e a H3 não sente.
 import argparse
 import json
 import math
+import os
 import statistics as st
 import sys
 from datetime import datetime, timezone
@@ -102,19 +103,22 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
 
     n = 0
     rows = conn.execute(
-        "SELECT event_id, date, home_team, away_team, odds_over, odds_under "
+        "SELECT event_id, date, home_team, away_team, odds_over, odds_under, "
+        "odds_over_open, odds_under_open, kickoff_at "
         "FROM sofascore_matches WHERE home_score IS NULL AND date >= ? "
         "AND odds_over IS NOT NULL AND odds_under IS NOT NULL "
         "ORDER BY date", (hoje,)).fetchall()
-    for eid, d, home, away, o_over, o_under in rows:
+    capture_turn = os.environ.get("BRASILEIRAO_CAPTURE_TURN", "manual")
+    for eid, d, home, away, o_over, o_under, oo_over, oo_under, kickoff_at in rows:
         r = predictor(home, away)
         if r is None:
             continue
         p_over = r["over"].get(ou_line)
         if p_over is None:
             continue
-        for sel, p_m, odd in (("over", p_over, o_over),
-                              ("under", 1.0 - p_over, o_under)):
+        for sel, p_m, odd, odd_open in (
+                ("over", p_over, o_over, oo_over),
+                ("under", 1.0 - p_over, o_under, oo_under)):
             if (eid, sel) in ja or not odd or odd <= 1.0:
                 continue
             edge = p_m - 1.0 / odd
@@ -122,9 +126,16 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
                 continue
             _append(picks_path, {
                 "captured_at": now.isoformat(timespec="seconds"),
+                "predicted_at": now.isoformat(timespec="seconds"),
+                "kickoff_at": kickoff_at,
+                "capture_turn": capture_turn,
+                "odds_source": "sofascore",
                 "event_id": eid, "date": d, "home": home, "away": away,
                 "market": f"ou{ou_line}", "selection": sel,
-                "odd": round(odd, 3), "edge": round(edge, 4),
+                "odd": round(odd, 3), "odds_captured": round(odd, 3),
+                "odds_open": (round(odd_open, 3)
+                              if _odd_valida(odd_open) else None),
+                "edge": round(edge, 4),
                 "model_prob": round(p_m, 4),
                 "lambda_home": round(r["lambda_a"], 3),
                 "lambda_away": round(r["lambda_b"], 3),
@@ -226,6 +237,17 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
             "event_id": p["event_id"], "selection": p["selection"],
             "date": p["date"], "home": p["home"], "away": p["away"],
             "odd": p["odd"], "edge": p["edge"], "score": f"{hs}-{as_}",
+            "odds_close": (round(c_over, 3) if p["selection"] == "over"
+                           and _odd_valida(c_over) else
+                           round(c_under, 3) if p["selection"] == "under"
+                           and _odd_valida(c_under) else None),
+            "odds_close_pair": {
+                "over": round(c_over, 3) if _odd_valida(c_over) else None,
+                "under": round(c_under, 3) if _odd_valida(c_under) else None,
+            },
+            "stake_units": 1.0,
+            "costs": {"status": "not_applicable_shadow_no_execution",
+                      "amount_units": 0.0},
             "won": won, "pnl": round((p["odd"] - 1.0) if won else -1.0, 3),
             "clv": clv, "trial": trial})
         n += 1

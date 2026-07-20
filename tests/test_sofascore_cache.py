@@ -1,3 +1,5 @@
+import json
+
 from src.sofascore import Sofascore
 
 
@@ -47,3 +49,15 @@ def test_last_events_are_cached(tmp_path, monkeypatch):
     result = c2.season_events(16, 58210, upcoming=False)
     assert not calls2, "kind='last' deve vir do cache — sem chamada de rede na 2ª coleta"
     assert result[-1]["homeTeam"]["name"] == "Brazil"       # veio do disco, não do 'fresh' fake
+
+
+def test_cache_truncado_e_refeito_sem_bloquear_coleta(tmp_path, monkeypatch):
+    path = tmp_path / "unique-tournament_16_seasons.json"
+    path.write_text('{"seasons": [', encoding="utf-8")
+    fresh = {"seasons": [{"id": 87678, "year": "2026"}]}
+    client, calls = _client(tmp_path, monkeypatch, [fresh])
+
+    assert client.list_seasons(16) == [(87678, "2026")]
+    assert calls == ["unique-tournament/16/seasons"]
+    assert json.loads(path.read_text(encoding="utf-8")) == fresh
+    assert not list(tmp_path.glob("*.tmp"))

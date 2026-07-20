@@ -115,3 +115,14 @@ def test_update_ht_scores_grava_e_none_e_noop(conn):
     ht = conn.execute("SELECT home_score_ht, away_score_ht FROM sofascore_matches "
                       "WHERE event_id=30").fetchone()
     assert ht == (1, 0)
+
+
+def test_update_kickoff_grava_utc_e_none_e_noop(conn):
+    db.upsert_ss_matches(conn, [_row(31)])
+    db.update_kickoff(conn, 31, 1_671_375_600)
+    value = conn.execute("SELECT kickoff_at FROM sofascore_matches "
+                         "WHERE event_id=31").fetchone()[0]
+    assert value == "2022-12-18T15:00:00+00:00"
+    db.update_kickoff(conn, 31, None)
+    assert conn.execute("SELECT kickoff_at FROM sofascore_matches "
+                        "WHERE event_id=31").fetchone()[0] == value

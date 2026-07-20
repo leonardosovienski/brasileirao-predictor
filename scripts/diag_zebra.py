@@ -14,28 +14,34 @@ import statistics as st
 sys.path.insert(0, os.getcwd())
 from src import db, model
 from src.ingest import ROOT, load_config
+from src.ratings import ratings_asof
 
 cfg = load_config()
-conn = db.connect(str(ROOT / cfg["database"]))
-elo = db.load_elo(conn)
+conn = db.connect(str(ROOT / cfg["database"]), read_only=True)
 a, b, alpha, rho = db.load_params(conn)[:4]
 MAXG = cfg["model"]["max_goals"]
 
 rows = conn.execute(
-    "SELECT home_team, away_team, home_score, away_score "
+    "SELECT date, home_team, away_team, home_score, away_score "
     "FROM sofascore_matches WHERE season='2026' AND home_score IS NOT NULL").fetchall()
+
+history = conn.execute(
+    "SELECT date,home_team,away_team,home_score,away_score,tournament,neutral "
+    "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+snapshots = ratings_asof(history, cfg["elo"], [r[0] for r in rows])
 
 _AL = {"south korea": "korea republic", "united states": "usa",
        "cabo verde": "cape verde", "côte d'ivoire": "ivory coast",
        "czechia": "czech republic", "türkiye": "turkey"}
-elo_ci = {k.lower(): v for k, v in elo.items()}
-def get_elo(n):
+def get_elo(n, elo):
+    elo_ci = {k.lower(): v for k, v in elo.items()}
     n = n.lower().strip()
     return elo_ci.get(_AL.get(n, n)) or elo_ci.get(n)
 
 games = []  # (elo_fav, elo_und, fav_is_home, resultado: 'fav'/'und'/'draw')
-for h, a_, hs, as_ in rows:
-    eh, ea = get_elo(h), get_elo(a_)
+for d, h, a_, hs, as_ in rows:
+    elo = snapshots[d]
+    eh, ea = get_elo(h, elo), get_elo(a_, elo)
     if eh is None or ea is None:
         continue
     fav_home = eh >= ea
@@ -69,6 +75,6 @@ for bb in (b, 1.3, 1.5, 1.8, 2.1, 2.4):
     flag = "  <-- atual" if abs(bb - b) < 1e-6 else ("  ~realidade" if abs(pf - real_fav) < 0.03 else "")
     print(f"  {bb:>6.3f} {pf:>8.1%} {pd:>10.1%} {pu:>10.1%}{flag}")
 print(f"\n  alvo (realidade):       P(fav) {real_fav:.1%}   P(azarão) {real_und:.1%}")
-print("\n  NOTA: isto é in-sample (mesmos 56 jogos). Serve para DIMENSIONAR a")
+print(f"\n  NOTA: isto é in-sample (mesmos {n} jogos). Serve para DIMENSIONAR a")
 print("  correção, não para fixá-la. O fix honesto é validado por CLV out-of-")
 print("  sample em vários torneios — ver docs/VIES_ZEBRA.md.")

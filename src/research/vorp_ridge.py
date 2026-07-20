@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 from src import db
 from src.ingest import load_config
+from src.ratings import ratings_asof
 
 
 # ---------------------------------------------------------------------------
@@ -33,17 +34,22 @@ from src.ingest import load_config
 
 def _load_matches(conn, seasons):
     """Retorna lista de (event_id, home_team, away_team, home_xg, away_xg, elo_diff)
-    filtrando pelas seasons indicadas. elo_diff lido da tabela current_elo."""
-    elo = db.load_elo(conn)
+    filtrando pelas seasons indicadas. Elo é o snapshot anterior ao jogo."""
     rows = conn.execute(
-        "SELECT event_id, home_team, away_team, home_xg, away_xg, season "
+        "SELECT event_id, date, home_team, away_team, home_xg, away_xg, season "
         "FROM sofascore_matches "
         "WHERE home_xg IS NOT NULL AND away_xg IS NOT NULL"
     ).fetchall()
+    cfg = load_config()
+    history = conn.execute(
+        "SELECT date,home_team,away_team,home_score,away_score,tournament,neutral "
+        "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    snapshots = ratings_asof(history, cfg["elo"], [r[1] for r in rows if r[1]])
     result = []
-    for eid, home, away, hxg, axg, season in rows:
+    for eid, date, home, away, hxg, axg, season in rows:
         if season not in seasons:
             continue
+        elo = snapshots.get(date, {})
         elo_diff = elo.get(home, 1500.0) - elo.get(away, 1500.0)
         result.append((eid, home, away, float(hxg), float(axg), elo_diff))
     return result

@@ -1,5 +1,6 @@
 import json
 import sqlite3
+from datetime import datetime, timezone
 from pathlib import Path
 
 SCHEMA = """
@@ -47,7 +48,7 @@ CREATE INDEX IF NOT EXISTS idx_pcs_team ON player_comp_stats(team, competition, 
 
 CREATE TABLE IF NOT EXISTS sofascore_matches (
     event_id    INTEGER PRIMARY KEY,
-    competition TEXT, season TEXT, date TEXT,
+    competition TEXT, season TEXT, date TEXT, kickoff_at TEXT,
     home_team   TEXT, away_team TEXT,
     home_score  INTEGER, away_score INTEGER,
     home_xg     REAL, away_xg REAL,
@@ -188,6 +189,8 @@ def _migrate(conn):
     for col in ("home_score_ht", "away_score_ht"):
         if col not in cols:
             conn.execute(f"ALTER TABLE sofascore_matches ADD COLUMN {col} INTEGER")
+    if "kickoff_at" not in cols:
+        conn.execute("ALTER TABLE sofascore_matches ADD COLUMN kickoff_at TEXT")
     # Backfill não-destrutivo: a linha principal de OU (2.5) já gravada nas colunas
     # legadas vira a forma canônica em odds_lines. INSERT OR IGNORE preserva o que
     # já existir lá (re-rodar a migração é inócuo).
@@ -259,6 +262,22 @@ def update_ht_scores(conn, event_id, home_ht, away_ht):
         return
     conn.execute("UPDATE sofascore_matches SET home_score_ht=?, away_score_ht=? "
                  "WHERE event_id=?", (int(home_ht), int(away_ht), event_id))
+    conn.commit()
+
+
+def update_kickoff(conn, event_id, start_ts):
+    """Persiste em UTC o ``startTimestamp`` já normalizado pelo parser.
+
+    Ausência é no-op e nunca apaga um horário conhecido. A função separada
+    preserva o contrato posicional de ``upsert_ss_matches``.
+    """
+    if not start_ts:
+        return
+    kickoff = datetime.fromtimestamp(int(start_ts), timezone.utc).isoformat(
+        timespec="seconds")
+    conn.execute(
+        "UPDATE sofascore_matches SET kickoff_at=COALESCE(?, kickoff_at) "
+        "WHERE event_id=?", (kickoff, event_id))
     conn.commit()
 
 

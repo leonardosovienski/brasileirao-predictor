@@ -14,7 +14,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parent.parent
-SCHEMA_VERSION = "shadow-report/v1"
+SCHEMA_VERSION = "shadow-report/v2"
 
 
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -79,9 +79,21 @@ def _metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
         cumulative += value
         peak = max(peak, cumulative)
         drawdown = min(drawdown, cumulative - peak)
+    explicit_costs = [row.get("costs") for row in rows]
+    costs_complete = bool(rows) and all(
+        isinstance(value, dict)
+        and isinstance(value.get("amount_units"), (int, float))
+        for value in explicit_costs)
+    cost_amounts = ([float(value["amount_units"]) for value in explicit_costs]
+                    if costs_complete else [])
+    net_pnl = ([value - cost for value, cost in zip(pnl, cost_amounts)]
+               if costs_complete and len(pnl) == len(rows) else [])
     return {
         "matured": len(rows), "win_rate": _mean([float(row["won"]) for row in rows if row.get("won") in (0, 1)]),
-        "roi_gross": _mean(pnl), "roi_costs": None, "costs_note": "NÃO DISPONÍVEL: custos não são definidos no ledger H3.",
+        "roi_gross": _mean(pnl), "roi_costs": _mean(net_pnl),
+        "costs_note": ("not_applicable_shadow_no_execution; 0 unidades por registro"
+                       if costs_complete and not any(cost_amounts)
+                       else "NÃO DISPONÍVEL em registros legados."),
         "clv_mean": _mean(clv), "clv_median": _median(clv), "clv_positive_rate": _mean([1.0 if value > 0 else 0.0 for value in clv]),
         "clv_distribution": {"negative": sum(value < 0 for value in clv), "zero": sum(value == 0 for value in clv), "positive": sum(value > 0 for value in clv)},
         "brier": _mean(brier), "rps_binary": _mean(brier), "log_loss": _mean(losses),
@@ -132,10 +144,18 @@ def build_report(picks_path: Path, results_path: Path, start: str | None = None,
         if start and str(event_day) < start or end and str(event_day) > end:
             exclusions["outside_filter"] += 1
             continue
-        if captured.date() > event_day:
-            exclusions["capture_after_event_date"] += 1
-            continue
-        temporal["valid_date_order" if captured.date() < event_day else "kickoff_time_unavailable"] += 1
+        predicted = _utc(pick.get("predicted_at")) or captured
+        kickoff = _utc(pick.get("kickoff_at"))
+        if kickoff is not None:
+            if predicted >= kickoff:
+                exclusions["prediction_not_pre_event"] += 1
+                continue
+            temporal["valid_pre_event_timestamp"] += 1
+        else:
+            if captured.date() > event_day:
+                exclusions["capture_after_event_date"] += 1
+                continue
+            temporal["valid_date_order" if captured.date() < event_day else "kickoff_time_unavailable"] += 1
         result = unique_results.get(key)
         if result is None:
             continue
@@ -148,14 +168,36 @@ def build_report(picks_path: Path, results_path: Path, start: str | None = None,
     open_count = sum(1 for key in unique_picks if key not in unique_results)
     period = sorted(str(row.get("date")) for row in unique_picks.values() if row.get("date"))
     metrics = _metrics(included)
-    segments = {"selection": {selection: _metrics([row for row in included if row.get("selection") == selection]) for selection in ("over", "under")}, "capture_turn": "NÃO DISPONÍVEL: ledger não registra a tarefa manhã/noite.", "market": {market: _metrics([row for row in included if row.get("market") == market]) for market in sorted({str(row.get("market")) for row in included})}}
+    turns = sorted({str(row.get("capture_turn")) for row in included
+                    if row.get("capture_turn")})
+    turn_segments: Any = ({turn: _metrics(
+        [row for row in included if row.get("capture_turn") == turn])
+        for turn in turns} if turns else
+        "NÃO DISPONÍVEL em registros legados.")
+    segments = {"selection": {selection: _metrics([row for row in included if row.get("selection") == selection]) for selection in ("over", "under")}, "capture_turn": turn_segments, "market": {market: _metrics([row for row in included if row.get("market") == market]) for market in sorted({str(row.get("market")) for row in included})}}
     if not included:
         classification = "DADOS INSUFICIENTES"
     elif len(included) < 100:
         classification = "INCONCLUSIVO"
     else:
         classification = "INCONCLUSIVO"
-    return {"schema_version": SCHEMA_VERSION, "inputs": {"picks": str(picks_path), "results": str(results_path), "filters": {"from": start, "to": end}}, "period": {"first_event_date": period[0] if period else None, "last_event_date": period[-1] if period else None}, "counts": {"pick_records": len(picks), "unique_picks": len(unique_picks), "matured": len(included), "open": open_count, "result_records": len(results)}, "exclusions": dict(sorted(exclusions.items())), "temporal_validation": dict(sorted(temporal.items())), "metrics": metrics, "calibration": _calibration(included), "segments": segments, "capturability": {"capture_vs_open": "NÃO DISPONÍVEL: ledger não registra odd de abertura separada.", "capture_vs_close": "NÃO DISPONÍVEL: ledger registra CLV, mas não a odd de fechamento bruta.", "captured_odds_available": sum(isinstance(row.get("odd"), (int, float)) for row in unique_picks.values()), "capture_turn": segments["capture_turn"]}, "limitations": ["predicted_at e kickoff timestamp não estão no ledger H3.", "Não há resultados maturados se sombra_results.jsonl estiver ausente ou vazio.", "Custos, fonte de odds, odd de abertura e odd de fechamento bruta não são registrados pelo ledger atual."], "classification": classification, "next_sample_milestone": "100 picks liquidados, conforme H3 pré-registrada; não reavaliar como GO antes desse marco."}
+    open_available = sum(isinstance(row.get("odds_open"), (int, float))
+                         for row in unique_picks.values())
+    close_available = sum(isinstance(row.get("odds_close"), (int, float))
+                          for row in unique_results.values())
+    exact_time = sum(_utc(row.get("kickoff_at")) is not None
+                     and _utc(row.get("predicted_at")) is not None
+                     for row in unique_picks.values())
+    limitations = []
+    if exact_time < len(unique_picks):
+        limitations.append("Registros legados não possuem predicted_at/kickoff_at exatos.")
+    if open_available < len(unique_picks):
+        limitations.append("Registros legados podem não possuir odd de abertura separada.")
+    if close_available < len(unique_results):
+        limitations.append("Registros legados podem não possuir odd bruta de fechamento.")
+    if not included:
+        limitations.append("Ainda não há resultados maturados válidos.")
+    return {"schema_version": SCHEMA_VERSION, "inputs": {"picks": str(picks_path), "results": str(results_path), "filters": {"from": start, "to": end}}, "period": {"first_event_date": period[0] if period else None, "last_event_date": period[-1] if period else None}, "counts": {"pick_records": len(picks), "unique_picks": len(unique_picks), "matured": len(included), "open": open_count, "result_records": len(results)}, "exclusions": dict(sorted(exclusions.items())), "temporal_validation": dict(sorted(temporal.items())), "metrics": metrics, "calibration": _calibration(included), "segments": segments, "capturability": {"open_odds_available": open_available, "close_odds_available": close_available, "exact_pre_event_timestamps": exact_time, "captured_odds_available": sum(isinstance(row.get("odd"), (int, float)) for row in unique_picks.values()), "capture_turn": segments["capture_turn"]}, "limitations": limitations, "classification": classification, "next_sample_milestone": "100 picks liquidados, conforme H3 pré-registrada; não reavaliar como GO antes desse marco."}
 
 
 def _human(report: dict[str, Any]) -> str:

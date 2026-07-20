@@ -22,3 +22,23 @@ def test_shadow_consumer_provenance_identifies_turn_and_inputs() -> None:
     assert metadata["artifact_schema_version"] == "operational-envelope/1.1"
     assert all(len(value) == 64 for value in metadata["input_hashes"].values())
     assert "tools_version" not in metadata and "tools_commit" not in metadata
+
+
+def test_entrypoint_propagates_capture_turn(monkeypatch) -> None:
+    module = _entrypoint()
+    metadata = {
+        "execution_turn": "night", "project_name": "brasileirao-predictor"
+    }
+    monkeypatch.setattr(module, "consumer_provenance", lambda _task: metadata)
+    observed = {}
+
+    class Result:
+        returncode = 0
+
+    def fake_run(command, **kwargs):
+        observed.update(kwargs)
+        return Result()
+
+    monkeypatch.setattr(module.subprocess, "run", fake_run)
+    assert module.main(["--task-name", "brasileirao-sombra-noite"]) == 0
+    assert observed["env"]["BRASILEIRAO_CAPTURE_TURN"] == "night"

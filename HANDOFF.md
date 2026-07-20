@@ -1,10 +1,35 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## FECHAMENTO DAS RESSALVAS TÉCNICAS (2026-07-20)
+>
+> O ledger H3/H5 passou a registrar prospectivamente `predicted_at`,
+> `kickoff_at` UTC, turno da captura, fonte, odd capturada, abertura separada,
+> fechamento bruto e par de fechamento. Custos da sombra são explicitamente
+> `not_applicable_shadow_no_execution`, 0u: não há execução financeira. O
+> relatório `shadow-report/v2` mede cobertura desses campos e mantém registros
+> anteriores como legados, sem backfill retrospectivo.
+>
+> O `startTimestamp` do Sofascore agora é persistido em `kickoff_at`; os três
+> scripts de pesquisa antes apontados pelo CI usam Elo `ratings_asof`, eliminando
+> o lookahead conhecido. Backup/restore local implementado em
+> `src.backup_restore`: snapshot online SQLite, manifesto SHA-256, verificação de
+> adulteração, `integrity_check` e restore somente em raiz nova. Roundtrip real
+> verificado em `C:\Claude-projetos\Claude\backups\brasileirao-20260720T1430Z`
+> e raiz restaurada homônima, com **1.165 partidas** e integridade `ok`.
+> As tarefas manhã/noite agora têm `RestartCount=3`, intervalo `PT15M`,
+> `StartWhenAvailable=True` e mantêm `IgnoreNew`, fechando a perda de janela por
+> falha transitória sem permitir execuções concorrentes.
+>
+> Validação: **325 passed, 1 warning sintético conhecido; CI 5/5 sem dívida
+> temporal**. Nenhuma regra de seleção, threshold, hiperparâmetro, stake ou
+> settlement econômico mudou. Única pendência inevitável: passagem do tempo
+> até 100 picks H3 liquidados; hoje são 2/100.
+
 > ## AUDITORIA FINAL LOCAL (2026-07-20)
 >
 > Revisão independente do estado atual, sem mudança científica ou econômica.
 > Suíte completa: **320 passed, 1 warning conhecido**; `scripts/ci_check.py`:
-> **5/5**; suíte suportada de `tools/`: **137 passed, 1 skipped**; manifest do
+> **5/5**; suíte suportada de `tools/`: **139 passed, 1 skipped**; manifest do
 > core e auditoria byte a byte: **44/44 idênticos**. O SQLite operacional
 > passou `integrity_check` e `quick_check`, com 1.165 partidas, 8.297 linhas
 > de odds e 80.375 snapshots; não foram encontrados eventos/partidas

@@ -32,6 +32,8 @@ sys.path.insert(0, str(ROOT))
 from src import db
 from src.model import predict_match
 from src.math_utils import shin_probabilities
+from src.ingest import load_config
+from src.ratings import ratings_asof
 # Métricas de domínio (placar) — de-forkadas do core para src/research (2026-06).
 from src.research.score_metrics import (
     log_loss_matrix,
@@ -169,9 +171,8 @@ def _simulated_clv_and_pnl(
 def run(db_path: str, vorp_path: str | None, theta: float, debug_team: str | None,
         kelly_frac: float):
     conn = db.connect(db_path, read_only=True)
-    elo = db.load_elo(conn)
     prow = db.load_params(conn)
-    if not elo or not prow:
+    if not prow:
         sys.exit("cache vazio — rode cron_update_models primeiro")
     params = (prow[0], prow[1], prow[2], prow[3])
 
@@ -196,18 +197,23 @@ def run(db_path: str, vorp_path: str | None, theta: float, debug_team: str | Non
 
     # Partidas de teste
     rows = conn.execute(
-        "SELECT event_id, home_team, away_team, home_score, away_score, "
+        "SELECT event_id, date, home_team, away_team, home_score, away_score, "
         "home_xg, away_xg, odds_home, odds_draw, odds_away, season "
         "FROM sofascore_matches "
         "WHERE home_score IS NOT NULL AND away_score IS NOT NULL"
     ).fetchall()
-    test_rows = [r for r in rows if r[10] in TEST_SEASONS]
+    test_rows = [r for r in rows if r[11] in TEST_SEASONS]
 
     if not test_rows:
         sys.exit(f"Nenhuma partida encerrada em seasons {TEST_SEASONS}. "
                  "Rode ingest_sofascore com historico (Euro 2024, Copa América 2024, etc.).")
 
     all_eids = {r[0] for r in test_rows}
+    cfg = load_config()
+    history = conn.execute(
+        "SELECT date,home_team,away_team,home_score,away_score,tournament,neutral "
+        "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    snapshots = ratings_asof(history, cfg["elo"], [r[1] for r in test_rows])
     # Presença de jogadores por evento
     presence = {}
     if use_vorp:
@@ -236,7 +242,8 @@ def run(db_path: str, vorp_path: str | None, theta: float, debug_team: str | Non
     matches_for_clv = []
     debug_rows = []
 
-    for eid, home, away, hs, as_, hxg, axg, oh, od, oa, _ in test_rows:
+    for eid, date, home, away, hs, as_, hxg, axg, oh, od, oa, _ in test_rows:
+        elo = snapshots[date]
         elo_a = elo.get(home, 1500.0)
         elo_b = elo.get(away, 1500.0)
 

@@ -55,6 +55,8 @@ def ambiente(tmp_path, monkeypatch):
         "(2, 'T', '2027', '2027-01-02', 'Casa', 'Fora', ?, ?)",
         (round(1.0 / (p_ens - 0.05), 3), 1.01))
     conn.commit()
+    db.update_kickoff(conn, 1, 1_798_761_600)
+    db.update_kickoff(conn, 2, 1_798_848_000)
 
     monkeypatch.setattr(sombra, "PICKS", tmp_path / "p3.jsonl")
     monkeypatch.setattr(sombra, "RESULTS", tmp_path / "r3.jsonl")
@@ -79,6 +81,10 @@ def test_h3_e_h5_capturam_em_arquivos_separados(ambiente):
     assert over3[1] == pytest.approx(p_base, abs=1e-4)
     assert over5[2] == pytest.approx(p_ens, abs=1e-4)
     assert p_base != pytest.approx(p_ens, abs=1e-3)   # motores de fato diferem
+    assert all(p["predicted_at"] == p["captured_at"] for p in p3 + p5)
+    assert all(p["kickoff_at"] and p["odds_source"] == "sofascore"
+               for p in p3 + p5)
+    assert all(p["capture_turn"] == "manual" for p in p3 + p5)
 
 
 def test_flag_desligada_h5_nao_roda(ambiente):
@@ -108,6 +114,9 @@ def test_settle_h5_parametrizado(ambiente):
     assert all(r["trial"] == "h5-ensemble-xg-sombra-2026" for r in res)
     over = [r for r in res if r["selection"] == "over"]
     assert over and all(r["won"] == 1 for r in over)   # 3+1 > 2.5
+    assert all(r["odds_close"] is not None for r in over)
+    assert all(r["costs"]["status"] == "not_applicable_shadow_no_execution"
+               for r in res)
     # e a população da H3 continua intocada
     assert not (tmp / "r3.jsonl").exists()
 

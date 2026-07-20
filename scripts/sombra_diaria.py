@@ -5,6 +5,7 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -74,7 +75,10 @@ def main(argv: list[str] | None = None) -> int:
         "--timeout", "7200", "--consumer-provenance-json", metadata,
         "--", sys.executable, "-X", "utf8", str(PAYLOAD),
     ]
-    return subprocess.run(command, cwd=ROOT, check=False).returncode
+    environment = os.environ.copy()
+    environment["BRASILEIRAO_CAPTURE_TURN"] = json.loads(metadata)["execution_turn"]
+    return subprocess.run(command, cwd=ROOT, env=environment,
+                          check=False).returncode
 
 
 if __name__ == "__main__":

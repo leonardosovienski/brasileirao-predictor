@@ -96,11 +96,27 @@ class Sofascore:
         if cache and self.cache:
             f = self.cache / (path.replace("/", "_") + ".json")
             if f.exists():
-                return json.loads(f.read_text())
+                try:
+                    return json.loads(f.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError):
+                    # Cache é cópia derivável da fonte, não artefato científico.
+                    # Uma escrita interrompida não pode bloquear para sempre as
+                    # próximas coletas: busca novamente e só então substitui.
+                    pass
         data = self._fetch(path)
         if cache and self.cache and data is not None:
             f = self.cache / (path.replace("/", "_") + ".json")
-            f.write_text(json.dumps(data))
+            fd, temporary = tempfile.mkstemp(
+                prefix=f".{f.name}.", suffix=".tmp", dir=f.parent)
+            try:
+                with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
+                    json.dump(data, handle, ensure_ascii=False)
+                    handle.flush()
+                    os.fsync(handle.fileno())
+                os.replace(temporary, f)
+            except BaseException:
+                Path(temporary).unlink(missing_ok=True)
+                raise
         return data
 
     def list_seasons(self, ut_id: int):

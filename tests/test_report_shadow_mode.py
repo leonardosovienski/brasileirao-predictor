@@ -73,8 +73,35 @@ def test_missing_closing_and_turn_are_explicitly_unavailable(tmp_path: Path) -> 
     write_jsonl(picks, [pick()])
     write_jsonl(results, [result()])
     report = reporter.build_report(picks, results)
-    assert report["capturability"]["capture_vs_close"].startswith("NÃO DISPONÍVEL")
+    assert report["capturability"]["close_odds_available"] == 0
     assert report["segments"]["capture_turn"].startswith("NÃO DISPONÍVEL")
+    assert report["schema_version"] == "shadow-report/v2"
+    assert any("legados" in item for item in report["limitations"])
+
+
+def test_enriched_ledger_proves_temporality_odds_turn_and_costs(tmp_path: Path) -> None:
+    reporter = load_reporter()
+    picks, results = tmp_path / "picks.jsonl", tmp_path / "results.jsonl"
+    enriched_pick = {
+        **pick(), "predicted_at": "2026-07-10T10:00:00+00:00",
+        "kickoff_at": "2026-07-12T20:00:00+00:00", "capture_turn": "morning",
+        "odds_open": 1.9, "odds_captured": 2.0, "odds_source": "sofascore",
+    }
+    enriched_result = {
+        **result(), "odds_close": 2.1,
+        "costs": {"status": "not_applicable_shadow_no_execution",
+                  "amount_units": 0.0},
+    }
+    write_jsonl(picks, [enriched_pick])
+    write_jsonl(results, [enriched_result])
+    report = reporter.build_report(picks, results)
+    assert report["temporal_validation"] == {"valid_pre_event_timestamp": 1}
+    assert report["capturability"]["exact_pre_event_timestamps"] == 1
+    assert report["capturability"]["open_odds_available"] == 1
+    assert report["capturability"]["close_odds_available"] == 1
+    assert report["segments"]["capture_turn"]["morning"]["matured"] == 1
+    assert report["metrics"]["roi_costs"] == report["metrics"]["roi_gross"]
+    assert report["limitations"] == []
 
 
 def test_json_is_deterministic_and_report_is_read_only(tmp_path: Path, monkeypatch, capsys) -> None:

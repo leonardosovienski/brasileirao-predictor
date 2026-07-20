@@ -399,6 +399,7 @@ def run(seasons_for: int | None = None) -> None:
                 db.upsert_ss_matches(conn, [(eid, name, season, m["date"],
                     m["home_team"], m["away_team"], m["home_score"], m["away_score"],
                     hxg, axg, oh, od, oa, o_over, o_under, *opens)])
+                db.update_kickoff(conn, eid, m["start_ts"])
                 db.update_ht_scores(conn, eid, m["home_score_ht"], m["away_score_ht"])
 
                 now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")

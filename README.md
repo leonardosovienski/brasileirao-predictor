@@ -10,7 +10,7 @@
 > (2023 + rodadas de 2026). Em 2026-07-20, H3 tinha 7 picks, só 2 maturados:
 > pipeline funcional, resultado econômico **inconclusivo** e gate de 100
 > liquidados ainda fechado. H2 (picks 1T) validada informativa (79% de acerto).
-> Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte 320 verdes, CI 5/5.
+> Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte 325 verdes, CI 5/5.
 
 Sistema CLI em Python para previsão e apostas de valor no Brasileirão Série A,
 rodando 100% local (Python + SQLite). Fonte única de dados: **Sofascore**
@@ -81,7 +81,16 @@ python -m src.bet_log banca|list|settle|summary
 # Testes
 python -m pytest            # 320 verdes
 python scripts/ci_check.py  # 5 barreiras
+
+# Backup operacional consistente (destino deve ser uma raiz nova)
+python -m src.backup_restore create --output C:\backups\brasileirao-AAAA-MM-DD
+python -m src.backup_restore verify --backup C:\backups\brasileirao-AAAA-MM-DD
+python -m src.backup_restore restore --backup C:\backups\brasileirao-AAAA-MM-DD --destination C:\restore-novo
 ```
+
+Desde 2026-07-20, novos registros H3/H5 incluem timestamps exatos de previsão e
+kickoff, turno, fonte, abertura, preço capturado e fechamento bruto. Registros
+anteriores permanecem legados; não são completados retrospectivamente.
 
 ## Hipóteses pré-registradas (data/trials.json)
 
