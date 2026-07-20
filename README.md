@@ -7,9 +7,10 @@
 > **v1.3.1**. Backtest walk-forward 2024–2025 **CONCLUÍDO em 2026-07-10 com
 > veredito NO-GO** (OU2.5: CLV open +19,55% mas IC95 do pnl cruza zero;
 > DSR 0,94) — **operação em MODO SOMBRA, zero dinheiro real** até o N crescer
-> (2023 + rodadas de 2026). H2 (picks 1T) validada informativa (79% de
-> acerto). Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte 320
-> verdes, CI 5/5.
+> (2023 + rodadas de 2026). Em 2026-07-20, H3 tinha 7 picks, só 2 maturados:
+> pipeline funcional, resultado econômico **inconclusivo** e gate de 100
+> liquidados ainda fechado. H2 (picks 1T) validada informativa (79% de acerto).
+> Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte 320 verdes, CI 5/5.
 
 Sistema CLI em Python para previsão e apostas de valor no Brasileirão Série A,
 rodando 100% local (Python + SQLite). Fonte única de dados: **Sofascore**

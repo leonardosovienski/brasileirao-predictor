@@ -1,5 +1,26 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## AUDITORIA FINAL LOCAL (2026-07-20)
+>
+> Revisão independente do estado atual, sem mudança científica ou econômica.
+> Suíte completa: **320 passed, 1 warning conhecido**; `scripts/ci_check.py`:
+> **5/5**; suíte suportada de `tools/`: **137 passed, 1 skipped**; manifest do
+> core e auditoria byte a byte: **44/44 idênticos**. O SQLite operacional
+> passou `integrity_check` e `quick_check`, com 1.165 partidas, 8.297 linhas
+> de odds e 80.375 snapshots; não foram encontrados eventos/partidas
+> duplicados, placares negativos, HT > FT ou odds não finitas/não positivas.
+> Nove linhas de mercado são parciais, condição já coberta por descarte claro
+> do mercado incompleto (`test_mercado_parcial_pula_o_mercado_nao_o_jogo`).
+>
+> B3b/B4 seguem protegidos pelos testes de confronto repetido por data e
+> idempotência por `bet_id`. A H3 tem **7 picks, 2 maturados e 5 abertos**:
+> ROI bruto +17,5%, CLV médio −5,025%, Brier/RPS 0,269568 e log loss 0,732336.
+> Esses números são apenas diagnóstico operacional: o gate de 100 liquidados
+> permanece fechado e o resultado econômico é **INCONCLUSIVO**. Nenhum bug
+> novo inequívoco foi reproduzido; nenhum código, parâmetro ou artefato
+> operacional foi alterado. Veredito: **PASS LOCAL COM AMOSTRA AINDA
+> INSUFICIENTE**.
+
 > ## 🔵 AUDITORIA HOSTIL DE ROBUSTEZ — RODADA 2 (2026-07-18/19)
 >
 > Rodada dedicada a este domínio (branch `claude/brasileirao-predictor-audit-11f575`).
