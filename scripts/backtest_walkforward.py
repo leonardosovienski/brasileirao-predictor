@@ -283,7 +283,7 @@ def main():
               f"DSR {dsr_info['dsr']:.2f} (N={dsr_info['n_trials']} tentativas, "
               f"SR0={dsr_info['sr0']:.4f})")
         print(f"VEREDITO H1: {verdict['verdict']} "
-              f"(critério: PSR≥0.80, IC_lower>0, DSR≥0.95)")
+              f"(criterion: PSR>=0.80, IC_lower>0, DSR>=0.95)")
     else:
         verdict["verdict"] = "NO-GO"
         verdict["motivo"] = f"amostra insuficiente ({len(returns)} < 30 apostas)"
