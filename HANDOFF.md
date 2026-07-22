@@ -1,5 +1,15 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## BACKFILL PIT ISOLADO (2026-07-21)
+>
+> `src/data/pit_backfill.py` implementa raw imutável com manifesto/hash, curated
+> SQLite separado, resolução versionada de entidades, clocks PIT, closing line
+> formal, walk-forward e quality gate com bootstrap agrupado. Testes hostis
+> cobrem adulteração, ambiguidade, cotação pós-kickoff e lookahead. Nenhum
+> registro é escrito em `matches.db`; o gate permanece sem capital automático.
+> Ver `docs/BACKFILL_POINT_IN_TIME.md`, `docs/CLOSING_LINE.md`,
+> `docs/PAST_ATTEMPT_LEDGER.md` e `docs/HISTORICAL_SOURCE_REGISTER.md`.
+
 > ## FECHAMENTO DAS RESSALVAS TÉCNICAS (2026-07-20)
 >
 > O ledger H3/H5 passou a registrar prospectivamente `predicted_at`,
