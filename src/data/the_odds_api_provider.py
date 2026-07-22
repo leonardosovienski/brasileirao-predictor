@@ -35,7 +35,8 @@ class TheOddsApiProvider:
             with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "brasileirao-predictor/1.0"}), timeout=self.timeout) as response:
                 return json.loads(response.read())
         except (OSError, ValueError) as exc:
-            raise DataUnavailableError(f"The Odds API indisponível: {exc}") from exc
+            # urllib errors can embed the request URL, including apiKey.
+            raise DataUnavailableError("The Odds API indisponível ou recusou a consulta") from exc
 
     def fetch_ou25(self, *, retrieved_at: datetime | None = None) -> list[dict[str, Any]]:
         if not self.api_key: raise DataUnavailableError("ODDS_API_KEY ausente")

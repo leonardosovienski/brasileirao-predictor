@@ -22,3 +22,11 @@ def test_requires_key_without_network(monkeypatch):
     monkeypatch.delenv("ODDS_API_KEY", raising=False)
     with pytest.raises(DataUnavailableError, match="ODDS_API_KEY"):
         TheOddsApiProvider(get_json=lambda _: pytest.fail("network")).fetch_ou25()
+
+
+def test_transport_error_is_sanitized_even_when_url_contains_key(monkeypatch):
+    provider = TheOddsApiProvider(api_key="secret-value")
+    monkeypatch.setattr("urllib.request.urlopen", lambda *_a, **_k: (_ for _ in ()).throw(OSError("https://x/?apiKey=secret-value")))
+    with pytest.raises(DataUnavailableError) as exc:
+        provider.fetch_ou25()
+    assert "secret-value" not in str(exc.value)
