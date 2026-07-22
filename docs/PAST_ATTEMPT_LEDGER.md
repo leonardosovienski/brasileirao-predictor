@@ -1,13 +1,14 @@
-# PAST_ATTEMPT_LEDGER — backfill point-in-time
+# PAST_ATTEMPT_LEDGER — H3/H5
 
-| ID | Tentativa | Dados | Resultado | Evidência | Motivo | Estado |
+| ID | Hipótese/tentativa | Implementação | Dados | Resultado | Evidência | Estado atual |
 |---|---|---|---|---|---|---|
-| PA-01 | Backtest walk-forward H1/H2 | Sofascore 2024–2025 | H1 NO-GO; H2 informativa | `docs/RELATORIO_BACKTEST_2026-07-10.md` | abertura-template e IC do P&L cruzando zero | encerrada, não repetir |
-| PA-02 | Sombra H3/H5 prospectiva | Sofascore 2026 | 2 maturados de 100; inconclusivo | `data/sombra_*.jsonl`, `scripts/report_shadow_mode.py` | amostra ainda curta | ativa |
-| PA-03 | Backfill API-Football 2022–2024 | fixtures sem odds temporais | cobertura de placares, inelegível para ROI/CLV | `src/data/api_football_provider.py`, `src/data/historical_expansion.py` | não há bookmaker/captured_at/closing reconstruível | quarantined |
-| PA-04 | Backfill Sportmonks | catálogo opt-in | não executado sem token e sem validação de odds | `src/data/sportmonks_provider.py` | fonte não comprovada para economic evaluation | pending discovery |
-| PA-05 | Curated PIT isolado | store raw + curated | contrato implementado e testado; não promove dados ao vivo | `src/data/pit_backfill.py`, `tests/test_pit_backfill.py` | preserva origem e temporalidade | PASS LOCAL |
+| PA-01 | H1 OU2.5 walk-forward | abertura vs fechamento | Sofascore 2024–2025 | fechamento ROI -7,8%, PSR 0,14 | `docs/RELATORIO_BACKTEST_2026-07-10.md` | REFUTED |
+| PA-02 | H3 shadow OU2.5 | odds correntes pré-evento | Sofascore 2026 | registros atuais sem contrato completo | `scripts/evaluate_shadow_cohort.py` | STILL_ACTIVE |
+| PA-03 | H5 ensemble xG shadow | população paralela H3 | Sofascore 2026 | sem coorte elegível completa ainda | `data/trials.json` | STILL_ACTIVE |
+| PA-04 | Backfill API-Football | fixtures históricas | API opt-in | sem odds/bookmaker/timestamps PIT | `src/data/historical_expansion.py` | FAILED |
+| PA-05 | Backfill Sportmonks | odds históricas | sem token/auditoria | não verificado | `docs/HISTORICAL_SOURCE_REGISTER.md` | NOT_VERIFIED |
+| PA-06 | Curated PIT isolado | raw + curated + evaluation | dados de teste | contrato implementado e testado | `src/data/pit_backfill.py` | WORKED |
+| PA-07 | Shadow evaluator estrito | classificação e hash | JSONL atual | 8 `LEGACY_INCOMPLETE`, 0 elegíveis | `scripts/evaluate_shadow_cohort.py` | STILL_ACTIVE |
 
-Nenhuma tentativa histórica aumenta o Quality Gate por contagem. A promoção
-para o pipeline vivo exigiria uma fonte aceita com preços observados no tempo,
-revisão de aliases e um TrialRegistry explícito.
+Registros legados nunca aumentam o Quality Gate. H3/H5 só podem ser avaliadas
+com 100 picks prospectivos elegíveis e liquidados, sem alterar o modelo.
