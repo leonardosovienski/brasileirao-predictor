@@ -4,6 +4,9 @@ Backfill histórico point-in-time é mantido fora de `matches.db`, em raw
 imutável, curated SQLite isolado e views de avaliação com clocks de disponibilidade.
 Veja `docs/BACKFILL_POINT_IN_TIME.md` e `docs/CLOSING_LINE.md`.
 
+H3/H5 coletam somente contratos prospectivos completos; operação e monitoramento:
+`docs/SHADOW_PROSPECTIVE_RUNBOOK.md`.
+
 > ## 📌 ESTADO ATUAL (2026-07-10) — fonte da verdade: HANDOFF.md
 >
 > Projeto criado a partir do **backup limpo do wc-predictor-v2** pós-Copa 2026,

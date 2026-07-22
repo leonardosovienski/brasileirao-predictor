@@ -5,13 +5,14 @@ import argparse
 import hashlib
 import json
 import math
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-REQUIRED_PICK = ("pick_id", "trial_id", "model_version", "code_commit", "predicted_at", "kickoff_at", "market", "selection", "captured_odds", "odds_captured_at", "bookmaker", "source", "source_event_id", "canonical_match_id", "closing_definition_version", "data_quality_status", "provenance_hash")
-REQUIRED_RESULT = ("result", "settled_at", "settlement_status")
+sys.path.insert(0, str(ROOT))
+from src.data.prospective_shadow import PICK_REQUIRED, validate_pick, validate_settlement
 
 
 def _dt(value: Any) -> datetime | None:
@@ -44,19 +45,22 @@ def evaluate(picks_path: Path, results_path: Path, min_sample: int = 100) -> dic
         reasons[reason] = reasons.get(reason, 0) + 1
     for pick in picks:
         key = (pick.get("pick_id"), pick.get("source_event_id"), pick.get("selection"))
-        missing = [field for field in REQUIRED_PICK if pick.get(field) in (None, "")]
+        missing = [field for field in PICK_REQUIRED if pick.get(field) in (None, "")]
         legacy = not pick.get("predicted_at") or not pick.get("kickoff_at") or not pick.get("odds_captured_at")
         if pick.get("pick_id") is not None:
             if key in seen: reject("duplicate_pick"); continue
             seen.add(key)
         if missing: reject("legacy_incomplete" if legacy else "missing_required_field"); counts["legacy_incomplete"] += int(legacy); continue
+        invalid = validate_pick(pick)
+        if invalid: reject(invalid); continue
         predicted, kickoff, captured = (_dt(pick[f]) for f in ("predicted_at", "kickoff_at", "odds_captured_at"))
         if not predicted or not kickoff or not captured: reject("timezone_or_timestamp_invalid"); continue
         if not (predicted < kickoff and captured < kickoff): reject("pre_event_clock_violation"); continue
         if not _valid_number(pick["captured_odds"]): reject("invalid_odds"); continue
         result = by_key.get(key)
         if result:
-            if any(result.get(field) in (None, "") for field in REQUIRED_RESULT): reject("incomplete_settlement"); continue
+            invalid = validate_settlement(pick, result)
+            if invalid: reject(invalid); continue
             settled = _dt(result["settled_at"])
             if not settled or settled < kickoff: reject("settlement_clock_invalid"); continue
             merged = {**pick, **result}; counts["matured"] += 1

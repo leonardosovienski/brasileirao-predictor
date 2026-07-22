@@ -10,6 +10,11 @@
 > Ver `docs/BACKFILL_POINT_IN_TIME.md`, `docs/CLOSING_LINE.md`,
 > `docs/PAST_ATTEMPT_LEDGER.md` e `docs/HISTORICAL_SOURCE_REGISTER.md`.
 
+> A coorte H3/H5 iniciada em 2026-07-22 exige contrato estrito e bookmaker
+> auditável. Os 8 registros anteriores são `LEGACY_INCOMPLETE`; não contam.
+> `scripts/sombra.py` bloqueia a persistência prospectiva quando o bookmaker não
+> for fornecido, e o settle exige closing pré-kickoff.
+
 > ## FECHAMENTO DAS RESSALVAS TÉCNICAS (2026-07-20)
 >
 > O ledger H3/H5 passou a registrar prospectivamente `predicted_at`,

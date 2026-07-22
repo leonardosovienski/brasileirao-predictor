@@ -34,6 +34,8 @@ import argparse
 import json
 import math
 import os
+import hashlib
+import subprocess
 import statistics as st
 import sys
 from datetime import datetime, timezone
@@ -46,6 +48,7 @@ sys.path.insert(0, str(ROOT / "vendor"))
 from src import db, model                              # noqa: E402
 from src.ingest import load_config                     # noqa: E402
 from src.math_utils import shin_probabilities          # noqa: E402
+from src.data.prospective_shadow import record_hash, validate_pick  # noqa: E402
 
 PICKS = ROOT / "data" / "sombra_picks.jsonl"
 RESULTS = ROOT / "data" / "sombra_results.jsonl"
@@ -100,6 +103,16 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
     ja = {(p["event_id"], p["selection"]) for p in _load_jsonl(picks_path)}
     now = datetime.now(timezone.utc)
     hoje = now.strftime("%Y-%m-%d")
+    bookmaker = os.environ.get("BRASILEIRAO_BOOKMAKER")
+    if not bookmaker:
+        print("  [coorte prospectiva bloqueada: BRASILEIRAO_BOOKMAKER ausente; "
+              "Sofascore agregado não é bookmaker auditável]")
+        return 0
+    code_commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
+                                 text=True, capture_output=True, check=False).stdout.strip()
+    if not code_commit:
+        print("  [coorte prospectiva bloqueada: commit Git indisponível]")
+        return 0
 
     n = 0
     rows = conn.execute(
@@ -124,10 +137,20 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
             edge = p_m - 1.0 / odd
             if not (min_edge < edge <= max_edge):
                 continue
-            _append(picks_path, {
+            pick = {
+                "pick_id": hashlib.sha256(f"{trial}:{eid}:{sel}".encode()).hexdigest(),
+                "trial_id": trial,
+                "model_version": str(cfg.get("model", {}).get("version", "frozen-config")),
+                "code_commit": code_commit,
                 "captured_at": now.isoformat(timespec="seconds"),
                 "predicted_at": now.isoformat(timespec="seconds"),
                 "kickoff_at": kickoff_at,
+                "odds_captured_at": now.isoformat(timespec="seconds"),
+                "captured_odds": round(odd, 3),
+                "bookmaker": bookmaker, "source": "sofascore",
+                "source_event_id": str(eid), "canonical_match_id": f"sofascore:{eid}",
+                "closing_definition_version": "closing-v1:last-valid-pre-kickoff-by-bookmaker",
+                "data_quality_status": "PROSPECTIVE_ELIGIBLE",
                 "capture_turn": capture_turn,
                 "odds_source": "sofascore",
                 "event_id": eid, "date": d, "home": home, "away": away,
@@ -139,7 +162,13 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
                 "model_prob": round(p_m, 4),
                 "lambda_home": round(r["lambda_a"], 3),
                 "lambda_away": round(r["lambda_b"], 3),
-                "trial": trial})
+                "trial": trial}
+            pick["provenance_hash"] = record_hash(pick)
+            invalid = validate_pick(pick)
+            if invalid:
+                print(f"  [pick rejeitado: {invalid}]")
+                continue
+            _append(picks_path, pick)
             ja.add((eid, sel))
             n += 1
             print(f"  pick [{trial.split('-')[0]}]: {d} {home} x {away} — "
@@ -224,6 +253,22 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
         if not row or row[0] is None:
             continue                      # ainda não terminou
         hs, as_, c_over, c_under = row
+        close_at = None
+        if p.get("pick_id"):
+            snapshots = conn.execute(
+                "SELECT selection, odd, captured_at FROM odds_snapshots "
+                "WHERE event_id=? AND market=? AND pre_match=1 AND captured_at < ? "
+                "ORDER BY captured_at DESC", (p["event_id"], p["market"], p["kickoff_at"])).fetchall()
+            by_selection = {}
+            for selection, price, captured_at in snapshots:
+                by_selection.setdefault(selection, (price, captured_at))
+            if p["selection"] not in by_selection:
+                continue  # pending closing: economic cohort must not mature
+            selected_close, close_at = by_selection[p["selection"]]
+            if not _odd_valida(selected_close):
+                continue
+            c_over = by_selection.get("over", (None, None))[0]
+            c_under = by_selection.get("under", (None, None))[0]
         total = hs + as_
         won = int((total > ou_line) if p["selection"] == "over"
                   else (total < ou_line))
@@ -232,7 +277,7 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
             sh, _z, _o = shin_probabilities([c_over, c_under])
             p_close = sh[0] if p["selection"] == "over" else sh[1]
             clv = round(p["odd"] * float(p_close) - 1.0, 4)
-        _append(results_path, {
+        result = {
             "settled_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "event_id": p["event_id"], "selection": p["selection"],
             "date": p["date"], "home": p["home"], "away": p["away"],
@@ -249,7 +294,15 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
             "costs": {"status": "not_applicable_shadow_no_execution",
                       "amount_units": 0.0},
             "won": won, "pnl": round((p["odd"] - 1.0) if won else -1.0, 3),
-            "clv": clv, "trial": trial})
+            "clv": clv, "trial": trial}
+        if p.get("pick_id"):
+            result.update({"pick_id": p["pick_id"], "source_event_id": p["source_event_id"],
+                           "selection": p["selection"], "result": "won" if won else "lost",
+                           "settlement_status": "settled", "closing_odds": round(selected_close, 3),
+                           "closing_captured_at": close_at,
+                           "closing_definition_version": p["closing_definition_version"]})
+            result["provenance_hash"] = record_hash(result)
+        _append(results_path, result)
         n += 1
         print(f"  settle: {p['home']} {hs}x{as_} {p['away']} — "
               f"{p['selection']} {'GANHOU' if won else 'perdeu'}"

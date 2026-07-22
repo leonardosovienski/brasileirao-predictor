@@ -62,6 +62,11 @@ def ambiente(tmp_path, monkeypatch):
     monkeypatch.setattr(sombra, "RESULTS", tmp_path / "r3.jsonl")
     monkeypatch.setattr(sombra, "PICKS_H5", tmp_path / "p5.jsonl")
     monkeypatch.setattr(sombra, "RESULTS_H5", tmp_path / "r5.jsonl")
+    monkeypatch.setenv("BRASILEIRAO_BOOKMAKER", "test-bookmaker")
+    for event_id in (1, 2):
+        conn.execute("INSERT INTO odds_snapshots (event_id, market, selection, odd, captured_at, pre_match) VALUES (?, 'ou2.5', 'over', 2.0, '2026-12-31T10:00:00+00:00', 1)", (event_id,))
+        conn.execute("INSERT INTO odds_snapshots (event_id, market, selection, odd, captured_at, pre_match) VALUES (?, 'ou2.5', 'under', 1.9, '2026-12-31T10:00:00+00:00', 1)", (event_id,))
+    conn.commit()
     return conn, tmp_path, p_base, p_ens
 
 
