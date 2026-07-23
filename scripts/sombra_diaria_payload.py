@@ -18,6 +18,7 @@ PASSOS = [
     ("odds_stability", [sys.executable, "-X", "utf8", str(ROOT / "scripts" / "record_odds_smoke.py"), "--report"], 60),
     ("ingest", [sys.executable, "-X", "utf8", "-m", "src.ingest_sofascore"], 5400),
     ("espelho", [sys.executable, "-X", "utf8", str(ROOT / "scripts" / "sync_matches_from_sofascore.py")], 300),
+    ("collection_only", [sys.executable, "-X", "utf8", str(ROOT / "scripts" / "collect_collection_only.py")], 300),
     ("cron_models", [sys.executable, "-X", "utf8", "-m", "src.cron_update_models"], 600),
     ("settle", [sys.executable, "-X", "utf8", str(ROOT / "scripts" / "sombra.py"), "--settle"], 300),
     ("capture", [sys.executable, "-X", "utf8", str(ROOT / "scripts" / "sombra.py"), "--capture"], 300),
