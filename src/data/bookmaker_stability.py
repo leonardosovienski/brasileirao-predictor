@@ -4,6 +4,7 @@ from __future__ import annotations
 from collections import defaultdict
 from datetime import datetime
 import json
+import statistics
 from pathlib import Path
 from typing import Any
 
@@ -44,5 +45,10 @@ def stability_report(path: Path) -> dict[str, Any]:
         elif coverage < MIN_EVENT_COVERAGE: classification = "BOOKMAKER_INSUFFICIENT_COVERAGE"
         elif not lag_ok: classification = "BOOKMAKER_INTERMITTENT"
         else: classification = "BOOKMAKER_STABLE"
-        output.append({"bookmaker_key": key, "bookmaker_type": kind, "smokes_observed": len(smoke_ids), "smokes_present": present, "presence_rate": round(present / len(smoke_ids), 4) if smoke_ids else 0.0, "event_coverage": round(coverage, 4), "totals_coverage": round(coverage, 4), "valid_quote_rate": 1.0, "max_update_lag_seconds": max((float(r["update_lag_seconds"]) for r in rows), default=None), "classification": classification})
-    return {"schema_version": "bookmaker-stability/v1", "criteria": {"min_smokes": MIN_SMOKES, "min_span_seconds": MIN_SPAN_SECONDS, "min_presence_rate": MIN_PRESENCE_RATE, "min_event_coverage": MIN_EVENT_COVERAGE, "max_lag_seconds": MAX_LAG_SECONDS}, "smokes": len(smoke_ids), "bookmakers": output, "recommendation": "HUMAN_DECISION_REQUIRED"}
+        output.append({"bookmaker_key": key, "bookmaker_type": kind, "smokes_observed": len(smoke_ids), "smokes_present": present, "presence_rate": round(present / len(smoke_ids), 4) if smoke_ids else 0.0, "event_coverage": round(coverage, 4), "totals_coverage": round(coverage, 4), "valid_quote_rate": 1.0, "median_update_lag_seconds": statistics.median(float(r["update_lag_seconds"]) for r in rows), "valid_quotes": sum(int(r["valid_quotes"]) for r in rows), "max_update_lag_seconds": max((float(r["update_lag_seconds"]) for r in rows), default=None), "classification": classification})
+    stable = [r for r in output if r["classification"] == "BOOKMAKER_STABLE"]
+    stable.sort(key=lambda r: (-r["presence_rate"], -r["event_coverage"], r["median_update_lag_seconds"], -r["valid_quotes"], r["bookmaker_key"]))
+    recommendation = ("BOOKMAKER_RECOMMENDATION_READY" if stable else
+                      "NO_STABLE_BOOKMAKER_FOUND" if len(smoke_ids) >= MIN_SMOKES else
+                      "BOOKMAKER_STABILITY_PENDING")
+    return {"schema_version": "bookmaker-stability/v1", "criteria": {"min_smokes": MIN_SMOKES, "min_span_seconds": MIN_SPAN_SECONDS, "min_presence_rate": MIN_PRESENCE_RATE, "min_event_coverage": MIN_EVENT_COVERAGE, "max_lag_seconds": MAX_LAG_SECONDS}, "smokes": len(smoke_ids), "bookmakers": output, "recommended_bookmaker": stable[0]["bookmaker_key"] if stable else None, "approved_alternatives": [r["bookmaker_key"] for r in stable[1:]], "recommendation": recommendation}

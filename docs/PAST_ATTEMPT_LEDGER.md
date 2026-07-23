@@ -10,6 +10,7 @@
 | PA-06 | Curated PIT isolado | raw + curated + evaluation | dados de teste | contrato implementado e testado | `src/data/pit_backfill.py` | WORKED |
 | PA-07 | Shadow evaluator estrito | classificação e hash | JSONL atual | 8 `LEGACY_INCOMPLETE`, 0 elegíveis | `scripts/evaluate_shadow_cohort.py` | STILL_ACTIVE |
 | PA-08 | The Odds API v4 para odds prospectivas | adaptador `the_odds_api_provider` | documentação oficial e fixtures | bookmaker/timestamp explícitos no payload | `src/data/the_odds_api_provider.py` | PARTIALLY_WORKED: requer chave e smoke real |
+| PA-09 | Estabilidade de bookmaker | smoke append-only, sem picks | The Odds API região eu | primeiro smoke válido; 3/24h ainda não atingidos | `scripts/record_odds_smoke.py` | STILL_ACTIVE |
 
 Registros legados nunca aumentam o Quality Gate. H3/H5 só podem ser avaliadas
 com 100 picks prospectivos elegíveis e liquidados, sem alterar o modelo.

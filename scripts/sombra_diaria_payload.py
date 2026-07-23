@@ -14,6 +14,8 @@ from tools.secret_redaction import collect_sensitive_values, safe_redact_text
 SENSITIVE_VALUES = collect_sensitive_values()
 
 PASSOS = [
+    ("odds_smoke", [sys.executable, "-X", "utf8", str(ROOT / "scripts" / "record_odds_smoke.py"), "--region", "eu"], 120),
+    ("odds_stability", [sys.executable, "-X", "utf8", str(ROOT / "scripts" / "record_odds_smoke.py"), "--report"], 60),
     ("ingest", [sys.executable, "-X", "utf8", "-m", "src.ingest_sofascore"], 5400),
     ("espelho", [sys.executable, "-X", "utf8", str(ROOT / "scripts" / "sync_matches_from_sofascore.py")], 300),
     ("cron_models", [sys.executable, "-X", "utf8", "-m", "src.cron_update_models"], 600),

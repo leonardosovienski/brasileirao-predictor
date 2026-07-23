@@ -24,3 +24,4 @@ def test_stable_and_insufficient_coverage_are_deterministic(tmp_path: Path):
     append_smoke(ledger, rows)
     states = {r["bookmaker_key"]:r["classification"] for r in stability_report(ledger)["bookmakers"]}
     assert states == {"pinnacle":"BOOKMAKER_STABLE", "thinbook":"BOOKMAKER_INSUFFICIENT_COVERAGE"}
+    assert stability_report(ledger)["recommended_bookmaker"] == "pinnacle"
