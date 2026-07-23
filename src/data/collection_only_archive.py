@@ -57,8 +57,12 @@ def collect(conn: sqlite3.Connection, *, root: Path, archive_path: Path = ARCHIV
         if current is None:
             if not dry_run: archive.append(envelope); current_by_event[envelope.canonical_event_id] = envelope
             written += 1; current = envelope
-        for state in (LifecycleState.VALIDATED, LifecycleState.SNAPSHOT_RECORDED):
-            if current.lifecycle_state == state: continue
+        for state, predecessor in ((LifecycleState.VALIDATED, LifecycleState.DISCOVERED),
+                                   (LifecycleState.SNAPSHOT_RECORDED, LifecycleState.VALIDATED)):
+            # A retry may resume from EVENT_STARTED or later; never regress the
+            # append-only lifecycle to a prior state.
+            if current.lifecycle_state != predecessor:
+                continue
             next_item = current.transition(state, at=now)
             if not dry_run: archive.append(next_item, previous=current); current_by_event[envelope.canonical_event_id] = next_item
             written += 1; current = next_item

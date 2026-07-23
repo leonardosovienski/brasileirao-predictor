@@ -24,3 +24,12 @@ def test_collection_only_is_idempotent_and_never_uses_shadow_state(tmp_path: Pat
     assert first["funnel"]["complete"] == 1
     assert second["transitions_written"] == 0
     assert "PROSPECTIVE_ELIGIBLE" not in archive.read_text(encoding="utf-8")
+
+
+def test_retry_resumes_event_started_without_lifecycle_regression(tmp_path: Path):
+    conn = db.connect(str(tmp_path / "m.db"))
+    conn.execute("INSERT INTO sofascore_matches (event_id, competition, season, date, kickoff_at, home_team, away_team) VALUES (8, 'Brasileirão', '2026', '2026-07-20', '2026-07-20T20:00:00+00:00', 'Casa', 'Fora')")
+    conn.commit(); archive = tmp_path / "archive.jsonl"; now = datetime(2026, 7, 21, tzinfo=timezone.utc)
+    collect(conn, root=Path.cwd(), archive_path=archive, observed_at=now)
+    result = collect(conn, root=Path.cwd(), archive_path=archive, observed_at=now)
+    assert result["transitions_written"] == 0
