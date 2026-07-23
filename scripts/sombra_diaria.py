@@ -14,7 +14,9 @@ ROOT = Path(__file__).resolve().parent.parent
 WORKSPACE = ROOT.parent
 RUNNER = WORKSPACE / "tools" / "operational_runner.py"
 PAYLOAD = Path(__file__).with_name("sombra_diaria_payload.py")
-LOG_DIR = ROOT / "logs" / "operations"
+# Runtime mutable: heartbeats/logs must never dirty the source worktree.
+# Historical tracked evidence remains in logs/operations; new writes go here.
+LOG_DIR = ROOT / "data" / "runtime" / "operations"
 _GIT_RUN = subprocess.run
 
 
