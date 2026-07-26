@@ -55,6 +55,11 @@ from src.data.bookmaker_odds import (                  # noqa: E402
 from src.data.the_odds_api_provider import TheOddsApiProvider  # noqa: E402
 from predictor_core.data.contracts import DataUnavailableError  # noqa: E402
 
+# `pythonw.exe` (executavel de toda tarefa agendada) nao tem console: um
+# processo de console filho ganharia janela VISIVEL na tela do dono.
+# Saida ja e capturada, entao a flag nao esconde nada.
+_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
+
 SNAPSHOTS_PATH = ROOT / "data" / SNAPSHOTS
 
 # Coorte com bookmaker NOMEADO (pré-registrada em 2026-07-25). As trials
@@ -122,7 +127,8 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
               "Sofascore agregado não é bookmaker auditável]")
         return 0
     code_commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
-                                 text=True, capture_output=True, check=False).stdout.strip()
+                                 text=True, capture_output=True, check=False,
+                                 creationflags=_NO_WINDOW).stdout.strip()
     if not code_commit:
         print("  [coorte prospectiva bloqueada: commit Git indisponível]")
         return 0
