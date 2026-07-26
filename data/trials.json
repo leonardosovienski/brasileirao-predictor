@@ -116,5 +116,99 @@
       "2026-07-17",
       "2026-09-30"
     ]
+  },
+  {
+    "name": "h3-ou25-sombra-pinnacle-2026",
+    "registered_at": "2026-07-26T00:28:58Z",
+    "params": {
+      "market": "ou25",
+      "min_edge": 0.02,
+      "max_edge": 0.15,
+      "stake": "sombra-0u",
+      "mode": "paper",
+      "modelo": "baseline (Elo+cosh)",
+      "league": "Brasileirão Série A",
+      "season": "2026-returno",
+      "odds_source": "the_odds_api",
+      "bookmaker": "pinnacle",
+      "market_key": "totals",
+      "closing_definition": "closing-v1:last-valid-pre-kickoff-by-bookmaker",
+      "identity_mapping": "brasileirao-bookmaker-identity/1.0"
+    },
+    "sharpe": null,
+    "notes": "H3 (baseline puro). Coorte prospectiva com bookmaker NOMEADO. Substitui h3/h5-*-sombra-2026, que capturavam o agregado do Sofascore carimbado com o nome de um book que nunca forneceu aquele preco (defeito B-1, corrigido em 2026-07-25): a odd agora vem do proprio Pinnacle via The Odds API e o fechamento e reconstruido do historico desse mesmo book. Os 8 picks H3 e 3 H5 anteriores permanecem LEGACY_INCOMPLETE e NAO sao migrados. Escolha do Pinnacle: menor vig do conjunto (edge mede o modelo, nao a margem da casa) e padrao-ouro de CLV. Vies conhecido e aceito: cobertura de totals ~37%, concentrada em jogos de maior porte. Gate: 100 picks MATURED_ELIGIBLE; sem capital em nenhuma hipotese."
+  },
+  {
+    "name": "h5-ensemble-xg-sombra-pinnacle-2026",
+    "registered_at": "2026-07-26T00:28:58Z",
+    "params": {
+      "market": "ou25",
+      "min_edge": 0.02,
+      "max_edge": 0.15,
+      "stake": "sombra-0u",
+      "mode": "paper",
+      "modelo": "ensemble 0.5xbaseline + 0.5xatkdef-xG (src/xg_model.py)",
+      "league": "Brasileirão Série A",
+      "season": "2026-returno",
+      "odds_source": "the_odds_api",
+      "bookmaker": "pinnacle",
+      "market_key": "totals",
+      "closing_definition": "closing-v1:last-valid-pre-kickoff-by-bookmaker",
+      "identity_mapping": "brasileirao-bookmaker-identity/1.0"
+    },
+    "sharpe": null,
+    "notes": "H5 (ensemble xG), populacao PARALELA a H3: mesmos jogos, mesma janela, mesmas odds; so muda a probabilidade do modelo. Coorte prospectiva com bookmaker NOMEADO. Substitui h3/h5-*-sombra-2026, que capturavam o agregado do Sofascore carimbado com o nome de um book que nunca forneceu aquele preco (defeito B-1, corrigido em 2026-07-25): a odd agora vem do proprio Pinnacle via The Odds API e o fechamento e reconstruido do historico desse mesmo book. Os 8 picks H3 e 3 H5 anteriores permanecem LEGACY_INCOMPLETE e NAO sao migrados. Escolha do Pinnacle: menor vig do conjunto (edge mede o modelo, nao a margem da casa) e padrao-ouro de CLV. Vies conhecido e aceito: cobertura de totals ~37%, concentrada em jogos de maior porte. Gate: 100 picks MATURED_ELIGIBLE; sem capital em nenhuma hipotese."
+  },
+  {
+    "name": "h1-ou25-walkforward-2023-2026-exploratoria",
+    "registered_at": "2026-07-26T01:09:25Z",
+    "params": {
+      "market": "ou25",
+      "min_edge": 0.02,
+      "max_edge": 0.15,
+      "stake": "fixo-1u",
+      "params_mode": "walk_forward",
+      "walk_forward_window_rounds": 19,
+      "league": "Brasileirão Série A",
+      "seasons": [
+        "2023",
+        "2024",
+        "2025",
+        "2026"
+      ],
+      "odds_source": "sofascore-aggregate",
+      "registro": "exploratorio-com-observacao-previa-do-baseline"
+    },
+    "sharpe": 0.1043,
+    "notes": "RESULTADO EXPLORATORIO, NAO CONFIRMATORIO — leia isto antes de citar o numero. Walk-forward de 6 blocos sobre 2023-2026 (n=567 OU2.5): PSR 0.9935, IC95 do pnl medio [+0.0264, +0.2032], ROI +11.48%, CLV open +20.60%. Os tres cortes pre-registrados da H1 sao atingidos mesmo apos a deflacao. PROVENIENCIA QUE O DSR NAO ENXERGA: em 2026-07-25 o baseline SEM 2023 foi executado e observado primeiro (n=461, PSR 0.9578, IC_lower -0.0105, NO-GO); so depois a temporada 2023 (season_id 48982) foi ingerida e o mesmo funil reexecutado, virando o IC_lower para positivo. O DSR desconta pelo NUMERO de tentativas registradas, nunca pelo fato de eu ter escolhido qual registrar DEPOIS de ver o resultado — logo este numero nao tem a forca de um pre-registro. Atenuante verificavel: a ingestao de 2023 foi pre-autorizada no HANDOFF em 2026-07-10, no dia do NO-GO original, antes de qualquer dado de 2023 existir no banco; foi UM movimento pre-especificado, nao varredura de variantes ate uma passar. LIMITE ADICIONAL: e' backtest contra odds AGREGADAS do Sofascore, nao contra book real — nao demonstra capturabilidade. Precedente proprio: no wc-predictor o CLV do funil validado era +16.9% e o P&L real foi -5.84u. A conversao deste achado em evidencia confirmatoria exige replicacao em temporada nunca examinada (2021/2022 estao disponiveis no Sofascore e nunca foram ingeridas), com criterio congelado antes. NAO autoriza capital: nenhum gate deste ecossistema o faz.",
+    "test_period": [
+      "2023-01-01",
+      "2026-07-25"
+    ]
+  },
+  {
+    "name": "h7-clv-prospectivo-pinnacle-2026",
+    "registered_at": "2026-07-26T02:58:15Z",
+    "params": {
+      "market": "ou25",
+      "min_edge": 0.02,
+      "max_edge": 0.15,
+      "populacao": "picks prospectivos da coorte h3-ou25-sombra-pinnacle-2026",
+      "metrica": "clv_por_pick = odd_capturada * p_fechamento_shin - 1",
+      "fechamento": "closing-v1:last-valid-pre-kickoff-by-bookmaker",
+      "odds_source": "the_odds_api",
+      "bookmaker": "pinnacle",
+      "criterio_go": "IC95_lower(CLV medio) > 0",
+      "n_minimo": 50,
+      "stake": "sombra-0u",
+      "mode": "paper"
+    },
+    "sharpe": null,
+    "notes": "PRE-REGISTRO em 2026-07-25, ANTES de qualquer pick prospectivo maturar (os 4 picks H3 e 2 H5 capturados hoje tem apito em 26/07 e 29/07). CRITERIO: IC95_lower do CLV medio > 0 com n >= 50 picks liquidados; n < 50 = INCONCLUSIVO_AMOSTRA_INSUFICIENTE, nunca NO-GO. MOTIVO DA REGUA: o P&L por aposta tem desvio 1.099 contra 0.191 do CLV (5.8x). Reamostrando a populacao do H1 (n=567), IC_lower>0 pelo P&L passa em 23% das amostras com N=100 e 26% com N=47 — o gate de 100 picks e' subdimensionado para este efeito. Pelo CLV o mesmo criterio passa em 100% ja com N=47. Isto NAO baixa barra: troca a regua por uma mais precisa. LIMITE DECLARADO ANTES DO RESULTADO: CLV nao e' lucro. Passar aqui prova que o pick pegou preco melhor que o fechamento do Pinnacle, NAO que a estrategia da dinheiro; o wc-predictor teve CLV +16.9% no funil validado e P&L real -5.84u. O poder de 100% acima foi calculado sobre o CLV HISTORICO contra a abertura do agregado Sofascore, benchmark MAIS MOLE que o fechamento do Pinnacle — o poder real aqui deve ser menor, e o n_minimo de 50 pode se revelar insuficiente. NAO SUBSTITUI o gate de 100 picks da h3-ou25-sombra-pinnacle-2026, que permanece o criterio economico. Este e' indicador antecedente. NAO AUTORIZA CAPITAL: nenhum gate deste ecossistema o faz.",
+    "test_period": [
+      "2026-07-26",
+      "2027-12-31"
+    ],
+    "metric": "clv"
   }
 ]
