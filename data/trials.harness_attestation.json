@@ -1,7 +1,7 @@
 {
-  "passed_at": "2026-07-12T01:50:24+00:00",
-  "evaluate": "_rps_pipeline",
+  "passed_at": "2026-07-26T00:28:58+00:00",
+  "evaluate": "evaluate_funnel",
   "edge_verdict": "COMPROVADA",
-  "note": "H4: controle positivo da régua RPS (edge sintético k=3 detectado, ruído uniforme rejeitado)",
-  "metric": "rps"
+  "note": "funil O/U 2%-15%; ataque mandante x1.3; vig 5%; 800 jogos sinteticos/braco; seed 13. Reemitido em 2026-07-25 para o pre-registro da coorte prospectiva com bookmaker nomeado.",
+  "metric": ""
 }

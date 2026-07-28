@@ -49,24 +49,56 @@ def ambiente(tmp_path, monkeypatch):
         "home_team, away_team, odds_over, odds_under) VALUES "
         "(1, 'T', '2027', '2027-01-01', 'Casa', 'Fora', ?, ?)",
         (round(1.0 / (p_base - 0.05), 3), 1.01))
+    # Os dois fixtures ficam a uma SEMANA de distância de propósito: o mesmo par
+    # (mandante, visitante) a 1 dia de intervalo não existe em Série A, e cai na
+    # trava de ambiguidade de `match_fixture` (que é o comportamento correto).
     conn.execute(
         "INSERT INTO sofascore_matches (event_id, competition, season, date, "
         "home_team, away_team, odds_over, odds_under) VALUES "
-        "(2, 'T', '2027', '2027-01-02', 'Casa', 'Fora', ?, ?)",
+        "(2, 'T', '2027', '2027-01-08', 'Casa', 'Fora', ?, ?)",
         (round(1.0 / (p_ens - 0.05), 3), 1.01))
     conn.commit()
     db.update_kickoff(conn, 1, 1_798_761_600)
-    db.update_kickoff(conn, 2, 1_798_848_000)
+    db.update_kickoff(conn, 2, 1_798_761_600 + 7 * 86_400)
 
     monkeypatch.setattr(sombra, "PICKS", tmp_path / "p3.jsonl")
     monkeypatch.setattr(sombra, "RESULTS", tmp_path / "r3.jsonl")
     monkeypatch.setattr(sombra, "PICKS_H5", tmp_path / "p5.jsonl")
     monkeypatch.setattr(sombra, "RESULTS_H5", tmp_path / "r5.jsonl")
     monkeypatch.setenv("BRASILEIRAO_BOOKMAKER", "test-bookmaker")
-    for event_id in (1, 2):
-        conn.execute("INSERT INTO odds_snapshots (event_id, market, selection, odd, captured_at, pre_match) VALUES (?, 'ou2.5', 'over', 2.0, '2026-12-31T10:00:00+00:00', 1)", (event_id,))
-        conn.execute("INSERT INTO odds_snapshots (event_id, market, selection, odd, captured_at, pre_match) VALUES (?, 'ou2.5', 'under', 1.9, '2026-12-31T10:00:00+00:00', 1)", (event_id,))
-    conn.commit()
+
+    # Desde 2026-07-25 a odd do pick vem do BOOK designado (The Odds API), não
+    # mais do agregado do Sofascore. O provider é substituído por um duplo que
+    # devolve exatamente as odds desenhadas acima para os 2 fixtures.
+    monkeypatch.setattr(sombra, "SNAPSHOTS_PATH", tmp_path / "book_snaps.jsonl")
+    kickoffs = dict(conn.execute(
+        "SELECT event_id, kickoff_at FROM sofascore_matches").fetchall())
+    odds_desenhadas = dict(conn.execute(
+        "SELECT event_id, odds_over FROM sofascore_matches").fetchall())
+
+    class _ProviderDuplo:
+        def __init__(self, *a, **k): pass
+
+        def fetch_ou25(self, *, retrieved_at=None):
+            linhas = []
+            for event_id in (1, 2):
+                for selection, price in (("over", odds_desenhadas[event_id]),
+                                         ("under", 1.01)):
+                    linhas.append({
+                        "source": "the_odds_api", "source_event_id": f"api-{event_id}",
+                        "bookmaker": "test-bookmaker", "market": "ou2.5",
+                        "selection": selection, "decimal_odds": float(price),
+                        "odds_captured_at": "2026-12-31T10:00:00+00:00",
+                        "retrieved_at": "2026-12-31T10:00:00+00:00",
+                        "canonical_match_id": f"the_odds_api:api-{event_id}",
+                        "raw_payload_hash": "0" * 64,
+                        "adapter_version": "the-odds-api/1",
+                        "data_quality_status": "PROSPECTIVE_ELIGIBLE",
+                        "kickoff_at": kickoffs[event_id],
+                        "home_team": "Casa", "away_team": "Fora"})
+            return linhas
+
+    monkeypatch.setattr(sombra, "TheOddsApiProvider", _ProviderDuplo)
     return conn, tmp_path, p_base, p_ens
 
 
@@ -77,8 +109,11 @@ def test_h3_e_h5_capturam_em_arquivos_separados(ambiente):
     assert n3 >= 1 and n5 >= 1
     p3 = sombra._load_jsonl(tmp / "p3.jsonl")
     p5 = sombra._load_jsonl(tmp / "p5.jsonl")
-    assert all(p["trial"] == "h3-ou25-sombra-2026" for p in p3)
-    assert all(p["trial"] == "h5-ensemble-xg-sombra-2026" for p in p5)
+    # nomes vêm das constantes do módulo: a coorte muda de identidade quando a
+    # fonte da odd muda, e o teste não deve travar o nome de uma coorte antiga
+    assert all(p["trial"] == sombra.TRIAL for p in p3)
+    assert all(p["trial"] == sombra.TRIAL_H5 for p in p5)
+    assert "pinnacle" in sombra.TRIAL and "pinnacle" in sombra.TRIAL_H5
     # cada população usa a probabilidade do PRÓPRIO motor (evento 1 tem odd
     # desenhada pro edge do baseline; evento 2, pro edge do ensemble)
     over3 = {p["event_id"]: p["model_prob"] for p in p3 if p["selection"] == "over"}
@@ -87,7 +122,12 @@ def test_h3_e_h5_capturam_em_arquivos_separados(ambiente):
     assert over5[2] == pytest.approx(p_ens, abs=1e-4)
     assert p_base != pytest.approx(p_ens, abs=1e-3)   # motores de fato diferem
     assert all(p["predicted_at"] == p["captured_at"] for p in p3 + p5)
-    assert all(p["kickoff_at"] and p["odds_source"] == "sofascore"
+    # proveniência REAL: a odd vem do book, e o pick carrega a identidade da
+    # fonte que a forneceu — não mais o agregado do Sofascore com rótulo falso
+    assert all(p["kickoff_at"] and p["odds_source"] == "the_odds_api"
+               for p in p3 + p5)
+    assert all(p["bookmaker"] == "test-bookmaker" and p["source"] == "the_odds_api"
+               and p["canonical_match_id"].startswith("the_odds_api:")
                for p in p3 + p5)
     assert all(p["capture_turn"] == "manual" for p in p3 + p5)
 

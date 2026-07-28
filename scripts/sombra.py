@@ -49,17 +49,35 @@ from src import db, model                              # noqa: E402
 from src.ingest import load_config                     # noqa: E402
 from src.math_utils import shin_probabilities          # noqa: E402
 from src.data.prospective_shadow import record_hash, validate_pick  # noqa: E402
+from src.data.bookmaker_odds import (                  # noqa: E402
+    MAPPING_VERSION, SNAPSHOTS, closing_quote, load_snapshots, match_fixture,
+    persist_snapshots)
+from src.data.the_odds_api_provider import TheOddsApiProvider  # noqa: E402
+from predictor_core.data.contracts import DataUnavailableError  # noqa: E402
 
-PICKS = ROOT / "data" / "sombra_picks.jsonl"
-RESULTS = ROOT / "data" / "sombra_results.jsonl"
-TRIAL = "h3-ou25-sombra-2026"
+# `pythonw.exe` (executavel de toda tarefa agendada) nao tem console: um
+# processo de console filho ganharia janela VISIVEL na tela do dono.
+# Saida ja e capturada, entao a flag nao esconde nada.
+_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
+
+SNAPSHOTS_PATH = ROOT / "data" / SNAPSHOTS
+
+# Coorte com bookmaker NOMEADO (pré-registrada em 2026-07-25). As trials
+# `*-sombra-2026` antigas capturavam o agregado do Sofascore rotulado com o nome
+# de um book que nunca forneceu aquele preço (defeito B-1). Trocar a fonte do
+# preço e a definição de fechamento é mudança de configuração: coorte nova,
+# contagem do zero, arquivos novos. Os ledgers antigos ficam intactos como
+# LEGACY_INCOMPLETE e NÃO são migrados.
+PICKS = ROOT / "data" / "sombra_picks_pinnacle.jsonl"
+RESULTS = ROOT / "data" / "sombra_results_pinnacle.jsonl"
+TRIAL = "h3-ou25-sombra-pinnacle-2026"
 
 # H5 (ensemble atk/def-xG): população PARALELA à H3 — mesmos jogos, mesma
 # janela de edge, mesmas odds; só muda a probabilidade do modelo. Arquivos
 # separados para nunca contaminar a população da H3.
-PICKS_H5 = ROOT / "data" / "sombra_h5_picks.jsonl"
-RESULTS_H5 = ROOT / "data" / "sombra_h5_results.jsonl"
-TRIAL_H5 = "h5-ensemble-xg-sombra-2026"
+PICKS_H5 = ROOT / "data" / "sombra_h5_picks_pinnacle.jsonl"
+RESULTS_H5 = ROOT / "data" / "sombra_h5_results_pinnacle.jsonl"
+TRIAL_H5 = "h5-ensemble-xg-sombra-pinnacle-2026"
 
 
 def _load_jsonl(path: Path) -> list[dict]:
@@ -109,30 +127,80 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
               "Sofascore agregado não é bookmaker auditável]")
         return 0
     code_commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
-                                 text=True, capture_output=True, check=False).stdout.strip()
+                                 text=True, capture_output=True, check=False,
+                                 creationflags=_NO_WINDOW).stdout.strip()
     if not code_commit:
         print("  [coorte prospectiva bloqueada: commit Git indisponível]")
         return 0
 
+    # --- preço do BOOK designado (não mais o agregado do Sofascore) ---
+    fixtures = [{"event_id": r[0], "home_team": r[1], "away_team": r[2],
+                 "kickoff_at": r[3]}
+                for r in conn.execute(
+                    "SELECT event_id, home_team, away_team, kickoff_at "
+                    "FROM sofascore_matches "
+                    "WHERE home_score IS NULL AND kickoff_at IS NOT NULL")]
+    try:
+        api_rows = TheOddsApiProvider().fetch_ou25()
+    except DataUnavailableError as exc:
+        print(f"  [coorte prospectiva bloqueada: {exc}]")
+        return 0
+    novos, book_odds, nao_resolvidos = [], {}, {}
+    for row in api_rows:
+        if row["bookmaker"] != bookmaker:
+            continue
+        fixture, status = match_fixture(row, fixtures)
+        if fixture is None:
+            nao_resolvidos[(row.get("home_team"), row.get("away_team"))] = status
+            continue
+        snap = {"event_id": fixture["event_id"], "market": f"ou{ou_line}",
+                "selection": row["selection"], "odd": row["decimal_odds"],
+                "odds_captured_at": row["odds_captured_at"], "bookmaker": bookmaker,
+                "source": row["source"], "source_event_id": row["source_event_id"],
+                "canonical_match_id": row["canonical_match_id"],
+                "kickoff_at": fixture["kickoff_at"], "retrieved_at": row["retrieved_at"],
+                "raw_payload_hash": row["raw_payload_hash"],
+                "adapter_version": row["adapter_version"],
+                "identity_status": status, "mapping_version": MAPPING_VERSION}
+        novos.append(snap)
+        book_odds[(fixture["event_id"], row["selection"])] = snap
+    gravados = persist_snapshots(SNAPSHOTS_PATH, novos)
+    print(f"  [book {bookmaker}: {len(book_odds)} cotações elegíveis, "
+          f"{gravados} snapshot(s) novo(s)]")
+    for (h, a), status in sorted(nao_resolvidos.items(), key=lambda kv: str(kv[0])):
+        print(f"  [identidade não resolvida: {h} x {a} — {status}]")
+    if not book_odds:
+        print("  [nenhuma cotação do book designado; nada a capturar]")
+        return 0
+    # abertura = a PRIMEIRA cotação que observamos deste book, não a do Sofascore
+    historico = load_snapshots(SNAPSHOTS_PATH)
+    aberturas: dict[tuple, tuple[str, float]] = {}
+    for s in historico:
+        chave = (s.get("event_id"), s.get("selection"))
+        quando = s.get("odds_captured_at") or ""
+        if chave not in aberturas or quando < aberturas[chave][0]:
+            aberturas[chave] = (quando, s.get("odd"))
+
     n = 0
     rows = conn.execute(
-        "SELECT event_id, date, home_team, away_team, odds_over, odds_under, "
-        "odds_over_open, odds_under_open, kickoff_at "
+        "SELECT event_id, date, home_team, away_team, kickoff_at "
         "FROM sofascore_matches WHERE home_score IS NULL AND date >= ? "
-        "AND odds_over IS NOT NULL AND odds_under IS NOT NULL "
         "ORDER BY date", (hoje,)).fetchall()
     capture_turn = os.environ.get("BRASILEIRAO_CAPTURE_TURN", "manual")
-    for eid, d, home, away, o_over, o_under, oo_over, oo_under, kickoff_at in rows:
+    for eid, d, home, away, kickoff_at in rows:
         r = predictor(home, away)
         if r is None:
             continue
         p_over = r["over"].get(ou_line)
         if p_over is None:
             continue
-        for sel, p_m, odd, odd_open in (
-                ("over", p_over, o_over, oo_over),
-                ("under", 1.0 - p_over, o_under, oo_under)):
-            if (eid, sel) in ja or not odd or odd <= 1.0:
+        for sel, p_m in (("over", p_over), ("under", 1.0 - p_over)):
+            snap = book_odds.get((eid, sel))
+            if (eid, sel) in ja or snap is None:
+                continue
+            odd = snap["odd"]
+            odd_open = aberturas.get((eid, sel), (None, None))[1]
+            if not odd or odd <= 1.0:
                 continue
             edge = p_m - 1.0 / odd
             if not (min_edge < edge <= max_edge):
@@ -145,14 +213,22 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
                 "captured_at": now.isoformat(timespec="seconds"),
                 "predicted_at": now.isoformat(timespec="seconds"),
                 "kickoff_at": kickoff_at,
-                "odds_captured_at": now.isoformat(timespec="seconds"),
+                # carimbo do PRÓPRIO book (last_update da cotação), não a hora
+                # da nossa execução — é o que torna o pick auditável na origem
+                "odds_captured_at": snap["odds_captured_at"],
                 "captured_odds": round(odd, 3),
-                "bookmaker": bookmaker, "source": "sofascore",
-                "source_event_id": str(eid), "canonical_match_id": f"sofascore:{eid}",
+                "bookmaker": bookmaker, "source": snap["source"],
+                "source_event_id": snap["source_event_id"],
+                "canonical_match_id": snap["canonical_match_id"],
                 "closing_definition_version": "closing-v1:last-valid-pre-kickoff-by-bookmaker",
                 "data_quality_status": "PROSPECTIVE_ELIGIBLE",
                 "capture_turn": capture_turn,
-                "odds_source": "sofascore",
+                "odds_source": snap["source"],
+                "sofascore_event_id": str(eid),
+                "identity_status": snap["identity_status"],
+                "mapping_version": snap["mapping_version"],
+                "raw_payload_hash": snap["raw_payload_hash"],
+                "adapter_version": snap["adapter_version"],
                 "event_id": eid, "date": d, "home": home, "away": away,
                 "market": f"ou{ou_line}", "selection": sel,
                 "odd": round(odd, 3), "odds_captured": round(odd, 3),
@@ -236,6 +312,9 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
     _exige_meia_linha(ou_line)
     liquidados = {(r["event_id"], r["selection"])
                   for r in _load_jsonl(results_path)}
+    # Fechamento vem do histórico do MESMO book que precificou o pick — é o que
+    # o campo `closing-v1:last-valid-pre-kickoff-by-bookmaker` sempre prometeu.
+    book_snaps = load_snapshots(SNAPSHOTS_PATH)
     n = 0
     for p in _load_jsonl(picks_path):
         key = (p["event_id"], p["selection"])
@@ -255,13 +334,13 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
         hs, as_, c_over, c_under = row
         close_at = None
         if p.get("pick_id"):
-            snapshots = conn.execute(
-                "SELECT selection, odd, captured_at FROM odds_snapshots "
-                "WHERE event_id=? AND market=? AND pre_match=1 AND captured_at < ? "
-                "ORDER BY captured_at DESC", (p["event_id"], p["market"], p["kickoff_at"])).fetchall()
             by_selection = {}
-            for selection, price, captured_at in snapshots:
-                by_selection.setdefault(selection, (price, captured_at))
+            for selection in ("over", "under"):
+                quote = closing_quote(book_snaps, event_id=p["event_id"],
+                                      market=p["market"], selection=selection,
+                                      kickoff_at=p["kickoff_at"])
+                if quote is not None:
+                    by_selection[selection] = (quote["odd"], quote["odds_captured_at"])
             if p["selection"] not in by_selection:
                 continue  # pending closing: economic cohort must not mature
             selected_close, close_at = by_selection[p["selection"]]

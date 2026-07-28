@@ -7,9 +7,15 @@ import json
 from pathlib import Path
 import sqlite3
 import subprocess
+import sys
 from typing import Any
 
 from predictor_core.contracts.collection import CollectionArchive, LifecycleState, ObservationEnvelope, aggregate_funnel
+
+# `pythonw.exe` (executavel de toda tarefa agendada) nao tem console: um
+# processo de console filho ganharia janela VISIVEL na tela do dono.
+# Saida ja e capturada, entao a flag nao esconde nada.
+_NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
 
 RUN_ID = "collection-brasileirao-20260723-core-9d352654"
 ARCHIVE_PATH = Path(__file__).resolve().parents[2] / "data" / "collection_only" / "brasileirao_events.jsonl"
@@ -26,7 +32,7 @@ def _utc(value: str | None) -> datetime | None:
 
 
 def _commit(root: Path) -> str:
-    return subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True, check=True).stdout.strip()
+    return subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True, check=True, creationflags=_NO_WINDOW).stdout.strip()
 
 
 def collect(conn: sqlite3.Connection, *, root: Path, archive_path: Path = ARCHIVE_PATH,
