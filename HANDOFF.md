@@ -1,5 +1,106 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT OPERACIONAL (2026-07-25)
+>
+> Checkpoint somente-leitura: nenhum dado criado, nenhum backfill, nenhum trial
+> novo, nenhum threshold tocado, nenhuma integração externa.
+>
+> **Git/vendor.** `main` em `fb97521`, worktree limpo; worktree de checkpoint
+> `claude/brasileirao-predictor-checkpoint-9b7d61` no mesmo HEAD. Vendor
+> `predictor_core 1.3.3-ga-20260723` (`CORE_MANIFEST.json` aggregate
+> `0cfd8ecbd3e45538`, sync `2026-07-23T06:27:14Z`); heartbeats declaram
+> `core_provenance.status = VENDOR_VERSION_DECLARED`. Tools `1.3.4` (`ab3bd46`).
+> `data/trials.json` = `5863CAD3…03998B` — confere no repo principal e no worktree.
+>
+> **Jobs (Task Scheduler, 3/3 `Ready` e habilitados, último resultado `0`).**
+> `brasileirao-archival-collection`: `SUCCEEDED` exit 0, fim `2026-07-25T06:30:03Z`
+> (1,56 s), próxima 26/07 03:30 local. `brasileirao-sombra-manha`: `SUCCEEDED`
+> exit 0, fim `2026-07-24T14:16:05Z` (422 s), próxima 25/07 10:00 local.
+> `brasileirao-sombra-noite`: `SUCCEEDED` exit 0, fim `2026-07-25T02:07:16Z`
+> (434 s), próxima 25/07 23:00 local. Locks adquiridos sem reclaim nos três.
+>
+> **Runtime externo.** O archival grava heartbeat/log/events fora do repositório,
+> em `%LOCALAPPDATA%\predictor-tools\runtime\brasileirao-predictor\brasileirao-archival-collection\`;
+> as sombras gravam em `data/runtime/operations/` (ignorado pelo git). As cópias
+> em `logs/operations/*archival-collection*` estão congeladas em 23/07 com
+> `FAILED`: são artefato morto do caminho anterior, não falha viva. O
+> `predictor-gate-monitor` vigia apenas as duas sombras — o job archival ainda
+> não está na lista de tasks monitoradas.
+>
+> **Archival COLLECTION_ONLY** (`collection-brasileirao-20260723-core-9d352654`,
+> `collection-only/1`): 202 eventos no arquivo, 190 `SNAPSHOT_RECORDED`, **12
+> `COMPLETE`/terminais**, todos os demais estados em 0. `events_seen=197` e
+> `transitions_written=0` nas três últimas execuções — idempotência confirmada,
+> sem regressão de lifecycle. `collection_only_archive.py` só faz `SELECT` em
+> `sofascore_matches` e escreve exclusivamente em
+> `data/collection_only/brasileirao_events.jsonl`: **nada dessa coleta entra em
+> `matches.db`, trials, gates, H3 ou H5**.
+>
+> **Gate estrito: `MATURED_ELIGIBLE = 0/100` nas DUAS linhas.**
+> `scripts/evaluate_shadow_cohort.py` (a autoridade do gate, `min_sample=100`,
+> `capital_enabled: false`) classifica **os 8 picks da H3 e os 3 da H5 como
+> `LEGACY_INCOMPLETE`** — nenhum tem `pick_id`, `bookmaker`, `predicted_at`,
+> `kickoff_at`, `odds_captured_at` nem `provenance_hash` do contrato
+> `PICK_REQUIRED`. `PROSPECTIVE_ELIGIBLE = 0`, `closing_coverage = 0.0`,
+> `dataset_hash = e3b0c442…` (conjunto vazio) e veredito `INCONCLUSIVE` em ambas.
+> A coorte prospectiva ainda **não começou a contar**; os 11 registros nunca
+> contarão. O relatório `shadow-report/v2` do monitor conta registro bruto
+> (4 maturados na H3) e por isso NÃO deve ser lido como progresso de gate.
+>
+> **H3** (`h3-ou25-sombra-2026`): 8 picks legados, 4 liquidados, 4 abertos.
+> Diagnóstico operacional apenas: ROI bruto +60% (PnL +2,4 u), CLV médio −5,50%
+> com IC95 bootstrap (seed 13) [−6,37%; −4,94%], **4/4 CLV negativos**, ROI IC95
+> [−47,5%; +125%]. CLV negativo em 100% da amostra é coerente com a
+> abertura-fantasma da H1.
+>
+> **H5** (`h5-ensemble-xg-sombra-2026`): 3 picks legados, 2 liquidados, 1 aberto
+> (Grêmio × Fluminense, 26/07, under @1,95). Linha separada da H3, mesmo gate
+> congelado de 100 `MATURED_ELIGIBLE`.
+>
+> **Estabilidade de bookmaker: `BOOKMAKER_RECOMMENDATION_READY`.** Com 7 smokes
+> (o 7º na execução das 10:00 de 25/07), o ledger sanitizado recomenda
+> **`betsson`**: presença 100%, cobertura O/U 2.5 de 98,35%, lag máximo 71 s
+> (limite 900 s), 238 cotações válidas. Alternativas aprovadas: `nordicbet`,
+> `onexbet`, `unibet_nl`, `unibet_se`, `gtbets`, `pmu_fr`, `williamhill`,
+> `coolbet`. `pinnacle`, `betanysports`, `betonlineag`, `codere_it` e
+> `tipico_de` ficam em `BOOKMAKER_INSUFFICIENT_COVERAGE`; `matchbook` é
+> `BOOKMAKER_REJECTED` por ser exchange. O pré-requisito de estabilidade da
+> escolha da casa única está, portanto, **cumprido** — falta apenas congelar
+> `BRASILEIRAO_BOOKMAKER`, decisão do operador.
+>
+> **Mudou desde o último checkpoint.** (1) Lifecycle archival corrigido
+> (`4388cb9`): a transição inválida `EVENT_STARTED -> VALIDATED` sumiu e o job
+> saiu de `FAILED` (23/07) para `SUCCEEDED` (24/07 e 25/07); funil
+> `EVENT_STARTED 3 → 0`, `COMPLETE 7 → 12`, `SNAPSHOT_RECORDED 192 → 190`.
+> (2) Heartbeats saíram do worktree (`e90c33e`, `fb97521`), com artefatos de
+> runtime destrackeados. (3) Uma liquidação nova em cada linha, do mesmo jogo
+> (Botafogo × Vitória, 23/07, 0-0, under @2,10, +1,10 u, CLV −6,76%): H3 3 → 4,
+> H5 1 → 2. (4) 6º smoke de estabilidade de bookmaker (15 casas, 392 cotações,
+> `picks_persisted: 0`).
+>
+> **Bloqueio único: `BRASILEIRAO_BOOKMAKER` ausente** — bloqueio de decisão de
+> configuração, não bug nem infra. `scripts/sombra.py --capture` falha fechado e
+> `[capture]` fecha com `0 pick(s) novos` em toda execução desde 21/07. Com o
+> ledger em `BOOKMAKER_RECOMMENDATION_READY`, o bloqueio deixou de ser "falta
+> evidência" e passou a ser "falta congelar a casa": enquanto não for congelada,
+> o contador segue em 0/100 e nenhum pick elegível nasce.
+>
+> **Distância até capital.** Nenhum caminho de execução financeira existe:
+> `data/bets.jsonl` e `data/bankroll.jsonl` estão vazios (0 byte), stake é
+> `sombra-0u`, custos são `not_applicable_shadow_no_execution` e o avaliador
+> devolve `capital_enabled: false` fixo. Ordem obrigatória: congelar bookmaker →
+> 100 `MATURED_ELIGIBLE` a partir do zero → critério pré-registrado (CLV médio
+> IC95 bootstrap cluster por jogo > 0 **E** ROI IC_lower > −2%) → só então
+> discutir capital. Ao ritmo histórico (~0,7 pick/dia da coorte legada), 100
+> liquidados cai perto de dezembro/2026, depois do fim da janela pré-registrada
+> (30/09/2026) — a janela provavelmente expira antes do N, e estendê-la é
+> tentativa N+1.
+>
+> **Próximo evento objetivo:** `brasileirao-sombra-noite` em 25/07 23:00 local
+> (a execução das 10:00 já ocorreu e produziu o 7º smoke). **H1 segue
+> `HYPOTHESIS_REFUTED`** (abertura-fantasma, bloco de 2026-07-17), H3 e H5
+> seguem separadas e com gate congelado em 100 `MATURED_ELIGIBLE`.
+
 > ## BACKFILL PIT ISOLADO (2026-07-21)
 >
 > `src/data/pit_backfill.py` implementa raw imutável com manifesto/hash, curated
