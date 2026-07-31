@@ -26,6 +26,14 @@ jobs:
           repository: leonardosovienski/core-predictor
           path: core
 
+      # O ecossistema é montado com os domínios LADO A LADO: scripts/sombra_diaria.py
+      # resolve o runner em `ROOT.parent / "tools"`. O actions/checkout não escreve
+      # fora do $GITHUB_WORKSPACE, então o clone vive em ./tools e este link o expõe
+      # também como pasta irmã — sem isso, main() cai no guard "operational
+      # entrypoint is incomplete" e retorna 3 num runner limpo.
+      - name: Expor tools como pasta irmã (layout do ecossistema)
+        run: ln -sfn "$GITHUB_WORKSPACE/tools" "$GITHUB_WORKSPACE/../tools"
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
