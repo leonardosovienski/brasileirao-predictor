@@ -17,9 +17,13 @@ def _entrypoint():
     return module
 
 
+# O CI roda `scripts/seed_test_fixtures.py` antes da suíte, que cria um
+# matches.db vazio com o schema canônico — com ele presente este teste RODA em
+# vez de pular. O skip fica para quem rodar `pytest` num clone sem semear:
+# melhor pular explicando do que estourar por artefato ausente.
 @pytest.mark.skipif(
     not (ROOT / "data" / "matches.db").is_file(),
-    reason="matches.db é artefato operacional local (gitignored); ausente num clone fresco de CI",
+    reason="matches.db ausente (gitignored) — rode scripts/seed_test_fixtures.py",
 )
 def test_shadow_consumer_provenance_identifies_turn_and_inputs() -> None:
     metadata = _entrypoint().consumer_provenance("brasileirao-sombra-manha")

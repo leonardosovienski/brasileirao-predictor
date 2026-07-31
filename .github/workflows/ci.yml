@@ -64,6 +64,13 @@ jobs:
             fi
           fi
 
+      - name: Gerar Artefatos Operacionais de Teste
+        # O runner é limpo e não tem data/matches.db (gitignored). O seed cria o
+        # banco VAZIO com o schema canônico de src.db, para que o teste de
+        # proveniência operacional RODE aqui em vez de só pular. O script nunca
+        # sobrescreve arquivo existente.
+        run: python scripts/seed_test_fixtures.py
+
       - name: Executar Testes
         run: |
           PYTHONPATH=.:vendor:core:tools python -m pytest -v \
