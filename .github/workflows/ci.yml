@@ -59,4 +59,4 @@ jobs:
       - name: Executar Testes
         run: |
           PYTHONPATH=.:vendor:core:tools python -m pytest -v \
-            --ignore=tests/test_weekly_download.py || true
+            --ignore=tests/test_weekly_download.py

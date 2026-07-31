@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -15,6 +17,10 @@ def _entrypoint():
     return module
 
 
+@pytest.mark.skipif(
+    not (ROOT / "data" / "matches.db").is_file(),
+    reason="matches.db é artefato operacional local (gitignored); ausente num clone fresco de CI",
+)
 def test_shadow_consumer_provenance_identifies_turn_and_inputs() -> None:
     metadata = _entrypoint().consumer_provenance("brasileirao-sombra-manha")
     assert metadata["project_name"] == "brasileirao-predictor"
