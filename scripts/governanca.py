@@ -149,7 +149,12 @@ def main():
         attestation_path=att,
         note=f"funil O/U {cfg['backtest']['min_edge']:.0%}-"
              f"{cfg['backtest']['max_edge']:.0%}; ataque mandante ×{INFLATE}; "
-             f"vig {VIG:.0%}; {N_GAMES} jogos sintéticos/braço; seed {SEED}")
+             f"vig {VIG:.0%}; {N_GAMES} jogos sintéticos/braço; seed {SEED}",
+        # evaluate_funnel julga GO/NO-GO por PSR (probabilistic_sharpe_ratio)
+        # + IC do retorno médio — não RPS (H4, ordinal) nem CLV (H7, closing
+        # line). Trials novas registradas contra este atestado devem declarar
+        # metric="psr", senão o registry levanta MetricMismatchError.
+        metric="psr")
     print(f"controle positivo OK — atestado em {att.name} ({record['passed_at']})")
 
     # 2) pré-registro das hipóteses (sharpe=None: resultado ainda não existe)
