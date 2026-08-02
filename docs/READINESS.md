@@ -4,7 +4,7 @@ Status: `READY_WITH_EXTERNAL_BLOCKER`.
 
 ## Gates homologados
 
-- Python 3.13: 410 testes aprovados, zero falhas e zero skips; a integração Redis real faz parte da execução final.
+- Python 3.13: 413 testes aprovados (1 deselecionado), zero falhas; mais 1 teste de integração Redis real na execução final (414 no total, verificado em CI).
 - .NET 10: build Release com warnings como erro, 0 warnings; 30 testes aprovados, zero falhas e zero skips.
 - Ruff: `ruff check src scripts tests` e `ruff format --check src scripts tests` verdes, sem ignores amplos.
 - Pyright: runtime homologado e fronteiras públicas verdes; pesquisa permanece explicitamente fora do escopo tipado.
