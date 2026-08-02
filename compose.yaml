@@ -1,0 +1,76 @@
+name: brasileirao-predictor
+services:
+  redis:
+    image: redis:8.2.1-alpine3.22
+    command: ["redis-server", "--appendonly", "yes", "--appendfsync", "everysec"]
+    volumes: ["redis-data:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  init-data:
+    build:
+      context: .
+      dockerfile: Dockerfile.cli
+      args:
+        PREDICTOR_CORE_WHEEL_URL: ${PREDICTOR_CORE_WHEEL_URL:?required}
+        PREDICTOR_OPS_WHEEL_URL: ${PREDICTOR_OPS_WHEEL_URL:?required}
+    entrypoint: ["python", "-m", "scripts.init_compose_data"]
+    user: "0:0"
+    environment: &paths
+      REDIS_URL: redis://redis:6379/0
+      SPORTS_DB_PATH: /app/data/sports.db
+      MARKET_DB_PATH: /app/data/market.db
+      VORP_ARTIFACT_PATH: /app/config/vorp.json
+      TITULARIDADE_PATH: /app/config/titularidade.json
+      RUNTIME_DIR: /app/runtime
+      KERNEL_VORP_THETA: "0.0"
+      KERNEL_MAX_GOALS: "12"
+    volumes: ["app-data:/app/data"]
+    restart: "no"
+
+  kernel:
+    build:
+      context: .
+      dockerfile: Dockerfile.kernel
+      args:
+        PREDICTOR_CORE_WHEEL_URL: ${PREDICTOR_CORE_WHEEL_URL:?required}
+        PREDICTOR_OPS_WHEEL_URL: ${PREDICTOR_OPS_WHEEL_URL:?required}
+    environment: *paths
+    volumes: ["app-data:/app/data:ro"]
+    read_only: true
+    tmpfs: ["/tmp"]
+    depends_on:
+      redis: {condition: service_healthy}
+      init-data: {condition: service_completed_successfully}
+    healthcheck:
+      test: ["CMD", "brasileirao-kernel", "--healthcheck"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  worker:
+    build: {context: ., dockerfile: Dockerfile.worker}
+    environment:
+      <<: *paths
+      EXCHANGE_WEBSOCKET_URL: ${EXCHANGE_WEBSOCKET_URL:-wss://exchange.invalid/odds/ws}
+      EXCHANGE_API_KEY: ${EXCHANGE_API_KEY:-}
+    volumes:
+      - app-data:/app/data:ro
+      - ./docker:/app/config:ro
+    read_only: true
+    tmpfs: ["/tmp"]
+    depends_on:
+      redis: {condition: service_healthy}
+      kernel: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "dotnet", "LineupWorker.dll", "--healthcheck"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  redis-data:
+  app-data:

@@ -17,16 +17,18 @@ observada pré-apito pelo cron), com fallback pro fechamento na base histórica
 pactuada × probabilidade Shin do fechamento − 1 — porque converge com dezenas
 de apostas, não milhares. Significância: `python -m src.bootstrap`.
 """
+
 import csv
 import sys
 from datetime import date, timedelta
+
+from predictor_core.obs import emit_event
 
 from . import db, model, ratings
 from . import market_pricer as mp
 from .ingest import ROOT, load_config
 from .math_utils import shin_probabilities
 from .predict import _canon
-from predictor_core.obs import emit_event
 
 OUTCOMES = ("home", "draw", "away")
 
@@ -38,12 +40,14 @@ def _load_odds(conn):
             "SELECT date, home_team, away_team, odds_home, odds_draw, odds_away, "
             "odds_over, odds_under, odds_home_open, odds_draw_open, odds_away_open, "
             "odds_over_open, odds_under_open "
-            "FROM sofascore_matches WHERE odds_home IS NOT NULL").fetchall()
+            "FROM sofascore_matches WHERE odds_home IS NOT NULL"
+        ).fetchall()
     except Exception:
         return out
     for d, h, a, oh, od, oa, oov, oun, oh_o, od_o, oa_o, oov_o, oun_o in rows:
         out.setdefault(frozenset((_canon(h), _canon(a))), []).append(
-            (d, _canon(h), oh, od, oa, oov, oun, oh_o, od_o, oa_o, oov_o, oun_o))
+            (d, _canon(h), oh, od, oa, oov, oun, oh_o, od_o, oa_o, oov_o, oun_o)
+        )
     return out
 
 
@@ -77,14 +81,14 @@ def _find_odds(odds, home, away, d):
 # em odds_lines). Mantém _load_odds/_find_odds intactos (back-compat). #
 # ------------------------------------------------------------------ #
 
+
 def _load_ext_index(conn):
     """frozenset(canon_home, canon_away) → [(date, canon_home, event_id)].
     Espelha o casamento de _load_odds, mas carrega o event_id para juntar
     com as colunas flat e a tabela odds_lines."""
     idx = {}
     try:
-        rows = conn.execute(
-            "SELECT event_id, date, home_team, away_team FROM sofascore_matches").fetchall()
+        rows = conn.execute("SELECT event_id, date, home_team, away_team FROM sofascore_matches").fetchall()
     except Exception:
         return idx
     for eid, d, h, a in rows:
@@ -122,14 +126,23 @@ def _load_flat_markets(conn):
             "SELECT event_id, odds_dc_1x, odds_dc_x2, odds_dc_12, "
             "odds_btts_yes, odds_btts_no, "
             "odds_dc_1x_open, odds_dc_x2_open, odds_dc_12_open, "
-            "odds_btts_yes_open, odds_btts_no_open FROM sofascore_matches").fetchall()
+            "odds_btts_yes_open, odds_btts_no_open FROM sofascore_matches"
+        ).fetchall()
     except Exception:
         return out
     for r in rows:
-        out[r[0]] = {"dc_1x": r[1], "dc_x2": r[2], "dc_12": r[3],
-                     "btts_yes": r[4], "btts_no": r[5],
-                     "dc_1x_open": r[6], "dc_x2_open": r[7], "dc_12_open": r[8],
-                     "btts_yes_open": r[9], "btts_no_open": r[10]}
+        out[r[0]] = {
+            "dc_1x": r[1],
+            "dc_x2": r[2],
+            "dc_12": r[3],
+            "btts_yes": r[4],
+            "btts_no": r[5],
+            "dc_1x_open": r[6],
+            "dc_x2_open": r[7],
+            "dc_12_open": r[8],
+            "btts_yes_open": r[9],
+            "btts_no_open": r[10],
+        }
     return out
 
 
@@ -138,8 +151,8 @@ def _load_lines(conn):
     out = {}
     try:
         rows = conn.execute(
-            "SELECT event_id, market, line, odd_a, odd_b, odd_a_open, odd_b_open "
-            "FROM odds_lines").fetchall()
+            "SELECT event_id, market, line, odd_a, odd_b, odd_a_open, odd_b_open FROM odds_lines"
+        ).fetchall()
     except Exception:
         return out
     for eid, mkt, line, a, b, ao, bo in rows:
@@ -147,9 +160,25 @@ def _load_lines(conn):
     return out
 
 
-def _settle_extended(r, eid, home_oriented, flat, lines, ctx,
-                     res_1x2, hs, as_, total, oh, od_, oa, ou_line,
-                     min_edge, max_edge, ledger):
+def _settle_extended(
+    r,
+    eid,
+    home_oriented,
+    flat,
+    lines,
+    ctx,
+    res_1x2,
+    hs,
+    as_,
+    total,
+    oh,
+    od_,
+    oa,
+    ou_line,
+    min_edge,
+    max_edge,
+    ledger,
+):
     """Liquida os mercados SEM push (BTTS, DC, OU meia-linha) reusando _settle.
     DNB e AH (com push) ficam para o passo 4b."""
     fm = flat.get(eid, {})
@@ -161,16 +190,16 @@ def _settle_extended(r, eid, home_oriented, flat, lines, ctx,
         won_yes = int(hs >= 1 and as_ >= 1)
         ctx["result"] = "yes" if won_yes else "no"
         for sel, p_m, o_cl, o_op, sp, won in (
-                ("yes", p_yes, fm["btts_yes"], fm["btts_yes_open"], sh_b[0], won_yes),
-                ("no", 1.0 - p_yes, fm["btts_no"], fm["btts_no_open"], sh_b[1], 1 - won_yes)):
+            ("yes", p_yes, fm["btts_yes"], fm["btts_yes_open"], sh_b[0], won_yes),
+            ("no", 1.0 - p_yes, fm["btts_no"], fm["btts_no_open"], sh_b[1], 1 - won_yes),
+        ):
             bet = _settle("btts", sel, p_m, sp, o_op, o_cl, won, ctx, min_edge, max_edge)
             if bet:
                 ledger.append(bet)
 
     # --- Double Chance (precisa do 1X2; Shin VEM do 1X2 combinado, não das
     #     odds de DC — 1X/X2/12 se sobrepõem e somam ~2.0) ---
-    if (None not in (oh, od_, oa)
-            and all(fm.get(k) for k in ("dc_1x", "dc_x2", "dc_12"))):
+    if None not in (oh, od_, oa) and all(fm.get(k) for k in ("dc_1x", "dc_x2", "dc_12")):
         # odds em orientação Sofascore → orienta ao mando martj42 (swap 1X↔X2)
         if home_oriented:
             cl = {"1X": fm["dc_1x"], "X2": fm["dc_x2"], "12": fm["dc_12"]}
@@ -178,18 +207,32 @@ def _settle_extended(r, eid, home_oriented, flat, lines, ctx,
         else:
             cl = {"1X": fm["dc_x2"], "X2": fm["dc_1x"], "12": fm["dc_12"]}
             op = {"1X": fm["dc_x2_open"], "X2": fm["dc_1x_open"], "12": fm["dc_12_open"]}
-        sh, _z, _o = shin_probabilities([oh, od_, oa])      # orientado a martj42
-        p_dc = {"1X": r["p_win"] + r["p_draw"],
-                "X2": r["p_draw"] + r["p_loss"],
-                "12": r["p_win"] + r["p_loss"]}
+        sh, _z, _o = shin_probabilities([oh, od_, oa])  # orientado a martj42
+        p_dc = {
+            "1X": r["p_win"] + r["p_draw"],
+            "X2": r["p_draw"] + r["p_loss"],
+            "12": r["p_win"] + r["p_loss"],
+        }
         sh_dc = {"1X": sh[0] + sh[1], "X2": sh[1] + sh[2], "12": sh[0] + sh[2]}
-        won_dc = {"1X": int(res_1x2 in ("home", "draw")),
-                  "X2": int(res_1x2 in ("draw", "away")),
-                  "12": int(res_1x2 in ("home", "away"))}
+        won_dc = {
+            "1X": int(res_1x2 in ("home", "draw")),
+            "X2": int(res_1x2 in ("draw", "away")),
+            "12": int(res_1x2 in ("home", "away")),
+        }
         ctx["result"] = res_1x2
         for sel in ("1X", "X2", "12"):
-            bet = _settle("dc", sel, p_dc[sel], sh_dc[sel], op[sel], cl[sel],
-                          won_dc[sel], ctx, min_edge, max_edge)
+            bet = _settle(
+                "dc",
+                sel,
+                p_dc[sel],
+                sh_dc[sel],
+                op[sel],
+                cl[sel],
+                won_dc[sel],
+                ctx,
+                min_edge,
+                max_edge,
+            )
             if bet:
                 ledger.append(bet)
 
@@ -198,24 +241,24 @@ def _settle_extended(r, eid, home_oriented, flat, lines, ctx,
     for (mkt, line), (a, b, a_op, b_op) in lines.get(eid, {}).items():
         if mkt != "ou" or not (a and b):
             continue
-        if abs(line - ou_line) < 1e-9:                 # 2.5 já no bloco legado
+        if abs(line - ou_line) < 1e-9:  # 2.5 já no bloco legado
             continue
-        if abs((line % 1) - 0.5) > 1e-9:               # linha inteira → push → 4b
+        if abs((line % 1) - 0.5) > 1e-9:  # linha inteira → push → 4b
             continue
         p_over = mp.over_under(r["grid"], line)["Over"]
         sh_ou, _z, _o = shin_probabilities([a, b])
         won_over = int(total > line)
         ctx["result"] = "over" if won_over else "under"
         for sel, p_m, o_cl, o_op, sp, won in (
-                ("over", p_over, a, a_op, sh_ou[0], won_over),
-                ("under", 1.0 - p_over, b, b_op, sh_ou[1], 1 - won_over)):
+            ("over", p_over, a, a_op, sh_ou[0], won_over),
+            ("under", 1.0 - p_over, b, b_op, sh_ou[1], 1 - won_over),
+        ):
             bet = _settle(f"ou{line}", sel, p_m, sp, o_op, o_cl, won, ctx, min_edge, max_edge)
             if bet:
                 ledger.append(bet)
 
 
-def _settle(market, selection, p_model, p_shin_close, odd_open, odd_close,
-            won, ctx, min_edge, max_edge):
+def _settle(market, selection, p_model, p_shin_close, odd_open, odd_close, won, ctx, min_edge, max_edge):
     """Monta uma linha do ledger se a aposta passa na janela de edge.
 
     Preço da aposta = ABERTURA quando existe (janela viável da vida real),
@@ -235,21 +278,33 @@ def _settle(market, selection, p_model, p_shin_close, odd_open, odd_close,
         return None
     clv = round(odd * float(p_shin_close) - 1.0, 4)
     row = {
-        "date": ctx["date"], "competition": ctx["competition"],
-        "home": ctx["home"], "away": ctx["away"],
-        "market": market, "selection": selection, "offered_odd": round(odd, 3),
+        "date": ctx["date"],
+        "competition": ctx["competition"],
+        "home": ctx["home"],
+        "away": ctx["away"],
+        "market": market,
+        "selection": selection,
+        "offered_odd": round(odd, 3),
         "odd_close": round(odd_close, 3) if odd_close else None,
         "bet_at": bet_at,
-        "raw_implied": round(raw_imp, 4), "shin_prob": round(float(p_shin_close), 4),
-        "model_prob": round(p_model, 4), "elo_diff": ctx["elo_diff"],
-        "lambda_home": ctx["lambda_home"], "lambda_away": ctx["lambda_away"],
+        "raw_implied": round(raw_imp, 4),
+        "shin_prob": round(float(p_shin_close), 4),
+        "model_prob": round(p_model, 4),
+        "elo_diff": ctx["elo_diff"],
+        "lambda_home": ctx["lambda_home"],
+        "lambda_away": ctx["lambda_away"],
         "edge_vs_shin": round(p_model - float(p_shin_close), 4),
         "edge_vs_price": round(edge_price, 4),
         "ev": round(p_model * odd - 1.0, 4),
-        "clv": clv, "beat_close": int(clv > 0),
-        "score": ctx["score"], "result": ctx["result"], "won": won,
-        "stake": 1.0, "pnl": round((odd - 1.0) if won else -1.0, 3),
-        "longshot": int(odd >= 5.0), "big_edge": int(edge_price >= 0.15),
+        "clv": clv,
+        "beat_close": int(clv > 0),
+        "score": ctx["score"],
+        "result": ctx["result"],
+        "won": won,
+        "stake": 1.0,
+        "pnl": round((odd - 1.0) if won else -1.0, 3),
+        "longshot": int(odd >= 5.0),
+        "big_edge": int(edge_price >= 0.15),
         "params_mode": "frozen",
     }
     return row
@@ -263,7 +318,8 @@ def run_backtest(cfg, conn):
 
     rows = conn.execute(
         "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-        "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+        "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+    ).fetchall()
     if not rows:
         return None
     # PARIDADE TRAIN/SERVE (fix da auditoria, P1): aplica a MESMA janela do cron
@@ -293,8 +349,7 @@ def run_backtest(cfg, conn):
     if orphans:
         n_rows = sum(len(odds[k]) for k in orphans)
         exemplos = "; ".join(" x ".join(sorted(k)) for k in orphans[:5])
-        print(f"aviso: {n_rows} jogo(s) com odds sem par na base "
-              f"(nomes não reconciliados?): {exemplos}")
+        print(f"aviso: {n_rows} jogo(s) com odds sem par na base (nomes não reconciliados?): {exemplos}")
 
     test_idx = [i for i, r in enumerate(rows) if _find_odds(odds, r[1], r[2], r[0])]
     if not test_idx:
@@ -306,12 +361,11 @@ def run_backtest(cfg, conn):
     cal_years = cfg["model"].get("calibration_window_years")
     if cal_years:
         first_test_date = rows[test_idx[0]][0]
-        cal_cut = (date.fromisoformat(first_test_date)
-                   - timedelta(days=int(cal_years * 365.25))).isoformat()
+        cal_cut = (date.fromisoformat(first_test_date) - timedelta(days=int(cal_years * 365.25))).isoformat()
         hist_cal = [h for h, r in zip(history, rows) if cal_cut <= r[0] < first_test_date]
-        params = model.fit_goal_model(hist_cal or history[:test_idx[0]])
+        params = model.fit_goal_model(hist_cal or history[: test_idx[0]])
     else:
-        params = model.fit_goal_model(history[:test_idx[0]])
+        params = model.fit_goal_model(history[: test_idx[0]])
     max_goals = cfg["model"]["max_goals"]
 
     ledger = []
@@ -327,9 +381,13 @@ def run_backtest(cfg, conn):
 
         total = hs + as_
         ctx = {
-            "date": d, "competition": tournament, "home": home, "away": away,
+            "date": d,
+            "competition": tournament,
+            "home": home,
+            "away": away,
             "elo_diff": round(diff, 1),
-            "lambda_home": round(r["lambda_a"], 3), "lambda_away": round(r["lambda_b"], 3),
+            "lambda_home": round(r["lambda_a"], 3),
+            "lambda_away": round(r["lambda_b"], 3),
             "score": f"{hs}-{as_}",
         }
         res_1x2 = "home" if hs > as_ else ("draw" if hs == as_ else "away")
@@ -349,8 +407,18 @@ def run_backtest(cfg, conn):
             sh, _z, _ov = shin_probabilities([oh, od_, oa])
             p_shin = {"home": sh[0], "draw": sh[1], "away": sh[2]}
             for sel in OUTCOMES:
-                bet = _settle("1x2", sel, p1x2[sel], p_shin[sel], opened[sel], closed[sel],
-                              int(sel == res_1x2), ctx, min_edge, max_edge)
+                bet = _settle(
+                    "1x2",
+                    sel,
+                    p1x2[sel],
+                    p_shin[sel],
+                    opened[sel],
+                    closed[sel],
+                    int(sel == res_1x2),
+                    ctx,
+                    min_edge,
+                    max_edge,
+                )
                 if bet:
                     ledger.append(bet)
 
@@ -362,10 +430,21 @@ def run_backtest(cfg, conn):
                 p_under = 1.0 - p_over
                 sh_ou, _z2, _ov2 = shin_probabilities([o_over, o_under])
                 for sel, p_m, o_open, o_close, sp in (
-                        ("over", p_over, ou_open[0], o_over, sh_ou[0]),
-                        ("under", p_under, ou_open[1], o_under, sh_ou[1])):
-                    bet = _settle("ou25", sel, p_m, sp, o_open, o_close,
-                                  int(sel == res_ou), ctx, min_edge, max_edge)
+                    ("over", p_over, ou_open[0], o_over, sh_ou[0]),
+                    ("under", p_under, ou_open[1], o_under, sh_ou[1]),
+                ):
+                    bet = _settle(
+                        "ou25",
+                        sel,
+                        p_m,
+                        sp,
+                        o_open,
+                        o_close,
+                        int(sel == res_ou),
+                        ctx,
+                        min_edge,
+                        max_edge,
+                    )
                     if bet:
                         ledger.append(bet)
 
@@ -373,25 +452,46 @@ def run_backtest(cfg, conn):
         ev = _find_event(ext_index, home, away, d)
         if ev:
             eid, home_oriented = ev
-            _settle_extended(r, eid, home_oriented, flat_markets, line_markets, ctx,
-                             res_1x2, hs, as_, total, oh, od_, oa, ou_line,
-                             min_edge, max_edge, ledger)
+            _settle_extended(
+                r,
+                eid,
+                home_oriented,
+                flat_markets,
+                line_markets,
+                ctx,
+                res_1x2,
+                hs,
+                as_,
+                total,
+                oh,
+                od_,
+                oa,
+                ou_line,
+                min_edge,
+                max_edge,
+                ledger,
+            )
     if n_partial:
-        print(f"aviso: {n_partial} jogo(s) com mercado 1X2 parcial (odd faltando) "
-              f"— mercado pulado, jogo mantido")
+        print(f"aviso: {n_partial} jogo(s) com mercado 1X2 parcial (odd faltando) — mercado pulado, jogo mantido")
     return params, ledger
 
 
 def _persist(conn, ledger):
     cols = list(ledger[0].keys())
+
     def sqltype(v):
         return "REAL" if isinstance(v, float) else ("INTEGER" if isinstance(v, int) else "TEXT")
+
     conn.execute("DROP TABLE IF EXISTS backtest_bets")
-    conn.execute("CREATE TABLE backtest_bets (id INTEGER PRIMARY KEY, " +
-                 ", ".join(f"{c} {sqltype(ledger[0][c])}" for c in cols) + ")")
+    conn.execute(
+        "CREATE TABLE backtest_bets (id INTEGER PRIMARY KEY, "
+        + ", ".join(f"{c} {sqltype(ledger[0][c])}" for c in cols)
+        + ")"
+    )
     conn.executemany(
         f"INSERT INTO backtest_bets ({','.join(cols)}) VALUES ({','.join('?' * len(cols))})",
-        [tuple(b[c] for c in cols) for b in ledger])
+        [tuple(b[c] for c in cols) for b in ledger],
+    )
     conn.commit()
     path = ROOT / "data" / "backtest_bets.csv"
     path.parent.mkdir(exist_ok=True)
@@ -409,30 +509,34 @@ def _line(label, bets):
     staked = sum(b["stake"] for b in bets)
     pnl = sum(b["pnl"] for b in bets)
     wins = sum(b["won"] for b in bets)
-    print(f"  {label:<10}{n:>5} apostas{wins:>5} acertos ({wins / n:>5.1%})"
-          f"{pnl:>+9.2f}u{pnl / staked:>+8.1%} ROI")
+    print(f"  {label:<10}{n:>5} apostas{wins:>5} acertos ({wins / n:>5.1%}){pnl:>+9.2f}u{pnl / staked:>+8.1%} ROI")
 
 
 def _report(ledger):
-    print(f"total: {len(ledger)} apostas | "
-          f"P&L {sum(b['pnl'] for b in ledger):+.2f}u | "
-          f"ROI {sum(b['pnl'] for b in ledger) / sum(b['stake'] for b in ledger):+.1%}")
+    print(
+        f"total: {len(ledger)} apostas | "
+        f"P&L {sum(b['pnl'] for b in ledger):+.2f}u | "
+        f"ROI {sum(b['pnl'] for b in ledger) / sum(b['stake'] for b in ledger):+.1%}"
+    )
     print("\npor mercado — onde o motor encontra borda:")
     for mkt in sorted({b["market"] for b in ledger}):
         _line(mkt, [b for b in ledger if b["market"] == mkt])
 
     print("\nCLV — a régua de baixa variância (odd pactuada × Shin do fechamento - 1):")
-    for label, pop in (("open", [b for b in ledger if b["bet_at"] == "open"]),
-                       ("close*", [b for b in ledger if b["bet_at"] == "close"])):
+    for label, pop in (
+        ("open", [b for b in ledger if b["bet_at"] == "open"]),
+        ("close*", [b for b in ledger if b["bet_at"] == "close"]),
+    ):
         if not pop:
             print(f"  {label:<8}    0 apostas — sem dados (cron de 2026 ainda não acumulou)")
             continue
         mean_clv = sum(b["clv"] for b in pop) / len(pop)
         beat = sum(b["beat_close"] for b in pop) / len(pop)
-        print(f"  {label:<8}{len(pop):>5} apostas | CLV médio {mean_clv:+.2%} | "
-              f"bateram o fechamento {beat:.1%}")
-    print("  (*) população 'close' é paliativa: aposta no próprio fechamento -> CLV ~ -vig"
-          "\n      por construção. Sinal real só na população 'open'. IC 95%: src.bootstrap")
+        print(f"  {label:<8}{len(pop):>5} apostas | CLV médio {mean_clv:+.2%} | bateram o fechamento {beat:.1%}")
+    print(
+        "  (*) população 'close' é paliativa: aposta no próprio fechamento -> CLV ~ -vig"
+        "\n      por construção. Sinal real só na população 'open'. IC 95%: src.bootstrap"
+    )
 
     print("\ncalibração por faixa de edge (vs preço) — o veredito genial vs ruído:")
     print(f"  {'faixa':<12}{'n':>5}{'prob média':>12}{'acerto real':>13}{'ROI/aposta':>12}")
@@ -452,11 +556,15 @@ def _emit_telemetry(ledger):
     pnl = sum(b["pnl"] for b in ledger)
     open_clv = [b["clv"] for b in ledger if b["bet_at"] == "open"]
     emit_event(
-        "brasileirao", "backtest_completed",
-        metrics={"n_bets": len(ledger),
-                 "roi": round(pnl / staked, 4) if staked else 0.0,
-                 "clv_open_mean": round(sum(open_clv) / len(open_clv), 4) if open_clv else 0.0},
-        metadata={"params_mode": "frozen", "shadow": "v2"})
+        "brasileirao",
+        "backtest_completed",
+        metrics={
+            "n_bets": len(ledger),
+            "roi": round(pnl / staked, 4) if staked else 0.0,
+            "clv_open_mean": round(sum(open_clv) / len(open_clv), 4) if open_clv else 0.0,
+        },
+        metadata={"params_mode": "frozen", "shadow": "v2"},
+    )
 
 
 def main():

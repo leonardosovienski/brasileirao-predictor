@@ -6,6 +6,7 @@ ele super/subestima), nao so quanto erra no agregado.
 
 Uso: python scripts/predict_first18_teams.py [N_JOGOS]  (default 18)
 """
+
 import os
 import sys
 from collections import defaultdict
@@ -21,7 +22,8 @@ conn = db.connect(str(ROOT / cfg["database"]))
 
 rows = conn.execute(
     "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-    "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+).fetchall()
 
 window = cfg["elo"].get("window_years")
 if window:
@@ -31,8 +33,7 @@ if window:
 _, history = ratings.compute_ratings(rows, cfg["elo"])
 
 FIRST_SEASON_DATE = "2026-01-28"
-test_idx = [i for i, r in enumerate(rows)
-            if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
+test_idx = [i for i, r in enumerate(rows) if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
 
 cy = cfg["model"].get("calibration_window_years")
 ccut = (date.fromisoformat(FIRST_SEASON_DATE) - timedelta(days=int(cy * 365.25))).isoformat()
@@ -53,10 +54,17 @@ def brier(ph, pd, pa, real):
     return (ph - yh) ** 2 + (pd - yd) ** 2 + (pa - ya) ** 2
 
 
-team_stats = defaultdict(lambda: {
-    "jogos": 0, "gf": 0, "ga": 0, "xgf": 0.0, "xga": 0.0,
-    "acertos": 0, "brier_total": 0.0,
-})
+team_stats = defaultdict(
+    lambda: {
+        "jogos": 0,
+        "gf": 0,
+        "ga": 0,
+        "xgf": 0.0,
+        "xga": 0.0,
+        "acertos": 0,
+        "brier_total": 0.0,
+    }
+)
 
 for i in test_idx:
     d, h, a, hs, as_, t, neu = rows[i]
@@ -88,18 +96,32 @@ for i in test_idx:
 
 rows_out = []
 for team, s in team_stats.items():
-    delta_ataque = s["gf"] - s["xgf"]       # + = time fez mais gols do que o modelo esperava
-    delta_defesa = s["xga"] - s["ga"]       # + = time sofreu MENOS do que o modelo esperava (defesa melhor)
+    delta_ataque = s["gf"] - s["xgf"]  # + = time fez mais gols do que o modelo esperava
+    delta_defesa = s["xga"] - s["ga"]  # + = time sofreu MENOS do que o modelo esperava (defesa melhor)
     brier_medio = s["brier_total"] / s["jogos"]
-    rows_out.append((team, s["jogos"], s["gf"], s["xgf"], delta_ataque,
-                      s["ga"], s["xga"], delta_defesa, s["acertos"], brier_medio))
+    rows_out.append(
+        (
+            team,
+            s["jogos"],
+            s["gf"],
+            s["xgf"],
+            delta_ataque,
+            s["ga"],
+            s["xga"],
+            delta_defesa,
+            s["acertos"],
+            brier_medio,
+        )
+    )
 
 rows_out.sort(key=lambda x: x[4] + x[7], reverse=True)  # mais "positivo" (superou o modelo) primeiro
 
 print(f"{'Time':22} {'J':3} {'GF':4} {'xGF':6} {'ΔAtaque':8} {'GC':4} {'xGC':6} {'ΔDefesa':8} {'1X2 ok':7} {'Brier':6}")
 for team, jogos, gf, xgf, dat, ga, xga, ddef, acertos, br in rows_out:
-    print(f"{team:22} {jogos:<3} {gf:<4} {xgf:<6.2f} {dat:+.2f}    {ga:<4} {xga:<6.2f} {ddef:+.2f}    "
-          f"{acertos}/{jogos:<4} {br:.2f}")
+    print(
+        f"{team:22} {jogos:<3} {gf:<4} {xgf:<6.2f} {dat:+.2f}    {ga:<4} {xga:<6.2f} {ddef:+.2f}    "
+        f"{acertos}/{jogos:<4} {br:.2f}"
+    )
 
 n_games = len(test_idx)
 brier_uniform = brier(1 / 3, 1 / 3, 1 / 3, "H")  # brier de "sempre 1/3,1/3,1/3" como piso de referencia

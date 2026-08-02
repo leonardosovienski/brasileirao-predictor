@@ -6,6 +6,7 @@ Uso: python -m src.check_coverage
 from src import db
 from src.ingest import ROOT, load_config
 
+
 def main():
     cfg = load_config()
     db_path = ROOT / cfg["database"]
@@ -54,13 +55,23 @@ def main():
 
     print("\n=== COBERTURA DE DADOS (apenas Sofascore) ===\n")
     print(f"Total de jogos no Sofascore:              {total_sofascore}")
-    print(f"Jogos com estatísticas (match_stats):     {stats_matches} ({stats_matches/total_sofascore*100:.1f}%)")
-    print(f"Jogos com odds 1X2 (em sofascore_matches):{odds_1x2} ({odds_1x2/total_sofascore*100:.1f}%)")
-    print(f"Jogos com odds de CARDS (em odds_lines):  {odds_cards} ({odds_cards/total_sofascore*100:.1f}%)")
-    print(f"Jogos com odds de CORNERS (em odds_lines):{odds_corners} ({odds_corners/total_sofascore*100:.1f}%)")
+    print(f"Jogos com estatísticas (match_stats):     {stats_matches} ({stats_matches / total_sofascore * 100:.1f}%)")
+    print(f"Jogos com odds 1X2 (em sofascore_matches):{odds_1x2} ({odds_1x2 / total_sofascore * 100:.1f}%)")
+    print(f"Jogos com odds de CARDS (em odds_lines):  {odds_cards} ({odds_cards / total_sofascore * 100:.1f}%)")
+    print(f"Jogos com odds de CORNERS (em odds_lines):{odds_corners} ({odds_corners / total_sofascore * 100:.1f}%)")
     print()
-    print(f"Jogos com stats + odds cards:             {stats_and_cards} ({stats_and_cards/stats_matches*100:.1f}% dos com stats)" if stats_matches else "Jogos com stats + odds cards: 0")
-    print(f"Jogos com stats + odds corners:           {stats_and_corners} ({stats_and_corners/stats_matches*100:.1f}% dos com stats)" if stats_matches else "Jogos com stats + odds corners: 0")
+    print(
+        f"Jogos com stats + odds cards:             {stats_and_cards} "
+        f"({stats_and_cards / stats_matches * 100:.1f}% dos com stats)"
+        if stats_matches
+        else "Jogos com stats + odds cards: 0"
+    )
+    print(
+        f"Jogos com stats + odds corners:           {stats_and_corners} "
+        f"({stats_and_corners / stats_matches * 100:.1f}% dos com stats)"
+        if stats_matches
+        else "Jogos com stats + odds corners: 0"
+    )
 
     # Breakdown por competição (usando sofascore_matches)
     print("\n--- Por competição (top 5) ---")
@@ -82,6 +93,7 @@ def main():
         print(f"{row[0]}: total={row[1]}, stats={row[2]}, cards_odds={row[3]}, corners_odds={row[4]}")
 
     conn.close()
+
 
 if __name__ == "__main__":
     main()

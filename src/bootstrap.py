@@ -22,6 +22,7 @@ sem recalcular 1000 reamostragens a cada chamada (custaria a resposta
 instantânea do cache de Elo) e sem hardcodar a string no código-fonte (o
 `-8,7%` fixo em `scripts/prever.py` já tinha divergido do valor real -8,37%
 antes desta mudança — exatamente o bug que este cache elimina)."""
+
 import json
 import sys
 
@@ -71,9 +72,11 @@ def ci_mean_cluster(pairs, iterations: int, rng) -> tuple[float, float, float]:
         sample = np.concatenate([vals_by_key[i] for i in idx])
         means[it] = sample.mean()
     all_vals = np.concatenate(vals_by_key)
-    return (float(all_vals.mean()),
-            float(np.percentile(means, 2.5)),
-            float(np.percentile(means, 97.5)))
+    return (
+        float(all_vals.mean()),
+        float(np.percentile(means, 2.5)),
+        float(np.percentile(means, 97.5)),
+    )
 
 
 def _game_key(b):
@@ -91,8 +94,7 @@ def _row(label, pairs, iterations, rng):
     mean, lo, hi = ci_mean_cluster(pairs, iterations, rng)
     # ASCII: '✓' estourava UnicodeEncodeError no console cp1252 do Windows
     sig = "SIGNIFICATIVO" if (lo > 0 or hi < 0) else "cruza o zero"
-    print(f"  {label:<14}{n:>5} ({n_games:>3}j){mean:>+10.2%}  "
-          f"[{lo:>+8.2%}, {hi:>+8.2%}]  {sig}")
+    print(f"  {label:<14}{n:>5} ({n_games:>3}j){mean:>+10.2%}  [{lo:>+8.2%}, {hi:>+8.2%}]  {sig}")
 
 
 def _section(title, bets, metric, iterations, rng):
@@ -100,11 +102,9 @@ def _section(title, bets, metric, iterations, rng):
     print(f"  {'fatia':<14}{'n':>5} {'jogos':>5}{'média':>9}  {'IC 95%':^22}")
     _row("total", [(b[metric], _game_key(b)) for b in bets], iterations, rng)
     for mkt in ("1x2", "ou25"):
-        _row(mkt, [(b[metric], _game_key(b)) for b in bets if b["market"] == mkt],
-             iterations, rng)
+        _row(mkt, [(b[metric], _game_key(b)) for b in bets if b["market"] == mkt], iterations, rng)
     for lo, hi in BANDS:
-        sub = [(b[metric], _game_key(b)) for b in bets
-               if lo <= b["edge_vs_price"] < hi]
+        sub = [(b[metric], _game_key(b)) for b in bets if lo <= b["edge_vs_price"] < hi]
         _row(f"edge {lo:.0%}-{hi:.0%}", sub, iterations, rng)
 
 
@@ -116,25 +116,36 @@ def _clv_cache_entry(label, pairs, iterations, rng):
         return None
     n_games = len({c for _v, c in pairs})
     mean, lo, hi = ci_mean_cluster(pairs, iterations, rng)
-    return {"n": n, "n_games": n_games, "mean": mean, "ci_low": lo, "ci_high": hi,
-            "significant": bool(lo > 0 or hi < 0)}
+    return {
+        "n": n,
+        "n_games": n_games,
+        "mean": mean,
+        "ci_low": lo,
+        "ci_high": hi,
+        "significant": bool(lo > 0 or hi < 0),
+    }
 
 
 def save_clv_cache(open_bets, iterations, rng, computed_at):
     """Grava data/bootstrap_cache.json com o CLV por mercado (população
     'open') pra leitura instantânea por outras CLIs — ver docstring do módulo."""
     entries = {}
-    total = _clv_cache_entry("total", [(b["clv"], _game_key(b)) for b in open_bets],
-                             iterations, rng)
+    total = _clv_cache_entry("total", [(b["clv"], _game_key(b)) for b in open_bets], iterations, rng)
     if total:
         entries["total"] = total
     for mkt in ("1x2", "ou25"):
-        e = _clv_cache_entry(mkt, [(b["clv"], _game_key(b)) for b in open_bets
-                                    if b["market"] == mkt], iterations, rng)
+        e = _clv_cache_entry(
+            mkt,
+            [(b["clv"], _game_key(b)) for b in open_bets if b["market"] == mkt],
+            iterations,
+            rng,
+        )
         if e:
             entries[mkt] = e
-    CACHE_PATH.write_text(json.dumps({"computed_at": computed_at, "markets": entries},
-                                     indent=2, ensure_ascii=False), encoding="utf-8")
+    CACHE_PATH.write_text(
+        json.dumps({"computed_at": computed_at, "markets": entries}, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
 
 
 def main():
@@ -146,8 +157,7 @@ def main():
 
     conn = db.connect(str(ROOT / cfg["database"]))
     try:
-        cur = conn.execute("SELECT market, edge_vs_price, bet_at, pnl, clv, "
-                           "date, home, away FROM backtest_bets")
+        cur = conn.execute("SELECT market, edge_vs_price, bet_at, pnl, clv, date, home, away FROM backtest_bets")
         cols = [c[0] for c in cur.description]
         bets = [dict(zip(cols, r)) for r in cur.fetchall()]
     except Exception:
@@ -157,21 +167,28 @@ def main():
 
     print(f"bootstrap: {iterations} reamostragens, seed {seed}, {len(bets)} apostas no ledger")
 
-    _section("ROI por aposta (stake 1u) — variância alta, exige centenas:",
-             bets, "pnl", iterations, rng)
+    _section("ROI por aposta (stake 1u) — variância alta, exige centenas:", bets, "pnl", iterations, rng)
 
     open_bets = [b for b in bets if b["bet_at"] == "open" and b["clv"] is not None]
     if open_bets:
-        _section(f"CLV (população bet_at='open', n={len(open_bets)}) — a régua que "
-                 "converge com dezenas:", open_bets, "clv", iterations, rng)
+        _section(
+            f"CLV (população bet_at='open', n={len(open_bets)}) — a régua que converge com dezenas:",
+            open_bets,
+            "clv",
+            iterations,
+            rng,
+        )
         import datetime
-        computed_at = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+        computed_at = datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
         save_clv_cache(open_bets, iterations, rng, computed_at)
         print(f"\n[cache gravado: {CACHE_PATH.relative_to(ROOT)}]")
     else:
-        print("\nCLV: nenhuma aposta na população 'open' ainda — o sinal nasce quando o"
-              "\ncron de 2026 acumular abertura+fechamento. A população 'close' não entra"
-              "\naqui: CLV de aposta no próprio fechamento é tautologia (~ -vig).")
+        print(
+            "\nCLV: nenhuma aposta na população 'open' ainda — o sinal nasce quando o"
+            "\ncron de 2026 acumular abertura+fechamento. A população 'close' não entra"
+            "\naqui: CLV de aposta no próprio fechamento é tautologia (~ -vig)."
+        )
 
 
 if __name__ == "__main__":

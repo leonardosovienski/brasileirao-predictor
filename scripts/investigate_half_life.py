@@ -13,6 +13,7 @@ Read-only: NAO toca em config.yaml. So reporta o grid pra decisao humana.
 
 Uso: python scripts/investigate_half_life.py [N_JOGOS]  (default 40)
 """
+
 import os
 import sys
 from datetime import date, timedelta
@@ -28,7 +29,8 @@ conn = db.connect(str(ROOT / cfg["database"]))
 
 rows_all = conn.execute(
     "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-    "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+).fetchall()
 
 window = cfg["elo"].get("window_years")
 if window:
@@ -62,15 +64,15 @@ def run(half_life):
     elo_cfg["form_half_life_years"] = half_life  # None = sem decaimento (baseline extremo)
     _, history = ratings.compute_ratings(rows_all, elo_cfg)
 
-    test_idx = [i for i, r in enumerate(rows_all)
-                if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
+    test_idx = [i for i, r in enumerate(rows_all) if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][
+        :N_GAMES
+    ]
 
-    params = model.fit_goal_model(
-        [h for h, r in zip(history, rows_all) if ccut <= r[0] < FIRST_SEASON_DATE])
+    params = model.fit_goal_model([h for h, r in zip(history, rows_all) if ccut <= r[0] < FIRST_SEASON_DATE])
 
     hits_1x2 = hits_ou = 0
     brier_total = 0.0
-    flagged_bias = 0.0   # soma de |ΔAtaque|+|ΔDefesa| dos 5 times flagged
+    flagged_bias = 0.0  # soma de |ΔAtaque|+|ΔDefesa| dos 5 times flagged
     team_xgf = {}
     team_gf = {}
     team_xga = {}
@@ -116,8 +118,9 @@ def run(half_life):
 
 GRID = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0, None]
 
-print(f"Investigando form_half_life_years em N={N_GAMES} jogos (config atual: "
-      f"{cfg['elo'].get('form_half_life_years')})\n")
+print(
+    f"Investigando form_half_life_years em N={N_GAMES} jogos (config atual: {cfg['elo'].get('form_half_life_years')})\n"
+)
 print(f"{'half_life':10} {'hit_1X2':9} {'hit_OU2.5':10} {'Brier':8} {'vies_flagged':13}")
 results = []
 for hl in GRID:
@@ -125,12 +128,12 @@ for hl in GRID:
     results.append(res)
     hl_s = "None" if hl is None else f"{hl:.1f}"
     marker = "  <- config atual" if hl == cfg["elo"].get("form_half_life_years") else ""
-    print(f"{hl_s:10} {res['hit_1x2']:.1%}     {res['hit_ou25']:.1%}      "
-          f"{res['brier']:.3f}    {res['flagged_bias']:.2f}{marker}")
+    print(
+        f"{hl_s:10} {res['hit_1x2']:.1%}     {res['hit_ou25']:.1%}      "
+        f"{res['brier']:.3f}    {res['flagged_bias']:.2f}{marker}"
+    )
 
 best_brier = min(results, key=lambda r: r["brier"])
 best_bias = min(results, key=lambda r: r["flagged_bias"])
-print(f"\nMenor Brier (melhor calibracao 1X2): half_life={best_brier['half_life']} "
-      f"(Brier={best_brier['brier']:.3f})")
-print(f"Menor vies nos times flagged: half_life={best_bias['half_life']} "
-      f"(vies={best_bias['flagged_bias']:.2f})")
+print(f"\nMenor Brier (melhor calibracao 1X2): half_life={best_brier['half_life']} (Brier={best_brier['brier']:.3f})")
+print(f"Menor vies nos times flagged: half_life={best_bias['half_life']} (vies={best_bias['flagged_bias']:.2f})")

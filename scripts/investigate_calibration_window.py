@@ -17,6 +17,7 @@ Read-only: NAO toca em config.yaml.
 
 Uso: python scripts/investigate_calibration_window.py [N_JOGOS]  (default 40)
 """
+
 import os
 import sys
 from datetime import date, timedelta
@@ -34,7 +35,8 @@ conn = db.connect(str(ROOT / cfg["database"]))
 
 rows_all = conn.execute(
     "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-    "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+).fetchall()
 
 window = cfg["elo"].get("window_years")
 if window:
@@ -47,15 +49,13 @@ _, history = ratings.compute_ratings(rows_all, cfg["elo"])
 FIRST_SEASON_DATE = "2026-01-28"
 MAXG = cfg["model"]["max_goals"]
 
-test_idx = [i for i, r in enumerate(rows_all)
-            if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
+test_idx = [i for i, r in enumerate(rows_all) if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
 
 FLAGGED_TEAMS = {"Palmeiras", "Grêmio", "Botafogo", "Internacional", "Cruzeiro"}
 MIN_EDGE, MAX_EDGE = cfg["backtest"]["min_edge"], cfg["backtest"]["max_edge"]
 
 odds_ou = {}
-for row in conn.execute(
-        "SELECT date, home_team, away_team, odds_over, odds_under FROM sofascore_matches").fetchall():
+for row in conn.execute("SELECT date, home_team, away_team, odds_over, odds_under FROM sofascore_matches").fetchall():
     d, h, a, oo, ou = row
     odds_ou[(d, _canon(h), _canon(a))] = (oo, ou)
 
@@ -114,8 +114,9 @@ def run(cy):
             mkt, _z, _o = shin_probabilities([oo, ou_odd])
             p_over_mkt, p_under_mkt = float(mkt[0]), float(mkt[1])
             for side, edge, mp, odd, won in (
-                    ("OVER", p_over / p_over_mkt - 1.0, p_over, oo, real_over),
-                    ("UNDER", p_under / p_under_mkt - 1.0, p_under, ou_odd, not real_over)):
+                ("OVER", p_over / p_over_mkt - 1.0, p_over, oo, real_over),
+                ("UNDER", p_under / p_under_mkt - 1.0, p_under, ou_odd, not real_over),
+            ):
                 if MIN_EDGE <= edge <= MAX_EDGE:
                     ev_bets += 1
                     ev_wins += int(won)
@@ -135,36 +136,50 @@ def run(cy):
 
     n = len(test_idx)
     return {
-        "cy": cy, "n_train": n_train, "n": n,
-        "hit_1x2": hits_1x2 / n, "hit_ou25": hits_ou / n,
-        "brier": brier_total / n, "flagged_bias": flagged_bias,
-        "ev_bets": ev_bets, "ev_wins": ev_wins, "ev_pnl": ev_pnl,
+        "cy": cy,
+        "n_train": n_train,
+        "n": n,
+        "hit_1x2": hits_1x2 / n,
+        "hit_ou25": hits_ou / n,
+        "brier": brier_total / n,
+        "flagged_bias": flagged_bias,
+        "ev_bets": ev_bets,
+        "ev_wins": ev_wins,
+        "ev_pnl": ev_pnl,
     }
 
 
 GRID = [0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, None]
 
-print(f"Investigando calibration_window_years em N={N_GAMES} jogos (config atual: "
-      f"{cfg['model'].get('calibration_window_years')})\n")
-print(f"{'cy':6} {'n_train':8} {'hit_1X2':8} {'hit_OU2.5':10} {'Brier':7} {'vies_flg':9} "
-      f"{'ev_bets':8} {'ev_win%':8} {'ev_ROI':8}")
+print(
+    f"Investigando calibration_window_years em N={N_GAMES} jogos (config atual: "
+    f"{cfg['model'].get('calibration_window_years')})\n"
+)
+print(
+    f"{'cy':6} {'n_train':8} {'hit_1X2':8} {'hit_OU2.5':10} {'Brier':7} {'vies_flg':9} "
+    f"{'ev_bets':8} {'ev_win%':8} {'ev_ROI':8}"
+)
 results = []
 for cy in GRID:
     res = run(cy)
     results.append(res)
     cy_s = "None" if cy is None else f"{cy:.2f}"
     marker = "  <- config atual" if cy == cfg["model"].get("calibration_window_years") else ""
-    roi_s = f"{res['ev_pnl']/res['ev_bets']:+.1%}" if res["ev_bets"] else "n/a"
-    win_s = f"{res['ev_wins']/res['ev_bets']:.1%}" if res["ev_bets"] else "n/a"
-    print(f"{cy_s:6} {res['n_train']:<8} {res['hit_1x2']:.1%}    {res['hit_ou25']:.1%}      "
-          f"{res['brier']:.3f}   {res['flagged_bias']:<9.2f}{res['ev_bets']:<8} {win_s:8} {roi_s}{marker}")
+    roi_s = f"{res['ev_pnl'] / res['ev_bets']:+.1%}" if res["ev_bets"] else "n/a"
+    win_s = f"{res['ev_wins'] / res['ev_bets']:.1%}" if res["ev_bets"] else "n/a"
+    print(
+        f"{cy_s:6} {res['n_train']:<8} {res['hit_1x2']:.1%}    {res['hit_ou25']:.1%}      "
+        f"{res['brier']:.3f}   {res['flagged_bias']:<9.2f}{res['ev_bets']:<8} {win_s:8} {roi_s}{marker}"
+    )
 
 best_brier = min(results, key=lambda r: r["brier"])
 best_bias = min(results, key=lambda r: r["flagged_bias"])
 with_bets = [r for r in results if r["ev_bets"] > 0]
 if with_bets:
     best_roi = max(with_bets, key=lambda r: r["ev_pnl"] / r["ev_bets"])
-    print(f"\nMelhor ROI de EV (OU2.5): cy={best_roi['cy']} "
-          f"(ROI={best_roi['ev_pnl']/best_roi['ev_bets']:+.1%}, n={best_roi['ev_bets']})")
+    print(
+        f"\nMelhor ROI de EV (OU2.5): cy={best_roi['cy']} "
+        f"(ROI={best_roi['ev_pnl'] / best_roi['ev_bets']:+.1%}, n={best_roi['ev_bets']})"
+    )
 print(f"Menor Brier (melhor calibracao 1X2): cy={best_brier['cy']} (Brier={best_brier['brier']:.3f})")
 print(f"Menor vies nos times flagged: cy={best_bias['cy']} (vies={best_bias['flagged_bias']:.2f})")

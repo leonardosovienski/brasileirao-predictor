@@ -7,6 +7,7 @@ vendorizada por um fork manual, quebrando a regra de escrita unidirecional do co
 
 `probabilistic_sharpe_ratio`, `block_bootstrap_ci` etc. continuam vindo do core.
 """
+
 import numpy as np
 
 # ---------------------------------------------------------------------------
@@ -39,16 +40,14 @@ def brier_skill_score(P_model: np.ndarray, P_base: np.ndarray, Y: np.ndarray) ->
 def _autocovariances_fft(d_c: np.ndarray, max_lag: int) -> np.ndarray:
     """Autocovarâncias γ̂_0…γ̂_{max_lag-1} via FFT. Sem loops Python."""
     n = d_c.shape[0]
-    fft_len = 1 << int(np.ceil(np.log2(2 * n)))   # próxima pot. de 2 evita aliasing
+    fft_len = 1 << int(np.ceil(np.log2(2 * n)))  # próxima pot. de 2 evita aliasing
     D = np.fft.rfft(d_c, n=fft_len)
     acf_raw = np.fft.irfft(D * np.conj(D)).real[:max_lag]
     lags = np.arange(max_lag, dtype=float)
-    return acf_raw / np.maximum(n - lags, 1.0)     # normalização não-viesada por lag
+    return acf_raw / np.maximum(n - lags, 1.0)  # normalização não-viesada por lag
 
 
-def diebold_mariano_hln(
-    e1: np.ndarray, e2: np.ndarray, h: int = 1
-) -> tuple[float, float]:
+def diebold_mariano_hln(e1: np.ndarray, e2: np.ndarray, h: int = 1) -> tuple[float, float]:
     """Teste Diebold-Mariano com correção Harvey-Leybourne-Newbold (1997).
 
     e1, e2: vetores de erros de previsão (N,) — diferencial de perda = e1²-e2².
@@ -63,7 +62,7 @@ def diebold_mariano_hln(
     from scipy.stats import t as t_dist
 
     n = e1.shape[0]
-    d = e1 ** 2 - e2 ** 2          # diferencial de perda quadrática
+    d = e1**2 - e2**2  # diferencial de perda quadrática
     d_bar = d.mean()
     d_c = d - d_bar
 

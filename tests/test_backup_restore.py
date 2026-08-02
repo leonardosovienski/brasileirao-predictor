@@ -1,11 +1,10 @@
 import json
-from pathlib import Path
 import sqlite3
+from pathlib import Path
 
 import pytest
 
-from src.backup_restore import (BackupError, create_backup, restore_backup,
-                                verify_backup)
+from src.backup_restore import BackupError, create_backup, restore_backup, verify_backup
 
 
 def _root(path: Path) -> Path:
@@ -15,8 +14,7 @@ def _root(path: Path) -> Path:
     conn.execute("insert into matches values (1, 'Palmeiras')")
     conn.commit()
     conn.close()
-    (path / "data" / "sombra_picks.jsonl").write_text(
-        '{"event_id": 1}\n', encoding="utf-8")
+    (path / "data" / "sombra_picks.jsonl").write_text('{"event_id": 1}\n', encoding="utf-8")
     (path / "data" / "trials.json").write_text("[]", encoding="utf-8")
     return path
 

@@ -12,6 +12,7 @@ Fallback para jogadores sem histórico (estreantes / transferências):
 Uso:
     python -m src.research.vorp_ridge [--db data/matches.db] [--alpha 1.0]
 """
+
 import argparse
 import json
 import sys
@@ -21,16 +22,15 @@ import numpy as np
 from scipy.sparse import csr_matrix
 from scipy.sparse.linalg import lsqr
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT))
 from src import db
 from src.ingest import load_config
 from src.ratings import ratings_asof
 
-
+ROOT = Path(__file__).resolve().parents[2]
 # ---------------------------------------------------------------------------
 # Carregamento de dados
 # ---------------------------------------------------------------------------
+
 
 def _load_matches(conn, seasons):
     """Retorna lista de (event_id, home_team, away_team, home_xg, away_xg, elo_diff)
@@ -43,7 +43,8 @@ def _load_matches(conn, seasons):
     cfg = load_config()
     history = conn.execute(
         "SELECT date,home_team,away_team,home_score,away_score,tournament,neutral "
-        "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+        "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+    ).fetchall()
     snapshots = ratings_asof(history, cfg["elo"], [r[1] for r in rows if r[1]])
     result = []
     for eid, date, home, away, hxg, axg, season in rows:
@@ -63,7 +64,7 @@ def _load_player_presence(conn, event_ids):
     rows = conn.execute(
         f"SELECT event_id, player, team, minutes FROM sofascore_player_ratings "
         f"WHERE event_id IN ({placeholders}) AND minutes > 0",
-        list(event_ids)
+        list(event_ids),
     ).fetchall()
     presence = {}
     for eid, player, team, minutes in rows:
@@ -73,9 +74,7 @@ def _load_player_presence(conn, event_ids):
 
 def _load_positions(conn):
     """Retorna dict player → position mais frequente (melhor esforço, LEFT JOIN)."""
-    rows = conn.execute(
-        "SELECT player, position FROM player_comp_stats WHERE position IS NOT NULL"
-    ).fetchall()
+    rows = conn.execute("SELECT player, position FROM player_comp_stats WHERE position IS NOT NULL").fetchall()
     pos_count = {}
     for player, pos in rows:
         pos_count.setdefault(player, {}).setdefault(pos, 0)
@@ -86,6 +85,7 @@ def _load_positions(conn):
 # ---------------------------------------------------------------------------
 # Construção da matriz esparsa
 # ---------------------------------------------------------------------------
+
 
 def _build_matrix(matches, presence, player_index):
     """Constrói X ∈ ℝ^{N × (P+1)} (esparsa) e y ∈ ℝ^N.
@@ -103,13 +103,17 @@ def _build_matrix(matches, presence, player_index):
     for i, (eid, home, away, hxg, axg, elo_diff) in enumerate(matches):
         y[i] = hxg - axg
         # coluna de controle Elo (última coluna)
-        rows_i.append(i); cols_j.append(n_players); vals.append(elo_diff / 400.0)
+        rows_i.append(i)
+        cols_j.append(n_players)
+        vals.append(elo_diff / 400.0)
         # indicadores de jogador
         for player, (team, _) in presence.get(eid, {}).items():
             if player not in player_index:
                 continue
             sign = +1.0 if team == home else -1.0
-            rows_i.append(i); cols_j.append(player_index[player]); vals.append(sign)
+            rows_i.append(i)
+            cols_j.append(player_index[player])
+            vals.append(sign)
 
     X = csr_matrix((vals, (rows_i, cols_j)), shape=(n_matches, n_players + 1))
     return X, y
@@ -119,11 +123,13 @@ def _build_matrix(matches, presence, player_index):
 # Ridge via LSQR (sem scikit-learn)
 # ---------------------------------------------------------------------------
 
+
 def _ridge_lsqr(X, y, alpha: float):
     """Ridge regression: min ‖Xβ − y‖² + α‖β‖².
     Aumenta a matriz com √α·I e resolve via LSQR (estável para matrizes esparsas).
     Retorna β (n_features,)."""
     import scipy.sparse as sp
+
     n, p = X.shape
     # Matriz aumentada: [X; √α·I] — equivalente matemático da Ridge
     sqrt_alpha = np.sqrt(alpha)
@@ -131,7 +137,7 @@ def _ridge_lsqr(X, y, alpha: float):
     X_aug = sp.vstack([X, eye], format="csr")
     y_aug = np.concatenate([y, np.zeros(p)])
     result = lsqr(X_aug, y_aug, atol=1e-8, btol=1e-8, iter_lim=10_000)
-    return result[0]   # coeficientes β
+    return result[0]  # coeficientes β
 
 
 # ---------------------------------------------------------------------------
@@ -139,7 +145,8 @@ def _ridge_lsqr(X, y, alpha: float):
 # ---------------------------------------------------------------------------
 
 ROOKIE_PENALTY = 0.8
-REPLACEMENT_PERCENTILE = 0.20   # 20% inferiores definem o piso
+REPLACEMENT_PERCENTILE = 0.20  # 20% inferiores definem o piso
+
 
 def _compute_replacement_levels(beta_players: dict, positions: dict) -> dict:
     """Calcula VORP de 'Replacement Level' por posição.
@@ -162,27 +169,30 @@ def _compute_replacement_levels(beta_players: dict, positions: dict) -> dict:
 # Entry point principal
 # ---------------------------------------------------------------------------
 
+
 def run(db_path: str, alpha: float = 1.0):
     """Treina o modelo VORP e retorna artefato serializável com:
-      - beta_players: dict player → coeficiente Ridge
-      - beta_elo: float (coeficiente do controle Elo)
-      - replacement_levels: dict posição → VORP de piso
-      - fallback_rule: string descrevendo a política para unseen players
-      - train_seasons / test_seasons
+    - beta_players: dict player → coeficiente Ridge
+    - beta_elo: float (coeficiente do controle Elo)
+    - replacement_levels: dict posição → VORP de piso
+    - fallback_rule: string descrevendo a política para unseen players
+    - train_seasons / test_seasons
     """
     conn = db.connect(db_path, read_only=True)
 
     TRAIN_SEASONS = {"2021", "2022"}
-    TEST_SEASONS  = {"2023", "2024"}
+    TEST_SEASONS = {"2023", "2024"}
 
     print("[vorp_ridge] carregando partidas de treino…")
     train_matches = _load_matches(conn, TRAIN_SEASONS)
-    test_matches  = _load_matches(conn, TEST_SEASONS)
+    test_matches = _load_matches(conn, TEST_SEASONS)
 
     if not train_matches:
-        sys.exit("[vorp_ridge] ERRO: nenhuma partida de treino encontrada em "
-                 f"sofascore_matches para seasons {TRAIN_SEASONS}. "
-                 "Rode ingest_sofascore primeiro.")
+        sys.exit(
+            "[vorp_ridge] ERRO: nenhuma partida de treino encontrada em "
+            f"sofascore_matches para seasons {TRAIN_SEASONS}. "
+            "Rode ingest_sofascore primeiro."
+        )
 
     all_eids = {m[0] for m in train_matches} | {m[0] for m in test_matches}
     presence = _load_player_presence(conn, all_eids)
@@ -190,15 +200,13 @@ def run(db_path: str, alpha: float = 1.0):
 
     # Índice global de jogadores (apenas dos que aparecem no treino)
     train_eids = {m[0] for m in train_matches}
-    players_in_train = sorted({
-        p for eid, pmap in presence.items()
-        if eid in train_eids
-        for p in pmap
-    })
+    players_in_train = sorted({p for eid, pmap in presence.items() if eid in train_eids for p in pmap})
     player_index = {p: i for i, p in enumerate(players_in_train)}
 
-    print(f"[vorp_ridge] {len(train_matches)} partidas treino | "
-          f"{len(test_matches)} reserva | {len(player_index)} jogadores únicos")
+    print(
+        f"[vorp_ridge] {len(train_matches)} partidas treino | "
+        f"{len(test_matches)} reserva | {len(player_index)} jogadores únicos"
+    )
 
     X_train, y_train = _build_matrix(train_matches, presence, player_index)
 
@@ -208,15 +216,17 @@ def run(db_path: str, alpha: float = 1.0):
     beta = _ridge_lsqr(X_train, y_train, alpha=alpha)
 
     beta_players = {p: float(beta[i]) for p, i in player_index.items()}
-    beta_elo     = float(beta[len(player_index)])   # última coluna
+    beta_elo = float(beta[len(player_index)])  # última coluna
 
     replacement_levels = _compute_replacement_levels(beta_players, positions)
 
     # Diagnóstico rápido
     vorps = np.array(list(beta_players.values()))
-    print(f"[vorp_ridge] VORP: min={vorps.min():.3f}  p5={np.percentile(vorps,5):.3f}  "
-          f"median={np.median(vorps):.3f}  p95={np.percentile(vorps,95):.3f}  "
-          f"max={vorps.max():.3f}")
+    print(
+        f"[vorp_ridge] VORP: min={vorps.min():.3f}  p5={np.percentile(vorps, 5):.3f}  "
+        f"median={np.median(vorps):.3f}  p95={np.percentile(vorps, 95):.3f}  "
+        f"max={vorps.max():.3f}"
+    )
     print(f"[vorp_ridge] beta_elo={beta_elo:.4f} (positivo = vantagem Elo -> mais xG)")
 
     for pos, rv in sorted(replacement_levels.items()):
@@ -229,7 +239,7 @@ def run(db_path: str, alpha: float = 1.0):
         "fallback_rule": (
             f"Jogadores sem histórico (estreantes/transferências) recebem "
             f"VORP = replacement_level[posição] × {ROOKIE_PENALTY} "
-            f"(já aplicado — média dos {int(REPLACEMENT_PERCENTILE*100)}% "
+            f"(já aplicado — média dos {int(REPLACEMENT_PERCENTILE * 100)}% "
             f"inferiores da posição, penalidade Rookie incluída). "
             f"Posição desconhecida -> chave 'UNKNOWN'."
         ),
@@ -244,9 +254,9 @@ def run(db_path: str, alpha: float = 1.0):
 
 def main():
     parser = argparse.ArgumentParser(description="VORP Ridge — extração causal de valor de jogador")
-    parser.add_argument("--db",    default="data/matches.db")
+    parser.add_argument("--db", default="data/matches.db")
     parser.add_argument("--alpha", type=float, default=1.0, help="regularização Ridge")
-    parser.add_argument("--out",   default=None, help="salvar artefato JSON neste caminho")
+    parser.add_argument("--out", default=None, help="salvar artefato JSON neste caminho")
     args = parser.parse_args()
 
     artifact = run(str(ROOT / args.db), alpha=args.alpha)

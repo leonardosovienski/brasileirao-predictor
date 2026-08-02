@@ -29,14 +29,14 @@ def test_next_events_are_never_cached_bracket_placeholder_resolves(tmp_path, mon
 
     c, calls = _client(tmp_path, monkeypatch, [empty, stale, empty])
     first = c.season_events(16, 58210, upcoming=True)
-    assert first[-1]["homeTeam"]["name"] == "W83"          # placeholder da 1ª coleta
+    assert first[-1]["homeTeam"]["name"] == "W83"  # placeholder da 1ª coleta
 
     # 'last' já foi cacheado em disco por `c` (mesmo tmp_path) — a 2ª coleta não
     # chama fetch pra ele; só 'next' (cache=False) bate na rede de novo.
     c2, calls2 = _client(tmp_path, monkeypatch, [fresh, empty])
     second = c2.season_events(16, 58210, upcoming=True)
     assert calls2, "season_events('next') deve SEMPRE ir à rede — nunca servir do cache"
-    assert second[-1]["awayTeam"]["name"] == "England"      # nome resolvido na 2ª coleta
+    assert second[-1]["awayTeam"]["name"] == "England"  # nome resolvido na 2ª coleta
 
 
 def test_last_events_are_cached(tmp_path, monkeypatch):
@@ -48,7 +48,7 @@ def test_last_events_are_cached(tmp_path, monkeypatch):
     c2, calls2 = _client(tmp_path, monkeypatch, [{"events": [{"id": 999}]}, {"events": []}])
     result = c2.season_events(16, 58210, upcoming=False)
     assert not calls2, "kind='last' deve vir do cache — sem chamada de rede na 2ª coleta"
-    assert result[-1]["homeTeam"]["name"] == "Brazil"       # veio do disco, não do 'fresh' fake
+    assert result[-1]["homeTeam"]["name"] == "Brazil"  # veio do disco, não do 'fresh' fake
 
 
 def test_cache_truncado_e_refeito_sem_bloquear_coleta(tmp_path, monkeypatch):

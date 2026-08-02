@@ -1,0 +1,12 @@
+.git
+.venv
+.coverage
+coverage.xml
+htmlcov
+TestResults*
+**/__pycache__
+**/*.pyc
+dotnet/**/bin
+dotnet/**/obj
+outputs
+work

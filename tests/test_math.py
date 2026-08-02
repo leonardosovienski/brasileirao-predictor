@@ -1,12 +1,13 @@
 """Shin e a contabilidade do CLV — as duas peças matemáticas que, se errarem,
 contaminam silenciosamente todo o veredito do modelo. Funções puras, sem I/O."""
+
 import math
 
 import numpy as np
-import pytest
 
-from src.math_utils import shin_probabilities
 from src.backtest import _settle
+from src.ingest_sofascore import is_pre_match
+from src.math_utils import shin_probabilities
 
 
 # ---------------------------------------------------------------- Shin
@@ -18,7 +19,7 @@ def test_shin_probs_somam_um():
 def test_shin_sem_margem_recai_na_normalizacao():
     # odds cuja implícita já soma <= 1: não há overround pra remover, z=0,
     # Shin tem que devolver a normalização proporcional simples.
-    odds = [4.0, 4.0, 4.0]          # implícita 0.75 < 1
+    odds = [4.0, 4.0, 4.0]  # implícita 0.75 < 1
     p, z, over = shin_probabilities(odds)
     assert z == 0.0
     assert over < 0.0
@@ -55,9 +56,17 @@ def test_shin_duas_saidas_over_under():
 
 # ---------------------------------------------------------------- CLV / ledger
 def _ctx(**over):
-    base = dict(date="2026-06-20", competition="WC", home="Brazil", away="Serbia",
-                elo_diff=120.0, lambda_home=1.8, lambda_away=0.9,
-                score="2-0", result="home")
+    base = dict(
+        date="2026-06-20",
+        competition="WC",
+        home="Brazil",
+        away="Serbia",
+        elo_diff=120.0,
+        lambda_home=1.8,
+        lambda_away=0.9,
+        score="2-0",
+        result="home",
+    )
     base.update(over)
     return base
 
@@ -65,28 +74,35 @@ def _ctx(**over):
 def test_clv_mede_contra_shin_do_fechamento():
     # CLV = odd pactuada * p_shin_close - 1. Aposta na abertura 2.10, fechamento
     # com prob justa 0.52 → 2.10*0.52-1 = 0.092.
-    row = _settle("1x2", "home", p_model=0.60, p_shin_close=0.52,
-                  odd_open=2.10, odd_close=1.95, won=1, ctx=_ctx(),
-                  min_edge=0.0, max_edge=1.0)
+    row = _settle(
+        "1x2",
+        "home",
+        p_model=0.60,
+        p_shin_close=0.52,
+        odd_open=2.10,
+        odd_close=1.95,
+        won=1,
+        ctx=_ctx(),
+        min_edge=0.0,
+        max_edge=1.0,
+    )
     assert row is not None
     assert row["clv"] == round(2.10 * 0.52 - 1.0, 4)
-    assert row["beat_close"] == 1          # clv > 0
+    assert row["beat_close"] == 1  # clv > 0
 
 
 def test_pnl_liquida_no_preco_pactuado():
     # vitória paga odd_open-1 (apostou na abertura), não no fechamento.
-    win = _settle("1x2", "home", 0.60, 0.52, 2.10, 1.95, 1, _ctx(),
-                  0.0, 1.0)
+    win = _settle("1x2", "home", 0.60, 0.52, 2.10, 1.95, 1, _ctx(), 0.0, 1.0)
     assert win["pnl"] == round(2.10 - 1.0, 3)
-    loss = _settle("1x2", "home", 0.60, 0.52, 2.10, 1.95, 0,
-                   _ctx(result="away", score="0-1"), 0.0, 1.0)
+    loss = _settle("1x2", "home", 0.60, 0.52, 2.10, 1.95, 0, _ctx(result="away", score="0-1"), 0.0, 1.0)
     assert loss["pnl"] == -1.0
 
 
 def test_bet_at_open_quando_ha_abertura():
     row = _settle("1x2", "home", 0.60, 0.52, 2.10, 1.95, 1, _ctx(), 0.0, 1.0)
     assert row["bet_at"] == "open"
-    assert row["offered_odd"] == 2.10      # apostou na abertura
+    assert row["offered_odd"] == 2.10  # apostou na abertura
 
 
 def test_bet_at_close_no_fallback():
@@ -98,16 +114,22 @@ def test_bet_at_close_no_fallback():
 
 def test_settle_rejeita_fora_da_janela_de_edge():
     # edge vs preço = p_model - 1/odd. Com p_model baixo e odd baixa, edge < min.
-    out = _settle("1x2", "home", p_model=0.30, p_shin_close=0.50,
-                  odd_open=1.95, odd_close=1.95, won=0, ctx=_ctx(),
-                  min_edge=0.05, max_edge=0.20)
+    out = _settle(
+        "1x2",
+        "home",
+        p_model=0.30,
+        p_shin_close=0.50,
+        odd_open=1.95,
+        odd_close=1.95,
+        won=0,
+        ctx=_ctx(),
+        min_edge=0.05,
+        max_edge=0.20,
+    )
     assert out is None
 
 
 # ---------------------------------------------------------------- guard in-play
-from src.ingest_sofascore import is_pre_match
-
-
 def test_pre_match_quando_apito_no_futuro():
     assert is_pre_match(start_ts=1_000_100, now=1_000_000) is True
 

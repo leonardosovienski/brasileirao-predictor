@@ -14,13 +14,15 @@ alias explícito, e SÓ quando o resultado é único. Ambíguo ou desconhecido f
 fechado — nunca se escolhe silenciosamente entre candidatos, porque parear a
 partida errada contamina odd, resultado e CLV de uma vez só.
 """
+
 from __future__ import annotations
 
 import json
 import unicodedata
+from collections.abc import Iterable
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 SNAPSHOTS = "bookmaker_odds_snapshots.jsonl"
 MAPPING_VERSION = "brasileirao-bookmaker-identity/1.0"
@@ -40,7 +42,7 @@ EXPLICIT_ALIASES = {
     "Bragantino-SP": "Red Bull Bragantino",
     "Athletico-PR": "Athletico",
     "Athletico Paranaense": "Athletico",
-    "Atletico Paranaense": "Athletico",   # a API omite o "h" do nome oficial
+    "Atletico Paranaense": "Athletico",  # a API omite o "h" do nome oficial
     "Atletico-GO": "Atlético Goianiense",
     "Atletico-MG": "Atlético Mineiro",
     "Sport Club Recife": "Sport Recife",
@@ -149,8 +151,9 @@ def load_snapshots(path: Path) -> list[dict[str, Any]]:
     return out
 
 
-def closing_quote(snapshots: list[dict[str, Any]], *, event_id: Any, market: str,
-                  selection: str, kickoff_at: str) -> dict | None:
+def closing_quote(
+    snapshots: list[dict[str, Any]], *, event_id: Any, market: str, selection: str, kickoff_at: str
+) -> dict | None:
     """Última cotação VÁLIDA do book antes do apito. Sem ela, não se liquida.
 
     É a definição `closing-v1:last-valid-pre-kickoff-by-bookmaker` — e agora o
@@ -160,8 +163,7 @@ def closing_quote(snapshots: list[dict[str, Any]], *, event_id: Any, market: str
         return None
     elegiveis = []
     for s in snapshots:
-        if (s.get("event_id") != event_id or s.get("market") != market
-                or s.get("selection") != selection):
+        if s.get("event_id") != event_id or s.get("market") != market or s.get("selection") != selection:
             continue
         captured = _utc(s.get("odds_captured_at") or "")
         odd = s.get("odd")

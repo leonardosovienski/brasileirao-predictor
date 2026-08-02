@@ -4,13 +4,15 @@ Simula o papel do C# Worker: publica KernelInvokePayload em system:invoke_kernel
 escuta fair_odds_ready:{match_id}, valida o Contrato 2 e mede a latência real
 ponta-a-ponta do Kernel Python (T3 → T3.5).
 
-Requer: kernel_daemon.py rodando + Redis em localhost:6379.
+Requer: kernel_daemon.py rodando + REDIS_URL configurada.
 
 Uso:
-    python scripts/hotpath_smoke.py [--n 20] [--redis redis://localhost:6379]
+    python scripts/hotpath_smoke.py [--n 20] --redis "$REDIS_URL"
 """
+
 import argparse
 import json
+import os
 import sys
 import time
 
@@ -20,8 +22,10 @@ import redis
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=20, help="número de invocações")
-    ap.add_argument("--redis", default="redis://localhost:6379")
+    ap.add_argument("--redis", default=os.environ.get("REDIS_URL"))
     args = ap.parse_args()
+    if not args.redis:
+        ap.error("--redis or REDIS_URL is required")
 
     r = redis.from_url(args.redis, decode_responses=True)
     try:
@@ -42,7 +46,11 @@ def main():
         ps.get_message(timeout=1.0)
 
         payload = {
+            "protocol_version": "brasileirao.redis/1",
+            "job_id": f"job-{match_id}",
+            "run_id": f"run-{match_id}",
             "match_id": match_id,
+            "idempotency_key": f"smoke:{match_id}:{time.time_ns()}",
             "elo_a": 1600 + i * 5,
             "elo_b": 1500,
             "dvorp_a": round(0.1 * (i % 5 - 2), 3),
@@ -73,10 +81,10 @@ def main():
             fails += 1
             continue
 
-        # valida Contrato 2: chaves {1, X, 2, o25, u25}
+        # valida Contrato 2: preços e correlação versionada
         fair = json.loads(got)
-        expected_keys = {"1", "X", "2", "o25", "u25"}
-        if set(fair.keys()) != expected_keys:
+        expected_keys = {"1", "X", "2", "o25", "u25", "protocol_version", "job_id", "run_id", "match_id"}
+        if set(fair.keys()) != expected_keys or fair["protocol_version"] != "brasileirao.redis/1":
             print(f"  {match_id}: CONTRATO VIOLADO — chaves {set(fair.keys())}")
             fails += 1
             continue
@@ -89,8 +97,10 @@ def main():
 
         # sanidade: probabilidades implícitas somam ~>1 (fair odds sem overround → soma 1x2 ~1)
         inv_sum = sum(1.0 / fair[k] for k in ("1", "X", "2") if fair[k])
-        print(f"  {match_id}: round-trip={lat_ms:6.2f}ms  TTL={ttl}s  "
-              f"1X2={fair['1']:.2f}/{fair['X']:.2f}/{fair['2']:.2f}  Σp={inv_sum:.4f}")
+        print(
+            f"  {match_id}: round-trip={lat_ms:6.2f}ms  TTL={ttl}s  "
+            f"1X2={fair['1']:.2f}/{fair['X']:.2f}/{fair['2']:.2f}  Σp={inv_sum:.4f}"
+        )
 
     print("\n" + "=" * 50)
     ok = len(latencies_ms)
@@ -99,10 +109,8 @@ def main():
         latencies_ms.sort()
         p50 = latencies_ms[len(latencies_ms) // 2]
         p95 = latencies_ms[min(len(latencies_ms) - 1, int(len(latencies_ms) * 0.95))]
-        print(f"[smoke] round-trip Redis+Kernel: "
-              f"p50={p50:.2f}ms  p95={p95:.2f}ms  max={latencies_ms[-1]:.2f}ms")
-        print(f"[smoke] (inclui pub/sub Redis + compute Kernel; "
-              f"o budget de 15ms é só do compute interno do Kernel)")
+        print(f"[smoke] round-trip Redis+Kernel: p50={p50:.2f}ms  p95={p95:.2f}ms  max={latencies_ms[-1]:.2f}ms")
+        print("[smoke] (inclui pub/sub Redis + compute Kernel; o budget de 15ms é só do compute interno do Kernel)")
     sys.exit(1 if fails else 0)
 
 

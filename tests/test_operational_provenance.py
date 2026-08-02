@@ -3,30 +3,25 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
-import pytest
-
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
 def _entrypoint():
-    spec = importlib.util.spec_from_file_location("sombra_operational_provenance", ROOT / "scripts" / "sombra_diaria.py")
+    path = ROOT / "scripts" / "sombra_diaria.py"
+    spec = importlib.util.spec_from_file_location("sombra_operational_provenance", path)
     assert spec and spec.loader
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
 
 
-# O CI roda `scripts/seed_test_fixtures.py` antes da suíte, que cria um
-# matches.db vazio com o schema canônico — com ele presente este teste RODA em
-# vez de pular. O skip fica para quem rodar `pytest` num clone sem semear:
-# melhor pular explicando do que estourar por artefato ausente.
-@pytest.mark.skipif(
-    not (ROOT / "data" / "matches.db").is_file(),
-    reason="matches.db ausente (gitignored) — rode scripts/seed_test_fixtures.py",
-)
-def test_shadow_consumer_provenance_identifies_turn_and_inputs() -> None:
-    metadata = _entrypoint().consumer_provenance("brasileirao-sombra-manha")
+def test_shadow_consumer_provenance_identifies_turn_and_inputs(tmp_path: Path) -> None:
+    data = tmp_path / "data"
+    data.mkdir()
+    (data / "matches.db").write_bytes(b"deterministic-sports-fixture")
+    (data / "teams_brasileirao.json").write_text("{}", encoding="utf-8")
+
+    metadata = _entrypoint().consumer_provenance("brasileirao-sombra-manha", root=tmp_path)
     assert metadata["project_name"] == "brasileirao-predictor"
     assert metadata["execution_turn"] == "morning"
     assert metadata["artifact_schema_version"] == "operational-envelope/1.1"
@@ -36,9 +31,7 @@ def test_shadow_consumer_provenance_identifies_turn_and_inputs() -> None:
 
 def test_entrypoint_propagates_capture_turn(monkeypatch) -> None:
     module = _entrypoint()
-    metadata = {
-        "execution_turn": "night", "project_name": "brasileirao-predictor"
-    }
+    metadata = {"execution_turn": "night", "project_name": "brasileirao-predictor"}
     monkeypatch.setattr(module, "consumer_provenance", lambda _task: metadata)
     observed = {}
 

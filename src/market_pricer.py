@@ -17,6 +17,7 @@ SEMÂNTICA DE PUSH (devolução de stake):
 Funções que podem dar push retornam as TRÊS probabilidades (win/push/lose) para
 o settlement liquidar corretamente.
 """
+
 import numpy as np
 
 # Margem de tolerância para somatórios de probabilidade.
@@ -41,12 +42,13 @@ def _margin_indices(n: int):
 # 1X2 e derivados sem push                                            #
 # ------------------------------------------------------------------ #
 
+
 def result_1x2(grid) -> dict:
     """Probabilidades 1X2 a partir da grade (casa/empate/fora)."""
     g = _grid(grid)
-    p_home = float(np.tril(g, -1).sum())   # i > j
-    p_draw = float(np.trace(g))            # i == j
-    p_away = float(np.triu(g, 1).sum())    # i < j
+    p_home = float(np.tril(g, -1).sum())  # i > j
+    p_draw = float(np.trace(g))  # i == j
+    p_away = float(np.triu(g, 1).sum())  # i < j
     return {"1": p_home, "X": p_draw, "2": p_away}
 
 
@@ -89,6 +91,7 @@ def exact_score(grid, home_goals: int, away_goals: int) -> float:
 # ------------------------------------------------------------------ #
 # Mercados com PUSH                                                   #
 # ------------------------------------------------------------------ #
+
 
 def draw_no_bet(grid) -> dict:
     """Draw No Bet: empate devolve o stake (push).

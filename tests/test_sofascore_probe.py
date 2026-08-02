@@ -4,24 +4,32 @@ Sem rede: validam que summarize_* extraem a estrutura certa de respostas
 sintéticas que espelham o formato real (markets→choices; statistics→groups→items;
 lineups→players→statistics). Documentam o shape esperado da API.
 """
+
 from src.research.sofascore_probe import (
+    summarize_lineups,
     summarize_odds,
     summarize_statistics,
-    summarize_lineups,
 )
-
 
 # ------------------------------------------------------------------ #
 # summarize_odds                                                      #
 # ------------------------------------------------------------------ #
 
+
 def test_summarize_odds_extracts_markets_and_choices():
     raw = {
         "markets": [
-            {"marketId": 1, "marketName": "Full time", "choiceGroup": None,
-             "choices": [{"name": "1"}, {"name": "X"}, {"name": "2"}]},
-            {"marketId": 12, "marketName": "Both teams to score",
-             "choices": [{"name": "Yes"}, {"name": "No"}]},
+            {
+                "marketId": 1,
+                "marketName": "Full time",
+                "choiceGroup": None,
+                "choices": [{"name": "1"}, {"name": "X"}, {"name": "2"}],
+            },
+            {
+                "marketId": 12,
+                "marketName": "Both teams to score",
+                "choices": [{"name": "Yes"}, {"name": "No"}],
+            },
         ]
     }
     s = summarize_odds(raw)
@@ -46,19 +54,29 @@ def test_summarize_odds_missing_choices_is_empty_list():
 # summarize_statistics                                                #
 # ------------------------------------------------------------------ #
 
+
 def test_summarize_statistics_collects_item_names():
     raw = {
         "statistics": [
-            {"period": "ALL", "groups": [
-                {"groupName": "Shots", "statisticsItems": [
-                    {"name": "Total shots", "home": "10", "away": "8"},
-                    {"name": "Shots on target", "home": "4", "away": "3"},
-                ]},
-                {"groupName": "TVData", "statisticsItems": [
-                    {"name": "Corner kicks", "home": "5", "away": "2"},
-                    {"name": "Fouls", "home": "12", "away": "9"},
-                ]},
-            ]},
+            {
+                "period": "ALL",
+                "groups": [
+                    {
+                        "groupName": "Shots",
+                        "statisticsItems": [
+                            {"name": "Total shots", "home": "10", "away": "8"},
+                            {"name": "Shots on target", "home": "4", "away": "3"},
+                        ],
+                    },
+                    {
+                        "groupName": "TVData",
+                        "statisticsItems": [
+                            {"name": "Corner kicks", "home": "5", "away": "2"},
+                            {"name": "Fouls", "home": "12", "away": "9"},
+                        ],
+                    },
+                ],
+            },
         ]
     }
     s = summarize_statistics(raw)
@@ -77,15 +95,20 @@ def test_summarize_statistics_none_safe():
 # summarize_lineups                                                   #
 # ------------------------------------------------------------------ #
 
+
 def test_summarize_lineups_collects_stat_keys():
     raw = {
-        "home": {"players": [
-            {"player": {"name": "A"}, "statistics": {"rating": 7.1, "minutesPlayed": 90}},
-            {"player": {"name": "B"}, "statistics": {"rating": 6.5, "totalShots": 2}},
-        ]},
-        "away": {"players": [
-            {"player": {"name": "C"}, "statistics": {"rating": 6.9, "minutesPlayed": 80}},
-        ]},
+        "home": {
+            "players": [
+                {"player": {"name": "A"}, "statistics": {"rating": 7.1, "minutesPlayed": 90}},
+                {"player": {"name": "B"}, "statistics": {"rating": 6.5, "totalShots": 2}},
+            ]
+        },
+        "away": {
+            "players": [
+                {"player": {"name": "C"}, "statistics": {"rating": 6.9, "minutesPlayed": 80}},
+            ]
+        },
     }
     s = summarize_lineups(raw)
     assert s["n_players"] == 3

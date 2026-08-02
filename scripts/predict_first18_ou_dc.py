@@ -6,6 +6,7 @@ numa 2a etapa, nao usadas para decidir a previsao.
 
 Uso: python scripts/predict_first18_ou_dc.py [N_JOGOS]  (default 18)
 """
+
 import os
 import sys
 from datetime import date, timedelta
@@ -21,7 +22,8 @@ conn = db.connect(str(ROOT / cfg["database"]))
 
 rows = conn.execute(
     "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-    "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+).fetchall()
 
 window = cfg["elo"].get("window_years")
 if window:
@@ -31,8 +33,7 @@ if window:
 _, history = ratings.compute_ratings(rows, cfg["elo"])
 
 FIRST_SEASON_DATE = "2026-01-28"
-test_idx = [i for i, r in enumerate(rows)
-            if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
+test_idx = [i for i, r in enumerate(rows) if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
 
 cy = cfg["model"].get("calibration_window_years")
 ccut = (date.fromisoformat(FIRST_SEASON_DATE) - timedelta(days=int(cy * 365.25))).isoformat()
@@ -42,8 +43,8 @@ MAXG = cfg["model"]["max_goals"]
 # odds de fechamento (so anotacao, nao entram na previsao)
 om = {}
 for row in conn.execute(
-        "SELECT date, home_team, away_team, odds_over, odds_under, "
-        "odds_dc_1x, odds_dc_x2 FROM sofascore_matches").fetchall():
+    "SELECT date, home_team, away_team, odds_over, odds_under, odds_dc_1x, odds_dc_x2 FROM sofascore_matches"
+).fetchall():
     d, h, a, oo, ou, o1x, ox2 = row
     om[(d, _canon(h), _canon(a))] = (oo, ou, o1x, ox2)
 
@@ -67,7 +68,7 @@ for i in test_idx:
     ou_ok = ou_pred == ou_real
     hits_ou += ou_ok
 
-    p_1x = r["p_win"] + r["p_draw"]   # 1X: mandante nao perde
+    p_1x = r["p_win"] + r["p_draw"]  # 1X: mandante nao perde
     p_x2 = r["p_draw"] + r["p_loss"]  # X2: visitante nao perde
     dc_pred = "1X" if p_1x >= p_x2 else "X2"
     dc_p = max(p_1x, p_x2)
@@ -77,17 +78,20 @@ for i in test_idx:
     hits_dc += dc_ok
 
     odds = find_odds(d, h, a)
-    rows_out.append((d, h, a, hs, as_, p_over, ou_pred, ou_real, ou_ok,
-                      dc_pred, dc_p, dc_ok, odds))
+    rows_out.append((d, h, a, hs, as_, p_over, ou_pred, ou_real, ou_ok, dc_pred, dc_p, dc_ok, odds))
 
-print(f"{'Data':10} {'Casa':20} {'Fora':20} {'Real':6} {'Tot':4} {'P(Ov)':6} {'PrevOU':6} {'OU-ok':6} "
-      f"{'PrevDC':6} {'P(DC)':6} {'DC-ok':6} {'Odds(O/U/1X/X2)'}")
+print(
+    f"{'Data':10} {'Casa':20} {'Fora':20} {'Real':6} {'Tot':4} {'P(Ov)':6} {'PrevOU':6} {'OU-ok':6} "
+    f"{'PrevDC':6} {'P(DC)':6} {'DC-ok':6} {'Odds(O/U/1X/X2)'}"
+)
 for d, h, a, hs, as_, p_over, ou_pred, ou_real, ou_ok, dc_pred, dc_p, dc_ok, odds in rows_out:
     total = hs + as_
     odds_s = f"{odds}" if odds else "-"
-    print(f"{d:10} {h:20} {a:20} {hs}-{as_:<3} {total:<4} {p_over:.2f}   {ou_pred:6} {'V' if ou_ok else 'X':6} "
-          f"{dc_pred:6} {dc_p:.2f}   {'V' if dc_ok else 'X':6} {odds_s}")
+    print(
+        f"{d:10} {h:20} {a:20} {hs}-{as_:<3} {total:<4} {p_over:.2f}   {ou_pred:6} {'V' if ou_ok else 'X':6} "
+        f"{dc_pred:6} {dc_p:.2f}   {'V' if dc_ok else 'X':6} {odds_s}"
+    )
 
 n = len(rows_out)
-print(f"\nOU2.5      hit-rate: {hits_ou}/{n} ({hits_ou/n:.1%})")
-print(f"DC (1X/X2) hit-rate: {hits_dc}/{n} ({hits_dc/n:.1%})")
+print(f"\nOU2.5      hit-rate: {hits_ou}/{n} ({hits_ou / n:.1%})")
+print(f"DC (1X/X2) hit-rate: {hits_dc}/{n} ({hits_dc / n:.1%})")

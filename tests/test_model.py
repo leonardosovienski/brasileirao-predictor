@@ -1,6 +1,7 @@
 """Assíntota do motor: a Binomial Negativa com dispersão α→0 (e sem correção
 Dixon-Coles, rho=0) tem que colapsar na Poisson clássica. É o teste que prova
 que o embasamento estatístico está correto, não só calibrado."""
+
 import numpy as np
 from scipy.stats import poisson
 

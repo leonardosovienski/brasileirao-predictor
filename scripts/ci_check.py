@@ -21,6 +21,7 @@ Como hook de pre-commit (opcional), crie .git/hooks/pre-commit com:
     #!/bin/sh
     .venv/Scripts/python.exe scripts/ci_check.py --fast || exit 1
 """
+
 import argparse
 import json
 import os
@@ -47,6 +48,7 @@ def _smoke_env() -> dict:
     env["PERIOD_LOG_PATH"] = str(Path(tempfile.gettempdir()) / "ci_smoke_periods.jsonl")
     return env
 
+
 # Modulos de PESQUISA: banco estritamente somente-leitura (P12).
 RESEARCH_DB_FILES = [
     "src/backtest_event.py",
@@ -63,17 +65,17 @@ RESEARCH_DB_FILES = [
 
 # Modulos de SERVING: unicos autorizados a tocar current_elo/load_elo.
 SERVING_ALLOWLIST = {
-    "src/db.py",                  # definicao do schema e load/save
+    "src/db.py",  # definicao do schema e load/save
     "src/cron_update_models.py",  # unico ESCRITOR do cache
-    "src/predict.py",             # leitor de serving
-    "src/simulator.py",           # leitor de serving
-    "src/status.py",              # painel (leitura de contagens)
-    "src/kernel_daemon.py",       # daemon de serving (v3)
-    "scripts/odds_shop.py",       # serving pre-jogo (le o Elo corrente de proposito)
-    "scripts/sombra.py",          # serving pre-jogo da H3: preve jogos FUTUROS com
-                                  # o Elo corrente — lookahead impossivel por construcao
-    "scripts/prever.py",          # CLI de serving (previsao completa / live)
-    "scripts/ci_check.py",        # este arquivo (regex da propria barreira)
+    "src/predict.py",  # leitor de serving
+    "src/simulator.py",  # leitor de serving
+    "src/status.py",  # painel (leitura de contagens)
+    "src/kernel_daemon.py",  # daemon de serving (v3)
+    "scripts/odds_shop.py",  # serving pre-jogo (le o Elo corrente de proposito)
+    "scripts/sombra.py",  # serving pre-jogo da H3: preve jogos FUTUROS com
+    # o Elo corrente — lookahead impossivel por construcao
+    "scripts/prever.py",  # CLI de serving (previsao completa / live)
+    "scripts/ci_check.py",  # este arquivo (regex da propria barreira)
 }
 
 # Divida conhecida da v3 (lookahead documentado): WARN, nao FAIL.
@@ -98,8 +100,7 @@ def _rel(p: Path) -> str:
 
 def check_pytest() -> None:
     print("[1/5] pytest (suite completa)...")
-    r = subprocess.run([sys.executable, "-m", "pytest", "tests/", "-q"],
-                       cwd=ROOT, capture_output=True, text=True)
+    r = subprocess.run([sys.executable, "-m", "pytest", "tests/", "-q"], cwd=ROOT, capture_output=True, text=True)
     tail = (r.stdout or "").strip().splitlines()[-1:] or ["(sem saida)"]
     print(f"      {tail[0]}")
     if r.returncode != 0:
@@ -116,10 +117,11 @@ def check_research_readonly() -> None:
             continue
         text = f.read_text(encoding="utf-8", errors="replace")
         for m in re.finditer(r"db\.connect\s*\(", text):
-            window = text[m.start():m.start() + 200]
+            window = text[m.start() : m.start() + 200]
             if "read_only=True" not in window:
-                failures.append(f"{rel}: db.connect sem read_only=True — pesquisa "
-                                f"nao pode abrir o banco em modo escrita")
+                failures.append(
+                    f"{rel}: db.connect sem read_only=True — pesquisa nao pode abrir o banco em modo escrita"
+                )
         # sqlite3.connect direto: exige URI mode=ro no mesmo arquivo
         if "sqlite3.connect" in text and "mode=ro" not in text:
             failures.append(f"{rel}: sqlite3.connect sem mode=ro")
@@ -138,7 +140,8 @@ def check_current_elo_containment() -> None:
     usage = re.compile(
         r"load_elo\s*\(|FROM\s+current_elo|INTO\s+current_elo|"
         r"TABLE\s+current_elo|UPDATE\s+current_elo|DELETE\s+FROM\s+current_elo",
-        re.IGNORECASE)
+        re.IGNORECASE,
+    )
     n = 0
     # W6 (auditoria 2026-07-09): scripts/ tambem entra no radar — odds_shop.py
     # usava current_elo fora da varredura; um script de PESQUISA novo com o
@@ -152,16 +155,16 @@ def check_current_elo_containment() -> None:
         n += 1
         if rel in SERVING_ALLOWLIST:
             continue
-        code_hits = [ln for ln in text.splitlines()
-                     if usage.search(ln) and not ln.lstrip().startswith("#")]
+        code_hits = [ln for ln in text.splitlines() if usage.search(ln) and not ln.lstrip().startswith("#")]
         if not code_hits:
             continue
         if rel in KNOWN_DEBT:
-            warnings_.append(f"{rel}: usa current_elo/load_elo (divida v3 conhecida "
-                             f"— corrigir com ratings_asof antes de usar em conclusao)")
+            warnings_.append(
+                f"{rel}: usa current_elo/load_elo (divida v3 conhecida "
+                f"— corrigir com ratings_asof antes de usar em conclusao)"
+            )
         else:
-            failures.append(f"{rel}: current_elo/load_elo fora do serving — "
-                            f"lookahead; use ratings.ratings_asof")
+            failures.append(f"{rel}: current_elo/load_elo fora do serving — lookahead; use ratings.ratings_asof")
     print(f"      {n} arquivos com mencao inspecionados")
 
 
@@ -175,10 +178,15 @@ def check_predict_smoke() -> None:
     # output): o smoke test agora le o mesmo dict estruturado que
     # src/display.py produz, sem depender de uma substring de exibicao que
     # pode mudar de layout a qualquer reformulacao futura do terminal.
-    r = subprocess.run([sys.executable, "-X", "utf8", "-m", "src.predict",
-                        *SMOKE_TEAMS, "--json"],
-                       cwd=ROOT, capture_output=True, text=True,
-                       encoding="utf-8", errors="replace", env=_smoke_env())
+    r = subprocess.run(
+        [sys.executable, "-X", "utf8", "-m", "src.predict", *SMOKE_TEAMS, "--json"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        env=_smoke_env(),
+    )
     out = r.stdout or ""
     if r.returncode != 0:
         failures.append(f"predict saiu com exit {r.returncode}: {(r.stderr or '')[-200:]}")
@@ -192,8 +200,9 @@ def check_predict_smoke() -> None:
         return
     total = (p_win + p_draw + p_loss) * 100
     if not 99.0 <= total <= 101.0:
-        failures.append(f"probabilidades 1X2 somam {total:.1f}% (esperado ~100%) — "
-                        f"possivel regressao do P5 (max_goals/delta_vorp)")
+        failures.append(
+            f"probabilidades 1X2 somam {total:.1f}% (esperado ~100%) — possivel regressao do P5 (max_goals/delta_vorp)"
+        )
     print(f"      1X2 = {p_win:.1%} / {p_draw:.1%} / {p_loss:.1%} (soma {total:.1f}%)")
 
 
@@ -201,29 +210,33 @@ def _check_live_flag(flag: str, extra_args: list[str], result_key: str) -> None:
     """Roda `prever.py <flag> --json` e valida que p_win+p_draw+p_loss de
     `result_key` (p.ex. 'final' pro --segundo-tempo, 'period' pro
     --primeiro-tempo) soma ~100%."""
-    r = subprocess.run([sys.executable, "-X", "utf8", "scripts/prever.py",
-                        *SMOKE_TEAMS, *extra_args, "--json"],
-                       cwd=ROOT, capture_output=True, text=True,
-                       encoding="utf-8", errors="replace", env=_smoke_env())
+    r = subprocess.run(
+        [sys.executable, "-X", "utf8", "scripts/prever.py", *SMOKE_TEAMS, *extra_args, "--json"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        env=_smoke_env(),
+    )
     out = r.stdout or ""
     if r.returncode != 0:
-        failures.append(f"prever.py {flag} saiu com exit {r.returncode}: "
-                        f"{(r.stderr or '')[-200:]}")
+        failures.append(f"prever.py {flag} saiu com exit {r.returncode}: {(r.stderr or '')[-200:]}")
         return
     try:
         data = json.loads(out)
         block = data[result_key]
         p_win, p_draw, p_loss = block["p_win"], block["p_draw"], block["p_loss"]
     except (ValueError, KeyError) as e:
-        failures.append(f"prever.py {flag} --json nao produziu o dict esperado "
-                        f"({e}) — schema de compute_live() mudou?")
+        failures.append(f"prever.py {flag} --json nao produziu o dict esperado ({e}) — schema de compute_live() mudou?")
         return
     total = (p_win + p_draw + p_loss) * 100
     if not 99.0 <= total <= 101.0:
-        failures.append(f"{flag}: p_win+p_draw+p_loss ({result_key}) = {total:.1f}% "
-                        f"(esperado ~100%) — possivel regressao do compute_live")
-    print(f"      {flag} ({result_key}) = {p_win:.1%} / {p_draw:.1%} / {p_loss:.1%} "
-         f"(soma {total:.1f}%)")
+        failures.append(
+            f"{flag}: p_win+p_draw+p_loss ({result_key}) = {total:.1f}% "
+            f"(esperado ~100%) — possivel regressao do compute_live"
+        )
+    print(f"      {flag} ({result_key}) = {p_win:.1%} / {p_draw:.1%} / {p_loss:.1%} (soma {total:.1f}%)")
 
 
 def check_live_smoke() -> None:

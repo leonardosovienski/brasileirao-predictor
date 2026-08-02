@@ -20,16 +20,16 @@ Inefficiencies in the Football Betting Market" (JRSS-C 46, 1997):
              masterplan a chama de "função tau de decaimento" — aqui os nomes
              seguem o paper para não colidir com o τ de correlação.)
 """
+
 from __future__ import annotations
 
 import math
+from typing import Any
 
-__all__ = ["dc_tau", "time_decay_weight", "DixonColesMatrix",
-           "fit_dixon_coles_parameters"]
+__all__ = ["dc_tau", "time_decay_weight", "DixonColesMatrix", "fit_dixon_coles_parameters"]
 
 
-def dc_tau(home_goals: int, away_goals: int, lam: float, mu: float,
-           rho: float) -> float:
+def dc_tau(home_goals: int, away_goals: int, lam: float, mu: float, rho: float) -> float:
     """Fator de ajuste τ(x, y) de Dixon-Coles para o placar (x=casa, y=fora).
 
     lam/mu: médias esperadas de gols de casa/fora. Fora das 4 células magras,
@@ -50,7 +50,8 @@ def dc_tau(home_goals: int, away_goals: int, lam: float, mu: float,
     if t <= 0.0:
         raise ValueError(
             f"tau({home_goals},{away_goals}) = {t:.4g} <= 0 com rho={rho}, "
-            f"lam={lam}, mu={mu} — rho fora da faixa válida para estas médias")
+            f"lam={lam}, mu={mu} — rho fora da faixa válida para estas médias"
+        )
     return t
 
 
@@ -65,8 +66,8 @@ def time_decay_weight(days_ago: float, xi: float) -> float:
         raise ValueError(f"xi deve ser >= 0 (recebido {xi})")
     if days_ago < 0:
         raise ValueError(
-            f"days_ago negativo ({days_ago}) — partida no futuro do corte; "
-            "isso é lookahead do chamador, não decaimento")
+            f"days_ago negativo ({days_ago}) — partida no futuro do corte; isso é lookahead do chamador, não decaimento"
+        )
     return math.exp(-xi * days_ago)
 
 
@@ -84,8 +85,7 @@ class DixonColesMatrix:
     (lam, mu, rho, xi) por verossimilhança pesada é papel do motor de domínio
     (src/model.py), não desta base."""
 
-    def __init__(self, lam: float, mu: float, rho: float = 0.0,
-                 max_goals: int = 10):
+    def __init__(self, lam: float, mu: float, rho: float = 0.0, max_goals: int = 10):
         if lam <= 0 or mu <= 0:
             raise ValueError(f"lam e mu devem ser > 0 (lam={lam}, mu={mu})")
         if max_goals < 1:
@@ -93,8 +93,8 @@ class DixonColesMatrix:
         lo, hi = self.valid_rho_bounds(lam, mu)
         if not (lo < rho < hi):
             raise ValueError(
-                f"rho={rho} fora da faixa válida ({lo:.4g}, {hi:.4g}) "
-                f"para lam={lam}, mu={mu} — tau ficaria <= 0")
+                f"rho={rho} fora da faixa válida ({lo:.4g}, {hi:.4g}) para lam={lam}, mu={mu} — tau ficaria <= 0"
+            )
         self.lam = lam
         self.mu = mu
         self.rho = rho
@@ -113,9 +113,15 @@ class DixonColesMatrix:
 
     def _build_grid(self) -> list:
         n = self.max_goals + 1
-        grid = [[self._poisson_pmf(h, self.lam) * self._poisson_pmf(a, self.mu)
-                 * dc_tau(h, a, self.lam, self.mu, self.rho)
-                 for a in range(n)] for h in range(n)]
+        grid = [
+            [
+                self._poisson_pmf(h, self.lam)
+                * self._poisson_pmf(a, self.mu)
+                * dc_tau(h, a, self.lam, self.mu, self.rho)
+                for a in range(n)
+            ]
+            for h in range(n)
+        ]
         total = sum(sum(row) for row in grid)
         return [[cell / total for cell in row] for row in grid]
 
@@ -151,8 +157,9 @@ class DixonColesMatrix:
 # a matemática de correlação acima.
 # ---------------------------------------------------------------------------
 
+
 def fit_dixon_coles_parameters(
-    games: "list[dict] | object",
+    games: Any,
     xi_fixed: float,
     *,
     max_goals: int = 10,
@@ -184,8 +191,7 @@ def fit_dixon_coles_parameters(
     import numpy as np
     from scipy.optimize import minimize
 
-    rows: list[dict] = (games.to_dict("records")
-                        if hasattr(games, "to_dict") else list(games))
+    rows: list[dict] = games.to_dict("records") if hasattr(games, "to_dict") else list(games)
     if not rows:
         raise ValueError("fit_dixon_coles_parameters: sem jogos")
     teams: list[str] = sorted({r["home"] for r in rows} | {r["away"] for r in rows})
@@ -196,8 +202,8 @@ def fit_dixon_coles_parameters(
 
     weights = [time_decay_weight(float(r["days_ago"]), xi_fixed) for r in rows]
 
-    def objective(theta: "np.ndarray") -> float:
-        log_a, log_b = theta[:n], theta[n:2 * n]
+    def objective(theta: np.ndarray) -> float:
+        log_a, log_b = theta[:n], theta[n : 2 * n]
         log_gamma, rho = theta[2 * n], theta[2 * n + 1]
         total = 0.0
         for r, w in zip(rows, weights):
@@ -215,11 +221,10 @@ def fit_dixon_coles_parameters(
 
     theta0 = np.zeros(2 * n + 2)
     theta0[2 * n] = math.log(1.3)  # chute inicial: vantagem de casa típica
-    bounds = ([(None, None)] * (2 * n + 1)
-              + [(rho_bounds[0], rho_bounds[1])])
+    bounds = [(None, None)] * (2 * n + 1) + [(rho_bounds[0], rho_bounds[1])]
     res = minimize(objective, theta0, method="L-BFGS-B", bounds=bounds)
 
-    log_a, log_b = res.x[:n], res.x[n:2 * n]
+    log_a, log_b = res.x[:n], res.x[n : 2 * n]
     return {
         "attack": {t: float(math.exp(log_a[idx[t]])) for t in teams},
         "defense": {t: float(math.exp(log_b[idx[t]])) for t in teams},

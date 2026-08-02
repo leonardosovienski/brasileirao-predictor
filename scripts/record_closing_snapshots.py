@@ -16,25 +16,30 @@ Uso:
     python scripts/record_closing_snapshots.py
     python scripts/record_closing_snapshots.py --dry-run
 """
+
 from __future__ import annotations
 
 import argparse
 import json
 import os
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "vendor"))
+
+from predictor_core.data.contracts import DataUnavailableError  # noqa: E402
 
 from src import db  # noqa: E402
-from src.ingest import load_config  # noqa: E402
 from src.data.bookmaker_odds import (  # noqa: E402
-    MAPPING_VERSION, SNAPSHOTS, match_fixture, persist_snapshots)
+    MAPPING_VERSION,
+    SNAPSHOTS,
+    match_fixture,
+    persist_snapshots,
+)
 from src.data.the_odds_api_provider import TheOddsApiProvider  # noqa: E402
-from predictor_core.data.contracts import DataUnavailableError  # noqa: E402
+from src.ingest import load_config  # noqa: E402
 
 # Só faz sentido gastar chamada de API perto de um apito. Fora dessa janela o
 # script sai em silêncio, sem consumir cota.
@@ -44,8 +49,7 @@ JANELA_ANTES = timedelta(hours=4)
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dry-run", action="store_true", help="não grava")
-    ap.add_argument("--force", action="store_true",
-                    help="ignora a janela de 4h antes do apito")
+    ap.add_argument("--force", action="store_true", help="ignora a janela de 4h antes do apito")
     args = ap.parse_args(argv)
 
     bookmaker = os.environ.get("BRASILEIRAO_BOOKMAKER")
@@ -55,16 +59,17 @@ def main(argv: list[str] | None = None) -> int:
 
     cfg = load_config()
     conn = db.connect(str(ROOT / cfg["database"]), read_only=True)
-    agora = datetime.now(timezone.utc)
-    fixtures = [{"event_id": r[0], "home_team": r[1], "away_team": r[2], "kickoff_at": r[3]}
-                for r in conn.execute(
-                    "SELECT event_id, home_team, away_team, kickoff_at FROM sofascore_matches "
-                    "WHERE home_score IS NULL AND kickoff_at IS NOT NULL")]
-    proximos = [f for f in fixtures
-                if agora <= datetime.fromisoformat(f["kickoff_at"]) <= agora + JANELA_ANTES]
+    agora = datetime.now(UTC)
+    fixtures = [
+        {"event_id": r[0], "home_team": r[1], "away_team": r[2], "kickoff_at": r[3]}
+        for r in conn.execute(
+            "SELECT event_id, home_team, away_team, kickoff_at FROM sofascore_matches "
+            "WHERE home_score IS NULL AND kickoff_at IS NOT NULL"
+        )
+    ]
+    proximos = [f for f in fixtures if agora <= datetime.fromisoformat(f["kickoff_at"]) <= agora + JANELA_ANTES]
     if not proximos and not args.force:
-        print(json.dumps({"status": "NO_KICKOFF_WINDOW", "proximos_4h": 0,
-                          "fixtures_futuros": len(fixtures)}))
+        print(json.dumps({"status": "NO_KICKOFF_WINDOW", "proximos_4h": 0, "fixtures_futuros": len(fixtures)}))
         return 0
 
     try:
@@ -81,25 +86,42 @@ def main(argv: list[str] | None = None) -> int:
         if fixture is None:
             sem_fixture += 1
             continue
-        novos.append({
-            "event_id": fixture["event_id"], "market": "ou2.5",
-            "selection": row["selection"], "odd": row["decimal_odds"],
-            "odds_captured_at": row["odds_captured_at"], "bookmaker": bookmaker,
-            "source": row["source"], "source_event_id": row["source_event_id"],
-            "canonical_match_id": row["canonical_match_id"],
-            "kickoff_at": fixture["kickoff_at"], "retrieved_at": row["retrieved_at"],
-            "raw_payload_hash": row["raw_payload_hash"],
-            "adapter_version": row["adapter_version"],
-            "identity_status": status, "mapping_version": MAPPING_VERSION,
-            "capture_kind": "closing_snapshot"})
+        novos.append(
+            {
+                "event_id": fixture["event_id"],
+                "market": "ou2.5",
+                "selection": row["selection"],
+                "odd": row["decimal_odds"],
+                "odds_captured_at": row["odds_captured_at"],
+                "bookmaker": bookmaker,
+                "source": row["source"],
+                "source_event_id": row["source_event_id"],
+                "canonical_match_id": row["canonical_match_id"],
+                "kickoff_at": fixture["kickoff_at"],
+                "retrieved_at": row["retrieved_at"],
+                "raw_payload_hash": row["raw_payload_hash"],
+                "adapter_version": row["adapter_version"],
+                "identity_status": status,
+                "mapping_version": MAPPING_VERSION,
+                "capture_kind": "closing_snapshot",
+            }
+        )
 
     gravados = 0 if args.dry_run else persist_snapshots(ROOT / "data" / SNAPSHOTS, novos)
-    print(json.dumps({"status": "OK", "bookmaker": bookmaker,
-                      "kickoffs_na_janela": len(proximos),
-                      "cotacoes_do_book": len(novos),
-                      "snapshots_novos": gravados,
-                      "sem_fixture": sem_fixture,
-                      "dry_run": args.dry_run}, sort_keys=True))
+    print(
+        json.dumps(
+            {
+                "status": "OK",
+                "bookmaker": bookmaker,
+                "kickoffs_na_janela": len(proximos),
+                "cotacoes_do_book": len(novos),
+                "snapshots_novos": gravados,
+                "sem_fixture": sem_fixture,
+                "dry_run": args.dry_run,
+            },
+            sort_keys=True,
+        )
+    )
     return 0
 
 

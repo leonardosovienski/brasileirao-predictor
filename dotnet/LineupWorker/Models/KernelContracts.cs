@@ -7,6 +7,10 @@ namespace LineupWorker.Models;
 
 /// <summary>Payload enviado ao Kernel Python para gerar as Fair Odds.</summary>
 public record KernelInvokePayload(
+    string  protocol_version,
+    string  job_id,
+    string  run_id,
+    string  idempotency_key,
     string  match_id,     // identificador único da partida
     double  elo_a,        // Elo do time A (home)
     double  elo_b,        // Elo do time B (away)
@@ -14,6 +18,11 @@ public record KernelInvokePayload(
     double  dvorp_b,      // Delta VORP do time B
     long    timestamp_t3  // Unix ms do clock tick imediatamente antes da publicação
 );
+
+public static class RedisProtocol
+{
+    public const string Version = "brasileirao.redis/1";
+}
 
 // ---------------------------------------------------------------------------
 // CONTRATO 2 — Resposta das Fair Odds (Python → Redis → C#)
@@ -34,13 +43,22 @@ public record FairOddsPayload(
 )
 {
     /// <summary>Desserializa do JSON enxuto com chaves numéricas do Kernel Python.</summary>
-    public static FairOddsPayload FromDict(System.Text.Json.JsonElement root) => new(
-        Home:    root.TryGetProperty("1",   out var h)   ? h.GetDouble()   : null,
-        Draw:    root.TryGetProperty("X",   out var d)   ? d.GetDouble()   : null,
-        Away:    root.TryGetProperty("2",   out var a)   ? a.GetDouble()   : null,
-        Over25:  root.TryGetProperty("o25", out var o)   ? o.GetDouble()   : null,
-        Under25: root.TryGetProperty("u25", out var u)   ? u.GetDouble()   : null
-    );
+    public static FairOddsPayload FromDict(System.Text.Json.JsonElement root)
+    {
+        if (!root.TryGetProperty("protocol_version", out var version) ||
+            version.GetString() != RedisProtocol.Version)
+            throw new System.Text.Json.JsonException("Unsupported Redis protocol version");
+        foreach (var required in new[] { "job_id", "run_id", "match_id" })
+            if (!root.TryGetProperty(required, out var value) || string.IsNullOrWhiteSpace(value.GetString()))
+                throw new System.Text.Json.JsonException($"Required field {required} is missing");
+        return new(
+            Home:    root.TryGetProperty("1",   out var h)   ? h.GetDouble()   : null,
+            Draw:    root.TryGetProperty("X",   out var d)   ? d.GetDouble()   : null,
+            Away:    root.TryGetProperty("2",   out var a)   ? a.GetDouble()   : null,
+            Over25:  root.TryGetProperty("o25", out var o)   ? o.GetDouble()   : null,
+            Under25: root.TryGetProperty("u25", out var u)   ? u.GetDouble()   : null
+        );
+    }
 }
 
 // ---------------------------------------------------------------------------

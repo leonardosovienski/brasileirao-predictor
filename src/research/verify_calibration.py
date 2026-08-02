@@ -11,12 +11,13 @@ Fixes da auditoria 2026-07-02:
         de hoje (lookahead).
   P12 — banco aberto em modo somente-leitura (mandato shadow).
 """
-import sys
+
 import numpy as np
+
 from src import db
+from src.feature_builder import build_features
 from src.ingest import ROOT, load_config
 from src.model import fit_goal_model, predict_match
-from src.feature_builder import build_features, DEFAULT_FEATURES
 from src.predict import _canon
 from src.ratings import ratings_asof
 
@@ -48,7 +49,8 @@ def load_rows_with_forward_elo(conn, cfg, extra_where: str = ""):
     m_rows = conn.execute(
         "SELECT date, home_team, away_team, home_score, away_score, "
         "tournament, neutral FROM matches WHERE home_score IS NOT NULL "
-        "ORDER BY date").fetchall()
+        "ORDER BY date"
+    ).fetchall()
     dates = {r[5] for r in base_rows}
     snaps = ratings_asof(m_rows, cfg["elo"], dates)
     snaps = {d: {_canon(t): e for t, e in s.items()} for d, s in snaps.items()}
@@ -56,9 +58,18 @@ def load_rows_with_forward_elo(conn, cfg, extra_where: str = ""):
     rows = []
     for eid, home, away, hs, as_, d in base_rows:
         snap = snaps.get(d, {})
-        rows.append((eid, home, away, hs, as_, d,
-                     snap.get(_canon(home or ""), 1500),
-                     snap.get(_canon(away or ""), 1500)))
+        rows.append(
+            (
+                eid,
+                home,
+                away,
+                hs,
+                as_,
+                d,
+                snap.get(_canon(home or ""), 1500),
+                snap.get(_canon(away or ""), 1500),
+            )
+        )
     return rows
 
 
@@ -79,8 +90,8 @@ def test_feature(conn, feature_name, train_rows, test_rows):
     delta_train = []
     for r in train_rows:
         feats = build_features(DB_PATH, r[0])
-        home_val = feats.get(f'home_{feature_name}', 0.0) or 0.0
-        away_val = feats.get(f'away_{feature_name}', 0.0) or 0.0
+        home_val = feats.get(f"home_{feature_name}", 0.0) or 0.0
+        away_val = feats.get(f"away_{feature_name}", 0.0) or 0.0
         delta_train.append(home_val - away_val)
 
     # Treina baseline
@@ -104,20 +115,18 @@ def test_feature(conn, feature_name, train_rows, test_rows):
             y_true.append(2)
 
         feats = build_features(DB_PATH, r[0])
-        home_val = feats.get(f'home_{feature_name}', 0.0) or 0.0
-        away_val = feats.get(f'away_{feature_name}', 0.0) or 0.0
+        home_val = feats.get(f"home_{feature_name}", 0.0) or 0.0
+        away_val = feats.get(f"away_{feature_name}", 0.0) or 0.0
         delta = home_val - away_val
 
         elo_home = r[6] if r[6] is not None else 1500
         elo_away = r[7] if r[7] is not None else 1500
 
         pred_base = predict_match(elo_home, elo_away, params_base)
-        proba_base.append([pred_base['p_win'], pred_base['p_draw'],
-                           pred_base['p_loss']])
+        proba_base.append([pred_base["p_win"], pred_base["p_draw"], pred_base["p_loss"]])
 
         pred_feat = predict_match(elo_home, elo_away, params_feat, delta_xg=delta)
-        proba_feat.append([pred_feat['p_win'], pred_feat['p_draw'],
-                           pred_feat['p_loss']])
+        proba_feat.append([pred_feat["p_win"], pred_feat["p_draw"], pred_feat["p_loss"]])
 
     proba_base = np.array(proba_base)
     proba_feat = np.array(proba_feat)
@@ -130,17 +139,17 @@ def test_feature(conn, feature_name, train_rows, test_rows):
     probmax_feat = np.max(proba_feat[:, [0, 2]], axis=1)
 
     return {
-        'feature': feature_name,
-        'theta_xg': theta_xg,
-        'brier_base': brier_base,
-        'brier_feat': brier_feat,
-        'improvement': brier_base - brier_feat,
-        'probmax_p50_base': np.percentile(probmax_base, 50),
-        'probmax_p50_feat': np.percentile(probmax_feat, 50),
-        'probmax_p90_base': np.percentile(probmax_base, 90),
-        'probmax_p90_feat': np.percentile(probmax_feat, 90),
-        'probmax_max_base': np.max(probmax_base),
-        'probmax_max_feat': np.max(probmax_feat),
+        "feature": feature_name,
+        "theta_xg": theta_xg,
+        "brier_base": brier_base,
+        "brier_feat": brier_feat,
+        "improvement": brier_base - brier_feat,
+        "probmax_p50_base": np.percentile(probmax_base, 50),
+        "probmax_p50_feat": np.percentile(probmax_feat, 50),
+        "probmax_p90_base": np.percentile(probmax_base, 90),
+        "probmax_p90_feat": np.percentile(probmax_feat, 90),
+        "probmax_max_base": np.max(probmax_base),
+        "probmax_max_feat": np.max(probmax_feat),
     }
 
 
@@ -176,36 +185,40 @@ def main():
     # Testa cada feature
     results = []
     for i, feat in enumerate(all_features):
-        print(f"[{i+1}/{len(all_features)}] Testando: {feat}...", end=" ", flush=True)
+        print(f"[{i + 1}/{len(all_features)}] Testando: {feat}...", end=" ", flush=True)
         try:
             r = test_feature(None, feat, train_rows, test_rows)
             results.append(r)
-            status = "^" if r['improvement'] > 0 else "v"
+            status = "^" if r["improvement"] > 0 else "v"
             print(f"theta={r['theta_xg']:.4f} Brier={status}{abs(r['improvement']):.4f}")
         except Exception as e:
             print(f"ERRO: {e}")
 
     # Ordena por melhora no Brier
-    results.sort(key=lambda r: r['improvement'], reverse=True)
+    results.sort(key=lambda r: r["improvement"], reverse=True)
 
     # Tabela final
-    print(f"\n{'Feature':<30s} {'theta':>7s} {'Brier_base':>10s} {'Brier_feat':>10s} "
-          f"{'Melhora':>8s} {'p50_base':>8s} {'p50_feat':>8s} {'p90_base':>8s} "
-          f"{'p90_feat':>8s} {'max_base':>8s} {'max_feat':>8s}")
+    print(
+        f"\n{'Feature':<30s} {'theta':>7s} {'Brier_base':>10s} {'Brier_feat':>10s} "
+        f"{'Melhora':>8s} {'p50_base':>8s} {'p50_feat':>8s} {'p90_base':>8s} "
+        f"{'p90_feat':>8s} {'max_base':>8s} {'max_feat':>8s}"
+    )
     print("-" * 130)
 
     for r in results:
-        print(f"{r['feature']:<30s} {r['theta_xg']:>+7.4f} "
-              f"{r['brier_base']:>10.4f} {r['brier_feat']:>10.4f} "
-              f"{r['improvement']:>+8.4f} "
-              f"{r['probmax_p50_base']:>7.2%} {r['probmax_p50_feat']:>7.2%} "
-              f"{r['probmax_p90_base']:>7.2%} {r['probmax_p90_feat']:>7.2%} "
-              f"{r['probmax_max_base']:>7.2%} {r['probmax_max_feat']:>7.2%}")
+        print(
+            f"{r['feature']:<30s} {r['theta_xg']:>+7.4f} "
+            f"{r['brier_base']:>10.4f} {r['brier_feat']:>10.4f} "
+            f"{r['improvement']:>+8.4f} "
+            f"{r['probmax_p50_base']:>7.2%} {r['probmax_p50_feat']:>7.2%} "
+            f"{r['probmax_p90_base']:>7.2%} {r['probmax_p90_feat']:>7.2%} "
+            f"{r['probmax_max_base']:>7.2%} {r['probmax_max_feat']:>7.2%}"
+        )
 
     # Melhores e piores
     best = results[0]
     worst = results[-1]
-    improved = [r for r in results if r['improvement'] > 0]
+    improved = [r for r in results if r["improvement"] > 0]
     print(f"\nMelhor feature: {best['feature']} (melhora={best['improvement']:.4f})")
     print(f"Pior feature:   {worst['feature']} (melhora={worst['improvement']:.4f})")
     print(f"Features que melhoraram o Brier: {len(improved)}/{len(results)}")
@@ -215,5 +228,5 @@ def main():
             print(f"  {r['feature']:<30s} +{r['improvement']:.4f}  theta={r['theta_xg']:.4f}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

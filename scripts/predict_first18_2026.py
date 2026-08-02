@@ -5,6 +5,7 @@ usam so jogos anteriores a 2026-01-28.
 
 Uso: python scripts/predict_first18_2026.py [N_JOGOS]  (default 18)
 """
+
 import os
 import sys
 from datetime import date, timedelta
@@ -19,7 +20,8 @@ conn = db.connect(str(ROOT / cfg["database"]))
 
 rows = conn.execute(
     "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-    "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+).fetchall()
 
 window = cfg["elo"].get("window_years")
 if window:
@@ -29,8 +31,7 @@ if window:
 ratings_final, history = ratings.compute_ratings(rows, cfg["elo"])
 
 FIRST_SEASON_DATE = "2026-01-28"
-test_idx = [i for i, r in enumerate(rows)
-            if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
+test_idx = [i for i, r in enumerate(rows) if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
 
 cy = cfg["model"].get("calibration_window_years")
 ccut = (date.fromisoformat(FIRST_SEASON_DATE) - timedelta(days=int(cy * 365.25))).isoformat()
@@ -65,4 +66,4 @@ for d, h, a, hs, as_, ph, pd, pa, pred_label, real_label, ok in rows_out:
     print(f"{d:10} {h:22} {a:22} {hs}-{as_:<3} {pred_label:6} {ph:.2f}   {pd:.2f}   {pa:.2f}   {'V' if ok else 'X'}")
 
 n = len(rows_out)
-print(f"\nAcertos (1X2): {hits}/{n} ({hits/n:.1%})")
+print(f"\nAcertos (1X2): {hits}/{n} ({hits / n:.1%})")

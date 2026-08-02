@@ -2,14 +2,18 @@
 Conservação na troca, zebra move mais que favorito, decay regride à média.
 NOTA (do HANDOFF): o viés continental do ranking NÃO é bug — é a Hipótese
 pré-registrada #1; nenhum blend é proposto aqui."""
+
 from datetime import date
 
 import pytest
 
 from src.ratings import compute_ratings, k_factor, margin_multiplier
 
-CFG = {"initial_rating": 1500, "home_advantage": 100,
-       "k_factors": {"default": 30, "FIFA World Cup": 60, "Friendly": 20}}
+CFG = {
+    "initial_rating": 1500,
+    "home_advantage": 100,
+    "k_factors": {"default": 30, "FIFA World Cup": 60, "Friendly": 20},
+}
 
 
 def _m(d, home, away, hs, as_, tournament="Friendly", neutral=1):
@@ -25,10 +29,19 @@ def test_troca_conserva_pontos():
 
 
 def test_conservacao_em_serie_longa():
-    ms = [_m(f"2026-06-{d:02d}", h, a, hs, as_)
-          for d, (h, a, hs, as_) in enumerate(
-              [("A", "B", 3, 1), ("B", "C", 0, 0), ("C", "A", 2, 2),
-               ("A", "C", 1, 0), ("B", "A", 4, 2)], start=1)]
+    ms = [
+        _m(f"2026-06-{d:02d}", h, a, hs, as_)
+        for d, (h, a, hs, as_) in enumerate(
+            [
+                ("A", "B", 3, 1),
+                ("B", "C", 0, 0),
+                ("C", "A", 2, 2),
+                ("A", "C", 1, 0),
+                ("B", "A", 4, 2),
+            ],
+            start=1,
+        )
+    ]
     ratings, _ = compute_ratings(ms, CFG)
     assert sum(ratings.values()) == pytest.approx(3 * 1500)
 
@@ -52,17 +65,16 @@ def test_decay_regride_a_media():
     # A ganha pontos em 2010 e some por 10 anos. No jogo seguinte, o rating
     # PRÉ-jogo (history) tem que ter regredido a 1500 pelo fator 0.5^(anos/HL).
     cfg = dict(CFG, form_half_life_years=4.0)
-    ms = [_m("2010-06-01", "A", "B", 3, 0, "FIFA World Cup"),
-          _m("2020-06-01", "A", "C", 0, 0)]
+    ms = [_m("2010-06-01", "A", "B", 3, 0, "FIFA World Cup"), _m("2020-06-01", "A", "C", 0, 0)]
 
     _, hist_decay = compute_ratings(ms, cfg)
     _, hist_sem = compute_ratings(ms, CFG)
 
-    ganho_2010 = hist_sem[1][0]            # diff pré-jogo vs C (1500), sem decay
+    ganho_2010 = hist_sem[1][0]  # diff pré-jogo vs C (1500), sem decay
     years = (date(2020, 6, 1) - date(2010, 6, 1)).days / 365.25
     esperado = ganho_2010 * 0.5 ** (years / 4.0)
     assert hist_decay[1][0] == pytest.approx(esperado)
-    assert 0 < hist_decay[1][0] < ganho_2010     # regrediu, não cruzou a média
+    assert 0 < hist_decay[1][0] < ganho_2010  # regrediu, não cruzou a média
 
 
 def test_decay_nulo_e_identidade():

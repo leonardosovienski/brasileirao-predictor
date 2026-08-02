@@ -2,76 +2,144 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
 
 jobs:
-  validate:
-    name: Lint & Test (.NET + Python)
+  python:
+    name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python-version: "3.13"
+          - python-version: "3.14"
+    services:
+      redis:
+        image: redis:8.2.1-alpine3.22
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      REDIS_URL: redis://127.0.0.1:6379/15
     steps:
-      - name: Checkout Code (Projeto Atual)
-        uses: actions/checkout@v4
-
-      - name: Clonar Tools Predictor (Dependência)
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
         with:
-          repository: leonardosovienski/tools-predictor
-          path: tools
-
-      - name: Clonar Core Predictor (Dependência)
-        uses: actions/checkout@v4
+          version: "0.12.1"
+          enable-cache: true
+      - uses: actions/setup-python@v5
         with:
-          repository: leonardosovienski/core-predictor
-          path: core
-
-      # O ecossistema é montado com os domínios LADO A LADO: scripts/sombra_diaria.py
-      # resolve o runner em `ROOT.parent / "tools"`. O actions/checkout não escreve
-      # fora do $GITHUB_WORKSPACE, então o clone vive em ./tools e este link o expõe
-      # também como pasta irmã — sem isso, main() cai no guard "operational
-      # entrypoint is incomplete" e retorna 3 num runner limpo.
-      - name: Expor tools como pasta irmã (layout do ecossistema)
-        run: ln -sfn "$GITHUB_WORKSPACE/tools" "$GITHUB_WORKSPACE/../tools"
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Build LineupWorker (.NET)
-        run: dotnet build dotnet/LineupWorker || true
-
-      - name: Instalar Dependências Python
+          python-version: ${{ matrix.python-version }}
+      - name: Download canonical shared wheels
+        env:
+          PREDICTOR_CORE_WHEEL_URL: ${{ secrets.PREDICTOR_CORE_WHEEL_URL }}
+          PREDICTOR_OPS_WHEEL_URL: ${{ secrets.PREDICTOR_OPS_WHEEL_URL }}
         run: |
-          python -m pip install --upgrade pip
-          pip install pytest 
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
-          if [ -f requirements-kernel.txt ]; then pip install -r requirements-kernel.txt; fi
+          test -n "$PREDICTOR_CORE_WHEEL_URL"
+          test -n "$PREDICTOR_OPS_WHEEL_URL"
+          mkdir wheelhouse
+          curl --fail --silent --show-error --location "$PREDICTOR_CORE_WHEEL_URL" --output wheelhouse/predictor_core-2.1.0-py3-none-any.whl
+          curl --fail --silent --show-error --location "$PREDICTOR_OPS_WHEEL_URL" --output wheelhouse/predictor_ops-2.0.1-py3-none-any.whl
+          cd wheelhouse
+          sha256sum --check ../constraints/shared-wheels.sha256
+      - run: uv lock --find-links wheelhouse
+      - run: uv sync --all-extras --find-links wheelhouse
+      - run: uv run python scripts/validate_env_example.py
+      - run: uv run python scripts/seed_test_fixtures.py
+      - run: uv run ruff check src scripts tests
+      - run: uv run ruff format --check src scripts tests
+      - run: >-
+          uv run pyright src/settings.py src/db.py src/model.py src/ratings.py
+          src/market_pricer.py src/prediction_log.py src/evaluator.py src/elo_baseline.py
+          src/dixon_coles.py src/settle.py src/bet_log.py
+          src/data/collection_only_archive.py src/data/bookmaker_odds.py
+          src/data/bookmaker_stability.py src/data/historical_expansion.py src/data/pit_backfill.py
+      - run: uv run coverage run -m pytest
+      - run: uv run coverage run --append -m pytest -m integration
+      - run: uv run coverage report --fail-under=0
+      - run: uv run coverage json -o coverage.json
+      - run: uv run python scripts/coverage_report.py coverage.json --output coverage-by-category.md
+      - run: uv build
+      - run: uv run --isolated --with dist/*.whl brasileirao-predict --help
 
-      - name: Simular Workspace Local (sys.path)
+  dotnet:
+    name: .NET 10 build and test
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:8.2.1-alpine3.22
+        ports:
+          - 6380:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - run: dotnet restore dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --locked-mode
+      - run: dotnet build dotnet/LineupWorker/LineupWorker.csproj --configuration Release --no-restore --warnaserror
+      - run: dotnet test dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --configuration Release --collect:"XPlat Code Coverage" --results-directory artifacts/dotnet-coverage
+      - name: Enforce Worker line and branch coverage
         run: |
-          if [ -f pyproject.toml ]; then
-            PACKAGE_NAME=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb')).get('project', {}).get('name', ''))")
-            if [ -n "$PACKAGE_NAME" ]; then
-              ln -sfn $(pwd) ../$PACKAGE_NAME
-            fi
-          fi
+          python - <<'PY'
+          import glob, xml.etree.ElementTree as ET
+          report = glob.glob("artifacts/dotnet-coverage/**/coverage.cobertura.xml", recursive=True)[0]
+          root = ET.parse(report).getroot()
+          rates = {"line": float(root.attrib["line-rate"]), "branch": float(root.attrib["branch-rate"])}
+          print(rates)
+          assert min(rates.values()) >= 0.80, rates
+          PY
 
-      - name: Gerar Artefatos Operacionais de Teste
-        # O runner é limpo e não tem data/matches.db (gitignored). O seed cria o
-        # banco VAZIO com o schema canônico de src.db, para que o teste de
-        # proveniência operacional RODE aqui em vez de só pular. O script nunca
-        # sobrescreve arquivo existente.
-        run: python scripts/seed_test_fixtures.py
-
-      - name: Executar Testes
+  containers:
+    name: Compose build and health
+    runs-on: ubuntu-latest
+    needs: [python, dotnet]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare validated temporary wheelhouse
+        env:
+          PREDICTOR_CORE_WHEEL_URL: ${{ secrets.PREDICTOR_CORE_WHEEL_URL }}
+          PREDICTOR_OPS_WHEEL_URL: ${{ secrets.PREDICTOR_OPS_WHEEL_URL }}
         run: |
-          PYTHONPATH=.:vendor:core:tools python -m pytest -v \
-            --ignore=tests/test_weekly_download.py
+          test -n "$PREDICTOR_CORE_WHEEL_URL"
+          test -n "$PREDICTOR_OPS_WHEEL_URL"
+          mkdir .wheelhouse-e2e
+          curl --fail --silent --show-error --location "$PREDICTOR_CORE_WHEEL_URL" --output .wheelhouse-e2e/predictor_core-2.1.0-py3-none-any.whl
+          curl --fail --silent --show-error --location "$PREDICTOR_OPS_WHEEL_URL" --output .wheelhouse-e2e/predictor_ops-2.0.1-py3-none-any.whl
+          cd .wheelhouse-e2e
+          sha256sum --check ../constraints/shared-wheels.sha256
+          echo 'PREDICTOR_CORE_WHEEL_URL=.wheelhouse-e2e/predictor_core-2.1.0-py3-none-any.whl' >> "$GITHUB_ENV"
+          echo 'PREDICTOR_OPS_WHEEL_URL=.wheelhouse-e2e/predictor_ops-2.0.1-py3-none-any.whl' >> "$GITHUB_ENV"
+      - run: docker compose config --quiet
+      - run: docker compose build
+      - run: docker compose up --detach --wait --wait-timeout 180
+      - name: Versioned Python Redis .NET smoke
+        run: docker compose run --rm --no-deps --entrypoint python kernel -m scripts.hotpath_smoke --n 3
+      - name: Redis loss and reconnection
+        run: |
+          docker compose stop redis
+          sleep 3
+          test "$(docker inspect brasileirao-predictor-kernel-1 --format '{{.State.Status}}')" = running
+          docker compose start redis
+          sleep 10
+          docker compose run --rm --no-deps --entrypoint python kernel -m scripts.hotpath_smoke --n 1
+      - name: Graceful shutdown
+        run: |
+          docker compose stop --timeout 20 worker kernel
+          test "$(docker inspect brasileirao-predictor-worker-1 --format '{{.State.ExitCode}}')" = 0
+          test "$(docker inspect brasileirao-predictor-kernel-1 --format '{{.State.ExitCode}}')" = 0
+      - if: always()
+        run: docker compose logs --no-color
+      - if: always()
+        run: docker compose down --volumes

@@ -1,13 +1,14 @@
 """H4 — otimizador MLE + walk-forward: recupera força conhecida, sem leakage, PredictionPoint."""
+
 import math
 import random
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
-
-from src.dixon_coles import DixonColesMatrix, fit_dixon_coles_parameters
-from src.evaluator import BrasileiraoDixonColesEvaluator
 from predictor_core.contracts.points import PredictionPoint
+
+from src.dixon_coles import fit_dixon_coles_parameters
+from src.evaluator import BrasileiraoDixonColesEvaluator
 
 
 def _synth_games(n_rounds: int = 30, seed: int = 7) -> list:
@@ -22,10 +23,15 @@ def _synth_games(n_rounds: int = 30, seed: int = 7) -> list:
         rng.shuffle(teams)
         for h, a in [(teams[0], teams[1]), (teams[2], teams[3])]:
             lam, mu = 1.3 * attack[h], attack[a]
-            games.append({"home": h, "away": a,
-                          "home_goals": _poisson(rng, lam),
-                          "away_goals": _poisson(rng, mu),
-                          "day": day})
+            games.append(
+                {
+                    "home": h,
+                    "away": a,
+                    "home_goals": _poisson(rng, lam),
+                    "away_goals": _poisson(rng, mu),
+                    "day": day,
+                }
+            )
             day += 2
     last = max(g["day"] for g in games)
     for g in games:
@@ -34,15 +40,16 @@ def _synth_games(n_rounds: int = 30, seed: int = 7) -> list:
 
 
 def _poisson(rng: random.Random, lam: float) -> int:
-    l, k, p = math.exp(-lam), 0, 1.0
+    threshold, k, p = math.exp(-lam), 0, 1.0
     while True:
         p *= rng.random()
-        if p <= l:
+        if p <= threshold:
             return k
         k += 1
 
 
 # ---------- fit_dixon_coles_parameters ----------
+
 
 def test_fit_recovers_strength_ordering():
     params = fit_dixon_coles_parameters(_synth_games(), xi_fixed=0.0)
@@ -65,16 +72,21 @@ def test_fit_rejects_empty_and_single_team():
 
 # ---------- BrasileiraoDixonColesEvaluator ----------
 
+
 def _observations(n_rounds: int = 25) -> list:
-    t0 = datetime(2026, 4, 1, tzinfo=timezone.utc)
+    t0 = datetime(2026, 4, 1, tzinfo=UTC)
     games = _synth_games(n_rounds)
     games.sort(key=lambda g: -g["days_ago"])
     obs = []
     for i, g in enumerate(games):
-        obs.append({"home": g["home"], "away": g["away"],
-                    "kickoff": t0 + timedelta(days=2 * i),
-                    "result": {"home_goals": g["home_goals"],
-                               "away_goals": g["away_goals"]}})
+        obs.append(
+            {
+                "home": g["home"],
+                "away": g["away"],
+                "kickoff": t0 + timedelta(days=2 * i),
+                "result": {"home_goals": g["home_goals"], "away_goals": g["away_goals"]},
+            }
+        )
     return obs
 
 

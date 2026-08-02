@@ -4,14 +4,16 @@ The free plan currently exposes seasons 2022--2024.  This adapter is opt-in,
 read-only, and marks every record as shadow-only; callers must not mix its
 output into production predictions or settlement without a separate gate.
 """
+
 from __future__ import annotations
 
-from datetime import datetime, timezone
 import json
 import os
-from typing import Any, Callable
-from urllib.parse import urlencode
 import urllib.request
+from collections.abc import Callable
+from datetime import UTC, datetime
+from typing import Any
+from urllib.parse import urlencode
 
 from predictor_core.data.contracts import DataUnavailableError
 
@@ -21,8 +23,13 @@ FREE_SEASONS = frozenset({2022, 2023, 2024})
 
 
 class ApiFootballProvider:
-    def __init__(self, *, api_key: str | None = None, timeout: float = 30.0,
-                 get_json: Callable[[str, dict[str, str]], Any] | None = None):
+    def __init__(
+        self,
+        *,
+        api_key: str | None = None,
+        timeout: float = 30.0,
+        get_json: Callable[[str, dict[str, str]], Any] | None = None,
+    ):
         self.api_key = api_key or os.environ.get("API_FOOTBALL_KEY")
         self.timeout = timeout
         self._get_json = get_json or self._http_get_json
@@ -50,8 +57,11 @@ class ApiFootballProvider:
             raise DataUnavailableError("API-Football retornou payload inválido")
         errors = payload.get("errors")
         if errors:
-            detail = "; ".join(f"{key}: {value}" for key, value in errors.items()) \
-                if isinstance(errors, dict) else str(errors)
+            detail = (
+                "; ".join(f"{key}: {value}" for key, value in errors.items())
+                if isinstance(errors, dict)
+                else str(errors)
+            )
             raise DataUnavailableError(f"API-Football recusou a consulta: {detail}")
         rows = payload.get("response")
         if not isinstance(rows, list):
@@ -60,24 +70,28 @@ class ApiFootballProvider:
 
     def brasileirao_seasons(self) -> list[int]:
         rows = self._request("leagues", {"id": BRASILEIRAO_SERIE_A_ID})
-        if len(rows) != 1 or rows[0].get("league", {}).get("name") != "Serie A" \
-                or rows[0].get("country", {}).get("name") != "Brazil":
+        if (
+            len(rows) != 1
+            or rows[0].get("league", {}).get("name") != "Serie A"
+            or rows[0].get("country", {}).get("name") != "Brazil"
+        ):
             raise DataUnavailableError("API-Football não confirmou o Brasileirão Série A")
-        return sorted(int(item["year"]) for item in rows[0].get("seasons", [])
-                      if item.get("year") is not None)
+        return sorted(int(item["year"]) for item in rows[0].get("seasons", []) if item.get("year") is not None)
 
-    def list_fixtures(self, *, season: int,
-                      observed_at: datetime | None = None) -> list[dict[str, Any]]:
+    def list_fixtures(self, *, season: int, observed_at: datetime | None = None) -> list[dict[str, Any]]:
         if season not in FREE_SEASONS:
-            raise DataUnavailableError(
-                f"temporada {season} fora da janela grátis da API-Football (2022-2024)")
-        observed = observed_at or datetime.now(timezone.utc)
+            raise DataUnavailableError(f"temporada {season} fora da janela grátis da API-Football (2022-2024)")
+        observed = observed_at or datetime.now(UTC)
         if observed.tzinfo is None or observed.utcoffset() is None:
             raise ValueError("observed_at deve conter timezone")
-        observed = observed.astimezone(timezone.utc)
-        raw_rows = self._request("fixtures", {
-            "league": BRASILEIRAO_SERIE_A_ID, "season": season,
-        })
+        observed = observed.astimezone(UTC)
+        raw_rows = self._request(
+            "fixtures",
+            {
+                "league": BRASILEIRAO_SERIE_A_ID,
+                "season": season,
+            },
+        )
         rows = []
         for item in raw_rows:
             fixture = item.get("fixture") or {}
@@ -92,14 +106,20 @@ class ApiFootballProvider:
             except (KeyError, TypeError, ValueError):
                 continue
             goals = item.get("goals") or {}
-            rows.append({
-                "source": "api_football", "source_event_id": event_id,
-                "source_league_id": BRASILEIRAO_SERIE_A_ID, "season": season,
-                "scheduled_at": scheduled.astimezone(timezone.utc).isoformat(timespec="seconds"),
-                "observed_at": observed.isoformat(timespec="seconds"),
-                "home_team": home["name"], "away_team": away["name"],
-                "home_goals": goals.get("home"), "away_goals": goals.get("away"),
-                "status": (fixture.get("status") or {}).get("short"),
-                "shadow_only": True,
-            })
+            rows.append(
+                {
+                    "source": "api_football",
+                    "source_event_id": event_id,
+                    "source_league_id": BRASILEIRAO_SERIE_A_ID,
+                    "season": season,
+                    "scheduled_at": scheduled.astimezone(UTC).isoformat(timespec="seconds"),
+                    "observed_at": observed.isoformat(timespec="seconds"),
+                    "home_team": home["name"],
+                    "away_team": away["name"],
+                    "home_goals": goals.get("home"),
+                    "away_goals": goals.get("away"),
+                    "status": (fixture.get("status") or {}).get("short"),
+                    "shadow_only": True,
+                }
+            )
         return sorted(rows, key=lambda row: (row["scheduled_at"], row["source_event_id"]))

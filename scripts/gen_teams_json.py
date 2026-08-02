@@ -11,6 +11,7 @@ Estrutura de saída:
 
 Uso: python scripts/gen_teams_json.py   (após python -m src.ingest_sofascore)
 """
+
 import json
 import sys
 from pathlib import Path
@@ -18,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from src.ingest import load_config          # noqa: E402
+from src.ingest import load_config  # noqa: E402
 
 OUT = ROOT / "data" / "teams_brasileirao.json"
 
@@ -44,16 +45,16 @@ def main() -> None:
                 if name and tid:
                     teams[name] = {"sofascore_id": tid, "slug": t.get("slug", "")}
 
-    out = {"season": "2026",
-           "source": f"sofascore ut_id={comp['ut_id']} season_id={comp['season_id']}",
-           "n_teams": len(teams),
-           "teams": dict(sorted(teams.items()))}
-    OUT.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n",
-                   encoding="utf-8")
+    out = {
+        "season": "2026",
+        "source": f"sofascore ut_id={comp['ut_id']} season_id={comp['season_id']}",
+        "n_teams": len(teams),
+        "teams": dict(sorted(teams.items())),
+    }
+    OUT.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"{OUT.name}: {len(teams)} clubes")
     if len(teams) != 20:
-        print(f"AVISO: esperava 20 clubes na Série A, achei {len(teams)} — "
-              "temporada 2026 incompleta no cache?")
+        print(f"AVISO: esperava 20 clubes na Série A, achei {len(teams)} — temporada 2026 incompleta no cache?")
     for name, info in sorted(teams.items()):
         print(f"  {name:<28} id={info['sofascore_id']}")
 

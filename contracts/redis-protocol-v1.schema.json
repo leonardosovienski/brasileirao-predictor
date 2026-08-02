@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://brasileirao-predictor.local/contracts/redis-protocol-v1.schema.json",
+  "title": "Brasileirao Redis kernel invocation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "job_id", "run_id", "match_id", "idempotency_key", "elo_a", "elo_b", "dvorp_a", "dvorp_b", "timestamp_t3"],
+  "properties": {
+    "protocol_version": {"const": "brasileirao.redis/1"},
+    "job_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "match_id": {"type": "string", "minLength": 1},
+    "idempotency_key": {"type": "string", "minLength": 1},
+    "elo_a": {"type": "number"}, "elo_b": {"type": "number"},
+    "dvorp_a": {"type": "number"}, "dvorp_b": {"type": "number"},
+    "timestamp_t3": {"type": "integer", "minimum": 0}
+  }
+}

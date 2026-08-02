@@ -4,7 +4,6 @@ import importlib.util
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -21,18 +20,40 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
 
 
 def pick(event_id: int = 1, selection: str = "under", captured_at: str = "2026-07-10T10:00:00+00:00") -> dict:
-    return {"event_id": event_id, "selection": selection, "captured_at": captured_at, "date": "2026-07-12", "market": "ou2.5", "odd": 2.0, "edge": 0.05, "model_prob": 0.55}
+    return {
+        "event_id": event_id,
+        "selection": selection,
+        "captured_at": captured_at,
+        "date": "2026-07-12",
+        "market": "ou2.5",
+        "odd": 2.0,
+        "edge": 0.05,
+        "model_prob": 0.55,
+    }
 
 
 def result(event_id: int = 1, selection: str = "under", won: int = 1) -> dict:
-    return {"event_id": event_id, "selection": selection, "settled_at": "2026-07-12T23:00:00+00:00", "won": won, "pnl": 1.0 if won else -1.0, "clv": 0.04}
+    return {
+        "event_id": event_id,
+        "selection": selection,
+        "settled_at": "2026-07-12T23:00:00+00:00",
+        "won": won,
+        "pnl": 1.0 if won else -1.0,
+        "clv": 0.04,
+    }
 
 
 def test_empty_ledger_is_insufficient(tmp_path: Path) -> None:
     reporter = load_reporter()
     report = reporter.build_report(tmp_path / "picks.jsonl", tmp_path / "results.jsonl")
     assert report["classification"] == "DADOS INSUFICIENTES"
-    assert report["counts"] == {"pick_records": 0, "unique_picks": 0, "matured": 0, "open": 0, "result_records": 0}
+    assert report["counts"] == {
+        "pick_records": 0,
+        "unique_picks": 0,
+        "matured": 0,
+        "open": 0,
+        "result_records": 0,
+    }
 
 
 def test_open_pick_is_reported_without_metrics(tmp_path: Path) -> None:
@@ -83,14 +104,18 @@ def test_enriched_ledger_proves_temporality_odds_turn_and_costs(tmp_path: Path) 
     reporter = load_reporter()
     picks, results = tmp_path / "picks.jsonl", tmp_path / "results.jsonl"
     enriched_pick = {
-        **pick(), "predicted_at": "2026-07-10T10:00:00+00:00",
-        "kickoff_at": "2026-07-12T20:00:00+00:00", "capture_turn": "morning",
-        "odds_open": 1.9, "odds_captured": 2.0, "odds_source": "sofascore",
+        **pick(),
+        "predicted_at": "2026-07-10T10:00:00+00:00",
+        "kickoff_at": "2026-07-12T20:00:00+00:00",
+        "capture_turn": "morning",
+        "odds_open": 1.9,
+        "odds_captured": 2.0,
+        "odds_source": "sofascore",
     }
     enriched_result = {
-        **result(), "odds_close": 2.1,
-        "costs": {"status": "not_applicable_shadow_no_execution",
-                  "amount_units": 0.0},
+        **result(),
+        "odds_close": 2.1,
+        "costs": {"status": "not_applicable_shadow_no_execution", "amount_units": 0.0},
     }
     write_jsonl(picks, [enriched_pick])
     write_jsonl(results, [enriched_result])

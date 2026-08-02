@@ -19,6 +19,7 @@ target_key das features, então qualquer campo de resultado fora dele vazaria
 para o predict_step. `train_step` lê `result` do histórico (que chega completo);
 `predict_step` recebe {home, away, kickoff} e nada mais.
 """
+
 from __future__ import annotations
 
 import math
@@ -66,22 +67,25 @@ class BrasileiraoDixonColesEvaluator(PrequentialEvaluator):
     def train_step(self, history: list[dict[str, Any]]) -> None:
         """Ajusta (α, β, γ, ρ) por WNLL sobre o passado estrito recebido do core."""
         cutoff: datetime = max(h["kickoff"] for h in history)
-        games = [{
-            "home": h["home"],
-            "away": h["away"],
-            "home_goals": h["result"]["home_goals"],
-            "away_goals": h["result"]["away_goals"],
-            "days_ago": (cutoff - h["kickoff"]).total_seconds() / 86400.0,
-        } for h in history]
-        self.fitted_parameters = fit_dixon_coles_parameters(
-            games, self.xi, max_goals=self.max_goals)
+        games = [
+            {
+                "home": h["home"],
+                "away": h["away"],
+                "home_goals": h["result"]["home_goals"],
+                "away_goals": h["result"]["away_goals"],
+                "days_ago": (cutoff - h["kickoff"]).total_seconds() / 86400.0,
+            }
+            for h in history
+        ]
+        self.fitted_parameters = fit_dixon_coles_parameters(games, self.xi, max_goals=self.max_goals)
         self._trained_at = cutoff
 
     def predict_step(self, features: dict[str, Any]) -> PredictionPoint:
         """Monta a DixonColesMatrix do confronto e devolve o PredictionPoint 1X2."""
         if self.fitted_parameters is None or self._trained_at is None:
-            raise RuntimeError("predict_step antes de train_step — a ABC do core "
-                               "nunca faz isso; chamada manual fora de ordem")
+            raise RuntimeError(
+                "predict_step antes de train_step — a ABC do core nunca faz isso; chamada manual fora de ordem"
+            )
         p = self.fitted_parameters
         home, away = str(features["home"]), str(features["away"])
         alpha_h = p["attack"].get(home, _DEFAULT_STRENGTH)
@@ -96,8 +100,13 @@ class BrasileiraoDixonColesEvaluator(PrequentialEvaluator):
             predicted_at=self._trained_at,
             matures_at=features["kickoff"],
             value=matrix.outcome_probs(),
-            metadata={"home": home, "away": away, "rho": rho,
-                      "home_advantage": p["home_advantage"], "xi": self.xi},
+            metadata={
+                "home": home,
+                "away": away,
+                "rho": rho,
+                "home_advantage": p["home_advantage"],
+                "xi": self.xi,
+            },
         )
 
     # --- interno -------------------------------------------------------------

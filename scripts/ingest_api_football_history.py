@@ -1,4 +1,5 @@
 """Import API-Football 2022--2024 into the isolated shadow database."""
+
 from __future__ import annotations
 
 import argparse
@@ -11,8 +12,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.data.api_football_provider import ApiFootballProvider  # noqa: E402
-from src.data.historical_expansion import (                       # noqa: E402
-    API_FOOTBALL_TEAM_MAP, connect_shadow, coverage_report, ingest_api_football,
+from src.data.historical_expansion import (  # noqa: E402
+    API_FOOTBALL_TEAM_MAP,
+    connect_shadow,
+    coverage_report,
+    ingest_api_football,
 )
 
 
@@ -24,8 +28,9 @@ def main() -> None:
     args = parser.parse_args()
 
     production = sqlite3.connect(args.production_db)
-    known = {row[0] for row in production.execute("SELECT home_team FROM matches")} | \
-            {row[0] for row in production.execute("SELECT away_team FROM matches")}
+    known = {row[0] for row in production.execute("SELECT home_team FROM matches")} | {
+        row[0] for row in production.execute("SELECT away_team FROM matches")
+    }
     # Clubes rebaixados podem não existir na janela atual do banco principal;
     # entram somente quando constam no mapa explícito e revisado acima.
     known |= set(API_FOOTBALL_TEAM_MAP.values())
@@ -33,8 +38,7 @@ def main() -> None:
     provider = ApiFootballProvider()
     imported = 0
     for season in args.seasons:
-        imported += ingest_api_football(
-            shadow, provider.list_fixtures(season=season), known_teams=known)
+        imported += ingest_api_football(shadow, provider.list_fixtures(season=season), known_teams=known)
     report = coverage_report(shadow, production)
     report["imported_this_run"] = imported
     print(json.dumps(report, ensure_ascii=False, sort_keys=True))

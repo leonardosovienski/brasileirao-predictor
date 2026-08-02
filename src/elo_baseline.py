@@ -18,6 +18,7 @@ histórica de empates do treino):
     P(casa)   = p · (1 − d̄)
     P(fora)   = (1 − p) · (1 − d̄)
 """
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -80,9 +81,13 @@ class EloBaselineEvaluator(PrequentialEvaluator):
             predicted_at=self._trained_at,
             matures_at=features["kickoff"],
             value={"home": p * (1.0 - d), "draw": d, "away": (1.0 - p) * (1.0 - d)},
-            metadata={"home": features["home"], "away": features["away"],
-                      "model": "elo_baseline", "k": self.k,
-                      "home_advantage_elo": self.home_advantage_elo},
+            metadata={
+                "home": features["home"],
+                "away": features["away"],
+                "model": "elo_baseline",
+                "k": self.k,
+                "home_advantage_elo": self.home_advantage_elo,
+            },
         )
 
     # --- interno --------------------------------------------------------------

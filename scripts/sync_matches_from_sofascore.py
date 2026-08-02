@@ -15,14 +15,15 @@ Regras:
 
 Uso: python scripts/sync_matches_from_sofascore.py
 """
+
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src import db                                    # noqa: E402
-from src.ingest import ROOT, load_config              # noqa: E402
-from src.obs import get_logger, setup_logging         # noqa: E402
+from src import db  # noqa: E402
+from src.ingest import ROOT, load_config  # noqa: E402
+from src.obs import get_logger, setup_logging  # noqa: E402
 
 log = get_logger()
 
@@ -33,14 +34,11 @@ def sync(conn, tournament: str) -> tuple[int, int]:
         "FROM sofascore_matches "
         "WHERE date IS NOT NULL AND home_team IS NOT NULL AND away_team IS NOT NULL"
     ).fetchall()
-    out = [(d, h, a, hs, as_, tournament, "", "", 0)
-           for d, h, a, hs, as_ in rows]
+    out = [(d, h, a, hs, as_, tournament, "", "", 0) for d, h, a, hs, as_ in rows]
     if out:
         db.upsert_matches(conn, out)
-    played = conn.execute(
-        "SELECT COUNT(*) FROM matches WHERE home_score IS NOT NULL").fetchone()[0]
-    fixtures = conn.execute(
-        "SELECT COUNT(*) FROM matches WHERE home_score IS NULL").fetchone()[0]
+    played = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NOT NULL").fetchone()[0]
+    fixtures = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NULL").fetchone()[0]
     return played, fixtures
 
 
@@ -52,8 +50,7 @@ def main() -> None:
         sys.exit("config.yaml sem tournament_name — defina antes de espelhar")
     conn = db.connect(str(ROOT / cfg["database"]))
     played, fixtures = sync(conn, tournament)
-    log.info("matches espelhado do sofascore: %d jogadas, %d fixtures",
-             played, fixtures)
+    log.info("matches espelhado do sofascore: %d jogadas, %d fixtures", played, fixtures)
 
 
 if __name__ == "__main__":
