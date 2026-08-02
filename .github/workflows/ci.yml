@@ -37,20 +37,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Download canonical shared wheels
-        env:
-          PREDICTOR_CORE_WHEEL_URL: ${{ secrets.PREDICTOR_CORE_WHEEL_URL }}
-          PREDICTOR_OPS_WHEEL_URL: ${{ secrets.PREDICTOR_OPS_WHEEL_URL }}
+      - name: Verify canonical shared wheel hashes
         run: |
-          test -n "$PREDICTOR_CORE_WHEEL_URL"
-          test -n "$PREDICTOR_OPS_WHEEL_URL"
           mkdir wheelhouse
-          curl --fail --silent --show-error --location "$PREDICTOR_CORE_WHEEL_URL" --output wheelhouse/predictor_core-2.1.0-py3-none-any.whl
-          curl --fail --silent --show-error --location "$PREDICTOR_OPS_WHEEL_URL" --output wheelhouse/predictor_ops-2.0.1-py3-none-any.whl
+          curl --fail --silent --show-error --location \
+            "https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl" \
+            --output wheelhouse/predictor_core-2.1.0-py3-none-any.whl
+          curl --fail --silent --show-error --location \
+            "https://github.com/leonardosovienski/tools-predictor/releases/download/v2.0.1/predictor_ops-2.0.1-py3-none-any.whl" \
+            --output wheelhouse/predictor_ops-2.0.1-py3-none-any.whl
           cd wheelhouse
           sha256sum --check ../constraints/shared-wheels.sha256
-      - run: uv lock --find-links wheelhouse
-      - run: uv sync --all-extras --find-links wheelhouse
+      - run: uv sync --all-extras --locked
       - run: uv run python scripts/validate_env_example.py
       - run: uv run python scripts/seed_test_fixtures.py
       - run: uv run ruff check src scripts tests
@@ -67,7 +65,11 @@ jobs:
       - run: uv run coverage json -o coverage.json
       - run: uv run python scripts/coverage_report.py coverage.json --output coverage-by-category.md
       - run: uv build
-      - run: uv run --isolated --with dist/*.whl brasileirao-predict --help
+      - run: >-
+          uv run --isolated --with dist/*.whl
+          --with "predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl"
+          --with "predictor-ops @ https://github.com/leonardosovienski/tools-predictor/releases/download/v2.0.1/predictor_ops-2.0.1-py3-none-any.whl"
+          brasileirao-predict --help
 
   dotnet:
     name: .NET 10 build and test
@@ -107,20 +109,17 @@ jobs:
     needs: [python, dotnet]
     steps:
       - uses: actions/checkout@v4
-      - name: Prepare validated temporary wheelhouse
-        env:
-          PREDICTOR_CORE_WHEEL_URL: ${{ secrets.PREDICTOR_CORE_WHEEL_URL }}
-          PREDICTOR_OPS_WHEEL_URL: ${{ secrets.PREDICTOR_OPS_WHEEL_URL }}
+      - name: Verify canonical shared wheel hashes
         run: |
-          test -n "$PREDICTOR_CORE_WHEEL_URL"
-          test -n "$PREDICTOR_OPS_WHEEL_URL"
           mkdir .wheelhouse-e2e
-          curl --fail --silent --show-error --location "$PREDICTOR_CORE_WHEEL_URL" --output .wheelhouse-e2e/predictor_core-2.1.0-py3-none-any.whl
-          curl --fail --silent --show-error --location "$PREDICTOR_OPS_WHEEL_URL" --output .wheelhouse-e2e/predictor_ops-2.0.1-py3-none-any.whl
+          curl --fail --silent --show-error --location \
+            "https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl" \
+            --output .wheelhouse-e2e/predictor_core-2.1.0-py3-none-any.whl
+          curl --fail --silent --show-error --location \
+            "https://github.com/leonardosovienski/tools-predictor/releases/download/v2.0.1/predictor_ops-2.0.1-py3-none-any.whl" \
+            --output .wheelhouse-e2e/predictor_ops-2.0.1-py3-none-any.whl
           cd .wheelhouse-e2e
           sha256sum --check ../constraints/shared-wheels.sha256
-          echo 'PREDICTOR_CORE_WHEEL_URL=.wheelhouse-e2e/predictor_core-2.1.0-py3-none-any.whl' >> "$GITHUB_ENV"
-          echo 'PREDICTOR_OPS_WHEEL_URL=.wheelhouse-e2e/predictor_ops-2.0.1-py3-none-any.whl' >> "$GITHUB_ENV"
       - run: docker compose config --quiet
       - run: docker compose build
       - run: docker compose up --detach --wait --wait-timeout 180
