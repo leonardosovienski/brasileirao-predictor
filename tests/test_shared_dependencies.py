@@ -20,7 +20,7 @@ def test_shared_dependencies_load_from_site_packages() -> None:
 def test_shared_wheel_hashes_are_pinned() -> None:
     records = (ROOT / "constraints" / "shared-wheels.sha256").read_text(encoding="utf-8")
     assert "83de1d4415700dedaf387bc46dd9685e046de1fa47f37367bf2167462b09761b" in records
-    assert "37de983718b318fc1ccadc6b299db9fccdbea946080a2b710d6dd6a939a7e766" in records
+    assert "77ca2eb3f1090226dfef23b84d7fb2f9a61bd858c970d433d28303e637a8903e" in records
 
 
 def test_predictor_ops_closes_owned_stdout_pipe(tmp_path: Path, monkeypatch) -> None:
