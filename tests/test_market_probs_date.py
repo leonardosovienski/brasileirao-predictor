@@ -5,6 +5,7 @@ do settle de dinheiro real podia ser computado contra o fechamento de OUTRO
 jogo. Agora: com match_date exige |Δ| <= 3 dias (mesma defesa do
 backtest._find_odds); sem data, fica com o de data mais recente.
 """
+
 import sqlite3
 
 import pytest
@@ -22,9 +23,12 @@ def conn():
     # mesmo par, duas edições com odds bem diferentes (cenário real da base)
     c.executemany(
         "INSERT INTO sofascore_matches VALUES (?,?,?,?,?,?,?,?)",
-        [("2024-06-20", "Argentina", "Canada", 1.30, 5.00, 9.00, 1.70, 2.10),
-         ("2026-07-15", "Argentina", "Canada", 2.00, 3.20, 3.80, 1.95, 1.85),
-         ("2026-07-09", "France", "Morocco", 1.60, 4.00, 6.00, 2.00, 1.80)])
+        [
+            ("2024-06-20", "Argentina", "Canada", 1.30, 5.00, 9.00, 1.70, 2.10),
+            ("2026-07-15", "Argentina", "Canada", 2.00, 3.20, 3.80, 1.95, 1.85),
+            ("2026-07-09", "France", "Morocco", 1.60, 4.00, 6.00, 2.00, 1.80),
+        ],
+    )
     return c
 
 

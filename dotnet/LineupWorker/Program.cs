@@ -2,23 +2,29 @@ using LineupWorker;
 using LineupWorker.Services;
 using StackExchange.Redis;
 
+var operational = OperationalSettings.FromEnvironment();
+
+if (args.Contains("--healthcheck"))
+{
+    using var connection = await ConnectionMultiplexer.ConnectAsync(operational.RedisConfiguration());
+    await connection.GetDatabase().PingAsync().WaitAsync(TimeSpan.FromSeconds(3));
+    return 0;
+}
+
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureAppConfiguration((ctx, cfg) =>
     {
         cfg.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
-        cfg.AddEnvironmentVariables(prefix: "LINEUP_");   // override via env: LINEUP_Worker__LineupTimeoutMinutes=60
+        cfg.AddEnvironmentVariables(prefix: "LINEUP_");
     })
     .ConfigureServices((ctx, services) =>
     {
-        var redisConn = ctx.Configuration.GetConnectionString("Redis") ?? "localhost:6379";
+        services.AddSingleton(operational);
 
         // Redis: singleton thread-safe; ConfigurationOptions para fine-tuning de latência
         services.AddSingleton<IConnectionMultiplexer>(_ =>
         {
-            var opts = ConfigurationOptions.Parse(redisConn);
-            opts.SocketManager    = SocketManager.ThreadPool;     // evita thread starvation
-            opts.ReconnectRetryPolicy = new LinearRetry(500);     // reconecta a cada 500ms
-            return ConnectionMultiplexer.Connect(opts);
+            return ConnectionMultiplexer.Connect(operational.RedisConfiguration());
         });
 
         // VorpStateService: warm-up síncrono na inicialização — DEVE completar antes
@@ -47,6 +53,7 @@ var host = Host.CreateDefaultBuilder(args)
     .Build();
 
 await host.RunAsync();
+return 0;
 
 // ---------------------------------------------------------------------------
 // Serviço auxiliar: relatório de latência periódico (não é hot path)

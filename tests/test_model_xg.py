@@ -1,7 +1,6 @@
 import pytest
-import numpy as np
-from src.model import fit_goal_model, predict_match
 
+from src.model import fit_goal_model, predict_match
 
 # AUDITORIA P1: o fixture antigo usava [elo_home, elo_away, hs, as] — formato
 # ERRADO que este teste canonizou e a Fase 2 copiou (o MLE tratava o Elo do
@@ -46,12 +45,12 @@ def test_predict_with_xg():
     pred_flat = predict_match(1800, 1600, params, delta_xg=0.0)
     pred_xg = predict_match(1800, 1600, params, delta_xg=2.0)
     # Com delta_xg positivo, o time da casa deve ter mais chances
-    assert pred_xg['p_win'] > pred_flat['p_win']
+    assert pred_xg["p_win"] > pred_flat["p_win"]
 
 
 def test_predict_without_xg():
     """predict_match sem delta_xg mantem comportamento original."""
     params = (0.2, 0.8, 0.15, -0.03)
     pred = predict_match(1800, 1600, params)
-    assert 0 < pred['p_win'] < 1
-    assert abs(pred['p_win'] + pred['p_draw'] + pred['p_loss'] - 1.0) < 0.001
+    assert 0 < pred["p_win"] < 1
+    assert abs(pred["p_win"] + pred["p_draw"] + pred["p_loss"] - 1.0) < 0.001

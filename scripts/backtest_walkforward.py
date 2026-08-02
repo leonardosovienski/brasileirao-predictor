@@ -28,6 +28,7 @@ Critério GO (o mesmo da Copa, sobre a população alvo de H1 = OU2.5):
 
 Banco em modo somente-leitura (P12): este script é de pesquisa.
 """
+
 import csv
 import json
 import statistics as st
@@ -35,24 +36,29 @@ import sys
 from datetime import date, timedelta
 from pathlib import Path
 
+from predictor_core.measurement.bootstrap import bootstrap_ci
+from predictor_core.measurement.stats import probabilistic_sharpe_ratio
+from predictor_core.measurement.trials import TrialRegistry
+
+from src import db, model, ratings
+from src.backtest import (
+    _find_event,
+    _find_odds,
+    _load_ext_index,
+    _load_flat_markets,
+    _load_lines,
+    _load_odds,
+    _settle,
+    _settle_extended,
+)
+from src.ingest import load_config
+from src.math_utils import shin_probabilities
+
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "vendor"))
-
-from src import db, model, ratings                                  # noqa: E402
-from src.backtest import _load_odds, _find_odds, _settle, \
-    _load_ext_index, _find_event, _load_flat_markets, _load_lines, \
-    _settle_extended                                                 # noqa: E402
-from src.ingest import load_config                                   # noqa: E402
-from src.math_utils import shin_probabilities                        # noqa: E402
-from predictor_core.measurement.stats import probabilistic_sharpe_ratio  # noqa: E402
-from predictor_core.measurement.bootstrap import bootstrap_ci        # noqa: E402
-from predictor_core.measurement.trials import TrialRegistry          # noqa: E402
-
 OUTCOMES = ("home", "draw", "away")
-GAMES_PER_ROUND = 10          # Série A: 20 clubes → 10 jogos por rodada
-H2_CONF = 0.60                # pick de período: confiança mínima pré-registrada
-H2_LINES = (1.5, 2.5)         # linhas de O/U do 1T aferíveis com o placar de HT
+GAMES_PER_ROUND = 10  # Série A: 20 clubes → 10 jogos por rodada
+H2_CONF = 0.60  # pick de período: confiança mínima pré-registrada
+H2_LINES = (1.5, 2.5)  # linhas de O/U do 1T aferíveis com o placar de HT
 
 
 def _ht_fraction(rows_ht, cut_date):
@@ -85,14 +91,14 @@ def run_walkforward(cfg, conn):
 
     rows = conn.execute(
         "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-        "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+        "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+    ).fetchall()
     if len(rows) < 2 * block_games:
         sys.exit(f"base insuficiente: {len(rows)} jogos < 2 blocos de {block_games}")
 
     window = cfg["elo"].get("window_years")
     if window:
-        cut = (date.fromisoformat(rows[-1][0])
-               - timedelta(days=int(window * 365.25))).isoformat()
+        cut = (date.fromisoformat(rows[-1][0]) - timedelta(days=int(window * 365.25))).isoformat()
         rows = [r for r in rows if r[0] >= cut]
     _, history = ratings.compute_ratings(rows, cfg["elo"])
 
@@ -106,11 +112,11 @@ def run_walkforward(cfg, conn):
     # HT scores p/ H2 (chave date+times — mesma base sofascore, nomes idênticos)
     ht = {}
     for d, h, a, hht, aht in conn.execute(
-            "SELECT date, home_team, away_team, home_score_ht, away_score_ht "
-            "FROM sofascore_matches WHERE home_score_ht IS NOT NULL"):
+        "SELECT date, home_team, away_team, home_score_ht, away_score_ht "
+        "FROM sofascore_matches WHERE home_score_ht IS NOT NULL"
+    ):
         ht[(d, h, a)] = (hht, aht)
-    rows_ht = [(r[0], r[3], r[4], *ht.get((r[0], r[1], r[2]), (None, None)))
-               for r in rows]
+    rows_ht = [(r[0], r[3], r[4], *ht.get((r[0], r[1], r[2]), (None, None))) for r in rows]
 
     # blocos: o primeiro é burn-in (Elo converge, calibração acumula), nunca testado
     blocks = []
@@ -122,10 +128,8 @@ def run_walkforward(cfg, conn):
     ledger, h2_picks = [], []
     for bi, (lo, hi) in enumerate(blocks, 1):
         first_date = rows[lo][0]
-        cal_cut = (date.fromisoformat(first_date)
-                   - timedelta(days=int(cal_years * 365.25))).isoformat()
-        hist_cal = [h for h, r in zip(history, rows)
-                    if cal_cut <= r[0] < first_date]
+        cal_cut = (date.fromisoformat(first_date) - timedelta(days=int(cal_years * 365.25))).isoformat()
+        hist_cal = [h for h, r in zip(history, rows) if cal_cut <= r[0] < first_date]
         if len(hist_cal) < 100:
             print(f"bloco {bi}: só {len(hist_cal)} jogos de calibração — pulado")
             continue
@@ -139,11 +143,16 @@ def run_walkforward(cfg, conn):
             total = hs + as_
             res_1x2 = "home" if hs > as_ else ("draw" if hs == as_ else "away")
             res_ou = "over" if total > ou_line else "under"
-            ctx = {"date": d, "competition": tournament, "home": home,
-                   "away": away, "elo_diff": round(diff, 1),
-                   "lambda_home": round(r["lambda_a"], 3),
-                   "lambda_away": round(r["lambda_b"], 3),
-                   "score": f"{hs}-{as_}"}
+            ctx = {
+                "date": d,
+                "competition": tournament,
+                "home": home,
+                "away": away,
+                "elo_diff": round(diff, 1),
+                "lambda_home": round(r["lambda_a"], 3),
+                "lambda_away": round(r["lambda_b"], 3),
+                "score": f"{hs}-{as_}",
+            }
 
             found = _find_odds(odds, home, away, d)
             if found:
@@ -156,9 +165,18 @@ def run_walkforward(cfg, conn):
                     sh, _z, _ov = shin_probabilities([oh, od_, oa])
                     p_shin = {"home": sh[0], "draw": sh[1], "away": sh[2]}
                     for sel in OUTCOMES:
-                        bet = _settle("1x2", sel, p1x2[sel], p_shin[sel],
-                                      opened[sel], closed[sel],
-                                      int(sel == res_1x2), ctx, min_edge, max_edge)
+                        bet = _settle(
+                            "1x2",
+                            sel,
+                            p1x2[sel],
+                            p_shin[sel],
+                            opened[sel],
+                            closed[sel],
+                            int(sel == res_1x2),
+                            ctx,
+                            min_edge,
+                            max_edge,
+                        )
                         if bet:
                             bet["block"] = bi
                             bet["params_mode"] = "walk_forward"
@@ -169,10 +187,21 @@ def run_walkforward(cfg, conn):
                         ctx["result"] = res_ou
                         sh_ou, _z2, _ov2 = shin_probabilities([o_over, o_under])
                         for sel, p_m, o_op, o_cl, sp in (
-                                ("over", p_over, ou_open[0], o_over, sh_ou[0]),
-                                ("under", 1.0 - p_over, ou_open[1], o_under, sh_ou[1])):
-                            bet = _settle("ou25", sel, p_m, sp, o_op, o_cl,
-                                          int(sel == res_ou), ctx, min_edge, max_edge)
+                            ("over", p_over, ou_open[0], o_over, sh_ou[0]),
+                            ("under", 1.0 - p_over, ou_open[1], o_under, sh_ou[1]),
+                        ):
+                            bet = _settle(
+                                "ou25",
+                                sel,
+                                p_m,
+                                sp,
+                                o_op,
+                                o_cl,
+                                int(sel == res_ou),
+                                ctx,
+                                min_edge,
+                                max_edge,
+                            )
                             if bet:
                                 bet["block"] = bi
                                 bet["params_mode"] = "walk_forward"
@@ -181,9 +210,25 @@ def run_walkforward(cfg, conn):
                 if ev and None not in (oh, od_, oa):
                     eid, home_oriented = ev
                     n_before = len(ledger)
-                    _settle_extended(r, eid, home_oriented, flat_markets,
-                                     line_markets, ctx, res_1x2, hs, as_, total,
-                                     oh, od_, oa, ou_line, min_edge, max_edge, ledger)
+                    _settle_extended(
+                        r,
+                        eid,
+                        home_oriented,
+                        flat_markets,
+                        line_markets,
+                        ctx,
+                        res_1x2,
+                        hs,
+                        as_,
+                        total,
+                        oh,
+                        od_,
+                        oa,
+                        ou_line,
+                        min_edge,
+                        max_edge,
+                        ledger,
+                    )
                     for b in ledger[n_before:]:
                         b["block"] = bi
                         b["params_mode"] = "walk_forward"
@@ -191,8 +236,7 @@ def run_walkforward(cfg, conn):
             # ---- H2: pick de período (1T), forward-only, sem odds ----
             hht, aht = ht.get((d, home, away), (None, None))
             if frac1 is not None and hht is not None:
-                rp = model.predict_remaining(diff, 0.0, params, 0.0,
-                                             fraction=frac1, max_goals=max_goals)
+                rp = model.predict_remaining(diff, 0.0, params, 0.0, fraction=frac1, max_goals=max_goals)
                 ht_total = hht + aht
                 for line in H2_LINES:
                     p_over_1t = rp["over"].get(line)
@@ -201,14 +245,22 @@ def run_walkforward(cfg, conn):
                     for sel, p in (("over", p_over_1t), ("under", 1.0 - p_over_1t)):
                         if p < H2_CONF:
                             continue
-                        won = int((ht_total > line) if sel == "over"
-                                  else (ht_total < line))
-                        h2_picks.append({
-                            "block": bi, "date": d, "home": home, "away": away,
-                            "market": f"ou{line}_1T", "selection": sel,
-                            "model_prob": round(p, 4), "ht_total": ht_total,
-                            "won": won, "frac1": round(frac1, 4),
-                            "n_frac": n_frac})
+                        won = int((ht_total > line) if sel == "over" else (ht_total < line))
+                        h2_picks.append(
+                            {
+                                "block": bi,
+                                "date": d,
+                                "home": home,
+                                "away": away,
+                                "market": f"ou{line}_1T",
+                                "selection": sel,
+                                "model_prob": round(p, 4),
+                                "ht_total": ht_total,
+                                "won": won,
+                                "frac1": round(frac1, 4),
+                                "n_frac": n_frac,
+                            }
+                        )
     return ledger, h2_picks, len(blocks)
 
 
@@ -219,14 +271,20 @@ def _mkt_line(label, bets):
     pnl = sum(b["pnl"] for b in bets)
     wins = sum(b["won"] for b in bets)
     clv_open = [b["clv"] for b in bets if b["bet_at"] == "open"]
-    out = {"n": n, "wins": wins, "hit": round(wins / n, 4),
-           "pnl": round(pnl, 2), "roi": round(pnl / n, 4),
-           "n_open": len(clv_open),
-           "clv_open_mean": round(st.mean(clv_open), 4) if clv_open else None}
-    print(f"  {label:<10}{n:>5} apostas {wins:>4} acertos ({wins/n:>5.1%}) "
-          f"{pnl:>+8.2f}u  ROI {pnl/n:>+7.1%}"
-          + (f"  CLV(open n={len(clv_open)}) {st.mean(clv_open):+.2%}"
-             if clv_open else "  CLV(open) —"))
+    out = {
+        "n": n,
+        "wins": wins,
+        "hit": round(wins / n, 4),
+        "pnl": round(pnl, 2),
+        "roi": round(pnl / n, 4),
+        "n_open": len(clv_open),
+        "clv_open_mean": round(st.mean(clv_open), 4) if clv_open else None,
+    }
+    print(
+        f"  {label:<10}{n:>5} apostas {wins:>4} acertos ({wins / n:>5.1%}) "
+        f"{pnl:>+8.2f}u  ROI {pnl / n:>+7.1%}"
+        + (f"  CLV(open n={len(clv_open)}) {st.mean(clv_open):+.2%}" if clv_open else "  CLV(open) —")
+    )
     return out
 
 
@@ -235,10 +293,11 @@ def main():
     conn = db.connect(str(ROOT / cfg["database"]), read_only=True)
     ledger, h2_picks, n_blocks = run_walkforward(cfg, conn)
 
-    print(f"\nWALK-FORWARD — {n_blocks} blocos "
-          f"({cfg['backtest'].get('walk_forward_window_rounds', 19)} rodadas/bloco)")
-    print(f"total: {len(ledger)} apostas de valor no funil "
-          f"[{cfg['backtest']['min_edge']:.0%}, {cfg['backtest']['max_edge']:.0%}]")
+    print(f"\nWALK-FORWARD — {n_blocks} blocos ({cfg['backtest'].get('walk_forward_window_rounds', 19)} rodadas/bloco)")
+    print(
+        f"total: {len(ledger)} apostas de valor no funil "
+        f"[{cfg['backtest']['min_edge']:.0%}, {cfg['backtest']['max_edge']:.0%}]"
+    )
     summary = {"n_blocks": n_blocks, "n_bets": len(ledger), "markets": {}}
     print("\npor mercado:")
     for mkt in sorted({b["market"] for b in ledger}):
@@ -253,11 +312,13 @@ def main():
         # bootstrap por CLUSTER de jogo (mesma lição da auditoria da Copa:
         # over+under do mesmo jogo não são independentes)
         lo, hi, _boots = bootstrap_ci(
-            h1, lambda bets: st.mean(b["pnl"] for b in bets),
+            h1,
+            lambda bets: st.mean(b["pnl"] for b in bets),
             scheme="cluster",
             cluster_key=lambda b: (b["date"], b["home"], b["away"]),
             n_boot=int(cfg["backtest"].get("bootstrap_iterations", 1000)),
-            seed=int(cfg["backtest"].get("bootstrap_seed", 13)))
+            seed=int(cfg["backtest"].get("bootstrap_seed", 13)),
+        )
         if lo is None:
             verdict["verdict"] = "NO-GO"
             verdict["motivo"] = "bootstrap sem reamostra válida"
@@ -267,23 +328,25 @@ def main():
         registry = TrialRegistry(ROOT / "data" / "trials.json")
         sr = st.mean(returns) / st.stdev(returns) if st.stdev(returns) else 0.0
         dsr_info = registry.deflated_sharpe(returns)
-        verdict.update({
-            "sharpe_per_bet": round(sr, 4),
-            "psr": round(psr, 4),
-            "ic95_pnl_medio": [round(lo, 4), round(hi, 4)],
-            "dsr": round(dsr_info["dsr"], 4),
-            "sr0": round(dsr_info["sr0"], 4),
-            "n_trials": dsr_info["n_trials"],
-        })
-        go = (psr >= 0.80 and lo is not None and lo > 0
-              and dsr_info["dsr"] >= 0.95)
+        verdict.update(
+            {
+                "sharpe_per_bet": round(sr, 4),
+                "psr": round(psr, 4),
+                "ic95_pnl_medio": [round(lo, 4), round(hi, 4)],
+                "dsr": round(dsr_info["dsr"], 4),
+                "sr0": round(dsr_info["sr0"], 4),
+                "n_trials": dsr_info["n_trials"],
+            }
+        )
+        go = psr >= 0.80 and lo is not None and lo > 0 and dsr_info["dsr"] >= 0.95
         verdict["verdict"] = "GO" if go else "NO-GO"
-        print(f"\nH1 (OU2.5, walk-forward): n={len(h1)} | PSR {psr:.2f} | "
-              f"IC95 pnl médio [{lo:+.4f}, {hi:+.4f}] | "
-              f"DSR {dsr_info['dsr']:.2f} (N={dsr_info['n_trials']} tentativas, "
-              f"SR0={dsr_info['sr0']:.4f})")
-        print(f"VEREDITO H1: {verdict['verdict']} "
-              f"(criterion: PSR>=0.80, IC_lower>0, DSR>=0.95)")
+        print(
+            f"\nH1 (OU2.5, walk-forward): n={len(h1)} | PSR {psr:.2f} | "
+            f"IC95 pnl médio [{lo:+.4f}, {hi:+.4f}] | "
+            f"DSR {dsr_info['dsr']:.2f} (N={dsr_info['n_trials']} tentativas, "
+            f"SR0={dsr_info['sr0']:.4f})"
+        )
+        print(f"VEREDITO H1: {verdict['verdict']} (criterion: PSR>=0.80, IC_lower>0, DSR>=0.95)")
     else:
         verdict["verdict"] = "NO-GO"
         verdict["motivo"] = f"amostra insuficiente ({len(returns)} < 30 apostas)"
@@ -295,11 +358,12 @@ def main():
     if h2_picks:
         hit = sum(p["won"] for p in h2_picks) / len(h2_picks)
         conf = st.mean(p["model_prob"] for p in h2_picks)
-        h2.update({"hit": round(hit, 4), "conf_media": round(conf, 4),
-                   "validada": bool(hit >= H2_CONF)})
-        print(f"\nH2 (picks 1T, prob≥{H2_CONF:.0%}): n={len(h2_picks)} | "
-              f"acerto real {hit:.1%} vs confiança média {conf:.1%} → "
-              f"{'VALIDADA (informativa)' if hit >= H2_CONF else 'NÃO validada'}")
+        h2.update({"hit": round(hit, 4), "conf_media": round(conf, 4), "validada": bool(hit >= H2_CONF)})
+        print(
+            f"\nH2 (picks 1T, prob≥{H2_CONF:.0%}): n={len(h2_picks)} | "
+            f"acerto real {hit:.1%} vs confiança média {conf:.1%} → "
+            f"{'VALIDADA (informativa)' if hit >= H2_CONF else 'NÃO validada'}"
+        )
     else:
         print("\nH2: nenhum pick com confiança ≥ 60% (ou HT ausente na base)")
     summary["h2"] = h2
@@ -307,21 +371,19 @@ def main():
     # ---- persistência ----
     data = ROOT / "data"
     if ledger:
-        with open(data / "backtest_bets_walkforward.csv", "w", newline="",
-                  encoding="utf-8") as f:
+        with open(data / "backtest_bets_walkforward.csv", "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=list(ledger[0].keys()))
             w.writeheader()
             w.writerows(ledger)
     if h2_picks:
-        with open(data / "period_picks_walkforward.csv", "w", newline="",
-                  encoding="utf-8") as f:
+        with open(data / "period_picks_walkforward.csv", "w", newline="", encoding="utf-8") as f:
             w = csv.DictWriter(f, fieldnames=list(h2_picks[0].keys()))
             w.writeheader()
             w.writerows(h2_picks)
     (data / "walkforward_summary.json").write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"\nartefatos: backtest_bets_walkforward.csv, period_picks_walkforward.csv, "
-          f"walkforward_summary.json")
+        json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print("\nartefatos: backtest_bets_walkforward.csv, period_picks_walkforward.csv, walkforward_summary.json")
 
 
 if __name__ == "__main__":

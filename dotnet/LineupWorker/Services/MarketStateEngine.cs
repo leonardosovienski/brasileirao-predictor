@@ -218,6 +218,10 @@ public sealed class MarketStateEngine : BackgroundService
         double dvorpA, double dvorpB)
     {
         var payload = new KernelInvokePayload(
+            protocol_version: LineupWorker.Models.RedisProtocol.Version,
+            job_id:       matchId,
+            run_id:       Guid.NewGuid().ToString("N"),
+            idempotency_key: $"kernel:{matchId}",
             match_id:    matchId,
             elo_a:       eloA,
             elo_b:       eloB,

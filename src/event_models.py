@@ -7,15 +7,10 @@ import warnings
 
 import numpy as np
 from scipy.optimize import minimize
-from scipy.stats import poisson, nbinom
+from scipy.stats import nbinom, poisson
 
-def fit_event_model(
-    history,
-    event_name,
-    distribution="poisson",
-    overdispersion=True,
-    features=None
-):
+
+def fit_event_model(history, event_name, distribution="poisson", overdispersion=True, features=None):
     """
     Ajusta modelo para um evento contábil (ex: corners, cards, shots).
 
@@ -39,22 +34,21 @@ def fit_event_model(
     """
     # 1. Montar arrays
     n = len(history)
-    home_events = np.array([h['home_event'] for h in history], dtype=float)
-    away_events = np.array([h['away_event'] for h in history], dtype=float)
+    home_events = np.array([h["home_event"] for h in history], dtype=float)
+    away_events = np.array([h["away_event"] for h in history], dtype=float)
     # diff em unidades de 400 pontos de Elo (mesma escala do model.py):
     # com Elo bruto (~centenas), exp(0.1*diff) estourava no chute inicial e o
     # L-BFGS-B devolvia o proprio x0 (b=0.1) sem convergir — silenciosamente.
-    elo_diff = np.array([(h['home_elo'] - h['away_elo']) / 400.0
-                         for h in history], dtype=float)
-    
+    elo_diff = np.array([(h["home_elo"] - h["away_elo"]) / 400.0 for h in history], dtype=float)
+
     # 2. Features (se houver)
     if features:
         # Exemplo: cada feature é uma média móvel já calculada pelo feature_builder
         # Vamos assumir que history já contém as features sob chaves como 'home_ball_possession', etc.
         feat_matrix = []
         for f in features:
-            home_vals = np.array([h.get(f'home_{f}', 0.0) for h in history], dtype=float)
-            away_vals = np.array([h.get(f'away_{f}', 0.0) for h in history], dtype=float)
+            home_vals = np.array([h.get(f"home_{f}", 0.0) for h in history], dtype=float)
+            away_vals = np.array([h.get(f"away_{f}", 0.0) for h in history], dtype=float)
             # Diferença (home - away) – pode ser ajustado
             feat_matrix.append(home_vals - away_vals)
         X = np.column_stack([np.ones(n), elo_diff] + feat_matrix)
@@ -99,8 +93,8 @@ def fit_event_model(
         # saíam sem relação com a média real dos dados (chute a gol > chute
         # total, cartão médio na casa dos milhões antes do fix de bounds).
         n_val = 1.0 / alpha if alpha > 1e-6 else 1e6
-        ll = np.sum(nbinom.logpmf(home_events, n_val, n_val/(n_val + mu_home)))
-        ll += np.sum(nbinom.logpmf(away_events, n_val, n_val/(n_val + mu_away)))
+        ll = np.sum(nbinom.logpmf(home_events, n_val, n_val / (n_val + mu_home)))
+        ll += np.sum(nbinom.logpmf(away_events, n_val, n_val / (n_val + mu_away)))
         return -ll
 
     # 5. Otimização — chute inicial informativo: intercepto = log da media de
@@ -123,14 +117,19 @@ def fit_event_model(
 
     def _check_bounds_and_warn(res, bounds, names):
         if not res.success:
-            warnings.warn(f"fit_event_model: otimização não convergiu ({res.message})",
-                          RuntimeWarning, stacklevel=3)
+            warnings.warn(
+                f"fit_event_model: otimização não convergiu ({res.message})",
+                RuntimeWarning,
+                stacklevel=3,
+            )
         for name, val, (lo, hi) in zip(names, res.x, bounds):
             if min(abs(val - lo), abs(val - hi)) < 1e-6:
                 warnings.warn(
                     f"fit_event_model: parâmetro {name}={val:.4f} cravado no bound "
                     f"[{lo}, {hi}] — resultado suspeito, confira o histórico de entrada",
-                    RuntimeWarning, stacklevel=3)
+                    RuntimeWarning,
+                    stacklevel=3,
+                )
 
     try:
         if distribution == "nbinom" and overdispersion:
@@ -141,26 +140,24 @@ def fit_event_model(
             # primeiro (superfície mais simples, sem alpha) e usa esse (a, b)
             # como partida da NB — no mesmo dado, isso achou negll=2250 (melhor
             # que os dois pontos anteriores) com a/b no valor correto.
-            res_p = minimize(neg_log_lik_poisson, beta0, method='L-BFGS-B', bounds=beta_bounds)
+            res_p = minimize(neg_log_lik_poisson, beta0, method="L-BFGS-B", bounds=beta_bounds)
             beta0_nb = res_p.x if res_p.success else beta0
 
             bounds = beta_bounds + [(1e-6, 5.0)]
             initial = np.r_[beta0_nb, 0.1]
-            res = minimize(neg_log_lik_nbinom, initial, method='L-BFGS-B', bounds=bounds)
-            _check_bounds_and_warn(res, bounds,
-                                  [f"beta{i}" for i in range(n_params)] + ["alpha"])
+            res = minimize(neg_log_lik_nbinom, initial, method="L-BFGS-B", bounds=bounds)
+            _check_bounds_and_warn(res, bounds, [f"beta{i}" for i in range(n_params)] + ["alpha"])
             if res.success:
                 beta = res.x[:-1]
                 alpha = res.x[-1]
             else:
                 # fallback para Poisson (com os mesmos bounds no intercepto/coefs)
                 distribution = "poisson"
-                res = minimize(neg_log_lik_poisson, beta0, method='L-BFGS-B',
-                              bounds=beta_bounds)
+                res = minimize(neg_log_lik_poisson, beta0, method="L-BFGS-B", bounds=beta_bounds)
                 beta = res.x if res.success else beta0
                 alpha = None
         else:
-            res = minimize(neg_log_lik_poisson, beta0, method='L-BFGS-B', bounds=beta_bounds)
+            res = minimize(neg_log_lik_poisson, beta0, method="L-BFGS-B", bounds=beta_bounds)
             _check_bounds_and_warn(res, beta_bounds, [f"beta{i}" for i in range(n_params)])
             beta = res.x if res.success else beta0
             alpha = None
@@ -173,13 +170,13 @@ def fit_event_model(
 
     # 6. Montar resultado
     params = {
-        'a': beta[0],
-        'b': beta[1] if n_params > 1 else 0.0,
-        'alpha': alpha,
-        'distribution': distribution,
-        'n_matches': n,
-        'features': features or [],
-        'theta_feature': {f: coef for f, coef in zip(features or [], beta[2:])} if features else {}
+        "a": beta[0],
+        "b": beta[1] if n_params > 1 else 0.0,
+        "alpha": alpha,
+        "distribution": distribution,
+        "n_matches": n,
+        "features": features or [],
+        "theta_feature": {f: coef for f, coef in zip(features or [], beta[2:])} if features else {},
     }
     return params
 
@@ -193,11 +190,11 @@ def predict_event(elo_a, elo_b, params, features=None):
         probs: dict com probabilidades para linhas 0.5, 1.5, 2.5, ..., 9.5
                (Over/Under)
     """
-    a = params['a']
-    b = params['b']
-    theta = params.get('theta_feature', {})
-    dist = params['distribution']
-    
+    a = params["a"]
+    b = params["b"]
+    theta = params.get("theta_feature", {})
+    dist = params["distribution"]
+
     # Calcular lambda — link assimétrico (auditoria P8): espelha o fit.
     # diff na MESMA escala do fit (unidades de 400 pontos de Elo).
     drift = b * (elo_a - elo_b) / 400.0
@@ -207,17 +204,17 @@ def predict_event(elo_a, elo_b, params, features=None):
 
     lambda_home = np.exp(a + drift)
     lambda_away = np.exp(a - drift)
-    
+
     # Probabilidades Over/Under para linhas 0.5 a 9.5
     probs = {}
     for line in [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5]:
         # P(total > line) = 1 - P(total <= line)
         # Para Poisson: soma das PMFs
-        if dist == 'poisson':
+        if dist == "poisson":
             cdf = poisson.cdf(line, lambda_home + lambda_away)
         else:
             # NB com alpha
-            alpha = params.get('alpha', 0.1)
+            alpha = params.get("alpha", 0.1)
             if alpha < 1e-6:
                 alpha = 1e-6
             n_val = 1.0 / alpha
@@ -227,7 +224,7 @@ def predict_event(elo_a, elo_b, params, features=None):
             # p = r / (r + mu)  (derivado de mean = r*(1-p)/p)
             p = n_val / (n_val + mu)
             cdf = nbinom.cdf(line, n_val, p)
-        probs[f'over_{line}'] = 1 - cdf
-        probs[f'under_{line}'] = cdf
+        probs[f"over_{line}"] = 1 - cdf
+        probs[f"under_{line}"] = cdf
 
     return lambda_home, lambda_away, probs

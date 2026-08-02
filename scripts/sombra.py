@@ -30,30 +30,36 @@ A H3 continua BASELINE PURO (chama model.predict_match direto — imune à
 flag ensemble_xg do serving). Capturar/settle da H5 só acontece com a flag
 ligada E o cache do cron presente; sem eles, a H5 é pulada e a H3 não sente.
 """
+
 import argparse
+import hashlib
 import json
 import math
 import os
-import hashlib
-import subprocess
 import statistics as st
+import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "vendor"))
 
-from src import db, model                              # noqa: E402
-from src.ingest import load_config                     # noqa: E402
-from src.math_utils import shin_probabilities          # noqa: E402
-from src.data.prospective_shadow import record_hash, validate_pick  # noqa: E402
-from src.data.bookmaker_odds import (                  # noqa: E402
-    MAPPING_VERSION, SNAPSHOTS, closing_quote, load_snapshots, match_fixture,
-    persist_snapshots)
-from src.data.the_odds_api_provider import TheOddsApiProvider  # noqa: E402
 from predictor_core.data.contracts import DataUnavailableError  # noqa: E402
+
+from src import db, model  # noqa: E402
+from src.data.bookmaker_odds import (  # noqa: E402
+    MAPPING_VERSION,
+    SNAPSHOTS,
+    closing_quote,
+    load_snapshots,
+    match_fixture,
+    persist_snapshots,
+)
+from src.data.prospective_shadow import record_hash, validate_pick  # noqa: E402
+from src.data.the_odds_api_provider import TheOddsApiProvider  # noqa: E402
+from src.ingest import load_config  # noqa: E402
+from src.math_utils import shin_probabilities  # noqa: E402
 
 # `pythonw.exe` (executavel de toda tarefa agendada) nao tem console: um
 # processo de console filho ganharia janela VISIVEL na tela do dono.
@@ -83,8 +89,7 @@ TRIAL_H5 = "h5-ensemble-xg-sombra-pinnacle-2026"
 def _load_jsonl(path: Path) -> list[dict]:
     if not path.exists():
         return []
-    return [json.loads(ln) for ln in path.read_text(encoding="utf-8").splitlines()
-            if ln.strip()]
+    return [json.loads(ln) for ln in path.read_text(encoding="utf-8").splitlines() if ln.strip()]
 
 
 def _append(path: Path, row: dict) -> None:
@@ -98,8 +103,10 @@ def _exige_meia_linha(ou_line: float) -> None:
     silêncio. As hipóteses pré-registradas (H3/H5) usam 2.5; qualquer outra
     linha inteira no config é erro de configuração e falha em voz alta."""
     if float(ou_line) == int(ou_line):
-        sys.exit(f"over_under_line={ou_line} é linha INTEIRA — push não é "
-                 "suportado pelo settle da sombra (H3/H5 pré-registradas em 2.5)")
+        sys.exit(
+            f"over_under_line={ou_line} é linha INTEIRA — push não é "
+            "suportado pelo settle da sombra (H3/H5 pré-registradas em 2.5)"
+        )
 
 
 def _odd_valida(o) -> bool:
@@ -119,27 +126,36 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
     _exige_meia_linha(ou_line)
 
     ja = {(p["event_id"], p["selection"]) for p in _load_jsonl(picks_path)}
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     hoje = now.strftime("%Y-%m-%d")
     bookmaker = os.environ.get("BRASILEIRAO_BOOKMAKER")
     if not bookmaker:
-        print("  [coorte prospectiva bloqueada: BRASILEIRAO_BOOKMAKER ausente; "
-              "Sofascore agregado não é bookmaker auditável]")
+        print(
+            "  [coorte prospectiva bloqueada: BRASILEIRAO_BOOKMAKER ausente; "
+            "Sofascore agregado não é bookmaker auditável]"
+        )
         return 0
-    code_commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
-                                 text=True, capture_output=True, check=False,
-                                 creationflags=_NO_WINDOW).stdout.strip()
+    code_commit = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+        creationflags=_NO_WINDOW,
+    ).stdout.strip()
     if not code_commit:
         print("  [coorte prospectiva bloqueada: commit Git indisponível]")
         return 0
 
     # --- preço do BOOK designado (não mais o agregado do Sofascore) ---
-    fixtures = [{"event_id": r[0], "home_team": r[1], "away_team": r[2],
-                 "kickoff_at": r[3]}
-                for r in conn.execute(
-                    "SELECT event_id, home_team, away_team, kickoff_at "
-                    "FROM sofascore_matches "
-                    "WHERE home_score IS NULL AND kickoff_at IS NOT NULL")]
+    fixtures = [
+        {"event_id": r[0], "home_team": r[1], "away_team": r[2], "kickoff_at": r[3]}
+        for r in conn.execute(
+            "SELECT event_id, home_team, away_team, kickoff_at "
+            "FROM sofascore_matches "
+            "WHERE home_score IS NULL AND kickoff_at IS NOT NULL"
+        )
+    ]
     try:
         api_rows = TheOddsApiProvider().fetch_ou25()
     except DataUnavailableError as exc:
@@ -153,20 +169,27 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
         if fixture is None:
             nao_resolvidos[(row.get("home_team"), row.get("away_team"))] = status
             continue
-        snap = {"event_id": fixture["event_id"], "market": f"ou{ou_line}",
-                "selection": row["selection"], "odd": row["decimal_odds"],
-                "odds_captured_at": row["odds_captured_at"], "bookmaker": bookmaker,
-                "source": row["source"], "source_event_id": row["source_event_id"],
-                "canonical_match_id": row["canonical_match_id"],
-                "kickoff_at": fixture["kickoff_at"], "retrieved_at": row["retrieved_at"],
-                "raw_payload_hash": row["raw_payload_hash"],
-                "adapter_version": row["adapter_version"],
-                "identity_status": status, "mapping_version": MAPPING_VERSION}
+        snap = {
+            "event_id": fixture["event_id"],
+            "market": f"ou{ou_line}",
+            "selection": row["selection"],
+            "odd": row["decimal_odds"],
+            "odds_captured_at": row["odds_captured_at"],
+            "bookmaker": bookmaker,
+            "source": row["source"],
+            "source_event_id": row["source_event_id"],
+            "canonical_match_id": row["canonical_match_id"],
+            "kickoff_at": fixture["kickoff_at"],
+            "retrieved_at": row["retrieved_at"],
+            "raw_payload_hash": row["raw_payload_hash"],
+            "adapter_version": row["adapter_version"],
+            "identity_status": status,
+            "mapping_version": MAPPING_VERSION,
+        }
         novos.append(snap)
         book_odds[(fixture["event_id"], row["selection"])] = snap
     gravados = persist_snapshots(SNAPSHOTS_PATH, novos)
-    print(f"  [book {bookmaker}: {len(book_odds)} cotações elegíveis, "
-          f"{gravados} snapshot(s) novo(s)]")
+    print(f"  [book {bookmaker}: {len(book_odds)} cotações elegíveis, {gravados} snapshot(s) novo(s)]")
     for (h, a), status in sorted(nao_resolvidos.items(), key=lambda kv: str(kv[0])):
         print(f"  [identidade não resolvida: {h} x {a} — {status}]")
     if not book_odds:
@@ -185,7 +208,9 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
     rows = conn.execute(
         "SELECT event_id, date, home_team, away_team, kickoff_at "
         "FROM sofascore_matches WHERE home_score IS NULL AND date >= ? "
-        "ORDER BY date", (hoje,)).fetchall()
+        "ORDER BY date",
+        (hoje,),
+    ).fetchall()
     capture_turn = os.environ.get("BRASILEIRAO_CAPTURE_TURN", "manual")
     for eid, d, home, away, kickoff_at in rows:
         r = predictor(home, away)
@@ -217,7 +242,8 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
                 # da nossa execução — é o que torna o pick auditável na origem
                 "odds_captured_at": snap["odds_captured_at"],
                 "captured_odds": round(odd, 3),
-                "bookmaker": bookmaker, "source": snap["source"],
+                "bookmaker": bookmaker,
+                "source": snap["source"],
                 "source_event_id": snap["source_event_id"],
                 "canonical_match_id": snap["canonical_match_id"],
                 "closing_definition_version": "closing-v1:last-valid-pre-kickoff-by-bookmaker",
@@ -229,16 +255,21 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
                 "mapping_version": snap["mapping_version"],
                 "raw_payload_hash": snap["raw_payload_hash"],
                 "adapter_version": snap["adapter_version"],
-                "event_id": eid, "date": d, "home": home, "away": away,
-                "market": f"ou{ou_line}", "selection": sel,
-                "odd": round(odd, 3), "odds_captured": round(odd, 3),
-                "odds_open": (round(odd_open, 3)
-                              if _odd_valida(odd_open) else None),
+                "event_id": eid,
+                "date": d,
+                "home": home,
+                "away": away,
+                "market": f"ou{ou_line}",
+                "selection": sel,
+                "odd": round(odd, 3),
+                "odds_captured": round(odd, 3),
+                "odds_open": (round(odd_open, 3) if _odd_valida(odd_open) else None),
                 "edge": round(edge, 4),
                 "model_prob": round(p_m, 4),
                 "lambda_home": round(r["lambda_a"], 3),
                 "lambda_away": round(r["lambda_b"], 3),
-                "trial": trial}
+                "trial": trial,
+            }
             pick["provenance_hash"] = record_hash(pick)
             invalid = validate_pick(pick)
             if invalid:
@@ -247,8 +278,7 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
             _append(picks_path, pick)
             ja.add((eid, sel))
             n += 1
-            print(f"  pick [{trial.split('-')[0]}]: {d} {home} x {away} — "
-                  f"{sel} {ou_line} @{odd} (edge {edge:+.1%})")
+            print(f"  pick [{trial.split('-')[0]}]: {d} {home} x {away} — {sel} {ou_line} @{odd} (edge {edge:+.1%})")
     return n
 
 
@@ -266,8 +296,7 @@ def capture(cfg, conn) -> int:
     def predictor(home, away):
         if home not in elo or away not in elo:
             return None
-        return model.predict_match(elo[home], elo[away], params, home_adv,
-                                   max_goals=max_goals)
+        return model.predict_match(elo[home], elo[away], params, home_adv, max_goals=max_goals)
 
     return _capture_funil(cfg, conn, predictor, PICKS, TRIAL)
 
@@ -279,10 +308,10 @@ def capture_h5(cfg, conn) -> int:
     if not (cfg.get("ensemble_xg") or {}).get("enabled"):
         return 0
     from src import xg_model
+
     row = db.load_xg_params(conn)
     if not row:
-        print("  [H5 pulada: ensemble_xg ligado mas sem cache — rode "
-              "python -m src.cron_update_models]")
+        print("  [H5 pulada: ensemble_xg ligado mas sem cache — rode python -m src.cron_update_models]")
         return 0
     xgp = row[0]
     max_goals = cfg["model"]["max_goals"]
@@ -297,21 +326,17 @@ def capture_h5(cfg, conn) -> int:
     def predictor(home, away):
         if home not in elo or away not in elo:
             return None
-        rb = model.predict_match(elo[home], elo[away], params, home_adv,
-                                 max_goals=max_goals)
-        rx = xg_model.predict(xgp, home, away, neutral=False,
-                              max_goals=max_goals)
+        rb = model.predict_match(elo[home], elo[away], params, home_adv, max_goals=max_goals)
+        rx = xg_model.predict(xgp, home, away, neutral=False, max_goals=max_goals)
         return xg_model.blend(rb, rx, w_base=w)
 
     return _capture_funil(cfg, conn, predictor, PICKS_H5, TRIAL_H5)
 
 
-def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
-           trial=TRIAL) -> int:
+def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS, trial=TRIAL) -> int:
     ou_line = float(cfg["backtest"].get("over_under_line", 2.5))
     _exige_meia_linha(ou_line)
-    liquidados = {(r["event_id"], r["selection"])
-                  for r in _load_jsonl(results_path)}
+    liquidados = {(r["event_id"], r["selection"]) for r in _load_jsonl(results_path)}
     # Fechamento vem do histórico do MESMO book que precificou o pick — é o que
     # o campo `closing-v1:last-valid-pre-kickoff-by-bookmaker` sempre prometeu.
     book_snaps = load_snapshots(SNAPSHOTS_PATH)
@@ -326,19 +351,23 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
         # execução já gravou (auditoria hostil 2026-07-18). PNL dobrado.
         liquidados.add(key)
         row = conn.execute(
-            "SELECT home_score, away_score, odds_over, odds_under "
-            "FROM sofascore_matches WHERE event_id = ?",
-            (p["event_id"],)).fetchone()
+            "SELECT home_score, away_score, odds_over, odds_under FROM sofascore_matches WHERE event_id = ?",
+            (p["event_id"],),
+        ).fetchone()
         if not row or row[0] is None:
-            continue                      # ainda não terminou
+            continue  # ainda não terminou
         hs, as_, c_over, c_under = row
         close_at = None
         if p.get("pick_id"):
             by_selection = {}
             for selection in ("over", "under"):
-                quote = closing_quote(book_snaps, event_id=p["event_id"],
-                                      market=p["market"], selection=selection,
-                                      kickoff_at=p["kickoff_at"])
+                quote = closing_quote(
+                    book_snaps,
+                    event_id=p["event_id"],
+                    market=p["market"],
+                    selection=selection,
+                    kickoff_at=p["kickoff_at"],
+                )
                 if quote is not None:
                     by_selection[selection] = (quote["odd"], quote["odds_captured_at"])
             if p["selection"] not in by_selection:
@@ -349,43 +378,60 @@ def settle(cfg, conn, picks_path=PICKS, results_path=RESULTS,
             c_over = by_selection.get("over", (None, None))[0]
             c_under = by_selection.get("under", (None, None))[0]
         total = hs + as_
-        won = int((total > ou_line) if p["selection"] == "over"
-                  else (total < ou_line))
+        won = int((total > ou_line) if p["selection"] == "over" else (total < ou_line))
         clv = None
         if _odd_valida(c_over) and _odd_valida(c_under):
             sh, _z, _o = shin_probabilities([c_over, c_under])
             p_close = sh[0] if p["selection"] == "over" else sh[1]
             clv = round(p["odd"] * float(p_close) - 1.0, 4)
         result = {
-            "settled_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "event_id": p["event_id"], "selection": p["selection"],
-            "date": p["date"], "home": p["home"], "away": p["away"],
-            "odd": p["odd"], "edge": p["edge"], "score": f"{hs}-{as_}",
-            "odds_close": (round(c_over, 3) if p["selection"] == "over"
-                           and _odd_valida(c_over) else
-                           round(c_under, 3) if p["selection"] == "under"
-                           and _odd_valida(c_under) else None),
+            "settled_at": datetime.now(UTC).isoformat(timespec="seconds"),
+            "event_id": p["event_id"],
+            "selection": p["selection"],
+            "date": p["date"],
+            "home": p["home"],
+            "away": p["away"],
+            "odd": p["odd"],
+            "edge": p["edge"],
+            "score": f"{hs}-{as_}",
+            "odds_close": (
+                round(c_over, 3)
+                if p["selection"] == "over" and _odd_valida(c_over)
+                else round(c_under, 3)
+                if p["selection"] == "under" and _odd_valida(c_under)
+                else None
+            ),
             "odds_close_pair": {
                 "over": round(c_over, 3) if _odd_valida(c_over) else None,
                 "under": round(c_under, 3) if _odd_valida(c_under) else None,
             },
             "stake_units": 1.0,
-            "costs": {"status": "not_applicable_shadow_no_execution",
-                      "amount_units": 0.0},
-            "won": won, "pnl": round((p["odd"] - 1.0) if won else -1.0, 3),
-            "clv": clv, "trial": trial}
+            "costs": {"status": "not_applicable_shadow_no_execution", "amount_units": 0.0},
+            "won": won,
+            "pnl": round((p["odd"] - 1.0) if won else -1.0, 3),
+            "clv": clv,
+            "trial": trial,
+        }
         if p.get("pick_id"):
-            result.update({"pick_id": p["pick_id"], "source_event_id": p["source_event_id"],
-                           "selection": p["selection"], "result": "won" if won else "lost",
-                           "settlement_status": "settled", "closing_odds": round(selected_close, 3),
-                           "closing_captured_at": close_at,
-                           "closing_definition_version": p["closing_definition_version"]})
+            result.update(
+                {
+                    "pick_id": p["pick_id"],
+                    "source_event_id": p["source_event_id"],
+                    "selection": p["selection"],
+                    "result": "won" if won else "lost",
+                    "settlement_status": "settled",
+                    "closing_odds": round(selected_close, 3),
+                    "closing_captured_at": close_at,
+                    "closing_definition_version": p["closing_definition_version"],
+                }
+            )
             result["provenance_hash"] = record_hash(result)
         _append(results_path, result)
         n += 1
-        print(f"  settle: {p['home']} {hs}x{as_} {p['away']} — "
-              f"{p['selection']} {'GANHOU' if won else 'perdeu'}"
-              + (f" | CLV {clv:+.2%}" if clv is not None else ""))
+        print(
+            f"  settle: {p['home']} {hs}x{as_} {p['away']} — "
+            f"{p['selection']} {'GANHOU' if won else 'perdeu'}" + (f" | CLV {clv:+.2%}" if clv is not None else "")
+        )
     return n
 
 
@@ -397,9 +443,14 @@ def _report_populacao(rotulo, picks_path, results_path) -> None:
         return
     pnl = [r["pnl"] for r in res]
     clv = [r["clv"] for r in res if r["clv"] is not None]
-    print(f"  ROI {st.mean(pnl):+.1%} | acerto {st.mean(r['won'] for r in res):.0%}"
-          + (f" | CLV médio {st.mean(clv):+.2%} | bate fechamento "
-             f"{st.mean(1 if c > 0 else 0 for c in clv):.0%}" if clv else ""))
+    print(
+        f"  ROI {st.mean(pnl):+.1%} | acerto {st.mean(r['won'] for r in res):.0%}"
+        + (
+            f" | CLV médio {st.mean(clv):+.2%} | bate fechamento {st.mean(1 if c > 0 else 0 for c in clv):.0%}"
+            if clv
+            else ""
+        )
+    )
     for sel in ("over", "under"):
         b = [r for r in res if r["selection"] == sel]
         if b:
@@ -414,19 +465,22 @@ def report() -> None:
     # ou so um entrou no funil (leitura observacional — nao muda gatilho)
     p3 = {p["event_id"]: p for p in _load_jsonl(PICKS)}
     p5 = {p["event_id"]: p for p in _load_jsonl(PICKS_H5)}
-    eventos = sorted(set(p3) | set(p5),
-                     key=lambda e: (p3.get(e) or p5[e])["date"])
+    eventos = sorted(set(p3) | set(p5), key=lambda e: (p3.get(e) or p5[e])["date"])
     if eventos:
         print("\nH3 vs H5 por jogo (picks capturados):")
         print(f"  {'data':<10} {'jogo':<32} {'H3 (baseline)':<18} H5 (ensemble)")
         for e in eventos:
             ref = p3.get(e) or p5[e]
             jogo = f"{ref['home']} x {ref['away']}"[:32]
-            f3 = (f"{p3[e]['selection']} @{p3[e]['odd']}" if e in p3 else "—")
-            f5 = (f"{p5[e]['selection']} @{p5[e]['odd']}" if e in p5 else "—")
-            marca = ("=" if e in p3 and e in p5
-                     and p3[e]["selection"] == p5[e]["selection"] else
-                     "X" if e in p3 and e in p5 else " ")
+            f3 = f"{p3[e]['selection']} @{p3[e]['odd']}" if e in p3 else "—"
+            f5 = f"{p5[e]['selection']} @{p5[e]['odd']}" if e in p5 else "—"
+            marca = (
+                "="
+                if e in p3 and e in p5 and p3[e]["selection"] == p5[e]["selection"]
+                else "X"
+                if e in p3 and e in p5
+                else " "
+            )
             print(f"  {ref['date']:<10} {jogo:<32} {f3:<18} {f5}  {marca}")
         print("  (= mesma selecao | X selecoes opostas no mesmo jogo)")
 
@@ -436,10 +490,11 @@ def report() -> None:
     if comuns:
         d3 = [r3[k]["pnl"] for k in comuns]
         d5 = [r5[k]["pnl"] for k in comuns]
-        print(f"\npareado (mesmo jogo E mesma selecao, n={len(comuns)}): "
-              f"ROI H3 {st.mean(d3):+.1%} | H5 {st.mean(d5):+.1%}")
-    print("  (decisao de cada linha = IC do core sobre a propria populacao "
-          "quando n >= 100; criterios no trials.json)")
+        print(
+            f"\npareado (mesmo jogo E mesma selecao, n={len(comuns)}): "
+            f"ROI H3 {st.mean(d3):+.1%} | H5 {st.mean(d5):+.1%}"
+        )
+    print("  (decisao de cada linha = IC do core sobre a propria populacao quando n >= 100; criterios no trials.json)")
 
 
 def main():

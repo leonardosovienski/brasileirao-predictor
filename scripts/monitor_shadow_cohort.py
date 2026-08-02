@@ -6,11 +6,11 @@ ledgers `sombra_picks.jsonl`/`sombra_results.jsonl` da coorte anterior ficam
 disponíveis por `--legacy`: eles são `LEGACY_INCOMPLETE` por inteiro (odd do
 agregado do Sofascore, sem bookmaker) e não contam para nenhum gate.
 """
+
 from __future__ import annotations
 
 import argparse
 import json
-from pathlib import Path
 
 from evaluate_shadow_cohort import ROOT, evaluate
 
@@ -30,30 +30,37 @@ LEGADO = {
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--legacy", action="store_true",
-                    help="lê a coorte anterior (agregado Sofascore), não a vigente")
+    ap.add_argument(
+        "--legacy",
+        action="store_true",
+        help="lê a coorte anterior (agregado Sofascore), não a vigente",
+    )
     args = ap.parse_args(argv)
     alvo = LEGADO if args.legacy else COORTE
 
     report = evaluate(alvo["picks"], alvo["results"])
     counts, classes = report["counts"], report["classification"]
-    monitor = {"schema_version": "shadow-cohort-monitor/v1",
-               "trial_id": alvo["trial_id"],
-               "model_version": "frozen; see data/trials.json",
-               "cohort_start": alvo["cohort_start"],
-               "odds_source": "sofascore-aggregate" if args.legacy else "the_odds_api:pinnacle",
-               "emitted": counts["emitted"],
-               "prospective_eligible": classes["PROSPECTIVE_ELIGIBLE"],
-               "prospective_rejected": classes["PROSPECTIVE_REJECTED"],
-               "matured_eligible": classes["MATURED_ELIGIBLE"],
-               "legacy_incomplete": classes["LEGACY_INCOMPLETE"],
-               "pending_closing": max(0, classes["PROSPECTIVE_ELIGIBLE"] - classes["MATURED_ELIGIBLE"]),
-               "pending_result": max(0, classes["PROSPECTIVE_ELIGIBLE"] - classes["MATURED_ELIGIBLE"]),
-               "remaining_to_100": max(0, 100 - classes["MATURED_ELIGIBLE"]),
-               "rejections": report["rejections"], "dataset_hash": report["dataset_hash"],
-               "verdict": report["verdict"]}
+    monitor = {
+        "schema_version": "shadow-cohort-monitor/v1",
+        "trial_id": alvo["trial_id"],
+        "model_version": "frozen; see data/trials.json",
+        "cohort_start": alvo["cohort_start"],
+        "odds_source": "sofascore-aggregate" if args.legacy else "the_odds_api:pinnacle",
+        "emitted": counts["emitted"],
+        "prospective_eligible": classes["PROSPECTIVE_ELIGIBLE"],
+        "prospective_rejected": classes["PROSPECTIVE_REJECTED"],
+        "matured_eligible": classes["MATURED_ELIGIBLE"],
+        "legacy_incomplete": classes["LEGACY_INCOMPLETE"],
+        "pending_closing": max(0, classes["PROSPECTIVE_ELIGIBLE"] - classes["MATURED_ELIGIBLE"]),
+        "pending_result": max(0, classes["PROSPECTIVE_ELIGIBLE"] - classes["MATURED_ELIGIBLE"]),
+        "remaining_to_100": max(0, 100 - classes["MATURED_ELIGIBLE"]),
+        "rejections": report["rejections"],
+        "dataset_hash": report["dataset_hash"],
+        "verdict": report["verdict"],
+    }
     print(json.dumps(monitor, ensure_ascii=False, sort_keys=True, indent=2))
     return 0
 
 
-if __name__ == "__main__": raise SystemExit(main())
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -3,24 +3,28 @@
 Usa a API online do SQLite para produzir snapshot consistente mesmo com WAL.
 Restauração só aceita uma raiz inexistente e nunca sobrescreve produção.
 """
+
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
 import hashlib
 import json
-from pathlib import Path
 import shutil
 import sqlite3
-from typing import Any
 import uuid
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_VERSION = "brasileirao-backup/1.0"
 LEDGERS = (
-    "sombra_picks.jsonl", "sombra_results.jsonl",
-    "sombra_h5_picks.jsonl", "sombra_h5_results.jsonl",
-    "trials.json", "trials.harness_attestation.json",
+    "sombra_picks.jsonl",
+    "sombra_results.jsonl",
+    "sombra_h5_picks.jsonl",
+    "sombra_h5_results.jsonl",
+    "trials.json",
+    "trials.harness_attestation.json",
     "teams_brasileirao.json",
 )
 
@@ -38,8 +42,7 @@ def _hash(path: Path) -> str:
 
 
 def _files(root: Path) -> list[Path]:
-    return sorted(path for path in root.rglob("*")
-                  if path.is_file() and path.name != "BACKUP_MANIFEST.json")
+    return sorted(path for path in root.rglob("*") if path.is_file() and path.name != "BACKUP_MANIFEST.json")
 
 
 def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
@@ -54,8 +57,7 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
         source_db = root / "data" / "matches.db"
         if not source_db.is_file():
             raise BackupError("data/matches.db ausente")
-        source = sqlite3.connect(f"file:{source_db.resolve().as_posix()}?mode=ro",
-                                 uri=True, timeout=30)
+        source = sqlite3.connect(f"file:{source_db.resolve().as_posix()}?mode=ro", uri=True, timeout=30)
         target = sqlite3.connect(data / "matches.db")
         try:
             source.backup(target)
@@ -66,17 +68,16 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
             path = root / "data" / name
             if path.is_file():
                 shutil.copy2(path, data / name)
-        files = {path.relative_to(temporary).as_posix(): _hash(path)
-                 for path in _files(temporary)}
+        files = {path.relative_to(temporary).as_posix(): _hash(path) for path in _files(temporary)}
         manifest: dict[str, Any] = {
             "schema_version": SCHEMA_VERSION,
-            "created_at_utc": datetime.now(timezone.utc).isoformat(
-                timespec="seconds"),
+            "created_at_utc": datetime.now(UTC).isoformat(timespec="seconds"),
             "files": files,
         }
         (temporary / "BACKUP_MANIFEST.json").write_text(
-            json.dumps(manifest, ensure_ascii=False, indent=2,
-                       sort_keys=True) + "\n", encoding="utf-8")
+            json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
         temporary.rename(destination)
         return destination
     except Exception:
@@ -87,20 +88,16 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
 def verify_backup(backup: Path) -> dict[str, Any]:
     backup = backup.resolve()
     try:
-        manifest = json.loads((backup / "BACKUP_MANIFEST.json").read_text(
-            encoding="utf-8"))
+        manifest = json.loads((backup / "BACKUP_MANIFEST.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise BackupError(f"manifesto ilegível: {exc}") from exc
-    if (manifest.get("schema_version") != SCHEMA_VERSION
-            or not isinstance(manifest.get("files"), dict)):
+    if manifest.get("schema_version") != SCHEMA_VERSION or not isinstance(manifest.get("files"), dict):
         raise BackupError("manifesto inválido")
-    actual = {path.relative_to(backup).as_posix(): _hash(path)
-              for path in _files(backup)}
+    actual = {path.relative_to(backup).as_posix(): _hash(path) for path in _files(backup)}
     if actual != manifest["files"]:
         raise BackupError("conteúdo do backup diverge do manifesto")
     database = backup / "data" / "matches.db"
-    conn = sqlite3.connect(
-        f"file:{database.resolve().as_posix()}?mode=ro&immutable=1", uri=True)
+    conn = sqlite3.connect(f"file:{database.resolve().as_posix()}?mode=ro&immutable=1", uri=True)
     try:
         if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
             raise BackupError("integrity_check do SQLite falhou")
@@ -120,8 +117,7 @@ def restore_backup(backup: Path, destination_root: Path) -> Path:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(
-        description="Backup/restore verificável do brasileirao-predictor")
+    parser = argparse.ArgumentParser(description="Backup/restore verificável do brasileirao-predictor")
     sub = parser.add_subparsers(dest="command", required=True)
     create = sub.add_parser("create")
     create.add_argument("--output", type=Path, required=True)
@@ -135,11 +131,9 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "create":
             result = {"backup": str(create_backup(args.output))}
         elif args.command == "verify":
-            result = {"verified": str(args.backup),
-                      "manifest": verify_backup(args.backup)}
+            result = {"verified": str(args.backup), "manifest": verify_backup(args.backup)}
         else:
-            result = {"restored": str(restore_backup(
-                args.backup, args.destination))}
+            result = {"restored": str(restore_backup(args.backup, args.destination))}
     except (BackupError, OSError, sqlite3.Error) as exc:
         print(str(exc))
         return 2

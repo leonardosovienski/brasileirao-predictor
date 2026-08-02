@@ -18,6 +18,7 @@ Níveis de verbosidade (progressive disclosure):
   3 (--full) — matriz completa, dupla chance, draw no bet, handicap asiático,
       escanteios e cartões (SEMPRE com aviso de que não têm CLV validado).
 """
+
 import json as _json
 
 from . import market_pricer as mp
@@ -53,8 +54,7 @@ def _clv_line(cache, market):
         return f"CLV ({label}): sem dado ainda (rode `python -m src.bootstrap`)"
     m = cache["markets"][market]
     sig = "SIGNIFICATIVO" if m["significant"] else "cruza o zero"
-    return (f"CLV histórico ({label}): {m['mean']:+.2%} "
-           f"[{m['ci_low']:+.2%}, {m['ci_high']:+.2%}]  {sig}  (n={m['n']})")
+    return f"CLV histórico ({label}): {m['mean']:+.2%} [{m['ci_low']:+.2%}, {m['ci_high']:+.2%}]  {sig}  (n={m['n']})"
 
 
 def compute(name_a, name_b, elo, params, cfg, neutral, conn=None):
@@ -70,42 +70,55 @@ def compute(name_a, name_b, elo, params, cfg, neutral, conn=None):
     from .predict import _market_probs
 
     adv = 0.0 if neutral else cfg["elo"]["home_advantage"]
-    r = model.predict_match(elo[name_a], elo[name_b], params, adv,
-                            max_goals=cfg["model"]["max_goals"])
+    r = model.predict_match(elo[name_a], elo[name_b], params, adv, max_goals=cfg["model"]["max_goals"])
     from .xg_model import maybe_blend
+
     r = maybe_blend(r, conn, cfg, name_a, name_b, neutral)
     g = r["grid"]
     mk = _market_probs(conn, name_a, name_b) if conn is not None else None
 
-    top = sorted(((i, j, float(g[i, j])) for i in range(g.shape[0])
-                  for j in range(g.shape[1])), key=lambda x: -x[2])
+    top = sorted(
+        ((i, j, float(g[i, j])) for i in range(g.shape[0]) for j in range(g.shape[1])),
+        key=lambda x: -x[2],
+    )
     top5 = [{"home": i, "away": j, "prob": p} for i, j, p in top[:5]]
 
     out = {
         "meta": {
-            "team_a": name_a, "team_b": name_b,
-            "elo_a": elo[name_a], "elo_b": elo[name_b],
+            "team_a": name_a,
+            "team_b": name_b,
+            "elo_a": elo[name_a],
+            "elo_b": elo[name_b],
             "venue": "campo neutro" if neutral else f"mando de {name_a}",
         },
         "core": {
-            "p_win": r["p_win"], "p_draw": r["p_draw"], "p_loss": r["p_loss"],
-            "over_25": r["over"][2.5], "under_25": 1.0 - r["over"][2.5],
-            "btts_yes": r["btts"], "btts_no": 1.0 - r["btts"],
+            "p_win": r["p_win"],
+            "p_draw": r["p_draw"],
+            "p_loss": r["p_loss"],
+            "over_25": r["over"][2.5],
+            "under_25": 1.0 - r["over"][2.5],
+            "btts_yes": r["btts"],
+            "btts_no": 1.0 - r["btts"],
             "top_score": top5[0],
             "market": mk,
         },
         "expand": {
-            "lambda_a": r["lambda_a"], "lambda_b": r["lambda_b"],
+            "lambda_a": r["lambda_a"],
+            "lambda_b": r["lambda_b"],
             "total_goals": r["total_goals"],
-            "edge_1x2": None, "edge_ou25": None,
+            "edge_1x2": None,
+            "edge_ou25": None,
         },
         "stats": {
             "top5_scores": top5,
-            "params": {"a": params[0] if not isinstance(params, dict) else params.get("a"),
-                       "b": params[1] if not isinstance(params, dict) else params.get("b"),
-                       "alpha": params[2] if not isinstance(params, dict) else params.get("alpha"),
-                       "rho": params[3] if not isinstance(params, dict) else params.get("rho")},
-            "over_1_5": r["over"][1.5], "over_3_5": r["over"][3.5],
+            "params": {
+                "a": params[0] if not isinstance(params, dict) else params.get("a"),
+                "b": params[1] if not isinstance(params, dict) else params.get("b"),
+                "alpha": params[2] if not isinstance(params, dict) else params.get("alpha"),
+                "rho": params[3] if not isinstance(params, dict) else params.get("rho"),
+            },
+            "over_1_5": r["over"][1.5],
+            "over_3_5": r["over"][3.5],
         },
         "full": {
             "dc": mp.double_chance(g),
@@ -135,12 +148,10 @@ def compute(name_a, name_b, elo, params, cfg, neutral, conn=None):
     # divergência modelo-vs-mercado no favorito do modelo — é a régua que o
     # README já usa pra descrever o viés de achatamento ("divergências ≥10pp
     # não são valor"); reaproveitada aqui pro indicador de confiança.
-    fav_label, fav_prob = max((name_a, r["p_win"]), ("empate", r["p_draw"]),
-                              (name_b, r["p_loss"]), key=lambda x: x[1])
+    fav_label, fav_prob = max((name_a, r["p_win"]), ("empate", r["p_draw"]), (name_b, r["p_loss"]), key=lambda x: x[1])
     divergence = None
     if mk:
-        market_prob_of_fav = {name_a: mk["p_home"], "empate": mk["p_draw"],
-                              name_b: mk["p_away"]}[fav_label]
+        market_prob_of_fav = {name_a: mk["p_home"], "empate": mk["p_draw"], name_b: mk["p_away"]}[fav_label]
         divergence = fav_prob - market_prob_of_fav
     out["core"]["favorite"] = fav_label
     out["core"]["favorite_divergence"] = divergence
@@ -169,15 +180,18 @@ def _confidence(core, expand, cfg):
     if edge_ou:
         best_lado, best_edge = max(edge_ou.items(), key=lambda kv: kv[1])
         if min_edge < best_edge <= max_edge:
-            return {"level": "ALTA",
-                    "reason": f"edge de {best_edge:+.1%} em {best_lado} (O/U 2.5) dentro da "
-                             "faixa historicamente validada no backtest"}
+            return {
+                "level": "ALTA",
+                "reason": f"edge de {best_edge:+.1%} em {best_lado} (O/U 2.5) dentro da "
+                "faixa historicamente validada no backtest",
+            }
 
     div = core.get("favorite_divergence")
     if div is not None and abs(div) >= 0.10:
-        return {"level": "BAIXA",
-                "reason": f"divergência de {div:+.1%} no 1X2 é o viés de achatamento "
-                         "conhecido (README) — não é valor"}
+        return {
+            "level": "BAIXA",
+            "reason": f"divergência de {div:+.1%} no 1X2 é o viés de achatamento conhecido (README) — não é valor",
+        }
 
     return {"level": "MÉDIA", "reason": "sem edge validado nem viés conhecido detectado"}
 
@@ -216,22 +230,28 @@ def render(data, level=0, as_json=False):
     print(f"  Over/Under 2.5: over {_fmt_pct(core['over_25'])} | under {_fmt_pct(core['under_25'])}")
     print(f"  {_clv_line(cache, 'ou25')}")
 
-    fav = max((ta, core["p_win"]), ("empate", core["p_draw"]), (tb, core["p_loss"]),
-              key=lambda x: x[1])
-    marker = lambda nome: " *" if nome == fav[0] else ""
+    fav = max((ta, core["p_win"]), ("empate", core["p_draw"]), (tb, core["p_loss"]), key=lambda x: x[1])
+
+    def marker(nome):
+        return " *" if nome == fav[0] else ""
+
     # "modelo 1X2:" (não só "1X2:") e as 3 pernas SEMPRE presentes — não é só
     # estilo, é contrato com `scripts/ci_check.py`, que faz regex por essa
     # substring esperando 3 percentuais em sequência somando ~100%.
-    print(f"  modelo  1X2: {ta} {_fmt_pct(core['p_win'])}{marker(ta)} | "
-          f"empate {_fmt_pct(core['p_draw'])}{marker('empate')} | "
-          f"{tb} {_fmt_pct(core['p_loss'])}{marker(tb)}  (* favorito)")
+    print(
+        f"  modelo  1X2: {ta} {_fmt_pct(core['p_win'])}{marker(ta)} | "
+        f"empate {_fmt_pct(core['p_draw'])}{marker('empate')} | "
+        f"{tb} {_fmt_pct(core['p_loss'])}{marker(tb)}  (* favorito)"
+    )
     print(f"  {_clv_line(cache, '1x2')}")
     print(f"  ambos marcam: sim {_fmt_pct(core['btts_yes'])} | não {_fmt_pct(core['btts_no'])}")
 
     if core["market"]:
         mk = core["market"]
-        print(f"  mercado (Shin): {ta} {_fmt_pct(mk['p_home'])} | empate {_fmt_pct(mk['p_draw'])} "
-              f"| {tb} {_fmt_pct(mk['p_away'])}")
+        print(
+            f"  mercado (Shin): {ta} {_fmt_pct(mk['p_home'])} | empate {_fmt_pct(mk['p_draw'])} "
+            f"| {tb} {_fmt_pct(mk['p_away'])}"
+        )
     else:
         print("  mercado: sem odds deste confronto no banco")
 
@@ -242,22 +262,20 @@ def render(data, level=0, as_json=False):
     if nar["coherent"]:
         print(f"  narrativa: -> coerente ({nar['over_side']} + BTTS {nar['btts_side']})")
     else:
-        print(f"  narrativa: -> ATENÇÃO: mercados conflitantes "
-              f"({nar['over_side']} + BTTS {nar['btts_side']})")
+        print(f"  narrativa: -> ATENÇÃO: mercados conflitantes ({nar['over_side']} + BTTS {nar['btts_side']})")
 
     if level < 1:
         return
 
     # ---- Nível 1 (--expand): evidência de suporte ----
     exp = data["expand"]
-    print(f"\n[--expand] gols esperados: {exp['lambda_a']:.2f} x {exp['lambda_b']:.2f} "
-          f"(total {exp['total_goals']:.2f})")
+    print(
+        f"\n[--expand] gols esperados: {exp['lambda_a']:.2f} x {exp['lambda_b']:.2f} (total {exp['total_goals']:.2f})"
+    )
     if exp["edge_1x2"]:
-        print("  edge 1X2 vs preço ofertado: " +
-              " | ".join(f"{k} {v:+.1%}" for k, v in exp["edge_1x2"].items()))
+        print("  edge 1X2 vs preço ofertado: " + " | ".join(f"{k} {v:+.1%}" for k, v in exp["edge_1x2"].items()))
     if exp["edge_ou25"]:
-        print("  edge O/U 2.5 vs preço ofertado: " +
-              " | ".join(f"{k} {v:+.1%}" for k, v in exp["edge_ou25"].items()))
+        print("  edge O/U 2.5 vs preço ofertado: " + " | ".join(f"{k} {v:+.1%}" for k, v in exp["edge_ou25"].items()))
     top = core["top_score"]
     print(f"  placar mais provável: {top['home']}x{top['away']} ({_fmt_pct(top['prob'])})")
 
@@ -267,11 +285,11 @@ def render(data, level=0, as_json=False):
     # ---- Nível 2 (--stats): métricas complementares ----
     st = data["stats"]
     print(f"\n[--stats] over 1.5: {_fmt_pct(st['over_1_5'])} | over 3.5: {_fmt_pct(st['over_3_5'])}")
-    print("  placares top-5: " +
-          ", ".join(f"{s['home']}x{s['away']} ({_fmt_pct(s['prob'])})" for s in st["top5_scores"]))
+    print(
+        "  placares top-5: " + ", ".join(f"{s['home']}x{s['away']} ({_fmt_pct(s['prob'])})" for s in st["top5_scores"])
+    )
     p = st["params"]
-    print(f"  parâmetros do modelo: a={p['a']:.4f} b={p['b']:.4f} "
-          f"alpha={p['alpha']:.4f} rho={p['rho']:.4f}")
+    print(f"  parâmetros do modelo: a={p['a']:.4f} b={p['b']:.4f} alpha={p['alpha']:.4f} rho={p['rho']:.4f}")
 
     if level < 3:
         return
@@ -279,46 +297,65 @@ def render(data, level=0, as_json=False):
     # ---- Nível 3 (--full): dados brutos / sem validação ----
     full = data["full"]
     dc, dnb = full["dc"], full["dnb"]
-    print(f"\n[--full] dupla chance: 1X {_fmt_pct(dc['1X'])} | 12 {_fmt_pct(dc['12'])} "
-          f"| X2 {_fmt_pct(dc['X2'])}")
+    print(f"\n[--full] dupla chance: 1X {_fmt_pct(dc['1X'])} | 12 {_fmt_pct(dc['12'])} | X2 {_fmt_pct(dc['X2'])}")
     d1, d2 = dnb["1"], dnb["2"]
-    print(f"  draw no bet: {ta} {_fmt_pct(d1['win'] / (d1['win'] + d1['lose']))} | "
-          f"{tb} {_fmt_pct(d2['win'] / (d2['win'] + d2['lose']))} (push {_fmt_pct(d1['push'])})")
+    print(
+        f"  draw no bet: {ta} {_fmt_pct(d1['win'] / (d1['win'] + d1['lose']))} | "
+        f"{tb} {_fmt_pct(d2['win'] / (d2['win'] + d2['lose']))} (push {_fmt_pct(d1['push'])})"
+    )
     print(f"  handicap asiático (lado {ta}) [sem CLV próprio medido]:")
     for h in full["handicap"]:
-        print(f"    {h['line']:+.2f}: win {_fmt_pct(h['win'])} | push {_fmt_pct(h['push'])} "
-              f"| lose {_fmt_pct(h['lose'])}")
-    print("  escanteios/cartões: não calculados aqui (exigem histórico de match_statistics —"
-          " ver `scripts/prever.py`) [SEM VALIDAÇÃO — IC cruza zero, ver docs/HYPERPARAMETERS.md]")
+        print(
+            f"    {h['line']:+.2f}: win {_fmt_pct(h['win'])} | push {_fmt_pct(h['push'])} | lose {_fmt_pct(h['lose'])}"
+        )
+    print(
+        "  escanteios/cartões: não calculados aqui (exigem histórico de match_statistics —"
+        " ver `scripts/prever.py`) [SEM VALIDAÇÃO — IC cruza zero, ver docs/HYPERPARAMETERS.md]"
+    )
 
 
 def _event_history(conn, stat_name, elo):
-    rows = conn.execute("""
+    rows = conn.execute(
+        """
         SELECT sm.home_team, sm.away_team, h.value, a.value
         FROM sofascore_matches sm
         JOIN match_statistics h ON h.event_id=sm.event_id AND h.period='ALL'
           AND h.stat_name=? AND h.team='home'
         JOIN match_statistics a ON a.event_id=sm.event_id AND a.period='ALL'
           AND a.stat_name=? AND a.team='away'
-        WHERE sm.home_score IS NOT NULL""", (stat_name, stat_name)).fetchall()
-    return [{"home_team": h, "away_team": aw, "home_elo": elo.get(h, 1500),
-             "away_elo": elo.get(aw, 1500), "home_event": hv, "away_event": av}
-            for h, aw, hv, av in rows]
+        WHERE sm.home_score IS NOT NULL""",
+        (stat_name, stat_name),
+    ).fetchall()
+    return [
+        {
+            "home_team": h,
+            "away_team": aw,
+            "home_elo": elo.get(h, 1500),
+            "away_elo": elo.get(aw, 1500),
+            "home_event": hv,
+            "away_event": av,
+        }
+        for h, aw, hv, av in rows
+    ]
 
 
 def _tournament_avg(conn, stat_name, competition=None):
     if competition is None:
         # constante da Copa virou config (PASSO 2.1): média da liga corrente
         from .ingest import load_config
+
         competition = load_config().get("league", "World Cup 2026")
-    row = conn.execute("""
+    row = conn.execute(
+        """
         SELECT AVG(h.value+a.value), COUNT(*)
         FROM sofascore_matches sm
         JOIN match_statistics h ON h.event_id=sm.event_id AND h.period='ALL'
           AND h.stat_name=? AND h.team='home'
         JOIN match_statistics a ON a.event_id=sm.event_id AND a.period='ALL'
           AND a.stat_name=? AND a.team='away'
-        WHERE sm.competition=?""", (stat_name, stat_name, competition)).fetchone()
+        WHERE sm.competition=?""",
+        (stat_name, stat_name, competition),
+    ).fetchone()
     return row if row and row[1] else (None, 0)
 
 
@@ -328,6 +365,7 @@ def compute_event(conn, elo, ta, tb, stat_name, lines):
     Nível 0-2 e só entra via --corners/--cards ou --full, sempre rotulado.
     None-safe: <30 jogos de histórico devolve {'insufficient': True}."""
     from .event_models import fit_event_model, predict_event
+
     hist = _event_history(conn, stat_name, elo)
     if len(hist) < 30:
         return {"insufficient": True, "n": len(hist)}
@@ -335,34 +373,49 @@ def compute_event(conn, elo, ta, tb, stat_name, lines):
     params = fit_event_model(hist, stat_name, distribution="poisson")
     lh, la, probs = predict_event(elo.get(ta, 1500), elo.get(tb, 1500), params)
     lam = lh + la
-    out = {"insufficient": False, "n": len(hist), "b": params["b"],
-           "lh": lh, "la": la, "lam": lam,
-           "over": {ln: probs[f"over_{ln}"] for ln in lines}, "adjusted": None}
+    out = {
+        "insufficient": False,
+        "n": len(hist),
+        "b": params["b"],
+        "lh": lh,
+        "la": la,
+        "lam": lam,
+        "over": {ln: probs[f"over_{ln}"] for ln in lines},
+        "adjusted": None,
+    }
 
     wc_avg, n_wc = _tournament_avg(conn, stat_name)
     if wc_avg and len(hist) > n_wc:
         from scipy.stats import poisson as _poisson
+
         base_avg = sum(h["home_event"] + h["away_event"] for h in hist) / len(hist)
         lam_adj = lam * (wc_avg / base_avg)
-        out["adjusted"] = {"wc_avg": wc_avg, "base_avg": base_avg, "lam_adj": lam_adj,
-                           "over": {ln: 1 - _poisson.cdf(ln, lam_adj) for ln in lines}}
+        out["adjusted"] = {
+            "wc_avg": wc_avg,
+            "base_avg": base_avg,
+            "lam_adj": lam_adj,
+            "over": {ln: 1 - _poisson.cdf(ln, lam_adj) for ln in lines},
+        }
     return out
 
 
 def render_event(nome, data, ta, tb, lines):
     if data["insufficient"]:
-        print(f"\n{nome}: dados insuficientes ({data['n']} jogos) [SEM VALIDAÇÃO — "
-             "ver docs/HYPERPARAMETERS.md]")
+        print(f"\n{nome}: dados insuficientes ({data['n']} jogos) [SEM VALIDAÇÃO — ver docs/HYPERPARAMETERS.md]")
         return
-    print(f"\n{nome} (n={data['n']} jogos, b={data['b']:+.2f}) "
-         "[SEM VALIDAÇÃO — IC cruza zero, ver docs/HYPERPARAMETERS.md]:"
-         f"  {ta} {data['lh']:.1f} + {tb} {data['la']:.1f} = {data['lam']:.1f} esperados")
+    print(
+        f"\n{nome} (n={data['n']} jogos, b={data['b']:+.2f}) "
+        "[SEM VALIDAÇÃO — IC cruza zero, ver docs/HYPERPARAMETERS.md]:"
+        f"  {ta} {data['lh']:.1f} + {tb} {data['la']:.1f} = {data['lam']:.1f} esperados"
+    )
     print("  modelo:   " + " | ".join(f"Ov{ln}: {data['over'][ln]:.0%}" for ln in lines))
     if data["adjusted"]:
         adj = data["adjusted"]
-        print(f"  ajustado ao torneio (média Copa {adj['wc_avg']:.1f} vs base "
-             f"{adj['base_avg']:.1f} -> lambda {adj['lam_adj']:.1f}): " + " | ".join(
-             f"Ov{ln}: {adj['over'][ln]:.0%}" for ln in lines))
+        print(
+            f"  ajustado ao torneio (média Copa {adj['wc_avg']:.1f} vs base "
+            f"{adj['base_avg']:.1f} -> lambda {adj['lam_adj']:.1f}): "
+            + " | ".join(f"Ov{ln}: {adj['over'][ln]:.0%}" for ln in lines)
+        )
 
 
 def ht_goal_fraction(conn, min_games=50):
@@ -383,8 +436,9 @@ def ht_goal_fraction(conn, min_games=50):
         rows = conn.execute(
             "SELECT home_score_ht + away_score_ht, home_score + away_score "
             "FROM sofascore_matches WHERE home_score_ht IS NOT NULL "
-            "AND home_score IS NOT NULL").fetchall()
-    except Exception:                      # coluna ainda não migrada
+            "AND home_score IS NOT NULL"
+        ).fetchall()
+    except Exception:  # coluna ainda não migrada
         return None
     n = len(rows)
     gt = sum(t for _, t in rows)
@@ -398,15 +452,26 @@ def ht_goal_fraction(conn, min_games=50):
 
     try:
         from predictor_core.measurement.bootstrap import bootstrap_ci
-        lo, hi, _ = bootstrap_ci(list(rows), _frac, scheme="iid",
-                                 n_boot=2000, seed=13)
-    except Exception:                      # core indisponível: fração sem IC
+
+        lo, hi, _ = bootstrap_ci(list(rows), _frac, scheme="iid", n_boot=2000, seed=13)
+    except Exception:  # core indisponível: fração sem IC
         lo = hi = None
     return {"frac1": frac, "n": n, "ci_low": lo, "ci_high": hi}
 
 
-def compute_live(name_a, name_b, elo, params, cfg, neutral, cur_a, cur_b, fraction=0.5,
-                 period_lines=(0.5, 1.5, 2.5), final_lines=(1.5, 2.5, 3.5)):
+def compute_live(
+    name_a,
+    name_b,
+    elo,
+    params,
+    cfg,
+    neutral,
+    cur_a,
+    cur_b,
+    fraction=0.5,
+    period_lines=(0.5, 1.5, 2.5),
+    final_lines=(1.5, 2.5, 3.5),
+):
     """Projeção de UM PERÍODO do jogo (fraction=0.5 escala os λ pré-jogo pela
     metade, hipótese de taxa de gol constante). SEM CLV validado (não existe
     mercado ao vivo/1o-tempo no backtest) — sempre rotulado assim em
@@ -425,14 +490,20 @@ def compute_live(name_a, name_b, elo, params, cfg, neutral, cur_a, cur_b, fracti
     from . import model
 
     adv = 0.0 if neutral else cfg["elo"]["home_advantage"]
-    rem = model.predict_remaining(elo[name_a], elo[name_b], params, adv,
-                                  fraction=fraction, max_goals=cfg["model"]["max_goals"])
+    rem = model.predict_remaining(
+        elo[name_a],
+        elo[name_b],
+        params,
+        adv,
+        fraction=fraction,
+        max_goals=cfg["model"]["max_goals"],
+    )
     g = rem["grid"]
     idx = np.arange(g.shape[0])
     i_idx, j_idx = idx.reshape(-1, 1), idx.reshape(1, -1)
     final_a, final_b = cur_a + i_idx, cur_b + j_idx
 
-    p_a_more = 1.0 - float(g[0, :].sum())   # P(name_a marca >=1 neste periodo)
+    p_a_more = 1.0 - float(g[0, :].sum())  # P(name_a marca >=1 neste periodo)
     p_b_more = 1.0 - float(g[:, 0].sum())
     totals_period = i_idx + j_idx
 
@@ -441,12 +512,20 @@ def compute_live(name_a, name_b, elo, params, cfg, neutral, cur_a, cur_b, fracti
     top_final = sorted(flat, key=lambda t: -t[1])[:5]
 
     return {
-        "meta": {"team_a": name_a, "team_b": name_b, "fraction": fraction,
-                 "current_score": (cur_a, cur_b)},
+        "meta": {
+            "team_a": name_a,
+            "team_b": name_b,
+            "fraction": fraction,
+            "current_score": (cur_a, cur_b),
+        },
         "period": {
-            "lambda_a": rem["lambda_a"], "lambda_b": rem["lambda_b"],
-            "p_a_scores_more": p_a_more, "p_b_scores_more": p_b_more,
-            "p_win": rem["p_win"], "p_draw": rem["p_draw"], "p_loss": rem["p_loss"],
+            "lambda_a": rem["lambda_a"],
+            "lambda_b": rem["lambda_b"],
+            "p_a_scores_more": p_a_more,
+            "p_b_scores_more": p_b_more,
+            "p_win": rem["p_win"],
+            "p_draw": rem["p_draw"],
+            "p_loss": rem["p_loss"],
             "over": {t: float(g[totals_period > t].sum()) for t in period_lines},
         },
         "final": {
@@ -469,36 +548,49 @@ def render_live(data, kickoff=False, calib=None):
     ca, cb = m["current_score"]
     periodo = "1º tempo" if kickoff else "2º tempo"
     if calib:
-        ic = (f" IC95 [{calib['ci_low']:.0%}, {calib['ci_high']:.0%}]"
-              if calib.get("ci_low") is not None else "")
-        print(f"\n[SEM CLV — taxa de gol do período calibrada com dado real "
-             f"(1º tempo = {calib['frac1']:.0%} dos gols{ic}, n={calib['n']} jogos), "
-             "mas nenhum mercado de tempo tem CLV medido no backtest]")
+        ic = f" IC95 [{calib['ci_low']:.0%}, {calib['ci_high']:.0%}]" if calib.get("ci_low") is not None else ""
+        print(
+            f"\n[SEM CLV — taxa de gol do período calibrada com dado real "
+            f"(1º tempo = {calib['frac1']:.0%} dos gols{ic}, n={calib['n']} jogos), "
+            "mas nenhum mercado de tempo tem CLV medido no backtest]"
+        )
     else:
-        print(f"\n[SEM VALIDAÇÃO — projeção de {periodo} assume taxa de gol constante "
-             "nos 90min, não calibrada com dado de minuto real; ver docs/HYPERPARAMETERS.md]")
+        print(
+            f"\n[SEM VALIDAÇÃO — projeção de {periodo} assume taxa de gol constante "
+            "nos 90min, não calibrada com dado de minuto real; ver docs/HYPERPARAMETERS.md]"
+        )
     if kickoff:
         print(f"Projeção do {periodo}: {ta} x {tb} (pré-jogo)")
     else:
         print(f"Placar do intervalo: {ta} {ca} x {cb} {tb}  (projeção pro {periodo})")
     print(f"  gols esperados no {periodo}: {ta} {per['lambda_a']:.2f} + {tb} {per['lambda_b']:.2f}")
-    print(f"  {ta} marca >=1 no {periodo}: {_fmt_pct(per['p_a_scores_more'])} | "
-         f"{tb} marca >=1 no {periodo}: {_fmt_pct(per['p_b_scores_more'])}")
-    print(f"  vencedor do {periodo}: {ta} {_fmt_pct(per['p_win'])} | "
-         f"empate {_fmt_pct(per['p_draw'])} | {tb} {_fmt_pct(per['p_loss'])}")
-    print(f"  Over/Under do {periodo}: " +
-         " | ".join(f"Ov{ln}: {_fmt_pct(p)}" for ln, p in per["over"].items()))
+    print(
+        f"  {ta} marca >=1 no {periodo}: {_fmt_pct(per['p_a_scores_more'])} | "
+        f"{tb} marca >=1 no {periodo}: {_fmt_pct(per['p_b_scores_more'])}"
+    )
+    print(
+        f"  vencedor do {periodo}: {ta} {_fmt_pct(per['p_win'])} | "
+        f"empate {_fmt_pct(per['p_draw'])} | {tb} {_fmt_pct(per['p_loss'])}"
+    )
+    print(f"  Over/Under do {periodo}: " + " | ".join(f"Ov{ln}: {_fmt_pct(p)}" for ln, p in per["over"].items()))
 
     if kickoff:
-        return   # pré-jogo: "final" == "period" (cur=0-0), nao repete a mesma info
+        return  # pré-jogo: "final" == "period" (cur=0-0), nao repete a mesma info
 
     print(f"\nPlacar final projetado (intervalo + {periodo}):")
-    print(f"  {ta} vence: {_fmt_pct(fin['p_win'])} | empate: {_fmt_pct(fin['p_draw'])} "
-         f"| {tb} vence: {_fmt_pct(fin['p_loss'])}")
-    print("  Over/Under 2.5 (jogo completo): over " + _fmt_pct(fin["over"][2.5]) +
-         " | under " + _fmt_pct(1.0 - fin["over"][2.5]))
-    print("  placares finais mais prováveis: " +
-         ", ".join(f"{h}x{a} ({_fmt_pct(p)})" for (h, a), p in fin["top_scores"]))
+    print(
+        f"  {ta} vence: {_fmt_pct(fin['p_win'])} | empate: {_fmt_pct(fin['p_draw'])} "
+        f"| {tb} vence: {_fmt_pct(fin['p_loss'])}"
+    )
+    print(
+        "  Over/Under 2.5 (jogo completo): over "
+        + _fmt_pct(fin["over"][2.5])
+        + " | under "
+        + _fmt_pct(1.0 - fin["over"][2.5])
+    )
+    print(
+        "  placares finais mais prováveis: " + ", ".join(f"{h}x{a} ({_fmt_pct(p)})" for (h, a), p in fin["top_scores"])
+    )
 
 
 def render_summary_table(batch):
@@ -519,6 +611,8 @@ def render_summary_table(batch):
         ou_prob = core["over_25"] if ou_side == "Over" else core["under_25"]
         btts_side = "Sim" if core["btts_yes"] >= 0.5 else "Não"
         confronto = f"{ta} x {tb}"
-        print(f"{str(date):<12}{confronto:<26}{fav_label + ' ' + _fmt_pct(fav_prob):<20}"
-              f"{ou_side + ' ' + _fmt_pct(ou_prob):<14}{btts_side:<8}{core['confidence']['level']:<8}")
+        print(
+            f"{str(date):<12}{confronto:<26}{fav_label + ' ' + _fmt_pct(fav_prob):<20}"
+            f"{ou_side + ' ' + _fmt_pct(ou_prob):<14}{btts_side:<8}{core['confidence']['level']:<8}"
+        )
     print("=" * 88)

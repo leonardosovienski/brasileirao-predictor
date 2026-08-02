@@ -1,7 +1,9 @@
 """Telemetria JSONL integrada ao backtest (Shadow v2): emite backtest_completed
 com ROI/CLV — testado com ledger sintético, sem precisar de odds reais."""
-from src import backtest
+
 from predictor_core import obs
+
+from src import backtest
 
 
 def test_backtest_emits_structured_event(tmp_path, monkeypatch):

@@ -1,6 +1,7 @@
 """Gap #4 da auditoria: ci_mean — propriedades do IC percentílico que sustentam
 a Hipótese #1 (o veredito CONFIRMADA/REFUTADA/INCONCLUSIVA é decidido por esta
 função). Funções puras, sem I/O."""
+
 import numpy as np
 import pytest
 

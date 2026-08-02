@@ -1,5 +1,7 @@
-import pytest
 import sqlite3
+
+import pytest
+
 from src.feature_builder import build_features
 
 
@@ -48,16 +50,16 @@ def db_path(tmp_path):
 
 def test_build_features(db_path):
     feats = build_features(db_path, event_id=3, window=2)
-    assert abs(feats['home_Expected goals'] - 2.25) < 0.01
-    assert abs(feats['home_Ball possession'] - 56.5) < 0.01
-    assert 'delta_xg' in feats
+    assert abs(feats["home_Expected goals"] - 2.25) < 0.01
+    assert abs(feats["home_Ball possession"] - 56.5) < 0.01
+    assert "delta_xg" in feats
 
 
 def test_build_features_empty(db_path):
     feats = build_features(db_path, event_id=1, window=2)
     # Jogo 1 e o primeiro, sem historico anterior
-    assert feats.get('home_Expected goals') is None or feats.get('home_Expected goals') == 0.0
-    assert 'delta_xg' in feats
+    assert feats.get("home_Expected goals") is None or feats.get("home_Expected goals") == 0.0
+    assert "delta_xg" in feats
 
 
 def test_build_features_filtra_pelo_lado_do_time(db_path):
@@ -74,15 +76,14 @@ def test_build_features_filtra_pelo_lado_do_time(db_path):
     feats = build_features(db_path, event_id=3, window=2)
     # media correta: (2.0 + 2.5) / 2 = 2.25 — o codigo antigo devolveria
     # (2.0 + 2.5 + 99 + 99) / 4 = 50.625
-    assert abs(feats['home_Expected goals'] - 2.25) < 0.01
+    assert abs(feats["home_Expected goals"] - 2.25) < 0.01
 
 
 def test_build_features_ignora_periodos_parciais(db_path):
     """Auditoria P2 (mesma familia): linhas de 1ST/2ND nao entram na media."""
     conn = sqlite3.connect(db_path)
-    conn.execute(
-        "INSERT INTO match_statistics VALUES (1, 'home', '1ST', 'Expected goals', 88.0)")
+    conn.execute("INSERT INTO match_statistics VALUES (1, 'home', '1ST', 'Expected goals', 88.0)")
     conn.commit()
     conn.close()
     feats = build_features(db_path, event_id=3, window=2)
-    assert abs(feats['home_Expected goals'] - 2.25) < 0.01
+    assert abs(feats["home_Expected goals"] - 2.25) < 0.01

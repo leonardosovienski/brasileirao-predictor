@@ -5,9 +5,10 @@ odd crua vs prob justa/Shin). Walk-forward, jogos da Copa 2026 com odds.
 
 Uso:  python scripts/prova_mecanismo.py   (a partir da raiz do repo)
 """
+
 import os
-import sys
 import statistics as st
+import sys
 from datetime import date, timedelta
 
 sys.path.insert(0, os.getcwd())
@@ -20,7 +21,8 @@ cfg = load_config()
 conn = db.connect(str(ROOT / cfg["database"]))
 rows = conn.execute(
     "SELECT date,home_team,away_team,home_score,away_score,tournament,neutral "
-    "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+).fetchall()
 w = cfg["elo"]["window_years"]
 cut = (date.fromisoformat(rows[-1][0]) - timedelta(days=int(w * 365.25))).isoformat()
 rows = [r for r in rows if r[0] >= cut]
@@ -34,14 +36,17 @@ MAXG = cfg["model"]["max_goals"]
 
 om = {}
 for d, h, a, oh, od, oa in conn.execute(
-        "SELECT date,home_team,away_team,odds_home,odds_draw,odds_away "
-        "FROM sofascore_matches WHERE odds_home IS NOT NULL").fetchall():
+    "SELECT date,home_team,away_team,odds_home,odds_draw,odds_away FROM sofascore_matches WHERE odds_home IS NOT NULL"
+).fetchall():
     om.setdefault(frozenset((_canon(h), _canon(a))), []).append((d, _canon(h), oh, od, oa))
+
+
 def odds(h, a, d):
     c = om.get(frozenset((_canon(h), _canon(a))))
     if not c:
         return None
-    gd = date.fromisoformat(d); best = None
+    gd = date.fromisoformat(d)
+    best = None
     for od_date, ch, oh, o_d, oa in c:
         try:
             dd = abs((date.fromisoformat(od_date) - gd).days)
@@ -50,6 +55,7 @@ def odds(h, a, d):
         if dd <= 3 and (best is None or dd < best[0]):
             best = (dd, (oh, o_d, oa) if ch == _canon(h) else (oa, o_d, oh))
     return best[1] if best else None
+
 
 sels = []
 for i in wc:
@@ -67,27 +73,39 @@ for i in wc:
     und = "away" if fav == "home" else "home"
     role = {"draw": "empate", fav: "favorito", und: "azarao"}
     for s in ("home", "draw", "away"):
-        sels.append({"role": role[s], "odd": oo[s], "pm": pm[s], "shin": shp[s],
-                     "edge_raw": pm[s] - 1 / oo[s], "edge_fair": pm[s] - shp[s]})
+        sels.append(
+            {
+                "role": role[s],
+                "odd": oo[s],
+                "pm": pm[s],
+                "shin": shp[s],
+                "edge_raw": pm[s] - 1 / oo[s],
+                "edge_fair": pm[s] - shp[s],
+            }
+        )
 
-print(f"jogos com odds: {len(sels)//3} | selecoes: {len(sels)}\n")
+print(f"jogos com odds: {len(sels) // 3} | selecoes: {len(sels)}\n")
 print("[1] P_modelo - P_mercado(Shin) POR PAPEL")
 for role in ("favorito", "empate", "azarao"):
     g = [s for s in sels if s["role"] == role]
-    print(f"  {role:<9} n={len(g):>3} | P_mod-P_mkt {st.mean(s['pm']-s['shin'] for s in g):+.1%} "
-          f"| acima do mercado em {sum(s['pm']>s['shin'] for s in g)/len(g):.0%}")
+    print(
+        f"  {role:<9} n={len(g):>3} | P_mod-P_mkt {st.mean(s['pm'] - s['shin'] for s in g):+.1%} "
+        f"| acima do mercado em {sum(s['pm'] > s['shin'] for s in g) / len(g):.0%}"
+    )
 print("\n[2] APOSTAS-CANDIDATAS por faixa de odd")
 print(f"  {'faixa':<12}{'sel':>5}{'valorRAW':>10}{'valorFAIR':>11}{'edge med':>10}")
 for lo, hi in [(1.0, 1.5), (1.5, 2.0), (2.0, 3.0), (3.0, 5.0), (5.0, 99)]:
     g = [s for s in sels if lo <= s["odd"] < hi]
     if not g:
         continue
-    print(f"  {f'{lo:.2f}-{hi:.2f}':<12}{len(g):>5}"
-          f"{sum(s['edge_raw']>0 for s in g):>10}{sum(s['edge_fair']>0 for s in g):>11}"
-          f"{st.mean(s['edge_raw'] for s in g):>10.1%}")
+    print(
+        f"  {f'{lo:.2f}-{hi:.2f}':<12}{len(g):>5}"
+        f"{sum(s['edge_raw'] > 0 for s in g):>10}{sum(s['edge_fair'] > 0 for s in g):>11}"
+        f"{st.mean(s['edge_raw'] for s in g):>10.1%}"
+    )
 print("\n[3] TESTE DO VIG (valor persiste com prob justa?)")
 for lbl, key in (("vs odd CRUA (com vig)", "edge_raw"), ("vs prob JUSTA (Shin)", "edge_fair")):
     v = [s for s in sels if s[key] > 0]
     u = sum(s["role"] == "azarao" for s in v)
-    print(f"  {lbl:<24}: {len(v):>3} c/ valor | em azarao {u} ({u/max(len(v),1):.0%})")
+    print(f"  {lbl:<24}: {len(v):>3} c/ valor | em azarao {u} ({u / max(len(v), 1):.0%})")
 print("  -> skew p/ azarao persiste na coluna FAIR => vig NAO e a causa.")

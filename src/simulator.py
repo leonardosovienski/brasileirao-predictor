@@ -14,8 +14,8 @@ Fatores contextuais (fatores humanos):
 Aproximação conhecida: o mata-mata usa emparelhamento sorteado, não o chaveamento
 oficial 2026 dos 8 melhores terceiros (tabela fixa da FIFA). Mantém a incerteza
 realista sem fingir precisão de bracket que não temos.
-"""
-"""Simulador de Monte Carlo do torneio (Parte 5).
+
+Simulador de Monte Carlo do torneio (Parte 5).
 
 ZONA 3 — Kernel Purista (PROMPT 5)
   • Funções puras (simulate_batch, run_tournament, _play…) não importam db nem config.
@@ -24,6 +24,7 @@ ZONA 3 — Kernel Purista (PROMPT 5)
   • VORP opcional: passe vorp={'team': delta_float, ...} para enriquecer os lambdas.
     Sem vorp (ou vorp=None) o comportamento é idêntico à versão anterior.
 """
+
 import math
 import random
 import sys
@@ -32,17 +33,19 @@ from collections import defaultdict
 import numpy as np
 from scipy.stats import nbinom
 
-INCENTIVE_CUT = 0.35        # corte de lambda quando o empate convém aos dois
-RED_RATE = 0.22             # vermelhos por time por jogo (taxa-base agregada)
-RED_LAMBDA_PENALTY = 0.45   # queda máxima de lambda do time com um a menos
+INCENTIVE_CUT = 0.35  # corte de lambda quando o empate convém aos dois
+RED_RATE = 0.22  # vermelhos por time por jogo (taxa-base agregada)
+RED_LAMBDA_PENALTY = 0.45  # queda máxima de lambda do time com um a menos
 
 STAGES = ["grupos", "mata-mata", "oitavas", "quartas", "semi", "final", "campeão"]
 _NEXT = {32: "oitavas", 16: "quartas", 8: "semi", 4: "final", 2: "campeão"}
 
 
 def derive_groups(conn, tournament: str = "FIFA World Cup"):
-    fx = conn.execute("SELECT home_team, away_team FROM matches "
-                      "WHERE home_score IS NULL AND tournament=?", (tournament,)).fetchall()
+    fx = conn.execute(
+        "SELECT home_team, away_team FROM matches WHERE home_score IS NULL AND tournament=?",
+        (tournament,),
+    ).fetchall()
     adj = defaultdict(set)
     for h, a in fx:
         adj[h].add(a)
@@ -69,11 +72,10 @@ def _lambdas(ta, tb, elo, params, vorp: dict | None = None):
     vorp: dict time → delta_vorp (contribuição líquida do lineup em xG)."""
     a, b = params[0], params[1]
     theta = params[4] if len(params) > 4 else 0.0
-    diff  = (elo.get(ta, 1500) - elo.get(tb, 1500)) / 400.0
-    dv_a  = vorp.get(ta, 0.0) if vorp else 0.0
-    dv_b  = vorp.get(tb, 0.0) if vorp else 0.0
-    return (math.exp(a + b * diff + theta * dv_a),
-            math.exp(a - b * diff + theta * dv_b))
+    diff = (elo.get(ta, 1500) - elo.get(tb, 1500)) / 400.0
+    dv_a = vorp.get(ta, 0.0) if vorp else 0.0
+    dv_b = vorp.get(tb, 0.0) if vorp else 0.0
+    return (math.exp(a + b * diff + theta * dv_a), math.exp(a - b * diff + theta * dv_b))
 
 
 def _red_factor():
@@ -130,14 +132,17 @@ def _simulate_group(teams, elo, params, vorp=None):
             if rnd == 2 and _empate_classifica_ambos(ti, tj, pts, teams):
                 cut = 1.0 - INCENTIVE_CUT
             gi, gj = _play(ti, tj, elo, params, cut, vorp)
-            gf[ti] += gi; ga[ti] += gj
-            gf[tj] += gj; ga[tj] += gi
+            gf[ti] += gi
+            ga[ti] += gj
+            gf[tj] += gj
+            ga[tj] += gi
             if gi > gj:
                 pts[ti] += 3
             elif gi < gj:
                 pts[tj] += 3
             else:
-                pts[ti] += 1; pts[tj] += 1
+                pts[ti] += 1
+                pts[tj] += 1
     ranked = sorted(teams, key=lambda t: (pts[t], gf[t] - ga[t], gf[t]), reverse=True)
     table = {t: (pts[t], gf[t] - ga[t], gf[t]) for t in teams}
     return ranked, table
@@ -148,7 +153,7 @@ def _knockout_winner(ta, tb, elo, params, vorp=None):
     if ga != gb:
         return ta if ga > gb else tb
     pa = 1.0 / (1.0 + 10 ** (-(elo.get(ta, 1500) - elo.get(tb, 1500)) / 400.0))
-    return ta if random.random() < pa else tb   # pênaltis, leve peso à força
+    return ta if random.random() < pa else tb  # pênaltis, leve peso à força
 
 
 def run_tournament(groups, elo, params, vorp=None):
@@ -168,8 +173,7 @@ def run_tournament(groups, elo, params, vorp=None):
     bracket = qualifiers[:]
     random.shuffle(bracket)
     while len(bracket) > 1:
-        winners = [_knockout_winner(bracket[i], bracket[i + 1], elo, params, vorp)
-                   for i in range(0, len(bracket), 2)]
+        winners = [_knockout_winner(bracket[i], bracket[i + 1], elo, params, vorp) for i in range(0, len(bracket), 2)]
         stage = _NEXT[len(bracket)]
         for t in winners:
             reached[t] = stage
@@ -203,7 +207,9 @@ def monte_carlo(n=10000, seed=None, vorp=None):
     O kernel (simulate_batch/run_tournament/…) não depende de DB — apenas este
     adaptador o faz, e apenas aqui os imports pesados acontecem."""
     from . import db as _db
-    from .ingest import ROOT as _ROOT, load_config as _load_config
+    from .ingest import ROOT as _ROOT
+    from .ingest import load_config as _load_config
+
     cfg = _load_config()
     conn = _db.connect(str(_ROOT / cfg["database"]))
     elo = _db.load_elo(conn)
@@ -216,8 +222,10 @@ def monte_carlo(n=10000, seed=None, vorp=None):
     # a mensagem abaixo. Simulação de temporada de liga é trabalho futuro.
     groups = derive_groups(conn, cfg.get("tournament_name", "FIFA World Cup"))
     if len(groups) != 12:
-        sys.exit(f"esperava 12 grupos, derivei {len(groups)} — fixtures incompletas? "
-                 f"(em liga de pontos corridos o simulador de bracket não se aplica)")
+        sys.exit(
+            f"esperava 12 grupos, derivei {len(groups)} — fixtures incompletas? "
+            f"(em liga de pontos corridos o simulador de bracket não se aplica)"
+        )
     return simulate_batch(groups, elo, params, n, seed=seed, vorp=vorp)
 
 
@@ -228,8 +236,7 @@ def main():
     print(f"{'seleção':<22}{'avança':>8}{'quartas':>9}{'semi':>7}{'final':>7}{'título':>8}")
     print("-" * 61)
     for t, c in rows[:16]:
-        print(f"{t:<22}{c['oitavas']:>8.1%}{c['quartas']:>9.1%}"
-              f"{c['semi']:>7.1%}{c['final']:>7.1%}{c['campeão']:>8.1%}")
+        print(f"{t:<22}{c['oitavas']:>8.1%}{c['quartas']:>9.1%}{c['semi']:>7.1%}{c['final']:>7.1%}{c['campeão']:>8.1%}")
 
 
 if __name__ == "__main__":

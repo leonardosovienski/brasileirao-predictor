@@ -4,13 +4,25 @@ plausível e P&L/CLV lixo. Estes testes travam a garantia: o mando (home) SEMPRE
 recebe a própria odd, qualquer que seja a orientação com que as odds foram
 armazenadas. (2ª leva de pytest — Red Team jun/2026.)
 """
+
 from src.backtest import _find_odds
 from src.predict import _canon
 
 
-def _cand(od_date="2022-12-18", ch="argentina",
-          oh=2.0, odr=3.0, oa=4.0, oov=1.8, oun=2.1,
-          oh_o=2.1, od_o=3.1, oa_o=4.1, oov_o=1.85, oun_o=2.15):
+def _cand(
+    od_date="2022-12-18",
+    ch="argentina",
+    oh=2.0,
+    odr=3.0,
+    oa=4.0,
+    oov=1.8,
+    oun=2.1,
+    oh_o=2.1,
+    od_o=3.1,
+    oa_o=4.1,
+    oov_o=1.85,
+    oun_o=2.15,
+):
     """Candidato como _build_odds_index monta: stored-home=ch, oh/oa orientados a ch."""
     return (od_date, ch, oh, odr, oa, oov, oun, oh_o, od_o, oa_o, oov_o, oun_o)
 
@@ -24,7 +36,7 @@ def test_sem_swap_quando_armazenado_bate_com_mando():
     # stored-home = argentina; consultamos com home=argentina → sem swap
     odds = _odds(_cand(ch="argentina"))
     close_1x2, close_ou, open_1x2, open_ou = _find_odds(odds, "argentina", "brazil", "2022-12-18")
-    assert close_1x2 == (2.0, 3.0, 4.0)        # (home, empate, away) na ordem armazenada
+    assert close_1x2 == (2.0, 3.0, 4.0)  # (home, empate, away) na ordem armazenada
     assert open_1x2 == (2.1, 3.1, 4.1)
 
 
@@ -52,7 +64,7 @@ def test_over_under_independe_da_orientacao():
     odds = _odds(_cand(oov=1.8, oun=2.1, oov_o=1.85, oun_o=2.15))
     _, ou_a, _, ou_open_a = _find_odds(odds, "argentina", "brazil", "2022-12-18")
     _, ou_b, _, ou_open_b = _find_odds(odds, "brazil", "argentina", "2022-12-18")
-    assert ou_a == ou_b == (1.8, 2.1)          # OU é simétrico — swap não pode mexer
+    assert ou_a == ou_b == (1.8, 2.1)  # OU é simétrico — swap não pode mexer
     assert ou_open_a == ou_open_b == (1.85, 2.15)
 
 
@@ -64,15 +76,15 @@ def test_data_dentro_da_tolerancia_de_3_dias_casa():
 
 def test_data_fora_da_tolerancia_nao_casa():
     odds = _odds(_cand(od_date="2022-12-18"))
-    assert _find_odds(odds, "argentina", "brazil", "2022-12-25") is None      # dd=7, fora
+    assert _find_odds(odds, "argentina", "brazil", "2022-12-25") is None  # dd=7, fora
 
 
 def test_escolhe_candidato_de_data_mais_proxima():
     perto = _cand(od_date="2022-12-18", oh=2.0)
     longe = _cand(od_date="2022-12-16", oh=9.0)
-    odds = _odds(longe, perto)                  # ordem proposital: o mais perto vem depois
+    odds = _odds(longe, perto)  # ordem proposital: o mais perto vem depois
     close_1x2, *_ = _find_odds(odds, "argentina", "brazil", "2022-12-18")
-    assert close_1x2[0] == 2.0                  # dd=0 vence dd=2
+    assert close_1x2[0] == 2.0  # dd=0 vence dd=2
 
 
 # --------------------------------------------------- sem casamento

@@ -21,18 +21,17 @@ duplicação.
 Read-only no banco. CLV histórico exibido vem do cache gravado por
 `python -m src.bootstrap` (não é mais hardcoded no código-fonte).
 """
+
 import argparse
 import json as _json
 import sqlite3
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "vendor"))
-
 from src import display, model
 from src.ingest import load_config
+
+ROOT = Path(__file__).resolve().parent.parent
 
 
 def _conn_ro():
@@ -45,18 +44,27 @@ def main():
     ap = argparse.ArgumentParser(description="Previsao completa de uma partida")
     ap.add_argument("time_a")
     ap.add_argument("time_b")
-    ap.add_argument("--mando", action="store_true",
-                    help="1o time joga em casa (padrao: campo neutro)")
-    ap.add_argument("--mata-mata", action="store_true", dest="ko",
-                    help="inclui P(classificar) — empate resolvido por Elo")
-    ap.add_argument("--json", action="store_true",
-                    help="saida estruturada (machine-output)")
-    ap.add_argument("--segundo-tempo", metavar="H-A", dest="segundo_tempo",
-                    help="placar do intervalo (gols de time_a-time_b) — projeta o "
-                         "2o tempo em vez da previsao pre-jogo [SEM CLV validado]")
-    ap.add_argument("--primeiro-tempo", action="store_true", dest="primeiro_tempo",
-                    help="projeta so o 1o tempo (pre-jogo) em vez da previsao de "
-                         "jogo inteiro [SEM CLV validado]")
+    ap.add_argument("--mando", action="store_true", help="1o time joga em casa (padrao: campo neutro)")
+    ap.add_argument(
+        "--mata-mata",
+        action="store_true",
+        dest="ko",
+        help="inclui P(classificar) — empate resolvido por Elo",
+    )
+    ap.add_argument("--json", action="store_true", help="saida estruturada (machine-output)")
+    ap.add_argument(
+        "--segundo-tempo",
+        metavar="H-A",
+        dest="segundo_tempo",
+        help="placar do intervalo (gols de time_a-time_b) — projeta o "
+        "2o tempo em vez da previsao pre-jogo [SEM CLV validado]",
+    )
+    ap.add_argument(
+        "--primeiro-tempo",
+        action="store_true",
+        dest="primeiro_tempo",
+        help="projeta so o 1o tempo (pre-jogo) em vez da previsao de jogo inteiro [SEM CLV validado]",
+    )
     args = ap.parse_args()
 
     if args.segundo_tempo and args.primeiro_tempo:
@@ -65,8 +73,7 @@ def main():
     cfg = load_config()
     conn = _conn_ro()
     elo = {t: e for t, e in conn.execute("SELECT team, elo FROM current_elo")}
-    prow = conn.execute("SELECT param_a, param_b, param_alpha, param_rho "
-                        "FROM model_parameters WHERE id=1").fetchone()
+    prow = conn.execute("SELECT param_a, param_b, param_alpha, param_rho FROM model_parameters WHERE id=1").fetchone()
     if not prow:
         sys.exit("cache vazio — rode `python -m src.cron_update_models`")
     params = tuple(prow)
@@ -75,8 +82,7 @@ def main():
     for t in (ta, tb):
         if t not in elo:
             sugest = [k for k in elo if t.lower() in k.lower()]
-            sys.exit(f"time desconhecido: {t}" +
-                     (f" — voce quis dizer {sugest}?" if sugest else ""))
+            sys.exit(f"time desconhecido: {t}" + (f" — voce quis dizer {sugest}?" if sugest else ""))
 
     if args.segundo_tempo or args.primeiro_tempo:
         kickoff = bool(args.primeiro_tempo)
@@ -97,47 +103,74 @@ def main():
         # ficam de fora do modo live/1o-tempo mesmo.
         if args.ko:
             flag = "--primeiro-tempo" if kickoff else "--segundo-tempo"
-            print(f"[AVISO: --mata-mata ignorada no modo {flag} — "
-                 "P(classificar) nao se aplica a uma projecao parcial de jogo]",
-                 file=sys.stderr)
+            print(
+                f"[AVISO: --mata-mata ignorada no modo {flag} — "
+                "P(classificar) nao se aplica a uma projecao parcial de jogo]",
+                file=sys.stderr,
+            )
         # fração do período calibrada com o placar de intervalo ingerido (37%
         # dos gols saem no 1o tempo, medido em n>=50 jogos) — fallback 0.5
         # ingênuo quando a base ainda não tem dado suficiente
         calib = display.ht_goal_fraction(conn)
         frac = (calib["frac1"] if kickoff else 1.0 - calib["frac1"]) if calib else 0.5
-        live = display.compute_live(ta, tb, elo, params, cfg, neutral=not args.mando,
-                                    cur_a=cur_a, cur_b=cur_b, fraction=frac)
+        live = display.compute_live(
+            ta,
+            tb,
+            elo,
+            params,
+            cfg,
+            neutral=not args.mando,
+            cur_a=cur_a,
+            cur_b=cur_b,
+            fraction=frac,
+        )
         if calib:
             live["meta"]["calibration"] = calib
         # registro obrigatório também vale pra período — log separado do
         # pré-jogo (schema próprio), senão essas apostas ficam sem aferição
         try:
             from src.prediction_log import log_period_prediction
+
             row = conn.execute(
                 "SELECT date FROM matches WHERE home_score IS NULL AND "
                 "((home_team=? AND away_team=?) OR (home_team=? AND away_team=?)) "
-                "ORDER BY date LIMIT 1", (ta, tb, tb, ta)).fetchone()
-            log_period_prediction(ta, tb, not args.mando,
-                                  "1T" if kickoff else "2T", frac, live,
-                                  calibration=calib,
-                                  match_date=row[0] if row else None)
+                "ORDER BY date LIMIT 1",
+                (ta, tb, tb, ta),
+            ).fetchone()
+            log_period_prediction(
+                ta,
+                tb,
+                not args.mando,
+                "1T" if kickoff else "2T",
+                frac,
+                live,
+                calibration=calib,
+                match_date=row[0] if row else None,
+            )
         except Exception as e:
-            print(f"[AVISO: predição de período NÃO registrada no log ({e})]",
-                 file=sys.stderr)
+            print(f"[AVISO: predição de período NÃO registrada no log ({e})]", file=sys.stderr)
         # telemetria do core — predict.py emite pra todo jogo cheio; período
         # ficava invisível pro observability (achado da análise do core)
         try:
             from predictor_core.obs import emit_event
-            emit_event("brasileirao", "period_prediction",
-                       metrics={"lambda_home": round(live["period"]["lambda_a"], 3),
-                                "lambda_away": round(live["period"]["lambda_b"], 3),
-                                "fraction": round(frac, 4)},
-                       metadata={"period": "1T" if kickoff else "2T",
-                                 "fixture_id": f"{ta}_vs_{tb}",
-                                 "current_score": f"{cur_a}-{cur_b}",
-                                 "calibrated": calib is not None})
+
+            emit_event(
+                "brasileirao",
+                "period_prediction",
+                metrics={
+                    "lambda_home": round(live["period"]["lambda_a"], 3),
+                    "lambda_away": round(live["period"]["lambda_b"], 3),
+                    "fraction": round(frac, 4),
+                },
+                metadata={
+                    "period": "1T" if kickoff else "2T",
+                    "fixture_id": f"{ta}_vs_{tb}",
+                    "current_score": f"{cur_a}-{cur_b}",
+                    "calibrated": calib is not None,
+                },
+            )
         except Exception:
-            pass   # telemetria nunca derruba o serving
+            pass  # telemetria nunca derruba o serving
         if args.json:
             print(_json.dumps(live, ensure_ascii=False, indent=2))
         else:
@@ -159,18 +192,30 @@ def main():
     # (auditoria 2026-07-07: 46 de 110 linhas do log estavam com data nula).
     try:
         from src.prediction_log import log_prediction
+
         row = conn.execute(
             "SELECT date FROM matches WHERE home_score IS NULL AND "
             "((home_team=? AND away_team=?) OR (home_team=? AND away_team=?)) "
-            "ORDER BY date LIMIT 1", (ta, tb, tb, ta)).fetchone()
+            "ORDER BY date LIMIT 1",
+            (ta, tb, tb, ta),
+        ).fetchone()
         match_date = row[0] if row else None
-        r = model.predict_match(elo[ta], elo[tb], params, adv,
-                                max_goals=cfg["model"]["max_goals"])
+        r = model.predict_match(elo[ta], elo[tb], params, adv, max_goals=cfg["model"]["max_goals"])
         # mesmo blend do display.compute — o log tem que congelar o que foi EXIBIDO
         from src.xg_model import maybe_blend
+
         r = maybe_blend(r, conn, cfg, ta, tb, not args.mando)
-        log_prediction(ta, tb, not args.mando, elo[ta], elo[tb], params, r,
-                       match_date=match_date, market=data["core"]["market"])
+        log_prediction(
+            ta,
+            tb,
+            not args.mando,
+            elo[ta],
+            elo[tb],
+            params,
+            r,
+            match_date=match_date,
+            market=data["core"]["market"],
+        )
     except Exception as e:
         print(f"[AVISO: predição NÃO registrada no log ({e})]", file=sys.stderr)
 
@@ -182,17 +227,26 @@ def main():
     if args.ko:
         p_pen = 1.0 / (1.0 + 10 ** (-(elo[ta] + adv - elo[tb]) / 400.0))
         pa = data["core"]["p_win"] + data["core"]["p_draw"] * p_pen
-        print(f"\nP(classificar): {ta} {pa:.1%} | {tb} {1 - pa:.1%}"
-              f"  (empate no 90' resolvido pela logistica de Elo)")
+        print(f"\nP(classificar): {ta} {pa:.1%} | {tb} {1 - pa:.1%}  (empate no 90' resolvido pela logistica de Elo)")
 
     # eventos nao-gols: exclusivo do prever.py, exige historico de
     # match_statistics que so este script consulta. Calculo/exibicao vem de
     # display.compute_event/render_event — mesma funcao que --corners/--cards
     # em src/predict.py usa, sem duplicacao.
-    display.render_event("Escanteios", display.compute_event(conn, elo, ta, tb,
-                         "Corner kicks", (7.5, 8.5, 9.5)), ta, tb, (7.5, 8.5, 9.5))
-    display.render_event("Cartoes amarelos", display.compute_event(conn, elo, ta, tb,
-                         "Yellow cards", (2.5, 3.5, 4.5)), ta, tb, (2.5, 3.5, 4.5))
+    display.render_event(
+        "Escanteios",
+        display.compute_event(conn, elo, ta, tb, "Corner kicks", (7.5, 8.5, 9.5)),
+        ta,
+        tb,
+        (7.5, 8.5, 9.5),
+    )
+    display.render_event(
+        "Cartoes amarelos",
+        display.compute_event(conn, elo, ta, tb, "Yellow cards", (2.5, 3.5, 4.5)),
+        ta,
+        tb,
+        (2.5, 3.5, 4.5),
+    )
 
     conn.close()
 

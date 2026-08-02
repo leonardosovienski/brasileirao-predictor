@@ -1,5 +1,6 @@
 """H5 (sombra do ensemble): captura paralela à H3, arquivos separados,
 flag desligada = zero efeito, settle parametrizado."""
+
 import importlib.util
 import sys
 from pathlib import Path
@@ -8,8 +9,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
 
-spec = importlib.util.spec_from_file_location(
-    "sombra", ROOT / "scripts" / "sombra.py")
+spec = importlib.util.spec_from_file_location("sombra", ROOT / "scripts" / "sombra.py")
 sombra = importlib.util.module_from_spec(spec)
 sys.modules["sombra"] = sombra
 spec.loader.exec_module(sombra)
@@ -27,8 +27,14 @@ def _cfg(enabled=True):
 
 
 PARAMS = (0.2, 0.7, 1e-4, 0.0)
-XGP = {"mu": 0.35, "ha": 0.30, "alpha": 1e-4, "rho": 0.0,
-       "atk": {"Casa": 0.4, "Fora": -0.1}, "def": {"Casa": 0.1, "Fora": -0.3}}
+XGP = {
+    "mu": 0.35,
+    "ha": 0.30,
+    "alpha": 1e-4,
+    "rho": 0.0,
+    "atk": {"Casa": 0.4, "Fora": -0.1},
+    "def": {"Casa": 0.1, "Fora": -0.3},
+}
 
 
 @pytest.fixture
@@ -48,7 +54,8 @@ def ambiente(tmp_path, monkeypatch):
         "INSERT INTO sofascore_matches (event_id, competition, season, date, "
         "home_team, away_team, odds_over, odds_under) VALUES "
         "(1, 'T', '2027', '2027-01-01', 'Casa', 'Fora', ?, ?)",
-        (round(1.0 / (p_base - 0.05), 3), 1.01))
+        (round(1.0 / (p_base - 0.05), 3), 1.01),
+    )
     # Os dois fixtures ficam a uma SEMANA de distância de propósito: o mesmo par
     # (mandante, visitante) a 1 dia de intervalo não existe em Série A, e cai na
     # trava de ambiguidade de `match_fixture` (que é o comportamento correto).
@@ -56,7 +63,8 @@ def ambiente(tmp_path, monkeypatch):
         "INSERT INTO sofascore_matches (event_id, competition, season, date, "
         "home_team, away_team, odds_over, odds_under) VALUES "
         "(2, 'T', '2027', '2027-01-08', 'Casa', 'Fora', ?, ?)",
-        (round(1.0 / (p_ens - 0.05), 3), 1.01))
+        (round(1.0 / (p_ens - 0.05), 3), 1.01),
+    )
     conn.commit()
     db.update_kickoff(conn, 1, 1_798_761_600)
     db.update_kickoff(conn, 2, 1_798_761_600 + 7 * 86_400)
@@ -71,31 +79,36 @@ def ambiente(tmp_path, monkeypatch):
     # mais do agregado do Sofascore. O provider é substituído por um duplo que
     # devolve exatamente as odds desenhadas acima para os 2 fixtures.
     monkeypatch.setattr(sombra, "SNAPSHOTS_PATH", tmp_path / "book_snaps.jsonl")
-    kickoffs = dict(conn.execute(
-        "SELECT event_id, kickoff_at FROM sofascore_matches").fetchall())
-    odds_desenhadas = dict(conn.execute(
-        "SELECT event_id, odds_over FROM sofascore_matches").fetchall())
+    kickoffs = dict(conn.execute("SELECT event_id, kickoff_at FROM sofascore_matches").fetchall())
+    odds_desenhadas = dict(conn.execute("SELECT event_id, odds_over FROM sofascore_matches").fetchall())
 
     class _ProviderDuplo:
-        def __init__(self, *a, **k): pass
+        def __init__(self, *a, **k):
+            pass
 
         def fetch_ou25(self, *, retrieved_at=None):
             linhas = []
             for event_id in (1, 2):
-                for selection, price in (("over", odds_desenhadas[event_id]),
-                                         ("under", 1.01)):
-                    linhas.append({
-                        "source": "the_odds_api", "source_event_id": f"api-{event_id}",
-                        "bookmaker": "test-bookmaker", "market": "ou2.5",
-                        "selection": selection, "decimal_odds": float(price),
-                        "odds_captured_at": "2026-12-31T10:00:00+00:00",
-                        "retrieved_at": "2026-12-31T10:00:00+00:00",
-                        "canonical_match_id": f"the_odds_api:api-{event_id}",
-                        "raw_payload_hash": "0" * 64,
-                        "adapter_version": "the-odds-api/1",
-                        "data_quality_status": "PROSPECTIVE_ELIGIBLE",
-                        "kickoff_at": kickoffs[event_id],
-                        "home_team": "Casa", "away_team": "Fora"})
+                for selection, price in (("over", odds_desenhadas[event_id]), ("under", 1.01)):
+                    linhas.append(
+                        {
+                            "source": "the_odds_api",
+                            "source_event_id": f"api-{event_id}",
+                            "bookmaker": "test-bookmaker",
+                            "market": "ou2.5",
+                            "selection": selection,
+                            "decimal_odds": float(price),
+                            "odds_captured_at": "2026-12-31T10:00:00+00:00",
+                            "retrieved_at": "2026-12-31T10:00:00+00:00",
+                            "canonical_match_id": f"the_odds_api:api-{event_id}",
+                            "raw_payload_hash": "0" * 64,
+                            "adapter_version": "the-odds-api/1",
+                            "data_quality_status": "PROSPECTIVE_ELIGIBLE",
+                            "kickoff_at": kickoffs[event_id],
+                            "home_team": "Casa",
+                            "away_team": "Fora",
+                        }
+                    )
             return linhas
 
     monkeypatch.setattr(sombra, "TheOddsApiProvider", _ProviderDuplo)
@@ -120,15 +133,17 @@ def test_h3_e_h5_capturam_em_arquivos_separados(ambiente):
     over5 = {p["event_id"]: p["model_prob"] for p in p5 if p["selection"] == "over"}
     assert over3[1] == pytest.approx(p_base, abs=1e-4)
     assert over5[2] == pytest.approx(p_ens, abs=1e-4)
-    assert p_base != pytest.approx(p_ens, abs=1e-3)   # motores de fato diferem
+    assert p_base != pytest.approx(p_ens, abs=1e-3)  # motores de fato diferem
     assert all(p["predicted_at"] == p["captured_at"] for p in p3 + p5)
     # proveniência REAL: a odd vem do book, e o pick carrega a identidade da
     # fonte que a forneceu — não mais o agregado do Sofascore com rótulo falso
-    assert all(p["kickoff_at"] and p["odds_source"] == "the_odds_api"
-               for p in p3 + p5)
-    assert all(p["bookmaker"] == "test-bookmaker" and p["source"] == "the_odds_api"
-               and p["canonical_match_id"].startswith("the_odds_api:")
-               for p in p3 + p5)
+    assert all(p["kickoff_at"] and p["odds_source"] == "the_odds_api" for p in p3 + p5)
+    assert all(
+        p["bookmaker"] == "test-bookmaker"
+        and p["source"] == "the_odds_api"
+        and p["canonical_match_id"].startswith("the_odds_api:")
+        for p in p3 + p5
+    )
     assert all(p["capture_turn"] == "manual" for p in p3 + p5)
 
 
@@ -152,16 +167,14 @@ def test_settle_h5_parametrizado(ambiente):
     sombra.capture_h5(_cfg(), conn)
     conn.execute("UPDATE sofascore_matches SET home_score=3, away_score=1")
     conn.commit()
-    n = sombra.settle(_cfg(), conn, tmp / "p5.jsonl", tmp / "r5.jsonl",
-                      "h5-ensemble-xg-sombra-2026")
+    n = sombra.settle(_cfg(), conn, tmp / "p5.jsonl", tmp / "r5.jsonl", "h5-ensemble-xg-sombra-2026")
     assert n >= 1
     res = sombra._load_jsonl(tmp / "r5.jsonl")
     assert all(r["trial"] == "h5-ensemble-xg-sombra-2026" for r in res)
     over = [r for r in res if r["selection"] == "over"]
-    assert over and all(r["won"] == 1 for r in over)   # 3+1 > 2.5
+    assert over and all(r["won"] == 1 for r in over)  # 3+1 > 2.5
     assert all(r["odds_close"] is not None for r in over)
-    assert all(r["costs"]["status"] == "not_applicable_shadow_no_execution"
-               for r in res)
+    assert all(r["costs"]["status"] == "not_applicable_shadow_no_execution" for r in res)
     # e a população da H3 continua intocada
     assert not (tmp / "r3.jsonl").exists()
 
@@ -169,11 +182,12 @@ def test_settle_h5_parametrizado(ambiente):
 def test_h5_registrada_no_trials():
     """O pré-registro precisa existir ANTES da coleta (governança)."""
     import json
+
     trials = json.loads((ROOT / "data" / "trials.json").read_text(encoding="utf-8"))
     h5 = [t for t in trials if t["name"] == "h5-ensemble-xg-sombra-2026"]
     assert len(h5) == 1
     assert h5[0]["params"]["market"] == "ou25"
-    assert h5[0]["sharpe"] is None                     # resultado ainda não existe
+    assert h5[0]["sharpe"] is None  # resultado ainda não existe
     # e o registro da H1 segue com o sharpe observado (denominador do DSR)
     h1 = [t for t in trials if t["name"] == "h1-ou25-edge-2-15-walkforward"]
     assert h1[0]["sharpe"] == pytest.approx(0.0722)

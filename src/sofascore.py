@@ -10,6 +10,7 @@ de certificados próprio e não enxerga o do Windows. Em redes com inspeção TL
 (ex. proxy corporativo), exportamos os CAs do Windows num PEM e apontamos o
 verify pra ele — sem desabilitar verificação.
 """
+
 import atexit
 import json
 import os
@@ -65,8 +66,7 @@ _HEADERS = {
 
 
 class Sofascore:
-    def __init__(self, rate_limit: float = 1.5, cache_dir: str | None = None,
-                 impersonate: str = "chrome146"):
+    def __init__(self, rate_limit: float = 1.5, cache_dir: str | None = None, impersonate: str = "chrome146"):
         self.rate = rate_limit
         self.session = creq.Session(impersonate=impersonate)
         self.session.headers.update(_HEADERS)
@@ -106,8 +106,7 @@ class Sofascore:
         data = self._fetch(path)
         if cache and self.cache and data is not None:
             f = self.cache / (path.replace("/", "_") + ".json")
-            fd, temporary = tempfile.mkstemp(
-                prefix=f".{f.name}.", suffix=".tmp", dir=f.parent)
+            fd, temporary = tempfile.mkstemp(prefix=f".{f.name}.", suffix=".tmp", dir=f.parent)
             try:
                 with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as handle:
                     json.dump(data, handle, ensure_ascii=False)
@@ -137,11 +136,13 @@ class Sofascore:
         nunca via o nome resolvido). NUNCA cachear 'next', mesmo pós-apito o pipeline
         volta a chamar cache=finished por evento em event_odds/event_statistics."""
         events = []
-        for kind in (["last", "next"] if upcoming else ["last"]):
+        for kind in ["last", "next"] if upcoming else ["last"]:
             page = 0
             while page <= 20:
-                d = self._get(f"unique-tournament/{ut_id}/season/{season_id}/events/{kind}/{page}",
-                              cache=(kind == "last" and not upcoming))
+                d = self._get(
+                    f"unique-tournament/{ut_id}/season/{season_id}/events/{kind}/{page}",
+                    cache=(kind == "last" and not upcoming),
+                )
                 batch = (d or {}).get("events", [])
                 if not batch:
                     break

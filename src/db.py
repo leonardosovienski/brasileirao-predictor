@@ -1,6 +1,6 @@
 import json
 import sqlite3
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 SCHEMA = """
@@ -143,7 +143,7 @@ def connect(db_path: str, read_only: bool = False) -> sqlite3.Connection:
     não cria schema nem migra (ambos escreveriam)."""
     if read_only:
         conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True, timeout=30)
-        conn.execute("PRAGMA query_only=ON")     # trava extra: rejeita qualquer escrita
+        conn.execute("PRAGMA query_only=ON")  # trava extra: rejeita qualquer escrita
         conn.execute("PRAGMA busy_timeout=30000")
         return conn
     Path(db_path).parent.mkdir(parents=True, exist_ok=True)
@@ -162,24 +162,38 @@ def connect(db_path: str, read_only: bool = False) -> sqlite3.Connection:
 # DC/DNB/BTTS têm seleções estáveis, então flat faz sentido (1 linha por jogo,
 # odds inline). Mercados de LINHA (OU/AH) vão para odds_lines, não aqui.
 _FLAT_MARKET_COLS = (
-    "odds_dc_1x", "odds_dc_x2", "odds_dc_12",
-    "odds_dnb_home", "odds_dnb_away",
-    "odds_btts_yes", "odds_btts_no",
-    "odds_dc_1x_open", "odds_dc_x2_open", "odds_dc_12_open",
-    "odds_dnb_home_open", "odds_dnb_away_open",
-    "odds_btts_yes_open", "odds_btts_no_open",
+    "odds_dc_1x",
+    "odds_dc_x2",
+    "odds_dc_12",
+    "odds_dnb_home",
+    "odds_dnb_away",
+    "odds_btts_yes",
+    "odds_btts_no",
+    "odds_dc_1x_open",
+    "odds_dc_x2_open",
+    "odds_dc_12_open",
+    "odds_dnb_home_open",
+    "odds_dnb_away_open",
+    "odds_btts_yes_open",
+    "odds_btts_no_open",
 )
 
 
 def _migrate(conn):
     """Adiciona colunas novas a bancos pré-existentes (idempotente)."""
     cols = {r[1] for r in conn.execute("PRAGMA table_info(sofascore_matches)")}
-    new = ("odds_over", "odds_under",
-           # abertura = primeira odd observada PRÉ-APITO (write-once via COALESCE).
-           # NULL na base histórica coletada pós-jogo: abertura desconhecida ≠ close.
-           "odds_home_open", "odds_draw_open", "odds_away_open",
-           "odds_over_open", "odds_under_open",
-           *_FLAT_MARKET_COLS)
+    new = (
+        "odds_over",
+        "odds_under",
+        # abertura = primeira odd observada PRÉ-APITO (write-once via COALESCE).
+        # NULL na base histórica coletada pós-jogo: abertura desconhecida ≠ close.
+        "odds_home_open",
+        "odds_draw_open",
+        "odds_away_open",
+        "odds_over_open",
+        "odds_under_open",
+        *_FLAT_MARKET_COLS,
+    )
     for col in new:
         if col not in cols:
             conn.execute(f"ALTER TABLE sofascore_matches ADD COLUMN {col} REAL")
@@ -198,7 +212,8 @@ def _migrate(conn):
         "INSERT OR IGNORE INTO odds_lines "
         "(event_id, market, line, odd_a, odd_b, odd_a_open, odd_b_open) "
         "SELECT event_id, 'ou', 2.5, odds_over, odds_under, odds_over_open, odds_under_open "
-        "FROM sofascore_matches WHERE odds_over IS NOT NULL")
+        "FROM sofascore_matches WHERE odds_over IS NOT NULL"
+    )
     conn.commit()
 
 
@@ -250,7 +265,9 @@ ON CONFLICT(event_id, player) DO UPDATE SET
 
 
 def upsert_ss_matches(conn, rows):
-    cur = conn.executemany(SS_MATCH, rows); conn.commit(); return cur.rowcount
+    cur = conn.executemany(SS_MATCH, rows)
+    conn.commit()
+    return cur.rowcount
 
 
 def update_ht_scores(conn, event_id, home_ht, away_ht):
@@ -260,8 +277,10 @@ def update_ht_scores(conn, event_id, home_ht, away_ht):
     jogo não terminado ou payload sem period1 não apaga dado já gravado."""
     if home_ht is None or away_ht is None:
         return
-    conn.execute("UPDATE sofascore_matches SET home_score_ht=?, away_score_ht=? "
-                 "WHERE event_id=?", (int(home_ht), int(away_ht), event_id))
+    conn.execute(
+        "UPDATE sofascore_matches SET home_score_ht=?, away_score_ht=? WHERE event_id=?",
+        (int(home_ht), int(away_ht), event_id),
+    )
     conn.commit()
 
 
@@ -273,16 +292,18 @@ def update_kickoff(conn, event_id, start_ts):
     """
     if not start_ts:
         return
-    kickoff = datetime.fromtimestamp(int(start_ts), timezone.utc).isoformat(
-        timespec="seconds")
+    kickoff = datetime.fromtimestamp(int(start_ts), UTC).isoformat(timespec="seconds")
     conn.execute(
-        "UPDATE sofascore_matches SET kickoff_at=COALESCE(?, kickoff_at) "
-        "WHERE event_id=?", (kickoff, event_id))
+        "UPDATE sofascore_matches SET kickoff_at=COALESCE(?, kickoff_at) WHERE event_id=?",
+        (kickoff, event_id),
+    )
     conn.commit()
 
 
 def upsert_ss_ratings(conn, rows):
-    cur = conn.executemany(SS_RATING, rows); conn.commit(); return cur.rowcount
+    cur = conn.executemany(SS_RATING, rows)
+    conn.commit()
+    return cur.rowcount
 
 
 def insert_snapshots(conn, rows):
@@ -290,7 +311,9 @@ def insert_snapshots(conn, rows):
     cur = conn.executemany(
         "INSERT OR IGNORE INTO odds_snapshots "
         "(event_id, captured_at, market, selection, odd, pre_match) "
-        "VALUES (?,?,?,?,?,?)", rows)
+        "VALUES (?,?,?,?,?,?)",
+        rows,
+    )
     conn.commit()
     return cur.rowcount
 
@@ -316,8 +339,15 @@ def _flat_vals(parsed: dict):
     dc = parsed.get("dc", {}) or {}
     dnb = parsed.get("dnb", {}) or {}
     btts = parsed.get("btts", {}) or {}
-    return [dc.get("1X"), dc.get("X2"), dc.get("12"),
-            dnb.get("1"), dnb.get("2"), btts.get("Yes"), btts.get("No")]
+    return [
+        dc.get("1X"),
+        dc.get("X2"),
+        dc.get("12"),
+        dnb.get("1"),
+        dnb.get("2"),
+        btts.get("Yes"),
+        btts.get("No"),
+    ]
 
 
 def update_flat_markets(conn, event_id, parsed_close: dict, parsed_open: dict):
@@ -342,23 +372,59 @@ def lines_rows_from_parsed(event_id, parsed_close: dict, parsed_open: dict):
     # OU (gols)
     for line, d in (parsed_close.get("ou") or {}).items():
         od = (op.get("ou") or {}).get(line, {})
-        rows.append((event_id, "ou", float(line), d.get("Over"), d.get("Under"),
-                     od.get("Over"), od.get("Under")))
+        rows.append(
+            (
+                event_id,
+                "ou",
+                float(line),
+                d.get("Over"),
+                d.get("Under"),
+                od.get("Over"),
+                od.get("Under"),
+            )
+        )
     # AH
     for line, d in (parsed_close.get("ah") or {}).items():
         od = (op.get("ah") or {}).get(line, {})
-        rows.append((event_id, "ah", float(line), d.get("home"), d.get("away"),
-                     od.get("home"), od.get("away")))
+        rows.append(
+            (
+                event_id,
+                "ah",
+                float(line),
+                d.get("home"),
+                d.get("away"),
+                od.get("home"),
+                od.get("away"),
+            )
+        )
     # ===== NOVOS: CARDS =====
     for line, d in (parsed_close.get("cards") or {}).items():
         od = (op.get("cards") or {}).get(line, {})
-        rows.append((event_id, "cards", float(line), d.get("Over"), d.get("Under"),
-                     od.get("Over"), od.get("Under")))
+        rows.append(
+            (
+                event_id,
+                "cards",
+                float(line),
+                d.get("Over"),
+                d.get("Under"),
+                od.get("Over"),
+                od.get("Under"),
+            )
+        )
     # ===== NOVOS: CORNERS =====
     for line, d in (parsed_close.get("corners") or {}).items():
         od = (op.get("corners") or {}).get(line, {})
-        rows.append((event_id, "corners", float(line), d.get("Over"), d.get("Under"),
-                     od.get("Over"), od.get("Under")))
+        rows.append(
+            (
+                event_id,
+                "corners",
+                float(line),
+                d.get("Over"),
+                d.get("Under"),
+                od.get("Over"),
+                od.get("Under"),
+            )
+        )
     return rows
 
 
@@ -373,22 +439,28 @@ def upsert_odds_lines(conn, rows):
         "  odd_a=excluded.odd_a, odd_b=excluded.odd_b, "
         "  odd_a_open=COALESCE(odds_lines.odd_a_open, excluded.odd_a_open), "
         "  odd_b_open=COALESCE(odds_lines.odd_b_open, excluded.odd_b_open)",
-        rows)
+        rows,
+    )
     conn.commit()
     return cur.rowcount
+
 
 def upsert_match_statistics(conn, rows):
     """Insere ou substitui estatísticas do evento.
     rows: lista de dicts com {event_id, team, period, stat_name, value}
     """
-    conn.executemany("""
+    conn.executemany(
+        """
         INSERT OR REPLACE INTO match_statistics (event_id, team, period, stat_name, value)
         VALUES (:event_id, :team, :period, :stat_name, :value)
-    """, rows)
+    """,
+        rows,
+    )
     conn.commit()
 
 
 # --- cache de modelo (Parte 2: serving instantâneo) ---
+
 
 def save_elo(conn, items):
     conn.execute("DELETE FROM current_elo")
@@ -408,7 +480,8 @@ def save_params(conn, a, b, alpha, rho, n_matches, config_hash, computed_at):
         "INSERT OR REPLACE INTO model_parameters "
         "(id, param_a, param_b, param_alpha, param_rho, n_matches, config_hash, computed_at) "
         "VALUES (1, ?, ?, ?, ?, ?, ?, ?)",
-        (a, b, alpha, rho, n_matches, config_hash, computed_at))
+        (a, b, alpha, rho, n_matches, config_hash, computed_at),
+    )
     conn.commit()
 
 
@@ -416,7 +489,8 @@ def load_params(conn):
     try:
         return conn.execute(
             "SELECT param_a, param_b, param_alpha, param_rho, n_matches, config_hash, computed_at "
-            "FROM model_parameters WHERE id = 1").fetchone()
+            "FROM model_parameters WHERE id = 1"
+        ).fetchone()
     except sqlite3.OperationalError:
         return None
 
@@ -427,7 +501,8 @@ def save_xg_params(conn, params: dict, n_matches, config_hash, computed_at):
     conn.execute(
         "INSERT OR REPLACE INTO xg_model_parameters "
         "(id, params_json, n_matches, config_hash, computed_at) VALUES (1, ?, ?, ?, ?)",
-        (json.dumps(params, sort_keys=True), n_matches, config_hash, computed_at))
+        (json.dumps(params, sort_keys=True), n_matches, config_hash, computed_at),
+    )
     conn.commit()
 
 
@@ -435,8 +510,8 @@ def load_xg_params(conn):
     """Devolve (params_dict, n_matches, config_hash, computed_at) ou None."""
     try:
         row = conn.execute(
-            "SELECT params_json, n_matches, config_hash, computed_at "
-            "FROM xg_model_parameters WHERE id = 1").fetchone()
+            "SELECT params_json, n_matches, config_hash, computed_at FROM xg_model_parameters WHERE id = 1"
+        ).fetchone()
     except sqlite3.OperationalError:
         return None
     if not row or not row[0]:

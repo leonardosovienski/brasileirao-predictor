@@ -7,9 +7,9 @@ v2.0, não um fix para promover no meio da Copa (ver docs/VIES_ZEBRA.md).
 
 Uso:  python scripts/diag_zebra.py    (a partir da raiz do repo)
 """
+
 import os
 import sys
-import statistics as st
 
 sys.path.insert(0, os.getcwd())
 from src import db, model
@@ -23,20 +23,30 @@ MAXG = cfg["model"]["max_goals"]
 
 rows = conn.execute(
     "SELECT date, home_team, away_team, home_score, away_score "
-    "FROM sofascore_matches WHERE season='2026' AND home_score IS NOT NULL").fetchall()
+    "FROM sofascore_matches WHERE season='2026' AND home_score IS NOT NULL"
+).fetchall()
 
 history = conn.execute(
     "SELECT date,home_team,away_team,home_score,away_score,tournament,neutral "
-    "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+).fetchall()
 snapshots = ratings_asof(history, cfg["elo"], [r[0] for r in rows])
 
-_AL = {"south korea": "korea republic", "united states": "usa",
-       "cabo verde": "cape verde", "côte d'ivoire": "ivory coast",
-       "czechia": "czech republic", "türkiye": "turkey"}
+_AL = {
+    "south korea": "korea republic",
+    "united states": "usa",
+    "cabo verde": "cape verde",
+    "côte d'ivoire": "ivory coast",
+    "czechia": "czech republic",
+    "türkiye": "turkey",
+}
+
+
 def get_elo(n, elo):
     elo_ci = {k.lower(): v for k, v in elo.items()}
     n = n.lower().strip()
     return elo_ci.get(_AL.get(n, n)) or elo_ci.get(n)
+
 
 games = []  # (elo_fav, elo_und, fav_is_home, resultado: 'fav'/'und'/'draw')
 for d, h, a_, hs, as_ in rows:
@@ -61,12 +71,16 @@ real_und = sum(g[2] == "und" for g in games) / n
 print(f"=== REALIDADE ({n} jogos) ===")
 print(f"  favorito vence {real_fav:.1%} | empate {real_draw:.1%} | AZARÃO vence {real_und:.1%}")
 
+
 def model_split(bb):
     pf = pd = pu = 0.0
     for ef, eu, _ in games:
         r = model.predict_match(ef, eu, (a, bb, alpha, rho), 0.0, MAXG)
-        pf += r["p_win"]; pd += r["p_draw"]; pu += r["p_loss"]
+        pf += r["p_win"]
+        pd += r["p_draw"]
+        pu += r["p_loss"]
     return pf / n, pd / n, pu / n
+
 
 print(f"\n=== VARREDURA DE b (atual = {b:.3f}) — quanto corrige o favorito? ===")
 print(f"  {'b':>6} {'P(fav)':>8} {'P(empate)':>10} {'P(azarão)':>10}")

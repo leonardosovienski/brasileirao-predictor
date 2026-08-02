@@ -12,7 +12,7 @@ namespace LineupWorker.Services;
 public sealed class VorpStateService : IHostedService
 {
     private readonly ILogger<VorpStateService> _log;
-    private readonly IConfiguration _cfg;
+    private readonly OperationalSettings _settings;
 
     // Estruturas em memória — imutáveis após warm-up
     private IReadOnlyDictionary<string, double> _vorpByPlayer  = new Dictionary<string, double>();
@@ -21,15 +21,15 @@ public sealed class VorpStateService : IHostedService
 
     private bool _ready;
 
-    public VorpStateService(ILogger<VorpStateService> log, IConfiguration cfg)
+    public VorpStateService(ILogger<VorpStateService> log, OperationalSettings settings)
     {
         _log = log;
-        _cfg = cfg;
+        _settings = settings;
     }
 
     public Task StartAsync(CancellationToken ct)
     {
-        var artifactPath = _cfg["Vorp:ArtifactPath"] ?? "data/vorp.json";
+        var artifactPath = _settings.VorpArtifactPath;
         _log.LogInformation("[VorpState] aquecendo de {Path}", artifactPath);
 
         using var stream = File.OpenRead(artifactPath);
@@ -45,8 +45,8 @@ public sealed class VorpStateService : IHostedService
             .ToDictionary(p => p.Name, p => p.Value.GetDouble());
 
         // Titularidade histórica por time (opcional — arquivo separado)
-        var titPath = _cfg["Vorp:TitularidadePath"];
-        if (titPath != null && File.Exists(titPath))
+        var titPath = _settings.TitularidadePath;
+        if (File.Exists(titPath))
         {
             using var tstream = File.OpenRead(titPath);
             var tdoc = JsonDocument.Parse(tstream);

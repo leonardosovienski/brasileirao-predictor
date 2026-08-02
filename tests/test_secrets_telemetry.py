@@ -2,9 +2,10 @@
 
 Transforma um segredo acidental no metadata do emit_event em falha de pytest — antes do commit.
 """
+
 from pathlib import Path
 
-from predictor_core.testing.secrets import find_secrets, assert_no_secrets_in_events
+from predictor_core.testing.secrets import assert_no_secrets_in_events, find_secrets
 
 EVENTS = Path(__file__).resolve().parents[1] / "events.jsonl"
 
@@ -18,4 +19,4 @@ def test_guard_passes_clean_text():
 
 
 def test_real_telemetry_has_no_secrets():
-    assert_no_secrets_in_events(EVENTS)   # no-op se ausente; falha se algum segredo vazou
+    assert_no_secrets_in_events(EVENTS)  # no-op se ausente; falha se algum segredo vazou

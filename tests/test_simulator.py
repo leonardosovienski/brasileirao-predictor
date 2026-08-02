@@ -1,5 +1,6 @@
 """derive_groups monta os grupos a partir do grafo de fixtures (jogos sem placar),
 sem hardcode das chaves. Injeta um minigrafo em :memory: e prova a derivação."""
+
 from src import db
 from src.simulator import derive_groups
 
@@ -9,11 +10,12 @@ def _round_robin(conn, teams, tournament="FIFA World Cup"):
     rows = []
     for i in range(len(teams)):
         for j in range(i + 1, len(teams)):
-            rows.append((f"2026-06-{10+i}{j}", teams[i], teams[j],
-                         None, None, tournament, "", "", 1))
+            rows.append((f"2026-06-{10 + i}{j}", teams[i], teams[j], None, None, tournament, "", "", 1))
     conn.executemany(
         "INSERT INTO matches (date, home_team, away_team, home_score, away_score, "
-        "tournament, city, country, neutral) VALUES (?,?,?,?,?,?,?,?,?)", rows)
+        "tournament, city, country, neutral) VALUES (?,?,?,?,?,?,?,?,?)",
+        rows,
+    )
     conn.commit()
 
 
@@ -37,7 +39,8 @@ def test_ignora_componente_de_tamanho_errado():
     conn.execute(
         "INSERT INTO matches (date, home_team, away_team, home_score, away_score, "
         "tournament, city, country, neutral) VALUES "
-        "('2026-07-01','X','Y',NULL,NULL,'FIFA World Cup','','',1)")
+        "('2026-07-01','X','Y',NULL,NULL,'FIFA World Cup','','',1)"
+    )
     conn.commit()
 
     groups = derive_groups(conn)
@@ -53,7 +56,8 @@ def test_ignora_jogos_ja_disputados():
     conn.execute(
         "INSERT INTO matches (date, home_team, away_team, home_score, away_score, "
         "tournament, city, country, neutral) VALUES "
-        "('2022-11-20','Qatar','Ecuador',0,2,'FIFA World Cup','','',1)")
+        "('2022-11-20','Qatar','Ecuador',0,2,'FIFA World Cup','','',1)"
+    )
     conn.commit()
     assert derive_groups(conn) == []
     conn.close()

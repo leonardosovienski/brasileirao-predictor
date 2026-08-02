@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pandas as pd
 import yaml
+from predictor_core.obs import emit_event
 
 from . import db
 from .net import retry
 from .obs import get_logger, setup_logging
-from predictor_core.obs import emit_event
 
 log = get_logger()
 _DOMAIN = "brasileirao"
@@ -49,8 +49,19 @@ def normalize(df: pd.DataFrame) -> pd.DataFrame:
     for col in ("home_score", "away_score"):
         df[col] = pd.to_numeric(df[col], errors="coerce").astype("Int64")
     df = df.drop_duplicates(subset=["date", "home_team", "away_team"], keep="last")
-    return df[["date", "home_team", "away_team", "home_score", "away_score",
-               "tournament", "city", "country", "neutral"]]
+    return df[
+        [
+            "date",
+            "home_team",
+            "away_team",
+            "home_score",
+            "away_score",
+            "tournament",
+            "city",
+            "country",
+            "neutral",
+        ]
+    ]
 
 
 def run() -> None:
@@ -60,21 +71,34 @@ def run() -> None:
     df = normalize(fetch_csv(cfg))
     conn = db.connect(str(ROOT / cfg["database"]))
     rows = [
-        (r.date, r.home_team, r.away_team,
-         None if pd.isna(r.home_score) else int(r.home_score),
-         None if pd.isna(r.away_score) else int(r.away_score),
-         r.tournament, r.city, r.country, int(r.neutral))
+        (
+            r.date,
+            r.home_team,
+            r.away_team,
+            None if pd.isna(r.home_score) else int(r.home_score),
+            None if pd.isna(r.away_score) else int(r.away_score),
+            r.tournament,
+            r.city,
+            r.country,
+            int(r.neutral),
+        )
         for r in df.itertuples()
     ]
     db.upsert_matches(conn, rows)
     played = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NOT NULL").fetchone()[0]
     fixtures = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NULL").fetchone()[0]
     log.info("banco: %d partidas jogadas, %d fixtures futuros", played, fixtures)
-    emit_event(_DOMAIN, "ingest_done",
-               metrics={"records": float(len(rows)), "played": float(played),
-                        "fixtures": float(fixtures),
-                        "duration_sec": round(time.monotonic() - t0, 2)},
-               metadata={"source": "results_csv"})
+    emit_event(
+        _DOMAIN,
+        "ingest_done",
+        metrics={
+            "records": float(len(rows)),
+            "played": float(played),
+            "fixtures": float(fixtures),
+            "duration_sec": round(time.monotonic() - t0, 2),
+        },
+        metadata={"source": "results_csv"},
+    )
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ Um logger nomeado 'brasileirao' com dois destinos: console (nível INFO, limpo p
 operador) e arquivo rotativo data/brasileirao.log (nível DEBUG, para investigar a falha
 das 3h da manhã). setup_logging é idempotente — chamável de qualquer entrypoint.
 """
+
 import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
@@ -19,8 +20,7 @@ def setup_logging(log_dir: Path | None = None, level: int = logging.INFO):
         return logger
     logger.setLevel(logging.DEBUG)
 
-    fmt = logging.Formatter("%(asctime)s %(levelname)-7s %(name)s: %(message)s",
-                            datefmt="%Y-%m-%d %H:%M:%S")
+    fmt = logging.Formatter("%(asctime)s %(levelname)-7s %(name)s: %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
     console = logging.StreamHandler()
     console.setLevel(level)
     console.setFormatter(fmt)
@@ -28,8 +28,7 @@ def setup_logging(log_dir: Path | None = None, level: int = logging.INFO):
 
     if log_dir is not None:
         log_dir.mkdir(parents=True, exist_ok=True)
-        fileh = RotatingFileHandler(log_dir / "brasileirao.log", maxBytes=1_000_000,
-                                    backupCount=3, encoding="utf-8")
+        fileh = RotatingFileHandler(log_dir / "brasileirao.log", maxBytes=1_000_000, backupCount=3, encoding="utf-8")
         fileh.setLevel(logging.DEBUG)
         fileh.setFormatter(fmt)
         logger.addHandler(fileh)

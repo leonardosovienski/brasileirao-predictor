@@ -7,6 +7,7 @@ dentro de comentários HTML, então é preciso "descomentar" antes de parsear.
 A coleta roda na máquina do usuário (precisa alcançar fbref.com). As competições
 ficam em config.yaml (player_stats.competitions), nunca hardcoded aqui.
 """
+
 import re
 import sys
 import time
@@ -20,8 +21,7 @@ from bs4 import BeautifulSoup, Comment
 from . import db
 from .ingest import ROOT, load_config
 
-UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
-      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
+UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
 # nome canônico -> candidatos de coluna no FBref (case-insensitive, 1º que casar)
 COLUMN_MAP = {
@@ -97,6 +97,7 @@ def parse_player_stats(html: str, competition: str, season: str) -> list:
 
     rows = []
     for _, r in df.iterrows():
+
         def g(key, cast):
             if key not in cols:
                 return None
@@ -113,9 +114,21 @@ def parse_player_stats(html: str, competition: str, season: str) -> list:
         team = g("team", str)
         if not player or not team:
             continue
-        rows.append((player, team, competition, season, g("position", str),
-                     g("minutes", int), g("games", int), g("goals", int),
-                     g("assists", int), g("xg", float), g("xag", float)))
+        rows.append(
+            (
+                player,
+                team,
+                competition,
+                season,
+                g("position", str),
+                g("minutes", int),
+                g("games", int),
+                g("goals", int),
+                g("assists", int),
+                g("xg", float),
+                g("xag", float),
+            )
+        )
     return rows
 
 

@@ -9,9 +9,10 @@ Mostra, a qualquer momento:
 Uso:  python scripts/playoff_clv.py   (a partir da raiz do repo)
 Rotina: coletar antes do apito -> jogos -> backtest -> rodar este painel.
 """
+
 import os
-import sys
 import statistics as st
+import sys
 
 sys.path.insert(0, os.getcwd())
 from src import db
@@ -39,27 +40,28 @@ for d, h, a, oh, oh_open in fut:
     elif tem_open:
         status = "ABERTURA OK"
     elif tem_odds:
-        status = ">> COLETAR (tem odds, sem abertura)"; falta_coletar += 1
+        status = ">> COLETAR (tem odds, sem abertura)"
+        falta_coletar += 1
     else:
         status = "sem odds ainda"
     print(f"  {d}  {h[:18]:<18} x {a[:18]:<18}  {status}")
 
 # --- 2. populacao 'open' acumulada ---
-n_open_total = conn.execute(
-    "SELECT COUNT(1) FROM sofascore_matches WHERE odds_home_open IS NOT NULL").fetchone()[0]
+n_open_total = conn.execute("SELECT COUNT(1) FROM sofascore_matches WHERE odds_home_open IS NOT NULL").fetchone()[0]
 n_open_played = conn.execute(
-    "SELECT COUNT(1) FROM sofascore_matches "
-    "WHERE home_score IS NOT NULL AND odds_home_open IS NOT NULL").fetchone()[0]
+    "SELECT COUNT(1) FROM sofascore_matches WHERE home_score IS NOT NULL AND odds_home_open IS NOT NULL"
+).fetchone()[0]
 print("\n" + "=" * 70)
 print("POPULACAO 'open' (a materia-prima do CLV)")
 print("=" * 70)
-print(f"  aberturas capturadas: {n_open_total} | ja disputadas: {n_open_played} "
-      f"| no ar (vao virar CLV): {n_open_total - n_open_played}")
+print(
+    f"  aberturas capturadas: {n_open_total} | ja disputadas: {n_open_played} "
+    f"| no ar (vao virar CLV): {n_open_total - n_open_played}"
+)
 
 # --- 3. CLV na populacao 'open' (le o ledger do backtest) ---
 try:
-    bets = conn.execute(
-        "SELECT clv, beat_close, pnl FROM backtest_bets WHERE bet_at='open'").fetchall()
+    bets = conn.execute("SELECT clv, beat_close, pnl FROM backtest_bets WHERE bet_at='open'").fetchall()
 except Exception:
     bets = []
 print("\n" + "=" * 70)
@@ -80,7 +82,7 @@ else:
     if falta:
         print(f"  -> faltam ~{falta} apostas 'open' para o veredito ter poder (alvo {ALVO_OPEN})")
     else:
-        print(f"  -> amostra suficiente: rode 'python -m src.bootstrap' para o IC 95%")
+        print("  -> amostra suficiente: rode 'python -m src.bootstrap' para o IC 95%")
 
 print("\nPLAYBOOK DOS PLAYOFFS:")
 print("  ANTES do apito (captura abertura dos jogos que o chaveamento resolveu):")

@@ -9,9 +9,9 @@ ZONA 3 — Kernel Purista (PROMPT 5)
       λ_b = exp(a − b·elo_diff/400 + θ·delta_vorp_b)
   • Modo determinístico (seeded) disponível via np.random.default_rng(seed).
 """
+
 import math
 import warnings
-from typing import Union
 
 import numpy as np
 from scipy.optimize import minimize
@@ -19,15 +19,14 @@ from scipy.special import gammaln
 from scipy.stats import nbinom
 
 # Tipo dos hiperparâmetros: tupla legada (a, b, alpha, rho) ou dict estendido
-Params = Union[tuple, dict]
+type Params = tuple[float, float, float, float] | tuple[float, float, float, float, float] | dict[str, float]
 
 
 def _nb_logpmf(k, mu, alpha):
     """log P(k) da NB em parametrização média-dispersão: Var = mu + alpha*mu^2.
     alpha -> 0 recupera o Poisson."""
     r = 1.0 / alpha
-    return (gammaln(k + r) - gammaln(r) - gammaln(k + 1.0)
-            + r * np.log(r / (r + mu)) + k * np.log(mu / (r + mu)))
+    return gammaln(k + r) - gammaln(r) - gammaln(k + 1.0) + r * np.log(r / (r + mu)) + k * np.log(mu / (r + mu))
 
 
 def _tau(hs, as_, lam, mu, rho):
@@ -84,8 +83,7 @@ def fit_goal_model(history, delta_xg=None):
 
     if has_xg:
         x0 = [base, 0.3, math.log(0.1), -0.03, 0.5]
-        bounds = [(-3, 3), (-1, 4), (math.log(1e-4), math.log(3)),
-                  (-0.4, 0.4), (-5, 5)]
+        bounds = [(-3, 3), (-1, 4), (math.log(1e-4), math.log(3)), (-0.4, 0.4), (-5, 5)]
     else:
         x0 = [base, 0.3, math.log(0.1), -0.03]
         bounds = [(-3, 3), (-1, 4), (math.log(1e-4), math.log(3)), (-0.4, 0.4)]
@@ -104,8 +102,11 @@ def fit_goal_model(history, delta_xg=None):
         # mal-especificado. Antes isso passava calado — foi exatamente o que
         # escondeu o bug do history da Fase 2 (a=3.0 no limite, λ≈23 gols).
         if not res.success:
-            warnings.warn(f"fit_goal_model: otimizacao nao convergiu ({res.message})",
-                          RuntimeWarning, stacklevel=2)
+            warnings.warn(
+                f"fit_goal_model: otimizacao nao convergiu ({res.message})",
+                RuntimeWarning,
+                stacklevel=2,
+            )
         _names = ("a", "b", "log_alpha", "rho", "theta_xg")
         for name, val, (lo, hi) in zip(_names, res.x, bounds):
             if min(abs(val - lo), abs(val - hi)) < 1e-6:
@@ -116,10 +117,11 @@ def fit_goal_model(history, delta_xg=None):
                 warnings.warn(
                     f"fit_goal_model: parametro {name}={val:.4f} cravado no bound "
                     f"[{lo}, {hi}] — verifique o formato do history (diff, hs, as)",
-                    RuntimeWarning, stacklevel=2)
+                    RuntimeWarning,
+                    stacklevel=2,
+                )
         if has_xg:
-            return (float(a), float(b), float(math.exp(log_alpha)), float(rho),
-                    float(theta_xg))
+            return (float(a), float(b), float(math.exp(log_alpha)), float(rho), float(theta_xg))
         else:
             return (float(a), float(b), float(math.exp(log_alpha)), float(rho))
     except Exception:
@@ -132,20 +134,23 @@ def _unpack_params(params: Params) -> tuple[float, float, float, float, float]:
     """Extrai (a, b, alpha, rho, theta) de tupla legada ou dict estendido.
     Aceita tupla de 4 (theta=0) ou tupla de 5 (theta no 5o elemento)."""
     if isinstance(params, dict):
-        return (params["a"], params["b"], params["alpha"],
-                params["rho"], params.get("theta", 0.0))
+        return (params["a"], params["b"], params["alpha"], params["rho"], params.get("theta", 0.0))
     if len(params) >= 5:
         return (params[0], params[1], params[2], params[3], params[4])
     return (params[0], params[1], params[2], params[3], 0.0)
 
 
-def predict_match(elo_a: float, elo_b: float, params: Params,
-                  home_adv: float = 0.0,
-                  delta_vorp_a: float = 0.0,
-                  delta_vorp_b: float = 0.0,
-                  delta_xg: float = 0.0,
-                  max_goals: int = 12,
-                  seed: int | None = None) -> dict:
+def predict_match(
+    elo_a: float,
+    elo_b: float,
+    params: Params,
+    home_adv: float = 0.0,
+    delta_vorp_a: float = 0.0,
+    delta_vorp_b: float = 0.0,
+    delta_xg: float = 0.0,
+    max_goals: int = 12,
+    seed: int | None = None,
+) -> dict:
     """Previsão completa de uma partida.
 
     Link function com injeção de VORP e delta_xg (θ=0 → comportamento original):
@@ -156,13 +161,17 @@ def predict_match(elo_a: float, elo_b: float, params: Params,
           torna o resultado reproduzível em testes unitários.
     """
     a, b, alpha, rho, theta = _unpack_params(params)
-    diff  = (elo_a + home_adv - elo_b) / 400.0
+    diff = (elo_a + home_adv - elo_b) / 400.0
     lam_a = math.exp(a + b * diff + theta * (delta_vorp_a + delta_xg))
     lam_b = math.exp(a - b * diff + theta * (delta_vorp_b - delta_xg))
 
     grid = _score_grid(lam_a, lam_b, alpha, rho, max_goals)
-    return {"lambda_a": lam_a, "lambda_b": lam_b, "total_goals": lam_a + lam_b,
-            **_grid_stats(grid, max_goals)}
+    return {
+        "lambda_a": lam_a,
+        "lambda_b": lam_b,
+        "total_goals": lam_a + lam_b,
+        **_grid_stats(grid, max_goals),
+    }
 
 
 def _score_grid(lam_a, lam_b, alpha, rho, max_goals):
@@ -203,15 +212,24 @@ def _grid_stats(grid, max_goals):
     top = sorted(flat, key=lambda t: -t[1])[:5]
 
     return {
-        "p_win": p_win, "p_draw": p_draw, "p_loss": p_loss,
-        "over": over, "btts": btts, "top_scores": top,
-        "grid": grid,   # exposto para o simulador amostrar placares
+        "p_win": p_win,
+        "p_draw": p_draw,
+        "p_loss": p_loss,
+        "over": over,
+        "btts": btts,
+        "top_scores": top,
+        "grid": grid,  # exposto para o simulador amostrar placares
     }
 
 
-def predict_remaining(elo_a: float, elo_b: float, params: Params,
-                      home_adv: float = 0.0, fraction: float = 0.5,
-                      max_goals: int = 12) -> dict:
+def predict_remaining(
+    elo_a: float,
+    elo_b: float,
+    params: Params,
+    home_adv: float = 0.0,
+    fraction: float = 0.5,
+    max_goals: int = 12,
+) -> dict:
     """Distribuição de gols só do tempo RESTANTE de um jogo em andamento —
     mesma link function do `predict_match`, com os λ pré-jogo escalados por
     `fraction` (0.5 = um tempo inteiro de 45min).
@@ -231,5 +249,9 @@ def predict_remaining(elo_a: float, elo_b: float, params: Params,
     lam_b = math.exp(a - b * diff) * fraction
 
     grid = _score_grid(lam_a, lam_b, alpha, rho, max_goals)
-    return {"lambda_a": lam_a, "lambda_b": lam_b, "total_goals": lam_a + lam_b,
-            **_grid_stats(grid, max_goals)}
+    return {
+        "lambda_a": lam_a,
+        "lambda_b": lam_b,
+        "total_goals": lam_a + lam_b,
+        **_grid_stats(grid, max_goals),
+    }

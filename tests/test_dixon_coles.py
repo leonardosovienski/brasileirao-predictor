@@ -1,12 +1,13 @@
 """dixon_coles — base de correlação: tau só nas células magras, decaimento, grade própria."""
+
 import math
 
 import pytest
 
 from src.dixon_coles import DixonColesMatrix, dc_tau, time_decay_weight
 
-
 # ---------- dc_tau ----------
+
 
 def test_tau_is_one_outside_thin_cells():
     for h, a in [(2, 0), (0, 2), (2, 2), (3, 1), (5, 4)]:
@@ -33,6 +34,7 @@ def test_tau_out_of_range_rho_raises():
 
 # ---------- time_decay_weight ----------
 
+
 def test_decay_today_is_one_and_monotone():
     xi = math.log(2) / 120
     assert time_decay_weight(0, xi) == 1.0
@@ -56,6 +58,7 @@ def test_decay_rejects_future_match_and_negative_xi():
 
 
 # ---------- DixonColesMatrix ----------
+
 
 def test_grid_sums_to_one():
     dc = DixonColesMatrix(lam=1.4, mu=1.1, rho=-0.05)

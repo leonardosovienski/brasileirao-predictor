@@ -16,6 +16,7 @@ Read-only: NAO toca em config.yaml.
 Uso: python scripts/bootstrap_calibration_window.py [CY] [N_JOGOS]
      (default CY=0.5, N_JOGOS=40)
 """
+
 import os
 import sys
 from datetime import date, timedelta
@@ -37,7 +38,8 @@ conn = db.connect(str(ROOT / cfg["database"]))
 
 rows_all = conn.execute(
     "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-    "FROM matches WHERE home_score IS NOT NULL ORDER BY date").fetchall()
+    "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+).fetchall()
 
 window = cfg["elo"].get("window_years")
 if window:
@@ -52,16 +54,14 @@ MIN_EDGE, MAX_EDGE = cfg["backtest"]["min_edge"], cfg["backtest"]["max_edge"]
 ITERATIONS = cfg["backtest"].get("bootstrap_iterations", 1000)
 SEED = cfg["backtest"].get("bootstrap_seed", 13)
 
-test_idx = [i for i, r in enumerate(rows_all)
-            if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
+test_idx = [i for i, r in enumerate(rows_all) if r[5].startswith("Brasileir") and r[0] >= FIRST_SEASON_DATE][:N_GAMES]
 
 ccut = (date.fromisoformat(FIRST_SEASON_DATE) - timedelta(days=int(CY * 365.25))).isoformat()
 train_hist = [h for h, r in zip(history, rows_all) if ccut <= r[0] < FIRST_SEASON_DATE]
 params = model.fit_goal_model(train_hist)
 
 odds_ou = {}
-for row in conn.execute(
-        "SELECT date, home_team, away_team, odds_over, odds_under FROM sofascore_matches").fetchall():
+for row in conn.execute("SELECT date, home_team, away_team, odds_over, odds_under FROM sofascore_matches").fetchall():
     d, h, a, oo, ou = row
     odds_ou[(d, _canon(h), _canon(a))] = (oo, ou)
 
@@ -82,8 +82,9 @@ for i in test_idx:
     real_over = (hs + as_) > 2.5
 
     for side, edge, mp, odd, won in (
-            ("OVER", p_over / p_over_mkt - 1.0, p_over, oo, real_over),
-            ("UNDER", p_under / p_under_mkt - 1.0, p_under, ou_odd, not real_over)):
+        ("OVER", p_over / p_over_mkt - 1.0, p_over, oo, real_over),
+        ("UNDER", p_under / p_under_mkt - 1.0, p_under, ou_odd, not real_over),
+    ):
         if MIN_EDGE <= edge <= MAX_EDGE:
             pnl = (odd - 1.0) if won else -1.0
             pairs.append((pnl, (d, h, a)))

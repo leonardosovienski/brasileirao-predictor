@@ -22,6 +22,7 @@ Uso:
     python scripts/seed_test_fixtures.py           # cria só o que falta
     python scripts/seed_test_fixtures.py --force   # recria (DESTRUTIVO)
 """
+
 from __future__ import annotations
 
 import argparse
@@ -47,8 +48,7 @@ def build_database(path: Path) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--force", action="store_true",
-                        help="recria mesmo se o arquivo já existir (DESTRUTIVO)")
+    parser.add_argument("--force", action="store_true", help="recria mesmo se o arquivo já existir (DESTRUTIVO)")
     args = parser.parse_args(argv)
 
     if DB_PATH.exists() and not args.force:

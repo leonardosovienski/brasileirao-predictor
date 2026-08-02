@@ -6,6 +6,7 @@ Série A 2024 (Bahia 0x2 Flamengo, coletado do Sofascore em 2026-07-10),
 espelho sofascore→matches e o sport key do odds_shop.
 Tudo em :memory:/tmp_path — sem disco compartilhado, sem rede.
 """
+
 import importlib.util
 import json
 import sys
@@ -15,14 +16,15 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT / "vendor"))
 
-from src import db, model, predict, ratings             # noqa: E402
-from src.settle import record_result                    # noqa: E402
+from src import db, model, predict, ratings  # noqa: E402
+from src.settle import record_result  # noqa: E402
 
-_CFG_ELO = {"initial_rating": 1500, "home_advantage": 100,
-            "k_factors": {"Brasileirão Série A": 30, "default": 30,
-                          "Friendly": 20}}
+_CFG_ELO = {
+    "initial_rating": 1500,
+    "home_advantage": 100,
+    "k_factors": {"Brasileirão Série A": 30, "default": 30, "Friendly": 20},
+}
 
 
 def test_config_identidade_do_dominio():
@@ -55,14 +57,22 @@ def test_modelo_com_dois_clubes():
                 # placar determinístico: força decresce com o índice
                 hs = max(0, 2 - i + (rodada + i + j) % 2)
                 as_ = max(0, 1 - j + (rodada + i) % 2)
-                ms.append((f"2024-{1 + day // 28:02d}-{1 + day % 28:02d}",
-                           h, a, hs, as_, "Brasileirão Série A", 0))
+                ms.append(
+                    (
+                        f"2024-{1 + day // 28:02d}-{1 + day % 28:02d}",
+                        h,
+                        a,
+                        hs,
+                        as_,
+                        "Brasileirão Série A",
+                        0,
+                    )
+                )
     ms.sort(key=lambda m: m[0])
     elo, history = ratings.compute_ratings(ms, _CFG_ELO)
     assert set(clubes) <= set(elo)
     params = model.fit_goal_model(history)
-    r = model.predict_match(elo["Flamengo"], elo["Palmeiras"], params,
-                            home_adv=100, max_goals=10)
+    r = model.predict_match(elo["Flamengo"], elo["Palmeiras"], params, home_adv=100, max_goals=10)
     total = r["p_win"] + r["p_draw"] + r["p_loss"]
     assert 0.99 <= total <= 1.01
     assert r["lambda_a"] > 0 and r["lambda_b"] > 0
@@ -72,17 +82,23 @@ def test_modelo_com_dois_clubes():
 def test_settle_resultado_real_brasileirao(tmp_path):
     """Bahia 0x2 Flamengo (Série A 2024, sofascore) — o ciclo palpite→resultado
     tem que fechar com nomes de clube (sem alias de seleção no meio)."""
-    pred = {"home": "Bahia", "away": "Flamengo",
-            "p_home": 0.30, "p_draw": 0.28, "p_away": 0.42,
-            "lambda_home": 1.1, "lambda_away": 1.5,
-            "over": {"1.5": 0.70, "2.5": 0.45, "3.5": 0.22},
-            "btts_yes": 0.52, "btts_no": 0.48,
-            "top_scores": [[[0, 2], 0.08]],
-            "logged_at": "2024-06-20T00:00:00+00:00"}
+    pred = {
+        "home": "Bahia",
+        "away": "Flamengo",
+        "p_home": 0.30,
+        "p_draw": 0.28,
+        "p_away": 0.42,
+        "lambda_home": 1.1,
+        "lambda_away": 1.5,
+        "over": {"1.5": 0.70, "2.5": 0.45, "3.5": 0.22},
+        "btts_yes": 0.52,
+        "btts_no": 0.48,
+        "top_scores": [[[0, 2], 0.08]],
+        "logged_at": "2024-06-20T00:00:00+00:00",
+    }
     pred_p = tmp_path / "predictions.jsonl"
     pred_p.write_text(json.dumps(pred) + "\n", encoding="utf-8")
-    rec = record_result("Bahia", "Flamengo", 0, 2,
-                        path=tmp_path / "results.jsonl", pred_path=pred_p)
+    rec = record_result("Bahia", "Flamengo", 0, 2, path=tmp_path / "results.jsonl", pred_path=pred_p)
     assert rec["prediction"] is not None
     assert rec["grades"]["winner"]["pick"] == "Flamengo"
     assert rec["grades"]["winner"]["correct"] is True
@@ -93,8 +109,7 @@ def test_settle_resultado_real_brasileirao(tmp_path):
 def test_espelho_sofascore_para_matches():
     """scripts/sync_matches_from_sofascore: upsert idempotente, tournament do
     config, neutral=0 (liga tem mando sempre)."""
-    spec = importlib.util.spec_from_file_location(
-        "sync_matches", ROOT / "scripts" / "sync_matches_from_sofascore.py")
+    spec = importlib.util.spec_from_file_location("sync_matches", ROOT / "scripts" / "sync_matches_from_sofascore.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
 
@@ -103,19 +118,19 @@ def test_espelho_sofascore_para_matches():
         "INSERT INTO sofascore_matches (event_id, competition, season, date, "
         "home_team, away_team, home_score, away_score) VALUES "
         "(1, 'Brasileirão Série A 2024', '2024', '2024-04-13', "
-        "'Criciúma', 'Corinthians', 2, 4)")
+        "'Criciúma', 'Corinthians', 2, 4)"
+    )
     conn.execute(
         "INSERT INTO sofascore_matches (event_id, competition, season, date, "
         "home_team, away_team) VALUES "
         "(2, 'Brasileirão Série A 2026', '2026', '2026-07-20', "
-        "'Flamengo', 'Palmeiras')")   # fixture futuro, sem placar
+        "'Flamengo', 'Palmeiras')"
+    )  # fixture futuro, sem placar
     conn.commit()
 
     played, fixtures = mod.sync(conn, "Brasileirão Série A")
     assert (played, fixtures) == (1, 1)
-    row = conn.execute(
-        "SELECT tournament, neutral, home_score FROM matches "
-        "WHERE home_team='Criciúma'").fetchone()
+    row = conn.execute("SELECT tournament, neutral, home_score FROM matches WHERE home_team='Criciúma'").fetchone()
     assert row == ("Brasileirão Série A", 0, 2)
     # idempotente: rodar de novo não duplica
     played2, fixtures2 = mod.sync(conn, "Brasileirão Série A")
@@ -123,8 +138,7 @@ def test_espelho_sofascore_para_matches():
 
 
 def test_odds_shop_sport_key_do_config():
-    spec = importlib.util.spec_from_file_location(
-        "odds_shop_dom", ROOT / "scripts" / "odds_shop.py")
+    spec = importlib.util.spec_from_file_location("odds_shop_dom", ROOT / "scripts" / "odds_shop.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     assert mod.SPORT == "soccer_brazil_campeonato"
@@ -135,8 +149,7 @@ def test_proximos_fixtures_excluem_eventos_passados_sem_placar():
     pode aparecer como o próximo jogo no serving."""
     conn = db.connect(":memory:")
     conn.executemany(
-        "INSERT INTO matches (date, home_team, away_team, tournament, neutral) "
-        "VALUES (?, ?, ?, ?, 0)",
+        "INSERT INTO matches (date, home_team, away_team, tournament, neutral) VALUES (?, ?, ?, ?, 0)",
         [
             ("2024-04-17", "Stale FC", "Old FC", "Brasileirão Série A"),
             ("2026-07-16", "Hoje FC", "Visitante FC", "Brasileirão Série A"),
@@ -152,8 +165,7 @@ def test_proximos_fixtures_excluem_eventos_passados_sem_placar():
 
 def test_ht_fraction_forward_only():
     """H2: a fração de gols do 1T só pode ver jogos ANTERIORES ao corte."""
-    spec = importlib.util.spec_from_file_location(
-        "wf", ROOT / "scripts" / "backtest_walkforward.py")
+    spec = importlib.util.spec_from_file_location("wf", ROOT / "scripts" / "backtest_walkforward.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     # 60 jogos antes do corte (1 gol no 1T de 2 no total → frac 0.5),

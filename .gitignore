@@ -25,6 +25,16 @@ __pycache__/
 # Ambientes
 .venv/
 env/
+.env
+dist/
+.ruff_cache/
+.coverage
+htmlcov/
+artifacts/
+coverage.json
+work-coverage.json
+.wheelhouse-e2e/
+TestResults*/
 
 # SO
 .DS_Store

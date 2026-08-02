@@ -1,24 +1,29 @@
 """elo_baseline — H0: probabilidades próprias, determinístico, favorito coerente."""
-from datetime import datetime, timedelta, timezone
+
+from datetime import UTC, datetime, timedelta
 
 import pytest
+from predictor_core.contracts.points import PredictionPoint
 
 from src.elo_baseline import EloBaselineEvaluator
-from predictor_core.contracts.points import PredictionPoint
 
 
 def _obs(n: int = 40) -> list:
     """'forte' vence sempre em casa e fora; 'fraco' perde sempre."""
-    t0 = datetime(2026, 4, 1, tzinfo=timezone.utc)
-    teams = [("forte", "fraco"), ("fraco", "forte"), ("forte", "medio"),
-             ("medio", "fraco")]
+    t0 = datetime(2026, 4, 1, tzinfo=UTC)
+    teams = [("forte", "fraco"), ("fraco", "forte"), ("forte", "medio"), ("medio", "fraco")]
     obs = []
     for i in range(n):
         home, away = teams[i % len(teams)]
         hg, ag = (2, 0) if home == "forte" else ((0, 2) if away == "forte" else (1, 1))
-        obs.append({"home": home, "away": away,
-                    "kickoff": t0 + timedelta(days=3 * i),
-                    "result": {"home_goals": hg, "away_goals": ag}})
+        obs.append(
+            {
+                "home": home,
+                "away": away,
+                "kickoff": t0 + timedelta(days=3 * i),
+                "result": {"home_goals": hg, "away_goals": ag},
+            }
+        )
     return obs
 
 

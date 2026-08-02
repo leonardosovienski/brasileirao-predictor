@@ -6,13 +6,15 @@ resultado → medir acerto. Os stats que o modelo AINDA não prevê (escanteio,
 cartão, chute, posse, xG) são guardados crus mesmo assim — viram matéria-prima
 do build desses mercados, e o histórico de acerto fica auditável desde já.
 """
+
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
-from .predict import _canon        # reusa os aliases (South Korea/Korea Republic,
-                                    # USA/United States, etc.) — não duplica a lista
+from .predict import _canon  # reusa os aliases (South Korea/Korea Republic,
+
+# USA/United States, etc.) — não duplica a lista
 
 ROOT = Path(__file__).resolve().parent.parent
 PRED_PATH = ROOT / "data" / "predictions.jsonl"
@@ -21,8 +23,20 @@ ENV_RESULTS = "RESULTS_LOG_PATH"
 
 # stats por jogo, sempre [casa, fora]. O modelo só prevê gols hoje; o resto é
 # guardado cru pro build de escanteio/cartão/chute.
-STAT_KEYS = ("possession", "xg", "big_chances", "shots", "shots_on_target",
-             "gk_saves", "corners", "fouls", "passes", "tackles", "yellow", "red")
+STAT_KEYS = (
+    "possession",
+    "xg",
+    "big_chances",
+    "shots",
+    "shots_on_target",
+    "gk_saves",
+    "corners",
+    "fouls",
+    "passes",
+    "tackles",
+    "yellow",
+    "red",
+)
 
 
 def _find_prediction(home, away, match_date=None, pred_path=None):
@@ -40,7 +54,7 @@ def _find_prediction(home, away, match_date=None, pred_path=None):
         if frozenset((_canon(r["home"]), _canon(r["away"]))) == target:
             if match_date and r.get("match_date") != match_date:
                 continue
-            hit = r          # fica com a mais recente
+            hit = r  # fica com a mais recente
     return hit
 
 
@@ -77,20 +91,36 @@ def grade(pred, home_score, away_score):
     top = pred["top_scores"][0][0]
     exact_pick = f"{top[0]}x{top[1]}"
     grades = {
-        "winner": {"pick": pick_name, "prob": round(max(ph, pd, pa), 4),
-                   "actual": {"home": pred["home"], "away": pred["away"], "draw": "Empate"}[res],
-                   "correct": pick_1x2 == res},
+        "winner": {
+            "pick": pick_name,
+            "prob": round(max(ph, pd, pa), 4),
+            "actual": {"home": pred["home"], "away": pred["away"], "draw": "Empate"}[res],
+            "correct": pick_1x2 == res,
+        },
         "over_under_2.5": {"pick": ou_pick, "actual": ou_real, "correct": ou_pick == ou_real},
         "btts": {"pick": btts_pick, "actual": btts_real, "correct": btts_pick == btts_real},
-        "exact_score": {"pick": exact_pick, "actual": f"{hs}x{as_}",
-                        "correct": exact_pick == f"{hs}x{as_}"},
+        "exact_score": {
+            "pick": exact_pick,
+            "actual": f"{hs}x{as_}",
+            "correct": exact_pick == f"{hs}x{as_}",
+        },
     }
     return grades
 
 
-def record_result(home, away, home_score, away_score, *, match_date=None,
-                  scorers=None, stats=None, path=None, pred_path=None,
-                  recorded_at=None) -> dict:
+def record_result(
+    home,
+    away,
+    home_score,
+    away_score,
+    *,
+    match_date=None,
+    scorers=None,
+    stats=None,
+    path=None,
+    pred_path=None,
+    recorded_at=None,
+) -> dict:
     """Grava uma linha em results.jsonl: palpite + resultado + nota + stats crus.
     `stats` = dict com chaves de STAT_KEYS, cada valor [casa, fora]."""
     hs, as_ = int(home_score), int(away_score)
@@ -107,19 +137,30 @@ def record_result(home, away, home_score, away_score, *, match_date=None,
         if match_date is None:
             match_date = pred.get("match_date")
     record = {
-        "recorded_at": recorded_at or datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "match_date": match_date, "home": home, "away": away,
+        "recorded_at": recorded_at or datetime.now(UTC).isoformat(timespec="seconds"),
+        "match_date": match_date,
+        "home": home,
+        "away": away,
         "actual": {
-            "home_score": hs, "away_score": as_,
+            "home_score": hs,
+            "away_score": as_,
             "result": "home" if hs > as_ else ("away" if as_ > hs else "draw"),
-            "total_goals": hs + as_, "scorers": scorers or [],
+            "total_goals": hs + as_,
+            "scorers": scorers or [],
             "stats": {k: stats[k] for k in STAT_KEYS if stats and k in stats} if stats else {},
         },
-        "prediction": None if pred is None else {
-            "p_home": pred["p_home"], "p_draw": pred["p_draw"], "p_away": pred["p_away"],
-            "lambda_home": pred["lambda_home"], "lambda_away": pred["lambda_away"],
-            "over_2.5": pred["over"]["2.5"], "btts_yes": pred["btts_yes"],
-            "top_score": pred["top_scores"][0], "logged_at": pred["logged_at"],
+        "prediction": None
+        if pred is None
+        else {
+            "p_home": pred["p_home"],
+            "p_draw": pred["p_draw"],
+            "p_away": pred["p_away"],
+            "lambda_home": pred["lambda_home"],
+            "lambda_away": pred["lambda_away"],
+            "over_2.5": pred["over"]["2.5"],
+            "btts_yes": pred["btts_yes"],
+            "top_score": pred["top_scores"][0],
+            "logged_at": pred["logged_at"],
         },
         "grades": None if pred is None else grade(pred, hs, as_),
     }
@@ -151,14 +192,17 @@ def summary(path=None):
 
 def main():
     import argparse
-    ap = argparse.ArgumentParser(
-        description="Registra resultado real + afere o palpite congelado")
-    ap.add_argument("home", nargs="?"); ap.add_argument("away", nargs="?")
+
+    ap = argparse.ArgumentParser(description="Registra resultado real + afere o palpite congelado")
+    ap.add_argument("home", nargs="?")
+    ap.add_argument("away", nargs="?")
     ap.add_argument("home_score", type=int, nargs="?")
     ap.add_argument("away_score", type=int, nargs="?")
     ap.add_argument("--date", help="data do jogo (YYYY-MM-DD) p/ casar o palpite certo")
-    ap.add_argument("--stats", help='JSON dos stats, cada valor [casa,fora] '
-                    '(ex: \'{"corners":[2,12],"yellow":[0,3]}\')')
+    ap.add_argument(
+        "--stats",
+        help='JSON dos stats, cada valor [casa,fora] (ex: \'{"corners":[2,12],"yellow":[0,3]}\')',
+    )
     ap.add_argument("--summary", action="store_true", help="só mostra o placar acumulado")
     args = ap.parse_args()
     if args.summary:
@@ -171,14 +215,15 @@ def main():
     if None in (args.home, args.away, args.home_score, args.away_score):
         ap.error("informe: home away home_score away_score  (ou use --summary)")
     stats = json.loads(args.stats) if args.stats else None
-    rec = record_result(args.home, args.away, args.home_score, args.away_score,
-                        match_date=args.date, stats=stats)
+    rec = record_result(args.home, args.away, args.home_score, args.away_score, match_date=args.date, stats=stats)
     if rec["grades"] is None:
         print("resultado gravado, mas SEM palpite congelado p/ este confronto (não avaliado)")
     else:
         ok = sum(g["correct"] for g in rec["grades"].values())
-        print(f"gravado: {args.home} {args.home_score}-{args.away_score} {args.away} "
-              f"| palpite acertou {ok}/{len(rec['grades'])} mercados")
+        print(
+            f"gravado: {args.home} {args.home_score}-{args.away_score} {args.away} "
+            f"| palpite acertou {ok}/{len(rec['grades'])} mercados"
+        )
 
 
 if __name__ == "__main__":

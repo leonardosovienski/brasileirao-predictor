@@ -1,8 +1,8 @@
 """Modelo atk/def-xG + ensemble (src/xg_model.py) — fit sintético, predição,
 blend, hook de serving (flag OFF = baseline byte a byte) e cache no banco."""
+
 import math
 
-import numpy as np
 import pytest
 
 from src import db, model, xg_model
@@ -13,16 +13,22 @@ def _liga_sintetica():
     """Mini-liga com um time forte, um fraco e dois medianos — round-robin
     duplo repetido para dar massa ao ajuste. Placares determinísticos."""
     placar = {
-        ("Forte", "Fraco"): (4, 0), ("Fraco", "Forte"): (0, 3),
-        ("Forte", "MedioA"): (2, 0), ("MedioA", "Forte"): (1, 2),
-        ("Forte", "MedioB"): (3, 1), ("MedioB", "Forte"): (0, 2),
-        ("MedioA", "MedioB"): (1, 1), ("MedioB", "MedioA"): (1, 1),
-        ("MedioA", "Fraco"): (2, 0), ("Fraco", "MedioA"): (0, 1),
-        ("MedioB", "Fraco"): (2, 1), ("Fraco", "MedioB"): (1, 2),
+        ("Forte", "Fraco"): (4, 0),
+        ("Fraco", "Forte"): (0, 3),
+        ("Forte", "MedioA"): (2, 0),
+        ("MedioA", "Forte"): (1, 2),
+        ("Forte", "MedioB"): (3, 1),
+        ("MedioB", "Forte"): (0, 2),
+        ("MedioA", "MedioB"): (1, 1),
+        ("MedioB", "MedioA"): (1, 1),
+        ("MedioA", "Fraco"): (2, 0),
+        ("Fraco", "MedioA"): (0, 1),
+        ("MedioB", "Fraco"): (2, 1),
+        ("Fraco", "MedioB"): (1, 2),
     }
     matches = []
     mes = 1
-    for rodada in range(4):                      # 4 voltas = 48 jogos
+    for rodada in range(4):  # 4 voltas = 48 jogos
         for (h, a), (hs, as_) in placar.items():
             matches.append((f"2025-{mes:02d}-15", h, a, hs, as_))
         mes += 2
@@ -58,7 +64,8 @@ def test_fit_sem_xg_cai_nos_gols():
 
 def test_fit_e_serializavel(xgp):
     import json
-    blob = json.dumps(xgp)                      # cache do cron é JSON
+
+    blob = json.dumps(xgp)  # cache do cron é JSON
     assert json.loads(blob)["mu"] == pytest.approx(xgp["mu"])
 
 
@@ -66,7 +73,7 @@ def test_fit_e_serializavel(xgp):
 def test_predict_probs_consistentes(xgp):
     r = xg_model.predict(xgp, "Forte", "Fraco")
     assert r["p_win"] + r["p_draw"] + r["p_loss"] == pytest.approx(1.0, abs=1e-9)
-    assert r["p_win"] > 0.5                      # forte em casa é favorito claro
+    assert r["p_win"] > 0.5  # forte em casa é favorito claro
     assert r["lambda_a"] > r["lambda_b"]
 
 
@@ -81,7 +88,7 @@ def test_predict_time_desconhecido_e_media(xgp):
 def test_predict_neutro_remove_mando(xgp):
     rn = xg_model.predict(xgp, "MedioA", "MedioB", neutral=True)
     rc = xg_model.predict(xgp, "MedioA", "MedioB", neutral=False)
-    assert rn["lambda_a"] < rc["lambda_a"]      # sem mando, ataque de A cai
+    assert rn["lambda_a"] < rc["lambda_a"]  # sem mando, ataque de A cai
     # em campo neutro a ordem dos times é irrelevante (simetria exata)
     rn_inv = xg_model.predict(xgp, "MedioB", "MedioA", neutral=True)
     assert rn["lambda_a"] == pytest.approx(rn_inv["lambda_b"], rel=1e-9)
@@ -90,8 +97,7 @@ def test_predict_neutro_remove_mando(xgp):
 
 # ---------------------------------------------------------------- blend
 def _base_result():
-    return model.predict_match(1600, 1500, (0.2, 0.7, 1e-4, 0.01), 100.0,
-                               max_goals=12)
+    return model.predict_match(1600, 1500, (0.2, 0.7, 1e-4, 0.01), 100.0, max_goals=12)
 
 
 def test_blend_extremos(xgp):
@@ -132,9 +138,8 @@ def test_load_xg_params_vazio(tmp_path):
 # ------------------------------------------------------- hook de serving
 def test_maybe_blend_desligado_devolve_intocado():
     rb = _base_result()
-    out = xg_model.maybe_blend(rb, None, {"ensemble_xg": {"enabled": False}},
-                               "A", "B", False)
-    assert out is rb                             # MESMO objeto, zero mutação
+    out = xg_model.maybe_blend(rb, None, {"ensemble_xg": {"enabled": False}}, "A", "B", False)
+    assert out is rb  # MESMO objeto, zero mutação
 
 
 def test_maybe_blend_sem_secao_config():
@@ -145,9 +150,8 @@ def test_maybe_blend_sem_secao_config():
 def test_maybe_blend_ligado_sem_cache_degrada(tmp_path, capsys):
     conn = db.connect(str(tmp_path / "t.db"))
     rb = _base_result()
-    out = xg_model.maybe_blend(rb, conn, {"ensemble_xg": {"enabled": True}},
-                               "A", "B", False)
-    assert out is rb                             # degrada pro baseline
+    out = xg_model.maybe_blend(rb, conn, {"ensemble_xg": {"enabled": True}}, "A", "B", False)
+    assert out is rb  # degrada pro baseline
     assert "sem cache" in capsys.readouterr().err
 
 
@@ -155,8 +159,7 @@ def test_maybe_blend_ligado_com_cache_blenda(tmp_path, xgp):
     conn = db.connect(str(tmp_path / "t.db"))
     db.save_xg_params(conn, xgp, 48, "h", "2025-08-01T00:00:00+00:00")
     rb = _base_result()
-    out = xg_model.maybe_blend(rb, conn, {"ensemble_xg": {"enabled": True}},
-                               "Forte", "Fraco", False)
+    out = xg_model.maybe_blend(rb, conn, {"ensemble_xg": {"enabled": True}}, "Forte", "Fraco", False)
     assert out is not rb and out.get("ensemble") is True
     assert out["p_win"] + out["p_draw"] + out["p_loss"] == pytest.approx(1.0, abs=1e-9)
 
@@ -164,10 +167,9 @@ def test_maybe_blend_ligado_com_cache_blenda(tmp_path, xgp):
 def test_maybe_blend_nunca_lanca(tmp_path, capsys):
     """Cache corrompido não derruba o serving — degrada com aviso."""
     conn = db.connect(str(tmp_path / "t.db"))
-    db.save_xg_params(conn, {"lixo": 1}, 0, "h", "x")   # sem atk/def/mu
+    db.save_xg_params(conn, {"lixo": 1}, 0, "h", "x")  # sem atk/def/mu
     rb = _base_result()
-    out = xg_model.maybe_blend(rb, conn, {"ensemble_xg": {"enabled": True}},
-                               "A", "B", False)
+    out = xg_model.maybe_blend(rb, conn, {"ensemble_xg": {"enabled": True}}, "A", "B", False)
     assert out is rb
     assert "falhou" in capsys.readouterr().err
 
@@ -176,6 +178,7 @@ def test_maybe_blend_nunca_lanca(tmp_path, capsys):
 def test_config_hash_estavel_com_flag_desligada():
     """Ligar a flag muda o hash (invalida cache); desligada, hash histórico."""
     from src.cron_update_models import config_hash
+
     cfg = {"elo": {"k": 1}, "model": {"calibration_window_years": 4}}
     h0 = config_hash(cfg)
     cfg2 = dict(cfg, ensemble_xg={"enabled": False})

@@ -4,6 +4,7 @@ Método de Shin (1992/93): remove o overround das odds estimando z, a fração d
 dinheiro informado. Corrige o favorite-longshot bias melhor que a normalização
 proporcional — a casa carrega margem desigual entre favorito e azarão.
 """
+
 import math
 
 import numpy as np
@@ -23,11 +24,12 @@ def shin_probabilities(odds):
     NaN silencioso dentro de CLV/backtest é pior que exceção."""
     for o in odds:
         if o is None or not math.isfinite(o) or o <= 0:
-            raise ValueError(f"shin_probabilities: odd inválida {o!r} em {list(odds)!r} "
-                             "— exige odds decimais finitas e > 0")
+            raise ValueError(
+                f"shin_probabilities: odd inválida {o!r} em {list(odds)!r} — exige odds decimais finitas e > 0"
+            )
     pi = implied_probabilities(odds)
     booksum = float(pi.sum())
-    if booksum <= 1.0:                       # sem margem detectável
+    if booksum <= 1.0:  # sem margem detectável
         return pi / booksum, 0.0, booksum - 1.0
 
     def p_of_z(z):

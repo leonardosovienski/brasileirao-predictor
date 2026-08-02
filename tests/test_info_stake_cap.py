@@ -3,6 +3,7 @@ Sem BETLOG_MAX_INFO_STAKE nada muda (o protocolo atual permite informativas
 com o stake que o operador quiser); com a env var, registrar informativa acima
 do teto vira erro ANTES de gravar. Mercado validado (ou25) nunca é afetado.
 """
+
 import pytest
 
 from src import bet_log
