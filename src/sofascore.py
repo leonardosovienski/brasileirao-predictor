@@ -114,7 +114,14 @@ class Sofascore:
                     os.fsync(handle.fileno())
                 os.replace(temporary, f)
             except BaseException:
-                Path(temporary).unlink(missing_ok=True)
+                try:
+                    os.close(fd)
+                except OSError:
+                    pass
+                try:
+                    Path(temporary).unlink(missing_ok=True)
+                except OSError:
+                    pass
                 raise
         return data
 

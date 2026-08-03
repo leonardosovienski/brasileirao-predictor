@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from src.sofascore import Sofascore
 
 
@@ -60,4 +62,46 @@ def test_cache_truncado_e_refeito_sem_bloquear_coleta(tmp_path, monkeypatch):
     assert client.list_seasons(16) == [(87678, "2026")]
     assert calls == ["unique-tournament/16/seasons"]
     assert json.loads(path.read_text(encoding="utf-8")) == fresh
+    assert not list(tmp_path.glob("*.tmp"))
+
+
+def test_no_cache_dir_skips_disk_entirely(monkeypatch):
+    c = Sofascore(rate_limit=0.0)
+    monkeypatch.setattr(c, "_fetch", lambda path: {"seasons": []})
+    assert c.cache is None
+    assert c.list_seasons(16) == []
+
+
+def test_sofascore_insecure_env_disables_verification(monkeypatch):
+    monkeypatch.setenv("SOFASCORE_INSECURE", "1")
+    c = Sofascore(rate_limit=0.0)
+    assert c.verify is False
+
+
+def test_event_wrappers_delegate_to_get(monkeypatch):
+    c = Sofascore(rate_limit=0.0)
+    calls = []
+    monkeypatch.setattr(c, "_get", lambda path, cache=True: calls.append((path, cache)) or {"ok": True})
+
+    assert c.event_odds(123, finished=True) == {"ok": True}
+    assert c.event_odds(123) == {"ok": True}
+    assert c.event_statistics(123) == {"ok": True}
+    assert c.event_lineups(123) == {"ok": True}
+    assert calls == [
+        ("event/123/odds/1/all", True),
+        ("event/123/odds/1/all", False),
+        ("event/123/statistics", True),
+        ("event/123/lineups", True),
+    ]
+
+
+def test_cache_write_failure_removes_temp_file_and_reraises(tmp_path, monkeypatch):
+    c, _ = _client(tmp_path, monkeypatch, [{"seasons": []}])
+
+    def failing_fdopen(*args, **kwargs):
+        raise OSError("disk full")
+
+    monkeypatch.setattr("src.sofascore.os.fdopen", failing_fdopen)
+    with pytest.raises(OSError, match="disk full"):
+        c.list_seasons(16)
     assert not list(tmp_path.glob("*.tmp"))

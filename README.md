@@ -17,7 +17,9 @@ H3/H5 coletam somente contratos prospectivos completos; operação e monitoramen
 > (2023 + rodadas de 2026). Em 2026-07-20, H3 tinha 7 picks, só 2 maturados:
 > pipeline funcional, resultado econômico **inconclusivo** e gate de 100
 > liquidados ainda fechado. H2 (picks 1T) validada informativa (79% de acerto).
-> Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte 325 verdes, CI 5/5.
+> Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte na época: 325
+> verdes, CI 5/5 (suíte atual, verificada em CI: 414 testes — 413 Python
+> + 1 teste de integração Redis — mais a suíte .NET LineupWorker separada).
 
 Sistema CLI em Python para previsão e apostas de valor no Brasileirão Série A,
 rodando 100% local (Python + SQLite). Fonte única de dados: **Sofascore**
@@ -86,7 +88,7 @@ python scripts/odds_shop.py --from-file snapshot.json
 python -m src.bet_log banca|list|settle|summary
 
 # Testes
-python -m pytest            # 320 verdes
+python -m pytest            # 414 testes (413 Python + 1 integração Redis)
 python scripts/ci_check.py  # 5 barreiras
 
 # Backup operacional consistente (destino deve ser uma raiz nova)
@@ -131,9 +133,8 @@ scripts/
   governanca.py                    # harness + TrialRegistry (novo)
   backtest_walkforward.py          # walk-forward por rodadas (novo)
   prever.py, odds_shop.py, ci_check.py, …
-vendor/predictor_core/    # core v1.3.1 (NÃO editar aqui; sync_core --write)
 data/                     # matches.db, livros jsonl, trials.json (fora do git)
-tests/                    # 320 testes
+tests/                    # 414 testes (413 Python + 1 integração Redis); .NET LineupWorker tem suíte própria
 ```
 
 Histórico da Copa preservado em `data/results_wc2026_historico.jsonl` e no
