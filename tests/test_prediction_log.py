@@ -1,6 +1,7 @@
 import json
 
 import numpy as np
+import pytest
 
 from src.prediction_log import log_prediction
 
@@ -89,6 +90,40 @@ def test_log_respects_env_path(tmp_path, monkeypatch):
     monkeypatch.setenv("PREDICTIONS_LOG_PATH", str(p))
     log_prediction("A", "B", False, 1500, 1500, _PARAMS, _PRED)
     assert p.exists() and len(p.read_text().splitlines()) == 1
+
+
+def test_show_fails_closed_when_audit_log_cannot_be_persisted(monkeypatch):
+    import src.predict as predict
+    import src.prediction_log as prediction_log
+    import src.xg_model as xg_model
+
+    result = {
+        "lambda_a": 1.2,
+        "lambda_b": 0.9,
+        "p_win": 0.45,
+        "p_draw": 0.28,
+        "p_loss": 0.27,
+    }
+    cfg = {"elo": {"home_advantage": 0}, "model": {"max_goals": 8}}
+    monkeypatch.setattr(predict.model, "predict_match", lambda *args, **kwargs: result)
+    monkeypatch.setattr(xg_model, "maybe_blend", lambda value, *args: value)
+    monkeypatch.setattr(predict, "emit_event", lambda *args, **kwargs: None)
+
+    def fail_to_log(*args, **kwargs):
+        raise OSError("disk full")
+
+    monkeypatch.setattr(prediction_log, "log_prediction", fail_to_log)
+
+    with pytest.raises(RuntimeError, match="prediction audit log persistence failed"):
+        predict.show(
+            "Brazil",
+            "Norway",
+            {"Brazil": 1806, "Norway": 1767},
+            _PARAMS,
+            cfg,
+            True,
+            quiet=True,
+        )
 
 
 _LIVE = {  # forma do dict de display.compute_live (period + final + meta)

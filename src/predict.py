@@ -203,7 +203,7 @@ def show(
     mk = _market_probs(conn, name_a, name_b, match_date=match_date) if conn is not None else None
 
     # OBRIGATÓRIO: congela o PACOTE COMPLETO da predição no momento em que é feita
-    # (append-only). Falha ao gravar é avisada em alto e bom som, mas não derruba o serving.
+    # (append-only). Sem esse registro não existe auditoria/replay confiável.
     try:
         from .prediction_log import log_prediction
 
@@ -219,7 +219,7 @@ def show(
             market=mk,
         )
     except Exception as e:
-        print(f"[AVISO: predição NÃO registrada no log ({e})]", file=sys.stderr)
+        raise RuntimeError("prediction audit log persistence failed") from e
 
     emit_event(
         _DOMAIN,
