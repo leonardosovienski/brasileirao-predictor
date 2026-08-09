@@ -114,7 +114,20 @@ def match_fixture(row: dict[str, Any], fixtures: list[dict[str, Any]]) -> tuple[
 
 
 def persist_snapshots(path: Path, rows: list[dict[str, Any]]) -> int:
-    """Append-only; idempotente por (event_id, selection, odds_captured_at)."""
+    """Append-only; idempotent without collapsing books, markets or lines."""
+
+    def identity(row):
+        return (
+            row.get("source"),
+            row.get("source_event_id"),
+            row.get("event_id"),
+            row.get("bookmaker"),
+            row.get("market"),
+            row.get("selection"),
+            row.get("line"),
+            row.get("odds_captured_at"),
+        )
+
     path.parent.mkdir(parents=True, exist_ok=True)
     seen = set()
     if path.exists():
@@ -125,11 +138,11 @@ def persist_snapshots(path: Path, rows: list[dict[str, Any]]) -> int:
                 r = json.loads(line)
             except json.JSONDecodeError:
                 continue
-            seen.add((r.get("event_id"), r.get("selection"), r.get("odds_captured_at")))
+            seen.add(identity(r))
     novos = 0
     with path.open("a", encoding="utf-8") as fh:
         for row in rows:
-            key = (row.get("event_id"), row.get("selection"), row.get("odds_captured_at"))
+            key = identity(row)
             if key in seen:
                 continue
             seen.add(key)

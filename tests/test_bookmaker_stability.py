@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from src.data.bookmaker_stability import append_smoke, stability_report
+from src.data.bookmaker_stability import append_smoke, stability_report, summarize_smoke
 
 
 def _row(key, executed, coverage=10, seen=10, lag=10):
@@ -32,3 +32,31 @@ def test_stable_and_insufficient_coverage_are_deterministic(tmp_path: Path):
     states = {r["bookmaker_key"]: r["classification"] for r in stability_report(ledger)["bookmakers"]}
     assert states == {"pinnacle": "BOOKMAKER_STABLE", "thinbook": "BOOKMAKER_INSUFFICIENT_COVERAGE"}
     assert stability_report(ledger)["recommended_bookmaker"] == "pinnacle"
+
+
+def test_smoke_uses_retrieval_time_not_bookmaker_update_time():
+    rows = [
+        {
+            "retrieved_at": "2026-01-01T01:00:00+00:00",
+            "odds_captured_at": f"2026-01-01T00:0{minute}:00+00:00",
+            "bookmaker": "pinnacle",
+            "source_event_id": str(minute),
+            "market": "ou2.5",
+        }
+        for minute in range(2)
+    ]
+    smoke = summarize_smoke(rows)
+    assert len(smoke) == 1
+    assert smoke[0]["executed_at"] == "2026-01-01T01:00:00+00:00"
+    assert smoke[0]["events_with_totals"] == 2
+
+
+def test_three_smokes_inside_24_hours_remain_pending(tmp_path: Path):
+    ledger = tmp_path / "smokes.jsonl"
+    append_smoke(
+        ledger,
+        [_row("pinnacle", f"2026-01-01T0{hour}:00:00+00:00") for hour in range(3)],
+    )
+    report = stability_report(ledger)
+    assert report["smokes"] == 3
+    assert report["recommendation"] == "BOOKMAKER_STABILITY_PENDING"

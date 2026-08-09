@@ -1,0 +1,45 @@
+{
+  "schema_version": "1",
+  "jobs": [
+    {
+      "id": "brasileirao-market-research-featured",
+      "command": [".venv/Scripts/python.exe", "scripts/collect_market_research.py"],
+      "timeout_seconds": 180,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "COLLECTION_ONLY", "cadence": "hourly"}
+    },
+    {
+      "id": "brasileirao-prospective-readiness",
+      "command": [".venv/Scripts/python.exe", "scripts/prospective_readiness.py"],
+      "timeout_seconds": 120,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "COLLECTION_ONLY", "cadence": "daily"}
+    },
+    {
+      "id": "brasileirao-market-research-first-half",
+      "command": [".venv/Scripts/python.exe", "scripts/collect_market_research.py", "--first-half"],
+      "timeout_seconds": 300,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "COLLECTION_ONLY", "cadence": "six-hourly"}
+    },
+    {
+      "id": "brasileirao-closing-snapshots",
+      "command": [".venv/Scripts/python.exe", "scripts/record_closing_snapshots.py"],
+      "timeout_seconds": 180,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "COLLECTION_ONLY", "cadence": "every-15-minutes"}
+    },
+    {
+      "id": "brasileirao-h8-gate-monitor",
+      "command": [".venv/Scripts/python.exe", "scripts/monitor_h8_gate.py"],
+      "timeout_seconds": 120,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "SHADOW", "cadence": "daily"}
+    }
+  ]
+}

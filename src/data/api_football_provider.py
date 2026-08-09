@@ -1,12 +1,12 @@
 """API-Football secondary source for controlled historical expansion.
 
-The free plan currently exposes seasons 2022--2024.  This adapter is opt-in,
-read-only, and marks every record as shadow-only; callers must not mix its
-output into production predictions or settlement without a separate gate.
+This adapter is opt-in, read-only, and marks every record as shadow-only;
+the upstream API is authoritative about seasons available to the active plan.
 """
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import urllib.request
@@ -19,7 +19,6 @@ from predictor_core.data.contracts import DataUnavailableError
 
 BASE = "https://v3.football.api-sports.io"
 BRASILEIRAO_SERIE_A_ID = 71
-FREE_SEASONS = frozenset({2022, 2023, 2024})
 
 
 class ApiFootballProvider:
@@ -30,7 +29,11 @@ class ApiFootballProvider:
         timeout: float = 30.0,
         get_json: Callable[[str, dict[str, str]], Any] | None = None,
     ):
-        self.api_key = api_key or os.environ.get("API_FOOTBALL_KEY")
+        if api_key is None:
+            from src.settings import Settings
+
+            api_key = os.environ.get("API_FOOTBALL_KEY") or Settings().API_FOOTBALL_KEY
+        self.api_key = api_key
         self.timeout = timeout
         self._get_json = get_json or self._http_get_json
 
@@ -79,8 +82,8 @@ class ApiFootballProvider:
         return sorted(int(item["year"]) for item in rows[0].get("seasons", []) if item.get("year") is not None)
 
     def list_fixtures(self, *, season: int, observed_at: datetime | None = None) -> list[dict[str, Any]]:
-        if season not in FREE_SEASONS:
-            raise DataUnavailableError(f"temporada {season} fora da janela grátis da API-Football (2022-2024)")
+        if not isinstance(season, int) or season < 2000 or season > datetime.now(UTC).year + 1:
+            raise ValueError("season fora do intervalo plausível")
         observed = observed_at or datetime.now(UTC)
         if observed.tzinfo is None or observed.utcoffset() is None:
             raise ValueError("observed_at deve conter timezone")
@@ -123,3 +126,52 @@ class ApiFootballProvider:
                 }
             )
         return sorted(rows, key=lambda row: (row["scheduled_at"], row["source_event_id"]))
+
+    def fixture_lineups(self, fixture_id: int | str, *, observed_at: datetime | None = None) -> list[dict[str, Any]]:
+        """Normalize one point-in-time lineup vintage for prospective research."""
+        observed = observed_at or datetime.now(UTC)
+        if observed.tzinfo is None or observed.utcoffset() is None:
+            raise ValueError("observed_at deve conter timezone")
+        raw_rows = self._request("fixtures/lineups", {"fixture": fixture_id})
+        payload_hash = hashlib.sha256(
+            json.dumps(raw_rows, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
+        output = []
+        for side in raw_rows:
+            team, coach = side.get("team") or {}, side.get("coach") or {}
+            team_id, team_name = team.get("id"), team.get("name")
+            if team_id is None or not isinstance(team_name, str) or not team_name:
+                continue
+            for role, entries in (
+                ("starter", side.get("startXI") or []),
+                ("substitute", side.get("substitutes") or []),
+            ):
+                for entry in entries:
+                    player = entry.get("player") or {}
+                    player_id, player_name = player.get("id"), player.get("name")
+                    if player_id is None or not isinstance(player_name, str) or not player_name:
+                        continue
+                    output.append(
+                        {
+                            "schema_version": "lineup-observation/1",
+                            "source": "api_football",
+                            "source_event_id": str(fixture_id),
+                            "team_id": str(team_id),
+                            "team_name": team_name,
+                            "player_id": str(player_id),
+                            "player_name": player_name,
+                            "role": role,
+                            "position": player.get("pos"),
+                            "grid": player.get("grid"),
+                            "formation": side.get("formation"),
+                            "coach_id": str(coach["id"]) if coach.get("id") is not None else None,
+                            "coach_name": coach.get("name"),
+                            "published_at": observed.astimezone(UTC).isoformat(timespec="seconds"),
+                            "ingested_at": observed.astimezone(UTC).isoformat(timespec="seconds"),
+                            "content_hash": payload_hash,
+                            "collector_version": "api-football-lineups/1",
+                            "quality_flags": ["published_at_untrusted"],
+                            "scientific_state": "COLLECTION_ONLY",
+                        }
+                    )
+        return output

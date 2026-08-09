@@ -37,6 +37,85 @@ def test_normalizes_explicit_bookmaker_and_pre_event_quote():
         ("pinnacle", "over"),
         ("pinnacle", "under"),
     }
+
+
+def test_normalizes_1x2_and_multiple_total_lines():
+    payload = [
+        {
+            "id": "evt",
+            "commence_time": "2026-08-10T20:00:00Z",
+            "home_team": "Bahia",
+            "away_team": "Flamengo",
+            "bookmakers": [
+                {
+                    "key": "book",
+                    "last_update": "2026-08-10T10:00:00Z",
+                    "markets": [
+                        {
+                            "key": "h2h",
+                            "outcomes": [
+                                {"name": "Bahia", "price": 3.0},
+                                {"name": "Draw", "price": 3.2},
+                                {"name": "Flamengo", "price": 2.4},
+                            ],
+                        },
+                        {
+                            "key": "totals",
+                            "outcomes": [
+                                {"name": "Over", "price": 1.8, "point": 2.5},
+                                {"name": "Under", "price": 2.1, "point": 2.5},
+                                {"name": "Over", "price": 2.4, "point": 3.5},
+                                {"name": "Under", "price": 1.6, "point": 3.5},
+                            ],
+                        },
+                    ],
+                }
+            ],
+        }
+    ]
+    provider = TheOddsApiProvider(api_key="x", get_json=lambda _: payload)
+    rows = provider.fetch_markets(retrieved_at=datetime(2026, 8, 10, 11, tzinfo=UTC))
+    assert {(row["market"], row["selection"]) for row in rows} == {
+        ("1x2", "home"),
+        ("1x2", "draw"),
+        ("1x2", "away"),
+        ("ou2.5", "over"),
+        ("ou2.5", "under"),
+        ("ou3.5", "over"),
+        ("ou3.5", "under"),
+    }
+
+
+def test_normalizes_event_scoped_first_half_totals():
+    payload = {
+        "id": "evt",
+        "commence_time": "2026-08-10T20:00:00Z",
+        "home_team": "Bahia",
+        "away_team": "Flamengo",
+        "bookmakers": [
+            {
+                "key": "book",
+                "last_update": "2026-08-10T10:00:00Z",
+                "markets": [
+                    {
+                        "key": "totals_h1",
+                        "last_update": "2026-08-10T10:05:00Z",
+                        "outcomes": [
+                            {"name": "Over", "price": 2.05, "point": 1.5},
+                            {"name": "Under", "price": 1.75, "point": 1.5},
+                        ],
+                    }
+                ],
+            }
+        ],
+    }
+    provider = TheOddsApiProvider(api_key="x", get_json=lambda _: payload)
+    rows = provider.fetch_event_markets("evt", retrieved_at=datetime(2026, 8, 10, 11, tzinfo=UTC))
+    assert {(row["market"], row["selection"]) for row in rows} == {
+        ("ou1.5_1h", "over"),
+        ("ou1.5_1h", "under"),
+    }
+    assert {row["odds_captured_at"] for row in rows} == {"2026-08-10T10:05:00+00:00"}
     assert rows[0]["canonical_match_id"] == "the_odds_api:evt"
 
 

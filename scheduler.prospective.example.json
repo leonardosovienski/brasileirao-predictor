@@ -1,0 +1,16 @@
+{
+  "schema_version": "prospective-schedule/1",
+  "timezone": "UTC",
+  "capital_enabled": false,
+  "jobs": [
+    {"id": "fixtures-daily", "command": ["python", "scripts/collect_market_research.py"], "cadence": "daily"},
+    {"id": "odds-d-2", "command": ["python", "scripts/collect_market_research.py"], "relative_to_kickoff_minutes": -2880},
+    {"id": "odds-d-1", "command": ["python", "scripts/collect_market_research.py"], "relative_to_kickoff_minutes": -1440},
+    {"id": "odds-h-6", "command": ["python", "scripts/collect_market_research.py"], "relative_to_kickoff_minutes": -360},
+    {"id": "odds-h-1-5", "command": ["python", "scripts/collect_market_research.py"], "relative_to_kickoff_minutes": -90},
+    {"id": "odds-h-0-25", "command": ["python", "scripts/collect_market_research.py"], "relative_to_kickoff_minutes": -15},
+    {"id": "source-scorecards", "command": ["python", "scripts/prospective_readiness.py"], "cadence": "daily"},
+    {"id": "shadow-settlement", "command": ["python", "-m", "src.bet_log", "settle"], "relative_to_full_time_minutes": 120}
+  ],
+  "activation": "example-only: an external scheduler must prove heartbeat/lock health for 14 days"
+}

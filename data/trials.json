@@ -210,5 +210,95 @@
       "2027-12-31"
     ],
     "metric": "clv"
+  },
+  {
+    "name": "h8-ou25-train-2023-2025-test-2026-observed",
+    "registered_at": "2026-08-09T04:15:02Z",
+    "params": {
+      "market": "ou25",
+      "min_edge": 0.02,
+      "max_edge": 0.15,
+      "stake": "fixed-1u-shadow",
+      "train_seasons": [
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "test_season": "2026",
+      "price_definition": "sofascore-postgame-close-approximation",
+      "model": "elo+negative-binomial+dixon-coles",
+      "capital_enabled": false
+    },
+    "sharpe": 0.09109420983909514,
+    "notes": "OBSERVED BEFORE REGISTRATION on 2026-08-09; exploratory evidence only. n=76, ROI=0.099342, PSR=0.786630, ROI_CI95=[-0.14703947368421053, 0.3538961038961039]. The 2026 outcomes were not used to fit model parameters, but this record cannot become confirmatory retroactively. Prices are Sofascore postgame closing approximations, not proven executable quotes.",
+    "test_period": [
+      "2026-01-01",
+      "2026-08-09"
+    ],
+    "metric": "psr"
+  },
+  {
+    "name": "h9-ou25-prospective-replication",
+    "registered_at": "2026-08-09T05:08:43Z",
+    "params": {
+      "schema_version": "frozen-candidate/1",
+      "candidate_id": "h9-ou25-prospective-replication",
+      "parent_observation": "h8-ou25-train-2023-2025-test-2026-observed",
+      "registration_semantics": "prospective-before-first-decision",
+      "market": "ou2.5",
+      "model": {
+        "family": "elo+negative-binomial+dixon-coles",
+        "a": 0.18738271287016714,
+        "b": 0.6898188040233675,
+        "alpha": 0.0008571707189526184,
+        "rho": 0.00848757203219351,
+        "max_goals": 12,
+        "parameter_changes_create_new_trial": true
+      },
+      "selection_policy": {
+        "minimum_edge_exclusive": 0.02,
+        "maximum_edge_inclusive": 0.15,
+        "stake": "fixed-1u-shadow"
+      },
+      "decision_horizon_hours": 1.5,
+      "required_sources": [
+        "the_odds_api",
+        "stable_official_results"
+      ],
+      "optional_feature_sources": [
+        "api_football_lineups"
+      ],
+      "price": {
+        "source": "the_odds_api",
+        "bookmaker": "named-and-stability-approved",
+        "must_be_captured_no_later_than_decision": true
+      },
+      "closing": "last-valid-pre-kickoff-same-bookmaker",
+      "clv_formula": "(executed_odds-closing_odds_same_book)/closing_odds_same_book",
+      "milestones": [
+        100,
+        200,
+        300,
+        500
+      ],
+      "no_go_at_200": {
+        "roi_maximum": 0.0
+      },
+      "gates": {
+        "roi_ci95_lower_strictly_above": 0.0,
+        "clv_ci95_lower_strictly_above": 0.0,
+        "minimum_psr": 0.8,
+        "minimum_dsr": 0.95
+      },
+      "scientific_state": "HYPOTHESIS_REGISTERED",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "PROSPECTIVE registration before the first H9 decision. Strict H8 replication with named executable H-1.5 bookmaker quote and same-book closing CLV. API-Football lineups are optional and cannot alter this frozen trial. Any model, source, edge, horizon or selection change creates a new registered attempt. Shadow only; no capital.",
+    "test_period": [
+      "2026-08-09",
+      "2027-12-31"
+    ],
+    "metric": "psr"
   }
 ]

@@ -1,0 +1,24 @@
+{
+  "schema_version": "scientific-governance/1",
+  "charter_id": "brasileirao-api-football-fixtures-v1",
+  "source": "api_football",
+  "metrics": ["fixtures", "results", "events", "lineups", "statistics"],
+  "assets": ["brasileirao_serie_a_2026"],
+  "cadence": "daily plus post-match reconciliation",
+  "timestamp_semantics": {
+    "event_at_source": "fixture.timestamp",
+    "published_at_source": "HTTP response Date when source has no field",
+    "ingested_at_source": "collector UTC clock"
+  },
+  "latency_sla": {"median_seconds": 3600, "p99_seconds": 7200},
+  "resource_budget": {"traffic_mb_month": 500, "storage_gb_month": 5},
+  "owner": "brasileirao-predictor",
+  "revision_policy": "append-only; reconcile stable result no earlier than two hours after full time",
+  "initial_scientific_state": "COLLECTION_ONLY",
+  "collector_version": "api-football-provider/1",
+  "expected_schema_version": "api-football-v3",
+  "retention_policy": {"raw": "indefinite", "normalized": "indefinite"},
+  "quality_thresholds": {"minimum_availability": 0.99, "maximum_causality_failure_rate": 0.0, "maximum_integrity_failure_rate": 0.0},
+  "created_at": "2026-08-09T00:00:00Z",
+  "rationale": "Prospective PIT fixtures, stable results, lineups and statistics; never enables capital."
+}

@@ -1,7 +1,11 @@
 {
-  "passed_at": "2026-07-26T00:28:58+00:00",
+  "schema_version": "pipeline-power/2",
+  "passed_at": "2026-08-09T05:08:43+00:00",
+  "expires_at": "2026-08-16T05:08:43+00:00",
+  "core_version": "2.2.0",
   "evaluate": "evaluate_funnel",
   "edge_verdict": "COMPROVADA",
-  "note": "funil O/U 2%-15%; ataque mandante x1.3; vig 5%; 800 jogos sinteticos/braco; seed 13. Reemitido em 2026-07-25 para o pre-registro da coorte prospectiva com bookmaker nomeado.",
-  "metric": ""
+  "note": "H8 O/U 2.5 fixed 2-15% funnel; synthetic sensitivity/specificity before registry write",
+  "metric": "psr",
+  "pipeline_fingerprint": "beed49129bfe31bc6fc04bfc19783d23830686015d437afbc029d1a82b5310e6"
 }

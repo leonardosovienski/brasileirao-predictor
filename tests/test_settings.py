@@ -31,6 +31,6 @@ def test_settings_require_redis_url(tmp_path: Path, monkeypatch) -> None:
     values = _valid(tmp_path)
     values.pop("REDIS_URL")
     with pytest.raises(ValidationError):
-        Settings(**values)
+        Settings(_env_file=None, **values)
     with pytest.raises(ValidationError, match="redis://"):
         Settings(**(_valid(tmp_path) | {"REDIS_URL": "http://redis:6379"}))

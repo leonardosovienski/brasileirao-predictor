@@ -149,6 +149,23 @@ def test_persistencia_e_idempotente(tmp_path):
     assert len(load_snapshots(path)) == 1
 
 
+def test_persistencia_nao_colapsa_bookmaker_ou_mercado(tmp_path):
+    path = tmp_path / "snaps.jsonl"
+    base = {
+        "source": "odds",
+        "source_event_id": "e",
+        "event_id": 1,
+        "bookmaker": "a",
+        "market": "ou2.5",
+        "selection": "over",
+        "line": 2.5,
+        "odds_captured_at": "2026-07-26T10:00:00+00:00",
+        "odd": 1.95,
+    }
+    assert persist_snapshots(path, [base, {**base, "bookmaker": "b"}]) == 2
+    assert persist_snapshots(path, [{**base, "market": "ou1.5_1h", "line": 1.5}]) == 1
+
+
 def _snap(captured, odd, selection="over"):
     return {
         "event_id": 1,

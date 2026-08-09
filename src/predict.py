@@ -2,7 +2,7 @@ import argparse
 import sys
 from datetime import date
 
-from predictor_core.obs import emit_event
+from predictor_core.kernel.obs import emit_event
 
 from . import db, model
 from .ingest import ROOT, load_config

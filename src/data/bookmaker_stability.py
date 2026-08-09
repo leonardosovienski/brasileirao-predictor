@@ -18,14 +18,57 @@ EXCHANGES = frozenset({"betfair", "matchbook", "smarkets"})
 
 
 def bookmaker_type(key: str) -> str:
-    return "EXCHANGE" if key in EXCHANGES else "SPORTSBOOK"
+    return "EXCHANGE" if key in EXCHANGES or key.startswith("betfair_") else "SPORTSBOOK"
 
 
 def append_smoke(path: Path, rows: list[dict[str, Any]]) -> None:
     """Append one sanitized record per bookmaker; no API key/payload is stored."""
+    seen = set()
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            try:
+                old = json.loads(line)
+                seen.add((old.get("executed_at"), old.get("bookmaker_key")))
+            except json.JSONDecodeError:
+                continue
+    path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as handle:
         for row in rows:
+            identity = (row.get("executed_at"), row.get("bookmaker_key"))
+            if identity in seen:
+                continue
             handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+            seen.add(identity)
+
+
+def summarize_smoke(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Aggregate one collector execution; never confuse bookmaker clocks with smokes."""
+    if not rows:
+        return []
+    executed = {row.get("retrieved_at") for row in rows}
+    if len(executed) != 1 or None in executed:
+        raise ValueError("one smoke must contain exactly one retrieved_at")
+    executed_at = next(iter(executed))
+    if not isinstance(executed_at, str):
+        raise ValueError("retrieved_at must be an ISO timestamp")
+    retrieved = datetime.fromisoformat(executed_at)
+    events = {str(row.get("source_event_id")) for row in rows if row.get("source_event_id")}
+    output = []
+    for bookmaker in sorted({str(row.get("bookmaker")) for row in rows if row.get("bookmaker")}):
+        selected = [row for row in rows if row.get("bookmaker") == bookmaker]
+        totals_events = {str(row["source_event_id"]) for row in selected if row.get("market") == "ou2.5"}
+        captured = [datetime.fromisoformat(row["odds_captured_at"]) for row in selected]
+        output.append(
+            {
+                "executed_at": retrieved.isoformat(),
+                "bookmaker_key": bookmaker,
+                "events_seen": len(events),
+                "events_with_totals": len(totals_events),
+                "valid_quotes": len(selected),
+                "update_lag_seconds": max(0.0, max((retrieved - stamp).total_seconds() for stamp in captured)),
+            }
+        )
+    return output
 
 
 def stability_report(path: Path) -> dict[str, Any]:
@@ -35,6 +78,11 @@ def stability_report(path: Path) -> dict[str, Any]:
         else []
     )
     smoke_ids = sorted({r["executed_at"] for r in records})
+    global_span = (
+        (datetime.fromisoformat(smoke_ids[-1]) - datetime.fromisoformat(smoke_ids[0])).total_seconds()
+        if len(smoke_ids) > 1
+        else 0
+    )
     by_book: dict[str, list[dict]] = defaultdict(list)
     for row in records:
         by_book[row["bookmaker_key"]].append(row)
@@ -46,11 +94,7 @@ def stability_report(path: Path) -> dict[str, Any]:
         coverage = total_events / seen if seen else 0.0
         lag_ok = all(float(r["update_lag_seconds"]) <= MAX_LAG_SECONDS for r in rows)
         kind = bookmaker_type(key)
-        span = (
-            (datetime.fromisoformat(smoke_ids[-1]) - datetime.fromisoformat(smoke_ids[0])).total_seconds()
-            if len(smoke_ids) > 1
-            else 0
-        )
+        span = global_span
         if kind == "EXCHANGE":
             classification = "BOOKMAKER_REJECTED"
         elif present < MIN_SMOKES or span < MIN_SPAN_SECONDS:
@@ -93,7 +137,7 @@ def stability_report(path: Path) -> dict[str, Any]:
         "BOOKMAKER_RECOMMENDATION_READY"
         if stable
         else "NO_STABLE_BOOKMAKER_FOUND"
-        if len(smoke_ids) >= MIN_SMOKES
+        if len(smoke_ids) >= MIN_SMOKES and global_span >= MIN_SPAN_SECONDS
         else "BOOKMAKER_STABILITY_PENDING"
     )
     return {
@@ -106,6 +150,7 @@ def stability_report(path: Path) -> dict[str, Any]:
             "max_lag_seconds": MAX_LAG_SECONDS,
         },
         "smokes": len(smoke_ids),
+        "span_seconds": global_span,
         "bookmakers": output,
         "recommended_bookmaker": stable[0]["bookmaker_key"] if stable else None,
         "approved_alternatives": [r["bookmaker_key"] for r in stable[1:]],

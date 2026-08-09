@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pandas as pd
 import yaml
-from predictor_core.obs import emit_event
+from predictor_core.kernel.obs import emit_event
 
 from . import db
 from .net import retry

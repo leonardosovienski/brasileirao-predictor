@@ -1,0 +1,37 @@
+{
+  "schema_version": "frozen-candidate/1",
+  "candidate_id": "h8-ou25-train-2023-2025-test-2026-observed",
+  "registration_semantics": "observed-before-registration-exploratory-only",
+  "train_seasons": ["2023", "2024", "2025"],
+  "test_start": "2026-01-01T00:00:00Z",
+  "market": "ou2.5",
+  "selection_policy": {
+    "minimum_edge_exclusive": 0.02,
+    "maximum_edge_inclusive": 0.15,
+    "stake": "fixed-1u-shadow"
+  },
+  "model": {
+    "family": "elo+negative-binomial+dixon-coles",
+    "a": 0.18738271287016714,
+    "b": 0.6898188040233675,
+    "alpha": 0.0008571707189526184,
+    "rho": 0.00848757203219351,
+    "max_goals": 12
+  },
+  "prospective_price_contract": {
+    "source": "the_odds_api",
+    "bookmaker": "named-and-stability-approved",
+    "decision_horizons_hours": [48, 24, 6, 1.5, 0.25],
+    "closing": "last-valid-pre-kickoff-same-bookmaker",
+    "historical_sofascore_prices_confirmatory": false
+  },
+  "milestones": [100, 200, 300, 500],
+  "gates": {
+    "roi_ci95_lower_strictly_above": 0.0,
+    "clv_ci95_lower_strictly_above": 0.0,
+    "minimum_psr": 0.8,
+    "minimum_dsr": 0.95
+  },
+  "scientific_state": "SHADOW",
+  "capital_enabled": false
+}

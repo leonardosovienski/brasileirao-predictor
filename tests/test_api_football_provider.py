@@ -35,10 +35,16 @@ def test_api_football_normalizes_historical_fixture_and_hides_key():
     assert "synthetic-test-key" not in repr(rows)
 
 
-def test_api_football_rejects_season_outside_free_window_without_request():
-    provider = ApiFootballProvider(api_key="synthetic", get_json=lambda *_: pytest.fail("não deveria consultar"))
-    with pytest.raises(DataUnavailableError, match="2022-2024"):
-        provider.list_fixtures(season=2026)
+def test_api_football_allows_2026_when_subscription_exposes_it():
+    seen = {}
+
+    def fake(url, _headers):
+        seen["query"] = parse_qs(urlparse(url).query)
+        return {"errors": {}, "response": []}
+
+    provider = ApiFootballProvider(api_key="synthetic", get_json=fake)
+    assert provider.list_fixtures(season=2026) == []
+    assert seen["query"]["season"] == ["2026"]
 
 
 def test_api_football_surfaces_provider_errors():
@@ -53,7 +59,7 @@ def test_api_football_surfaces_provider_errors():
 def test_api_football_requires_environment_secret(monkeypatch):
     monkeypatch.delenv("API_FOOTBALL_KEY", raising=False)
     with pytest.raises(DataUnavailableError, match="API_FOOTBALL_KEY"):
-        ApiFootballProvider(get_json=lambda *_: {}).brasileirao_seasons()
+        ApiFootballProvider(api_key="", get_json=lambda *_: {}).brasileirao_seasons()
 
 
 def test_api_football_validates_league_and_filters_malformed_fixtures():
@@ -86,3 +92,27 @@ def test_api_football_rejects_naive_observation_time():
     provider = ApiFootballProvider(api_key="synthetic", get_json=lambda *_: {"errors": {}, "response": []})
     with pytest.raises(ValueError, match="timezone"):
         provider.list_fixtures(season=2024, observed_at=datetime(2026, 1, 1))
+
+
+def test_api_football_normalizes_lineup_vintage():
+    payload = {
+        "errors": {},
+        "response": [
+            {
+                "team": {"id": 10, "name": "Bahia"},
+                "formation": "4-3-3",
+                "coach": {"id": 20, "name": "Treinador"},
+                "startXI": [{"player": {"id": 30, "name": "Goleiro", "pos": "G", "grid": "1:1"}}],
+                "substitutes": [{"player": {"id": 31, "name": "Reserva", "pos": "G", "grid": None}}],
+            }
+        ],
+    }
+    provider = ApiFootballProvider(api_key="x", get_json=lambda *_: payload)
+    rows = provider.fixture_lineups(123, observed_at=datetime(2026, 8, 10, 19, tzinfo=UTC))
+    assert [(row["player_name"], row["role"]) for row in rows] == [
+        ("Goleiro", "starter"),
+        ("Reserva", "substitute"),
+    ]
+    assert rows[0]["scientific_state"] == "COLLECTION_ONLY"
+    assert rows[0]["quality_flags"] == ["published_at_untrusted"]
+    assert len(rows[0]["content_hash"]) == 64

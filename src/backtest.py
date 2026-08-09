@@ -22,7 +22,7 @@ import csv
 import sys
 from datetime import date, timedelta
 
-from predictor_core.obs import emit_event
+from predictor_core.kernel.obs import emit_event
 
 from . import db, model, ratings
 from . import market_pricer as mp

@@ -152,7 +152,7 @@ def main():
         # telemetria do core — predict.py emite pra todo jogo cheio; período
         # ficava invisível pro observability (achado da análise do core)
         try:
-            from predictor_core.obs import emit_event
+            from predictor_core.kernel.obs import emit_event
 
             emit_event(
                 "brasileirao",
