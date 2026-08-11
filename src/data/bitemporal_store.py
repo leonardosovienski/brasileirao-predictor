@@ -106,4 +106,3 @@ def feature_rows_as_known_at(connection: sqlite3.Connection, at: datetime) -> li
     """Materialization input; callers receive no observation learned after ``at``."""
     kinds = ("match_observation", "match_result", "odds_snapshot", "lineup")
     return [row for kind in kinds for row in as_known_at(connection, kind, at)]
-

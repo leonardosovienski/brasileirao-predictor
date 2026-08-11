@@ -42,4 +42,3 @@ def test_latest_version_and_idempotency(tmp_path):
 def test_rejects_impossible_ingestion_clock():
     with pytest.raises(ValueError, match="ingested_at"):
         observation(published=12, ingested=11, goals=1)
-
