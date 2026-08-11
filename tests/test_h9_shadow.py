@@ -48,14 +48,17 @@ def test_emit_and_same_book_settlement_are_idempotent(tmp_path: Path):
     assert closed["status"] == "SETTLED"
     assert closed["pnl_units"] == pytest.approx(0.9)
     assert closed["clv"] == pytest.approx((1.9 - 1.8) / 1.8)
-    assert settle(
-        event_id="e1",
-        home_goals=2,
-        away_goals=1,
-        result_published_at="2026-08-10T20:00:00+00:00",
-        closing_quotes=[quote(odds=1.8)],
-        ledger=ledger,
-    )["status"] == "ALREADY_SETTLED"
+    assert (
+        settle(
+            event_id="e1",
+            home_goals=2,
+            away_goals=1,
+            result_published_at="2026-08-10T20:00:00+00:00",
+            closing_quotes=[quote(odds=1.8)],
+            ledger=ledger,
+        )["status"]
+        == "ALREADY_SETTLED"
+    )
 
 
 def test_rejects_early_result_and_other_book_closing(tmp_path: Path):

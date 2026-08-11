@@ -148,3 +148,35 @@ def test_transport_error_is_sanitized_even_when_url_contains_key(monkeypatch):
     with pytest.raises(DataUnavailableError) as exc:
         provider.fetch_ou25()
     assert "secret-value" not in str(exc.value)
+
+
+def test_rejects_invalid_featured_market_requests_without_network():
+    provider = TheOddsApiProvider(api_key="x", get_json=lambda _: pytest.fail("network"))
+    with pytest.raises(ValueError, match="h2h/totals"):
+        provider.fetch_markets(markets=("totals_h1",))
+    with pytest.raises(ValueError, match="timezone"):
+        provider.fetch_markets(retrieved_at=datetime(2026, 8, 10))
+
+
+def test_rejects_invalid_event_market_requests_without_network(monkeypatch):
+    provider = TheOddsApiProvider(api_key="x", get_json=lambda _: pytest.fail("network"))
+    with pytest.raises(ValueError, match="event_id"):
+        provider.fetch_event_markets(" ")
+    with pytest.raises(ValueError, match="nao suportado"):
+        provider.fetch_event_markets("evt", markets=("totals",))
+    with pytest.raises(ValueError, match="timezone"):
+        provider.fetch_event_markets("evt", retrieved_at=datetime(2026, 8, 10))
+
+    monkeypatch.delenv("ODDS_API_KEY", raising=False)
+    with pytest.raises(DataUnavailableError, match="ODDS_API_KEY"):
+        TheOddsApiProvider(get_json=lambda _: pytest.fail("network")).fetch_event_markets("evt")
+
+
+def test_rejects_invalid_payload_shapes():
+    provider = TheOddsApiProvider(api_key="x", get_json=lambda _: {})
+    with pytest.raises(DataUnavailableError, match="payload inválido"):
+        provider.fetch_markets()
+
+    provider = TheOddsApiProvider(api_key="x", get_json=lambda _: [])
+    with pytest.raises(DataUnavailableError, match="payload de evento invalido"):
+        provider.fetch_event_markets("evt")

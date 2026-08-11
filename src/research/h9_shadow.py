@@ -149,4 +149,3 @@ def settle(
     }
     _append(ledger, row)
     return {"status": "SETTLED", **row}
-
