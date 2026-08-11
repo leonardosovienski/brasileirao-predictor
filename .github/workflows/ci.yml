@@ -41,11 +41,11 @@ jobs:
         run: |
           mkdir wheelhouse
           curl --fail --silent --show-error --location \
-            "https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl" \
-            --output wheelhouse/predictor_core-2.1.0-py3-none-any.whl
+            "https://github.com/leonardosovienski/core-predictor/releases/download/v2.2.0/predictor_core-2.2.0-py3-none-any.whl" \
+            --output wheelhouse/predictor_core-2.2.0-py3-none-any.whl
           curl --fail --silent --show-error --location \
-            "https://github.com/leonardosovienski/tools-predictor/releases/download/v2.0.1/predictor_ops-2.0.1-py3-none-any.whl" \
-            --output wheelhouse/predictor_ops-2.0.1-py3-none-any.whl
+            "https://github.com/leonardosovienski/tools-predictor/releases/download/v3.0.0/predictor_ops-3.0.0-py3-none-any.whl" \
+            --output wheelhouse/predictor_ops-3.0.0-py3-none-any.whl
           cd wheelhouse
           sha256sum --check ../constraints/shared-wheels.sha256
       - run: uv sync --all-extras --locked
@@ -67,8 +67,8 @@ jobs:
       - run: uv build
       - run: >-
           uv run --isolated --with dist/*.whl
-          --with "predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl"
-          --with "predictor-ops @ https://github.com/leonardosovienski/tools-predictor/releases/download/v2.0.1/predictor_ops-2.0.1-py3-none-any.whl"
+          --with "predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v2.2.0/predictor_core-2.2.0-py3-none-any.whl"
+          --with "predictor-ops @ https://github.com/leonardosovienski/tools-predictor/releases/download/v3.0.0/predictor_ops-3.0.0-py3-none-any.whl"
           brasileirao-predict --help
 
   dotnet:
@@ -113,11 +113,11 @@ jobs:
         run: |
           mkdir .wheelhouse-e2e
           curl --fail --silent --show-error --location \
-            "https://github.com/leonardosovienski/core-predictor/releases/download/v2.1.0/predictor_core-2.1.0-py3-none-any.whl" \
-            --output .wheelhouse-e2e/predictor_core-2.1.0-py3-none-any.whl
+            "https://github.com/leonardosovienski/core-predictor/releases/download/v2.2.0/predictor_core-2.2.0-py3-none-any.whl" \
+            --output .wheelhouse-e2e/predictor_core-2.2.0-py3-none-any.whl
           curl --fail --silent --show-error --location \
-            "https://github.com/leonardosovienski/tools-predictor/releases/download/v2.0.1/predictor_ops-2.0.1-py3-none-any.whl" \
-            --output .wheelhouse-e2e/predictor_ops-2.0.1-py3-none-any.whl
+            "https://github.com/leonardosovienski/tools-predictor/releases/download/v3.0.0/predictor_ops-3.0.0-py3-none-any.whl" \
+            --output .wheelhouse-e2e/predictor_ops-3.0.0-py3-none-any.whl
           cd .wheelhouse-e2e
           sha256sum --check ../constraints/shared-wheels.sha256
       - run: docker compose config --quiet
