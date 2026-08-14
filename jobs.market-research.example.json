@@ -40,6 +40,30 @@
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
       "provenance": {"domain": "brasileirao", "mode": "SHADOW", "cadence": "daily"}
+    },
+    {
+      "id": "brasileirao-h9-emit-shadow",
+      "command": [".venv/Scripts/python.exe", "scripts/emit_h9_shadow.py"],
+      "timeout_seconds": 120,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "SHADOW", "cadence": "every-15-minutes"}
+    },
+    {
+      "id": "brasileirao-h9-closing-snapshots",
+      "command": [".venv/Scripts/python.exe", "scripts/record_h9_closing_snapshots.py"],
+      "timeout_seconds": 180,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "COLLECTION_ONLY", "cadence": "every-15-minutes"}
+    },
+    {
+      "id": "brasileirao-h9-settle-shadow",
+      "command": [".venv/Scripts/python.exe", "scripts/settle_h9_shadow.py"],
+      "timeout_seconds": 120,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "SHADOW", "cadence": "daily"}
     }
   ]
 }
