@@ -10,9 +10,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from predictor_core.measurement.bootstrap import bootstrap_ci
+
 from src.data.prospective_shadow import PICK_REQUIRED, validate_pick, validate_settlement
 
 ROOT = Path(__file__).resolve().parents[1]
+CLV_LOWER_BOUND = 0.0
+ROI_LOWER_BOUND = -0.02
 
 
 def _dt(value: Any) -> datetime | None:
@@ -36,6 +40,57 @@ def _hash(rows: list[dict[str, Any]]) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def _cluster_key(unit: dict[str, Any]) -> Any:
+    return unit.get("canonical_match_id") or unit.get("source_event_id")
+
+
+def _clv_mean(units: list[dict[str, Any]]) -> float | None:
+    values = [float(u["clv"]) for u in units if isinstance(u.get("clv"), (int, float))]
+    return sum(values) / len(values) if values else None
+
+
+def _pnl_mean(units: list[dict[str, Any]]) -> float | None:
+    values = [float(u["pnl"]) for u in units if isinstance(u.get("pnl"), (int, float))]
+    return sum(values) / len(values) if values else None
+
+
+def compute_verdict(matured: list[dict[str, Any]], min_sample: int) -> dict[str, Any]:
+    """Veredito GO/NO-GO pré-registrado (H3/H5): CLV médio IC95 bootstrap
+    CLUSTER por jogo (canonical_match_id) > 0 E ROI IC95_lower > -2% -> GO.
+    Abaixo de `min_sample` liquidados, nenhuma estatística é calculada —
+    permanece INCONCLUSIVE para não fabricar significância por peeking."""
+    if len(matured) < min_sample:
+        return {
+            "verdict": "INCONCLUSIVE",
+            "capital_enabled": False,
+            "reason": f"matured {len(matured)} < min_sample {min_sample}",
+            "clv_ci95": None,
+            "roi_ci95": None,
+        }
+    clv_lo, clv_hi, _ = bootstrap_ci(matured, _clv_mean, scheme="cluster", cluster_key=_cluster_key)
+    roi_lo, roi_hi, _ = bootstrap_ci(matured, _pnl_mean, scheme="cluster", cluster_key=_cluster_key)
+    if clv_lo is None or roi_lo is None:
+        return {
+            "verdict": "INCONCLUSIVE",
+            "capital_enabled": False,
+            "reason": "bootstrap sem reamostra valida (clusters insuficientes ou clv/pnl ausentes)",
+            "clv_ci95": [clv_lo, clv_hi],
+            "roi_ci95": [roi_lo, roi_hi],
+        }
+    go = clv_lo > CLV_LOWER_BOUND and roi_lo > ROI_LOWER_BOUND
+    return {
+        "verdict": "GO" if go else "NO_GO",
+        "capital_enabled": go,
+        "reason": (
+            "CLV IC95_lower > 0 e ROI IC95_lower > -2%"
+            if go
+            else f"criterio pre-registrado nao atingido: CLV IC95_lower={clv_lo:.4f}, ROI IC95_lower={roi_lo:.4f}"
+        ),
+        "clv_ci95": [round(clv_lo, 6), round(clv_hi, 6)],
+        "roi_ci95": [round(roi_lo, 6), round(roi_hi, 6)],
+    }
+
+
 def evaluate(picks_path: Path, results_path: Path, min_sample: int = 100) -> dict[str, Any]:
     picks = (
         [json.loads(line) for line in picks_path.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -57,6 +112,7 @@ def evaluate(picks_path: Path, results_path: Path, min_sample: int = 100) -> dic
         "legacy_incomplete": 0,
     }
     eligible: list[dict[str, Any]] = []
+    matured_rows: list[dict[str, Any]] = []
     reasons: dict[str, int] = {}
 
     def reject(reason: str, legacy: bool = False) -> None:
@@ -103,11 +159,12 @@ def evaluate(picks_path: Path, results_path: Path, min_sample: int = 100) -> dic
                 continue
             merged = {**pick, **result}
             counts["matured"] += 1
+            matured_rows.append(merged)
         else:
             merged = pick
         counts["eligible"] += 1
         eligible.append(merged)
-    verdict = "INCONCLUSIVE"
+    verdict = compute_verdict(matured_rows, min_sample)
     return {
         "schema_version": "shadow-cohort-evaluation/v1",
         "cohort": "H3/H5",
@@ -124,8 +181,9 @@ def evaluate(picks_path: Path, results_path: Path, min_sample: int = 100) -> dic
         "metrics": {
             "closing_coverage": sum(bool(r.get("closing_odds")) for r in eligible) / len(eligible) if eligible else 0.0
         },
-        "verdict": verdict,
-        "capital_enabled": False,
+        "verdict": verdict["verdict"],
+        "verdict_detail": verdict,
+        "capital_enabled": verdict["capital_enabled"],
     }
 
 

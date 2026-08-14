@@ -2,6 +2,7 @@
 flag desligada = zero efeito, settle parametrizado."""
 
 import importlib.util
+import json
 import sys
 from pathlib import Path
 
@@ -74,6 +75,21 @@ def ambiente(tmp_path, monkeypatch):
     monkeypatch.setattr(sombra, "PICKS_H5", tmp_path / "p5.jsonl")
     monkeypatch.setattr(sombra, "RESULTS_H5", tmp_path / "r5.jsonl")
     monkeypatch.setenv("BRASILEIRAO_BOOKMAKER", "test-bookmaker")
+
+    # A captura agora exige que o env var bata com o bookmaker congelado no
+    # pré-registro (trials.json) — registro de teste isolado, coerente com
+    # "test-bookmaker" usado neste fixture.
+    trials_path = tmp_path / "trials.json"
+    trials_path.write_text(
+        json.dumps(
+            [
+                {"name": sombra.TRIAL, "params": {"bookmaker": "test-bookmaker"}},
+                {"name": sombra.TRIAL_H5, "params": {"bookmaker": "test-bookmaker"}},
+            ]
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(sombra, "TRIALS_PATH", trials_path)
 
     # Desde 2026-07-25 a odd do pick vem do BOOK designado (The Odds API), não
     # mais do agregado do Sofascore. O provider é substituído por um duplo que
@@ -177,6 +193,16 @@ def test_settle_h5_parametrizado(ambiente):
     assert all(r["costs"]["status"] == "not_applicable_shadow_no_execution" for r in res)
     # e a população da H3 continua intocada
     assert not (tmp / "r3.jsonl").exists()
+
+
+def test_captura_bloqueada_quando_bookmaker_diverge_do_registrado(ambiente, monkeypatch, capsys):
+    """Env var != bookmaker congelado na trial -> bloqueio fail-closed, não
+    captura silenciosa sob um trial_id que não corresponde à odd usada."""
+    conn, tmp, _pb, _pe = ambiente
+    monkeypatch.setenv("BRASILEIRAO_BOOKMAKER", "outro-book-qualquer")
+    assert sombra.capture(_cfg(), conn) == 0
+    assert "diverge do bookmaker pré-registrado" in capsys.readouterr().out
+    assert not (tmp / "p3.jsonl").exists()
 
 
 def test_h5_registrada_no_trials():

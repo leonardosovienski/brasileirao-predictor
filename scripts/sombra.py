@@ -45,6 +45,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from predictor_core.contracts.registry import TrialRegistry  # noqa: E402
 from predictor_core.data.contracts import DataUnavailableError  # noqa: E402
 
 from src import db, model  # noqa: E402
@@ -67,6 +68,7 @@ from src.math_utils import shin_probabilities  # noqa: E402
 _NO_WINDOW = 0x08000000 if sys.platform == "win32" else 0
 
 SNAPSHOTS_PATH = ROOT / "data" / SNAPSHOTS
+TRIALS_PATH = ROOT / "data" / "trials.json"
 
 # Coorte com bookmaker NOMEADO (pré-registrada em 2026-07-25). As trials
 # `*-sombra-2026` antigas capturavam o agregado do Sofascore rotulado com o nome
@@ -133,6 +135,21 @@ def _capture_funil(cfg, conn, predictor, picks_path, trial) -> int:
         print(
             "  [coorte prospectiva bloqueada: BRASILEIRAO_BOOKMAKER ausente; "
             "Sofascore agregado não é bookmaker auditável]"
+        )
+        return 0
+    # A trial CONGELA o bookmaker em params.bookmaker no pré-registro (trials.json).
+    # O env var só ESCOLHE qual book o operador liga na captura — ele não pode
+    # divergir do que já foi registrado, senão a coorte mistura preços de fontes
+    # diferentes sob o mesmo trial_id sem nunca abrir trial nova (violação da
+    # regra de governança: mudar bookmaker é mudança de configuração que exige
+    # coorte nova, contagem do zero).
+    registered = next((t for t in TrialRegistry(TRIALS_PATH).load() if t["name"] == trial), None)
+    frozen_bookmaker = (registered or {}).get("params", {}).get("bookmaker")
+    if frozen_bookmaker and bookmaker != frozen_bookmaker:
+        print(
+            f"  [coorte prospectiva bloqueada: BRASILEIRAO_BOOKMAKER={bookmaker!r} diverge do "
+            f"bookmaker pré-registrado da trial {trial!r} ({frozen_bookmaker!r}); trocar de "
+            "bookmaker exige trial nova, não mudar o env var]"
         )
         return 0
     code_commit = subprocess.run(
