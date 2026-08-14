@@ -5,7 +5,16 @@ import json
 
 import pytest
 
-from src.bet_log import add_bet, bank_flow, bank_init, bank_state, list_bets, settle_bet, summary
+from src.bet_log import (
+    add_bet,
+    bank_flow,
+    bank_init,
+    bank_state,
+    capital_gate_status,
+    list_bets,
+    settle_bet,
+    summary,
+)
 
 
 def test_add_grava_linha_aberta(tmp_path):
@@ -283,3 +292,40 @@ def test_add_bet_naive_vs_aware_nao_crasha(tmp_path):
     )
     assert rec["kind"] == "bet"
     assert rec["late"] is None
+
+
+def test_capital_gate_status_avisa_sem_trial_comprovada(tmp_path):
+    trials = tmp_path / "trials.json"
+    trials.write_text(
+        json.dumps(
+            [
+                {"name": "h1", "params": {"market": "ou25"}, "status": "refutada"},
+                {"name": "h3", "params": {"market": "ou25"}, "status": "inconclusiva"},
+            ]
+        ),
+        encoding="utf-8",
+    )
+    warning = capital_gate_status("ou25", trials_path=trials)
+    assert warning is not None
+    assert "comprovada" in warning
+
+
+def test_capital_gate_status_silencioso_com_trial_comprovada(tmp_path):
+    trials = tmp_path / "trials.json"
+    trials.write_text(
+        json.dumps([{"name": "h1", "params": {"market": "ou2.5"}, "status": "comprovada"}]),
+        encoding="utf-8",
+    )
+    assert capital_gate_status("ou25", trials_path=trials) is None
+
+
+def test_capital_gate_status_ignora_mercado_fora_do_gate(tmp_path):
+    # ou15 nunca teve funil de CLV desenhado — não é coberto por trial nenhuma,
+    # e o gate não deve reclamar de algo que nunca se propôs a validar.
+    assert capital_gate_status("ou15", trials_path=tmp_path / "inexistente.json") is None
+
+
+def test_capital_gate_status_falha_fechado_sem_trials_json(tmp_path):
+    warning = capital_gate_status("ou25", trials_path=tmp_path / "nao_existe.json")
+    assert warning is not None
+    assert "não encontrado" in warning
