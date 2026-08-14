@@ -47,9 +47,7 @@ def report(attempts_path: Path = ATTEMPTS_PATH) -> dict[str, Any]:
     def _rate(status: str) -> float | None:
         return (status_counts.get(status, 0) / total) if total else None
 
-    slippage = [
-        float(r["slippage_vs_best"]) for r in rows if r.get("status") == "EMITTED" and "slippage_vs_best" in r
-    ]
+    slippage = [float(r["slippage_vs_best"]) for r in rows if r.get("status") == "EMITTED" and "slippage_vs_best" in r]
     matched_or_beat_best = sum(1 for s in slippage if s >= 0)
 
     return {
