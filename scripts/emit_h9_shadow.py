@@ -20,6 +20,15 @@ script NÃO bate na API, só consome o que já foi coletado. O bookmaker
 aprovado vem do ledger de estabilidade vivo (mesma lógica de
 scripts/prospective_readiness.py); sem casa estável, `emit` bloqueia sozinho.
 
+Cada fixture AVALIADA (emitida ou não) também vira uma linha em
+data/research/h9_emission_attempts.jsonl — não só as emissões bem-sucedidas.
+É a base de dois diagnósticos que só existem com essa série histórica:
+disponibilidade real da odd do book aprovado no instante da decisão (quantas
+vezes BLOCKED_NO_STABLE_BOOKMAKER / NO_EXECUTABLE_QUOTE vs EMITTED), e a
+diferença entre o melhor preço observado entre TODOS os bookmakers coletados
+e o preço realmente aceito (só o book aprovado) — ver
+scripts/report_h9_execution_quality.py.
+
 Uso (Task Scheduler, cadência sugerida: a cada 15 minutos):
     python scripts/emit_h9_shadow.py
 """
@@ -48,6 +57,7 @@ TRIALS_PATH = ROOT / "data" / "trials.json"
 STABILITY_PATH = ROOT / "data" / "research" / "bookmaker_stability.jsonl"
 MARKET_OBS_PATH = ROOT / "data" / "research" / "market_observations.jsonl"
 LEDGER_PATH = ROOT / "data" / "research" / "h9_shadow.jsonl"
+ATTEMPTS_PATH = ROOT / "data" / "research" / "h9_emission_attempts.jsonl"
 
 WINDOW_SLACK = timedelta(minutes=15)
 OU_LINE = 2.5
@@ -57,6 +67,38 @@ def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         return []
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def _append_jsonl(path: Path, row: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+
+
+def _best_available_odds(
+    quotes: list[dict[str, Any]], source_event_id: str, selection: str, predicted: datetime
+) -> tuple[str, float] | None:
+    """Melhor odd decimal ENTRE TODOS os bookmakers (não só o aprovado) pra
+    a mesma seleção, entre cotações já conhecidas no instante da decisão —
+    a mesma regra de elegibilidade temporal que `h9_shadow.emit` aplica ao
+    book aprovado, só que sem restringir a UM book."""
+    best: tuple[str, float] | None = None
+    for q in quotes:
+        if str(q.get("source_event_id")) != source_event_id or q.get("selection") != selection:
+            continue
+        try:
+            captured = datetime.fromisoformat(str(q["odds_captured_at"]).replace("Z", "+00:00"))
+            ingested = datetime.fromisoformat(str(q["retrieved_at"]).replace("Z", "+00:00"))
+        except (KeyError, ValueError):
+            continue
+        if captured.tzinfo is None or ingested.tzinfo is None or captured > predicted or ingested > predicted:
+            continue
+        odds = q.get("decimal_odds")
+        if not isinstance(odds, (int, float)) or odds <= 1:
+            continue
+        if best is None or float(odds) > best[1]:
+            best = (str(q.get("bookmaker")), float(odds))
+    return best
 
 
 def frozen_model_params(trials_path: Path = TRIALS_PATH) -> tuple[tuple[float, float, float, float], int]:
@@ -99,6 +141,7 @@ def run(
     stability_path: Path = STABILITY_PATH,
     market_obs_path: Path = MARKET_OBS_PATH,
     ledger_path: Path = LEDGER_PATH,
+    attempts_path: Path = ATTEMPTS_PATH,
     db_path: Path | None = None,
 ) -> list[dict[str, Any]]:
     now = now or datetime.now(UTC)
@@ -149,6 +192,26 @@ def run(
         }
         result = emit(prediction=prediction, quotes=quotes_ou25, approved_bookmaker=bookmaker, ledger=ledger_path)
         outcomes.append({"sofascore_event_id": matched["event_id"], "home": home, "away": away, **result})
+
+        audit_row = {
+            "recorded_at": now.isoformat(timespec="seconds"),
+            "event_id": source_event_id,
+            "sofascore_event_id": matched["event_id"],
+            "home": home,
+            "away": away,
+            "status": result["status"],
+            "approved_bookmaker": bookmaker,
+        }
+        if result["status"] == "EMITTED":
+            audit_row["selection"] = result["selection"]
+            audit_row["executed_odds"] = result["executed_odds"]
+            best = _best_available_odds(quotes_ou25, source_event_id, result["selection"], now)
+            if best is not None:
+                best_bookmaker, best_odds = best
+                audit_row["best_available_bookmaker"] = best_bookmaker
+                audit_row["best_available_odds"] = best_odds
+                audit_row["slippage_vs_best"] = round(result["executed_odds"] - best_odds, 6)
+        _append_jsonl(attempts_path, audit_row)
     return outcomes
 
 
