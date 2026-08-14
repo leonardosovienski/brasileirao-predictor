@@ -6,13 +6,22 @@ Responde duas perguntas de "prova de executabilidade" que nenhum outro
 relatório do projeto responde ainda:
 
     1. Disponibilidade real da odd do book aprovado no instante da decisão —
-       quantas avaliações terminam em EMITTED vs BLOCKED_NO_STABLE_BOOKMAKER
+       quantos JOGOS terminam em EMITTED vs BLOCKED_NO_STABLE_BOOKMAKER
        (sem casa aprovada no ledger de estabilidade) vs NO_EXECUTABLE_QUOTE
        (casa aprovada não tinha cotação elegível para aquele jogo).
     2. Diferença entre o melhor preço observado (qualquer bookmaker coletado,
        mesma seleção, mesmo instante) e o preço realmente aceito (só o book
        aprovado) — slippage_vs_best negativo = aceitamos pior preço do que
        o mercado oferecia; positivo/zero = o book aprovado já era o melhor.
+
+`emit_h9_shadow.py` roda a cada ~15min e grava UMA linha por (jogo, execução)
+enquanto o jogo estiver na janela de decisão (~105min) — um jogo pode gerar
+várias tentativas antes de emitir (ou nunca emitir). As taxas de disponibilidade
+são calculadas por JOGO (o último status visto, com EMITTED vencendo qualquer
+tentativa anterior), não por linha bruta — senão um jogo que emite na 3ª
+tentativa conta como maioria de falhas e distorce a taxa pra baixo.
+`total_raw_evaluations` preserva a contagem bruta de ticks só como contexto
+operacional (quanto polling aconteceu), não entra em nenhuma taxa.
 
 Não abre matches.db, não decide nada, não escreve nada.
 
@@ -39,20 +48,38 @@ def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
+def _final_status_by_event(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Reduz a série de tentativas por jogo a UMA linha: a primeira que
+    emitiu, se alguma emitiu (ticks seguintes, sempre ALREADY_EMITTED, não
+    sobrescrevem); senão, a última tentativa vista. Linhas sem `event_id`
+    são descartadas — não há por onde agrupá-las."""
+    final: dict[Any, dict[str, Any]] = {}
+    for row in rows:
+        event_id = row.get("event_id")
+        if event_id is None:
+            continue
+        if final.get(event_id, {}).get("status") == "EMITTED":
+            continue
+        final[event_id] = row
+    return list(final.values())
+
+
 def report(attempts_path: Path = ATTEMPTS_PATH) -> dict[str, Any]:
     rows = _load_jsonl(attempts_path)
-    total = len(rows)
-    status_counts = Counter(r.get("status") for r in rows)
+    per_event = _final_status_by_event(rows)
+    total = len(per_event)
+    status_counts = Counter(r.get("status") for r in per_event)
 
     def _rate(status: str) -> float | None:
         return (status_counts.get(status, 0) / total) if total else None
 
-    slippage = [float(r["slippage_vs_best"]) for r in rows if r.get("status") == "EMITTED" and "slippage_vs_best" in r]
+    slippage = [float(r["slippage_vs_best"]) for r in per_event if "slippage_vs_best" in r]
     matched_or_beat_best = sum(1 for s in slippage if s >= 0)
 
     return {
-        "schema_version": "h9-execution-quality/v1",
-        "total_evaluations": total,
+        "schema_version": "h9-execution-quality/v2",
+        "total_raw_evaluations": len(rows),
+        "total_games": total,
         "status_counts": dict(status_counts),
         "emission_rate": _rate("EMITTED"),
         "blocked_no_stable_bookmaker_rate": _rate("BLOCKED_NO_STABLE_BOOKMAKER"),
