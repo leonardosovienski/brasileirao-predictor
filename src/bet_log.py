@@ -35,10 +35,11 @@ MAX_UNIT_PCT = 0.02
 MAX_OPEN_UNITS = 10.0
 
 # mercado -> (linha, período). FT = jogo inteiro; 1T/2T = por tempo (settle
-# exige o placar do intervalo). Só o ou25 tem CLV comprovado no backtest — os
-# demais entram como registro fiel do que o operador apostou, marcados
-# validated=False, e o summary separa os dois grupos (não misturar ROI de
-# mercado validado com aposta informativa).
+# exige o placar do intervalo). Só o ou25 tem um FUNIL de CLV desenhado no
+# backtest (as demais entram como registro fiel do que o operador apostou,
+# marcadas validated=False, e o summary separa os dois grupos) — "desenhado"
+# não é "comprovado": ver capital_gate_status() pra saber se alguma trial do
+# mercado já tem status='comprovada' de verdade em data/trials.json.
 MARKETS = {
     "ou25": (2.5, "FT"),
     "ou15": (1.5, "FT"),
@@ -49,7 +50,37 @@ MARKETS = {
     "ou15_2t": (1.5, "2T"),
     "ou25_2t": (2.5, "2T"),
 }
-VALIDATED = {"ou25"}  # único gatilho com CLV comprovado
+VALIDATED = {"ou25"}  # único mercado com funil de CLV desenhado
+
+TRIALS_DEFAULT = ROOT / "data" / "trials.json"
+# mercado deste ledger -> valores de params.market usados em trials.json
+# (a nomenclatura não é 100% uniforme entre trials mais antigas e mais novas)
+_GATE_MARKET_ALIASES = {"ou25": {"ou25", "ou2.5"}}
+
+
+def capital_gate_status(market: str, trials_path=None) -> str | None:
+    """Aviso (NUNCA bloqueio — a banca é do operador) quando nenhuma trial
+    pré-registrada para `market` em data/trials.json tem status='comprovada'
+    ainda. É a regra 2 do README (aposta real só em mercado com CLV
+    comprovado no backtest deste domínio) checada contra o registro de
+    governança, em vez de confiada à memória de quem está apostando."""
+    aliases = _GATE_MARKET_ALIASES.get(market)
+    if not aliases:
+        return None
+    path = Path(trials_path or os.environ.get("TRIALS_LOG_PATH") or TRIALS_DEFAULT)
+    if not path.exists():
+        return f"trials.json não encontrado em {path} — gate de capital não verificável"
+    from predictor_core.contracts.registry import TrialRegistry
+
+    trials = TrialRegistry(path).load()
+    relevant = [t for t in trials if t.get("params", {}).get("market") in aliases]
+    if any(t.get("status") == "comprovada" for t in relevant):
+        return None
+    return (
+        f"nenhuma trial pré-registrada para o mercado {market!r} tem status='comprovada' em "
+        f"{path.name} — a regra 2 (aposta real só com CLV comprovado no backtest deste domínio) "
+        "ainda não está satisfeita"
+    )
 
 
 def _resolve(path=None) -> Path:
@@ -542,6 +573,9 @@ def main():
             note=args.note,
         )
         aviso = "" if rec["validated"] else "  [mercado SEM CLV validado]"
+        gate = capital_gate_status(args.market)
+        if gate:
+            print(f"  AVISO: {gate} — isto NÃO bloqueia o registro, a banca é do operador")
         print(
             f"registrada [{rec['bet_id'][:8]}]: {rec['selection']} {rec['line']} "
             f"({rec['period']}) @ {rec['odds']} "
