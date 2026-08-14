@@ -74,6 +74,9 @@ SERVING_ALLOWLIST = {
     "scripts/odds_shop.py",  # serving pre-jogo (le o Elo corrente de proposito)
     "scripts/sombra.py",  # serving pre-jogo da H3: preve jogos FUTUROS com
     # o Elo corrente — lookahead impossivel por construcao
+    "scripts/emit_h9_shadow.py",  # serving pre-jogo da H9: mesmo motivo do
+    # sombra.py — jogos FUTUROS, Elo corrente; so' a/b/alpha/rho vem
+    # congelados da trial, nao do cache (ver docstring do modulo)
     "scripts/prever.py",  # CLI de serving (previsao completa / live)
     "scripts/ci_check.py",  # este arquivo (regex da propria barreira)
 }
