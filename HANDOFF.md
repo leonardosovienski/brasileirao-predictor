@@ -1,5 +1,81 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-15) — fonte da verdade atual
+>
+> Sessão de trabalho com Claude Code cobrindo governança do gate de sombra,
+> o pipeline H9 completo (emissão → fechamento → liquidação → auditoria de
+> executabilidade) e a formalização de fadiga/descanso como hipótese (H10).
+> Seis PRs mergeados em `main`, nesta ordem: **#10** (veredito GO/NO-GO real
+> em `evaluate_shadow_cohort.py`, antes hardcoded em INCONCLUSIVE), **#11**
+> (guard em `sombra.py`: `BRASILEIRAO_BOOKMAKER` tem que bater com o
+> `params.bookmaker` congelado na trial, senão bloqueia a captura), **#12**
+> (`status` estruturado em todas as trials de `data/trials.json` + aviso de
+> gate em `bet_log.py add` quando nenhuma trial do mercado tem
+> `status="comprovada"`; **e** correção do `.env.example` — a chave certa é
+> `ODDS_API_KEY`, não `THE_ODDS_API_KEY` como o template dizia antes),
+> **#13** (`scripts/emit_h9_shadow.py` — o job de emissão H9 que faltava —
+> `+ scripts/record_h9_closing_snapshots.py` + `scripts/settle_h9_shadow.py`),
+> **#14** (`scripts/report_h9_execution_quality.py` — disponibilidade real
+> da odd no instante da decisão + slippage contra o melhor preço do
+> mercado, não só o book aprovado), **#15** (fix de metodologia: as taxas do
+> relatório de #14 eram calculadas por linha bruta, não por jogo — um jogo
+> que emitia na 3ª tentativa contava como maioria de falhas; **e**
+> `scripts/h10_fadiga_walkforward.py`, hipótese formal de descanso,
+> walk-forward + bootstrap de bloco móvel + atestado de poder + registro em
+> `trials.json`, substituindo `scripts/poc_fadiga.py` que ficou vestigial —
+> aquele script lê `matches` com faixas de data (2010-2023 treino,
+> "Copa 2026 intocada") que só faziam sentido no `matches` internacional
+> pré-adaptação; `poc_fadiga.py` **não foi apagado**, só superado).
+>
+> **Dois trilhos prospectivos hoje, não um.** O trilho antigo H3/H5
+> (`scripts/sombra.py`, bookmaker fixo) está com as quatro tarefas do
+> Agendador de Tarefas **desabilitadas** — dormente, não descontinuado. O
+> trilho ativo é H8/H9 (`predictor-ops`, bookmaker dinâmico via
+> `bookmaker_stability.jsonl`): jobs `brasileirao-market-research` (coleta
+> a cada 6h) e `brasileirao-prospective-readiness` (readiness diário) ativos
+> e saudáveis em 2026-08-14; `h9_can_emit=true` desde então. Bookmaker
+> recomendado no momento: **William Hill** (dinâmico — pode mudar; H9 aceita
+> "named-and-stability-approved", diferente de H3/H5 que congelaram
+> `pinnacle` em 2026-07-26 e não aceitam outra casa sem trial nova).
+> `scripts/emit_h9_shadow.py` e `scripts/record_h9_closing_snapshots.py`
+> ainda **não estão agendados** no Agendador de Tarefas — só existem no
+> `main`; agendar é ação do operador, cadência sugerida 15min pros dois.
+>
+> **`BRASILEIRAO_BOOKMAKER` só importa pro trilho H3/H5** (dormente). Se
+> reativar aquele trilho, o valor tem que ser `pinnacle` — a nota mais
+> antiga deste arquivo (checkpoint de 2026-07-25 abaixo) ainda recomenda
+> `betsson`; **está desatualizada**, mantida intocada por ser registro
+> histórico. A trial `h3/h5/h7-*-pinnacle-2026` foi registrada em
+> 2026-07-26, um dia DEPOIS daquele checkpoint, com `pinnacle` congelado.
+>
+> **Distância até capital, sem mudança desde 2026-07-25**: nenhuma trial em
+> `data/trials.json` tem `status="comprovada"` (confirmável via
+> `src.bet_log.capital_gate_status`). H1 segue refutada. H3/H5 seguem
+> travadas no gate de 100 `MATURED_ELIGIBLE` (dormentes agora). H8 é
+> exploratória (registrada depois de observar o resultado — não vale como
+> prova). H9 é a única frente viva rumo a um veredito prospectivo de
+> verdade, e ainda não tem amostra alguma liquidada.
+>
+> **Bugs e dívidas encontrados e corrigidos nesta sessão** (fora os já
+> citados acima): `scripts/run_h4_sweep.py` tem uma lacuna idêntica à que
+> corrigi em `h10_fadiga_walkforward.py` — não passa `pipeline_fingerprint`
+> ao registrar trial nova, e o `predictor-core` vendorizado atual (2.2.0)
+> exige esse campo; se alguém rodar aquele script hoje pra registrar uma
+> trial nova, quebra. **Não corrigido** (fora do escopo desta sessão).
+>
+> **Diagnóstico do operador (2026-08-14), ainda de pé em grande parte**:
+> pesquisa econômica e coleta prospectiva avançadas; prova de
+> executabilidade dos preços parcial (as PRs #13/#14/#15 avançaram isso,
+> mas liquidez/spread/redundância de fornecedor de odds e closing de
+> referência alternativo à mesma casa continuam pendentes — os que exigem
+> conta/decisão de negócio nova, não só código); qualidade de
+> escalação/fadiga como hipótese formal parcialmente resolvida (H10
+> cobre fadiga; qualidade de escalação MEDIDA, não só arquivada, segue
+> pendente — precisa de valor de jogador/escalação provado antes, que o
+> próprio diagnóstico já apontava como pré-requisito não cumprido);
+> execução real e risco de portfólio permanecem intencionalmente ausentes
+> (não construir antes de qualquer gate abrir capital de verdade).
+
 > ## CHECKPOINT OPERACIONAL (2026-07-25)
 >
 > Checkpoint somente-leitura: nenhum dado criado, nenhum backfill, nenhum trial
