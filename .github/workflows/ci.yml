@@ -42,10 +42,10 @@ jobs:
           mkdir wheelhouse
           curl --fail --silent --show-error --location \
             "https://github.com/leonardosovienski/core-predictor/releases/download/v2.3.0/predictor_core-2.3.0-py3-none-any.whl" \
-            --output wheelhouse/predictor_core-2.2.0-py3-none-any.whl
+            --output wheelhouse/predictor_core-2.3.0-py3-none-any.whl
           curl --fail --silent --show-error --location \
             "https://github.com/leonardosovienski/predictor-ops/releases/download/v3.1.0/predictor_ops-3.1.0-py3-none-any.whl" \
-            --output wheelhouse/predictor_ops-3.0.0-py3-none-any.whl
+            --output wheelhouse/predictor_ops-3.1.0-py3-none-any.whl
           cd wheelhouse
           sha256sum --check ../constraints/shared-wheels.sha256
       - run: uv sync --all-extras --locked
@@ -114,10 +114,10 @@ jobs:
           mkdir .wheelhouse-e2e
           curl --fail --silent --show-error --location \
             "https://github.com/leonardosovienski/core-predictor/releases/download/v2.3.0/predictor_core-2.3.0-py3-none-any.whl" \
-            --output .wheelhouse-e2e/predictor_core-2.2.0-py3-none-any.whl
+            --output .wheelhouse-e2e/predictor_core-2.3.0-py3-none-any.whl
           curl --fail --silent --show-error --location \
             "https://github.com/leonardosovienski/predictor-ops/releases/download/v3.1.0/predictor_ops-3.1.0-py3-none-any.whl" \
-            --output .wheelhouse-e2e/predictor_ops-3.0.0-py3-none-any.whl
+            --output .wheelhouse-e2e/predictor_ops-3.1.0-py3-none-any.whl
           cd .wheelhouse-e2e
           sha256sum --check ../constraints/shared-wheels.sha256
       - run: docker compose config --quiet
