@@ -1,6 +1,27 @@
 # HANDOFF.md — brasileirao-predictor
 
-> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-15) — fonte da verdade atual
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-17) — fonte da verdade atual
+>
+> Migração para `predictor-core==2.3.0` e `predictor-ops==3.1.0` (commits
+> `a6d2c19` + fix `3336565`, ambos em `main`). `pyproject.toml`, `uv.lock`,
+> `Dockerfile.cli`/`Dockerfile.kernel` e `constraints/shared-wheels.sha256`
+> apontam para as wheels publicadas em
+> `core-predictor@v2.3.0`/`predictor-ops@v3.1.0`, hashes conferidos byte a
+> byte contra os assets do GitHub Release. CI verde no commit exato
+> (`32036979309`). H8/H9 e capital fechado (nenhuma trial `comprovada`)
+> preservados — nada nesta migração tocou `data/trials.json`,
+> `contracts/h8-*` ou `contracts/h9-*`.
+>
+> Pendência aberta desta sessão: `data/trials.harness_attestation.json`
+> ainda está em `core_version: "2.2.0"`, expirado em `2026-08-16`. Renová-lo
+> exige rodar `scripts/governanca.py` (etapa 1: `attest_pipeline_power`)
+> contra um `data/matches.db` com burn-in real — não disponível no ambiente
+> onde esta auditoria rodou (banco local vazio). Antes de registrar qualquer
+> trial nova, rode a etapa 1 isoladamente (sem a etapa 2 de pré-registro, que
+> só deve rodar quando uma configuração nova de fato precisar ser
+> pré-registrada) num ambiente com o banco de partidas populado.
+
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-15)
 >
 > Sessão de trabalho com Claude Code cobrindo governança do gate de sombra,
 > o pipeline H9 completo (emissão → fechamento → liquidação → auditoria de
