@@ -11,16 +11,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_shared_dependencies_load_from_site_packages() -> None:
-    assert importlib.metadata.version("predictor-core") == "2.2.0"
-    assert importlib.metadata.version("predictor-ops") == "3.0.0"
+    assert importlib.metadata.version("predictor-core") == "2.3.0"
+    assert importlib.metadata.version("predictor-ops") == "3.1.0"
     assert "site-packages" in str(predictor_core.__file__)
     assert "site-packages" in str(predictor_ops.__file__)
 
 
 def test_shared_wheel_hashes_are_pinned() -> None:
     records = (ROOT / "constraints" / "shared-wheels.sha256").read_text(encoding="utf-8")
-    assert "fe95dece93a2c91436ffd60058cea1d9192022d2170abb7e8e8512ccb76f9fdd" in records
-    assert "9574d5fa4d17232a9d7dbd1aaff0131b65f341974508c5457b8d570bf41e8945" in records
+    assert "e0d29eac348e2be4092dde1b629c101d54973b54b5d43014cdaee69e4e17b3b9" in records
+    assert "490ece696f9173bbaa56c2c53a1ff6e5ffab1a7625fb00ac0a5f896c37081b37" in records
 
 
 def test_predictor_ops_closes_owned_stdout_pipe(tmp_path: Path, monkeypatch) -> None:

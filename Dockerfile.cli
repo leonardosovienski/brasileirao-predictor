@@ -5,8 +5,8 @@ COPY pyproject.toml README.md ./
 COPY src src
 COPY scripts scripts
 RUN uv build && uv venv /opt/venv && uv pip install --python /opt/venv/bin/python \
-    "predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v2.2.0/predictor_core-2.2.0-py3-none-any.whl" \
-    "predictor-ops @ https://github.com/leonardosovienski/tools-predictor/releases/download/v3.0.0/predictor_ops-3.0.0-py3-none-any.whl" \
+    "predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v2.3.0/predictor_core-2.3.0-py3-none-any.whl" \
+    "predictor-ops @ https://github.com/leonardosovienski/predictor-ops/releases/download/v3.1.0/predictor_ops-3.1.0-py3-none-any.whl" \
     dist/*.whl
 
 FROM python:3.13.11-slim-bookworm

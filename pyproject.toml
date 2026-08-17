@@ -9,8 +9,8 @@ description = "Scientific and operational prediction services for Brasileirão S
 readme = "README.md"
 requires-python = ">=3.13,<3.15"
 dependencies = [
-  "predictor-core>=2.2,<3",
-  "predictor-ops>=3,<4",
+  "predictor-core>=2.3,<3",
+  "predictor-ops>=3.1,<4",
   "pydantic>=2.11,<3",
   "pydantic-settings>=2.10,<3",
   "numpy>=2.2,<3",
@@ -34,8 +34,8 @@ brasileirao-shadow = "scripts.sombra_diaria:main"
 packages = ["src", "scripts"]
 
 [tool.uv.sources]
-predictor-core = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.2.0/predictor_core-2.2.0-py3-none-any.whl" }
-predictor-ops = { url = "https://github.com/leonardosovienski/tools-predictor/releases/download/v3.0.0/predictor_ops-3.0.0-py3-none-any.whl" }
+predictor-core = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.3.0/predictor_core-2.3.0-py3-none-any.whl" }
+predictor-ops = { url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v3.1.0/predictor_ops-3.1.0-py3-none-any.whl" }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
