@@ -29,13 +29,13 @@ Nenhum script ou dado legado foi removido.
 ## Contrato e dependências compartilhadas
 
 O protocolo `brasileirao.redis/1` é validado em Python e C#, incluindo versão desconhecida, identificador ausente,
-payload inválido, correlação e serialização. `predictor_core 2.1.0` e `predictor_ops 2.0.1` são carregados de
+payload inválido, correlação e serialização. `predictor_core 2.3.0` e `predictor_ops 3.1.0` são carregados de
 `site-packages`; os hashes canônicos permanecem em `constraints/shared-wheels.sha256`. O teste operacional de
 `predictor_ops` verifica que os pipes próprios de `Popen` são fechados.
 
-## Únicos bloqueadores externos
+## Bloqueadores externos (resolvidos)
 
-1. publicação estável das wheels canônicas em URLs acessíveis ao CI/BuildKit;
-2. geração e versionamento de lockfile portátil a partir desse registry estável.
+1. publicação estável das wheels canônicas em URLs acessíveis ao CI/BuildKit — resolvido: `v2.3.0`/`v3.1.0` publicadas como GitHub Release assets, consumidas com sucesso pela CI atual;
+2. geração e versionamento de lockfile portátil a partir desse registry estável — resolvido: `uv.lock` versiona URL + hash sha256 de ambas as wheels.
 
-Até esses dois artefatos externos existirem, o projeto não deve ser classificado como `READY`.
+Os dois artefatos externos que bloqueavam a classificação `READY` já existem; a ressalva `WITH_EXTERNAL_BLOCKER` no topo deste documento refere-se ao estado histórico anterior a essa publicação, não ao estado corrente.
