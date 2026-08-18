@@ -12,11 +12,11 @@ from src.data.bookmaker_stability import stability_report
 from src.settings import Settings
 
 ROOT = Path(__file__).resolve().parent.parent
-STABILITY = ROOT / "data" / "research" / "bookmaker_stability.jsonl"
 
 
 def report() -> dict:
     snapshots = ROOT / "data" / "research" / "market_observations.jsonl"
+    stability_path = ROOT / "data" / "research" / "bookmaker_stability.jsonl"
     rows = []
     if snapshots.exists():
         for line in snapshots.read_text(encoding="utf-8").splitlines():
@@ -29,7 +29,7 @@ def report() -> dict:
         if row.get("retrieved_at") and row.get("bookmaker"):
             runs[row["retrieved_at"]].add(row["bookmaker"])
     common = sorted(set.intersection(*runs.values())) if runs else []
-    stability = stability_report(STABILITY)
+    stability = stability_report(stability_path)
     settings = Settings()
     api_football = bool(os.getenv("API_FOOTBALL_KEY") or settings.API_FOOTBALL_KEY)
     odds_api = bool(os.getenv("ODDS_API_KEY") or settings.THE_ODDS_API_KEY)
