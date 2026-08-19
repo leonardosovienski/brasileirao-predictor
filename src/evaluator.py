@@ -106,6 +106,8 @@ class BrasileiraoDixonColesEvaluator(PrequentialEvaluator):
                 "rho": rho,
                 "home_advantage": p["home_advantage"],
                 "xi": self.xi,
+                "lam": lam,
+                "mu": mu,
             },
         )
 

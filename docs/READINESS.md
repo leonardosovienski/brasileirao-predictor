@@ -39,3 +39,36 @@ payload inválido, correlação e serialização. `predictor_core 2.3.0` e `pred
 2. geração e versionamento de lockfile portátil a partir desse registry estável — resolvido: `uv.lock` versiona URL + hash sha256 de ambas as wheels.
 
 Os dois artefatos externos que bloqueavam a classificação `READY` já existem; a ressalva `WITH_EXTERNAL_BLOCKER` no topo deste documento refere-se ao estado histórico anterior a essa publicação, não ao estado corrente.
+
+## Governança de pesquisa (GOV-P0, Roadmap Técnico Consolidado v1.0-final)
+
+`scripts/benchmark_predictor.py` é o painel canônico único de medição
+preditiva walk-forward (RPS primário; Brier 1X2/OU2.5, log-loss, ECE,
+calibration slope, resolution e sharpness como guardrails; accuracy/coverage
+como diagnóstico — nunca métrica de promoção). Skill score implementado hoje
+só contra `climatology`; `elo_baseline`, `current_v3` e `market_no_vig`
+exigem rodar outros previsores sobre a mesma base e ainda não estão
+plugados — chamá-los falha alto (`choices=["climatology"]` no CLI), não
+silencia. `scripts/run_h4_sweep.py` teve a lacuna de `pipeline_fingerprint`
+corrigida (mesma classe de bug já corrigida em `h10_fadiga_walkforward.py`).
+
+Nenhuma trial de `RESEARCH-01..08` ou `MARKET-01..04` foi aberta nesta
+sessão — o checklist do Roadmap (§12) exige GOV-P0/OPS-P0 completos antes de
+qualquer experimento novo, e dois itens seguem bloqueados por dependerem do
+ambiente do operador (Windows, `data/matches.db` populado), não disponíveis
+neste sandbox:
+
+1. Renovação de `data/trials.harness_attestation.json` (`core_version`
+   2.2.0 → 2.3.0, expirado em 2026-08-16) — exige
+   `python scripts/governanca.py` contra um `matches.db` com burn-in real.
+2. Congelamento de `reports/benchmark_baseline_v3_<date>.json` — exige rodar
+   `scripts/benchmark_predictor.py` contra a mesma base real.
+
+OPS-P0 (agendamento Task Scheduler dos jobs H9 a cada 15min, backup diário,
+alerta de janela perdida) tem o código pronto — `scripts/emit_h9_shadow.py`,
+`scripts/record_h9_closing_snapshots.py`, `scripts/settle_h9_shadow.py`,
+`scripts/backup_h9_runtime.py` e o novo `scripts/report_h9_missed_windows.py`
+— e `scripts/install_windows_scheduler.ps1` já registra as cinco tasks
+correspondentes, mas a instalação em si (`Register-ScheduledTask`) só roda
+na máquina do operador; nenhum agendador existe neste ambiente para
+executá-la.

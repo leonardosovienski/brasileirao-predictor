@@ -1,6 +1,60 @@
 # HANDOFF.md — brasileirao-predictor
 
-> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-17) — fonte da verdade atual
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-19) — fonte da verdade atual
+>
+> Implementação do checklist GOV-P0/OPS-P0 do "Roadmap Técnico Consolidado
+> v1.0-final" (§12), na parte executável neste ambiente (sandbox sem
+> `data/matches.db` populado e sem Task Scheduler real — nada aqui roda no
+> Windows do operador).
+>
+> **Feito nesta sessão:**
+> 1. `scripts/run_h4_sweep.py` corrigido — passa `pipeline_fingerprint` ao
+>    registrar trial nova (mesma lacuna já corrigida em
+>    `h10_fadiga_walkforward.py`, documentada como pendência na sessão
+>    anterior; agora fechada).
+> 2. `scripts/benchmark_predictor.py` criado — painel canônico de
+>    medição walk-forward (RPS primário, Brier 1X2/OU2.5, log-loss, ECE,
+>    calibration slope, resolution, sharpness, skill score vs climatology
+>    com IC95 bootstrap, estratificação com `n` por season/month/team/
+>    probability-bucket/lambda-bucket/half-of-season). `src/evaluator.py`
+>    ganhou `lam`/`mu` em `metadata` (aditivo) pra viabilizar o cálculo de
+>    over/under e lambda_total sem duplicar o fit. Testado com base sintética
+>    (sem matches.db real disponível aqui); `elo_baseline`/`current_v3`/
+>    `market_no_vig` como baseline de skill score NÃO estão implementados —
+>    falham alto (`choices` do CLI), não fingem resultado.
+> 3. `docs/READINESS.md` — seção nova "Governança de pesquisa" documentando
+>    o painel e os dois itens de GOV-P0 ainda bloqueados (ver abaixo).
+> 4. `scripts/report_h9_missed_windows.py` criado (OPS-P0, item que faltava
+>    por completo: "alerta para jogos que deveriam ter entrado na janela mas
+>    não entraram"). Somente-leitura; compara `sofascore_matches` contra
+>    `h9_emission_attempts.jsonl` e classifica em `MISSED` (janela já fechou,
+>    dado perdido) vs `AT_RISK` (janela aberta há >20min sem tentativa).
+> 5. `scripts/install_windows_scheduler.ps1` — passou a registrar as cinco
+>    tasks H9 que faltavam (`brasileirao-h9-emit`/`-closing` a cada 15min,
+>    `-settle` a cada 30min, `-backup` diário 05:00, `-missed-window` diário
+>    07:00), além das duas já existentes (market-research, prospective-
+>    readiness). Suíte completa (489 verdes) e `ci_check.py` (5/5, os dois
+>    smokes de banco pulados por falta de `matches.db` neste sandbox) sem
+>    regressão.
+>
+> **Bloqueado — exige ação do operador na máquina Windows, fora do alcance
+> deste sandbox:**
+> - **GOV-P0 item 1**: renovar `data/trials.harness_attestation.json`
+>   (`core_version` 2.2.0, expirado 2026-08-16) — `python scripts/governanca.py`
+>   precisa de `matches.db` com burn-in real, inexistente aqui.
+> - **GOV-P0 item 5**: congelar `reports/benchmark_baseline_v3_<date>.json`
+>   — rodar `scripts/benchmark_predictor.py` contra a base real, mesma
+>   dependência acima.
+> - **OPS-P0 (instalação)**: `scripts/install_windows_scheduler.ps1` está
+>   pronto mas `Register-ScheduledTask` só existe no Windows do operador;
+>   ninguém rodou o instalador ainda — as cinco tasks H9 não estão
+>   agendadas de fato até isso acontecer.
+>
+> Nenhuma trial de RESEARCH-01..08 ou MARKET-01..04 foi aberta — por regra
+> do Roadmap (§12), pesquisa só começa com o checklist 100% ✓, e os três
+> itens acima seguem pendentes.
+
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-17) — fonte da verdade anterior
 >
 > Migração para `predictor-core==2.3.0` e `predictor-ops==3.1.0` (commits
 > `a6d2c19` + fix `3336565`, ambos em `main`). `pyproject.toml`, `uv.lock`,

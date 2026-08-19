@@ -232,6 +232,7 @@ def main() -> int:
             f"Grade completa: " + "; ".join(f"{s['half_life']}d={s['rps']:.5f}" for s in sweep)
         ),
         metric="rps",
+        pipeline_fingerprint=record["pipeline_fingerprint"],
     )
     log.info(
         "trial '%s' registrada em %s (N=%d tentativas no cofre)",
