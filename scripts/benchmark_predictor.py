@@ -83,7 +83,12 @@ def _half_life_for(model_tag: str) -> float:
     return float(DEFAULT_HALF_LIFE)
 
 
-def _load_observations(start: str, end: str) -> list[dict[str, Any]]:
+def _load_observations(end: str) -> list[dict[str, Any]]:
+    """Carrega TODO o histórico até `end` (sem filtro de `start`) — o
+    walk-forward precisa de temporadas anteriores como burn-in pra prever o
+    início do período pedido; recortar por `start` aqui privaria o modelo do
+    próprio passado. O recorte por `start` acontece só depois, sobre as
+    LINHAS PREVISTAS (ver `run`), nunca sobre o histórico de treino."""
     conn = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
     try:
         rows = conn.execute(
@@ -105,8 +110,6 @@ def _load_observations(start: str, end: str) -> list[dict[str, Any]]:
                 "result": {"home_goals": int(hs), "away_goals": int(asc)},
             }
         )
-    if start:
-        obs = [o for o in obs if o["date"] >= start]
     if end:
         obs = [o for o in obs if o["date"] <= end]
     return obs
@@ -273,10 +276,17 @@ def _stratum_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 def run(*, model_tag: str, start: str, end: str) -> dict[str, Any]:
     half_life = _half_life_for(model_tag)
-    observations = _load_observations(start, end)
+    observations = _load_observations(end)
     if len(observations) < MIN_HISTORY + 50:
         raise SystemExit(f"histórico insuficiente ({len(observations)}) para min_history={MIN_HISTORY}")
-    rows = _run_walkforward(observations, half_life)
+    all_rows = _run_walkforward(observations, half_life)
+    # turno é calculado sobre a temporada INTEIRA (histórico completo até
+    # `end`), nunca sobre o recorte de `start` — senão pedir --period a
+    # partir do meio de uma temporada quebraria o corte T1/T2 daquele ano.
+    _tag_turno(all_rows)
+    rows = [r for r in all_rows if (not start or r["date"] >= start) and (not end or r["date"] <= end)]
+    if not rows:
+        raise SystemExit(f"nenhuma previsão cai no período [{start or '-inf'}, {end or '+inf'}] após o walk-forward")
     n = len(rows)
 
     probs_1x2 = [[r["p_loss"], r["p_draw"], r["p_win"]] for r in rows]
@@ -340,7 +350,6 @@ def run(*, model_tag: str, start: str, end: str) -> dict[str, Any]:
     )
     lambda_values = [r["lambda_total"] for r in rows if r["lambda_total"] is not None]
 
-    _tag_turno(rows)
     strata = {
         "overall": {"overall": _stratum_metrics(rows)},
         "by_season": {k: _stratum_metrics(v) for k, v in _stratify(rows, lambda r: r["season"]).items()},
@@ -362,7 +371,7 @@ def run(*, model_tag: str, start: str, end: str) -> dict[str, Any]:
         "schema_version": "benchmark-predictor/1",
         "model_tag": model_tag,
         "half_life_days": half_life,
-        "period": {"start": start or observations[0]["date"], "end": end or observations[-1]["date"]},
+        "period": {"start": start or rows[0]["date"], "end": end or rows[-1]["date"]},
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "n": n,
         "metrics": metrics,
