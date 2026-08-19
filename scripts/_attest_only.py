@@ -26,10 +26,7 @@ record = attest_pipeline_power(
     lambda: _make_series(params, cfg, inflated=True, seed=SEED),
     lambda: _make_series(params, cfg, inflated=False, seed=SEED + 1),
     attestation_path=att,
-    note=(
-        f"funil O/U {cfg['backtest']['min_edge']:.0%}-{cfg['backtest']['max_edge']:.0%}; "
-        "renovacao core 2.3.0"
-    ),
+    note=(f"funil O/U {cfg['backtest']['min_edge']:.0%}-{cfg['backtest']['max_edge']:.0%}; renovacao core 2.3.0"),
     metric="psr",
 )
 print(f"controle positivo OK - atestado em {att} ({record['passed_at']})")
