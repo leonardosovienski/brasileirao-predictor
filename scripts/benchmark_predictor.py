@@ -27,7 +27,9 @@ base e não estão cobertos aqui ainda — `--baseline` desconhecido falha alto
 
 Estratificações: overall, by_season, by_month, by_team (omite n<10),
 by_probability_bucket (10 faixas da prob. do vencedor previsto),
-by_lambda_total_bucket, by_half_of_season (1º/2º turno por temporada). Toda
+by_lambda_total_bucket, by_turno_of_season (1º/2º turno real, corte por
+ordem cronológica dentro da temporada — metade dos jogos, não mês
+calendário). Toda
 estratificação carrega `n` (Regra 11). `by_home_away` e `by_xg_regime` do
 roadmap NÃO estão neste painel: o evaluator aqui é o Dixon-Coles puro (mesmo
 de H4), sem o ensemble atk/def-xG opcional (`src.xg_model`) integrado ao
@@ -236,8 +238,25 @@ def _lambda_bucket(r: dict[str, Any]) -> str:
     return f"[{lo},{lo + 1})"
 
 
-def _half_of_season(r: dict[str, Any]) -> str:
-    return f"{r['season']}-{'H1' if r['date'][5:7] <= '06' else 'H2'}"
+def _tag_turno(rows: list[dict[str, Any]]) -> None:
+    """Marca `turno` (T1/T2) por ORDEM CRONOLÓGICA dentro da própria temporada
+    (metade dos jogos da temporada = T1, resto = T2) — não por mês calendário.
+    O Brasileirão roda abril-dezembro; um corte em 30/06 NÃO bate com o fim
+    real do 1º turno (19 rodadas), então esse critério seria enganoso pra
+    medir turno 1 vs turno 2 de verdade. Muta `rows` in-place (adiciona a
+    chave `turno`), chamado uma vez antes de qualquer estratificação."""
+    by_season: dict[str, list[dict[str, Any]]] = {}
+    for r in rows:
+        by_season.setdefault(r["season"], []).append(r)
+    for season_rows in by_season.values():
+        season_rows.sort(key=lambda r: r["date"])
+        half = len(season_rows) // 2
+        for i, r in enumerate(season_rows):
+            r["turno"] = "T1" if i < half else "T2"
+
+
+def _turno_of_season(r: dict[str, Any]) -> str:
+    return f"{r['season']}-{r['turno']}"
 
 
 def _stratum_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -321,6 +340,7 @@ def run(*, model_tag: str, start: str, end: str) -> dict[str, Any]:
     )
     lambda_values = [r["lambda_total"] for r in rows if r["lambda_total"] is not None]
 
+    _tag_turno(rows)
     strata = {
         "overall": {"overall": _stratum_metrics(rows)},
         "by_season": {k: _stratum_metrics(v) for k, v in _stratify(rows, lambda r: r["season"]).items()},
@@ -335,7 +355,7 @@ def run(*, model_tag: str, start: str, end: str) -> dict[str, Any]:
         },
         "by_probability_bucket": {k: _stratum_metrics(v) for k, v in _stratify(rows, _prob_bucket).items()},
         "by_lambda_total_bucket": {k: _stratum_metrics(v) for k, v in _stratify(rows, _lambda_bucket).items()},
-        "by_half_of_season": {k: _stratum_metrics(v) for k, v in _stratify(rows, _half_of_season).items()},
+        "by_turno_of_season": {k: _stratum_metrics(v) for k, v in _stratify(rows, _turno_of_season).items()},
     }
 
     return {
