@@ -68,6 +68,10 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
             path = root / "data" / name
             if path.is_file():
                 shutil.copy2(path, data / name)
+        for name in ("research", "runtime"):
+            source_directory = root / "data" / name
+            if source_directory.is_dir():
+                shutil.copytree(source_directory, data / name)
         files = {path.relative_to(temporary).as_posix(): _hash(path) for path in _files(temporary)}
         manifest: dict[str, Any] = {
             "schema_version": SCHEMA_VERSION,

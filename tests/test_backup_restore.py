@@ -31,6 +31,17 @@ def test_backup_verify_restore_roundtrip(tmp_path):
     assert json.loads((restored / "data" / "trials.json").read_text()) == []
 
 
+def test_backup_includes_research_and_runtime(tmp_path):
+    source = _root(tmp_path / "source")
+    (source / "data" / "research").mkdir()
+    (source / "data" / "research" / "h9_shadow.jsonl").write_text("{}\n")
+    (source / "data" / "runtime").mkdir()
+    (source / "data" / "runtime" / "heartbeat.json").write_text("{}\n")
+    backup = create_backup(tmp_path / "backup", root=source)
+    assert (backup / "data" / "research" / "h9_shadow.jsonl").is_file()
+    assert (backup / "data" / "runtime" / "heartbeat.json").is_file()
+
+
 def test_backup_rejeita_tamper_e_overwrite(tmp_path):
     source = _root(tmp_path / "source")
     backup = create_backup(tmp_path / "backup", root=source)

@@ -2,6 +2,14 @@
   "schema_version": "1",
   "jobs": [
     {
+      "id": "brasileirao-h9-fixture-refresh",
+      "command": [".venv/Scripts/python.exe", "scripts/update_h9_fixtures.py"],
+      "timeout_seconds": 5400,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "COLLECTION_ONLY", "cadence": "six-hourly"}
+    },
+    {
       "id": "brasileirao-market-research-featured",
       "command": [".venv/Scripts/python.exe", "scripts/collect_market_research.py"],
       "timeout_seconds": 180,
@@ -64,6 +72,22 @@
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
       "provenance": {"domain": "brasileirao", "mode": "SHADOW", "cadence": "daily"}
+    },
+    {
+      "id": "brasileirao-h9-quality-report",
+      "command": [".venv/Scripts/python.exe", "scripts/report_h9_execution_quality.py"],
+      "timeout_seconds": 120,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "COLLECTION_ONLY", "cadence": "daily"}
+    },
+    {
+      "id": "brasileirao-h9-runtime-backup",
+      "command": [".venv/Scripts/python.exe", "scripts/backup_h9_runtime.py"],
+      "timeout_seconds": 900,
+      "heartbeat_interval_seconds": 10,
+      "runtime": {"backend": "local", "root": "data/runtime"},
+      "provenance": {"domain": "brasileirao", "mode": "COLLECTION_ONLY", "cadence": "daily"}
     }
   ]
 }
