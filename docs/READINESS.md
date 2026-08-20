@@ -52,23 +52,28 @@ plugados — chamá-los falha alto (`choices=["climatology"]` no CLI), não
 silencia. `scripts/run_h4_sweep.py` teve a lacuna de `pipeline_fingerprint`
 corrigida (mesma classe de bug já corrigida em `h10_fadiga_walkforward.py`).
 
-Nenhuma trial de `RESEARCH-01..08` ou `MARKET-01..04` foi aberta nesta
-sessão — o checklist do Roadmap (§12) exige GOV-P0/OPS-P0 completos antes de
-qualquer experimento novo, e dois itens seguem bloqueados por dependerem do
-ambiente do operador (Windows, `data/matches.db` populado), não disponíveis
-neste sandbox:
+**Atualização 2026-08-20 — checklist GOV-P0/OPS-P0 fechado no operador:**
 
-1. Renovação de `data/trials.harness_attestation.json` (`core_version`
-   2.2.0 → 2.3.0, expirado em 2026-08-16) — exige
-   `python scripts/governanca.py` contra um `matches.db` com burn-in real.
-2. Congelamento de `reports/benchmark_baseline_v3_<date>.json` — exige rodar
-   `scripts/benchmark_predictor.py` contra a mesma base real.
+1. `data/trials.harness_attestation.json` renovado (`controle positivo OK`,
+   `passed_at=2026-08-20T00:42:38Z`) — rodado via script isolado
+   (`scripts/_attest_only.py`, descartado depois de usado) contra o
+   `matches.db` real do operador, sem tocar em `data/trials.json`.
+2. `scripts/install_windows_scheduler.ps1` rodado — as 7 tasks
+   (`brasileirao-market-research`, `-prospective-readiness`, `-h9-emit`,
+   `-h9-closing`, `-h9-settle`, `-h9-backup`, `-h9-missed-window`) estão
+   `Ready` no Agendador de Tarefas do operador.
+3. `config.yaml` ganhou `season_id` de 2021-2023 (treino/burn-in exigido
+   pelo Roadmap §3) — coleta real dessas temporadas é ação separada do
+   operador (`python -m src.ingest_sofascore`).
 
-OPS-P0 (agendamento Task Scheduler dos jobs H9 a cada 15min, backup diário,
-alerta de janela perdida) tem o código pronto — `scripts/emit_h9_shadow.py`,
-`scripts/record_h9_closing_snapshots.py`, `scripts/settle_h9_shadow.py`,
-`scripts/backup_h9_runtime.py` e o novo `scripts/report_h9_missed_windows.py`
-— e `scripts/install_windows_scheduler.ps1` já registra as cinco tasks
-correspondentes, mas a instalação em si (`Register-ScheduledTask`) só roda
-na máquina do operador; nenhum agendador existe neste ambiente para
-executá-la.
+**Ainda pendente**: congelamento de `reports/benchmark_baseline_v3_<date>.json`
+— `scripts/benchmark_predictor.py` já foi validado contra dados reais (2026,
+225 jogos previstos em walk-forward; turno 1 e turno 2 estatisticamente
+equivalentes, sem edge significativo ainda sobre climatologia), mas o
+resultado não foi salvo como baseline formal. Um bug real foi achado e
+corrigido no processo: `--period` cortava o histórico de treino antes do
+walk-forward, matando o burn-in ao pedir um recorte recente do calendário.
+
+Nenhuma trial de `RESEARCH-01..08` ou `MARKET-01..04` foi aberta ainda —
+falta só o congelamento do baseline acima pro checklist do Roadmap (§12)
+estar 100% ✓.

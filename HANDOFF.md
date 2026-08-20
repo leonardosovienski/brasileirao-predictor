@@ -1,6 +1,58 @@
 # HANDOFF.md — brasileirao-predictor
 
-> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-19) — fonte da verdade atual
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-20) — fonte da verdade atual
+>
+> **Checklist GOV-P0/OPS-P0 do Roadmap (§12) fechado nesta sessão**, rodando
+> pela primeira vez numa máquina Windows real do operador (clone novo em
+> `C:\Users\Superleo13\Projetos\brasileirao-predictor` — o caminho antigo
+> `C:\Claude-projetos\...` citado nos checkpoints anteriores não existia
+> nessa máquina; o projeto nunca tinha sido clonado aqui).
+>
+> **Fechado:**
+> 1. `data/trials.harness_attestation.json` renovado —
+>    `python scripts/_attest_only.py` (script descartável criado só pra
+>    isso, isolando a etapa 1 de `governanca.py` sem tocar em `trials.json`)
+>    rodou contra a base real e imprimiu `controle positivo OK`
+>    (`passed_at=2026-08-20T00:42:38Z`). Script apagado depois de usado.
+> 2. OPS-P0 instalado de fato — `scripts/install_windows_scheduler.ps1`
+>    rodou e as 7 tasks (`brasileirao-market-research`,
+>    `-prospective-readiness`, `-h9-emit`, `-h9-closing`, `-h9-settle`,
+>    `-h9-backup`, `-h9-missed-window`) estão `Ready` no Agendador de
+>    Tarefas.
+> 3. Dados 2021-2023 mapeados em `config.yaml` (`season_id` 36166/40557/
+>    48982, descobertos via `python -m src.ingest_sofascore --seasons 325`)
+>    — item do checklist que exigia 2021-2023 como treino/burn-in (§3 do
+>    Roadmap). Coleta real dessas temporadas fica por conta do operador
+>    rodando `python -m src.ingest_sofascore` de novo (idempotente).
+>
+> **Ainda pendente antes de "checklist 100%"**: `reports/benchmark_baseline_v3_<date>.json`
+> não foi congelado — `scripts/benchmark_predictor.py` foi rodado (ver
+> validação de turno 1/2 de 2026 abaixo) mas o resultado não foi salvo como
+> baseline formal ainda. Também achado e corrigido nesta sessão um bug real
+> no próprio `benchmark_predictor.py`: `--period` cortava o histórico
+> ANTES do walk-forward, matando o burn-in ao pedir um recorte recente
+> (`histórico insuficiente (225)` mesmo com 985 jogos no banco) — corrigido
+> para rodar o walk-forward sobre o histórico completo e só filtrar as
+> linhas de PREVISÃO pro período pedido.
+>
+> **Primeira leitura real (2026, 225 jogos, half_life=360d do trial H4
+> já registrado)**: turno 1 e turno 2 estatisticamente equivalentes (RPS
+> 0,214 vs 0,210, sem degradação); skill score vs climatologia levemente
+> positivo (RPS +2,4%, Brier +0,5%) mas IC95 cruza zero em ambos — **sem
+> significância ainda** com essa amostra. `calibration_slope` do OU2.5 em
+> -0,20 (ideal ≈1) é um sinal de atenção, mas com poucos jogos por balde de
+> calibração pode ser ruído. Achado paralelo: nomes de time com acento
+> saem corrompidos no `by_team` do relatório (`AtlÃ©tico Mineiro`,
+> `GrÃªmio`, `SÃ£o Paulo`, `VitÃ³ria`) — bug de encoding na ingestão do
+> Sofascore, cosmético, não investigado ainda.
+>
+> Meta de "70% de acerto 1X2" pedida pelo operador foi corrigida em
+> conversa: não é atingível pra futebol (Regra da Seção 10 do Roadmap já
+> proíbe esse alvo) — teto realista de mercados profissionais é ~52-56%,
+> hoje o modelo está em 48,9%. Direção acordada: perseguir o teto real via
+> Track A (RESEARCH-01A em diante), não um número arbitrário.
+
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-19) — fonte da verdade anterior
 >
 > Implementação do checklist GOV-P0/OPS-P0 do "Roadmap Técnico Consolidado
 > v1.0-final" (§12), na parte executável neste ambiente (sandbox sem
