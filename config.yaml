@@ -76,8 +76,22 @@ sofascore:
   rate_limit_seconds: 1.5
   # ut_id 325 = Brasileirão Série A (season 20/21 na lista = temporada COVID,
   # assinatura da liga). season_ids descobertos via
-  # `python -m src.ingest_sofascore --seasons 325` em 2026-07-10.
+  # `python -m src.ingest_sofascore --seasons 325` em 2026-07-10 (2024-2026)
+  # e 2026-08-19 (2021-2023, pro burn-in/treino pedido pelo Roadmap Técnico
+  # Consolidado v1.0-final §3 — 2021-2023 treino, 2025 holdout selado).
   competitions:
+    - name: Brasileirão Série A 2021
+      season: "2021"
+      ut_id: 325
+      season_id: 36166
+    - name: Brasileirão Série A 2022
+      season: "2022"
+      ut_id: 325
+      season_id: 40557
+    - name: Brasileirão Série A 2023
+      season: "2023"
+      ut_id: 325
+      season_id: 48982
     - name: Brasileirão Série A 2024
       season: "2024"
       ut_id: 325
