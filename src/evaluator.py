@@ -18,6 +18,22 @@ Os gols realizados vivem DENTRO de `result` de propósito: a ABC remove só o
 target_key das features, então qualquer campo de resultado fora dele vazaria
 para o predict_step. `train_step` lê `result` do histórico (que chega completo);
 `predict_step` recebe {home, away, kickoff} e nada mais.
+
+GUARDA DE BLOCO DE KICKOFF
+--------------------------
+A ABC do core fatia por ÍNDICE: `train_step` recebe `observations[:i]`, o que é
+estritamente-anterior na ORDEM DA LISTA, não no RELÓGIO. Rodada de futebol tem
+jogos SIMULTÂNEOS (e `matches.date` do projeto é data-sem-hora, o que colapsa
+uma rodada inteira no mesmo instante): sem cuidado, o 7º jogo de um bloco
+treinaria com o resultado dos 6 primeiros, que ainda nem tinham apitado. Isso é
+leakage, e ele CRESCE quando o refit fica mais frequente — exatamente a variável
+que o RESEARCH-01A manipula, o que enviesaria o braço TREATMENT a favor.
+
+Correção: o fit é PREGUIÇOSO. `train_step` só ENFILEIRA o histórico; o ajuste
+acontece no `predict_step`, que conhece o kickoff do alvo e trunca o histórico
+em `kickoff < alvo` antes de ajustar. A cadência de refit (`retrain_every`)
+continua sendo do core; a guarda anti-leakage é ortogonal e vale nos dois
+braços do experimento.
 """
 
 from __future__ import annotations
@@ -44,9 +60,11 @@ class BrasileiraoDixonColesEvaluator(PrequentialEvaluator):
     # cada item: {"index", "prediction": PredictionPoint, "actual": result}
 
     `prediction` é um `predictor_core.contracts.points.PredictionPoint`:
-      predicted_at = kickoff do último jogo do histórico (o instante em que o
-                     modelo "sabia" o que sabia — usar utcnow() aqui quebraria
-                     a reprodutibilidade do replay);
+      predicted_at = kickoff do último jogo REALMENTE usado no ajuste (o
+                     instante em que o modelo "sabia" o que sabia — usar
+                     utcnow() aqui quebraria a reprodutibilidade do replay).
+                     Pela guarda de bloco, é sempre ANTERIOR ao kickoff do
+                     jogo previsto, nunca igual;
       matures_at   = kickoff do jogo previsto (invariante matures_at >=
                      predicted_at é checada pelo próprio contrato);
       value        = {"home", "draw", "away"} somando 1 (ordinal p/ rps);
@@ -61,12 +79,37 @@ class BrasileiraoDixonColesEvaluator(PrequentialEvaluator):
         self.max_goals: int = max_goals
         self.fitted_parameters: dict[str, Any] | None = None
         self._trained_at: datetime | None = None
+        self._pending_history: list[dict[str, Any]] | None = None
+        self.blocked_observations: int = 0  # jogos do mesmo bloco descartados do treino
+        self.deferred_refits: int = 0  # refits adiados por histórico insuficiente
 
     # --- hooks do Template Method (core controla o fatiamento) --------------
 
     def train_step(self, history: list[dict[str, Any]]) -> None:
-        """Ajusta (α, β, γ, ρ) por WNLL sobre o passado estrito recebido do core."""
-        cutoff: datetime = max(h["kickoff"] for h in history)
+        """ENFILEIRA o histórico para ajuste — não ajusta aqui.
+
+        O ajuste precisa do kickoff do jogo-alvo para truncar o bloco simultâneo
+        (ver GUARDA DE BLOCO DE KICKOFF no topo), e o alvo só chega no
+        `predict_step`. Enfileirar preserva a cadência decidida pelo core
+        (`retrain_every`) sem cegar a guarda."""
+        self._pending_history = list(history)
+
+    def _fit(self, history: list[dict[str, Any]], horizon: datetime) -> None:
+        """Ajusta (α, β, γ, ρ) por WNLL sobre os jogos com kickoff < `horizon`."""
+        usable = [h for h in history if h["kickoff"] < horizon]
+        if len({h["home"] for h in usable} | {h["away"] for h in usable}) < 2:
+            # Bloco engoliu o histórico inteiro (ou quase): mantém o ajuste
+            # anterior e tenta de novo no próximo passo, em vez de estourar.
+            self.deferred_refits += 1
+            if self.fitted_parameters is None:
+                raise ValueError(
+                    f"histórico anterior a {horizon.isoformat()} insuficiente para o primeiro "
+                    f"ajuste ({len(usable)} jogos utilizáveis de {len(history)}) — "
+                    "aumente min_history ou verifique a ordenação por kickoff"
+                )
+            return
+        self.blocked_observations += len(history) - len(usable)
+        cutoff: datetime = max(h["kickoff"] for h in usable)
         games = [
             {
                 "home": h["home"],
@@ -75,13 +118,17 @@ class BrasileiraoDixonColesEvaluator(PrequentialEvaluator):
                 "away_goals": h["result"]["away_goals"],
                 "days_ago": (cutoff - h["kickoff"]).total_seconds() / 86400.0,
             }
-            for h in history
+            for h in usable
         ]
         self.fitted_parameters = fit_dixon_coles_parameters(games, self.xi, max_goals=self.max_goals)
         self._trained_at = cutoff
+        self._pending_history = None
 
     def predict_step(self, features: dict[str, Any]) -> PredictionPoint:
-        """Monta a DixonColesMatrix do confronto e devolve o PredictionPoint 1X2."""
+        """Ajusta (se houver histórico enfileirado), monta a DixonColesMatrix do
+        confronto e devolve o PredictionPoint 1X2."""
+        if self._pending_history is not None:
+            self._fit(self._pending_history, features["kickoff"])
         if self.fitted_parameters is None or self._trained_at is None:
             raise RuntimeError(
                 "predict_step antes de train_step — a ABC do core nunca faz isso; chamada manual fora de ordem"
