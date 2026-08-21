@@ -184,8 +184,11 @@ def attest_rps_power() -> dict[str, Any]:
 # ---------- experimento ----------
 
 
-def _arm(observations: list[dict[str, Any]], half_life: float, retrain_every: int, start: str, end: str):
-    rows, ev = _run_walkforward(observations, half_life, retrain_every)
+def _arm(observations: list[dict[str, Any]], half_life: float, retrain_every: int, start: str, end: str, arm: str):
+    def _progress(done: int, total: int) -> None:
+        log.info("  %s: %d/%d previsões", arm, done, total)
+
+    rows, ev = _run_walkforward(observations, half_life, retrain_every, progress=_progress)
     rows = [r for r in rows if (not start or r["date"] >= start) and (not end or r["date"] <= end)]
     return rows, ev
 
@@ -271,9 +274,9 @@ def main() -> int:
         return 1
 
     log.info("braço CONTROL: retrain_every=%d", CONTROL_RETRAIN)
-    control_rows, control_ev = _arm(observations, half_life, CONTROL_RETRAIN, start, end)
+    control_rows, control_ev = _arm(observations, half_life, CONTROL_RETRAIN, start, end, "CONTROL")
     log.info("braço TREATMENT: retrain_every=%d", TREATMENT_RETRAIN)
-    treatment_rows, treatment_ev = _arm(observations, half_life, TREATMENT_RETRAIN, start, end)
+    treatment_rows, treatment_ev = _arm(observations, half_life, TREATMENT_RETRAIN, start, end, "TREATMENT")
 
     # Pareamento só é válido sobre a MESMA sequência de jogos; os dois braços
     # partem das mesmas observações e do mesmo min_history, então isso deveria

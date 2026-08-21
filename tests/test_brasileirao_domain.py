@@ -108,7 +108,11 @@ def test_settle_resultado_real_brasileirao(tmp_path):
 
 def test_espelho_sofascore_para_matches():
     """scripts/sync_matches_from_sofascore: upsert idempotente, tournament do
-    config, neutral=0 (liga tem mando sempre)."""
+    config, neutral=0 (liga tem mando sempre).
+
+    `competitions` é posicional de propósito: um default reintroduziria em
+    silêncio o bug de espelhar a tabela inteira (ver
+    tests/test_sync_competition_filter.py)."""
     spec = importlib.util.spec_from_file_location("sync_matches", ROOT / "scripts" / "sync_matches_from_sofascore.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -128,12 +132,13 @@ def test_espelho_sofascore_para_matches():
     )  # fixture futuro, sem placar
     conn.commit()
 
-    played, fixtures = mod.sync(conn, "Brasileirão Série A")
+    comps = ["Brasileirão Série A 2024", "Brasileirão Série A 2026"]
+    played, fixtures = mod.sync(conn, "Brasileirão Série A", comps)
     assert (played, fixtures) == (1, 1)
     row = conn.execute("SELECT tournament, neutral, home_score FROM matches WHERE home_team='Criciúma'").fetchone()
     assert row == ("Brasileirão Série A", 0, 2)
     # idempotente: rodar de novo não duplica
-    played2, fixtures2 = mod.sync(conn, "Brasileirão Série A")
+    played2, fixtures2 = mod.sync(conn, "Brasileirão Série A", comps)
     assert (played2, fixtures2) == (1, 1)
 
 

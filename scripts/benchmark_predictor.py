@@ -59,6 +59,7 @@ import json
 import sqlite3
 import statistics as st
 import sys
+from collections.abc import Callable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -82,6 +83,15 @@ RETRAIN_EVERY = 100
 MAX_GOALS = 8
 OU_LINE = 2.5
 MIN_TEAM_N = 10
+# Bootstrap de bloco móvel: jogos vizinhos no tempo não são independentes.
+BLOCK_LENGTH = 21
+N_BOOT = 1000
+BOOTSTRAP_SEED = 13
+PROGRESS_EVERY = 200  # log de progresso do walk-forward (execução longa)
+# Baselines de skill score realmente implementados. Os demais do Roadmap SS6
+# (elo_baseline, current_v3, market_no_vig) exigem rodar outros previsores
+# sobre a MESMA base; pedir um deles falha alto, nunca silencia como zero.
+SUPPORTED_BASELINES = frozenset({"climatology"})
 
 
 def _half_life_for(model_tag: str) -> float:
@@ -156,9 +166,18 @@ def _outcomes_1x2(goals_home: int, goals_away: int) -> int:
 
 
 def _run_walkforward(
-    observations: list[dict[str, Any]], half_life: float, retrain_every: int
+    observations: list[dict[str, Any]],
+    half_life: float,
+    retrain_every: int,
+    *,
+    progress: Callable[[int, int], None] | None = None,
 ) -> tuple[list[dict[str, Any]], BrasileiraoDixonColesEvaluator]:
+    """Walk-forward completo. `progress(feitas, total)` é chamado a cada
+    `PROGRESS_EVERY` previsões — uma execução com refit por rodada leva horas e
+    ficar mudo o tempo todo é indistinguível de travamento."""
     ev = BrasileiraoDixonColesEvaluator(half_life_days=half_life, max_goals=MAX_GOALS)
+    if progress is not None:
+        ev = _with_progress(ev, len(observations) - MIN_HISTORY, progress)
     results = ev.run(observations, min_history=MIN_HISTORY, retrain_every=retrain_every)
     rows = []
     for r in results:
@@ -189,6 +208,26 @@ def _run_walkforward(
     return rows, ev
 
 
+def _with_progress(
+    ev: BrasileiraoDixonColesEvaluator, total: int, progress: Callable[[int, int], None]
+) -> BrasileiraoDixonColesEvaluator:
+    """Instrumenta `predict_step` para reportar progresso, sem tocar na lógica
+    do avaliador (que é o objeto sob medição — envolver é mais seguro que
+    espalhar contador dentro dele)."""
+    inner = ev.predict_step
+    state = {"done": 0}
+
+    def counting(features):
+        out = inner(features)
+        state["done"] += 1
+        if state["done"] % PROGRESS_EVERY == 0:
+            progress(state["done"], total)
+        return out
+
+    ev.predict_step = counting  # type: ignore[method-assign]
+    return ev
+
+
 def _climatology_probs(rows: list[dict[str, Any]]) -> list[list[float]]:
     n = len(rows)
     counts = [0, 0, 0]
@@ -199,29 +238,73 @@ def _climatology_probs(rows: list[dict[str, Any]]) -> list[list[float]]:
 
 
 def _metric_record(
-    name: str, value: float, *, baseline_value: float | None, n: int, is_primary: bool
+    name: str,
+    value: float,
+    *,
+    baseline_value: float | None,
+    n: int,
+    is_primary: bool,
+    delta_ci95: tuple[float, float] | None = None,
 ) -> dict[str, Any]:
+    """Uma linha do formato de saída do Roadmap SS6.
+
+    `delta_ci95` é o IC95 do delta de perda (modelo - baseline), na MESMA
+    orientação do campo `delta`: negativo = modelo melhor. Vem de
+    `_delta_ci95`, que trabalha sobre perdas pareadas jogo a jogo — sem ele a
+    métrica primária viajaria sem incerteza, e o Roadmap SS6 exige o campo
+    justamente no exemplo da primária."""
     delta = (value - baseline_value) if baseline_value is not None else None
     return {
         "metric": name,
         "value": round(value, 6),
         "baseline_value": round(baseline_value, 6) if baseline_value is not None else None,
         "delta": round(delta, 6) if delta is not None else None,
-        "delta_ci95": None,
+        "delta_ci95": [round(delta_ci95[0], 6), round(delta_ci95[1], 6)] if delta_ci95 else None,
         "n": n,
         "is_primary": is_primary,
     }
 
 
+def _bootstrap_mean_ci(values: list[float]) -> tuple[float, float] | None:
+    """IC95 da média por bootstrap de BLOCO MÓVEL.
+
+    Não é iid: as linhas chegam em ordem cronológica e o erro de jogos vizinhos
+    é correlacionado (mesma rodada, mesmas equipes em forma, mesmo regime de
+    gols). Reamostrar observação a observação estreita o intervalo e
+    SUPERESTIMA significância — e este painel, sendo a régua de promoção de
+    toda trial, tem que ser o mais conservador dos instrumentos, não o menos.
+    Mesmo esquema já usado por `h10_fadiga_walkforward.py` e pelo RESEARCH-01A."""
+    if not values:
+        return None
+    lo, hi, _samples = bootstrap_ci(
+        values,
+        lambda u: sum(u) / len(u),
+        scheme="moving",
+        block_length=BLOCK_LENGTH,
+        n_boot=N_BOOT,
+        seed=BOOTSTRAP_SEED,
+    )
+    if lo is None or hi is None:
+        return None
+    return lo, hi
+
+
 def _skill_score_ci(losses_model: list[float], losses_baseline: list[float]) -> tuple[float, float] | None:
-    """IC95 bootstrap (iid) da diferença média de perda (baseline - modelo)
-    por jogo — positivo = modelo bate o baseline. `bootstrap_ci` devolve
-    (lo, hi, amostras_ordenadas); só os dois primeiros interessam aqui."""
+    """IC95 do ganho médio (baseline - modelo) por jogo — positivo = modelo bate
+    o baseline."""
     if not losses_model or len(losses_model) != len(losses_baseline):
         return None
-    diffs = [b - m for m, b in zip(losses_model, losses_baseline)]
-    lo, hi, _samples = bootstrap_ci(diffs, lambda u: sum(u) / len(u), scheme="iid", n_boot=1000, seed=13)
-    return lo, hi
+    return _bootstrap_mean_ci([b - m for m, b in zip(losses_model, losses_baseline)])
+
+
+def _delta_ci95(losses_model: list[float], losses_baseline: list[float]) -> tuple[float, float] | None:
+    """IC95 do delta médio (modelo - baseline) — negativo = modelo melhor.
+
+    Mesma quantidade do `_skill_score_ci`, com o SINAL do campo `delta` do
+    formato de saída. Duas orientações no mesmo relatório convidam a erro de
+    leitura, então cada uma tem nome próprio e um só lugar de uso."""
+    ci = _skill_score_ci(losses_model, losses_baseline)
+    return (-ci[1], -ci[0]) if ci else None
 
 
 def _guardrails_ou25(rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -235,15 +318,23 @@ def _guardrails_ou25(rows: list[dict[str, Any]]) -> dict[str, Any]:
     overall_rate = sum(outcomes) / n
     resolution = sum(b["n"] * (b["obs_freq"] - overall_rate) ** 2 for b in table) / n
     sharpness = st.pvariance(probs) if n > 1 else 0.0
-    xs = [b["mean_pred"] for b in table]
-    ys = [b["obs_freq"] for b in table]
-    if len(xs) >= 2 and st.pvariance(xs) > 0:
-        mean_x, mean_y = sum(xs) / len(xs), sum(ys) / len(ys)
-        cov = sum((x - mean_x) * (y - mean_y) for x, y in zip(xs, ys))
-        var_x = sum((x - mean_x) ** 2 for x in xs)
-        slope = cov / var_x if var_x else None
-    else:
-        slope = None
+    # Regressão PONDERADA por `n` do bin. Sem peso, um bin com 3 jogos tem a
+    # mesma alavancagem de um com 400: o slope (guardrail com alvo 0.9-1.1)
+    # passa a refletir ruído de cauda e pode tanto vetar trial boa quanto
+    # mascarar degradação real no miolo da distribuição.
+    bins = [b for b in table if b["n"] > 0]
+    xs = [b["mean_pred"] for b in bins]
+    ys = [b["obs_freq"] for b in bins]
+    ws = [b["n"] for b in bins]
+    slope = None
+    if len(bins) >= 2:
+        w_total = sum(ws)
+        mean_x = sum(w * x for w, x in zip(ws, xs)) / w_total
+        mean_y = sum(w * y for w, y in zip(ws, ys)) / w_total
+        var_x = sum(w * (x - mean_x) ** 2 for w, x in zip(ws, xs))
+        if var_x > 0:
+            cov = sum(w * (x - mean_x) * (y - mean_y) for w, x, y in zip(ws, xs, ys))
+            slope = cov / var_x
     return {
         "ece": round(ece, 6),
         "calibration_slope": round(slope, 6) if slope is not None else None,
@@ -306,12 +397,30 @@ def _stratum_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def run(*, model_tag: str, start: str, end: str, retrain_every: int = RETRAIN_EVERY) -> dict[str, Any]:
+def run(
+    *,
+    model_tag: str,
+    start: str,
+    end: str,
+    retrain_every: int = RETRAIN_EVERY,
+    baseline: str = "climatology",
+) -> dict[str, Any]:
+    if baseline not in SUPPORTED_BASELINES:
+        raise NotImplementedError(
+            f"baseline {baseline!r} não implementado neste painel. Disponíveis: "
+            f"{sorted(SUPPORTED_BASELINES)}. `elo_baseline`, `current_v3` e `market_no_vig` "
+            "exigem rodar OUTROS previsores sobre a MESMA base e ainda não estão plugados — "
+            "falhar alto aqui é melhor que devolver skill score contra um baseline fantasma."
+        )
     half_life = _half_life_for(model_tag)
     observations = _load_observations(end)
     if len(observations) < MIN_HISTORY + 50:
         raise SystemExit(f"histórico insuficiente ({len(observations)}) para min_history={MIN_HISTORY}")
-    all_rows, ev = _run_walkforward(observations, half_life, retrain_every)
+
+    def _progress(done: int, total: int) -> None:
+        print(f"  walk-forward: {done}/{total} previsões", file=sys.stderr, flush=True)
+
+    all_rows, ev = _run_walkforward(observations, half_life, retrain_every, progress=_progress)
     # turno é calculado sobre a temporada INTEIRA (histórico completo até
     # `end`), nunca sobre o recorte de `start` — senão pedir --period a
     # partir do meio de uma temporada quebraria o corte T1/T2 daquele ano.
@@ -330,6 +439,9 @@ def run(*, model_tag: str, start: str, end: str, retrain_every: int = RETRAIN_EV
     brier_losses = [brier([p], [y]) for p, y in zip(probs_1x2, outcomes_1x2)]
     brier_baseline_losses = [brier([p], [y]) for p, y in zip(baseline_probs, outcomes_1x2)]
 
+    ll_losses = [log_loss([p], [y]) for p, y in zip(probs_1x2, outcomes_1x2)]
+    ll_baseline_losses = [log_loss([p], [y]) for p, y in zip(baseline_probs, outcomes_1x2)]
+
     rps_ci = _skill_score_ci(rps_losses, rps_baseline_losses)
     brier_ci = _skill_score_ci(brier_losses, brier_baseline_losses)
 
@@ -340,6 +452,7 @@ def run(*, model_tag: str, start: str, end: str, retrain_every: int = RETRAIN_EV
             baseline_value=rps(baseline_probs, outcomes_1x2),
             n=n,
             is_primary=True,
+            delta_ci95=_delta_ci95(rps_losses, rps_baseline_losses),
         ),
         _metric_record(
             "brier_1x2",
@@ -347,6 +460,7 @@ def run(*, model_tag: str, start: str, end: str, retrain_every: int = RETRAIN_EV
             baseline_value=brier(baseline_probs, outcomes_1x2),
             n=n,
             is_primary=False,
+            delta_ci95=_delta_ci95(brier_losses, brier_baseline_losses),
         ),
         _metric_record(
             "log_loss",
@@ -354,6 +468,7 @@ def run(*, model_tag: str, start: str, end: str, retrain_every: int = RETRAIN_EV
             baseline_value=log_loss(baseline_probs, outcomes_1x2),
             n=n,
             is_primary=False,
+            delta_ci95=_delta_ci95(ll_losses, ll_baseline_losses),
         ),
     ]
     ou_probs = [r["p_over"] for r in rows if r["p_over"] is not None]
@@ -404,6 +519,8 @@ def run(*, model_tag: str, start: str, end: str, retrain_every: int = RETRAIN_EV
         "model_tag": model_tag,
         "half_life_days": half_life,
         "retrain_every": retrain_every,
+        "baseline": baseline,
+        "bootstrap": {"scheme": "moving", "block_length": BLOCK_LENGTH, "n_boot": N_BOOT, "seed": BOOTSTRAP_SEED},
         "kickoff_coverage": {
             "n_observations": len(observations),
             "n_real_kickoff": sum(1 for o in observations if o["has_real_kickoff"]),
@@ -464,8 +581,7 @@ def main() -> int:
     parser.add_argument(
         "--baseline",
         default="climatology",
-        choices=["climatology"],
-        help="baseline de skill score",
+        help=f"baseline de skill score (implementados: {sorted(SUPPORTED_BASELINES)})",
     )
     args = parser.parse_args()
 
@@ -478,6 +594,7 @@ def main() -> int:
         start=start.strip(),
         end=end.strip(),
         retrain_every=args.retrain_every,
+        baseline=args.baseline,
     )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
