@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import json
 import pathlib
-import sqlite3
 import sys
 import tempfile
 from datetime import UTC, datetime, timedelta
@@ -19,6 +18,7 @@ import pytest
 from scripts import benchmark_predictor as bp
 from scripts import research_01a_refit_cadence as r01a
 from scripts.benchmark_predictor import _kickoff, _load_observations
+from src import db
 
 TIMES = ["flamengo", "palmeiras", "gremio", "santos"]
 
@@ -28,13 +28,7 @@ def _tmp_db_com_liga_sintetica(monkeypatch, rodadas: int = 60) -> pathlib.Path:
     walk-forward produzir linhas de verdade — a entrada do teste de contrato
     precisa vir do PRODUTOR, não da imaginação de quem escreve o teste."""
     path = pathlib.Path(tempfile.mkdtemp()) / "m.db"
-    conn = sqlite3.connect(path)
-    conn.executescript(
-        "CREATE TABLE matches (date TEXT, home_team TEXT, away_team TEXT, home_score INT, away_score INT,"
-        " PRIMARY KEY (date, home_team, away_team));"
-        "CREATE TABLE sofascore_matches (event_id INTEGER PRIMARY KEY, date TEXT, kickoff_at TEXT,"
-        " home_team TEXT, away_team TEXT);"
-    )
+    conn = db.connect(str(path))  # DDL REAL — schema escrito à mão no teste diverge
     eid = 0
     for rodada in range(rodadas):
         dia = datetime(2021, 4, 3, tzinfo=UTC) + timedelta(days=7 * rodada)
@@ -44,8 +38,16 @@ def _tmp_db_com_liga_sintetica(monkeypatch, rodadas: int = 60) -> pathlib.Path:
         for j, (casa, fora) in enumerate(pares):
             d = dia.strftime("%Y-%m-%d")
             kickoff = (dia + timedelta(hours=16 + 2 * j)).isoformat(timespec="seconds")
-            conn.execute("INSERT INTO matches VALUES (?,?,?,?,?)", (d, casa, fora, (rodada + j) % 3, rodada % 3))
-            conn.execute("INSERT INTO sofascore_matches VALUES (?,?,?,?,?)", (eid, d, kickoff, casa, fora))
+            conn.execute(
+                "INSERT INTO matches (date, home_team, away_team, home_score, away_score, tournament, neutral)"
+                " VALUES (?,?,?,?,?,?,0)",
+                (d, casa, fora, (rodada + j) % 3, rodada % 3, "Brasileirão Série A"),
+            )
+            conn.execute(
+                "INSERT INTO sofascore_matches (event_id, date, kickoff_at, home_team, away_team,"
+                " home_score, away_score, home_xg, away_xg) VALUES (?,?,?,?,?,?,?,?,?)",
+                (eid, d, kickoff, casa, fora, (rodada + j) % 3, rodada % 3, 1.4, 0.9),
+            )
             eid += 1
     conn.commit()
     conn.close()
@@ -75,13 +77,7 @@ def test_kickoff_normaliza_sufixo_z() -> None:
 
 
 def _seed_db(path, *, com_kickoff: bool) -> None:
-    conn = sqlite3.connect(path)
-    conn.executescript(
-        "CREATE TABLE matches (date TEXT, home_team TEXT, away_team TEXT, home_score INT, away_score INT,"
-        " PRIMARY KEY (date, home_team, away_team));"
-        "CREATE TABLE sofascore_matches (event_id INTEGER PRIMARY KEY, date TEXT, kickoff_at TEXT,"
-        " home_team TEXT, away_team TEXT);"
-    )
+    conn = db.connect(str(path))  # DDL REAL, não uma cópia que envelhece
     # Mesmo dia, horários DECRESCENTES na ordem de inserção: se o carregador
     # ordenasse por `date`, a ordem da lista sairia invertida no relógio.
     jogos = [
@@ -90,9 +86,16 @@ def _seed_db(path, *, com_kickoff: bool) -> None:
         ("2021-04-03", "bahia", "vasco", "2021-04-03T16:00:00+00:00"),
     ]
     for i, (d, h, a, k) in enumerate(jogos):
-        conn.execute("INSERT INTO matches VALUES (?,?,?,?,?)", (d, h, a, 1, 0))
+        conn.execute(
+            "INSERT INTO matches (date, home_team, away_team, home_score, away_score, tournament, neutral)"
+            " VALUES (?,?,?,?,?,?,0)",
+            (d, h, a, 1, 0, "Brasileirão Série A"),
+        )
         if com_kickoff:
-            conn.execute("INSERT INTO sofascore_matches VALUES (?,?,?,?,?)", (i, d, k, h, a))
+            conn.execute(
+                "INSERT INTO sofascore_matches (event_id, date, kickoff_at, home_team, away_team) VALUES (?,?,?,?,?)",
+                (i, d, k, h, a),
+            )
     conn.commit()
     conn.close()
 

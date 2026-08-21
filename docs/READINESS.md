@@ -188,18 +188,60 @@ servir de régua para comparar qualquer trial.
 
 *Pendências abertas (decisão de arquitetura, não corrigidas aqui):*
 
-* **O painel canônico não mede o modelo que serve.** `benchmark_predictor.py`
-  avalia Dixon-Coles + Poisson puro (`BrasileiraoDixonColesEvaluator`), mas o
-  caminho de serving (`src/predict.py`) roda `maybe_blend` com
-  `ensemble_xg.enabled: true` e se identifica como `Ensemble(NB+DC,
-  AtkDef-xG)` — Binomial Negativa mais ensemble de xG. São modelos diferentes
-  em distribuição E em features. Toda trial de RESEARCH-01..08 é promovida
-  contra uma régua que não mede o que realmente prevê: um GO pode não
-  transferir, e um NO-GO pode estar escondendo ganho real. Alinhar os dois
-  muda a régua de novo e é decisão do operador.
+* ~~**O painel canônico não mede o modelo que serve.**~~ **RESOLVIDO em
+  2026-08-21** — ver "Alinhamento painel × serving" abaixo.
 * **Jogo adiado deixa linha órfã em `matches`.** A PK é `(date, home_team,
   away_team)` e `sofascore_matches` tem `event_id`; adiamento muda a data, a
   linha nova entra e a antiga fica (o upsert não deleta), virando fixture
   fantasma. Não afeta o benchmark (que filtra `home_score IS NOT NULL`), mas
   afeta listagem de fixtures e o pipeline H9. Resolver exige migração de
   schema (`event_id` em `matches`), fora do escopo desta auditoria.
+
+
+**Alinhamento painel × serving (2026-08-21):**
+
+`src/serving_evaluator.py` (`ServingStackEvaluator`) reconstrói a pilha de
+produção dentro do laço walk-forward, e `scripts/benchmark_predictor.py` ganhou
+`--engine {dixon_coles,serving}` para escolher o que medir.
+
+*Por que não bastava ler o cache do cron.* `src/cron_update_models.py` ajusta
+Elo, `fit_goal_model` e as forças atk/def-xG com TODOS os jogos disputados da
+janela do banco. Em produção isso é honesto — o cron roda "agora", e agora só
+existe passado. Num backtest seria vazamento massivo: o mesmo cache serviria
+para prever 2021 e 2024, dando ao modelo de 2021 o conhecimento de 2024. Por
+isso a pilha é REAJUSTADA a cada refit sobre o histórico truncado, com os dois
+cortes do cron (`elo.window_years` e `model.calibration_window_years`)
+aplicados RELATIVOS ao último jogo do histórico, não à data de hoje — é isso
+que dá paridade train/serve num replay.
+
+*Paridade, não reimplementação.* Todas as etapas chamam as MESMAS funções do
+serving (`ratings.compute_ratings`, `model.fit_goal_model`,
+`model.predict_match`, `xg_model.fit/predict/blend`). Nada é reescrito: uma
+cópia divergiria com o tempo e o painel voltaria a medir outra coisa.
+`tests/test_serving_evaluator.py` fixa isso comparando a previsão do avaliador
+com a pilha recomposta à mão.
+
+*xG dentro de `result`.* O `_load_observations` passou a carregar
+`tournament`, `neutral` e o xG das partidas. O xG vai ANINHADO em `result`
+pelo mesmo motivo dos gols: a ABC do core remove só o `target_key` antes do
+`predict_step`, então campo de desfecho no nível de cima chegaria à previsão
+do próprio jogo. Aninhado, alimenta o ajuste a partir do histórico e fica
+invisível na hora de prever.
+
+*Duas diferenças deliberadas em relação ao serving:*
+
+1. **Time estreante não derruba a avaliação.** `src/predict.py` faz
+   `sys.exit` em time desconhecido; num replay histórico isso mataria a
+   execução inteira por causa de um promovido. Aqui ele entra com
+   `elo.initial_rating` — mesmo shrinkage neutro que o `xg_model.predict` já
+   aplica a time sem histórico.
+2. **Falha de ajuste do xG é CONTADA.** `xg_model.maybe_blend` degrada em
+   silêncio para o baseline no serving (correto: serving não pode cair). No
+   painel isso mediria o baseline achando que mede o ensemble, então
+   `block_guard.xg_fit_failures` reporta quantas vezes aconteceu.
+
+**`dixon_coles` segue sendo o motor DEFAULT** — trocar de repente invalidaria
+as medições já feitas contra ele, inclusive a trial `h11` em curso. O
+`serving` é opt-in até o operador decidir migrar a régua, e o relatório carrega
+`engine` e `serves_production_model` para que nenhuma comparação misture os
+dois sem perceber.
