@@ -7,13 +7,51 @@ de 2025 recusado por padrão, e o veredito respeitando primária + guardrails.
 
 from __future__ import annotations
 
+import json
+import pathlib
 import sqlite3
-from datetime import UTC, datetime
+import sys
+import tempfile
+from datetime import UTC, datetime, timedelta
 
 import pytest
 
+from scripts import benchmark_predictor as bp
 from scripts import research_01a_refit_cadence as r01a
 from scripts.benchmark_predictor import _kickoff, _load_observations
+
+TIMES = ["flamengo", "palmeiras", "gremio", "santos"]
+
+
+def _tmp_db_com_liga_sintetica(monkeypatch, rodadas: int = 60) -> pathlib.Path:
+    """Base pequena, com kickoff real e horários distintos, suficiente para o
+    walk-forward produzir linhas de verdade — a entrada do teste de contrato
+    precisa vir do PRODUTOR, não da imaginação de quem escreve o teste."""
+    path = pathlib.Path(tempfile.mkdtemp()) / "m.db"
+    conn = sqlite3.connect(path)
+    conn.executescript(
+        "CREATE TABLE matches (date TEXT, home_team TEXT, away_team TEXT, home_score INT, away_score INT,"
+        " PRIMARY KEY (date, home_team, away_team));"
+        "CREATE TABLE sofascore_matches (event_id INTEGER PRIMARY KEY, date TEXT, kickoff_at TEXT,"
+        " home_team TEXT, away_team TEXT);"
+    )
+    eid = 0
+    for rodada in range(rodadas):
+        dia = datetime(2021, 4, 3, tzinfo=UTC) + timedelta(days=7 * rodada)
+        pares = [(TIMES[0], TIMES[1]), (TIMES[2], TIMES[3])]
+        if rodada % 2:
+            pares = [(a, h) for h, a in pares]
+        for j, (casa, fora) in enumerate(pares):
+            d = dia.strftime("%Y-%m-%d")
+            kickoff = (dia + timedelta(hours=16 + 2 * j)).isoformat(timespec="seconds")
+            conn.execute("INSERT INTO matches VALUES (?,?,?,?,?)", (d, casa, fora, (rodada + j) % 3, rodada % 3))
+            conn.execute("INSERT INTO sofascore_matches VALUES (?,?,?,?,?)", (eid, d, kickoff, casa, fora))
+            eid += 1
+    conn.commit()
+    conn.close()
+    monkeypatch.setattr(bp, "DB", path)
+    return path
+
 
 # ---------- kickoff real vs. fallback ----------
 
@@ -92,14 +130,42 @@ def test_ganho_pareado_tem_sinal_de_melhora_do_tratamento() -> None:
     assert out["ci95"][0] > 0
 
 
-def test_perdas_pareadas_saem_uma_por_jogo() -> None:
-    rows = [
-        {"p_loss": 0.2, "p_draw": 0.3, "p_win": 0.5, "actual_1x2": 2, "p_over": 0.6, "actual_ou25": 1},
-        {"p_loss": 0.5, "p_draw": 0.3, "p_win": 0.2, "actual_1x2": 0, "p_over": 0.4, "actual_ou25": 0},
-    ]
+def test_paired_losses_consome_as_linhas_reais_do_painel(monkeypatch) -> None:
+    """Contrato COM `benchmark_predictor._run_walkforward` — exercitando o
+    produtor de verdade, não linhas fabricadas.
+
+    A versão anterior deste teste montava os dicts à mão e escrevia
+    `actual_ou25`, um campo que o painel nunca produziu (ele emite
+    `actual_over`). O teste passava porque validava a própria invenção; a
+    execução real morreu de KeyError DEPOIS dos dois braços, com 45 minutos de
+    CPU perdidos. Fabricar a entrada do teste é fabricar o contrato."""
+    db = _tmp_db_com_liga_sintetica(monkeypatch)
+    assert db  # o monkeypatch já apontou benchmark_predictor.DB pra base sintética
+    observations = _load_observations("")
+    monkeypatch.setattr(bp, "MIN_HISTORY", 20)
+    rows, _ev = bp._run_walkforward(observations, half_life=120.0, retrain_every=10)
+    assert rows, "walk-forward não produziu linhas — teste não exercita nada"
+
     losses = r01a._paired_losses(rows)
     assert set(losses) == {"rps", "brier_1x2", "log_loss", "brier_ou25"}
     assert all(len(v) == len(rows) for v in losses.values())
+
+
+def test_contrato_de_linha_declara_tudo_que_o_script_consome(monkeypatch) -> None:
+    """`REQUIRED_ROW_KEYS` não pode virar ficção: os campos declarados têm que
+    existir mesmo nas linhas do painel."""
+    _tmp_db_com_liga_sintetica(monkeypatch)
+    observations = _load_observations("")
+    monkeypatch.setattr(bp, "MIN_HISTORY", 20)
+    rows, _ev = bp._run_walkforward(observations, half_life=120.0, retrain_every=10)
+    assert r01a.REQUIRED_ROW_KEYS <= set(rows[0])
+    r01a._check_row_contract(rows)  # não levanta
+
+
+def test_contrato_de_linha_falha_alto_quando_campo_some() -> None:
+    incompleta = [{"p_win": 0.5, "p_draw": 0.3, "p_loss": 0.2}]
+    with pytest.raises(KeyError, match="actual_over"):
+        r01a._check_row_contract(incompleta)
 
 
 def test_veredito_refuta_quando_ic95_cruza_zero() -> None:
@@ -183,3 +249,52 @@ def test_params_carregam_a_variavel_manipulada() -> None:
     assert params["control"] == r01a.CONTROL_RETRAIN
     assert params["treatment"] == r01a.TREATMENT_RETRAIN
     assert params["control"] != params["treatment"]
+
+
+# ---------- smoke de ponta a ponta ----------
+
+
+def test_experimento_completo_roda_e_grava_relatorio(tmp_path, monkeypatch) -> None:
+    """Percorre `main()` inteiro: dois braços, pareamento, bootstrap, veredito e
+    escrita do relatório.
+
+    Nenhum teste anterior exercitava esse caminho de ponta a ponta — por isso um
+    KeyError entre `_run_walkforward` e `_paired_losses` só apareceu na execução
+    real do operador, DEPOIS dos dois braços, com 45 minutos de CPU perdidos.
+    Testar as peças isoladamente não prova que elas se encaixam."""
+    _tmp_db_com_liga_sintetica(monkeypatch)
+    monkeypatch.setattr(bp, "MIN_HISTORY", 20)
+    monkeypatch.setattr(r01a, "MIN_HISTORY", 20)
+    monkeypatch.setattr(r01a, "CONTROL_RETRAIN", 20)
+    monkeypatch.setattr(r01a, "TREATMENT_RETRAIN", 5)
+    monkeypatch.setattr(r01a, "N_BOOT", 50)  # o IC não interessa aqui, só o caminho
+    monkeypatch.setattr(r01a, "load_config", lambda: {})
+    monkeypatch.setattr(r01a, "attest_rps_power", lambda: {"pipeline_fingerprint": "deadbeef"})
+    monkeypatch.setattr(r01a, "_half_life_for", lambda _tag: 120.0)
+
+    registradas: list[dict] = []
+
+    class _FakeRegistry:
+        def __init__(self, *a, **kw) -> None: ...
+
+        def register(self, name, **kw):
+            registradas.append({"name": name, "status": kw.get("status")})
+            return []
+
+    monkeypatch.setattr(r01a, "TrialRegistry", _FakeRegistry)
+
+    saida = tmp_path / "r01a.json"
+    monkeypatch.setattr(sys, "argv", ["research_01a", "--period", "2021-01-01,2024-12-31", "--output", str(saida)])
+    assert r01a.main() == 0
+
+    relatorio = json.loads(saida.read_text(encoding="utf-8"))
+    assert relatorio["primary"]["metric"] == "rps"
+    assert relatorio["primary"]["n"] > 0
+    assert set(relatorio["guardrails"]) == set(r01a.GUARDRAIL_METRICS)
+    assert relatorio["verdict"]["status"] in {"comprovada", "refutada", "inconclusiva"}
+    assert relatorio["diagnostic"]["blocked_observations_treatment"] >= 0
+
+    # pré-registro ANTES do resultado, e o veredito atualizando a MESMA trial
+    assert [r["status"] for r in registradas][0] == "pre-registrada"
+    assert len(registradas) == 2
+    assert {r["name"] for r in registradas} == {r01a.TRIAL_NAME}
