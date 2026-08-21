@@ -245,3 +245,52 @@ as medições já feitas contra ele, inclusive a trial `h11` em curso. O
 `serving` é opt-in até o operador decidir migrar a régua, e o relatório carrega
 `engine` e `serves_production_model` para que nenhuma comparação misture os
 dois sem perceber.
+
+
+**Controle negativo do pipeline (2026-08-21):**
+
+`scripts/permutation_test.py` fecha a metade que faltava da validação do
+instrumento. `attest_pipeline_power` já provava o controle POSITIVO — a régua
+detecta sinal sintético. Faltava o oposto, sobre dados REAIS: a régua rejeita
+ruído quando roda sobre a base, o carregamento e a ordenação DESTE projeto?
+
+O teste embaralha os `result` entre as partidas e roda o mesmo walk-forward.
+Cada `result` viaja inteiro (home_goals e away_goals juntos, na ordem
+original), então as marginais da liga — e com elas a climatologia — ficam
+idênticas; o que se destrói é só a associação time↔desfecho. Sobra exatamente
+um sinal: as marginais globais, que é o que a climatologia captura. Logo o
+skill score contra climatologia tem que colapsar para zero.
+
+Se o modelo AINDA bater a climatologia com IC95 acima de zero em dados sem
+sinal, não existe modelo bom — existe vazamento. O script sai com código 2
+nesse caso.
+
+**Por que isso valia o custo:** todos os vazamentos achados na auditoria deste
+dia teriam aparecido aqui — guarda de bloco ausente no Dixon-Coles e no Elo,
+ordenação por data-sem-hora dentro da rodada, xG do jogo previsto no nível
+errado do dict. Nenhum quebrava teste unitário; todos inflavam a métrica em
+silêncio.
+
+O holdout de 2025 é recusado por padrão também aqui: um controle negativo
+consome a amostra virgem tanto quanto um experimento.
+
+**Pendências que seguem abertas — dependem de decisão ou de informação do
+operador, não de implementação:**
+
+1. **Custo do walk-forward.** `fit_dixon_coles_parameters` (src/dixon_coles.py)
+   avalia o objetivo num laço Python que constrói uma `DixonColesMatrix`
+   inteira POR JOGO e POR AVALIAÇÃO, e o `minimize` roda sem gradiente
+   analítico — o scipy faz diferenças finitas sobre ~52 parâmetros, ou seja
+   ~53 avaliações por passo do gradiente. É a causa das ~4h30 de uma execução
+   com refit por rodada. Vetorizar em numpy ou fornecer o jacobiano daria
+   ganho de ordem(ns) de grandeza, MAS qualquer mudança na numérica pode mover
+   resultados já congelados — precisa de decisão explícita e de re-congelar as
+   réguas depois.
+2. **Baseline `market_no_vig`.** O Roadmap §6 pede, e é o teste de teto: se o
+   modelo não bate o fechamento sem vig, não há edge econômico. Depende da
+   cobertura de odds históricas na base do operador, que não é verificável a
+   partir do repositório.
+3. **Linha órfã de jogo adiado.** PK de `matches` é
+   `(date, home_team, away_team)`; adiamento muda a data, a linha nova entra e
+   a antiga fica. Resolver exige migração de schema (`event_id` em `matches`)
+   sobre a base viva do operador — não é mudança para fazer às cegas.
