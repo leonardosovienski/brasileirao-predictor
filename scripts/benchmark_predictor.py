@@ -74,6 +74,7 @@ from predictor_core.measurement.metrics import brier, calibration_table, log_los
 from src.dixon_coles import DixonColesMatrix  # noqa: E402
 from src.evaluator import BrasileiraoDixonColesEvaluator  # noqa: E402
 from src.ingest import load_config  # noqa: E402
+from src.serving_evaluator import ServingStackEvaluator  # noqa: E402
 
 DB = ROOT / "data" / "matches.db"
 TRIALS = ROOT / "data" / "trials.json"
@@ -92,6 +93,12 @@ PROGRESS_EVERY = 200  # log de progresso do walk-forward (execução longa)
 # (elo_baseline, current_v3, market_no_vig) exigem rodar outros previsores
 # sobre a MESMA base; pedir um deles falha alto, nunca silencia como zero.
 SUPPORTED_BASELINES = frozenset({"climatology"})
+# Motores mensuráveis. `dixon_coles` é o histórico (Poisson + DC puro) e segue
+# sendo o DEFAULT para não invalidar de repente as medições já feitas contra
+# ele; `serving` é a pilha que realmente prevê (Elo + NB/DC + ensemble xG),
+# reconstruída a cada reajuste em src/serving_evaluator.py.
+ENGINES = ("dixon_coles", "serving")
+DEFAULT_ENGINE = "dixon_coles"
 
 
 def _half_life_for(model_tag: str) -> float:
@@ -112,7 +119,8 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
     conn = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
     try:
         rows = conn.execute(
-            "SELECT m.date, m.home_team, m.away_team, m.home_score, m.away_score, s.kickoff_at "
+            "SELECT m.date, m.home_team, m.away_team, m.home_score, m.away_score, s.kickoff_at, "
+            "       m.tournament, m.neutral, s.home_xg, s.away_xg "
             "FROM matches m LEFT JOIN sofascore_matches s "
             "  ON s.date = m.date AND s.home_team = m.home_team AND s.away_team = m.away_team "
             "WHERE m.home_score IS NOT NULL AND m.away_score IS NOT NULL"
@@ -120,7 +128,7 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
     finally:
         conn.close()
     obs = []
-    for d, home, away, hs, asc, kickoff_at in rows:
+    for d, home, away, hs, asc, kickoff_at, tournament, neutral, home_xg, away_xg in rows:
         obs.append(
             {
                 "home": home,
@@ -128,7 +136,21 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
                 "kickoff": _kickoff(d, kickoff_at),
                 "date": d,
                 "has_real_kickoff": kickoff_at is not None,
-                "result": {"home_goals": int(hs), "away_goals": int(asc)},
+                "tournament": tournament,
+                "neutral": int(neutral or 0),
+                # xG vive DENTRO de `result`, junto dos gols, pelo MESMO motivo
+                # documentado em src/evaluator.py: a ABC do core remove só o
+                # `target_key` das features antes do predict_step. Qualquer
+                # campo de DESFECHO deixado no nível de cima chegaria à
+                # previsão do próprio jogo — vazamento. Aninhado aqui, o xG
+                # continua disponível no HISTÓRICO (que é passado estrito) para
+                # o ajuste do ensemble, e invisível na hora de prever.
+                "result": {
+                    "home_goals": int(hs),
+                    "away_goals": int(asc),
+                    "home_xg": home_xg,
+                    "away_xg": away_xg,
+                },
             }
         )
     # Ordenar pelo RELÓGIO, não pela data-sem-hora: a ordem da lista é o que a
@@ -165,17 +187,32 @@ def _outcomes_1x2(goals_home: int, goals_away: int) -> int:
     return 0
 
 
+def _make_evaluator(engine: str, half_life: float, cfg: dict[str, Any] | None):
+    """Instancia o motor pedido. `dixon_coles` mede o Poisson+DC puro;
+    `serving` mede a pilha que realmente prevê — ver
+    src/serving_evaluator.py."""
+    if engine == "serving":
+        if not cfg:
+            raise SystemExit("engine 'serving' exige config.yaml carregado (Elo, calibração, ensemble_xg)")
+        return ServingStackEvaluator(cfg, max_goals=MAX_GOALS)
+    if engine != "dixon_coles":
+        raise NotImplementedError(f"engine {engine!r} desconhecido. Disponíveis: {list(ENGINES)}")
+    return BrasileiraoDixonColesEvaluator(half_life_days=half_life, max_goals=MAX_GOALS)
+
+
 def _run_walkforward(
     observations: list[dict[str, Any]],
     half_life: float,
     retrain_every: int,
     *,
     progress: Callable[[int, int], None] | None = None,
-) -> tuple[list[dict[str, Any]], BrasileiraoDixonColesEvaluator]:
+    engine: str = DEFAULT_ENGINE,
+    cfg: dict[str, Any] | None = None,
+):
     """Walk-forward completo. `progress(feitas, total)` é chamado a cada
     `PROGRESS_EVERY` previsões — uma execução com refit por rodada leva horas e
     ficar mudo o tempo todo é indistinguível de travamento."""
-    ev = BrasileiraoDixonColesEvaluator(half_life_days=half_life, max_goals=MAX_GOALS)
+    ev = _make_evaluator(engine, half_life, cfg)
     if progress is not None:
         ev = _with_progress(ev, len(observations) - MIN_HISTORY, progress)
     results = ev.run(observations, min_history=MIN_HISTORY, retrain_every=retrain_every)
@@ -208,9 +245,7 @@ def _run_walkforward(
     return rows, ev
 
 
-def _with_progress(
-    ev: BrasileiraoDixonColesEvaluator, total: int, progress: Callable[[int, int], None]
-) -> BrasileiraoDixonColesEvaluator:
+def _with_progress(ev, total: int, progress: Callable[[int, int], None]):
     """Instrumenta `predict_step` para reportar progresso, sem tocar na lógica
     do avaliador (que é o objeto sob medição — envolver é mais seguro que
     espalhar contador dentro dele)."""
@@ -404,6 +439,8 @@ def run(
     end: str,
     retrain_every: int = RETRAIN_EVERY,
     baseline: str = "climatology",
+    engine: str = DEFAULT_ENGINE,
+    cfg: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if baseline not in SUPPORTED_BASELINES:
         raise NotImplementedError(
@@ -420,7 +457,7 @@ def run(
     def _progress(done: int, total: int) -> None:
         print(f"  walk-forward: {done}/{total} previsões", file=sys.stderr, flush=True)
 
-    all_rows, ev = _run_walkforward(observations, half_life, retrain_every, progress=_progress)
+    all_rows, ev = _run_walkforward(observations, half_life, retrain_every, progress=_progress, engine=engine, cfg=cfg)
     # turno é calculado sobre a temporada INTEIRA (histórico completo até
     # `end`), nunca sobre o recorte de `start` — senão pedir --period a
     # partir do meio de uma temporada quebraria o corte T1/T2 daquele ano.
@@ -519,6 +556,8 @@ def run(
         "model_tag": model_tag,
         "half_life_days": half_life,
         "retrain_every": retrain_every,
+        "engine": engine,
+        "serves_production_model": engine == "serving",
         "baseline": baseline,
         "bootstrap": {"scheme": "moving", "block_length": BLOCK_LENGTH, "n_boot": N_BOOT, "seed": BOOTSTRAP_SEED},
         "kickoff_coverage": {
@@ -529,6 +568,9 @@ def run(
         "block_guard": {
             "blocked_observations": ev.blocked_observations,
             "deferred_refits": ev.deferred_refits,
+            # Só o motor `serving` ajusta xG; degradação silenciosa faria o
+            # painel medir o baseline puro achando que mede o ensemble.
+            "xg_fit_failures": getattr(ev, "xg_fit_failures", None),
         },
         "period": {"start": start or rows[0]["date"], "end": end or rows[-1]["date"]},
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
@@ -569,6 +611,15 @@ def main() -> int:
     )
     parser.add_argument("--output", required=True, type=Path, help="caminho do JSON de saída")
     parser.add_argument(
+        "--engine",
+        default=DEFAULT_ENGINE,
+        choices=list(ENGINES),
+        help=(
+            f"motor avaliado (default {DEFAULT_ENGINE}). 'dixon_coles' = Poisson+DC puro (histórico); "
+            "'serving' = a pilha que realmente prevê (Elo + NB/DC + ensemble xG)"
+        ),
+    )
+    parser.add_argument(
         "--retrain-every",
         type=int,
         default=RETRAIN_EVERY,
@@ -586,7 +637,7 @@ def main() -> int:
     args = parser.parse_args()
 
     start, _, end = args.period.partition(",")
-    load_config()  # valida config.yaml cedo, falha alto se ausente
+    cfg = load_config()  # valida config.yaml cedo, falha alto se ausente
     if args.retrain_every < 1:
         parser.error("--retrain-every >= 1")
     result = run(
@@ -595,11 +646,16 @@ def main() -> int:
         end=end.strip(),
         retrain_every=args.retrain_every,
         baseline=args.baseline,
+        engine=args.engine,
+        cfg=cfg,
     )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
-    print(f"BENCHMARK_WRITTEN path={args.output} n={result['n']} rps={result['metrics'][0]['value']}")
+    print(
+        f"BENCHMARK_WRITTEN path={args.output} engine={result['engine']} "
+        f"n={result['n']} rps={result['metrics'][0]['value']}"
+    )
     return 0
 
 

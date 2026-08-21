@@ -12,26 +12,24 @@ from __future__ import annotations
 import sqlite3
 
 from scripts.sync_matches_from_sofascore import sync
+from src import db
 
 SERIE_A = "Brasileirão Série A 2024"
 SERIE_B = "Brasileirão Série B 2024"
 
 
 def _conn() -> sqlite3.Connection:
-    conn = sqlite3.connect(":memory:")
-    conn.executescript(
-        "CREATE TABLE matches (date TEXT, home_team TEXT, away_team TEXT, home_score INT,"
-        " away_score INT, tournament TEXT, city TEXT, country TEXT, neutral INT,"
-        " PRIMARY KEY (date, home_team, away_team));"
-        "CREATE TABLE sofascore_matches (event_id INTEGER PRIMARY KEY, competition TEXT, date TEXT,"
-        " home_team TEXT, away_team TEXT, home_score INT, away_score INT);"
-    )
+    conn = db.connect(":memory:")  # DDL REAL — schema fabricado no teste diverge do de produção
     linhas = [
         (1, SERIE_A, "2024-04-13", "flamengo", "palmeiras", 2, 1),
         (2, SERIE_A, "2024-04-14", "gremio", "santos", None, None),
         (3, SERIE_B, "2024-04-13", "novorizontino", "mirassol", 1, 0),
     ]
-    conn.executemany("INSERT INTO sofascore_matches VALUES (?,?,?,?,?,?,?)", linhas)
+    conn.executemany(
+        "INSERT INTO sofascore_matches (event_id, competition, date, home_team, away_team,"
+        " home_score, away_score) VALUES (?,?,?,?,?,?,?)",
+        linhas,
+    )
     conn.commit()
     return conn
 

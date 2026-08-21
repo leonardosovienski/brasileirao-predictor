@@ -10,6 +10,8 @@ from __future__ import annotations
 import pytest
 
 from scripts import benchmark_predictor as bp
+from src.evaluator import BrasileiraoDixonColesEvaluator
+from src.serving_evaluator import ServingStackEvaluator
 
 # ---------- delta_ci95 no formato de saída (Roadmap §6) ----------
 
@@ -93,3 +95,44 @@ def test_baseline_desconhecido_falha_alto() -> None:
 
 def test_climatology_e_o_baseline_suportado() -> None:
     assert "climatology" in bp.SUPPORTED_BASELINES
+
+
+# ---------- seletor de motor (alinhamento painel × serving) ----------
+
+
+def test_engine_desconhecido_falha_alto() -> None:
+    with pytest.raises(NotImplementedError, match="engine"):
+        bp._make_evaluator("regressao_magica", 120.0, None)
+
+
+def test_engine_default_continua_sendo_dixon_coles() -> None:
+    """Trocar o default de repente invalidaria as medições já feitas contra o
+    motor histórico — inclusive a trial h11 em curso."""
+    assert bp.DEFAULT_ENGINE == "dixon_coles"
+    ev = bp._make_evaluator("dixon_coles", 120.0, None)
+    assert isinstance(ev, BrasileiraoDixonColesEvaluator)
+
+
+def test_engine_serving_instancia_a_pilha_de_producao() -> None:
+    cfg = {
+        "tournament_name": "Brasileirão Série A",
+        "elo": {
+            "initial_rating": 1500,
+            "home_advantage": 100,
+            "window_years": 6,
+            "form_half_life_years": 4.0,
+            "k_factors": {"default": 30},
+        },
+        "model": {"calibration_window_years": 4, "max_goals": 6},
+        "ensemble_xg": {"enabled": True, "blend_weight": 0.5},
+    }
+    ev = bp._make_evaluator("serving", 120.0, cfg)
+    assert isinstance(ev, ServingStackEvaluator)
+    assert ev.ensemble_enabled is True
+
+
+def test_engine_serving_exige_config() -> None:
+    """Sem config.yaml não há Elo, janela de calibração nem flag do ensemble —
+    seguir em frente mediria um modelo que ninguém configurou."""
+    with pytest.raises(SystemExit, match="config.yaml"):
+        bp._make_evaluator("serving", 120.0, None)
