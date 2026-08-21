@@ -12,6 +12,18 @@ séries de previsão saem do MESMO fatiamento temporal (mesmo min_history, mesma
 ordem de observações), o que garante o pareamento jogo-a-jogo do bootstrap por
 construção — sem join frágil por ID.
 
+GUARDA DE BLOCO DE KICKOFF
+--------------------------
+Mesma guarda de `src/evaluator.py`, pela mesma razão — e aqui ela pesa MAIS.
+A ABC fatia por ÍNDICE, e este avaliador reajusta a cada passo (`retrain_every`
+default = 1): sem guarda, TODA previsão de um bloco simultâneo treinaria com os
+resultados dos jogos vizinhos que ainda não apitaram. Como este é o H₀ contra o
+qual o Dixon-Coles precisa provar valor, o leakage aqui inflaria o baseline e
+faria o DC parecer PIOR do que é — o espelho exato do risco do lado do modelo.
+
+Correção idêntica à do DC: `train_step` só ENFILEIRA o histórico; o ajuste sai
+no `predict_step`, que conhece o kickoff do alvo e trunca em `kickoff < alvo`.
+
 Mapeamento Elo → 1X2 (dado p = expectativa Elo do mandante e d̄ = taxa
 histórica de empates do treino):
     P(empate) = d̄
@@ -46,12 +58,38 @@ class EloBaselineEvaluator(PrequentialEvaluator):
         self.ratings: dict[str, float] = {}
         self.draw_rate: float = 0.0
         self._trained_at: datetime | None = None
+        self._pending_history: list[dict[str, Any]] | None = None
+        self.blocked_observations: int = 0  # jogos do mesmo bloco descartados do treino
+        self.deferred_refits: int = 0  # refits adiados por histórico insuficiente
 
     # --- hooks do Template Method --------------------------------------------
 
     def train_step(self, history: list[dict[str, Any]]) -> None:
-        """Reconstrói os ratings do zero sobre o passado estrito (determinístico:
-        mesma história → mesmos ratings) e mede a taxa de empates do treino."""
+        """ENFILEIRA o histórico — não ajusta aqui.
+
+        O ajuste precisa do kickoff do alvo para truncar o bloco simultâneo (ver
+        GUARDA DE BLOCO DE KICKOFF no topo), e o alvo só chega no `predict_step`."""
+        self._pending_history = list(history)
+
+    def _fit(self, history: list[dict[str, Any]], horizon: datetime) -> None:
+        """Reconstrói os ratings do zero sobre os jogos com kickoff < `horizon`
+        (determinístico: mesma história → mesmos ratings) e mede a taxa de
+        empates do treino."""
+        usable = [h for h in history if h["kickoff"] < horizon]
+        if not usable:
+            # Bloco engoliu o histórico inteiro: mantém os ratings anteriores e
+            # tenta de novo no próximo passo, em vez de dividir por zero em
+            # `draws / len(history)`.
+            self.deferred_refits += 1
+            if self._trained_at is None:
+                raise ValueError(
+                    f"histórico anterior a {horizon.isoformat()} insuficiente para o primeiro "
+                    f"ajuste (0 jogos utilizáveis de {len(history)}) — aumente min_history ou "
+                    "verifique a ordenação por kickoff"
+                )
+            return
+        self.blocked_observations += len(history) - len(usable)
+        history = usable
         ratings: dict[str, float] = {}
         draws = 0
         for h in history:
@@ -71,6 +109,9 @@ class EloBaselineEvaluator(PrequentialEvaluator):
         self._trained_at = max(h["kickoff"] for h in history)
 
     def predict_step(self, features: dict[str, Any]) -> PredictionPoint:
+        if self._pending_history is not None:
+            self._fit(self._pending_history, features["kickoff"])
+            self._pending_history = None
         if self._trained_at is None:
             raise RuntimeError("predict_step antes de train_step")
         r_h = self.ratings.get(str(features["home"]), _INITIAL_RATING)

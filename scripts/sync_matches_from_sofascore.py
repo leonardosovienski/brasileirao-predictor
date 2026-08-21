@@ -7,6 +7,13 @@ espelha os jogos ENCERRADOS de sofascore_matches para `matches`, que alimenta
 ratings.compute_ratings e model.fit_goal_model sem mudar uma linha do motor.
 
 Regras:
+- SÓ as competições listadas em cfg['sofascore']['competitions'] são espelhadas.
+  Sem esse filtro o SELECT varria a tabela inteira e carimbava
+  cfg['tournament_name'] em tudo: no dia que outra competição entrar na mesma
+  base (o Roadmap SS7/RESEARCH-05 pede histórico de Série B pra prior de
+  promovido), ela seria espelhada como se fosse Série A e envenenaria o treino
+  em silêncio. Filtrar agora custa uma cláusula; descobrir depois custa uma
+  temporada de resultado inválido;
 - tournament = cfg['tournament_name'] (chave de k_factor, uma só por domínio);
 - neutral = 0 (liga de pontos corridos: mando de campo real, sempre);
 - upsert idempotente (PK date+home+away) — rodadas novas entram, nada duplica;
@@ -28,11 +35,16 @@ from src.obs import get_logger, setup_logging  # noqa: E402
 log = get_logger()
 
 
-def sync(conn, tournament: str) -> tuple[int, int]:
+def sync(conn, tournament: str, competitions: list[str]) -> tuple[int, int]:
+    if not competitions:
+        sys.exit("nenhuma competição em sofascore.competitions — nada a espelhar")
+    placeholders = ",".join("?" for _ in competitions)
     rows = conn.execute(
         "SELECT date, home_team, away_team, home_score, away_score "
         "FROM sofascore_matches "
-        "WHERE date IS NOT NULL AND home_team IS NOT NULL AND away_team IS NOT NULL"
+        "WHERE date IS NOT NULL AND home_team IS NOT NULL AND away_team IS NOT NULL "
+        f"AND competition IN ({placeholders})",
+        competitions,
     ).fetchall()
     out = [(d, h, a, hs, as_, tournament, "", "", 0) for d, h, a, hs, as_ in rows]
     if out:
@@ -48,9 +60,15 @@ def main() -> None:
     tournament = cfg.get("tournament_name")
     if not tournament:
         sys.exit("config.yaml sem tournament_name — defina antes de espelhar")
+    competitions = [c["name"] for c in (cfg.get("sofascore") or {}).get("competitions") or []]
     conn = db.connect(str(ROOT / cfg["database"]))
-    played, fixtures = sync(conn, tournament)
-    log.info("matches espelhado do sofascore: %d jogadas, %d fixtures", played, fixtures)
+    played, fixtures = sync(conn, tournament, competitions)
+    log.info(
+        "matches espelhado do sofascore (%d competições): %d jogadas, %d fixtures",
+        len(competitions),
+        played,
+        fixtures,
+    )
 
 
 if __name__ == "__main__":

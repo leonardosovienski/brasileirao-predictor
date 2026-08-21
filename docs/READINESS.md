@@ -134,3 +134,72 @@ mudar `params` é trial nova, por construção do registro do core. O holdout de
 JOGOS (100), não dias; ~100 jogos ≈ 10 rodadas ≈ um mês por coincidência de
 cadência do campeonato. O experimento manipula a variável que existe de fato:
 `retrain_every` 100 (CONTROL) vs 10 (TREATMENT, ~1 bloco de rodada).
+
+**Auditoria 2026-08-21 — correções no painel canônico e no H₀:**
+
+Revisão do repositório em `main` (91bb24b) apontou nove itens; sete foram
+corrigidos aqui. Os dois restantes são decisão de arquitetura, registrados
+abaixo como pendências abertas.
+
+*Corrigidos:*
+
+1. **`src/elo_baseline.py` não tinha guarda de bloco de kickoff** — e sofria a
+   forma MÁXIMA do problema, porque reajusta a cada passo (`retrain_every`
+   default = 1): toda previsão de um bloco simultâneo treinava com o resultado
+   dos jogos vizinhos. Como este é o H₀ contra o qual o Dixon-Coles precisa
+   provar valor, o leakage INFLAVA o baseline e faria o modelo parecer pior do
+   que é — o espelho exato do risco corrigido em `src/evaluator.py` na PR #25.
+   Mesma correção: fit preguiçoso truncado em `kickoff < alvo`.
+2. **`data/trials.json` não era validado por nenhum teste**, apesar de o core
+   instruir explicitamente ("a suíte do consumidor deve falhar se o trials.json
+   real não conformar"). É o denominador do DSR — sem validação ele podia
+   derivar do schema em silêncio e o desconto anti-p-hacking parava de valer.
+   `tests/test_trials_registry_schema.py` fecha isso.
+3. **`delta_ci95` era sempre `null` no bloco `metrics`**, inclusive na métrica
+   PRIMÁRIA, embora o IC já estivesse calculado e fosse usado no bloco
+   `skill_scores`. O Roadmap §6 exige o campo justamente no exemplo da
+   primária. Agora RPS, Brier 1X2 e log-loss carregam IC do delta.
+4. **Bootstrap do painel era `iid`**, enquanto `h10_fadiga_walkforward.py` e o
+   RESEARCH-01A usam bloco móvel. Jogos vizinhos no tempo têm erro
+   correlacionado; iid estreita o IC e SUPERESTIMA significância — inaceitável
+   no instrumento que decide promoção de trial. Trocado por bloco móvel
+   (`block_length=21`), e o esquema agora aparece no relatório.
+5. **`calibration_slope` era OLS não-ponderado sobre 10 médias de bin** — um bin
+   com 3 jogos tinha a mesma alavancagem de um com 400. Agora é ponderado por
+   `n`, então ruído de cauda não veta trial boa nem mascara degradação no miolo.
+6. **`--baseline` era argumento morto** (`args.baseline` não era lido) e a
+   docstring prometia um `NotImplementedError` inexistente. Agora o valor chega
+   em `run()` e baseline não plugado falha alto de verdade.
+7. **`sync_matches_from_sofascore.py` não filtrava por competição**: o SELECT
+   varria `sofascore_matches` inteira e carimbava `tournament_name` em tudo.
+   Inofensivo hoje (só Série A na config), mas o RESEARCH-05 pede histórico de
+   Série B para prior de promovido — no dia que entrasse, seria espelhado como
+   Série A. Filtra por `cfg['sofascore']['competitions']`.
+
+Além disso, `benchmark_predictor.py` e o RESEARCH-01A passaram a emitir
+progresso a cada 200 previsões: com refit por rodada a execução leva horas, e
+silêncio total é indistinguível de travamento.
+
+**IMPACTO NA RÉGUA:** os itens 4 e 5 mudam números já medidos.
+`reports/benchmark_baseline_v4_2026-08-21.json` foi gerado com bootstrap iid e
+slope não-ponderado; o RPS e os deltas não mudam, mas os **intervalos de
+confiança e o `calibration_slope` mudam**. O v4 precisa ser regerado antes de
+servir de régua para comparar qualquer trial.
+
+*Pendências abertas (decisão de arquitetura, não corrigidas aqui):*
+
+* **O painel canônico não mede o modelo que serve.** `benchmark_predictor.py`
+  avalia Dixon-Coles + Poisson puro (`BrasileiraoDixonColesEvaluator`), mas o
+  caminho de serving (`src/predict.py`) roda `maybe_blend` com
+  `ensemble_xg.enabled: true` e se identifica como `Ensemble(NB+DC,
+  AtkDef-xG)` — Binomial Negativa mais ensemble de xG. São modelos diferentes
+  em distribuição E em features. Toda trial de RESEARCH-01..08 é promovida
+  contra uma régua que não mede o que realmente prevê: um GO pode não
+  transferir, e um NO-GO pode estar escondendo ganho real. Alinhar os dois
+  muda a régua de novo e é decisão do operador.
+* **Jogo adiado deixa linha órfã em `matches`.** A PK é `(date, home_team,
+  away_team)` e `sofascore_matches` tem `event_id`; adiamento muda a data, a
+  linha nova entra e a antiga fica (o upsert não deleta), virando fixture
+  fantasma. Não afeta o benchmark (que filtra `home_score IS NOT NULL`), mas
+  afeta listagem de fixtures e o pipeline H9. Resolver exige migração de
+  schema (`event_id` em `matches`), fora do escopo desta auditoria.
