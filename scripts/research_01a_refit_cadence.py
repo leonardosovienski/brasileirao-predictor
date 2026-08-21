@@ -74,6 +74,14 @@ TREATMENT_RETRAIN = 10  # ~1 bloco de rodada
 DEFAULT_PERIOD = "2021-01-01,2024-12-31"
 SEALED_HOLDOUT_YEAR = "2025"
 
+# Campos que `_paired_losses` consome das linhas de `_run_walkforward`. É
+# contrato entre dois módulos: declarado aqui para falhar com mensagem clara
+# logo depois do primeiro braço, em vez de estourar KeyError no fim, com os
+# dois braços já calculados e horas de CPU no lixo.
+REQUIRED_ROW_KEYS = frozenset(
+    {"date", "home", "away", "p_win", "p_draw", "p_loss", "p_over", "actual_1x2", "actual_over"}
+)
+
 BLOCK_LENGTH = 21  # bootstrap de bloco móvel — jogos vizinhos são correlacionados
 N_BOOT = 10_000
 SEED = 42
@@ -88,7 +96,15 @@ GUARDRAIL_METRICS = ("log_loss", "brier_1x2", "brier_ou25")
 
 def _paired_losses(rows: list[dict[str, Any]]) -> dict[str, list[float]]:
     """Perda POR JOGO de cada métrica — o pareamento exige uma perda por
-    observação, não um agregado. `rows` vem do painel canônico."""
+    observação, não um agregado.
+
+    `rows` vem de `_run_walkforward` do painel canônico; os nomes de campo são
+    contrato COM ele, não convenção local (ver
+    tests/test_research_01a_refit_cadence.py::test_paired_losses_consome_as
+    _linhas_reais_do_painel, que roda o produtor de verdade em vez de fabricar
+    linhas à mão — foi exatamente essa fabricação que deixou passar um campo
+    inexistente e derrubou uma execução de 45 minutos NO FIM, depois dos dois
+    braços prontos)."""
     out: dict[str, list[float]] = {"rps": [], "brier_1x2": [], "log_loss": [], "brier_ou25": []}
     for r in rows:
         p = [r["p_loss"], r["p_draw"], r["p_win"]]
@@ -96,7 +112,7 @@ def _paired_losses(rows: list[dict[str, Any]]) -> dict[str, list[float]]:
         out["rps"].append(rps([p], [y]))
         out["brier_1x2"].append(brier([p], [y]))
         out["log_loss"].append(log_loss([p], [y]))
-        out["brier_ou25"].append(brier([[1 - r["p_over"], r["p_over"]]], [r["actual_ou25"]]))
+        out["brier_ou25"].append(brier([[1 - r["p_over"], r["p_over"]]], [r["actual_over"]]))
     return out
 
 
@@ -184,11 +200,26 @@ def attest_rps_power() -> dict[str, Any]:
 # ---------- experimento ----------
 
 
+def _check_row_contract(rows: list[dict[str, Any]]) -> None:
+    """Falha alto se o painel deixou de produzir algum campo que este script
+    consome. Barato, e roda logo depois do PRIMEIRO braço — em vez de estourar
+    KeyError no fim, com os dois braços prontos e horas de CPU no lixo."""
+    if not rows:
+        return
+    faltando = REQUIRED_ROW_KEYS - set(rows[0])
+    if faltando:
+        raise KeyError(
+            f"linhas do painel sem os campos {sorted(faltando)} — contrato com "
+            "benchmark_predictor._run_walkforward quebrado; corrija antes de gastar CPU nos braços"
+        )
+
+
 def _arm(observations: list[dict[str, Any]], half_life: float, retrain_every: int, start: str, end: str, arm: str):
     def _progress(done: int, total: int) -> None:
         log.info("  %s: %d/%d previsões", arm, done, total)
 
     rows, ev = _run_walkforward(observations, half_life, retrain_every, progress=_progress)
+    _check_row_contract(rows)
     rows = [r for r in rows if (not start or r["date"] >= start) and (not end or r["date"] <= end)]
     return rows, ev
 
