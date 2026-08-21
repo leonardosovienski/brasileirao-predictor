@@ -77,3 +77,60 @@ walk-forward, matando o burn-in ao pedir um recorte recente do calendário.
 Nenhuma trial de `RESEARCH-01..08` ou `MARKET-01..04` foi aberta ainda —
 falta só o congelamento do baseline acima pro checklist do Roadmap (§12)
 estar 100% ✓.
+
+**Atualização 2026-08-21 — baseline v3 congelado e pré-requisito do RESEARCH-01A:**
+
+O baseline foi congelado em `reports/benchmark_baseline_v3_2026-08-20.json`
+(commit `951761b`, n=1923 previsões walk-forward 2021-2026, RPS=0.2125,
+accuracy 1X2=48,9% — DIAGNOSTIC_ONLY). Com isso o checklist §12 do Roadmap
+fecha, MENOS um item que a própria abertura do RESEARCH-01A revelou.
+
+**Guarda de bloco de kickoff (bug real, corrigido antes do experimento).**
+A ABC `PrequentialEvaluator` do core fatia por ÍNDICE: `train_step` recebe
+`observations[:i]`, que é estritamente-anterior na ORDEM DA LISTA, não no
+RELÓGIO. Duas coisas se somavam nisso:
+
+1. `benchmark_predictor.py` lia `matches.date` (data SEM hora) e ordenava por
+   ela, então a ordem dentro de uma rodada ficava ao sabor do SQLite;
+2. rodada de futebol tem jogos SIMULTÂNEOS, então o enésimo jogo de um bloco
+   treinava com resultados que ainda não tinham apitado.
+
+Isso é leakage, e ele CRESCE conforme o refit fica mais frequente — que é
+exatamente a variável manipulada pelo RESEARCH-01A. Uma implementação ingênua
+do experimento teria medido leakage em vez de cadência, e o braço TREATMENT
+ganharia de graça: **falso GO**.
+
+Correções (Regra 3 — corrigir o mecanismo, não mascarar no filtro):
+
+* `benchmark_predictor.py` passou a ler o kickoff REAL de
+  `sofascore_matches.kickoff_at` (dado que já existia na base e estava sendo
+  descartado) e a ordenar por ele. Sem hora, cai para meia-noite UTC e a
+  rodada inteira vira um bloco — leitura honesta de um dado ausente. O
+  relatório carrega `kickoff_coverage` dizendo quantos jogos caíram no
+  fallback.
+* `src/evaluator.py` ganhou fit PREGUIÇOSO: `train_step` só enfileira o
+  histórico; o ajuste acontece no `predict_step`, que conhece o kickoff do
+  alvo e trunca o histórico em `kickoff < alvo`. A guarda vale nos DOIS
+  braços do experimento e independe da cadência. `block_guard` no relatório
+  reporta quanto foi descartado.
+* `PredictionPoint.predicted_at` agora é estritamente ANTERIOR ao
+  `matures_at` (o contrato do core só exigia `>=`).
+
+**Consequência para o baseline:** `benchmark_baseline_v3_2026-08-20.json` foi
+medido ANTES dessa correção, com a ordenação por data-sem-hora. Ele não serve
+como régua para o RESEARCH-01A e precisa ser regerado como **v4** na máquina
+do operador, com a guarda ativa, antes de qualquer comparação de trial.
+
+**Pré-registro.** `scripts/research_01a_refit_cadence.py` registra a trial
+`h11-refit-cadence-rodada-vs-100jogos` com `status="pre-registrada"` ANTES de
+rodar os braços (`--pre-register-only` faz só isso), e depois atualiza a
+MESMA entrada com o resultado — reexecutar com os mesmos `params` atualiza,
+mudar `params` é trial nova, por construção do registro do core. O holdout de
+2025 é recusado por padrão (Regra 7); `--period` default termina em
+2024-12-31.
+
+**Nota sobre o roadmap:** o texto do RESEARCH-01A descreve o CONTROL como
+"refit na virada do mês". O código nunca fez isso — `RETRAIN_EVERY` conta
+JOGOS (100), não dias; ~100 jogos ≈ 10 rodadas ≈ um mês por coincidência de
+cadência do campeonato. O experimento manipula a variável que existe de fato:
+`retrain_every` 100 (CONTROL) vs 10 (TREATMENT, ~1 bloco de rodada).

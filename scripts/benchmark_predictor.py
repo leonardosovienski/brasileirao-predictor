@@ -3,7 +3,13 @@ sport model (GOV-P0, item 3 do Roadmap Técnico Consolidado v1.0-final).
 
 Walk-forward puro (`BrasileiraoDixonColesEvaluator`, o mesmo motor de
 `scripts/run_h4_sweep.py` — anti-leakage estrutural do core): treina só com o
-passado, prevê o próximo jogo, nunca lê o próprio futuro. Half-life vem da
+passado, prevê o próximo jogo, nunca lê o próprio futuro. As observações são
+ordenadas pelo KICKOFF REAL (`sofascore_matches.kickoff_at`), não pela
+data-sem-hora de `matches` — a ordem da lista É o passado para a ABC
+prequential, e ordenar por dia deixaria a sequência dentro de uma rodada ao
+sabor do SQLite. Jogos simultâneos ficam fora do treino um do outro pela
+guarda de bloco do evaluator (ver `src/evaluator.py`); `kickoff_coverage` e
+`block_guard` no relatório dizem quanto disso aconteceu. Half-life vem da
 trial `H4_DIXON_COLES_CALIBRATED` se registrada em data/trials.json; senão,
 cai no default de `config.yaml`.
 
@@ -40,6 +46,10 @@ Uso:
     python scripts/benchmark_predictor.py \\
         --model H4_DIXON_COLES_CALIBRATED --period 2024-01-01,2025-12-31 \\
         --output reports/benchmark_h4_2024-2025.json
+
+`--retrain-every` expõe a cadência de reajuste (default 100 jogos). É a única
+variável manipulada pelo RESEARCH-01A (CONTROL 100 vs TREATMENT 10); todo o
+resto do painel fica idêntico entre os braços, como manda a Regra 6.
 """
 
 from __future__ import annotations
@@ -92,27 +102,47 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
     conn = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
     try:
         rows = conn.execute(
-            "SELECT date, home_team, away_team, home_score, away_score "
-            "FROM matches WHERE home_score IS NOT NULL AND away_score IS NOT NULL "
-            "ORDER BY date"
+            "SELECT m.date, m.home_team, m.away_team, m.home_score, m.away_score, s.kickoff_at "
+            "FROM matches m LEFT JOIN sofascore_matches s "
+            "  ON s.date = m.date AND s.home_team = m.home_team AND s.away_team = m.away_team "
+            "WHERE m.home_score IS NOT NULL AND m.away_score IS NOT NULL"
         ).fetchall()
     finally:
         conn.close()
     obs = []
-    for d, home, away, hs, asc in rows:
-        kickoff = datetime.fromisoformat(d).replace(tzinfo=UTC)
+    for d, home, away, hs, asc, kickoff_at in rows:
         obs.append(
             {
                 "home": home,
                 "away": away,
-                "kickoff": kickoff,
+                "kickoff": _kickoff(d, kickoff_at),
                 "date": d,
+                "has_real_kickoff": kickoff_at is not None,
                 "result": {"home_goals": int(hs), "away_goals": int(asc)},
             }
         )
+    # Ordenar pelo RELÓGIO, não pela data-sem-hora: a ordem da lista é o que a
+    # ABC prequential usa como "passado", então ordenar por `date` deixaria a
+    # sequência dentro de uma mesma rodada ao sabor do SQLite.
+    obs.sort(key=lambda o: (o["kickoff"], o["home"], o["away"]))
     if end:
         obs = [o for o in obs if o["date"] <= end]
     return obs
+
+
+def _kickoff(date_str: str, kickoff_at: str | None) -> datetime:
+    """Kickoff real do `sofascore_matches` quando existe; senão, meia-noite UTC
+    da data.
+
+    O fallback NÃO é cosmético: sem hora, a rodada inteira colapsa num único
+    bloco simultâneo, e a guarda de bloco do evaluator passa a excluir do treino
+    todos os jogos do mesmo dia. Isso custa um pouco de histórico, mas é a
+    leitura HONESTA de um dado que não sabe a que horas o jogo começou —
+    preencher com uma ordem inventada é que seria leakage. Quantos jogos caem
+    nesse caso vai para `kickoff_coverage` no relatório."""
+    if kickoff_at:
+        return datetime.fromisoformat(str(kickoff_at).replace("Z", "+00:00")).astimezone(UTC)
+    return datetime.fromisoformat(date_str).replace(tzinfo=UTC)
 
 
 def _outcomes_1x2(goals_home: int, goals_away: int) -> int:
@@ -125,9 +155,11 @@ def _outcomes_1x2(goals_home: int, goals_away: int) -> int:
     return 0
 
 
-def _run_walkforward(observations: list[dict[str, Any]], half_life: float) -> list[dict[str, Any]]:
+def _run_walkforward(
+    observations: list[dict[str, Any]], half_life: float, retrain_every: int
+) -> tuple[list[dict[str, Any]], BrasileiraoDixonColesEvaluator]:
     ev = BrasileiraoDixonColesEvaluator(half_life_days=half_life, max_goals=MAX_GOALS)
-    results = ev.run(observations, min_history=MIN_HISTORY, retrain_every=RETRAIN_EVERY)
+    results = ev.run(observations, min_history=MIN_HISTORY, retrain_every=retrain_every)
     rows = []
     for r in results:
         obs = observations[r["index"]]
@@ -154,7 +186,7 @@ def _run_walkforward(observations: list[dict[str, Any]], half_life: float) -> li
                 "actual_over": int(obs["result"]["home_goals"] + obs["result"]["away_goals"] > OU_LINE),
             }
         )
-    return rows
+    return rows, ev
 
 
 def _climatology_probs(rows: list[dict[str, Any]]) -> list[list[float]]:
@@ -274,12 +306,12 @@ def _stratum_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def run(*, model_tag: str, start: str, end: str) -> dict[str, Any]:
+def run(*, model_tag: str, start: str, end: str, retrain_every: int = RETRAIN_EVERY) -> dict[str, Any]:
     half_life = _half_life_for(model_tag)
     observations = _load_observations(end)
     if len(observations) < MIN_HISTORY + 50:
         raise SystemExit(f"histórico insuficiente ({len(observations)}) para min_history={MIN_HISTORY}")
-    all_rows = _run_walkforward(observations, half_life)
+    all_rows, ev = _run_walkforward(observations, half_life, retrain_every)
     # turno é calculado sobre a temporada INTEIRA (histórico completo até
     # `end`), nunca sobre o recorte de `start` — senão pedir --period a
     # partir do meio de uma temporada quebraria o corte T1/T2 daquele ano.
@@ -371,6 +403,16 @@ def run(*, model_tag: str, start: str, end: str) -> dict[str, Any]:
         "schema_version": "benchmark-predictor/1",
         "model_tag": model_tag,
         "half_life_days": half_life,
+        "retrain_every": retrain_every,
+        "kickoff_coverage": {
+            "n_observations": len(observations),
+            "n_real_kickoff": sum(1 for o in observations if o["has_real_kickoff"]),
+            "n_date_only_fallback": sum(1 for o in observations if not o["has_real_kickoff"]),
+        },
+        "block_guard": {
+            "blocked_observations": ev.blocked_observations,
+            "deferred_refits": ev.deferred_refits,
+        },
         "period": {"start": start or rows[0]["date"], "end": end or rows[-1]["date"]},
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "n": n,
@@ -410,6 +452,16 @@ def main() -> int:
     )
     parser.add_argument("--output", required=True, type=Path, help="caminho do JSON de saída")
     parser.add_argument(
+        "--retrain-every",
+        type=int,
+        default=RETRAIN_EVERY,
+        help=(
+            f"cadência de reajuste em nº de jogos (default {RETRAIN_EVERY}). "
+            "Variável manipulada pelo RESEARCH-01A: CONTROL usa o default, "
+            "TREATMENT usa ~1 bloco de rodada (10)"
+        ),
+    )
+    parser.add_argument(
         "--baseline",
         default="climatology",
         choices=["climatology"],
@@ -419,7 +471,14 @@ def main() -> int:
 
     start, _, end = args.period.partition(",")
     load_config()  # valida config.yaml cedo, falha alto se ausente
-    result = run(model_tag=args.model, start=start.strip(), end=end.strip())
+    if args.retrain_every < 1:
+        parser.error("--retrain-every >= 1")
+    result = run(
+        model_tag=args.model,
+        start=start.strip(),
+        end=end.strip(),
+        retrain_every=args.retrain_every,
+    )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")
