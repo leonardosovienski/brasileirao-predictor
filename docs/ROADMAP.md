@@ -1,7 +1,8 @@
 # Roadmap de Execução — brasileirao-predictor
 
-> **Status:** revisado em 2026-08-21, depois do primeiro veredito real da
-> agenda de pesquisa (RESEARCH-01A → REFUTADA).
+> **Status:** revisado em 2026-08-22, depois do primeiro resultado
+> significativo do projeto (serving sem ensemble bate a climatologia com IC95
+> abaixo de zero) e da primeira trial COMPROVADA (h12).
 >
 > Consolida o *Roadmap Técnico Consolidado v1.0-final* (que até aqui vivia só
 > como arquivo solto na máquina do operador — uma sessão nova não tinha acesso
@@ -15,7 +16,7 @@
 
 ## 1. Veredito estrutural
 
-**ENGINEERING READY / SCIENTIFICALLY SOUND / PREDICTIVE MODEL STILL LIMITED /
+**ENGINEERING READY / SCIENTIFICALLY SOUND / PREDICTIVE RESOLUTION DEMONSTRATED /
 ECONOMICALLY UNPROVEN / CAPITAL BLOCKED**
 
 A engenharia e a governança estão maduras. O instrumento de medição está
@@ -23,7 +24,13 @@ completo e validado nos dois sentidos (controle positivo e negativo). O que
 falta é a única coisa que importa: **demonstrar resolução preditiva e edge
 econômico prospectivo**.
 
-Placar atual: **12 trials registradas, ZERO comprovadas.**
+Placar atual: **14 trials registradas, 1 COMPROVADA, 1 pré-registrada.**
+
+**O que mudou em 2026-08-22:** a pilha de serving, com o ensemble de xG
+DESLIGADO, bate a climatologia em RPS com IC95 `[−0,010544, −0,002858]` —
+inteiramente abaixo de zero, e o mesmo vale para Brier 1X2 e log-loss. O
+controle negativo passou **no mesmo motor**. Isso é resolução preditiva
+demonstrada; **não** é edge econômico, que segue inexistente.
 
 ---
 
@@ -124,61 +131,101 @@ Três lições que mudam a execução daqui pra frente:
 
 ## 6. Ordem de execução
 
-### P0 — Higiene, antes de qualquer experimento novo
+### P0 — Higiene — ✅ **CONCLUÍDO em 2026-08-22**
 
-1. **Commitar o que só existe na máquina do operador**: `data/trials.json` (com
-   a `h11`), `data/trials.harness_attestation.json` **renovada** (a do repo
-   está expirada: 2026-08-16, core 2.2.0, metric psr) e o relatório do 01A.
-2. **Regerar o baseline v4** com o código atual — o que existe saiu antes das
-   correções de bootstrap e slope:
-   ```
-   python scripts/benchmark_predictor.py --model H4_DIXON_COLES_CALIBRATED \
-       --period 2021-01-01,2024-12-31 \
-       --output reports/benchmark_baseline_v4_<data>.json
-   ```
-   O `benchmark_baseline_v3` que está no repo é **inválido como régua**: foi
-   medido até 2026, atravessando o holdout selado.
-3. **Rodar o controle negativo** — confirma que nada mais vaza:
-   ```
-   python scripts/permutation_test.py --period 2021-01-01,2024-12-31
-   ```
+Os três itens fecharam. Artefatos commitados, baseline v4 regerado
+(`n=1318`, RPS 0,216870) e controle negativo **PASSOU nos dois motores**
+(`reports/permutation_2026-08-22.json` para o `dixon_coles`,
+`reports/permutation_serving_2026-08-22.json` para o `serving`).
 
-### P1 — A decisão que destrava (ou trava) tudo
+### P1 — Custo do walk-forward — **reavaliar antes de decidir**
 
-**Custo do walk-forward.** `fit_dixon_coles_parameters` (`src/dixon_coles.py`)
-avalia o objetivo num laço Python que constrói uma `DixonColesMatrix` inteira
-**por jogo e por avaliação**, e o `minimize` roda **sem gradiente analítico** —
-o scipy faz diferenças finitas sobre ~52 parâmetros, ~53 avaliações por passo
-do gradiente.
+`fit_dixon_coles_parameters` avalia o objetivo num laço Python sem gradiente
+analítico (~42-52 parâmetros por diferenças finitas). Media-se o ganho de uma
+reformulação exata em `scripts/p1_cost_probe.py`: **~85-95x**, com o objetivo
+concordando a ~1e-15 (o normalizador da grade DC tem forma fechada — τ ≡ 1 fora
+das 4 células magras).
 
-Consequência: ~4h30 por experimento com refit por rodada. **A agenda abaixo tem
-dezenas de experimentos.** Nesse ritmo ela não fecha.
+**Mas o gargalo é de UM motor.** Medido em 2026-08-22:
 
-Vetorizar em numpy ou fornecer o jacobiano daria ganho de ordens de grandeza.
-**Mas mexe na numérica e pode mover resultados já congelados** — exige decisão
-explícita do operador e re-congelamento das réguas depois.
+| motor | ajuste por refit | 1318 previsões |
+| --- | --- | --- |
+| `dixon_coles` | `fit_dixon_coles_parameters`, ~42-52 params | **~20 min** |
+| `serving` | `model.fit_goal_model`, 4-5 params | **~3 s** |
 
-*Enquanto isso não for decidido, tratar como o gargalo real do projeto.*
+O motor lento **não é o que se serve**. A agenda da TRACK A poderia rodar sobre
+`--engine serving` em segundos — mas trocar de motor troca a régua, e todas as
+medições congeladas são do `dixon_coles`. **Decidir isto antes de mexer na
+numérica.** Opções e riscos em `docs/RUNBOOK_P0-P2.md`; `src/dixon_coles.py`
+segue intocado.
 
-### P2 — A pergunta barata que nunca foi respondida
+### P2 — O ensemble de xG — ✅ **RESPONDIDO: ele atrapalhava**
 
-**O ensemble de xG que está LIGADO em produção ajuda ou atrapalha?**
+`h12-ensemble-xg-ligado-vs-desligado` → **COMPROVADA**. Teste pareado, uma
+variável, n=1318:
 
-`config.yaml` tem `ensemble_xg.enabled: true`, mas as trials H5 ficaram
-"substituída" e "inconclusiva" — nunca houve medição limpa. Agora dá:
+| | ganho | IC95 |
+| --- | --- | --- |
+| **RPS** | +0,004410 | [+0,001436, +0,007741] |
+| Brier 1X2 | +0,021648 | [+0,008562, +0,036863] |
+| Brier OU2.5 | +0,030696 | [+0,019290, +0,043565] |
+| log-loss | +0,027244 | [+0,010618, +0,046425] |
 
-```
-python scripts/benchmark_predictor.py --model H4_DIXON_COLES_CALIBRATED \
-    --engine serving --period 2021-01-01,2024-12-31 \
-    --output reports/benchmark_serving_v1_<data>.json
-```
+Os quatro IC acima de zero: o ensemble piorava **todas** as métricas.
+`ensemble_xg.enabled: false` desde então, com a justificativa no `config.yaml`.
 
-Comparar com o v4 (`--engine dixon_coles`) responde direto. Conferir também
-`block_guard.xg_fit_failures`: se vier alto, o ensemble degrada para o baseline
-com frequência e o que se mede não é o que se pensa medir.
+**Achado de governança:** a flag tinha sido ligada em 2026-07-17 com evidência
+de um walk-forward em **2025+2026** — holdout selado (Regra 7) mais ano
+exploratório (Regra 1). O pré-registro da H5 foi cumprido; o que faltou foi a
+origem dos dados.
 
-**Se o ensemble estiver piorando, você serve um modelo pior que o baseline há
-meses** — e isso é mais urgente que qualquer experimento novo.
+**Nota metodológica:** comparar `--engine serving` com `--engine dixon_coles`
+NÃO isola o ensemble — os motores diferem em distribuição (NB vs Poisson), Elo,
+janela de calibração e xG, quatro variáveis de uma vez. O isolamento correto é
+o mesmo motor com a flag alternada, que é o que a h12 faz.
+
+### P2b — **O gargalo real agora: a H9 nunca emitiu**
+
+Inventário de 2026-08-22 (`scripts/inventario_dados.py`):
+
+* A infraestrutura prospectiva **existe e funciona**: `data/research/prospective.db`
+  é um armazém bitemporal (`odds_captured_at` vs `retrieved_at`) com 15.039
+  observações de `the_odds_api`, 1.792 entidades, **92% com ≥7 capturas
+  distintas** — movimento de linha registrado de verdade.
+* **`data/research/h9_shadow.jsonl` NÃO EXISTE.** A H9 nunca emitiu um pick.
+  Todo o encanamento está montado e a torneira nunca abriu — por isso a trial
+  está `inconclusiva`.
+* Causa imediata das 42 janelas perdidas entre 23/07 e 17/08: **cache de Elo
+  vazio**. E **nenhuma tarefa do Agendador roda `cron_update_models`** — o
+  cache envelhece e a emissão para, em silêncio.
+* O alarme (`report_h9_missed_windows.py`) sai com `exit=1`, que o Agendador
+  registra como `LastTaskResult=1` — **indistinguível de "tarefa quebrada"**.
+  Um alarme que ninguém separa de ruído não é alarme.
+
+**Isto passa na frente do `market_no_vig`:** o teto é uma medição que espera; a
+coorte prospectiva perde dado a cada rodada. Descobrir por que o funil da H9
+nunca aprova um pick é o próximo passo de maior valor.
+
+### P2c — `market_no_vig` — **destravado, com ressalvas**
+
+O de-vig já existe duas vezes (`src/math_utils.py`, método de Shin;
+`src/data/market_anchor.py`, proporcional). Falta ligar como baseline —
+`SUPPORTED_BASELINES` hoje só tem `climatology`.
+
+Cobertura medida:
+
+| | 1X2 | OU 2.5 |
+| --- | --- | --- |
+| 2021-2024 | **99,2%** | 81% (**buraco em 2023-24: 66% e 63%**) |
+
+`odds_home` difere de `odds_home_open` em **80%** dos jogos (deriva média
++0,0535): a coluna flat capturou movimento de linha e serve como proxy de
+fechamento — mas é a **última odd pré-jogo disponível**, não a linha de
+fechamento de casa sharp, e o relatório precisa dizer isso.
+
+Duas armadilhas: filtrar `home_score IS NOT NULL` (há **34 linhas órfãs** de
+jogos adiados em `sofascore_matches`), e não medir o teto de OU só onde há odds
+— seria um subconjunto escolhido pela disponibilidade, não pelo desenho.
 
 ### P3 — TRACK A (modelo esportivo), em sequência
 

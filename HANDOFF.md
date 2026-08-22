@@ -1,5 +1,134 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22, TARDE) — FONTE DA VERDADE ATUAL
+>
+> Fecha o P0, registra a primeira trial COMPROVADA e o primeiro resultado
+> significativo do projeto, e traz um **inventário completo da base** que muda
+> o diagnóstico operacional. O checkpoint da madrugada (abaixo) continua válido;
+> onde divergirem, vale este.
+
+---
+
+## A — Resultados (todos autorizados por controle negativo)
+
+**Resolução preditiva demonstrada.** Pilha de serving, ensemble DESLIGADO,
+2021-2024, n=1318:
+
+| | valor | climatologia | delta | IC95 |
+| --- | --- | --- | --- | --- |
+| **RPS** | 0,213339 | 0,219989 | **−0,006650** | **[−0,010544, −0,002858]** |
+| Brier 1X2 | 0,622593 | 0,637127 | −0,014534 | [−0,022395, −0,006838] |
+| log-loss | 1,036857 | 1,056539 | −0,019682 | [−0,031037, −0,008418] |
+
+**Controle negativo PASSOU nos dois motores.** No `serving`: referência
++0,030227 batendo a climatologia, três permutações entre −0,014 e −0,021 sem
+bater. No `dixon_coles`: permutações entre −0,024 e −0,053.
+
+**`h12-ensemble-xg-ligado-vs-desligado` → COMPROVADA** (primeira do projeto).
+Os quatro IC pareados acima de zero — o ensemble piorava *todas* as métricas.
+A flag tinha sido ligada com evidência de **2025+2026** (holdout selado + ano
+exploratório).
+
+**`h13-serving-vs-climatologia-prospectivo` → pré-registrada.** Coorte
+prospectiva, `test_period ["2026-08-22", None]`, gate declarado antes dos
+dados, ponto ÚNICO de avaliação em **n≥900** (~2,4 temporadas; n=440 daria
+poder ~50%). Não é pré-registro cego sobre 2021-2024 porque aquela amostra já
+tinha sido vista — e 2025 segue SELADO.
+
+**Dois critérios do §8 NÃO passam:** `calibration_slope` do OU2.5 em **1,5517**
+(alvo 0,9-1,1) e `resolution` em 0,001405. A cabeça de over/under continua sem
+discriminar em toda configuração medida — é o problema aberto mais concreto do
+modelo, e aponta para a trial 04 (`mu_t` dinâmico).
+
+## B — Inventário da base (`scripts/inventario_dados.py`)
+
+```
+ano    jogos  jogados  kickoff      xG      1x2   1x2_open    ou25  ou25_open
+2021     393  380(97%) 393(100%) 380(97%) 391(99%)  391(99%) 380(97%)  380(97%)
+2022     380  378(99%) 380(100%) 378(99%) 380(100%) 380(100%) 378(99%)  378(99%)
+2023     380 380(100%) 380(100%) 380(100%) 380(100%) 380(100%) 249(66%)  249(66%)
+2024     388  380(98%) 388(100%) 379(98%) 378(97%)  378(97%) 246(63%)  246(63%)
+2025     393  380(97%) 393(100%) 380(97%) 379(96%)  379(96%) 376(96%)  376(96%)
+2026     384  225(59%) 384(100%) 225(59%) 243(63%)  243(63%) 236(61%)  236(61%)
+```
+
+Espelho `matches` (o que o painel lê): 380/378/380/380/380/225 → **1518 em
+2021-2024**, batendo com o `kickoff_coverage` dos relatórios.
+`player_ratings`: 2123 eventos. `match_statistics`: 2122. `player_comp_stats`:
+**0** (FBref bloqueado por 403).
+
+**34 linhas órfãs** em `sofascore_matches` (2021 +13, 2024 +8, 2025 +13): jogos
+adiados que mudaram de data e deixaram a linha antiga sem placar. Não afetam o
+painel; **afetam qualquer JOIN** — filtrar `home_score IS NOT NULL`.
+
+**2022 tem 378 jogos**, faltam 2 — não são órfãos, nunca entraram.
+
+## C — A infraestrutura prospectiva EXISTE e funciona
+
+Corrige o checkpoint anterior, que dava a captura como parada:
+
+* `data/research/prospective.db` — armazém **bitemporal** (`entity_type,
+  entity_id, source, event_at, published_at, ingested_at, payload_json`),
+  separando quando o preço existiu de quando você soube dele.
+* **15.039 observações**, 1.792 entidades (jogo × casa × mercado × seleção),
+  fonte `the_odds_api`, com `raw_payload_hash` e `data_quality_status`.
+* **92% das entidades com ≥7 capturas distintas** — movimento de linha real.
+* Janela: 19/08 23:30 → 22/08 12:45, **atualizando**. Só 2,6 dias: começou dia 19.
+* `market_observations.jsonl` (15.039 linhas) e `bookmaker_stability.jsonl`
+  (216) crescendo diariamente via `brasileirao-market-research`.
+
+O `odds_snapshots` da base principal é **backfill morto** (um lote de 5h em
+19-20/08), não o canal da coorte. Não confundir.
+
+**CAMINHO CORRIGIDO:** o ledger NÃO fica em `data/h9_shadow/` (que não existe).
+É `data/research/h9_shadow.jsonl`.
+
+## D — O gargalo real: a H9 nunca emitiu
+
+**`data/research/h9_shadow.jsonl` não existe.** Zero picks desde sempre — não é
+o mês perdido, é o projeto inteiro. Explica a trial `inconclusiva`.
+
+Causa imediata das **42 janelas perdidas** (23/07 a 17/08): cache de Elo vazio.
+`python -m src.cron_update_models` resolveu (30 times, 2123 jogos) e o
+`emit_h9_shadow.py` voltou a sair com `exit=0`.
+
+Três falhas estruturais por trás:
+
+1. **Nenhuma tarefa do Agendador roda `cron_update_models`.** O cache envelhece,
+   a emissão para, e ninguém sabe.
+2. **O Agendador tem 18 tarefas; `install_windows_scheduler.ps1` instala 7.** As
+   outras 11 foram criadas fora do script versionado e não sobrevivem a uma
+   reinstalação.
+3. **O alarme sai com `exit=1`**, que o Agendador mostra como
+   `LastTaskResult=1` — indistinguível de tarefa quebrada. Foi assim que um mês
+   passou despercebido. Quatro tarefas legadas (`archival-collection`,
+   `closing-snapshot`, `sombra-manha`, `sombra-noite`) somam ruído com
+   `2147942667` (= diretório inválido) desde 08/08; o instalador as desabilita
+   mas não as remove.
+
+## E — `market_no_vig` destravado
+
+De-vig já implementado duas vezes: `src/math_utils.py` (Shin) e
+`src/data/market_anchor.py` (proporcional). Falta ligar como baseline —
+`SUPPORTED_BASELINES` só tem `climatology`.
+
+Cobertura 1X2 em 2021-2024: **99,2%**. `odds_home` difere de `odds_home_open`
+em **80%** dos jogos (deriva +0,0535) → a coluna flat serve como proxy de
+fechamento, mas é a *última odd pré-jogo disponível*, não linha de casa sharp.
+
+Contradição registrada: `src/db.py` documenta `odds_*_open` como NULL na base
+histórica coletada pós-jogo, mas a coluna vem preenchida em todos os anos.
+
+## F — Estado técnico
+
+- Suíte: **611 testes**. `ci_check.py` verde. CI verde.
+- `ruff check` e `ruff format` limpos.
+- PRs desta sessão: **#31 a #39**, todas mergeadas.
+- `config.yaml`: `ensemble_xg.enabled: false`, justificativa no próprio arquivo.
+- Attestation: `_rps_pipeline` / `rps`, expira **2026-08-29**.
+
+---
+
 > ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22, MADRUGADA) — FONTE DA VERDADE ATUAL
 >
 > **O projeto tem seu primeiro resultado significativo.** A pilha de serving,
