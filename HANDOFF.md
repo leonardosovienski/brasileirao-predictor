@@ -5,6 +5,10 @@
 > O checkpoint de 2026-08-20 (logo abaixo) continua válido como histórico,
 > mas várias conclusões dele foram **superadas** por esta sessão. Onde os dois
 > divergirem, vale este.
+>
+> **Fila de trabalho e prioridades: `docs/ROADMAP.md`** — consolidado no repo
+> nesta sessão (antes o Roadmap v1.0-final vivia só como arquivo solto na
+> máquina do operador, invisível para uma sessão nova).
 
 ---
 
