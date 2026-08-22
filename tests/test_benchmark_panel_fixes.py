@@ -268,14 +268,18 @@ def test_relatorio_do_serving_carimba_o_ensemble_de_ponta_a_ponta(monkeypatch) -
     precisam ser distinguíveis pelo CONTEÚDO do JSON."""
     _liga_sintetica(monkeypatch)
     monkeypatch.setattr(bp, "MIN_HISTORY", 30)
-    cfg = bp.load_config()
+    # A flag é FORÇADA nos dois braços, não lida do config.yaml: `enabled` é
+    # estado de produção e muda (mudou, em 2026-08-22). Um teste que herda esse
+    # valor passa ou falha conforme a operação, não conforme o código.
+    base = bp.load_config()
+    cfg_on = {**base, "ensemble_xg": {**(base.get("ensemble_xg") or {}), "enabled": True}}
+    cfg_off = {**base, "ensemble_xg": {**(base.get("ensemble_xg") or {}), "enabled": False}}
     observations = bp._load_observations("")
 
-    _rows, ev_on = bp._run_walkforward(observations, half_life=120.0, retrain_every=20, engine="serving", cfg=cfg)
+    _rows, ev_on = bp._run_walkforward(observations, half_life=120.0, retrain_every=20, engine="serving", cfg=cfg_on)
     assert bp._ensemble_state(ev_on)["enabled"] is True
     assert bp._xg_fit_failures(ev_on) is not None
 
-    cfg_off = {**cfg, "ensemble_xg": {**cfg["ensemble_xg"], "enabled": False}}
     _rows, ev_off = bp._run_walkforward(observations, half_life=120.0, retrain_every=20, engine="serving", cfg=cfg_off)
     assert bp._ensemble_state(ev_off)["enabled"] is False
     assert bp._xg_fit_failures(ev_off) is None
