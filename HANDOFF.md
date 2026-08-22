@@ -1,5 +1,277 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-21) — FONTE DA VERDADE ATUAL
+>
+> O checkpoint de 2026-08-20 (logo abaixo) continua válido como histórico,
+> mas várias conclusões dele foram **superadas** por esta sessão. Onde os dois
+> divergirem, vale este.
+
+---
+
+## 1. O que o projeto é, e por quê
+
+Sistema Python **100% local** que prevê Campeonato Brasileiro Série A — 1X2 e
+over/under 2,5 gols — com Elo + Dixon-Coles/Poisson, sob governança anti-viés
+rígida. Nenhuma nuvem, nenhum serviço externo além da coleta de dados.
+
+A premissa que organiza tudo: **capital fica bloqueado até existir prova
+estatística pré-registrada de edge.** O projeto não foi construído para
+"acertar jogos" — foi construído para responder, com rigor, se existe sinal
+explorável e se ele sobrevive a um teste honesto. A governança (registro de
+trials, Deflated Sharpe, attestation de poder, holdout selado) existe para
+poder dizer **não** com credibilidade.
+
+Meta realista, já corrigida com o operador: 70% de acerto 1X2 **não é
+atingível** — os melhores modelos do mundo ficam em 52-56%. A régua é RPS com
+IC95, não accuracy (que é `DIAGNOSTIC_ONLY`, Regra 12 do Roadmap).
+
+## 2. Onde está tudo na máquina do operador
+
+Repo clonado em `C:\Users\Superleo13\Projetos\brasileirao-predictor`
+(Windows, venv gerenciada por `uv`, ativa com `.venv\Scripts\Activate.ps1`).
+
+**Fora do versionamento** (grandes/sensíveis, `.gitignore` com exceções em
+`/data/*`):
+
+| Caminho | O que é |
+| --- | --- |
+| `data/matches.db` | SQLite com os jogos reais. Tabelas `sofascore_matches` (bruto) e `matches` (espelho do modelo). 2.123 jogos, 2021-2026 |
+| `data/h9_shadow/` | Ledger da coorte prospectiva de apostas simuladas |
+| `data/sofascore_cache/` | Cache da coleta |
+
+**Versionados por exceção** (são artefatos de governança):
+`data/trials.json`, `data/trials.harness_attestation.json`,
+`data/teams_brasileirao.json`.
+
+Autenticação Git resolvida: `credential.helper` = `wincred`, PAT
+`PREDICTORLOCAL`. O bug do Git Credential Manager (.NET) não volta.
+
+Operação: 7 tarefas no Agendador do Windows (`brasileirao-market-research`,
+`-prospective-readiness`, `-h9-emit`, `-h9-closing`, `-h9-settle`,
+`-h9-backup`, `-h9-missed-window`), todas `Ready`.
+
+## 3. O que esta sessão fez — PRs #25 a #29, todas mergeadas
+
+### #25 — Guarda de bloco de kickoff (o achado central)
+
+A ABC `PrequentialEvaluator` do core fatia por **índice**: `train_step` recebe
+`observations[:i]`, estritamente-anterior na *ordem da lista*, não no
+*relógio*. Somava-se a isso que `benchmark_predictor` lia `matches.date` (data
+**sem hora**) e ordenava por ela — a ordem dentro de uma rodada ficava ao sabor
+do SQLite — e rodada de futebol tem **jogos simultâneos**. Resultado: o
+enésimo jogo de um bloco treinava com resultados que ainda não tinham apitado.
+
+O agravante: o viés **cresce com a frequência de refit**, que é exatamente a
+variável do RESEARCH-01A. Uma implementação ingênua teria medido vazamento em
+vez de cadência e produzido um **falso GO**.
+
+Correção: fit **preguiçoso**. `train_step` só enfileira o histórico; o ajuste
+sai no `predict_step`, que conhece o kickoff do alvo e trunca em
+`kickoff < alvo`. O `kickoff_at` real (que já existia em `sofascore_matches` e
+estava sendo descartado) passou a ser lido e usado para ordenar.
+
+### #26 — Auditoria: 7 correções
+
+1. **`src/elo_baseline.py` tinha o mesmo bug, na forma máxima** — reajusta a
+   cada passo (`retrain_every` default 1), então *toda* previsão de bloco
+   simultâneo vazava. Como é o H₀, o vazamento **inflava o baseline** e faria
+   o Dixon-Coles parecer pior. Mesma correção.
+2. **`data/trials.json` não era validado por teste**, apesar de o core
+   instruir explicitamente. É o denominador do DSR.
+3. **`delta_ci95` era sempre `null`** no bloco `metrics`, inclusive na métrica
+   primária — o IC já estava calculado e só era usado no `skill_scores`.
+4. **Bootstrap era `iid`** enquanto o resto do projeto usa bloco móvel. iid
+   estreita o IC e **superestima significância**.
+5. **`calibration_slope` era OLS não-ponderado** sobre 10 médias de bin.
+6. **`--baseline` era argumento morto**; a docstring prometia um
+   `NotImplementedError` inexistente.
+7. **`sync_matches_from_sofascore` não filtrava por competição** — risco
+   latente para quando a Série B entrar (RESEARCH-05).
+
+### #27 — Bug meu, e a lição que importa
+
+`_paired_losses` lia `actual_ou25`; o painel produz `actual_over`. O
+`KeyError` só estourava **no fim**, depois dos dois braços — derrubou uma
+execução de 45 min do operador.
+
+O teste não pegou porque **fabricava as linhas à mão**, escrevendo o campo
+inexistente nos dicts que ele próprio montava. Validava a invenção, não o
+contrato. Trocado por testes que rodam o **produtor de verdade**, mais um
+smoke de ponta a ponta de `main()`. Os fixtures passaram a usar o DDL real de
+`src/db.py` em vez de `CREATE TABLE` escrito à mão.
+
+### #28 — Painel alinhado com o serving
+
+O painel media Dixon-Coles + Poisson puro; `src/predict.py` serve
+`Ensemble(NB+DC, AtkDef-xG)` — Binomial Negativa com ensemble de xG. Modelos
+diferentes em distribuição **e** em features.
+
+`src/serving_evaluator.py` (`ServingStackEvaluator`) reconstrói a pilha de
+produção dentro do walk-forward. **Não dava para reusar o cache do cron**:
+`cron_update_models` ajusta com todos os jogos da janela do banco — honesto em
+produção (o cron roda "agora"), vazamento massivo num backtest. A pilha é
+reajustada a cada refit sobre histórico truncado, com os cortes de
+`elo.window_years` e `calibration_window_years` **relativos ao último jogo do
+histórico**, não à data de hoje.
+
+`benchmark_predictor` ganhou `--engine {dixon_coles,serving}`. **`dixon_coles`
+segue como default** para não invalidar medições já feitas.
+
+### #29 — Controle negativo (teste de permutação)
+
+`attest_pipeline_power` já provava o controle **positivo** (a régua detecta
+sinal sintético). Faltava o oposto, sobre dados **reais**.
+`scripts/permutation_test.py` embaralha os `result` entre partidas — cada
+`result` viaja inteiro, então as marginais (e a climatologia) ficam idênticas e
+só o vínculo time↔desfecho é destruído. O skill contra climatologia tem que
+colapsar para zero; se não colapsar, é **vazamento**, e o script sai com
+código 2.
+
+Os quatro vazamentos desta sessão teriam aparecido nele. Nenhum quebrava teste
+unitário.
+
+## 4. Resultados medidos
+
+### RESEARCH-01A — `h11-refit-cadence-rodada-vs-100jogos` → **REFUTADA**
+
+Executado em 2026-08-21, período 2021-01-01 a 2024-12-31 (holdout de 2025
+intocado).
+
+| | |
+| --- | --- |
+| n | 1.318 |
+| RPS CONTROL (`retrain_every=100`) | 0,216870 |
+| RPS TREATMENT (`retrain_every=10`) | 0,215106 |
+| Ganho pareado | +0,001764 |
+| IC95 (bloco móvel) | **[−0,001650, +0,004750]** |
+
+IC cruza zero. O ponto estimado favorece o tratamento, mas por 0,8% relativo —
+e custa **12x mais CPU** (4h30 contra 22 min). Descarte correto pelo Roadmap.
+
+Validação silenciosa: o RPS do CONTROL bate **exatamente** com o baseline v4
+gerado independentemente (0,21687). Pareamento e carregamento consistentes.
+
+### Baseline
+
+- `reports/benchmark_baseline_v3_2026-08-20.json` — **no repo, mas INVÁLIDO
+  como régua**: foi medido até 2026, atravessando o holdout selado de 2025.
+- `benchmark_baseline_v4_2026-08-21.json` — n=1318, RPS 0,21687, período
+  2021-2024. **Só na máquina do operador, e gerado ANTES da #26**: o RPS e os
+  deltas estão certos, mas os IC95 e o `calibration_slope` saíram pelo método
+  antigo. **Precisa ser regerado antes de virar régua.**
+- Cobertura de kickoff: **1518/1518 com horário real, zero fallback**. A
+  guarda de bloco cobrou só 2 observações no CONTROL — ela quase não morde na
+  cadência de 100 jogos.
+
+### Placar da governança
+
+**Doze trials registradas, ZERO comprovadas.** (Onze no repo + a `h11`, ainda
+não commitada.) Nenhum edge preditivo ou econômico demonstrado. Capital
+bloqueado, corretamente.
+
+## 5. O que o projeto NÃO faz ainda
+
+- **Não demonstrou edge algum.** Nem preditivo, nem econômico.
+- **Não tem baseline de mercado** (`market_no_vig`). É o teste de teto: se o
+  modelo não bate o fechamento sem vig, não há edge econômico. Depende da
+  cobertura de odds históricas na base, não verificável a partir do repo.
+- **Não tem `elo_baseline` nem `current_v3` plugados** como skill score —
+  pedir um deles falha alto (correto).
+- **TRACK A mal começou**: 01A é o primeiro de 01B, 02, 02B, 03, 04, 05, 06,
+  07, 08+.
+- **TRACK B parada**, apesar de `src/research/market_residual.py` já
+  implementar o resíduo com logit do mercado como offset (essencialmente o
+  MARKET-02) e `residual_gate.py` já ter o gate econômico com PSR. Falta
+  MARKET-01 (consenso com de-vig individual) e MARKET-04 (coorte prospectiva).
+  **Pode andar em paralelo à TRACK A.**
+
+## 6. O que fazer — em ordem
+
+### Imediato (operador, na máquina local)
+
+1. **Commitar o que só existe local** — a `h11` com veredito, a attestation
+   renovada e o relatório do 01A:
+   ```powershell
+   git add data/trials.json data/trials.harness_attestation.json reports/
+   git commit -m "RESEARCH-01A: h11 refutada (IC95 cruza zero, n=1318)"
+   git push origin main
+   ```
+   **A attestation no repo ainda é a velha** (`expires_at` 2026-08-16,
+   `core_version` 2.2.0, `metric` psr). A renovada nunca subiu.
+
+2. **Regerar o baseline v4** com o código atual (bootstrap de bloco, slope
+   ponderado), parando antes do holdout:
+   ```powershell
+   python scripts/benchmark_predictor.py --model H4_DIXON_COLES_CALIBRATED `
+       --period 2021-01-01,2024-12-31 `
+       --output reports/benchmark_baseline_v4_2026-08-21.json
+   ```
+
+3. **Rodar o teste de permutação** — valida que nada mais está vazando:
+   ```powershell
+   python scripts/permutation_test.py --period 2021-01-01,2024-12-31
+   ```
+
+4. **Primeira medição do motor de serving** — responde uma pergunta que o
+   projeto nunca respondeu com rigor: o ensemble de xG que está **ligado em
+   produção** (`ensemble_xg.enabled: true`) melhora ou piora o RPS?
+   ```powershell
+   python scripts/benchmark_predictor.py --model H4_DIXON_COLES_CALIBRATED `
+       --engine serving --period 2021-01-01,2024-12-31 `
+       --output reports/benchmark_serving_v1_2026-08-21.json
+   ```
+   Olhar `block_guard.xg_fit_failures`: se vier alto, o ensemble degrada para
+   o baseline com frequência e o que se mede não é o que se pensa medir.
+
+### Decisão pendente do operador
+
+**Custo do walk-forward.** `fit_dixon_coles_parameters` (`src/dixon_coles.py`)
+avalia o objetivo num laço Python que constrói uma `DixonColesMatrix` inteira
+**por jogo e por avaliação**, e o `minimize` roda **sem gradiente analítico** —
+o scipy faz diferenças finitas sobre ~52 parâmetros, ~53 avaliações por passo
+do gradiente. É a causa das 4h30. Vetorizar em numpy ou fornecer o jacobiano
+daria ganho de ordens de grandeza.
+
+**Mas mexe na numérica e pode mover resultados já congelados.** Com 4h30 por
+experimento, a agenda inteira do Roadmap é inviável — então essa decisão
+provavelmente é o gargalo real do projeto. Exige autorização explícita e
+re-congelamento das réguas depois.
+
+### Pendências menores registradas
+
+- **Linha órfã de jogo adiado**: PK de `matches` é
+  `(date, home_team, away_team)`; adiamento muda a data, a linha nova entra e a
+  antiga fica. Exige migração de schema (`event_id` em `matches`) sobre a base
+  viva.
+- **Encoding de nomes com acento** no `by_team` do relatório
+  (`AtlÃ©tico Mineiro`, `GrÃªmio`) — cosmético, na ingestão do Sofascore.
+- **Diagnóstico do 01A não lido**: o operador não colou o bloco `diagnostic` do
+  relatório. Vale conferir `blocked_observations_treatment` — a previsão era
+  ~10x o do CONTROL (que foi 2); se vier perto de 2, o diagnóstico do mecanismo
+  de vazamento estava errado.
+
+## 7. Regras que não se negociam (do Roadmap v1.0-final)
+
+1. 2026 é exploratório — nenhuma arquitetura se valida nele.
+2. **2025 é holdout selado.** Usar para escolher hiperparâmetro o destrói. Os
+   scripts recusam por padrão; `--unseal-holdout` existe e não deve ser usado.
+3. Corrigir o mecanismo, nunca mascarar no filtro.
+4. Capital bloqueado até gate pré-registrado.
+5. Uma alteração por experimento.
+6. Accuracy é `DIAGNOSTIC_ONLY`, nunca métrica de promoção.
+7. Toda estratificação carrega `n`.
+8. Trial preditiva ≠ trial econômica — gates separados.
+
+## 8. Estado técnico
+
+- Suíte: **566 testes**, `scripts/ci_check.py` 5/5 verdes.
+- CI: Python 3.13 + 3.14 + .NET 10 + Compose. O job 3.13 leva ~4 min
+  normalmente (o 3.14 leva ~1,5 min) — **isso é normal, não é travamento**.
+- `ruff check`, `ruff format` e `pyright` limpos.
+- `main` em `903311d` no fim desta sessão.
+
+---
+
 > ## CHECKPOINT — SESSÃO CLAUDE (2026-08-20) — fonte da verdade atual
 >
 > **Checklist GOV-P0/OPS-P0 do Roadmap (§12) fechado nesta sessão**, rodando
