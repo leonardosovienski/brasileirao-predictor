@@ -1,11 +1,11 @@
 {
   "schema_version": "pipeline-power/2",
-  "passed_at": "2026-08-22T03:15:11+00:00",
-  "expires_at": "2026-08-29T03:15:11+00:00",
+  "passed_at": "2026-08-22T05:23:59+00:00",
+  "expires_at": "2026-08-29T05:23:59+00:00",
   "core_version": "2.3.0",
-  "evaluate": "evaluate_funnel",
+  "evaluate": "_rps_pipeline",
   "edge_verdict": "COMPROVADA",
-  "note": "funil O/U 2%-15%; renovacao core 2.3.0",
-  "metric": "psr",
-  "pipeline_fingerprint": "d7d6a712d373b163e6ba15296f8155bda12001a70f1932dff5096d457d38aeab"
+  "note": "RESEARCH-01A: controle positivo da régua RPS (edge sintético k=3 detectado, ruído uniforme rejeitado)",
+  "metric": "rps",
+  "pipeline_fingerprint": "48ceac3abff360baf17d033c01c09437e4e8a11bb1d71f32830292216d9405d0"
 }
