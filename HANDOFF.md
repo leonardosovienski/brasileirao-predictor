@@ -1,5 +1,148 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22, MADRUGADA) — FONTE DA VERDADE ATUAL
+>
+> **O projeto tem seu primeiro resultado significativo.** A pilha de serving,
+> com o ensemble de xG DESLIGADO, bate a climatologia com IC95 inteiramente
+> abaixo de zero em RPS, Brier 1X2 e log-loss — e o controle negativo passou
+> **no mesmo motor**. O checkpoint anterior (logo abaixo) continua válido como
+> histórico da parte de engenharia.
+
+---
+
+## A — O que foi demonstrado
+
+### 1. Resolução preditiva vs. climatologia (2021-2024, n=1318, motor `serving`, ensemble OFF)
+
+| | valor | climatologia | delta | IC95 |
+| --- | --- | --- | --- | --- |
+| **RPS** | 0,213339 | 0,219989 | **−0,006650** | **[−0,010544, −0,002858]** |
+| Brier 1X2 | 0,622593 | 0,637127 | −0,014534 | [−0,022395, −0,006838] |
+| log-loss | 1,036857 | 1,056539 | −0,019682 | [−0,031037, −0,008418] |
+
+Os três IC inteiramente abaixo de zero. RPS 3,02% melhor que a taxa-base.
+Relatório: `reports/benchmark_serving_noxg_2026-08-22.json`.
+
+**Dois critérios do §8 NÃO passam** e não devem ser esquecidos:
+`calibration_slope` do OU2.5 em **1,5517** (alvo 0,9-1,1) e `resolution` em
+0,001405, **menor** que a do v4 (0,001761). A cabeça de over/under continua
+sem discriminar — antes era superconfiante e errada (slope 0,31; 0,18 com
+ensemble), agora é conservadora e quase constante (`sharpness` 0,000764). Só
+trocou de patologia.
+
+### 2. Controle negativo, motor `serving` — **PASSOU**
+
+| | skill | bate climatologia |
+| --- | --- | --- |
+| referência (dados reais) | **+0,030227** | SIM |
+| perm1 (embaralhado) | −0,020940 | não |
+| perm2 | −0,018273 | não |
+| perm3 | −0,013748 | não |
+
+Amplitude de +0,030 para −0,018. O sinal está no vínculo time↔desfecho: com os
+resultados embaralhados o modelo PERDE da climatologia. É o contraste que o
+controle no motor `dixon_coles` não exibia (lá a referência também não batia a
+climatologia). Relatório: `reports/permutation_serving_2026-08-22.json`.
+
+**O controle do motor `dixon_coles` é uma corrida SEPARADA** — ~1h40, valida a
+régua histórica (v4 e 01A), não esta. Não confundir os dois arquivos.
+
+### 3. RESEARCH-XG — `h12-ensemble-xg-ligado-vs-desligado` → **COMPROVADA**
+
+**A primeira trial comprovada do projeto. Treze registradas, uma comprovada.**
+
+Pareado jogo a jogo, uma variável (`ensemble_xg.enabled`), n=1318:
+
+| | ganho | IC95 |
+| --- | --- | --- |
+| **RPS** | **+0,004410** | **[+0,001436, +0,007741]** |
+| Brier 1X2 | +0,021648 | [+0,008562, +0,036863] |
+| Brier OU2.5 | +0,030696 | [+0,019290, +0,043565] |
+| log-loss | +0,027244 | [+0,010618, +0,046425] |
+
+Os quatro IC acima de zero: o ensemble piorava **todas** as métricas, não
+trocava umas pelas outras. `xg_fit_failures_control=0` — o braço ligado era
+integralmente com ensemble, então o contraste é o real.
+Diagnóstico (Regra 12, não entra no veredito): accuracy 43,3% → 47,9%.
+
+**PROVENIÊNCIA — não é pré-registro cego.** O efeito foi observado antes, em
+duas corridas não pareadas do painel. A trial acrescenta o IC95 na MESMA
+amostra. Vale menos que um GO cego, e está escrito no relatório e nas notas.
+
+### 4. Por que o ensemble estava ligado — o achado de governança
+
+`config.yaml` justificava a flag com um walk-forward em **"2025+2026"**.
+**2025 é holdout selado (Regra 7); 2026 é exploratório (Regra 1).** A flag foi
+ligada em 2026-07-17 sob o pré-registro da H5 — o pré-registro foi cumprido, o
+que faltou foi a **origem dos dados**. Medido no período legítimo, o efeito se
+inverte.
+
+Uma flag ligada com evidência do holdout, servindo em produção por um mês, e
+que na amostra limpa piora tudo. É o mecanismo que as Regras 1 e 7 existem para
+impedir, falhando na única vez em que foi testado de verdade.
+
+## B — Bugs corrigidos (PRs #31-#36, todas mergeadas)
+
+- **#33** — `--engine serving` morria de `KeyError: 'rho'` com qualquer banco,
+  DEPOIS do walk-forward inteiro. O comando do P2 do Roadmap **nunca tinha
+  rodado**. Corrigido usando `p_over` da própria grade servida (reconstruir uma
+  DC por fora era a distribuição errada: o serving é NB+DC misturado com xG).
+- **#35** — o relatório não registrava o estado do ensemble; `xg_fit_failures`
+  vinha `0` tanto para "funcionou" quanto para "nunca tentou". Dois relatórios
+  de `--engine serving` eram indistinguíveis pelo conteúdo — e duas corridas
+  saíram idênticas por isso.
+- **#36** — `scripts/research_xg_ensemble.py`, o teste pareado.
+- **#31/#32/#34** — `docs/RUNBOOK_P0-P2.md`, validação dos comandos, checkpoint.
+
+## C — Custo: o gargalo do P1 é de UM motor
+
+| motor | ajuste por refit | parâmetros | 1318 previsões |
+| --- | --- | --- | --- |
+| `dixon_coles` | `fit_dixon_coles_parameters` | ~42-52, sem gradiente | **~20 min** |
+| `serving` | `model.fit_goal_model` | 4-5 | **~3 s** |
+
+O gargalo é do motor **que não é o que se serve**. A agenda da TRACK A poderia
+rodar sobre `--engine serving` em segundos — mas trocar de motor troca a régua,
+e todas as medições congeladas são do `dixon_coles`. **Reavaliar o P1 com isso
+em conta antes de mexer na numérica** (`src/dixon_coles.py` segue intocado; a
+análise e a medição estão em `docs/RUNBOOK_P0-P2.md` e
+`scripts/p1_cost_probe.py`).
+
+## D — Achados NÃO corrigidos (decisão do operador)
+
+1. **`brier_ou25` não tem baseline** (`_metric_record(..., baseline_value=None)`)
+   → é um guardrail estruturalmente **incapaz de vetar** pela regra de promoção.
+   Corrigir muda a superfície de promoção: é pré-registro.
+2. **A cabeça de OU 2.5 não discrimina** — `resolution` ~0,0014 em todas as
+   configurações medidas. É o problema aberto mais concreto do modelo.
+3. **`scripts/_attest_only.py` é armadilha** — sobrescreve a attestation da
+   régua RPS com a do funil PSR do H8. Aconteceu nesta sessão. Renovar a régua
+   RPS se faz com
+   `python -c "from scripts.research_01a_refit_cadence import attest_rps_power; attest_rps_power()"`.
+4. **`pyright`** reportou 75 erros pré-existentes em `src/` num ambiente Linux
+   com dependências recém-instaladas, contra o "pyright limpo" registrado antes.
+   Conferir na máquina do operador.
+
+## E — O que o projeto continua NÃO tendo
+
+- **Edge econômico: nenhum.** `market_no_vig` — o teste de teto — nunca existiu.
+  Bater a climatologia não é bater o mercado. **Capital bloqueado (Regra 4).**
+- **Nenhuma coorte prospectiva** (MARKET-04).
+- **O resultado de §A.1 não é trial pré-registrada** — emergiu de uma medição.
+  Justifica um pré-registro, não o substitui.
+- **Holdout de 2025 intocado**, como deve ser. A decisão final de arquitetura
+  ainda precisa passar por ele.
+- TRACK A: 01B, 02, 02B, 03, 04, 05, 06, 07, 08+ não começaram.
+
+## F — Estado técnico
+
+- Suíte: **589 testes**. `ci_check.py` verde. CI verde (3.13, 3.14, .NET, Compose).
+- `ruff check` e `ruff format` limpos.
+- `config.yaml`: `ensemble_xg.enabled: false`, com a justificativa registrada
+  no próprio arquivo.
+
+---
+
 > ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22) — FONTE DA VERDADE ATUAL
 >
 > Sessão rodada num **container remoto, SEM acesso a `data/matches.db`**. Nenhum

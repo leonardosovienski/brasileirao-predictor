@@ -33,12 +33,31 @@ model:
   calibration_window_years: 4
   max_goals: 12
 
-# Ensemble baseline × atk/def-xG (src/xg_model.py). Validado em walk-forward
-# 2025+2026: dBrier 1X2 -0.0073, IC95 [-0.0122, -0.0019], OU2.5 preservado
-# (docs/SIMULACAO_2025_2026.md). LIGADO em 2026-07-17 com o pré-registro da
-# H5 (h5-ensemble-xg-sombra-2026, scripts/registrar_h5.py) — exigência de
-# governança cumprida. A H3 segue baseline puro por construção (sombra.py
-# chama model.predict_match direto, imune a esta flag).
+# Ensemble baseline × atk/def-xG (src/xg_model.py).
+#
+# DESLIGADO em 2026-08-22 pela trial h12-ensemble-xg-ligado-vs-desligado
+# (COMPROVADA, scripts/research_xg_ensemble.py). Teste pareado jogo a jogo em
+# 2021-2024, n=1318, motor `serving`, uma variável só:
+#   RPS        com ensemble 0.217749 → sem 0.213339, ganho +0.004410,
+#              IC95 [+0.001436, +0.007741]
+#   Brier 1X2  ganho +0.021648, IC95 [+0.008562, +0.036863]
+#   Brier OU25 ganho +0.030696, IC95 [+0.019290, +0.043565]
+#   log-loss   ganho +0.027244, IC95 [+0.010618, +0.046425]
+# Os quatro IC inteiramente acima de zero: o ensemble piorava TODAS as
+# métricas, não trocava umas pelas outras. xg_fit_failures=0 no braço ligado,
+# então o contraste medido é o real, não uma versão degradada.
+#
+# POR QUE ELE ESTAVA LIGADO, E POR QUE ISSO NÃO VALIA: a justificativa
+# anterior era um walk-forward em "2025+2026" (dBrier 1X2 -0.0073, IC95
+# [-0.0122, -0.0019], docs/SIMULACAO_2025_2026.md), com a flag ligada em
+# 2026-07-17 sob o pré-registro da H5 (h5-ensemble-xg-sombra-2026). Mas 2025 é
+# HOLDOUT SELADO (Regra 7) e 2026 é exploratório (Regra 1) — nenhum dos dois
+# valida arquitetura. Medido no período legítimo de desenvolvimento
+# (2021-2024), o efeito se INVERTE. O pré-registro da H5 foi cumprido; o que
+# faltou foi a origem dos dados.
+#
+# A H3 segue baseline puro por construção (sombra.py chama model.predict_match
+# direto, imune a esta flag).
 # Hiperparâmetros CONGELADOS pela validação 2024-H2 — não recalibrar avulso.
 ensemble_xg:
   enabled: false
