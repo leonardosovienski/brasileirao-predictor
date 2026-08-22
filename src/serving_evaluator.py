@@ -133,6 +133,16 @@ class ServingStackEvaluator(PrequentialEvaluator):
                 "away": away,
                 "lam": r["lambda_a"],
                 "mu": r["lambda_b"],
+                # P(over 2.5) da PRÓPRIA grade servida — Negativa Binomial com
+                # correção DC e, quando o ensemble está ligado, misturada com a
+                # grade de xG. Reconstruir uma DixonColesMatrix a partir de
+                # (lam, mu) no consumidor daria uma distribuição DIFERENTE da
+                # que produziu o 1X2 logo acima: o OU e o 1X2 do mesmo relatório
+                # deixariam de vir da mesma distribuição, que é exatamente o que
+                # `xg_model.blend` mistura grades (e não probabilidades) para
+                # garantir. Este evaluator não expõe `rho` porque a pilha de
+                # serving não é uma DC pura — quem consome deve usar este campo.
+                "p_over": float(r["over"][2.5]),
                 "ensemble": bool(r.get("ensemble")),
                 "model": "Ensemble(NB+DC, AtkDef-xG)" if r.get("ensemble") else "NegBin+DixonColes",
             },

@@ -200,6 +200,35 @@ def _make_evaluator(engine: str, half_life: float, cfg: dict[str, Any] | None):
     return BrasileiraoDixonColesEvaluator(half_life_days=half_life, max_goals=MAX_GOALS)
 
 
+def _p_over_from(metadata: dict[str, Any]) -> float:
+    """P(over 2.5) do motor que produziu a previsão — nunca de uma distribuição
+    reconstruída por fora.
+
+    Os dois motores respondem por caminhos diferentes, e a diferença é de
+    substância, não de conveniência:
+
+    * `serving` entrega `p_over` pronto, tirado da mesma grade (NB+DC, misturada
+      com xG quando o ensemble está ligado) que gerou o 1X2 da linha. Usar
+      (lam, mu) para levantar uma `DixonColesMatrix` aqui trocaria a
+      distribuição no meio do relatório — o 1X2 viria da pilha servida e o OU de
+      uma Dixon-Coles pura que o serving não usa.
+    * `dixon_coles` é uma DC pura de fato, e expõe `rho`; ali reconstruir a
+      matriz É a distribuição certa, e é o que se faz.
+
+    Sem `p_over` nem `rho` o painel não tem como produzir o mercado de OU, e
+    isso é erro de contrato do evaluator — falha alto em vez de inventar um
+    número plausível."""
+    if "p_over" in metadata:
+        return float(metadata["p_over"])
+    if "rho" not in metadata:
+        raise KeyError(
+            "metadata do evaluator não traz nem 'p_over' nem 'rho' — sem um dos "
+            "dois não há distribuição de placar para derivar o OU 2.5"
+        )
+    grid = DixonColesMatrix(metadata["lam"], metadata["mu"], metadata["rho"], max_goals=MAX_GOALS).grid()
+    return sum(grid[h][a] for h in range(MAX_GOALS + 1) for a in range(MAX_GOALS + 1) if h + a > OU_LINE)
+
+
 def _run_walkforward(
     observations: list[dict[str, Any]],
     half_life: float,
@@ -222,10 +251,8 @@ def _run_walkforward(
         pred = r["prediction"]
         outcome = pred.value  # {"home", "draw", "away"} — outcome_probs()
         p_win, p_draw, p_loss = outcome["home"], outcome["draw"], outcome["away"]
-        lam, mu, rho = pred.metadata["lam"], pred.metadata["mu"], pred.metadata["rho"]
-        matrix = DixonColesMatrix(lam, mu, rho, max_goals=MAX_GOALS)
-        grid = matrix.grid()
-        p_over = sum(grid[h][a] for h in range(MAX_GOALS + 1) for a in range(MAX_GOALS + 1) if h + a > OU_LINE)
+        lam, mu = pred.metadata["lam"], pred.metadata["mu"]
+        p_over = _p_over_from(pred.metadata)
         rows.append(
             {
                 "date": obs["date"],

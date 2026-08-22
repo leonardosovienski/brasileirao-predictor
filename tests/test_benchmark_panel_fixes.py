@@ -136,3 +136,88 @@ def test_engine_serving_exige_config() -> None:
     seguir em frente mediria um modelo que ninguém configurou."""
     with pytest.raises(SystemExit, match="config.yaml"):
         bp._make_evaluator("serving", 120.0, None)
+
+
+# ---------- OU 2.5 vem do motor que produziu a linha (bug do --engine serving) ----------
+
+
+def _liga_sintetica(monkeypatch, rodadas: int = 90) -> None:
+    """Base pequena com o DDL REAL, kickoff de verdade e horários distintos.
+
+    Não é dado de pesquisa — é o mínimo para que o PRODUTOR rode. O ponto do
+    teste é justamente não fabricar as linhas do painel à mão: foi assim que o
+    `KeyError: actual_ou25` da auditoria anterior passou batido."""
+    import pathlib
+    import tempfile
+    from datetime import UTC, datetime, timedelta
+
+    from src import db as _db
+
+    times = ["flamengo", "palmeiras", "gremio", "santos", "corinthians", "bahia"]
+    path = pathlib.Path(tempfile.mkdtemp()) / "m.db"
+    conn = _db.connect(str(path))
+    eid = 0
+    for rodada in range(rodadas):
+        dia = datetime(2021, 4, 3, tzinfo=UTC) + timedelta(days=7 * rodada)
+        pares = [(times[0], times[1]), (times[2], times[3]), (times[4], times[5])]
+        if rodada % 2:
+            pares = [(a, h) for h, a in pares]
+        for j, (casa, fora) in enumerate(pares):
+            d = dia.strftime("%Y-%m-%d")
+            # dois jogos no MESMO horário: é o caso que a guarda de bloco cobre
+            kickoff = (dia + timedelta(hours=16 + 2 * (j // 2))).isoformat(timespec="seconds")
+            gols_casa, gols_fora = (rodada + j) % 4, (rodada + 2 * j) % 3
+            conn.execute(
+                "INSERT INTO matches (date, home_team, away_team, home_score, away_score, tournament, neutral)"
+                " VALUES (?,?,?,?,?,?,0)",
+                (d, casa, fora, gols_casa, gols_fora, "Brasileirão Série A"),
+            )
+            conn.execute(
+                "INSERT INTO sofascore_matches (event_id, date, kickoff_at, home_team, away_team,"
+                " home_score, away_score, home_xg, away_xg) VALUES (?,?,?,?,?,?,?,?,?)",
+                (eid, d, kickoff, casa, fora, gols_casa, gols_fora, gols_casa + 0.3, gols_fora + 0.2),
+            )
+            eid += 1
+    conn.commit()
+    conn.close()
+    monkeypatch.setattr(bp, "DB", path)
+
+
+def test_p_over_do_serving_vem_da_grade_servida() -> None:
+    """A pilha de serving não é uma DC pura — ela entrega a própria P(over)."""
+    assert bp._p_over_from({"lam": 1.4, "mu": 1.1, "p_over": 0.61}) == pytest.approx(0.61)
+
+
+def test_p_over_do_dixon_coles_reconstroi_a_matriz() -> None:
+    """No motor DC a matriz reconstruída É a distribuição certa."""
+    p = bp._p_over_from({"lam": 1.4, "mu": 1.1, "rho": -0.05})
+    assert 0.0 < p < 1.0
+
+
+def test_p_over_falha_alto_sem_p_over_e_sem_rho() -> None:
+    """Inventar um número plausível aqui contaminaria o guardrail de OU."""
+    with pytest.raises(KeyError, match="p_over.*rho|rho"):
+        bp._p_over_from({"lam": 1.4, "mu": 1.1})
+
+
+def test_walkforward_serving_produz_linhas_de_ponta_a_ponta(monkeypatch) -> None:
+    """Regressão do `KeyError: 'rho'` com `--engine serving`.
+
+    Os testes existentes cobriam `_make_evaluator('serving', ...)` — que só
+    CONSTRÓI o objeto — e o evaluator isolado. Nenhum rodava
+    `_run_walkforward`, então o painel morria depois do walk-forward inteiro,
+    ao montar as linhas. Mesma lição do `actual_ou25`: testar a peça não é
+    testar o produtor."""
+    _liga_sintetica(monkeypatch)
+    monkeypatch.setattr(bp, "MIN_HISTORY", 30)
+    cfg = bp.load_config()
+    observations = bp._load_observations("")
+
+    rows, ev = bp._run_walkforward(observations, half_life=120.0, retrain_every=20, engine="serving", cfg=cfg)
+
+    assert rows, "walk-forward do serving não produziu linhas"
+    assert isinstance(ev, ServingStackEvaluator)
+    for r in rows:
+        assert 0.0 < r["p_over"] < 1.0, "P(over 2.5) fora de (0,1)"
+        assert r["p_win"] + r["p_draw"] + r["p_loss"] == pytest.approx(1.0, abs=1e-6)
+        assert r["lambda_total"] > 0

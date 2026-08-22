@@ -80,7 +80,20 @@ Conferir na saída (`BENCHMARK_WRITTEN`):
 * `rps` ≈ **0,21687** — o CONTROL do 01A bateu exatamente com o v4 anterior.
   Se o ponto se mover, foi a correção de bootstrap/slope da PR #26 mordendo
   mais do que se supunha, e isso é achado, não ruído a ignorar.
-* `metrics[].delta_ci95` **não pode vir `null`** (era o bug 3 da #26).
+* `metrics[0].delta_ci95` **não pode vir `null`** — é a primária (RPS), e era
+  o bug 3 da #26. **Atenção:** `brier_ou25` vem com `baseline_value`, `delta` e
+  `delta_ci95` todos `null` **por construção** (`_metric_record(...,
+  baseline_value=None, ...)`), porque a climatologia do painel não define
+  baseline de OU 2.5. Isso não é o bug 3 voltando.
+
+  Consequência que vale registrar: o Roadmap §4 lista Brier OU2.5 como
+  guardrail, mas a regra de promoção diz que guardrail só veta com o IC
+  inteiro do lado ruim. Sem baseline não há IC — então **esse guardrail é hoje
+  estruturalmente incapaz de vetar**. Corrigir isso muda a superfície de
+  promoção e é decisão de pré-registro, não conserto de bug.
+* ECE, `calibration_slope`, `resolution` e `sharpness` **não estão em
+  `metrics`** — vivem em `guardrails_ou25`, calculados só para o mercado de OU
+  2.5, não para o 1X2. O alvo de slope 0,9-1,1 do Roadmap §8 se lê ali.
 
 ### P0.3 — controle negativo
 
@@ -123,11 +136,23 @@ python scripts\benchmark_predictor.py --model H4_DIXON_COLES_CALIBRATED `
 ensemble de xG + calibração a cada refit, não só o MLE do DC — mas na casa de
 dezenas de minutos, não das 4h30. **O P1 não bloqueia este experimento.**
 
+> **Este comando não rodava até 2026-08-22.** `_run_walkforward` lia
+> `pred.metadata["rho"]` sem condição, e a `ServingStackEvaluator` nunca
+> expôs `rho` — a pilha de serving não é uma Dixon-Coles pura. `--engine
+> serving` morria de `KeyError: 'rho'` **depois** do walk-forward inteiro,
+> com qualquer banco. Corrigido: o serving passou a entregar `p_over` da
+> própria grade servida, e o painel usa esse campo em vez de reconstruir uma
+> DC por fora. Se você tinha tentado rodar o P2 antes e desistido, era isso.
+
 Ler, nesta ordem:
 
-1. `block_guard.xg_fit_failures` — **primeiro**. Se vier alto, o ensemble
-   degradou para o baseline com frequência e a comparação não mede o que se
-   pensa medir. Nesse caso o achado é o próprio índice de falha, não o RPS.
+1. `block_guard.xg_fit_failures` — **primeiro**. Vem inteiro no motor
+   `serving` (e `null` no `dixon_coles`, que não tem ensemble para falhar). Se
+   vier alto, o ensemble degradou para o baseline com frequência e a comparação
+   não mede o que se pensa medir. Nesse caso o achado é o próprio índice de
+   falha, não o RPS.
+   Confirmar também `serves_production_model: true` no topo do relatório — é o
+   carimbo de que o que rodou foi a pilha servida.
 2. `n` — tem de bater com o v4. Sem o mesmo `n` não há comparação pareada.
 3. RPS e o IC95 contra o v4.
 
