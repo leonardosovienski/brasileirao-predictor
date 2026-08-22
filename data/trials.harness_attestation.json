@@ -1,11 +1,11 @@
 {
   "schema_version": "pipeline-power/2",
-  "passed_at": "2026-08-09T05:08:43+00:00",
-  "expires_at": "2026-08-16T05:08:43+00:00",
-  "core_version": "2.2.0",
+  "passed_at": "2026-08-22T03:15:11+00:00",
+  "expires_at": "2026-08-29T03:15:11+00:00",
+  "core_version": "2.3.0",
   "evaluate": "evaluate_funnel",
   "edge_verdict": "COMPROVADA",
-  "note": "H8 O/U 2.5 fixed 2-15% funnel; synthetic sensitivity/specificity before registry write",
+  "note": "funil O/U 2%-15%; renovacao core 2.3.0",
   "metric": "psr",
-  "pipeline_fingerprint": "beed49129bfe31bc6fc04bfc19783d23830686015d437afbc029d1a82b5310e6"
+  "pipeline_fingerprint": "d7d6a712d373b163e6ba15296f8155bda12001a70f1932dff5096d457d38aeab"
 }

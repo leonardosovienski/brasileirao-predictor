@@ -1,0 +1,82 @@
+{
+  "diagnostic": {
+    "accuracy_1x2_control": 0.47344461305007585,
+    "accuracy_1x2_treatment": 0.4764795144157815,
+    "blocked_observations_control": 2,
+    "blocked_observations_treatment": 67,
+    "deferred_refits_control": 0,
+    "deferred_refits_treatment": 0
+  },
+  "generated_at": "2026-08-21T21:45:59+00:00",
+  "guardrails": {
+    "brier_1x2": {
+      "ci95": [
+        -0.0029734710238905645,
+        0.010117416827423497
+      ],
+      "control_mean_loss": 0.6301989457555912,
+      "mean_gain": 0.003931042195983364,
+      "n": 1318,
+      "treatment_mean_loss": 0.6262679035596077
+    },
+    "brier_ou25": {
+      "ci95": [
+        -0.003444943757049945,
+        0.009221025818931578
+      ],
+      "control_mean_loss": 0.5073521741730633,
+      "mean_gain": 0.002828391154801831,
+      "n": 1318,
+      "treatment_mean_loss": 0.5045237830182615
+    },
+    "log_loss": {
+      "ci95": [
+        -0.04762768116416709,
+        0.015403142947822097
+      ],
+      "control_mean_loss": 1.0501130087220236,
+      "mean_gain": -0.007638933147899354,
+      "n": 1318,
+      "treatment_mean_loss": 1.0577519418699228
+    }
+  },
+  "half_life_days": 360.0,
+  "params": {
+    "block_guard": "kickoff (jogos simultâneos fora do treino um do outro)",
+    "bootstrap": {
+      "block_length": 21,
+      "n_boot": 10000,
+      "scheme": "moving",
+      "seed": 42
+    },
+    "control": 100,
+    "league": "Brasileirão Série A",
+    "market": "1x2",
+    "min_history": 200,
+    "model": "H4_DIXON_COLES_CALIBRATED",
+    "period": [
+      "2021-01-01",
+      "2024-12-31"
+    ],
+    "treatment": 10,
+    "variable": "retrain_every"
+  },
+  "primary": {
+    "ci95": [
+      -0.0016504868675765335,
+      0.004749614667764581
+    ],
+    "control_mean_loss": 0.2168702612841329,
+    "is_primary": true,
+    "mean_gain": 0.0017640982566979454,
+    "metric": "rps",
+    "n": 1318,
+    "treatment_mean_loss": 0.215106163027435
+  },
+  "schema_version": "research-01a/1",
+  "trial": "h11-refit-cadence-rodada-vs-100jogos",
+  "verdict": {
+    "detail": "IC95 do ganho de RPS cruza zero — recalibrar por rodada é indistinguível de sorte",
+    "status": "refutada"
+  }
+}
