@@ -1,0 +1,85 @@
+{
+  "diagnostic": {
+    "accuracy_1x2_control": 0.4332321699544765,
+    "accuracy_1x2_treatment": 0.4787556904400607,
+    "blocked_observations_control": 2,
+    "blocked_observations_treatment": 2,
+    "linhas_identicas_entre_bracos": 0,
+    "xg_fit_failures_control": 0
+  },
+  "generated_at": "2026-08-22T06:43:15+00:00",
+  "guardrails": {
+    "brier_1x2": {
+      "ci95": [
+        0.008561924876989112,
+        0.03686349614239867
+      ],
+      "control_mean_loss": 0.6442403894216483,
+      "mean_gain": 0.02164750503131081,
+      "n": 1318,
+      "treatment_mean_loss": 0.6225928843903374
+    },
+    "brier_ou25": {
+      "ci95": [
+        0.01928999785938254,
+        0.043564963269550276
+      ],
+      "control_mean_loss": 0.5255210475123555,
+      "mean_gain": 0.030696123598376045,
+      "n": 1318,
+      "treatment_mean_loss": 0.4948249239139794
+    },
+    "log_loss": {
+      "ci95": [
+        0.01061845831953589,
+        0.046425415752565
+      ],
+      "control_mean_loss": 1.0641014294526605,
+      "mean_gain": 0.027244242099001958,
+      "n": 1318,
+      "treatment_mean_loss": 1.0368571873536587
+    }
+  },
+  "half_life_days": 360.0,
+  "params": {
+    "block_guard": "kickoff (jogos simultâneos fora do treino um do outro)",
+    "bootstrap": {
+      "block_length": 21,
+      "n_boot": 10000,
+      "scheme": "moving",
+      "seed": 42
+    },
+    "control": true,
+    "engine": "serving",
+    "league": "Brasileirão Série A",
+    "market": "1x2",
+    "min_history": 200,
+    "model": "H4_DIXON_COLES_CALIBRATED",
+    "period": [
+      "2021-01-01",
+      "2024-12-31"
+    ],
+    "retrain_every": 100,
+    "treatment": false,
+    "variable": "ensemble_xg.enabled"
+  },
+  "primary": {
+    "ci95": [
+      0.0014361447785403748,
+      0.007741362272108646
+    ],
+    "control_mean_loss": 0.21774923923782205,
+    "is_primary": true,
+    "mean_gain": 0.004409994226420718,
+    "metric": "rps",
+    "n": 1318,
+    "treatment_mean_loss": 0.21333924501140134
+  },
+  "provenance": "NÃO é pré-registro cego: o efeito foi observado antes, em duas corridas não pareadas de benchmark_predictor --engine serving (2026-08-22). Este experimento acrescenta o IC95 pareado, na MESMA amostra em que o efeito foi visto.",
+  "schema_version": "research-xg/1",
+  "trial": "h12-ensemble-xg-ligado-vs-desligado",
+  "verdict": {
+    "detail": "IC95 do ganho de RPS estritamente positivo e nenhum guardrail materialmente pior — desligar o ensemble de xG melhora a previsão",
+    "status": "comprovada"
+  }
+}

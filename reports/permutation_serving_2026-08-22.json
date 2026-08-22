@@ -1,0 +1,64 @@
+{
+  "engine": "serving",
+  "generated_at": "2026-08-22T06:58:31+00:00",
+  "half_life_days": 360.0,
+  "period": [
+    "2021-01-01",
+    "2024-12-31"
+  ],
+  "permutations": [
+    {
+      "beats_climatology": false,
+      "gain_ci95": [
+        -0.007479,
+        -0.001999
+      ],
+      "n": 1318,
+      "rps": 0.225527,
+      "rps_climatology": 0.220901,
+      "seed": 20260821,
+      "skill_score": -0.02094
+    },
+    {
+      "beats_climatology": false,
+      "gain_ci95": [
+        -0.006612,
+        -0.00151
+      ],
+      "n": 1318,
+      "rps": 0.22671,
+      "rps_climatology": 0.222642,
+      "seed": 20260822,
+      "skill_score": -0.018273
+    },
+    {
+      "beats_climatology": false,
+      "gain_ci95": [
+        -0.005679,
+        -0.000525
+      ],
+      "n": 1318,
+      "rps": 0.22654,
+      "rps_climatology": 0.223468,
+      "seed": 20260823,
+      "skill_score": -0.013748
+    }
+  ],
+  "reference_run": {
+    "beats_climatology": true,
+    "gain_ci95": [
+      0.002858,
+      0.010544
+    ],
+    "n": 1318,
+    "rps": 0.213339,
+    "rps_climatology": 0.219989,
+    "skill_score": 0.030227
+  },
+  "retrain_every": 100,
+  "schema_version": "permutation-test/1",
+  "verdict": {
+    "detail": "nenhuma permutação bateu a climatologia com significância — o pipeline rejeita ruído",
+    "passed": true
+  }
+}

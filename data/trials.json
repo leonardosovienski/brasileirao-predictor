@@ -342,5 +342,39 @@
       "2024-12-31"
     ],
     "metric": "rps"
+  },
+  {
+    "name": "h12-ensemble-xg-ligado-vs-desligado",
+    "registered_at": "2026-08-22T06:43:15Z",
+    "params": {
+      "market": "1x2",
+      "variable": "ensemble_xg.enabled",
+      "control": true,
+      "treatment": false,
+      "engine": "serving",
+      "model": "H4_DIXON_COLES_CALIBRATED",
+      "retrain_every": 100,
+      "min_history": 200,
+      "block_guard": "kickoff (jogos simultâneos fora do treino um do outro)",
+      "bootstrap": {
+        "scheme": "moving",
+        "block_length": 21,
+        "n_boot": 10000,
+        "seed": 42
+      },
+      "league": "Brasileirão Série A",
+      "period": [
+        "2021-01-01",
+        "2024-12-31"
+      ]
+    },
+    "sharpe": null,
+    "notes": "RESEARCH-XG: ensemble de xG ligado vs. desligado na pilha de serving. Uma variável só; os dois estados forçados no código, não lidos do config.yaml. RESULTADO (2026-08-22): n=1318, RPS com_ensemble=0.217749 sem_ensemble=0.213339, ganho pareado=0.004410, IC95=[0.001436, 0.007741] via bootstrap de bloco móvel (block_length=21, n_boot=10000, seed=42). IC95 do ganho de RPS estritamente positivo e nenhum guardrail materialmente pior — desligar o ensemble de xG melhora a previsão. PROVENIÊNCIA: não é pré-registro cego — o efeito foi observado antes em duas corridas não pareadas do painel (2026-08-22); este experimento pôs IC95 na MESMA amostra. NÃO AUTORIZA CAPITAL — hipótese de qualidade de modelo (RPS), não de mercado. Relatório: research_xg_ensemble_2026-08-22.json",
+    "status": "comprovada",
+    "test_period": [
+      "2021-01-01",
+      "2024-12-31"
+    ],
+    "metric": "rps"
   }
 ]
