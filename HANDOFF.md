@@ -1,5 +1,40 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — CODEX (2026-08-22, ACOMPANHAMENTO DA RODADA)
+>
+> **Captura prospectiva:** `scripts/capture_sofascore_event.py` registra
+> envelopes `sofascore-event-capture/1` append-only em
+> `data/research/sofascore_event_captures.jsonl` e mantém o ledger SQLite de
+> odds. Cada envelope contém `captured_at`, `kickoff_at`, `event_id`, fonte,
+> marca point-in-time, classificação pré-jogo, escalação provável/confirmada,
+> odds 1X2/OU2.5, placar/relógio e estatísticas disponíveis. `pre_match=true`
+> exige simultaneamente status `notstarted` e `captured_at < kickoff_at`; dado
+> pós-apito nunca entra no ledger de odds pré-jogo. Reexecuções idênticas são
+> deduplicadas sem reescrever linhas anteriores.
+>
+> **Rodada de 22/08:** Internacional×Atlético-MG (`15235446`, 21:30Z) e
+> Cruzeiro×Flamengo (`15235438`, 23:30Z) tiveram novas capturas pré-jogo às
+> 20:12:50Z/20:12:51Z, ainda com escalações prováveis. Duas tarefas one-shot
+> do Agendador aguardam `confirmed=true`, com `StartWhenAvailable`, reinício e
+> limite no kickoff. Elas são adicionais às tarefas canônicas e não são
+> removidas por `install_windows_scheduler.ps1`.
+>
+> **LIVE-001:** a linha original em `data/live_predictions.jsonl` permanece
+> byte a byte intacta. `scripts/settle_live_prediction.py` aguarda o status
+> oficial `finished` e grava uma linha ligada por `prediction_id` em
+> `data/live_prediction_settlements.jsonl`; nunca edita a previsão original e
+> mantém `capital_enabled=false`.
+>
+> **Validação:** 9 testes específicos novos passaram; suíte completa agora
+> **646 passed**, 1 deselecionado; Ruff, Pyright (0 erros/avisos) e as cinco
+> barreiras de `scripts/ci_check.py` verdes.
+>
+> **Capital:** continua bloqueado. Readiness às 20:25Z: 59 coletas,
+> bookmaker persistence PASS, `h9_can_emit=true`; gate homologado ainda em
+> `MATURED_ELIGIBLE=0/100`. O relatório operacional H9 viu 2 jogos emitidos,
+> slippage médio −0,10 (`n=2`). Isso permite continuar a coorte, não liberar
+> capital. Estatísticas ao vivo seguem somente observacionais, sem pesos.
+
 > ## CHECKPOINT — CODEX (2026-08-22, NOITE) — FONTE DA VERDADE ATUAL
 >
 > **Tudo abaixo deste checkpoint é histórico quando houver divergência.** As
