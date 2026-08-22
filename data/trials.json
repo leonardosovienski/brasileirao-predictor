@@ -376,5 +376,44 @@
       "2024-12-31"
     ],
     "metric": "rps"
+  },
+  {
+    "name": "h13-serving-vs-climatologia-prospectivo",
+    "registered_at": "2026-08-22T13:57:33Z",
+    "params": {
+      "market": "1x2",
+      "hypothesis": "a pilha de serving bate a climatologia em RPS numa coorte prospectiva",
+      "engine": "serving",
+      "ensemble_xg_enabled": false,
+      "model": "H4_DIXON_COLES_CALIBRATED",
+      "baseline": "climatology",
+      "retrain_every": 100,
+      "min_history": 200,
+      "block_guard": "kickoff (jogos simultâneos fora do treino um do outro)",
+      "bootstrap": {
+        "scheme": "moving",
+        "block_length": 21,
+        "n_boot": 10000,
+        "seed": 42
+      },
+      "primary_metric": "rps",
+      "guardrails": [
+        "log_loss",
+        "brier_1x2",
+        "brier_ou25"
+      ],
+      "min_n_avaliacao": 900,
+      "avaliacoes_intermediarias": false,
+      "league": "Brasileirão Série A",
+      "cohort_start": "2026-08-22"
+    },
+    "sharpe": null,
+    "notes": "PRÉ-REGISTRO (2026-08-22) — coorte PROSPECTIVA, dados ainda não existentes. Hipótese: a pilha de serving (motor 'serving', ensemble_xg DESLIGADO) bate a climatologia em RPS. GATE declarado antes dos dados: (1) IC95 do delta de RPS vs. climatologia inteiramente abaixo de zero; (2) nenhum guardrail (log_loss, brier_1x2, brier_ou25) materialmente pior, isto é, com IC95 inteiro do lado ruim; (3) controle negativo do motor 'serving' passando na MESMA coorte. PONTO ÚNICO de avaliação em n>=900, SEM olhadas intermediárias (n=440 daria poder ~50% para o efeito observado em 2021-2024 e produziria inconclusiva não-informativa; 900 dá ~80%). MOTIVAÇÃO: em 2026-08-22 mediu-se RPS 0.213339 vs climatologia 0.219989, delta -0.006650, IC95 [-0.010544, -0.002858] em 2021-2024, com controle negativo passando (reports/benchmark_serving_noxg_2026-08-22.json, reports/permutation_serving_2026-08-22.json). Esse resultado NÃO é confirmatório: a amostra já tinha sido vista. 2025 permanece SELADO (Regra 7) — a arquitetura não está congelada, a TRACK A não começou — e 2026 é exploratório (Regra 1). Por isso a única amostra cega é o futuro. NÃO AUTORIZA CAPITAL: hipótese de qualidade de modelo, não de mercado; o gate econômico é separado e depende do market_no_vig, que não existe. Resultado ainda não medido.",
+    "status": "pre-registrada",
+    "test_period": [
+      "2026-08-22",
+      null
+    ],
+    "metric": "rps"
   }
 ]
