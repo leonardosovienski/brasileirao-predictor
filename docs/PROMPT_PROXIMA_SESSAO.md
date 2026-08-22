@@ -81,6 +81,50 @@ AVISOS PRÁTICOS:
 - No PowerShell não use \" para escapar dentro de python -c; use só aspas
   simples por dentro. E não use Set-Content em config.yaml (grava BOM).
 
-Comece lendo os arquivos e me diga o que entendeu do estado atual e qual você
-acha que deve ser o próximo passo — antes de executar qualquer coisa.
+PRIMEIRA TAREFA — VALIDE TUDO ANTES DE ACREDITAR NOS DOCUMENTOS.
+
+Não é formalidade. Na sessão de 2026-08-22, TRÊS documentos afirmavam coisas
+que não batiam com a realidade: o README dizia "414 testes" (eram 611), o
+READINESS declarava pyright verde (deu 75 erros), e o SIMULACAO_2025_2026
+justificava uma decisão de produção com dados do holdout selado. Documento é
+afirmação, não evidência. Rode e me diga o que bateu e o que não bateu:
+
+  # suíte e barreiras
+  python -m pytest -q
+  python scripts\ci_check.py --fast
+  ruff check . ; ruff format --check .
+  python -m pyright        # gate REABERTO: HANDOFF diz 75 erros pré-existentes
+
+  # o registro de trials e o atestado
+  python -c "import json;t=json.load(open('data/trials.json'));print(len(t),'trials');[print(' ',x['name'],'->',x['status']) for x in t]"
+  python -c "import json;print(json.load(open('data/trials.harness_attestation.json')))"
+  python -m pytest tests\test_trials_registry_schema.py -q
+
+  # a base
+  python scripts\inventario_dados.py
+
+  # os relatorios que sustentam as afirmacoes do HANDOFF
+  python -c "import json;d=json.load(open('reports/benchmark_serving_noxg_2026-08-22.json'));print(d['metrics'][0]);print(d.get('ensemble_xg'))"
+  python -c "import json;d=json.load(open('reports/permutation_serving_2026-08-22.json'));print(d['verdict'])"
+  python -c "import json;d=json.load(open('reports/research_xg_ensemble_2026-08-22.json'));print(d['primary']);print(d['verdict'])"
+
+O que TEM que bater, senão me avise alto:
+  - 611 testes passando, ci_check verde, ruff limpo
+  - 14 trials: 1 comprovada (h12), 1 pre-registrada (h13), 12 fechadas
+  - attestation: evaluate=_rps_pipeline, metric=rps, expires_at 2026-08-29
+    (se estiver vencida, renove com:
+     python -c "from scripts.research_01a_refit_cadence import attest_rps_power; attest_rps_power()"
+     e NUNCA com scripts/_attest_only.py, que atesta o funil PSR do H8 -- pipeline
+     errado, e foi assim que a attestation certa foi sobrescrita em 2026-08-22)
+  - serving_noxg: RPS 0.213339, delta -0.006650, IC95 [-0.010544, -0.002858],
+    ensemble_xg {enabled: false}
+  - permutation_serving: verdict passed=true
+  - research_xg_ensemble: ganho 0.004410, IC95 [0.001436, 0.007741], comprovada
+  - inventario: espelho matches 2021-2024 somando 1518
+
+Se QUALQUER coisa divergir, pare e me diga antes de seguir para a fila. Um
+documento que mente sobre o estado e' pior que documento nenhum.
+
+Depois disso, me diga o que entendeu do estado atual e qual você acha que deve
+ser o próximo passo — antes de executar qualquer coisa da fila.
 ```
