@@ -229,6 +229,31 @@ def _p_over_from(metadata: dict[str, Any]) -> float:
     return sum(grid[h][a] for h in range(MAX_GOALS + 1) for a in range(MAX_GOALS + 1) if h + a > OU_LINE)
 
 
+def _ensemble_state(ev: Any) -> dict[str, Any] | None:
+    """Estado do ensemble de xG do evaluator, ou `None` se o motor não tem um.
+
+    O `config.yaml` pode mudar entre corridas — e mudou, de propósito, quando
+    se quer isolar o ensemble como variável única. O relatório precisa carimbar
+    o que valia na hora, não o que vale quando alguém for reler o arquivo."""
+    if not hasattr(ev, "ensemble_enabled"):
+        return None
+    return {
+        "enabled": bool(ev.ensemble_enabled),
+        "blend_weight": float(ev.blend_weight) if ev.ensemble_enabled else None,
+    }
+
+
+def _xg_fit_failures(ev: Any) -> int | None:
+    """Falhas de ajuste do xG, ou `None` quando o ajuste nem foi tentado.
+
+    `0` só é interpretável como "ajustou sempre" se o ensemble estava LIGADO;
+    com a flag desligada o contador também fica em 0 porque `_fit_xg` nunca é
+    chamado. Devolver `None` nesse caso separa os dois estados."""
+    if not getattr(ev, "ensemble_enabled", False):
+        return None
+    return int(ev.xg_fit_failures)
+
+
 def _run_walkforward(
     observations: list[dict[str, Any]],
     half_life: float,
@@ -597,8 +622,16 @@ def run(
             "deferred_refits": ev.deferred_refits,
             # Só o motor `serving` ajusta xG; degradação silenciosa faria o
             # painel medir o baseline puro achando que mede o ensemble.
-            "xg_fit_failures": getattr(ev, "xg_fit_failures", None),
+            # `null` = o ensemble nem foi TENTADO (motor sem xG, ou flag
+            # desligada); inteiro = foi tentado e falhou essa quantidade de
+            # vezes. Antes, ambos os casos vinham 0 e eram indistinguíveis.
+            "xg_fit_failures": _xg_fit_failures(ev),
         },
+        # Estado do ensemble NO MOMENTO DA MEDIÇÃO. Sem isto, dois relatórios
+        # de `--engine serving` — um com ensemble, outro sem — ficam
+        # indistinguíveis pelo conteúdo, e a comparação entre eles deixa de ser
+        # reproduzível: ninguém consegue dizer depois o que cada arquivo mediu.
+        "ensemble_xg": _ensemble_state(ev),
         "period": {"start": start or rows[0]["date"], "end": end or rows[-1]["date"]},
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "n": n,

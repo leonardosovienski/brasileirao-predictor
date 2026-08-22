@@ -221,3 +221,61 @@ def test_walkforward_serving_produz_linhas_de_ponta_a_ponta(monkeypatch) -> None
         assert 0.0 < r["p_over"] < 1.0, "P(over 2.5) fora de (0,1)"
         assert r["p_win"] + r["p_draw"] + r["p_loss"] == pytest.approx(1.0, abs=1e-6)
         assert r["lambda_total"] > 0
+
+
+# ---------- o relatório carimba o estado do ensemble (reprodutibilidade do P2) ----------
+
+
+class _EvFake:
+    """Duplo mínimo: só os atributos que o relatório lê do evaluator."""
+
+    def __init__(self, **kw) -> None:
+        self.__dict__.update(kw)
+
+
+def test_ensemble_state_none_no_motor_sem_xg() -> None:
+    """`dixon_coles` não tem ensemble — o campo não deve inventar um estado."""
+    assert bp._ensemble_state(_EvFake(blocked_observations=0)) is None
+
+
+def test_ensemble_state_carimba_ligado() -> None:
+    st = bp._ensemble_state(_EvFake(ensemble_enabled=True, blend_weight=0.5))
+    assert st == {"enabled": True, "blend_weight": 0.5}
+
+
+def test_ensemble_state_carimba_desligado() -> None:
+    """Com o ensemble desligado o `blend_weight` não descreve nada — reportá-lo
+    sugeriria uma mistura que não aconteceu."""
+    st = bp._ensemble_state(_EvFake(ensemble_enabled=False, blend_weight=0.5))
+    assert st == {"enabled": False, "blend_weight": None}
+
+
+def test_xg_fit_failures_none_quando_nem_foi_tentado() -> None:
+    """Com a flag desligada, `_fit_xg` nunca é chamado e o contador fica em 0.
+    Reportar 0 aí é indistinguível de "tentou e nunca falhou" — foi o que fez
+    duas corridas do P2 parecerem a mesma medição."""
+    assert bp._xg_fit_failures(_EvFake(ensemble_enabled=False, xg_fit_failures=0)) is None
+    assert bp._xg_fit_failures(_EvFake(blocked_observations=0)) is None
+
+
+def test_xg_fit_failures_conta_quando_foi_tentado() -> None:
+    assert bp._xg_fit_failures(_EvFake(ensemble_enabled=True, xg_fit_failures=0)) == 0
+    assert bp._xg_fit_failures(_EvFake(ensemble_enabled=True, xg_fit_failures=7)) == 7
+
+
+def test_relatorio_do_serving_carimba_o_ensemble_de_ponta_a_ponta(monkeypatch) -> None:
+    """Dois relatórios de `--engine serving`, um com ensemble e outro sem,
+    precisam ser distinguíveis pelo CONTEÚDO do JSON."""
+    _liga_sintetica(monkeypatch)
+    monkeypatch.setattr(bp, "MIN_HISTORY", 30)
+    cfg = bp.load_config()
+    observations = bp._load_observations("")
+
+    _rows, ev_on = bp._run_walkforward(observations, half_life=120.0, retrain_every=20, engine="serving", cfg=cfg)
+    assert bp._ensemble_state(ev_on)["enabled"] is True
+    assert bp._xg_fit_failures(ev_on) is not None
+
+    cfg_off = {**cfg, "ensemble_xg": {**cfg["ensemble_xg"], "enabled": False}}
+    _rows, ev_off = bp._run_walkforward(observations, half_life=120.0, retrain_every=20, engine="serving", cfg=cfg_off)
+    assert bp._ensemble_state(ev_off)["enabled"] is False
+    assert bp._xg_fit_failures(ev_off) is None
