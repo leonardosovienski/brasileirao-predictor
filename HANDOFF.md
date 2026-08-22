@@ -1,5 +1,126 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22) — FONTE DA VERDADE ATUAL
+>
+> Sessão rodada num **container remoto, SEM acesso a `data/matches.db`**. Nenhum
+> experimento real foi executado; o que se fez foi validar os comandos, achar e
+> corrigir um bug que os bloqueava, e instruir a decisão do P1.
+>
+> O checkpoint de 2026-08-21 (abaixo) segue válido como histórico. Onde
+> divergirem, vale este — em especial o §6 item 4 daquele checkpoint, que manda
+> rodar o motor de serving com um comando que **não funcionava**.
+
+---
+
+## A — O que mudou (PRs #31, #32, #33, todas mergeadas)
+
+### #33 — `--engine serving` nunca rodou (o achado central)
+
+O comando do P2 do Roadmap morria com `KeyError: 'rho'`, **com qualquer banco**.
+`_run_walkforward` lia `pred.metadata["rho"]` sem condição, para reconstruir uma
+`DixonColesMatrix` e dela tirar o P(over 2.5). A `ServingStackEvaluator` nunca
+expôs `rho` — a pilha servida é `Ensemble(NB+DC, AtkDef-xG)`, não uma DC pura.
+
+E morria **depois do walk-forward inteiro**, ao montar as linhas: a mesma forma
+de falha do `KeyError: actual_ou25` da PR #27.
+
+Reconstruir a DC por fora também era a distribuição **errada**. `xg_model.blend`
+mistura *grades* (não probabilidades) justamente para que 1X2, OU e BTTS saiam
+da mesma distribuição — e o painel jogava essa grade fora. Correção: o serving
+entrega `p_over` da própria grade servida; `_p_over_from` usa esse campo quando
+existe, reconstrói a matriz quando o motor expõe `rho` (o `dixon_coles`, onde a
+DC *é* a distribuição certa), e **falha alto** quando não há nenhum dos dois.
+
+O teste que faltava tinha a mesma assinatura de sempre: os existentes cobriam
+`_make_evaluator("serving", ...)` — que só **constrói** o objeto — e o evaluator
+isolado. Nenhum rodava `_run_walkforward` com `engine="serving"`. Adicionado um
+que roda o produtor de ponta a ponta, e **verificado que ele falha sem a
+correção**.
+
+### #31 e #32 — `docs/RUNBOOK_P0-P2.md`
+
+Comandos exatos do P0/P2 com o critério de leitura de cada saída, e o memorando
+de decisão do P1. **`src/dixon_coles.py` não foi alterado.**
+
+## B — Validação dos comandos (banco SINTÉTICO, apagado depois)
+
+Foi construído um `matches.db` sintético de 1.520 jogos com o DDL real, só para
+exercitar o pipeline. **Os números não têm valor científico nenhum.** O que se
+validou é que os comandos rodam:
+
+| comando | estado |
+| --- | --- |
+| P0.1 (snippet de verificação de `trials.json`) | ✅ |
+| P0.2 baseline v4 | ✅ ponta a ponta, `n=1320` |
+| P0.3 permutação | ✅ **PASSOU**, exit 0, ~68 min (4 walk-forwards) |
+| P2 serving | ✅ **só depois da #33** |
+
+No controle negativo, o skill colapsou e ficou **negativo** nas três permutações
+(−0,028, −0,019, −0,033), com IC95 inteiro do lado ruim — o comportamento
+correto. O `skill_score` da corrida de referência bateu exatamente com o
+`rps_skill_score_vs_climatology` do relatório do baseline.
+
+## C — Achados que NÃO foram corrigidos (decisão do operador)
+
+1. **`brier_ou25` não tem baseline.** `_metric_record(..., baseline_value=None,
+   ...)` — a climatologia do painel não define baseline de OU 2.5, então
+   `delta` e `delta_ci95` vêm `null` **por construção**. Consequência: o Roadmap
+   §4 lista Brier OU2.5 como guardrail, mas a regra de promoção exige IC inteiro
+   do lado ruim para vetar. **Sem baseline não há IC — esse guardrail é hoje
+   estruturalmente incapaz de vetar.** Corrigir muda a superfície de promoção do
+   painel: é pré-registro, não conserto de bug.
+2. **ECE, `calibration_slope`, `resolution` e `sharpness` não estão em
+   `metrics`** — vivem em `guardrails_ou25`, calculados só para o mercado de OU
+   2.5, não para o 1X2. O alvo de slope 0,9-1,1 do Roadmap §8 se lê ali.
+3. **Fallback silencioso do model tag.** `_half_life_for` cai calado no
+   `DEFAULT_HALF_LIFE = 120` se não achar `params.half_life_days`. Um typo em
+   `--model` não dá erro: dá um experimento com half-life errado.
+   `H4_DIXON_COLES_CALIBRATED` está certo (360d).
+4. **`pyright` reporta 75 erros pré-existentes em `src/`** (ex.:
+   `src/predict.py:136`, comparação `int | str`), enquanto o §8 do checkpoint
+   anterior diz "pyright limpo". Não vem das mudanças desta sessão. Pode ser
+   versão de pyright diferente — **conferir na máquina do operador**.
+
+## D — P1: medido, não implementado
+
+`scripts/p1_cost_probe.py` mede, sem tocar no banco, que o normalizador da grade
+DC tem **forma fechada exata** (τ ≡ 1 fora das 4 células magras):
+
+```
+Σ P(h|λ)·P(a|μ)·τ(h,a) = F(M|λ)·F(M|μ) + Σ_{4 magras} P·P·(τ−1)
+```
+
+Objetivo concorda a ~1e-15; fit completo ~85-95x mais rápido. O resíduo nos
+parâmetros ajustados (1e-06 a 1e-05, e varia com a **build do scipy**) é ruído
+de parada do L-BFGS-B, três a quatro ordens de grandeza abaixo da largura do
+IC95 do 01A (0,0064 em RPS). As três opções e seus riscos estão em
+`docs/RUNBOOK_P0-P2.md`. **Nada foi implementado — a decisão é do operador.**
+
+## E — O que falta, em ordem
+
+1. **P0.1 — o único bloqueio real.** `data/trials.json` (com a `h11`),
+   `data/trials.harness_attestation.json` **renovada** e o relatório do 01A só
+   existem na máquina do operador. A attestation do repo segue expirada
+   (`2026-08-16`). Conferir `expires_at`, `core_version` e `metric` antes de
+   commitar.
+2. **P0.2 → P0.3 → P2**, nessa ordem. Agora rodam de verdade.
+3. **Ler o bloco `diagnostic` do relatório do 01A** —
+   `blocked_observations_treatment` segue sem ter sido lido desde 2026-08-21.
+4. **Decidir o P1** e o baseline do `brier_ou25`.
+5. **Conferir o tamanho real do banco.** O operador mencionou "um milhão de
+   dados", o que não bate com os 2.123 jogos registrados. Provavelmente é
+   `odds_snapshots` (append-only, e não lida por nenhum destes comandos). Se
+   `matches` cresceu de verdade, o P1 deixa de ser otimização e vira
+   pré-requisito.
+
+## F — Estado técnico
+
+- Suíte: **570 testes** (eram 566), `ci_check.py` verde.
+- `ruff check` e `ruff format` limpos. CI verde (3.13, 3.14, .NET 10, Compose).
+- `main` em `a3e37a5` no fim desta sessão.
+
+---
+
 > ## CHECKPOINT — SESSÃO CLAUDE (2026-08-21) — FONTE DA VERDADE ATUAL
 >
 > O checkpoint de 2026-08-20 (logo abaixo) continua válido como histórico,
