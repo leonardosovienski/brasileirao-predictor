@@ -1,0 +1,59 @@
+{
+  "protocol": "TRACK_A02_DYNAMIC_STRENGTH_PROTOCOL.md",
+  "period_name": "development",
+  "period": {
+    "start": "2021-01-01",
+    "end": "2023-12-31"
+  },
+  "accuracy_policy": "DIAGNOSTIC_ONLY",
+  "control": {
+    "n": 940,
+    "coverage": 1.0,
+    "rps": 0.21282095176574548,
+    "brier_1x2": 0.6219447476191086,
+    "log_loss": 1.0360514517867436,
+    "brier_ou25": 0.49042630558610695,
+    "accuracy_1x2_diagnostic_only": 0.47127659574468084,
+    "accuracy_ou25_diagnostic_only": 0.5712765957446808
+  },
+  "treatment": {
+    "n": 940,
+    "coverage": 1.0,
+    "rps": 0.21662338848974516,
+    "brier_1x2": 0.6305529647206819,
+    "log_loss": 1.0495018053569056,
+    "brier_ou25": 0.4935717722116032,
+    "accuracy_1x2_diagnostic_only": 0.4531914893617021,
+    "accuracy_ou25_diagnostic_only": 0.5691489361702128
+  },
+  "paired_metrics": {
+    "rps": {
+      "delta_treatment_minus_control": 0.0038024367239996057,
+      "delta_ci95": [
+        0.0003808138872395007,
+        0.007375135110545531
+      ]
+    },
+    "brier_1x2": {
+      "delta_treatment_minus_control": 0.008608217101574443,
+      "delta_ci95": [
+        0.0008347115861270291,
+        0.016497637091420204
+      ]
+    },
+    "log_loss": {
+      "delta_treatment_minus_control": 0.01345035357016248,
+      "delta_ci95": [
+        0.0014707937475861507,
+        0.025738644567536703
+      ]
+    },
+    "brier_ou25": {
+      "delta_treatment_minus_control": 0.003145466625496306,
+      "delta_ci95": [
+        -0.00788009905084907,
+        0.01364512623165836
+      ]
+    }
+  }
+}

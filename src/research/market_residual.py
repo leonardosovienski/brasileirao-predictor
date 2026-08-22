@@ -136,3 +136,84 @@ class MarketResidualModel:
         ):
             raise ValueError("residual model artifact has incompatible shapes")
         return model
+
+
+@dataclass
+class MultinomialMarketResidualModel:
+    """Correção 1X2 regularizada com o mercado de-vig como offset.
+
+    A identificação usa a terceira classe como referência: os parâmetros
+    movem apenas as classes 0/2 e 1/2; o softmax normaliza as três
+    probabilidades. No painel 1X2, a ordem é away/draw/home.
+    """
+
+    l2: float = 5.0
+    coefficients: np.ndarray | None = None
+    means: np.ndarray | None = None
+    scales: np.ndarray | None = None
+
+    def fit(
+        self, features: np.ndarray, outcomes: np.ndarray, market_probabilities: np.ndarray
+    ) -> MultinomialMarketResidualModel:
+        x = np.asarray(features, dtype=float)
+        y = np.asarray(outcomes, dtype=int)
+        market = np.asarray(market_probabilities, dtype=float)
+        if x.ndim != 2 or y.shape != (len(x),) or market.shape != (len(x), 3):
+            raise ValueError("incompatible multinomial residual training shapes")
+        if len(x) < max(50, x.shape[1] * 10) or not set(np.unique(y)).issubset({0, 1, 2}):
+            raise ValueError("insufficient or invalid multinomial residual sample")
+        if (
+            np.any((market <= 0) | (market >= 1))
+            or not np.isfinite(market).all()
+            or not np.allclose(market.sum(axis=1), 1.0, atol=1e-8)
+            or not np.isfinite(x).all()
+        ):
+            raise ValueError("training data contains invalid values")
+        self.means = x.mean(axis=0)
+        self.scales = x.std(axis=0)
+        self.scales[self.scales < 1e-12] = 1.0
+        design = np.column_stack([np.ones(len(x)), (x - self.means) / self.scales])
+        offsets = np.log(market)
+        width = design.shape[1]
+
+        def objective(flat):
+            beta = np.asarray(flat).reshape(2, width)
+            logits = offsets.copy()
+            logits[:, 0] += design @ beta[0]
+            logits[:, 1] += design @ beta[1]
+            logits -= logits.max(axis=1, keepdims=True)
+            log_norm = np.log(np.exp(logits).sum(axis=1))
+            loss = -(logits[np.arange(len(y)), y] - log_norm).sum()
+            return float(loss + 0.5 * self.l2 * (beta[:, 1:] ** 2).sum())
+
+        result = minimize(objective, np.zeros(2 * width), method="BFGS")
+        if not result.success and not np.isfinite(result.fun):
+            raise RuntimeError("multinomial residual optimization failed")
+        self.coefficients = np.asarray(result.x, dtype=float).reshape(2, width)
+        return self
+
+    def predict_proba(self, features: np.ndarray, market_probabilities: np.ndarray) -> np.ndarray:
+        if self.coefficients is None or self.means is None or self.scales is None:
+            raise RuntimeError("multinomial residual model is not fitted")
+        x = np.asarray(features, dtype=float)
+        market = np.asarray(market_probabilities, dtype=float)
+        one = x.ndim == 1
+        if one:
+            x, market = x[None, :], market[None, :]
+        if x.ndim != 2 or x.shape[1:] != self.means.shape or market.shape != (len(x), 3):
+            raise ValueError("invalid multinomial residual prediction shapes")
+        if (
+            not np.isfinite(x).all()
+            or not np.isfinite(market).all()
+            or np.any((market <= 0) | (market >= 1))
+            or not np.allclose(market.sum(axis=1), 1.0, atol=1e-8)
+        ):
+            raise ValueError("invalid multinomial residual prediction values")
+        design = np.column_stack([np.ones(len(x)), (x - self.means) / self.scales])
+        logits = np.log(market)
+        logits[:, 0] += design @ self.coefficients[0]
+        logits[:, 1] += design @ self.coefficients[1]
+        logits -= logits.max(axis=1, keepdims=True)
+        probabilities = np.exp(logits)
+        probabilities /= probabilities.sum(axis=1, keepdims=True)
+        return probabilities[0] if one else probabilities

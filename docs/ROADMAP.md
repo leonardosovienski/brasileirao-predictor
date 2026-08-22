@@ -1,8 +1,9 @@
 # Roadmap de Execução — brasileirao-predictor
 
-> **Status:** revisado em 2026-08-22. Há 14 trials: H12 comprovada e H13
-> pré-registrada. O serving resolve contra climatologia, mas ainda não bate o
-> mercado de fechamento sem vig.
+> **Status:** revisado em 2026-08-22 à noite. Há 14 trials: H12 comprovada e
+> H13 pré-registrada. O serving resolve contra climatologia, mas perde do
+> mercado de fechamento sem vig. TRACK A02 (primeira formulação) e MARKET-02
+> 1X2 foram medidos nesta data e deram NO-GO; nenhum foi promovido.
 >
 > Consolida o *Roadmap Técnico Consolidado v1.0-final* (que até aqui vivia só
 > como arquivo solto na máquina do operador — uma sessão nova não tinha acesso
@@ -162,12 +163,14 @@ explícita do operador e re-congelamento das réguas depois.
 
 *Enquanto isso não for decidido, tratar como o gargalo real do projeto.*
 
-### P2 — A pergunta barata que nunca foi respondida
+### P2 — ensemble xG — **RESPONDIDO / H12 COMPROVADA**
 
-**O ensemble de xG que está LIGADO em produção ajuda ou atrapalha?**
+O ensemble foi medido pareado em 2021–2024 (`n=1318`) e piorou todas as
+métricas: delta RPS +0,004410, IC95 [+0,001436,+0,007741]. A trial
+`h12-ensemble-xg-ligado-vs-desligado` foi comprovada e
+`ensemble_xg.enabled` está `false`. Não religar sem hipótese nova.
 
-`config.yaml` tem `ensemble_xg.enabled: true`, mas as trials H5 ficaram
-"substituída" e "inconclusiva" — nunca houve medição limpa. Agora dá:
+Comando histórico/reprodutível do motor de serving:
 
 ```
 python scripts/benchmark_predictor.py --model H4_DIXON_COLES_CALIBRATED \
@@ -175,12 +178,8 @@ python scripts/benchmark_predictor.py --model H4_DIXON_COLES_CALIBRATED \
     --output reports/benchmark_serving_v1_<data>.json
 ```
 
-Comparar com o v4 (`--engine dixon_coles`) responde direto. Conferir também
-`block_guard.xg_fit_failures`: se vier alto, o ensemble degrada para o baseline
-com frequência e o que se mede não é o que se pensa medir.
-
-**Se o ensemble estiver piorando, você serve um modelo pior que o baseline há
-meses** — e isso é mais urgente que qualquer experimento novo.
+O relatório canônico é `reports/benchmark_serving_noxg_2026-08-22.json`; o
+contraste pareado está no relatório da H12 descrito no `HANDOFF.md`.
 
 ### P3 — TRACK A (modelo esportivo), em sequência
 
@@ -190,7 +189,7 @@ Cada item é trial pré-registrada, uma variável por vez.
 | --- | --- | --- |
 | ~~01A~~ | refit por rodada vs. 100 jogos | ✅ **REFUTADA** |
 | 01B | xG com janela única vs. curta+longa | controle barato de *recency* |
-| 02 | estados dinâmicos curto/longo por clube | **núcleo do upgrade** |
+| 02 | estados dinâmicos curto/longo por clube | primeira formulação NO-GO; reformular antes de nova medição |
 | 02B | Elo ainda agrega depois de atk/def modelados? | só se 02 der GO |
 | 03 | incerteza probabilística + shrinkage por precisão | só se 02 der GO |
 | 04 | ambiente de gols dinâmico (`mu_t`) | só se 02 der GO |
@@ -210,15 +209,16 @@ search em 2021-2024, com 2024 como validação): `alpha_short≈0.3`,
 
 ### P4 — TRACK B (mercado), **em paralelo**
 
-Independe da TRACK A e está mais adiantada do que parece:
-`src/research/market_residual.py` já implementa o resíduo com logit do mercado
-como *offset* (essencialmente o MARKET-02), e `src/research/residual_gate.py`
-já tem o gate econômico com PSR e bootstrap.
+Independe da TRACK A. `src/research/market_residual.py` contém os motores
+binário e multinomial com o mercado como *offset*, e
+`src/research/residual_gate.py` contém o gate econômico com PSR e bootstrap.
+O primeiro contraste multinomial MARKET-02 foi executado e falhou; isso não
+invalida a infraestrutura, mas impede promover essa especificação.
 
 | Experimento | Estado |
 | --- | --- |
 | MARKET-01 — consenso de casas, com de-vig individual antes do consenso | falta |
-| MARKET-02 — multinomial residual com offset de mercado | ~pronto |
+| MARKET-02 — multinomial residual com offset de mercado | **NO-GO** em 2024; residual do serving piorou a abertura |
 | MARKET-03 — features de contexto no residual, uma por trial | falta |
 | MARKET-04 — coorte prospectiva em sombra | falta |
 
@@ -236,9 +236,9 @@ concepção.
   serving perdeu do mercado (RPS delta +0,011240, IC95
   [+0,006923,+0,015455], n=1316); capital continua bloqueado. Não estender o
   teto a OU2.5 na mesma base: cobertura de 2023–2024 é só 66%/63%.
-* **Linha órfã de jogo adiado** — PK de `matches` é
-  `(date, home_team, away_team)`; adiamento muda a data e a linha antiga fica.
-  Exige migração de schema (`event_id` em `matches`).
+* **Linhas órfãs de jogos adiados — corrigido.** O bruto é preservado e
+  marcado como superseded; o espelho `matches` usa `event_id`, exclui as
+  versões substituídas e mantém 380 jogos concluídos em 2021–2025.
 * **Encoding de acentos** no `by_team` do relatório (`AtlÃ©tico Mineiro`) —
   cosmético, na ingestão do Sofascore.
 * **Stats de jogador:** `player_comp_stats` contém 5.210 agregados 2021–2026

@@ -1,5 +1,12 @@
 # Market residual engine
 
+> **Estado em 2026-08-22:** o motor binário descrito abaixo continua sendo
+> infraestrutura de pesquisa. O candidato multinomial 1X2 MARKET-02 foi
+> implementado separadamente e deu **NO-GO** na validação 2024 (`n=340`):
+> delta RPS +0,002135, IC95 [+0,000588,+0,003649]. Não foi promovido. Protocolo
+> e resultado: `docs/experiments/MARKET_02_1X2_PROTOCOL.md` e
+> `reports/market02_1x2_validation_2024.json`.
+
 ## Objective
 
 The candidate does not attempt to replace the betting market. It treats each

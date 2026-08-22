@@ -1,10 +1,10 @@
 # Readiness audit
 
-Status: `READY_WITH_EXTERNAL_BLOCKER`.
+Status: `ENGINEERING_READY / CAPITAL_BLOCKED`.
 
 ## Gates homologados
 
-- Python 3.13: 413 testes aprovados (1 deselecionado), zero falhas; mais 1 teste de integração Redis real na execução final (414 no total, verificado em CI).
+- Python local: 637 testes aprovados (1 deselecionado), zero falhas na última execução de `scripts/ci_check.py` em 2026-08-22.
 - .NET 10: build Release com warnings como erro, 0 warnings; 30 testes aprovados, zero falhas e zero skips.
 - Ruff: `ruff check src scripts tests` e `ruff format --check src scripts tests` verdes, sem ignores amplos.
 - Pyright: runtime homologado e fronteiras públicas verdes; pesquisa permanece explicitamente fora do escopo tipado.
@@ -46,10 +46,9 @@ Os dois artefatos externos que bloqueavam a classificação `READY` já existem;
 preditiva walk-forward (RPS primário; Brier 1X2/OU2.5, log-loss, ECE,
 calibration slope, resolution e sharpness como guardrails; accuracy/coverage
 como diagnóstico — nunca métrica de promoção). Skill score implementado hoje
-só contra `climatology`; `elo_baseline`, `current_v3` e `market_no_vig`
-exigem rodar outros previsores sobre a mesma base e ainda não estão
-plugados — chamá-los falha alto (`choices=["climatology"]` no CLI), não
-silencia. `scripts/run_h4_sweep.py` teve a lacuna de `pipeline_fingerprint`
+contra `climatology` e `market_no_vig`; o segundo usa fechamento 1X2 de-vigado
+por Shin e pareamento na mesma amostra. `elo_baseline` e `current_v3` ainda
+falham alto se pedidos. `scripts/run_h4_sweep.py` teve a lacuna de `pipeline_fingerprint`
 corrigida (mesma classe de bug já corrigida em `h10_fadiga_walkforward.py`).
 
 **Atualização 2026-08-20 — checklist GOV-P0/OPS-P0 fechado no operador:**
@@ -66,19 +65,14 @@ corrigida (mesma classe de bug já corrigida em `h10_fadiga_walkforward.py`).
    pelo Roadmap §3) — coleta real dessas temporadas é ação separada do
    operador (`python -m src.ingest_sofascore`).
 
-**Ainda pendente**: congelamento de `reports/benchmark_baseline_v3_<date>.json`
-— `scripts/benchmark_predictor.py` já foi validado contra dados reais (2026,
-225 jogos previstos em walk-forward; turno 1 e turno 2 estatisticamente
-equivalentes, sem edge significativo ainda sobre climatologia), mas o
-resultado não foi salvo como baseline formal. Um bug real foi achado e
-corrigido no processo: `--period` cortava o histórico de treino antes do
-walk-forward, matando o burn-in ao pedir um recorte recente do calendário.
+**Estado desse checklist em 2026-08-22:** o congelamento deixou de ser
+pendência. Baselines canônicos contra climatologia e `market_no_vig` foram
+gerados com o banco real; H11/H12/H13 vieram depois deste bloco histórico.
+TRACK A02 (primeira formulação) e MARKET-02 1X2 também já foram medidos e deram
+NO-GO. Ver o checkpoint atual do `HANDOFF.md`; não usar o parágrafo histórico
+abaixo como fila presente.
 
-Nenhuma trial de `RESEARCH-01..08` ou `MARKET-01..04` foi aberta ainda —
-falta só o congelamento do baseline acima pro checklist do Roadmap (§12)
-estar 100% ✓.
-
-**Atualização 2026-08-21 — baseline v3 congelado e pré-requisito do RESEARCH-01A:**
+**Histórico 2026-08-21 — baseline v3 congelado e pré-requisito do RESEARCH-01A:**
 
 O baseline foi congelado em `reports/benchmark_baseline_v3_2026-08-20.json`
 (commit `951761b`, n=1923 previsões walk-forward 2021-2026, RPS=0.2125,
@@ -190,12 +184,9 @@ servir de régua para comparar qualquer trial.
 
 * ~~**O painel canônico não mede o modelo que serve.**~~ **RESOLVIDO em
   2026-08-21** — ver "Alinhamento painel × serving" abaixo.
-* **Jogo adiado deixa linha órfã em `matches`.** A PK é `(date, home_team,
-  away_team)` e `sofascore_matches` tem `event_id`; adiamento muda a data, a
-  linha nova entra e a antiga fica (o upsert não deleta), virando fixture
-  fantasma. Não afeta o benchmark (que filtra `home_score IS NOT NULL`), mas
-  afeta listagem de fixtures e o pipeline H9. Resolver exige migração de
-  schema (`event_id` em `matches`), fora do escopo desta auditoria.
+* ~~**Jogo adiado deixa linha órfã em `matches`.**~~ **RESOLVIDO em
+  2026-08-22.** O bruto preserva e marca versões superseded; o espelho usa
+  `event_id` e exclui as linhas substituídas.
 
 
 **Alinhamento painel × serving (2026-08-21):**
@@ -286,11 +277,8 @@ operador, não de implementação:**
    ganho de ordem(ns) de grandeza, MAS qualquer mudança na numérica pode mover
    resultados já congelados — precisa de decisão explícita e de re-congelar as
    réguas depois.
-2. **Baseline `market_no_vig`.** O Roadmap §6 pede, e é o teste de teto: se o
-   modelo não bate o fechamento sem vig, não há edge econômico. Depende da
-   cobertura de odds históricas na base do operador, que não é verificável a
-   partir do repositório.
-3. **Linha órfã de jogo adiado.** PK de `matches` é
-   `(date, home_team, away_team)`; adiamento muda a data, a linha nova entra e
-   a antiga fica. Resolver exige migração de schema (`event_id` em `matches`)
-   sobre a base viva do operador — não é mudança para fazer às cegas.
+2. ~~**Baseline `market_no_vig`.**~~ **RESOLVIDO em 2026-08-22.** Em
+   2021–2024 o serving perdeu do fechamento Shin: delta RPS +0,011240, IC95
+   [+0,006923,+0,015455], `n=1316`.
+3. ~~**Linha órfã de jogo adiado.**~~ **RESOLVIDO em 2026-08-22** com
+   identidade por `event_id` e marcação superseded no bruto.

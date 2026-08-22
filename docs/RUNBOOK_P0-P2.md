@@ -1,5 +1,12 @@
 # Runbook P0 → P2 — sessão de 2026-08-22
 
+> **NOTA DE ESTADO (2026-08-22, noite): este runbook é histórico.** P0/P2 já
+> foram executados na máquina real. O estado operacional atual está no primeiro
+> checkpoint de `HANDOFF.md`: H12 comprovada, ensemble desligado,
+> `market_no_vig` implementado e suíte completa com 637 testes. Os comandos e
+> medições abaixo permanecem para reprodução e para explicar as decisões; não
+> interpretar a tabela antiga de `f0955ab` como estado presente.
+
 > Complementa `docs/ROADMAP.md` (a fila priorizada) e `HANDOFF.md` (o estado).
 > Aqui ficam os **comandos exatos** do P0/P2 e o **memorando de decisão do P1**,
 > com as medições que sustentam a recomendação.

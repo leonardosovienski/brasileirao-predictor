@@ -40,15 +40,16 @@ uma cópia divergiria com o tempo e o painel voltaria a medir outra coisa.
 
 from __future__ import annotations
 
+import math
 from datetime import date, datetime, timedelta
 from typing import Any
 
 from predictor_core.contracts.points import PredictionPoint
 from predictor_core.testing.prequential import PrequentialEvaluator
 
-from src import model, ratings, xg_model
+from src import dynamic_strength, model, ratings, xg_model
 
-__all__ = ["ServingStackEvaluator"]
+__all__ = ["DynamicStrengthServingEvaluator", "ServingStackEvaluator"]
 
 
 class ServingStackEvaluator(PrequentialEvaluator):
@@ -92,6 +93,8 @@ class ServingStackEvaluator(PrequentialEvaluator):
         self.blocked_observations: int = 0
         self.deferred_refits: int = 0
         self.xg_fit_failures: int = 0
+        self.dynamic_states: dict[str, dict[str, float]] | None = None
+        self.dynamic_cfg: dict[str, Any] | None = None
 
     # --- hooks do Template Method --------------------------------------------
 
@@ -120,6 +123,19 @@ class ServingStackEvaluator(PrequentialEvaluator):
             adv,
             max_goals=self.max_goals,
         )
+        if self.dynamic_states is not None:
+            corr_home, corr_away = dynamic_strength.corrections(self.dynamic_states, home, away)
+            a, b, alpha, rho, _theta = model._unpack_params(self.params)
+            diff = (self.elo.get(home, base) + adv - self.elo.get(away, base)) / 400.0
+            lam_home = math.exp(a + b * diff + corr_home)
+            lam_away = math.exp(a - b * diff + corr_away)
+            grid = model._score_grid(lam_home, lam_away, alpha, rho, self.max_goals)
+            r = {
+                "lambda_a": lam_home,
+                "lambda_b": lam_away,
+                "total_goals": lam_home + lam_away,
+                **model._grid_stats(grid, self.max_goals),
+            }
         if self.xg_params is not None:
             rx = xg_model.predict(self.xg_params, home, away, neutral=neutral, max_goals=self.max_goals)
             r = xg_model.blend(r, rx, w_base=self.blend_weight)
@@ -185,8 +201,22 @@ class ServingStackEvaluator(PrequentialEvaluator):
         hist_cal = [h for h, r in zip(hist, rows) if r[0] >= cal_cut]
         self.elo = elo
         self.params = model.fit_goal_model(hist_cal or hist)
+        self.dynamic_states = self._fit_dynamic(hist, rows) if self.dynamic_cfg is not None else None
         self.xg_params = self._fit_xg(usable, asof) if self.ensemble_enabled else None
         self._trained_at = max(h["kickoff"] for h in usable)
+
+    def _fit_dynamic(self, hist: list[tuple], rows: list[tuple]) -> dict[str, dict[str, float]]:
+        if self.params is None or self.dynamic_cfg is None:
+            raise RuntimeError("ajuste dinâmico exige parâmetros e configuração")
+        return dynamic_strength.fit(
+            hist,
+            self.params,
+            ((r[1], r[2]) for r in rows),
+            alpha_short=float(self.dynamic_cfg["alpha_short"]),
+            alpha_long=float(self.dynamic_cfg["alpha_long"]),
+            ridge_reg=float(self.dynamic_cfg.get("ridge_reg", 1.0)),
+            eps=float(self.dynamic_cfg.get("eps", 0.1)),
+        )
 
     def _fit_xg(self, usable: list[dict[str, Any]], asof: str) -> dict[str, Any] | None:
         """Ajusta as forças atk/def-xG. Falha de ajuste degrada para o baseline
@@ -215,6 +245,16 @@ class ServingStackEvaluator(PrequentialEvaluator):
             return rows
         cut = _cut(asof, window_years)
         return [r for r in rows if r[0] >= cut] or rows
+
+
+class DynamicStrengthServingEvaluator(ServingStackEvaluator):
+    """Braço de pesquisa: serving atual + estados atk/def curto e longo."""
+
+    def __init__(self, cfg: dict[str, Any], *, max_goals: int | None = None) -> None:
+        super().__init__(cfg, max_goals=max_goals)
+        self.dynamic_cfg = dict(cfg.get("dynamic_strength") or {})
+        if not self.dynamic_cfg:
+            raise ValueError("dynamic_strength ausente da configuracao")
 
 
 def _cut(asof: str, years: float) -> str:

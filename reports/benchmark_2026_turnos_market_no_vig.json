@@ -1,8 +1,8 @@
 {
-  "baseline": "climatology",
+  "baseline": "market_no_vig",
   "baseline_coverage": {
-    "devig_method": null,
-    "market": null,
+    "devig_method": "shin",
+    "market": "1x2",
     "paired_n": 225,
     "rate": 1.0,
     "requested_n": 225
@@ -29,7 +29,7 @@
     "blend_weight": null,
     "enabled": false
   },
-  "generated_at": "2026-08-22T19:57:38+00:00",
+  "generated_at": "2026-08-22T19:57:40+00:00",
   "guardrails_ou25": {
     "calibration_slope": -1.408127,
     "ece": 0.06039,
@@ -44,11 +44,11 @@
   },
   "metrics": [
     {
-      "baseline_value": 0.217383,
-      "delta": -0.008461,
+      "baseline_value": 0.201234,
+      "delta": 0.007688,
       "delta_ci95": [
-        -0.018011,
-        0.001563
+        0.001875,
+        0.01412
       ],
       "is_primary": true,
       "metric": "rps",
@@ -56,11 +56,11 @@
       "value": 0.208921
     },
     {
-      "baseline_value": 0.643872,
-      "delta": -0.013132,
+      "baseline_value": 0.613381,
+      "delta": 0.017358,
       "delta_ci95": [
-        -0.035538,
-        0.009695
+        0.00458,
+        0.03188
       ],
       "is_primary": false,
       "metric": "brier_1x2",
@@ -68,11 +68,11 @@
       "value": 0.63074
     },
     {
-      "baseline_value": 1.065517,
-      "delta": -0.021057,
+      "baseline_value": 1.018484,
+      "delta": 0.025976,
       "delta_ci95": [
-        -0.053676,
-        0.011273
+        0.008117,
+        0.044312
       ],
       "is_primary": false,
       "metric": "log_loss",
@@ -99,19 +99,19 @@
   "schema_version": "benchmark-predictor/1",
   "serves_production_model": true,
   "skill_scores": {
-    "brier_skill_score_vs_climatology": {
+    "brier_skill_score_vs_market_no_vig": {
       "delta_ci95": [
-        -0.009695,
-        0.035538
+        -0.03188,
+        -0.00458
       ],
-      "value": 0.020395
+      "value": -0.028299
     },
-    "rps_skill_score_vs_climatology": {
+    "rps_skill_score_vs_market_no_vig": {
       "delta_ci95": [
-        -0.001563,
-        0.018011
+        -0.01412,
+        -0.001875
       ],
-      "value": 0.038923
+      "value": -0.038203
     }
   },
   "strata": {
@@ -451,13 +451,13 @@
     },
     "by_turno_of_season": {
       "2026-T1": {
-        "baseline": "climatology",
+        "baseline": "market_no_vig",
         "brier_1x2": 0.614582,
-        "brier_1x2_baseline": 0.634631,
-        "brier_1x2_delta": -0.020049,
+        "brier_1x2_baseline": 0.592284,
+        "brier_1x2_delta": 0.022298,
         "brier_1x2_delta_ci95": [
-          -0.046099,
-          0.007593
+          0.00762,
+          0.037681
         ],
         "brier_ou25": 0.510127,
         "diagnostic_accuracy_1x2": 0.505263,
@@ -465,21 +465,21 @@
         "log_loss": 1.022338,
         "n": 190,
         "rps": 0.209429,
-        "rps_baseline": 0.219763,
-        "rps_delta": -0.010335,
+        "rps_baseline": 0.19922,
+        "rps_delta": 0.010209,
         "rps_delta_ci95": [
-          -0.022132,
-          0.001605
+          0.003079,
+          0.017379
         ]
       },
       "2026-T2": {
-        "baseline": "climatology",
+        "baseline": "market_no_vig",
         "brier_1x2": 0.718451,
-        "brier_1x2_baseline": 0.694033,
-        "brier_1x2_delta": 0.024417,
+        "brier_1x2_baseline": 0.727908,
+        "brier_1x2_delta": -0.009458,
         "brier_1x2_delta_ci95": [
-          -0.011718,
-          0.060194
+          -0.052306,
+          0.032406
         ],
         "brier_ou25": 0.476188,
         "diagnostic_accuracy_1x2": 0.285714,
@@ -487,11 +487,11 @@
         "log_loss": 1.164552,
         "n": 35,
         "rps": 0.206166,
-        "rps_baseline": 0.204459,
-        "rps_delta": 0.001708,
+        "rps_baseline": 0.212165,
+        "rps_delta": -0.005999,
         "rps_delta_ci95": [
-          -0.013384,
-          0.017641
+          -0.023477,
+          0.011347
         ]
       }
     },

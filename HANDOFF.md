@@ -1,6 +1,67 @@
 # HANDOFF.md — brasileirao-predictor
 
-> ## CHECKPOINT — CODEX (2026-08-22, TARDE) — FONTE DA VERDADE ATUAL
+> ## CHECKPOINT — CODEX (2026-08-22, NOITE) — FONTE DA VERDADE ATUAL
+>
+> **Tudo abaixo deste checkpoint é histórico quando houver divergência.** As
+> mudanças deste checkpoint foram preparadas como um único changeset; confirme
+> o commit correspondente com `git log -1` e nunca infira estado só de um
+> checkpoint antigo.
+>
+> **Governança e produção:** continuam 14 trials no ledger: 1 comprovada
+> (`h12`), 1 pré-registrada (`h13`) e 12 fechadas. O ensemble xG permanece
+> desligado. 2025 continuou intocado e capital continuou bloqueado. A última
+> validação completa terminou com **637 testes passados**, 1 deselecionado,
+> lint/tipos/smokes verdes.
+>
+> **Diagnóstico 2026 por turno real:** 225 jogos, T1 `n=190`, T2 `n=35`.
+> Serving: accuracy 47,11% (`DIAGNOSTIC_ONLY`), RPS 0,208921. Contra
+> climatologia: delta RPS −0,008461, IC95 [−0,018011,+0,001563], inconclusivo.
+> Contra fechamento Shin: delta +0,007688, IC95 [+0,001875,+0,014120], pior.
+> O etiquetador de turno foi corrigido: primeiro confronto de cada par=T1,
+> volta=T2; não divide temporada incompleta ao meio.
+>
+> **TRACK A02, primeira formulação:** implementado motor de pesquisa
+> `dynamic_strength` (estados atk/def curto+longo em log-rate, sem alterar o
+> serving). Após corrigir o ridge permanente, desenvolvimento 2021–2023
+> (`n=940`) deu delta RPS +0,001042, IC95 [−0,000907,+0,003100] e accuracy
+> 47,13%→46,70%. **NO-GO desta formulação**; 2024/2026 não consumidos e 2025
+> intocado. Ver `docs/experiments/TRACK_A02_DYNAMIC_STRENGTH_PROTOCOL.md`.
+>
+> **MARKET-02 1X2:** residual multinomial com abertura Shin como offset e
+> divergência do serving como sinal. Em validação 2024 (`n=340/380`, cobertura
+> válida 89,47%; não nulo não basta quando odd placeholder é `<=1`), piorou RPS
+> +0,002135, IC95 [+0,000588,+0,003649], Brier e log-loss também com IC
+> desfavorável. **NO-GO comprovado**; não servir. A abertura pura em 2026
+> (`n=225`) teve accuracy 48,89% e RPS 0,200112: melhora a perda probabilística
+> do serving, mas não chega perto de 60%. Ver
+> `docs/experiments/MARKET_02_1X2_PROTOCOL.md`.
+>
+> **Captura ao vivo de 22/08:** SofaScore forneceu odds e escalações prováveis
+> de Internacional×Atlético-MG e Cruzeiro×Flamengo às 19:04:11Z. Foram
+> arquivados 44 jogadores em `data/research/lineup_observations.jsonl`, com
+> `confirmed=false` e `published_at_untrusted=true`, e snapshots pré-apito de
+> odds. Falta uma segunda captura quando as escalações forem confirmadas.
+>
+> **Primeira previsão oficial ao vivo:** `LIVE-2026-08-22-001`,
+> Fluminense×Remo, 0–0 aos 9 minutos, registrada append-only em
+> `data/live_predictions.jsonl`, status `OFFICIAL_PENDING_RESULT`. Previu
+> 57,55%/25,17%/17,29%; logo depois o Remo marcou. Não reescrever: liquidar
+> somente após o resultado final. SHA-256 da linha incluindo newline:
+> `84644880085548c46a16f3e9008ab776509d2593be756f434e2b858c913cd47b`.
+>
+> **Pendências imediatas:** (1) segunda captura das escalações confirmadas dos
+> dois jogos futuros; (2) liquidar a previsão LIVE-001 após o apito final;
+> (3) transformar a captura SofaScore direcionada, hoje manual, em comando
+> reproduzível/agendável; (4) não promover
+> A02/MARKET-02 nem usar accuracy como gate.
+>
+> **Prontidão prospectiva revalidada às 19:57Z:** 54 coletas, gate de
+> persistência de bookmaker PASS, `h9_can_emit=true`, capital desabilitado e
+> Betsson recomendado pela estabilidade. Isto significa que o funil pode
+> emitir se houver evento/sinal elegível; não significa que já exista pick ou
+> edge econômico.
+
+> ## CHECKPOINT — CODEX (2026-08-22, TARDE) — HISTÓRICO
 >
 > **Governança:** 14 trials — 1 comprovada (`h12`), 1 pré-registrada
 > (`h13`), 12 fechadas. O serving sem ensemble resolve contra climatologia,
@@ -27,7 +88,7 @@
 > 0 erros e 0 avisos** (eram 76 erros preexistentes). Suíte local após a
 > correção: **627 testes passados**, 1 deselecionado, zero falhas/erros.
 
-> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22, MADRUGADA) — FONTE DA VERDADE ATUAL
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22, MADRUGADA) — HISTÓRICO
 >
 > **O projeto tem seu primeiro resultado significativo.** A pilha de serving,
 > com o ensemble de xG DESLIGADO, bate a climatologia com IC95 inteiramente
@@ -170,7 +231,7 @@ análise e a medição estão em `docs/RUNBOOK_P0-P2.md` e
 
 ---
 
-> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22) — FONTE DA VERDADE ATUAL
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22) — HISTÓRICO
 >
 > Sessão rodada num **container remoto, SEM acesso a `data/matches.db`**. Nenhum
 > experimento real foi executado; o que se fez foi validar os comandos, achar e
@@ -291,7 +352,7 @@ IC95 do 01A (0,0064 em RPS). As três opções e seus riscos estão em
 
 ---
 
-> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-21) — FONTE DA VERDADE ATUAL
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-08-21) — HISTÓRICO
 >
 > O checkpoint de 2026-08-20 (logo abaixo) continua válido como histórico,
 > mas várias conclusões dele foram **superadas** por esta sessão. Onde os dois

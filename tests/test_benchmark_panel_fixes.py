@@ -42,6 +42,67 @@ def test_delta_ci95_recusa_series_desalinhadas() -> None:
     assert bp._delta_ci95([], []) is None
 
 
+def test_turnos_usam_primeiro_e_segundo_confronto_em_temporada_incompleta() -> None:
+    rows = [
+        {"season": "2026", "date": "2026-01-10", "home": "A", "away": "B"},
+        {"season": "2026", "date": "2026-01-11", "home": "C", "away": "D"},
+        {"season": "2026", "date": "2026-07-10", "home": "B", "away": "A"},
+    ]
+
+    bp._tag_turno(rows)
+
+    assert [row["turno"] for row in rows] == ["T1", "T1", "T2"]
+
+
+def test_turnos_falham_alto_com_terceiro_confronto_na_mesma_temporada() -> None:
+    rows = [
+        {"season": "2026", "date": f"2026-0{i + 1}-01", "home": home, "away": away}
+        for i, (home, away) in enumerate((("A", "B"), ("B", "A"), ("A", "B")))
+    ]
+
+    with pytest.raises(ValueError, match="mais de dois confrontos"):
+        bp._tag_turno(rows)
+
+
+def test_metrica_de_turno_carrega_baseline_delta_ic_e_n() -> None:
+    rows = [
+        {
+            "p_loss": 0.2,
+            "p_draw": 0.3,
+            "p_win": 0.5,
+            "actual_1x2": 2,
+            "_baseline_probs_1x2": [0.4, 0.3, 0.3],
+        }
+        for _ in range(30)
+    ]
+
+    result = bp._stratum_metrics(rows, baseline="climatology")
+
+    assert result["n"] == 30
+    assert result["baseline"] == "climatology"
+    assert result["rps_delta"] < 0
+    assert result["rps_delta_ci95"][1] < 0
+
+
+def test_metrica_de_turno_reporta_ou_e_accuracy_apenas_como_diagnostico() -> None:
+    rows = [
+        {
+            "p_loss": 0.2,
+            "p_draw": 0.3,
+            "p_win": 0.5,
+            "actual_1x2": 2,
+            "p_over": 0.7,
+            "actual_over": 1,
+        }
+    ]
+
+    result = bp._stratum_metrics(rows)
+
+    assert result["brier_ou25"] == pytest.approx(0.18)
+    assert result["diagnostic_accuracy_1x2"] == 1.0
+    assert result["diagnostic_ou25_hit_rate"] == 1.0
+
+
 # ---------- bootstrap de bloco, não iid ----------
 
 

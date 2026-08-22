@@ -66,6 +66,13 @@ ensemble_xg:
   half_life_years: 0.75    # meia-vida do decaimento temporal
   ridge_reg: 1.0           # L2 sobre as forças atk/def
 
+# Braço de pesquisa TRACK A02; não é consumido pelo serving de produção.
+dynamic_strength:
+  alpha_short: 0.3
+  alpha_long: 0.05
+  ridge_reg: 1.0
+  eps: 0.1
+
 backtest:
   # janela de edge apostável: estanca o sangramento das duas extremidades.
   # < min_edge = ruído engolido pelo vig; > max_edge = informação ausente no
