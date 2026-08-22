@@ -18,8 +18,8 @@ H3/H5 coletam somente contratos prospectivos completos; operação e monitoramen
 > pipeline funcional, resultado econômico **inconclusivo** e gate de 100
 > liquidados ainda fechado. H2 (picks 1T) validada informativa (79% de acerto).
 > Relatório: `docs/RELATORIO_BACKTEST_2026-07-10.md`. Suíte na época: 325
-> verdes, CI 5/5 (suíte atual, verificada em CI: 414 testes — 413 Python
-> + 1 teste de integração Redis — mais a suíte .NET LineupWorker separada).
+> verdes, CI 5/5. **Suíte atual (2026-08-22): 611 testes**, mais a suíte .NET
+> LineupWorker separada. Estado atual do projeto: `HANDOFF.md`.
 
 Sistema CLI em Python para previsão e apostas de valor no Brasileirão Série A,
 rodando 100% local (Python + SQLite). Fonte única de dados: **Sofascore**
@@ -88,7 +88,7 @@ python scripts/odds_shop.py --from-file snapshot.json
 python -m src.bet_log banca|list|settle|summary
 
 # Testes
-python -m pytest            # 414 testes (413 Python + 1 integração Redis)
+python -m pytest            # 611 testes (2026-08-22); +1 de integração Redis no CI
 python scripts/ci_check.py  # 5 barreiras
 
 # Backup operacional consistente (destino deve ser uma raiz nova)
@@ -102,6 +102,14 @@ kickoff, turno, fonte, abertura, preço capturado e fechamento bruto. Registros
 anteriores permanecem legados; não são completados retrospectivamente.
 
 ## Hipóteses pré-registradas (data/trials.json)
+
+> **Estado em 2026-08-22: 14 trials — 1 COMPROVADA, 1 pré-registrada, 12
+> fechadas.** A lista abaixo é histórica (H1 e H2); a fonte da verdade é
+> `data/trials.json`, e o resumo do estado está em `HANDOFF.md`.
+>
+> Para ver o registro inteiro:
+> `python -c "import json;[print(x['name'],'->',x['status']) for x in json.load(open('data/trials.json'))]"`
+
 
 - **H1** `h1-ou25-edge-2-15-walkforward` — O/U 2,5 gols, janela de edge 2–15%,
   stake fixo. Herdada da Copa (única população com CLV comprovado lá:
@@ -134,7 +142,7 @@ scripts/
   backtest_walkforward.py          # walk-forward por rodadas (novo)
   prever.py, odds_shop.py, ci_check.py, …
 data/                     # matches.db, livros jsonl, trials.json (fora do git)
-tests/                    # 414 testes (413 Python + 1 integração Redis); .NET LineupWorker tem suíte própria
+tests/                    # 611 testes (2026-08-22); .NET LineupWorker tem suíte própria
 ```
 
 Histórico da Copa preservado em `data/results_wc2026_historico.jsonl` e no

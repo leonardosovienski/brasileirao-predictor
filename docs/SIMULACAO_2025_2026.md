@@ -1,5 +1,36 @@
 # Simulação 2025 + 2026 (17 rodadas) — diagnóstico e melhoria (2026-07-16)
 
+> ## ⚠ CONCLUSÃO SOBRE O ENSEMBLE **REVERTIDA** EM 2026-08-22
+>
+> Este documento é a evidência que ligou `ensemble_xg.enabled: true` em
+> 2026-07-17. **Ela não valia**, por dois motivos que só ficaram visíveis
+> depois:
+>
+> 1. **A amostra é 2025 + 2026.** 2025 é o **holdout selado** (Regra 7) e 2026
+>    é **exploratório** (Regra 1) — nenhum dos dois valida arquitetura. O
+>    pré-registro da H5 foi cumprido; o que faltou foi a origem dos dados.
+> 2. **Medido no período legítimo de desenvolvimento (2021-2024), o efeito se
+>    INVERTE.** A trial `h12-ensemble-xg-ligado-vs-desligado` (COMPROVADA,
+>    teste pareado, n=1318, uma variável só) mostra que desligar o ensemble
+>    MELHORA as quatro métricas, com os quatro IC95 acima de zero:
+>    RPS +0,004410 [+0,001436, +0,007741]; Brier 1X2 +0,021648; Brier OU2.5
+>    +0,030696; log-loss +0,027244.
+>
+> `ensemble_xg.enabled` está **false** desde 2026-08-22. Ver `HANDOFF.md` e
+> `reports/research_xg_ensemble_2026-08-22.json`.
+>
+> **O que deste documento CONTINUA valendo** — e é valioso: o diagnóstico de
+> que o modelo *não está descalibrado, está sem resolução*. Ele foi confirmado
+> de forma independente em 2026-08-22, com `resolution` do OU2.5 em ~0,0014 em
+> **toda** configuração medida. É o problema aberto mais concreto do modelo.
+>
+> **E a tabela do "Mercado (Shin fech.)" é o teto que o projeto nunca mediu
+> formalmente**: ali o mercado ganha do modelo no Brier 1X2 (0,5808 vs 0,5998
+> em 2025) e no OU2.5. Isso é indicativo, não veredito — está sobre holdout e
+> ano exploratório —, mas é o dado mais próximo de um `market_no_vig` que
+> existe hoje no repositório.
+
+
 > Pergunta do operador: "simula os jogos do ano passado e as 17 rodadas deste
 > ano, veja por que está ruim e tenta melhorar."
 > Reprodutível: `scripts/sim_2025_2026.py` (baseline + diagnóstico) e
