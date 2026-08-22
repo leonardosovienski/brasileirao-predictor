@@ -48,7 +48,7 @@ Checar três campos contra a versão do repo (`core_version 2.2.0`,
   mexeram no pipeline) — é justamente por isso que a attestation velha não serve.
 
 ```powershell
-git add data\trials.json data\trials.harness_attestation.json reports\
+git add data\trials.json data\trials.harness_attestation.json reports
 git commit -m "RESEARCH-01A: h11 refutada (IC95 cruza zero, n=1318) + attestation renovada"
 git push -u origin main
 ```
@@ -95,8 +95,16 @@ python scripts\permutation_test.py --output reports\permutation_2026-08-22.json
 Não é o mais barato do P0 — planejar como bloco, não como checagem rápida.
 
 Critério: skill contra climatologia tem de **colapsar para zero** nas
-permutações. Saída com **código 2 = vazamento**, e aí o P2 não roda: régua
-vazando mede vazamento.
+permutações. Códigos de saída (verificados em `main()`, `return 0 if passou
+else 2`):
+
+| código | significado |
+| --- | --- |
+| 0 | passou — nenhuma permutação bateu a climatologia com significância |
+| 1 | recusa de guarda (ex.: `--period` alcançando o holdout) |
+| **2** | **`beats_climatology` verdadeiro em dados sem sinal = vazamento** |
+
+Com código 2, o P2 não roda: régua vazando mede vazamento.
 
 ---
 
@@ -173,6 +181,9 @@ na faixa do futebol — erro relativo máximo **1,2e-15**, o piso do float64.
 ### Medições (dados sintéticos, 20 times; nada do banco real)
 
 Reprodutíveis com `python scripts/p1_cost_probe.py` — a sonda não abre o banco.
+Os tempos variam com a carga da máquina; a tabela abaixo é de uma corrida sob
+scipy 1.17.1. Numa corrida sob scipy 1.18.0 o fit completo deu 85x em vez de
+95x, com os mesmos erros relativos.
 
 Objetivo atual vs. reformulação vetorizada, mesmos parâmetros:
 
@@ -196,10 +207,19 @@ Fit completo (`L-BFGS-B`, 380 jogos, mesmo `theta0` e mesmos bounds):
 | max \|Δ\| em `attack` / `defense` | — | — | 3,8e-06 / 1,3e-06 |
 | **max \|Δ\| em P(home/draw/away)**, 56 confrontos | — | — | **9,9e-07** |
 
-A diferença residual de ~1e-06 **não é erro de fórmula** — o objetivo concorda
-a ~1e-15. É o L-BFGS-B parando um passo diferente, porque o critério de parada
-compara contra ruído de arredondamento que mudou de forma. O deslocamento
-resultante nas probabilidades 1X2 é de ~1e-06.
+A diferença residual **não é erro de fórmula** — o objetivo concorda a ~1e-15.
+É o L-BFGS-B parando um passo diferente, porque o critério de parada compara
+contra ruído de arredondamento que mudou de forma.
+
+Evidência disso: repetindo a sonda sob **scipy 1.17.1** e **scipy 1.18.0**, os
+resíduos do fit mudam (Δ`wnll` de 3,6e-09 para 1,3e-08; Δ máx em P(1X2) de
+9,9e-07 para 4,5e-06) enquanto a concordância do **objetivo** fica cravada em
+~1e-15 nas duas. Ou seja: o resíduo é propriedade do otimizador e da build do
+scipy, não da reformulação. Tratar a faixa como **~1e-06 a 1e-05**, não como
+uma constante.
+
+Contra a largura do IC95 do 01A — **0,0064 em RPS** — mesmo o pior caso dessa
+faixa fica ~3 ordens de grandeza abaixo da resolução do instrumento.
 
 ### As três opções, e o risco de cada uma
 
@@ -211,9 +231,9 @@ search — é inviável a 4h30 por ponto.
 **Opção B — normalizador fechado + vetorização em numpy (recomendada).**
 ~100x, matemática idêntica por identidade algébrica verificada. É a única das
 três em que o risco é *mensurável antes de mexer* — e já foi medido acima.
-Risco: o deslocamento de ~1e-06 nos parâmetros ajustados. Comparar com a
-largura do IC95 do 01A, **0,0064 em RPS**: o deslocamento é ~4 ordens de
-grandeza menor que a resolução do instrumento. Não move veredito nenhum.
+Risco: o deslocamento de ~1e-06 a 1e-05 nos parâmetros ajustados — três a
+quatro ordens de grandeza abaixo da largura do IC95 do 01A. Não move veredito
+nenhum, e a mesma variação já existe hoje entre builds do scipy.
 
 **Opção C — jacobiano analítico.** Elimina os ~43 evals por gradiente, ganho
 adicional sobre B. Mas é derivação manual sobre 42 parâmetros, com a
@@ -259,3 +279,55 @@ cuja resposta pode ser urgente (se o ensemble atrapalha, serve-se um modelo pior
 que o baseline há meses, e nenhuma otimização conserta isso); e o resultado do
 P2 muda o cálculo do P1 — se o ensemble estiver atrapalhando, desligá-lo já
 reduz o custo do walk-forward de serving sem tocar na numérica.
+
+---
+
+## Validação desta sessão
+
+Sem `data/matches.db` não dá para executar os experimentos, mas dá para
+validar os **comandos**. Os três foram rodados exatamente como estão escritos
+acima (com `/` no lugar de `\`, num Linux): todos atravessam argparse, o
+`load_config()`, a resolução do model tag e a guarda do holdout, e só param no
+`sqlite3.connect(...mode=ro)` do banco ausente. Ou seja: **o que falta é o
+dado, não o comando.**
+
+Verificado ponto a ponto:
+
+| Afirmação do runbook | Como foi checada | Resultado |
+| --- | --- | --- |
+| flags `--model/--period/--output/--engine/--retrain-every` | `--help` do painel | conferem |
+| `--engine` aceita `serving` | comando do P2 rodado | construiu a pilha antes de falhar no banco |
+| `--retrain-every` default 100 | `--help` + `RETRAIN_EVERY = 100` | confere |
+| `H4_DIXON_COLES_CALIBRATED` resolve half-life | trial existe com `params.half_life_days: 360` | confere — sem isso cairia no `DEFAULT_HALF_LIFE = 120` calado |
+| defaults do `permutation_test` | `DEFAULT_PERIOD = "2021-01-01,2024-12-31"`, `DEFAULT_PERMUTATIONS = 3`, `RETRAIN_EVERY` 100 | conferem — o comando sem flags já é o certo |
+| custo = 4 walk-forwards | 1 corrida de referência + laço `for i in range(permutations)` | confere |
+| guarda do holdout recusa 2025 | `--period 2021-01-01,2025-12-31` | recusou, código **1** |
+| código 2 = vazamento | `return 0 if passou else 2` | confere |
+| `metrics[0]` é RPS com `delta_ci95` | RPS é o único `is_primary=True` e recebe `_delta_ci95(...)` | confere |
+| `block_guard.xg_fit_failures` existe | escrito no relatório; contador vive na `ServingStackEvaluator` | confere — vem `null` com `--engine dixon_coles`, o que é esperado |
+| snippet de verificação do P0.1 | rodado no `trials.json` do repo | imprime `11` e as duas últimas trials |
+| continuações PowerShell | sem espaço em branco depois de nenhuma crase | ok |
+
+Estado do repositório na mesma sessão, com as dependências instaladas:
+
+* `pytest` — **566 passaram**, 1 deselecionado (marcador `integration`). Bate
+  com o número registrado no `HANDOFF.md`.
+* `ruff check` e `ruff format --check` sobre o repo inteiro — limpos (218
+  arquivos).
+* `scripts/ci_check.py --fast` — **todas as barreiras verdes**. As barreiras
+  [4/5] e [5/5] (smokes do predict) se auto-pularam por ausência do banco e
+  emitiram WARN, que é o comportamento correto e não conta como falha.
+* A barreira [3/5] varre `scripts/` inteiro atrás de `current_elo`/`load_elo`
+  — é a que pegaria um script de pesquisa novo com lookahead. Inspecionou 14
+  arquivos e passou; `p1_cost_probe.py` não abre banco nenhum, então nem entra
+  na varredura.
+* `pyright` reportou 75 erros pré-existentes em `src/` (ex.:
+  `src/predict.py:136`, comparação `int | str`). **Não vêm desta mudança** —
+  o `pyright` está configurado com `include = ["src"]` e o diff desta branch
+  toca só `docs/` e `scripts/`. Provavelmente é uma versão de `pyright`
+  resolvida diferente da usada quando o `HANDOFF.md` registrou "pyright
+  limpo"; fica anotado como divergência a conferir, não como regressão.
+
+Uma consequência prática do penúltimo item: `xg_fit_failures` só tem valor no
+relatório do **P2**. No v4 ele vem `null`, e isso não é falha — é o motor
+`dixon_coles` não ter ensemble de xG para falhar.
