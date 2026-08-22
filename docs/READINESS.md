@@ -2,9 +2,15 @@
 
 Status: `READY_WITH_EXTERNAL_BLOCKER`.
 
+> Este arquivo é um log de auditoria **append-only**: os "Gates homologados"
+> abaixo são da auditoria original, e cada bloco "Atualização" acrescenta o que
+> mudou. **Para o estado atual, leia a Atualização mais recente no fim.**
+
 ## Gates homologados
 
-- Python 3.13: 413 testes aprovados (1 deselecionado), zero falhas; mais 1 teste de integração Redis real na execução final (414 no total, verificado em CI).
+- Python 3.13: 413 testes aprovados (1 deselecionado), zero falhas; mais 1 teste de integração Redis real na execução
+  final (414 no total, verificado em CI). **Números da auditoria original — a contagem atual está na Atualização
+  mais recente no fim deste arquivo.**
 - .NET 10: build Release com warnings como erro, 0 warnings; 30 testes aprovados, zero falhas e zero skips.
 - Ruff: `ruff check src scripts tests` e `ruff format --check src scripts tests` verdes, sem ignores amplos.
 - Pyright: runtime homologado e fronteiras públicas verdes; pesquisa permanece explicitamente fora do escopo tipado.
@@ -294,3 +300,43 @@ operador, não de implementação:**
    `(date, home_team, away_team)`; adiamento muda a data, a linha nova entra e
    a antiga fica. Resolver exige migração de schema (`event_id` em `matches`)
    sobre a base viva do operador — não é mudança para fazer às cegas.
+
+---
+
+**Atualização 2026-08-22 — resolução preditiva demonstrada; um gate reaberto:**
+
+Gates re-medidos nesta data (`main` após as PRs #31-#40):
+
+- Python: **611 testes** aprovados, 1 deselecionado (marcador `integration`).
+  Eram 566 no início da sessão; +45 vieram das correções e dos experimentos
+  novos.
+- `ruff check` e `ruff format --check` sobre o repositório inteiro: limpos.
+- `scripts/ci_check.py --fast`: todas as barreiras verdes. As barreiras [4/5] e
+  [5/5] se auto-pulam com WARN quando `data/matches.db` está ausente — é o
+  comportamento correto num checkout limpo, não uma falha.
+- CI: Python 3.13, 3.14, .NET 10 e Compose verdes.
+
+**Gate reaberto — `pyright`.** Este arquivo declara "runtime homologado e
+fronteiras públicas verdes". Numa execução em 2026-08-22, sobre Linux com as
+dependências recém-instaladas, `pyright` reportou **75 erros pré-existentes em
+`src/`** (por exemplo `src/predict.py:136`, comparação `int | str`). Não vêm das
+mudanças da sessão — o `pyright` está configurado com `include = ["src"]` e os
+diffs tocaram `docs/`, `scripts/` e `tests/`, além de dois pontos cirúrgicos em
+`src/serving_evaluator.py`. Provavelmente é uma versão de `pyright` resolvida
+diferente da usada na homologação original. **Fica registrado como divergência
+a conferir na máquina do operador**, não como regressão — mas também não como
+verde, porque não foi verificado verde.
+
+**Duas medições que mudam o veredito científico** (detalhes em `HANDOFF.md`):
+
+1. A pilha de serving, com `ensemble_xg.enabled: false`, bate a climatologia em
+   RPS com IC95 `[−0,010544, −0,002858]` — inteiramente abaixo de zero, n=1318,
+   2021-2024. Brier 1X2 e log-loss idem. Controle negativo passou **no mesmo
+   motor**.
+2. `h12-ensemble-xg-ligado-vs-desligado` → **COMPROVADA**, a primeira do
+   projeto. O ensemble piorava as quatro métricas.
+
+**O bloqueador externo continua externo, e mudou de forma:** não há edge
+econômico, `market_no_vig` nunca foi ligado como baseline, e a coorte
+prospectiva da H9 **nunca emitiu um pick** (`data/research/h9_shadow.jsonl` não
+existe). Capital bloqueado.

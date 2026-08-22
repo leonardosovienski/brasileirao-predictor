@@ -53,6 +53,11 @@ MINHA FILA, na ordem:
    99,2%. Ressalvas: filtrar home_score IS NOT NULL (34 linhas órfãs de jogos
    adiados), e NÃO medir teto de OU só onde há odds (buraco de 34-37% em
    2023-24 = subconjunto escolhido pela disponibilidade).
+   ATENÇÃO: docs/SIMULACAO_2025_2026.md já tem uma tabela "Mercado (Shin fech.)"
+   em que o mercado GANHA do modelo no Brier (0,5808 vs 0,5998 em 2025). É
+   indicativo, não veredito — está sobre holdout selado + ano exploratório —,
+   mas é o dado mais próximo de um teto que existe no repositório hoje, e a
+   expectativa realista para o market_no_vig deveria partir dele.
 
 4. DECISÕES MINHAS, com material pronto — me apresente as opções antes de
    mexer:

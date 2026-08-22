@@ -123,7 +123,7 @@ histórica coletada pós-jogo, mas a coluna vem preenchida em todos os anos.
 
 - Suíte: **611 testes**. `ci_check.py` verde. CI verde.
 - `ruff check` e `ruff format` limpos.
-- PRs desta sessão: **#31 a #39**, todas mergeadas.
+- PRs desta sessão: **#31 a #40** (a #40 é esta documentação).
 - `config.yaml`: `ensemble_xg.enabled: false`, justificativa no próprio arquivo.
 - Attestation: `_rps_pipeline` / `rps`, expira **2026-08-29**.
 
