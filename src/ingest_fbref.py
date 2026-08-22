@@ -14,6 +14,7 @@ import time
 import urllib.request
 from io import StringIO
 from pathlib import Path
+from typing import Any, cast
 
 import pandas as pd
 from bs4 import BeautifulSoup, Comment
@@ -65,7 +66,7 @@ def _flatten(cols) -> list:
     return out
 
 
-def _resolve(columns: list) -> dict:
+def _resolve(columns: list[Any]) -> dict[str, Any]:
     lower = {c.lower().strip(): c for c in columns}
     found = {}
     for canon, candidates in COLUMN_MAP.items():
@@ -82,18 +83,24 @@ def parse_player_stats(html: str, competition: str, season: str) -> list:
     if table is None:
         raise ValueError(f"tabela stats_standard ausente em '{competition}'")
 
-    df = pd.read_html(StringIO(str(table)))[0]
+    df = cast(pd.DataFrame, pd.read_html(StringIO(str(table)))[0])
     df.columns = _flatten(df.columns)
-    cols = _resolve(df.columns)
+    cols = _resolve(list(df.columns))
     if "player" not in cols:
         raise ValueError(f"coluna de jogador não encontrada em '{competition}'")
 
     # FBref repete a linha de cabeçalho no meio da tabela; descarta
-    df = df[df[cols["player"]].astype(str).str.lower() != "player"]
-    df = df[df[cols["player"]].notna()]
+    player_col = cast(pd.Series, df[cols["player"]])
+    df = cast(pd.DataFrame, df[player_col.astype(str).str.lower() != "player"])
+    player_col = cast(pd.Series, df[cols["player"]])
+    df = cast(pd.DataFrame, df[player_col.notna()])
 
-    def num(series):
-        return pd.to_numeric(series.astype(str).str.replace(",", ""), errors="coerce")
+    def num(value: Any) -> float | None:
+        try:
+            parsed = float(str(value).replace(",", ""))
+        except (TypeError, ValueError):
+            return None
+        return None if pd.isna(parsed) else parsed
 
     rows = []
     for _, r in df.iterrows():
@@ -103,12 +110,12 @@ def parse_player_stats(html: str, competition: str, season: str) -> list:
                 return None
             v = r[cols[key]]
             if cast is int:
-                v = num(pd.Series([v])).iloc[0]
-                return None if pd.isna(v) else int(v)
+                parsed = num(v)
+                return None if parsed is None else int(parsed)
             if cast is float:
-                v = num(pd.Series([v])).iloc[0]
-                return None if pd.isna(v) else float(v)
-            return None if pd.isna(v) else str(v)
+                parsed = num(v)
+                return parsed
+            return None if bool(pd.isna(v)) else str(v)
 
         player = g("player", str)
         team = g("team", str)

@@ -90,11 +90,24 @@ def test_baseline_desconhecido_falha_alto() -> None:
     plugado — devolver skill score contra baseline fantasma seria pior que
     falhar."""
     with pytest.raises(NotImplementedError, match="elo_baseline"):
-        bp.run(model_tag="qualquer", start="", end="", baseline="market_no_vig")
+        bp.run(model_tag="qualquer", start="", end="", baseline="current_v3")
 
 
 def test_climatology_e_o_baseline_suportado() -> None:
     assert "climatology" in bp.SUPPORTED_BASELINES
+    assert "market_no_vig" in bp.SUPPORTED_BASELINES
+
+
+def test_market_no_vig_e_shin_na_orientacao_do_rps() -> None:
+    probs = bp._market_no_vig_probs({"market_odds_1x2": (2.0, 3.5, 4.0)})
+    assert probs is not None
+    assert sum(probs) == pytest.approx(1.0)
+    assert probs[2] > probs[0]
+
+
+def test_market_no_vig_rejeita_mercado_incompleto_ou_invalido() -> None:
+    assert bp._market_no_vig_probs({"market_odds_1x2": (2.0, None, 4.0)}) is None
+    assert bp._market_no_vig_probs({"market_odds_1x2": (2.0, 1.0, 4.0)}) is None
 
 
 # ---------- seletor de motor (alinhamento painel × serving) ----------

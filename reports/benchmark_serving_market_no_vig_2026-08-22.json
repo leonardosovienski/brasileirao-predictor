@@ -1,0 +1,583 @@
+{
+  "baseline": "market_no_vig",
+  "baseline_coverage": {
+    "devig_method": "shin",
+    "market": "1x2",
+    "paired_n": 1316,
+    "rate": 0.998483,
+    "requested_n": 1318
+  },
+  "block_guard": {
+    "blocked_observations": 2,
+    "deferred_refits": 0,
+    "xg_fit_failures": null
+  },
+  "bootstrap": {
+    "block_length": 21,
+    "n_boot": 1000,
+    "scheme": "moving",
+    "seed": 13
+  },
+  "diagnostic": {
+    "accuracy_1x2": 0.478723,
+    "coverage": 1.0,
+    "lambda_total_variance": 0.01123,
+    "ou25_hit_rate": 0.558511
+  },
+  "engine": "serving",
+  "ensemble_xg": {
+    "blend_weight": null,
+    "enabled": false
+  },
+  "generated_at": "2026-08-22T15:13:32+00:00",
+  "guardrails_ou25": {
+    "calibration_slope": 1.548863,
+    "ece": 0.039731,
+    "resolution": 0.001404,
+    "sharpness": 0.000765
+  },
+  "half_life_days": 360.0,
+  "kickoff_coverage": {
+    "n_date_only_fallback": 0,
+    "n_observations": 1518,
+    "n_real_kickoff": 1518
+  },
+  "metrics": [
+    {
+      "baseline_value": 0.20213,
+      "delta": 0.01124,
+      "delta_ci95": [
+        0.006923,
+        0.015455
+      ],
+      "is_primary": true,
+      "metric": "rps",
+      "n": 1316,
+      "value": 0.21337
+    },
+    {
+      "baseline_value": 0.598995,
+      "delta": 0.023502,
+      "delta_ci95": [
+        0.013959,
+        0.032863
+      ],
+      "is_primary": false,
+      "metric": "brier_1x2",
+      "n": 1316,
+      "value": 0.622497
+    },
+    {
+      "baseline_value": 1.002247,
+      "delta": 0.034467,
+      "delta_ci95": [
+        0.020632,
+        0.047274
+      ],
+      "is_primary": false,
+      "metric": "log_loss",
+      "n": 1316,
+      "value": 1.036714
+    },
+    {
+      "baseline_value": null,
+      "delta": null,
+      "delta_ci95": null,
+      "is_primary": false,
+      "metric": "brier_ou25",
+      "n": 1316,
+      "value": 0.494794
+    }
+  ],
+  "model_tag": "H4_DIXON_COLES_CALIBRATED",
+  "n": 1316,
+  "period": {
+    "end": "2024-12-31",
+    "start": "2021-01-01"
+  },
+  "retrain_every": 100,
+  "schema_version": "benchmark-predictor/1",
+  "serves_production_model": true,
+  "skill_scores": {
+    "brier_skill_score_vs_market_no_vig": {
+      "delta_ci95": [
+        -0.032863,
+        -0.013959
+      ],
+      "value": -0.039235
+    },
+    "rps_skill_score_vs_market_no_vig": {
+      "delta_ci95": [
+        -0.015455,
+        -0.006923
+      ],
+      "value": -0.055608
+    }
+  },
+  "strata": {
+    "by_lambda_total_bucket": {
+      "[2,3)": {
+        "brier_1x2": 0.622497,
+        "log_loss": 1.036714,
+        "n": 1316,
+        "rps": 0.21337
+      }
+    },
+    "by_month": {
+      "2021-09": {
+        "brier_1x2": 0.64696,
+        "log_loss": 1.071153,
+        "n": 14,
+        "rps": 0.194065
+      },
+      "2021-10": {
+        "brier_1x2": 0.626294,
+        "log_loss": 1.040953,
+        "n": 71,
+        "rps": 0.20402
+      },
+      "2021-11": {
+        "brier_1x2": 0.577047,
+        "log_loss": 0.969816,
+        "n": 67,
+        "rps": 0.202065
+      },
+      "2021-12": {
+        "brier_1x2": 0.60902,
+        "log_loss": 1.018852,
+        "n": 28,
+        "rps": 0.21746
+      },
+      "2022-04": {
+        "brier_1x2": 0.646506,
+        "log_loss": 1.066812,
+        "n": 34,
+        "rps": 0.218129
+      },
+      "2022-05": {
+        "brier_1x2": 0.6421,
+        "log_loss": 1.065579,
+        "n": 45,
+        "rps": 0.201132
+      },
+      "2022-06": {
+        "brier_1x2": 0.659192,
+        "log_loss": 1.089052,
+        "n": 61,
+        "rps": 0.219292
+      },
+      "2022-07": {
+        "brier_1x2": 0.598422,
+        "log_loss": 1.00432,
+        "n": 59,
+        "rps": 0.21868
+      },
+      "2022-08": {
+        "brier_1x2": 0.640832,
+        "log_loss": 1.067092,
+        "n": 39,
+        "rps": 0.20378
+      },
+      "2022-09": {
+        "brier_1x2": 0.627717,
+        "log_loss": 1.040613,
+        "n": 40,
+        "rps": 0.198134
+      },
+      "2022-10": {
+        "brier_1x2": 0.565558,
+        "log_loss": 0.953097,
+        "n": 61,
+        "rps": 0.194941
+      },
+      "2022-11": {
+        "brier_1x2": 0.637424,
+        "log_loss": 1.061964,
+        "n": 39,
+        "rps": 0.234465
+      },
+      "2023-04": {
+        "brier_1x2": 0.544435,
+        "log_loss": 0.931884,
+        "n": 29,
+        "rps": 0.198521
+      },
+      "2023-05": {
+        "brier_1x2": 0.631638,
+        "log_loss": 1.047444,
+        "n": 51,
+        "rps": 0.216055
+      },
+      "2023-06": {
+        "brier_1x2": 0.600007,
+        "log_loss": 1.001604,
+        "n": 40,
+        "rps": 0.211788
+      },
+      "2023-07": {
+        "brier_1x2": 0.681431,
+        "log_loss": 1.116652,
+        "n": 48,
+        "rps": 0.222485
+      },
+      "2023-08": {
+        "brier_1x2": 0.567759,
+        "log_loss": 0.956527,
+        "n": 40,
+        "rps": 0.186239
+      },
+      "2023-09": {
+        "brier_1x2": 0.620176,
+        "log_loss": 1.034083,
+        "n": 36,
+        "rps": 0.217776
+      },
+      "2023-10": {
+        "brier_1x2": 0.673456,
+        "log_loss": 1.116338,
+        "n": 54,
+        "rps": 0.244778
+      },
+      "2023-11": {
+        "brier_1x2": 0.673946,
+        "log_loss": 1.112425,
+        "n": 62,
+        "rps": 0.235238
+      },
+      "2023-12": {
+        "brier_1x2": 0.540368,
+        "log_loss": 0.919772,
+        "n": 20,
+        "rps": 0.211017
+      },
+      "2024-04": {
+        "brier_1x2": 0.612226,
+        "log_loss": 1.020256,
+        "n": 38,
+        "rps": 0.203117
+      },
+      "2024-05": {
+        "brier_1x2": 0.667002,
+        "log_loss": 1.103942,
+        "n": 14,
+        "rps": 0.232849
+      },
+      "2024-06": {
+        "brier_1x2": 0.630466,
+        "log_loss": 1.046146,
+        "n": 72,
+        "rps": 0.214896
+      },
+      "2024-07": {
+        "brier_1x2": 0.611141,
+        "log_loss": 1.027654,
+        "n": 64,
+        "rps": 0.231627
+      },
+      "2024-08": {
+        "brier_1x2": 0.625832,
+        "log_loss": 1.046919,
+        "n": 44,
+        "rps": 0.21114
+      },
+      "2024-09": {
+        "brier_1x2": 0.573714,
+        "log_loss": 0.965191,
+        "n": 42,
+        "rps": 0.196016
+      },
+      "2024-10": {
+        "brier_1x2": 0.603267,
+        "log_loss": 1.003097,
+        "n": 33,
+        "rps": 0.19391
+      },
+      "2024-11": {
+        "brier_1x2": 0.659177,
+        "log_loss": 1.082359,
+        "n": 45,
+        "rps": 0.210148
+      },
+      "2024-12": {
+        "brier_1x2": 0.6575,
+        "log_loss": 1.085707,
+        "n": 26,
+        "rps": 0.246824
+      }
+    },
+    "by_probability_bucket": {
+      "[0.3,0.4)": {
+        "brier_1x2": 0.65885,
+        "log_loss": 1.087439,
+        "n": 320,
+        "rps": 0.225447
+      },
+      "[0.4,0.5)": {
+        "brier_1x2": 0.649522,
+        "log_loss": 1.073512,
+        "n": 596,
+        "rps": 0.219236
+      },
+      "[0.5,0.6)": {
+        "brier_1x2": 0.583196,
+        "log_loss": 0.98531,
+        "n": 293,
+        "rps": 0.210633
+      },
+      "[0.6,0.7)": {
+        "brier_1x2": 0.479075,
+        "log_loss": 0.824682,
+        "n": 91,
+        "rps": 0.147867
+      },
+      "[0.7,0.8)": {
+        "brier_1x2": 0.424177,
+        "log_loss": 0.798768,
+        "n": 16,
+        "rps": 0.175944
+      }
+    },
+    "by_season": {
+      "2021": {
+        "brier_1x2": 0.606884,
+        "log_loss": 1.013385,
+        "n": 180,
+        "rps": 0.204609
+      },
+      "2022": {
+        "brier_1x2": 0.62395,
+        "log_loss": 1.038906,
+        "n": 378,
+        "rps": 0.210726
+      },
+      "2023": {
+        "brier_1x2": 0.628175,
+        "log_loss": 1.045378,
+        "n": 380,
+        "rps": 0.219051
+      },
+      "2024": {
+        "brier_1x2": 0.622771,
+        "log_loss": 1.036922,
+        "n": 378,
+        "rps": 0.214473
+      }
+    },
+    "by_team": {
+      "América Mineiro": {
+        "brier_1x2": 0.624489,
+        "log_loss": 1.038852,
+        "n": 46,
+        "rps": 0.230602
+      },
+      "Athletico": {
+        "brier_1x2": 0.620442,
+        "log_loss": 1.031028,
+        "n": 66,
+        "rps": 0.204116
+      },
+      "Atlético Goianiense": {
+        "brier_1x2": 0.671222,
+        "log_loss": 1.106005,
+        "n": 46,
+        "rps": 0.235162
+      },
+      "Atlético Mineiro": {
+        "brier_1x2": 0.616205,
+        "log_loss": 1.026959,
+        "n": 67,
+        "rps": 0.218314
+      },
+      "Avaí": {
+        "brier_1x2": 0.662078,
+        "log_loss": 1.094212,
+        "n": 18,
+        "rps": 0.243319
+      },
+      "Bahia": {
+        "brier_1x2": 0.632743,
+        "log_loss": 1.051836,
+        "n": 46,
+        "rps": 0.226084
+      },
+      "Botafogo": {
+        "brier_1x2": 0.598931,
+        "log_loss": 0.998515,
+        "n": 57,
+        "rps": 0.208981
+      },
+      "Ceará": {
+        "brier_1x2": 0.673291,
+        "log_loss": 1.10907,
+        "n": 28,
+        "rps": 0.212472
+      },
+      "Corinthians": {
+        "brier_1x2": 0.618277,
+        "log_loss": 1.026223,
+        "n": 67,
+        "rps": 0.19009
+      },
+      "Coritiba": {
+        "brier_1x2": 0.623888,
+        "log_loss": 1.037733,
+        "n": 38,
+        "rps": 0.226214
+      },
+      "Criciúma": {
+        "brier_1x2": 0.704932,
+        "log_loss": 1.1508,
+        "n": 19,
+        "rps": 0.218931
+      },
+      "Cruzeiro": {
+        "brier_1x2": 0.660639,
+        "log_loss": 1.087581,
+        "n": 38,
+        "rps": 0.214745
+      },
+      "Cuiabá": {
+        "brier_1x2": 0.68765,
+        "log_loss": 1.126007,
+        "n": 66,
+        "rps": 0.231202
+      },
+      "Flamengo": {
+        "brier_1x2": 0.604737,
+        "log_loss": 1.020764,
+        "n": 67,
+        "rps": 0.21807
+      },
+      "Fluminense": {
+        "brier_1x2": 0.582818,
+        "log_loss": 0.980216,
+        "n": 66,
+        "rps": 0.199318
+      },
+      "Fortaleza": {
+        "brier_1x2": 0.59325,
+        "log_loss": 0.995744,
+        "n": 66,
+        "rps": 0.192267
+      },
+      "Goiás": {
+        "brier_1x2": 0.69198,
+        "log_loss": 1.137071,
+        "n": 38,
+        "rps": 0.221893
+      },
+      "Grêmio": {
+        "brier_1x2": 0.5987,
+        "log_loss": 1.002677,
+        "n": 47,
+        "rps": 0.232869
+      },
+      "Internacional": {
+        "brier_1x2": 0.584342,
+        "log_loss": 0.986257,
+        "n": 67,
+        "rps": 0.195992
+      },
+      "Juventude": {
+        "brier_1x2": 0.695606,
+        "log_loss": 1.138187,
+        "n": 45,
+        "rps": 0.220647
+      },
+      "Palmeiras": {
+        "brier_1x2": 0.4979,
+        "log_loss": 0.870231,
+        "n": 65,
+        "rps": 0.182244
+      },
+      "Red Bull Bragantino": {
+        "brier_1x2": 0.616737,
+        "log_loss": 1.029617,
+        "n": 66,
+        "rps": 0.203279
+      },
+      "Santos": {
+        "brier_1x2": 0.648218,
+        "log_loss": 1.067728,
+        "n": 45,
+        "rps": 0.219773
+      },
+      "São Paulo": {
+        "brier_1x2": 0.586351,
+        "log_loss": 0.986262,
+        "n": 67,
+        "rps": 0.200519
+      },
+      "Vasco da Gama": {
+        "brier_1x2": 0.663547,
+        "log_loss": 1.092167,
+        "n": 38,
+        "rps": 0.25145
+      },
+      "Vitória": {
+        "brier_1x2": 0.6606,
+        "log_loss": 1.089396,
+        "n": 19,
+        "rps": 0.256946
+      }
+    },
+    "by_turno_of_season": {
+      "2021-T1": {
+        "brier_1x2": 0.626289,
+        "log_loss": 1.040798,
+        "n": 90,
+        "rps": 0.200026
+      },
+      "2021-T2": {
+        "brier_1x2": 0.587478,
+        "log_loss": 0.985973,
+        "n": 90,
+        "rps": 0.209192
+      },
+      "2022-T1": {
+        "brier_1x2": 0.64243,
+        "log_loss": 1.065014,
+        "n": 189,
+        "rps": 0.215204
+      },
+      "2022-T2": {
+        "brier_1x2": 0.605469,
+        "log_loss": 1.012797,
+        "n": 189,
+        "rps": 0.206248
+      },
+      "2023-T1": {
+        "brier_1x2": 0.621795,
+        "log_loss": 1.034146,
+        "n": 190,
+        "rps": 0.21305
+      },
+      "2023-T2": {
+        "brier_1x2": 0.634555,
+        "log_loss": 1.056611,
+        "n": 190,
+        "rps": 0.225051
+      },
+      "2024-T1": {
+        "brier_1x2": 0.623667,
+        "log_loss": 1.039965,
+        "n": 190,
+        "rps": 0.219308
+      },
+      "2024-T2": {
+        "brier_1x2": 0.621866,
+        "log_loss": 1.033847,
+        "n": 188,
+        "rps": 0.209586
+      }
+    },
+    "overall": {
+      "overall": {
+        "brier_1x2": 0.622497,
+        "log_loss": 1.036714,
+        "n": 1316,
+        "rps": 0.21337
+      }
+    }
+  }
+}

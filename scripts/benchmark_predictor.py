@@ -74,6 +74,7 @@ from predictor_core.measurement.metrics import brier, calibration_table, log_los
 from src.dixon_coles import DixonColesMatrix  # noqa: E402
 from src.evaluator import BrasileiraoDixonColesEvaluator  # noqa: E402
 from src.ingest import load_config  # noqa: E402
+from src.math_utils import shin_probabilities  # noqa: E402
 from src.serving_evaluator import ServingStackEvaluator  # noqa: E402
 
 DB = ROOT / "data" / "matches.db"
@@ -92,7 +93,7 @@ PROGRESS_EVERY = 200  # log de progresso do walk-forward (execução longa)
 # Baselines de skill score realmente implementados. Os demais do Roadmap SS6
 # (elo_baseline, current_v3, market_no_vig) exigem rodar outros previsores
 # sobre a MESMA base; pedir um deles falha alto, nunca silencia como zero.
-SUPPORTED_BASELINES = frozenset({"climatology"})
+SUPPORTED_BASELINES = frozenset({"climatology", "market_no_vig"})
 # Motores mensuráveis. `dixon_coles` é o histórico (Poisson + DC puro) e segue
 # sendo o DEFAULT para não invalidar de repente as medições já feitas contra
 # ele; `serving` é a pilha que realmente prevê (Elo + NB/DC + ensemble xG),
@@ -120,7 +121,8 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
     try:
         rows = conn.execute(
             "SELECT m.date, m.home_team, m.away_team, m.home_score, m.away_score, s.kickoff_at, "
-            "       m.tournament, m.neutral, s.home_xg, s.away_xg "
+            "       m.tournament, m.neutral, s.home_xg, s.away_xg, "
+            "       s.odds_home, s.odds_draw, s.odds_away "
             "FROM matches m LEFT JOIN sofascore_matches s "
             "  ON s.date = m.date AND s.home_team = m.home_team AND s.away_team = m.away_team "
             "WHERE m.home_score IS NOT NULL AND m.away_score IS NOT NULL"
@@ -128,7 +130,7 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
     finally:
         conn.close()
     obs = []
-    for d, home, away, hs, asc, kickoff_at, tournament, neutral, home_xg, away_xg in rows:
+    for d, home, away, hs, asc, kickoff_at, tournament, neutral, home_xg, away_xg, oh, od, oa in rows:
         obs.append(
             {
                 "home": home,
@@ -138,6 +140,7 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
                 "has_real_kickoff": kickoff_at is not None,
                 "tournament": tournament,
                 "neutral": int(neutral or 0),
+                "market_odds_1x2": (oh, od, oa),
                 # xG vive DENTRO de `result`, junto dos gols, pelo MESMO motivo
                 # documentado em src/evaluator.py: a ABC do core remove só o
                 # `target_key` das features antes do predict_step. Qualquer
@@ -292,6 +295,7 @@ def _run_walkforward(
                 "lambda_total": lam + mu,
                 "actual_1x2": _outcomes_1x2(obs["result"]["home_goals"], obs["result"]["away_goals"]),
                 "actual_over": int(obs["result"]["home_goals"] + obs["result"]["away_goals"] > OU_LINE),
+                "market_odds_1x2": obs.get("market_odds_1x2"),
             }
         )
     return rows, ev
@@ -322,6 +326,15 @@ def _climatology_probs(rows: list[dict[str, Any]]) -> list[list[float]]:
         counts[r["actual_1x2"]] += 1
     freqs = [c / n for c in counts] if n else [1 / 3, 1 / 3, 1 / 3]
     return [freqs for _ in rows]
+
+
+def _market_no_vig_probs(row: dict[str, Any]) -> list[float] | None:
+    """Shin de-vig do fechamento, orientado como [away, draw, home]."""
+    odds = row.get("market_odds_1x2")
+    if not odds or len(odds) != 3 or any(not isinstance(o, (int, float)) or o <= 1 for o in odds):
+        return None
+    probs, _z, _overround = shin_probabilities(odds)
+    return [float(probs[2]), float(probs[1]), float(probs[0])]
 
 
 def _metric_record(
@@ -497,7 +510,7 @@ def run(
     if baseline not in SUPPORTED_BASELINES:
         raise NotImplementedError(
             f"baseline {baseline!r} não implementado neste painel. Disponíveis: "
-            f"{sorted(SUPPORTED_BASELINES)}. `elo_baseline`, `current_v3` e `market_no_vig` "
+            f"{sorted(SUPPORTED_BASELINES)}. `elo_baseline` e `current_v3` "
             "exigem rodar OUTROS previsores sobre a MESMA base e ainda não estão plugados — "
             "falhar alto aqui é melhor que devolver skill score contra um baseline fantasma."
         )
@@ -517,11 +530,22 @@ def run(
     rows = [r for r in all_rows if (not start or r["date"] >= start) and (not end or r["date"] <= end)]
     if not rows:
         raise SystemExit(f"nenhuma previsão cai no período [{start or '-inf'}, {end or '+inf'}] após o walk-forward")
+    requested_n = len(rows)
+    market_coverage = None
+    if baseline == "market_no_vig":
+        paired = [(r, _market_no_vig_probs(r)) for r in rows]
+        rows = [r for r, p in paired if p is not None]
+        market_coverage = len(rows) / requested_n if requested_n else 0.0
+        if not rows:
+            raise SystemExit("baseline market_no_vig sem odds 1X2 completas no período")
     n = len(rows)
 
     probs_1x2 = [[r["p_loss"], r["p_draw"], r["p_win"]] for r in rows]
     outcomes_1x2 = [r["actual_1x2"] for r in rows]
-    baseline_probs = _climatology_probs(rows)
+    baseline_probs = (
+        [_market_no_vig_probs(r) for r in rows] if baseline == "market_no_vig" else _climatology_probs(rows)
+    )
+    assert all(p is not None for p in baseline_probs)
 
     rps_losses = [rps([p], [y]) for p, y in zip(probs_1x2, outcomes_1x2)]
     rps_baseline_losses = [rps([p], [y]) for p, y in zip(baseline_probs, outcomes_1x2)]
@@ -635,6 +659,13 @@ def run(
         "period": {"start": start or rows[0]["date"], "end": end or rows[-1]["date"]},
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "n": n,
+        "baseline_coverage": {
+            "requested_n": requested_n,
+            "paired_n": n,
+            "rate": round(market_coverage, 6) if market_coverage is not None else 1.0,
+            "market": "1x2" if baseline == "market_no_vig" else None,
+            "devig_method": "shin" if baseline == "market_no_vig" else None,
+        },
         "metrics": metrics,
         "guardrails_ou25": guardrails_ou25,
         "diagnostic": {
@@ -644,11 +675,11 @@ def run(
             "lambda_total_variance": round(st.pvariance(lambda_values), 6) if len(lambda_values) > 1 else None,
         },
         "skill_scores": {
-            "rps_skill_score_vs_climatology": {
+            f"rps_skill_score_vs_{baseline}": {
                 "value": round(1 - (rps(probs_1x2, outcomes_1x2) / rps(baseline_probs, outcomes_1x2)), 6),
                 "delta_ci95": [round(rps_ci[0], 6), round(rps_ci[1], 6)] if rps_ci else None,
             },
-            "brier_skill_score_vs_climatology": {
+            f"brier_skill_score_vs_{baseline}": {
                 "value": round(1 - (brier(probs_1x2, outcomes_1x2) / brier(baseline_probs, outcomes_1x2)), 6),
                 "delta_ci95": [round(brier_ci[0], 6), round(brier_ci[1], 6)] if brier_ci else None,
             },

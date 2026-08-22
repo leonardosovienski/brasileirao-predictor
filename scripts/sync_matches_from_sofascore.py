@@ -39,16 +39,70 @@ def sync(conn, tournament: str, competitions: list[str]) -> tuple[int, int]:
     if not competitions:
         sys.exit("nenhuma competição em sofascore.competitions — nada a espelhar")
     placeholders = ",".join("?" for _ in competitions)
+    # Marca adiamentos preservando a linha bruta e sua proveniência. O evento
+    # antigo sem placar é superseded quando o mesmo confronto aparece depois
+    # com placar e outro event_id.
+    conn.execute(
+        """
+        UPDATE sofascore_matches AS old
+        SET superseded_by_event_id = (
+            SELECT new.event_id FROM sofascore_matches AS new
+            WHERE new.home_team=old.home_team AND new.away_team=old.away_team
+              AND new.season=old.season AND new.competition=old.competition
+              AND new.home_score IS NOT NULL AND new.away_score IS NOT NULL
+              AND new.date > old.date
+            ORDER BY new.date LIMIT 1
+        )
+        WHERE old.home_score IS NULL AND old.away_score IS NULL
+          AND EXISTS (
+            SELECT 1 FROM sofascore_matches AS new
+            WHERE new.home_team=old.home_team AND new.away_team=old.away_team
+              AND new.season=old.season AND new.competition=old.competition
+              AND new.home_score IS NOT NULL AND new.away_score IS NOT NULL
+              AND new.date > old.date
+          )
+        """
+    )
     rows = conn.execute(
-        "SELECT date, home_team, away_team, home_score, away_score "
+        "SELECT event_id, date, home_team, away_team, home_score, away_score "
         "FROM sofascore_matches "
         "WHERE date IS NOT NULL AND home_team IS NOT NULL AND away_team IS NOT NULL "
+        "AND superseded_by_event_id IS NULL "
         f"AND competition IN ({placeholders})",
         competitions,
     ).fetchall()
-    out = [(d, h, a, hs, as_, tournament, "", "", 0) for d, h, a, hs, as_ in rows]
+    out = [(eid, d, h, a, hs, as_, tournament, "", "", 0) for eid, d, h, a, hs, as_ in rows]
     if out:
-        db.upsert_matches(conn, out)
+        db.upsert_matches_by_event_id(conn, out)
+    conn.execute(
+        """
+        DELETE FROM matches
+        WHERE event_id IN (
+            SELECT event_id FROM sofascore_matches WHERE superseded_by_event_id IS NOT NULL
+        ) OR EXISTS (
+            SELECT 1 FROM sofascore_matches AS stale
+            WHERE stale.superseded_by_event_id IS NOT NULL
+              AND stale.date=matches.date
+              AND stale.home_team=matches.home_team
+              AND stale.away_team=matches.away_team
+        )
+        """
+    )
+    # Fixture legado sem event_id cuja data mudou antes do kickoff. A linha
+    # canônica por event_id já foi inserida acima; manter ambas duplicaria o
+    # próximo jogo no serving.
+    conn.execute(
+        """
+        DELETE FROM matches
+        WHERE event_id IS NULL AND EXISTS (
+            SELECT 1 FROM sofascore_matches AS canonical
+            WHERE canonical.home_team=matches.home_team
+              AND canonical.away_team=matches.away_team
+              AND ABS(julianday(canonical.date)-julianday(matches.date)) <= 14
+        )
+        """
+    )
+    conn.commit()
     played = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NOT NULL").fetchone()[0]
     fixtures = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NULL").fetchone()[0]
     return played, fixtures

@@ -132,7 +132,10 @@ def _market_probs(conn, name_a, name_b, match_date=None):
                 continue
             key = -dd  # menor distância vence
         else:
-            key = str(d or "")  # mais recente vence
+            try:
+                key = date.fromisoformat(str(d)[:10]).toordinal()  # mais recente vence
+            except (TypeError, ValueError):
+                key = 0
         if best is None or key > best[0]:
             best = (key, (h, oh, od, oa, o_over, o_under))
     if best is None:

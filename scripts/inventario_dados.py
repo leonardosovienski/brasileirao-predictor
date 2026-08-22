@@ -28,6 +28,15 @@ sys.path.insert(0, str(ROOT))
 
 DB = ROOT / "data" / "matches.db"
 
+
+def _configure_utf8_console() -> None:
+    """Evita UnicodeEncodeError no console cp1252 do Windows."""
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if callable(reconfigure):
+            reconfigure(encoding="utf-8")
+
+
 # (rótulo, expressão SQL agregada sobre sofascore_matches)
 DIMENSOES = [
     ("jogos", "COUNT(*)"),
@@ -129,6 +138,7 @@ def _tabela_texto(dados: dict[str, Any]) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
+    _configure_utf8_console()
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--json", action="store_true", help="saída JSON em vez de tabela")
     args = parser.parse_args(argv)

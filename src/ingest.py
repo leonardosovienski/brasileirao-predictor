@@ -3,6 +3,7 @@ import sys
 import time
 import urllib.request
 from pathlib import Path
+from typing import Any, cast
 
 import pandas as pd
 import yaml
@@ -47,21 +48,25 @@ def normalize(df: pd.DataFrame) -> pd.DataFrame:
     df = df.dropna(subset=["date", "home_team", "away_team"])
     df["neutral"] = df["neutral"].astype(str).str.upper().isin(["TRUE", "1"]).astype(int)
     for col in ("home_score", "away_score"):
-        df[col] = pd.to_numeric(df[col], errors="coerce").astype("Int64")
+        numeric = cast(pd.Series, pd.to_numeric(cast(pd.Series, df[col]), errors="coerce"))
+        df[col] = numeric.astype("Int64")
     df = df.drop_duplicates(subset=["date", "home_team", "away_team"], keep="last")
-    return df[
-        [
-            "date",
-            "home_team",
-            "away_team",
-            "home_score",
-            "away_score",
-            "tournament",
-            "city",
-            "country",
-            "neutral",
-        ]
-    ]
+    return cast(
+        pd.DataFrame,
+        df[
+            [
+                "date",
+                "home_team",
+                "away_team",
+                "home_score",
+                "away_score",
+                "tournament",
+                "city",
+                "country",
+                "neutral",
+            ]
+        ],
+    )
 
 
 def run() -> None:
@@ -70,20 +75,22 @@ def run() -> None:
     t0 = time.monotonic()
     df = normalize(fetch_csv(cfg))
     conn = db.connect(str(ROOT / cfg["database"]))
-    rows = [
-        (
-            r.date,
-            r.home_team,
-            r.away_team,
-            None if pd.isna(r.home_score) else int(r.home_score),
-            None if pd.isna(r.away_score) else int(r.away_score),
-            r.tournament,
-            r.city,
-            r.country,
-            int(r.neutral),
+    rows = []
+    for values in df.itertuples(index=False, name=None):
+        date_, home, away, home_score, away_score, tournament, city, country, neutral = cast(tuple[Any, ...], values)
+        rows.append(
+            (
+                date_,
+                home,
+                away,
+                None if pd.isna(home_score) else int(home_score),
+                None if pd.isna(away_score) else int(away_score),
+                tournament,
+                city,
+                country,
+                int(neutral),
+            )
         )
-        for r in df.itertuples()
-    ]
     db.upsert_matches(conn, rows)
     played = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NOT NULL").fetchone()[0]
     fixtures = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NULL").fetchone()[0]

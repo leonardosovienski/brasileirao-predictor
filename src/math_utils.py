@@ -6,6 +6,7 @@ proporcional — a casa carrega margem desigual entre favorito e azarão.
 """
 
 import math
+from typing import cast
 
 import numpy as np
 from scipy.optimize import brentq
@@ -36,7 +37,7 @@ def shin_probabilities(odds):
         return (np.sqrt(z * z + 4 * (1 - z) * pi * pi / booksum) - z) / (2 * (1 - z))
 
     try:
-        z = brentq(lambda z: p_of_z(z).sum() - 1.0, 1e-9, 1 - 1e-9, xtol=1e-12)
+        z = cast(float, brentq(lambda z: p_of_z(z).sum() - 1.0, 1e-9, 1 - 1e-9, xtol=1e-12))
     except ValueError:
         z = 0.0
     p = p_of_z(z) if z > 0 else pi / booksum

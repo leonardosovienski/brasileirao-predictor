@@ -36,7 +36,10 @@ def consensus_anchor(rows: Iterable[dict[str, Any]], *, market: str) -> dict[str
     eligible = [row for row in rows if row.get("market") == market]
     for row in eligible:
         key = (row.get("bookmaker"), row.get("odds_captured_at"), row.get("line"))
-        grouped[key][str(row.get("selection"))] = row.get("decimal_odds")
+        odd = row.get("decimal_odds")
+        if not isinstance(odd, (int, float)):
+            continue
+        grouped[key][str(row.get("selection"))] = float(odd)
     complete = []
     expected = {"home", "draw", "away"} if market in {"1x2", "1x2_1h"} else {"over", "under"}
     for (bookmaker, captured_at, line), odds in grouped.items():

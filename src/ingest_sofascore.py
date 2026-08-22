@@ -91,7 +91,7 @@ def parse_match(ev: dict):
     }
 
 
-def parse_xg(stats: dict):
+def parse_xg(stats: dict | None):
     for period in (stats or {}).get("statistics", []):
         if period.get("period") != "ALL":
             continue
@@ -178,7 +178,7 @@ def parse_statistics_flat(event_data, event_id):
     return rows
 
 
-def parse_odds(odds: dict, initial: bool = False):
+def parse_odds(odds: dict | None, initial: bool = False):
     """1X2 (marketId 1). initial=True lê a ABERTURA (initialFractionalValue)."""
     key = "initialFractionalValue" if initial else "fractionalValue"
     for market in (odds or {}).get("markets", []):
@@ -195,7 +195,7 @@ def parse_odds(odds: dict, initial: bool = False):
 _HANDICAP = re.compile(r"(\d+(?:\.\d+)?)\s*$")
 
 
-def parse_ou(odds: dict, line: float = 2.5, initial: bool = False):
+def parse_ou(odds: dict | None, line: float = 2.5, initial: bool = False):
     """Odd de Over/Under na linha principal de gols (default 2.5).
     O mercado de totais do Sofascore carrega o handicap em `choice.name`
     ('Over 2.5') ou no `market.choiceGroup`. A comparação é NUMÉRICA: matching
@@ -248,7 +248,7 @@ def _same_team(a: str | None, b: str | None) -> bool:
 
 
 def parse_all_odds(
-    odds: dict, home_name: str | None = None, away_name: str | None = None, initial: bool = False
+    odds: dict | None, home_name: str | None = None, away_name: str | None = None, initial: bool = False
 ) -> dict:
     """Extrai TODOS os mercados derivados da grade de gols do payload de odds.
 
@@ -341,7 +341,7 @@ def parse_all_odds(
     return out
 
 
-def parse_ratings(lineups: dict, home_name: str, away_name: str, event_id: int):
+def parse_ratings(lineups: dict | None, home_name: str, away_name: str, event_id: int):
     rows = []
     for side, team in (("home", home_name), ("away", away_name)):
         for p in (lineups or {}).get(side, {}).get("players", []):

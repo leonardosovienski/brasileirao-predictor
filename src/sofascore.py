@@ -19,6 +19,7 @@ import sys
 import tempfile
 import time
 from pathlib import Path
+from typing import Any, cast
 
 from curl_cffi import requests as creq
 
@@ -81,7 +82,9 @@ class Sofascore:
 
     @retry(attempts=4, base_delay=2.0)
     def _fetch(self, path: str):
-        r = self.session.get(f"{BASE}/{path}", timeout=30, verify=self.verify)
+        # curl_cffi aceita caminho de CA em runtime; os stubs declaram apenas
+        # bool/None, então o cast fica restrito à fronteira da biblioteca.
+        r = self.session.get(f"{BASE}/{path}", timeout=30, verify=cast(Any, self.verify))
         time.sleep(self.rate)
         if r.status_code == 404:
             return None

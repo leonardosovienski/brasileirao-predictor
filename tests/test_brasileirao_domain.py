@@ -142,6 +142,51 @@ def test_espelho_sofascore_para_matches():
     assert (played2, fixtures2) == (1, 1)
 
 
+def test_espelho_marca_e_remove_linha_orfa_de_adiamento():
+    spec = importlib.util.spec_from_file_location(
+        "sync_matches_postponed", ROOT / "scripts" / "sync_matches_from_sofascore.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    conn = db.connect(":memory:")
+    conn.executemany(
+        "INSERT INTO sofascore_matches "
+        "(event_id, competition, season, date, home_team, away_team, home_score, away_score) "
+        "VALUES (?, 'Serie A', '2022', ?, 'Casa', 'Fora', ?, ?)",
+        [(10, "2022-10-03", None, None), (11, "2022-10-20", 3, 1)],
+    )
+    # Forma legada pré-migração: sem event_id no espelho.
+    conn.execute(
+        "INSERT INTO matches (date,home_team,away_team,tournament,neutral) "
+        "VALUES ('2022-10-03','Casa','Fora','Serie A',0)"
+    )
+    conn.commit()
+
+    assert mod.sync(conn, "Serie A", ["Serie A"]) == (1, 0)
+    assert conn.execute("SELECT superseded_by_event_id FROM sofascore_matches WHERE event_id=10").fetchone() == (11,)
+    assert conn.execute("SELECT event_id,date FROM matches").fetchall() == [(11, "2022-10-20")]
+
+
+def test_espelho_remove_fixture_legado_sem_event_id_quando_data_muda():
+    spec = importlib.util.spec_from_file_location(
+        "sync_matches_fixture", ROOT / "scripts" / "sync_matches_from_sofascore.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    conn = db.connect(":memory:")
+    conn.execute(
+        "INSERT INTO matches (date,home_team,away_team,tournament,neutral) "
+        "VALUES ('2026-09-05','Casa','Fora','Serie A',0)"
+    )
+    conn.execute(
+        "INSERT INTO sofascore_matches (event_id,competition,season,date,home_team,away_team) "
+        "VALUES (20,'Serie A','2026','2026-09-06','Casa','Fora')"
+    )
+    conn.commit()
+    assert mod.sync(conn, "Serie A", ["Serie A"]) == (0, 1)
+    assert conn.execute("SELECT event_id,date FROM matches").fetchall() == [(20, "2026-09-06")]
+
+
 def test_odds_shop_sport_key_do_config():
     spec = importlib.util.spec_from_file_location("odds_shop_dom", ROOT / "scripts" / "odds_shop.py")
     mod = importlib.util.module_from_spec(spec)

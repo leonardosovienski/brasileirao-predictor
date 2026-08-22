@@ -127,6 +127,24 @@ def test_ignores_fixture_outside_decision_window(ambiente):
     assert not ambiente["ledger_path"].exists()
 
 
+def test_fixture_in_window_without_market_observation_is_audited(ambiente):
+    outcomes = _run(ambiente, now=KICKOFF - timedelta(minutes=60))
+    assert outcomes[0]["status"] == "NO_MARKET_OBSERVATION"
+    assert _attempts_rows(ambiente)[0]["status"] == "NO_MARKET_OBSERVATION"
+
+
+def test_missing_elo_team_is_audited(ambiente):
+    conn = db.connect(str(ambiente["db_path"]))
+    conn.execute("DELETE FROM current_elo WHERE team='Fora'")
+    conn.commit()
+    conn.close()
+    _write_quotes(ambiente["market_obs_path"], [_quote()])
+
+    outcomes = _run(ambiente, now=KICKOFF - timedelta(minutes=60))
+    assert outcomes[0]["status"] == "MISSING_ELO_TEAM"
+    assert _attempts_rows(ambiente)[0]["missing_elo_teams"] == ["Fora"]
+
+
 def test_second_run_in_window_is_idempotent(ambiente):
     odd = _odd_for_edge(_p_over())
     _write_quotes(ambiente["market_obs_path"], [_quote(selection="over", odds=odd)])

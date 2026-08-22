@@ -173,16 +173,47 @@ def run(
             by_source_event[sid] = q
 
     outcomes = []
+    matched_sofascore_ids: set[Any] = set()
     for source_event_id, representative in by_source_event.items():
         matched, status = match_fixture(representative, fixtures)
         if matched is None or matched["event_id"] not in in_window:
             continue
+        matched_sofascore_ids.add(matched["event_id"])
         home, away = matched["home_team"], matched["away_team"]
         if home not in elo or away not in elo:
+            result = {"status": "MISSING_ELO_TEAM", "capital_enabled": False}
+            outcomes.append({"sofascore_event_id": matched["event_id"], "home": home, "away": away, **result})
+            _append_jsonl(
+                attempts_path,
+                {
+                    "recorded_at": now.isoformat(timespec="seconds"),
+                    "event_id": source_event_id,
+                    "sofascore_event_id": matched["event_id"],
+                    "home": home,
+                    "away": away,
+                    "status": result["status"],
+                    "missing_elo_teams": [team for team in (home, away) if team not in elo],
+                    "approved_bookmaker": bookmaker,
+                },
+            )
             continue
         prediction_full = model.predict_match(elo[home], elo[away], params, home_adv, max_goals=max_goals)
         p_over = prediction_full["over"].get(OU_LINE)
         if p_over is None:
+            result = {"status": "MISSING_P_OVER", "capital_enabled": False}
+            outcomes.append({"sofascore_event_id": matched["event_id"], "home": home, "away": away, **result})
+            _append_jsonl(
+                attempts_path,
+                {
+                    "recorded_at": now.isoformat(timespec="seconds"),
+                    "event_id": source_event_id,
+                    "sofascore_event_id": matched["event_id"],
+                    "home": home,
+                    "away": away,
+                    "status": result["status"],
+                    "approved_bookmaker": bookmaker,
+                },
+            )
             continue
         prediction = {
             "event_id": source_event_id,
@@ -212,6 +243,34 @@ def run(
                 audit_row["best_available_odds"] = best_odds
                 audit_row["slippage_vs_best"] = round(result["executed_odds"] - best_odds, 6)
         _append_jsonl(attempts_path, audit_row)
+
+    # Antes, o laço começava pelas odds. Um fixture dentro da janela sem
+    # qualquer observação de mercado desaparecia sem tentativa e era
+    # indistinguível de poller parado. Registrar o gate no próprio funil.
+    for fixture in fixtures:
+        if fixture["event_id"] not in in_window or fixture["event_id"] in matched_sofascore_ids:
+            continue
+        result = {"status": "NO_MARKET_OBSERVATION", "capital_enabled": False}
+        outcomes.append(
+            {
+                "sofascore_event_id": fixture["event_id"],
+                "home": fixture["home_team"],
+                "away": fixture["away_team"],
+                **result,
+            }
+        )
+        _append_jsonl(
+            attempts_path,
+            {
+                "recorded_at": now.isoformat(timespec="seconds"),
+                "event_id": None,
+                "sofascore_event_id": fixture["event_id"],
+                "home": fixture["home_team"],
+                "away": fixture["away_team"],
+                "status": result["status"],
+                "approved_bookmaker": bookmaker,
+            },
+        )
     return outcomes
 
 

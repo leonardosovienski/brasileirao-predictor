@@ -137,7 +137,11 @@ def main() -> int:
             f"H9_MISSED_WINDOW_ALERT missed={result['missed_count']} at_risk={result['at_risk_count']}",
             file=sys.stderr,
         )
-        return 1
+        # Um alerta e uma falha operacional são estados diferentes. O
+        # Agendador usa exit != 0 para indicar que a própria tarefa quebrou;
+        # janelas perdidas são comunicadas pelo marcador acima, mantendo o job
+        # saudável. Exceções não tratadas continuam saindo com código != 0.
+        return 0
     if result["at_risk_count"]:
         print(f"H9_AT_RISK_WARNING at_risk={result['at_risk_count']}", file=sys.stderr)
     return 0

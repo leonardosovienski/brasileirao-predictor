@@ -107,7 +107,7 @@ def load_event_data(conn: sqlite3.Connection, market: str, cfg_elo: dict | None 
     # Elo forward-only por data do evento (auditoria P3) — antes usava o
     # current_elo de HOJE como rating pré-jogo (lookahead).
     if cfg_elo is None:
-        cfg_elo = load_config()["elo"]
+        cfg_elo = dict(load_config().get("elo") or {})
     dates = {row[1] for row in rows if row[1]}
     elo_by_date = _forward_elo(conn, cfg_elo, dates)
 

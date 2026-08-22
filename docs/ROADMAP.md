@@ -1,7 +1,8 @@
 # Roadmap de Execução — brasileirao-predictor
 
-> **Status:** revisado em 2026-08-21, depois do primeiro veredito real da
-> agenda de pesquisa (RESEARCH-01A → REFUTADA).
+> **Status:** revisado em 2026-08-22. Há 14 trials: H12 comprovada e H13
+> pré-registrada. O serving resolve contra climatologia, mas ainda não bate o
+> mercado de fechamento sem vig.
 >
 > Consolida o *Roadmap Técnico Consolidado v1.0-final* (que até aqui vivia só
 > como arquivo solto na máquina do operador — uma sessão nova não tinha acesso
@@ -23,7 +24,7 @@ completo e validado nos dois sentidos (controle positivo e negativo). O que
 falta é a única coisa que importa: **demonstrar resolução preditiva e edge
 econômico prospectivo**.
 
-Placar atual: **12 trials registradas, ZERO comprovadas.**
+Placar atual: **14 trials registradas, 1 comprovada, 1 pré-registrada e 12 fechadas.**
 
 ---
 
@@ -91,8 +92,9 @@ inteiro do lado ruim — guardrail que dispara com ruído vira veto arbitrário)
 * `serving` — a pilha que realmente prevê: Elo + NB/DC + ensemble de xG,
   reconstruída a cada refit sobre histórico truncado.
 
-Baselines de skill score: só `climatology` está implementado. `elo_baseline`,
-`current_v3` e `market_no_vig` falham alto se pedidos — nunca silenciam.
+Baselines de skill score: `climatology` e `market_no_vig` estão implementados.
+O segundo usa fechamento 1X2 de-vigado por Shin e pareamento na mesma amostra;
+`elo_baseline` e `current_v3` falham alto se pedidos — nunca silenciam.
 
 **Validação do instrumento** (as duas metades, ambas prontas):
 
@@ -230,14 +232,19 @@ concepção.
 
 ### P5 — Pendências menores
 
-* **Baseline `market_no_vig`** — o teste de teto. Se o modelo não bate o
-  fechamento sem vig, não há edge econômico. Depende da cobertura de odds
-  históricas na base.
+* **Baseline `market_no_vig`** — implementado para 1X2. Em 2021–2024 o
+  serving perdeu do mercado (RPS delta +0,011240, IC95
+  [+0,006923,+0,015455], n=1316); capital continua bloqueado. Não estender o
+  teto a OU2.5 na mesma base: cobertura de 2023–2024 é só 66%/63%.
 * **Linha órfã de jogo adiado** — PK de `matches` é
   `(date, home_team, away_team)`; adiamento muda a data e a linha antiga fica.
   Exige migração de schema (`event_id` em `matches`).
 * **Encoding de acentos** no `by_team` do relatório (`AtlÃ©tico Mineiro`) —
   cosmético, na ingestão do Sofascore.
+* **Stats de jogador:** `player_comp_stats` contém 5.210 agregados 2021–2026
+  derivados dos caches de lineup Sofascore, com fonte e `available_at`.
+  Consumidores PIT devem respeitar esse relógio; o agregado final da temporada
+  não é feature válida para jogos anteriores da mesma temporada.
 
 ---
 

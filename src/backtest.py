@@ -373,6 +373,8 @@ def run_backtest(cfg, conn):
     for i in test_idx:
         d, home, away, hs, as_, tournament, neutral = rows[i]
         found = _find_odds(odds, home, away, d)
+        if found is None:  # protegido por test_idx; mantém a fronteira explícita para o tipo
+            continue
         (oh, od_, oa), (o_over, o_under), x12_open, ou_open = found
         diff = history[i][0]
         # max_goals NOMEADO (auditoria P5): posicional caía em delta_vorp_a e,

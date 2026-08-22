@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS match_statistics (
 
 
 CREATE TABLE IF NOT EXISTS matches (
+    event_id    INTEGER UNIQUE,
     date        TEXT NOT NULL,
     home_team   TEXT NOT NULL,
     away_team   TEXT NOT NULL,
@@ -42,6 +43,8 @@ CREATE TABLE IF NOT EXISTS player_comp_stats (
     assists     INTEGER,
     xg          REAL,
     xag         REAL,
+    source      TEXT,
+    available_at TEXT,
     PRIMARY KEY (player, team, competition, season)
 );
 CREATE INDEX IF NOT EXISTS idx_pcs_team ON player_comp_stats(team, competition, season);
@@ -205,6 +208,16 @@ def _migrate(conn):
             conn.execute(f"ALTER TABLE sofascore_matches ADD COLUMN {col} INTEGER")
     if "kickoff_at" not in cols:
         conn.execute("ALTER TABLE sofascore_matches ADD COLUMN kickoff_at TEXT")
+    if "superseded_by_event_id" not in cols:
+        conn.execute("ALTER TABLE sofascore_matches ADD COLUMN superseded_by_event_id INTEGER")
+    match_cols = {r[1] for r in conn.execute("PRAGMA table_info(matches)")}
+    if "event_id" not in match_cols:
+        conn.execute("ALTER TABLE matches ADD COLUMN event_id INTEGER")
+    conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_matches_event_id ON matches(event_id)")
+    player_cols = {r[1] for r in conn.execute("PRAGMA table_info(player_comp_stats)")}
+    for col in ("source", "available_at"):
+        if col not in player_cols:
+            conn.execute(f"ALTER TABLE player_comp_stats ADD COLUMN {col} TEXT")
     # Backfill não-destrutivo: a linha principal de OU (2.5) já gravada nas colunas
     # legadas vira a forma canônica em odds_lines. INSERT OR IGNORE preserva o que
     # já existir lá (re-rodar a migração é inócuo).
@@ -219,6 +232,31 @@ def _migrate(conn):
 
 def upsert_matches(conn: sqlite3.Connection, rows) -> int:
     cur = conn.executemany(UPSERT, rows)
+    conn.commit()
+    return cur.rowcount
+
+
+def upsert_matches_by_event_id(conn: sqlite3.Connection, rows) -> int:
+    """Espelho canônico por event_id; preserva compatibilidade do upsert legado."""
+    rows = list(rows)
+    for event_id, date, home, away, *_rest in rows:
+        conn.execute(
+            "UPDATE matches SET event_id=? WHERE event_id IS NULL AND date=? AND home_team=? AND away_team=?",
+            (event_id, date, home, away),
+        )
+    cur = conn.executemany(
+        """
+        INSERT INTO matches (event_id, date, home_team, away_team, home_score, away_score,
+                             tournament, city, country, neutral)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(event_id) DO UPDATE SET
+            date=excluded.date, home_team=excluded.home_team, away_team=excluded.away_team,
+            home_score=excluded.home_score, away_score=excluded.away_score,
+            tournament=excluded.tournament, city=excluded.city,
+            country=excluded.country, neutral=excluded.neutral
+        """,
+        rows,
+    )
     conn.commit()
     return cur.rowcount
 

@@ -9,7 +9,6 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from src.data.bookmaker_stability import stability_report
-from src.settings import Settings
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -30,9 +29,12 @@ def report() -> dict:
             runs[row["retrieved_at"]].add(row["bookmaker"])
     common = sorted(set.intersection(*runs.values())) if runs else []
     stability = stability_report(stability_path)
-    settings = Settings()
-    api_football = bool(os.getenv("API_FOOTBALL_KEY") or settings.API_FOOTBALL_KEY)
-    odds_api = bool(os.getenv("ODDS_API_KEY") or settings.THE_ODDS_API_KEY)
+    # Este diagnóstico pertence ao coletor prospectivo local e não deve exigir
+    # REDIS_URL nem os caminhos dos serviços V3. Os próprios adapters opt-in
+    # usam estas variáveis de ambiente; ler exatamente o mesmo contrato evita
+    # que uma dependência não relacionada derrube o alarme de prontidão.
+    api_football = bool(os.getenv("API_FOOTBALL_KEY"))
+    odds_api = bool(os.getenv("ODDS_API_KEY"))
     trials_path = ROOT / "data" / "trials.json"
     trials = json.loads(trials_path.read_text(encoding="utf-8")) if trials_path.exists() else []
     h9_registered = any(row.get("name") == "h9-ou25-prospective-replication" for row in trials)

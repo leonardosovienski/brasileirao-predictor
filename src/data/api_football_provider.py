@@ -30,9 +30,9 @@ class ApiFootballProvider:
         get_json: Callable[[str, dict[str, str]], Any] | None = None,
     ):
         if api_key is None:
-            from src.settings import Settings
-
-            api_key = os.environ.get("API_FOOTBALL_KEY") or Settings().API_FOOTBALL_KEY
+            # Adapter opt-in: não deve exigir Redis nem os caminhos V3 apenas
+            # para descobrir se a credencial desta API foi configurada.
+            api_key = os.environ.get("API_FOOTBALL_KEY")
         self.api_key = api_key
         self.timeout = timeout
         self._get_json = get_json or self._http_get_json

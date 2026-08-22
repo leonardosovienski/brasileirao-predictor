@@ -1,0 +1,339 @@
+{
+  "diagnostic": {
+    "accuracy_1x2": 0.488889,
+    "coverage": 1.0,
+    "lambda_total_variance": 0.309538,
+    "ou25_hit_rate": 0.515556
+  },
+  "generated_at": "2026-08-19T23:18:37+00:00",
+  "guardrails_ou25": {
+    "calibration_slope": -0.20028,
+    "ece": 0.090753,
+    "resolution": 0.008037,
+    "sharpness": 0.013496
+  },
+  "half_life_days": 360.0,
+  "metrics": [
+    {
+      "baseline_value": 0.217383,
+      "delta": -0.005239,
+      "delta_ci95": null,
+      "is_primary": true,
+      "metric": "rps",
+      "n": 225,
+      "value": 0.212143
+    },
+    {
+      "baseline_value": 0.643872,
+      "delta": -0.003004,
+      "delta_ci95": null,
+      "is_primary": false,
+      "metric": "brier_1x2",
+      "n": 225,
+      "value": 0.640868
+    },
+    {
+      "baseline_value": 1.065517,
+      "delta": -0.008112,
+      "delta_ci95": null,
+      "is_primary": false,
+      "metric": "log_loss",
+      "n": 225,
+      "value": 1.057404
+    },
+    {
+      "baseline_value": null,
+      "delta": null,
+      "delta_ci95": null,
+      "is_primary": false,
+      "metric": "brier_ou25",
+      "n": 225,
+      "value": 0.532747
+    }
+  ],
+  "model_tag": "H4_DIXON_COLES_CALIBRATED",
+  "n": 225,
+  "period": {
+    "end": "2026-12-31",
+    "start": "2026-01-01"
+  },
+  "schema_version": "benchmark-predictor/1",
+  "skill_scores": {
+    "brier_skill_score_vs_climatology": {
+      "delta_ci95": [
+        -0.027695,
+        0.034059
+      ],
+      "value": 0.004665
+    },
+    "rps_skill_score_vs_climatology": {
+      "delta_ci95": [
+        -0.008161,
+        0.018288
+      ],
+      "value": 0.024101
+    }
+  },
+  "strata": {
+    "by_lambda_total_bucket": {
+      "[1,2)": {
+        "brier_1x2": 0.561492,
+        "log_loss": 0.950819,
+        "n": 6,
+        "rps": 0.202717
+      },
+      "[2,3)": {
+        "brier_1x2": 0.659637,
+        "log_loss": 1.084312,
+        "n": 181,
+        "rps": 0.219382
+      },
+      "[3,4)": {
+        "brier_1x2": 0.46286,
+        "log_loss": 0.795703,
+        "n": 28,
+        "rps": 0.132667
+      },
+      "[4,5)": {
+        "brier_1x2": 0.847188,
+        "log_loss": 1.3671,
+        "n": 10,
+        "rps": 0.309318
+      }
+    },
+    "by_month": {
+      "2026-01": {
+        "brier_1x2": 0.615932,
+        "log_loss": 1.027846,
+        "n": 10,
+        "rps": 0.25161
+      },
+      "2026-02": {
+        "brier_1x2": 0.658399,
+        "log_loss": 1.084295,
+        "n": 27,
+        "rps": 0.196927
+      },
+      "2026-03": {
+        "brier_1x2": 0.627005,
+        "log_loss": 1.037903,
+        "n": 40,
+        "rps": 0.220158
+      },
+      "2026-04": {
+        "brier_1x2": 0.580441,
+        "log_loss": 0.977711,
+        "n": 50,
+        "rps": 0.198005
+      },
+      "2026-05": {
+        "brier_1x2": 0.666765,
+        "log_loss": 1.090704,
+        "n": 50,
+        "rps": 0.228498
+      },
+      "2026-07": {
+        "brier_1x2": 0.667439,
+        "log_loss": 1.095057,
+        "n": 28,
+        "rps": 0.193797
+      },
+      "2026-08": {
+        "brier_1x2": 0.706518,
+        "log_loss": 1.138156,
+        "n": 20,
+        "rps": 0.217069
+      }
+    },
+    "by_probability_bucket": {
+      "[0.3,0.4)": {
+        "brier_1x2": 0.670581,
+        "log_loss": 1.104067,
+        "n": 19,
+        "rps": 0.247846
+      },
+      "[0.4,0.5)": {
+        "brier_1x2": 0.624469,
+        "log_loss": 1.037779,
+        "n": 100,
+        "rps": 0.216173
+      },
+      "[0.5,0.6)": {
+        "brier_1x2": 0.619033,
+        "log_loss": 1.02797,
+        "n": 59,
+        "rps": 0.192707
+      },
+      "[0.6,0.7)": {
+        "brier_1x2": 0.751401,
+        "log_loss": 1.205691,
+        "n": 28,
+        "rps": 0.235938
+      },
+      "[0.7,0.8)": {
+        "brier_1x2": 0.619601,
+        "log_loss": 1.018199,
+        "n": 16,
+        "rps": 0.191624
+      },
+      "[0.8,0.9)": {
+        "brier_1x2": 0.5105,
+        "log_loss": 0.820009,
+        "n": 3,
+        "rps": 0.12133
+      }
+    },
+    "by_season": {
+      "2026": {
+        "brier_1x2": 0.640868,
+        "log_loss": 1.057404,
+        "n": 225,
+        "rps": 0.212143
+      }
+    },
+    "by_team": {
+      "Athletico": {
+        "brier_1x2": 0.594586,
+        "log_loss": 0.993128,
+        "n": 12,
+        "rps": 0.201262
+      },
+      "Atlético Mineiro": {
+        "brier_1x2": 0.610444,
+        "log_loss": 1.022719,
+        "n": 10,
+        "rps": 0.174039
+      },
+      "Bahia": {
+        "brier_1x2": 0.664207,
+        "log_loss": 1.08087,
+        "n": 12,
+        "rps": 0.174092
+      },
+      "Botafogo": {
+        "brier_1x2": 0.754755,
+        "log_loss": 1.215805,
+        "n": 10,
+        "rps": 0.237459
+      },
+      "Chapecoense": {
+        "brier_1x2": 0.815793,
+        "log_loss": 1.306112,
+        "n": 11,
+        "rps": 0.249439
+      },
+      "Corinthians": {
+        "brier_1x2": 0.633163,
+        "log_loss": 1.057421,
+        "n": 12,
+        "rps": 0.225352
+      },
+      "Coritiba": {
+        "brier_1x2": 0.581492,
+        "log_loss": 0.975246,
+        "n": 11,
+        "rps": 0.19659
+      },
+      "Cruzeiro": {
+        "brier_1x2": 0.652561,
+        "log_loss": 1.076848,
+        "n": 12,
+        "rps": 0.214576
+      },
+      "Flamengo": {
+        "brier_1x2": 0.527996,
+        "log_loss": 0.865268,
+        "n": 10,
+        "rps": 0.148898
+      },
+      "Fluminense": {
+        "brier_1x2": 0.567886,
+        "log_loss": 0.947412,
+        "n": 12,
+        "rps": 0.185325
+      },
+      "Grêmio": {
+        "brier_1x2": 0.626458,
+        "log_loss": 1.044184,
+        "n": 11,
+        "rps": 0.206284
+      },
+      "Internacional": {
+        "brier_1x2": 0.690318,
+        "log_loss": 1.128465,
+        "n": 12,
+        "rps": 0.229849
+      },
+      "Mirassol": {
+        "brier_1x2": 0.726904,
+        "log_loss": 1.187796,
+        "n": 12,
+        "rps": 0.26241
+      },
+      "Palmeiras": {
+        "brier_1x2": 0.522458,
+        "log_loss": 0.877391,
+        "n": 11,
+        "rps": 0.160893
+      },
+      "Red Bull Bragantino": {
+        "brier_1x2": 0.588553,
+        "log_loss": 0.98994,
+        "n": 11,
+        "rps": 0.2181
+      },
+      "Remo": {
+        "brier_1x2": 0.695865,
+        "log_loss": 1.142266,
+        "n": 11,
+        "rps": 0.20098
+      },
+      "Santos": {
+        "brier_1x2": 0.666194,
+        "log_loss": 1.092677,
+        "n": 12,
+        "rps": 0.235101
+      },
+      "São Paulo": {
+        "brier_1x2": 0.639701,
+        "log_loss": 1.059706,
+        "n": 10,
+        "rps": 0.213925
+      },
+      "Vasco da Gama": {
+        "brier_1x2": 0.704035,
+        "log_loss": 1.144215,
+        "n": 12,
+        "rps": 0.278314
+      },
+      "Vitória": {
+        "brier_1x2": 0.539202,
+        "log_loss": 0.917134,
+        "n": 11,
+        "rps": 0.214414
+      }
+    },
+    "by_turno_of_season": {
+      "2026-T1": {
+        "brier_1x2": 0.633162,
+        "log_loss": 1.050058,
+        "n": 112,
+        "rps": 0.214011
+      },
+      "2026-T2": {
+        "brier_1x2": 0.648506,
+        "log_loss": 1.064686,
+        "n": 113,
+        "rps": 0.210292
+      }
+    },
+    "overall": {
+      "overall": {
+        "brier_1x2": 0.640868,
+        "log_loss": 1.057404,
+        "n": 225,
+        "rps": 0.212143
+      }
+    }
+  }
+}

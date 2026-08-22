@@ -1,5 +1,32 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — CODEX (2026-08-22, TARDE) — FONTE DA VERDADE ATUAL
+>
+> **Governança:** 14 trials — 1 comprovada (`h12`), 1 pré-registrada
+> (`h13`), 12 fechadas. O serving sem ensemble resolve contra climatologia,
+> mas perde do fechamento 1X2 de-vigado por Shin: RPS delta modelo−mercado
+> **+0,011240**, IC95 **[+0,006923, +0,015455]**, n=1316. Portanto não há
+> edge econômico e o capital continua bloqueado.
+>
+> **H9:** o ledger real é `data/research/h9_shadow.jsonl`. As 42 janelas
+> anteriores são irrecuperáveis; a coleta prospectiva começou em 19/08. O
+> emissor agora registra também gates anteriores ao `emit` (sem observação de
+> mercado, Elo de equipe ou `p_over`) e o alarme diferencia ALERT de falha da
+> tarefa pelo exit code.
+>
+> **Dados:** 2021–2025 têm 380 jogos concluídos por temporada. As 36 linhas
+> antigas sem placar (13/2/8/13 em 2021/22/24/25) são adiamentos, não jogos
+> ausentes. O bruto é preservado e marcado como superseded; o espelho
+> `matches` usa `event_id` e exclui as linhas substituídas. OU2.5 continua com
+> cobertura insuficiente em 2023–2024 (66%/63%). `player_comp_stats` foi
+> preenchida com 5.210 agregados dos caches de lineup Sofascore, todos com
+> `source=sofascore_lineups_cache/v1` e `available_at`; agregado final de uma
+> temporada não pode ser usado dentro dela antes desse instante.
+>
+> **Estado técnico:** `pyright` foi saneado em 2026-08-22: **47 arquivos,
+> 0 erros e 0 avisos** (eram 76 erros preexistentes). Suíte local após a
+> correção: **627 testes passados**, 1 deselecionado, zero falhas/erros.
+
 > ## CHECKPOINT — SESSÃO CLAUDE (2026-08-22, MADRUGADA) — FONTE DA VERDADE ATUAL
 >
 > **O projeto tem seu primeiro resultado significativo.** A pilha de serving,
@@ -304,7 +331,7 @@ Repo clonado em `C:\Users\Superleo13\Projetos\brasileirao-predictor`
 | Caminho | O que é |
 | --- | --- |
 | `data/matches.db` | SQLite com os jogos reais. Tabelas `sofascore_matches` (bruto) e `matches` (espelho do modelo). 2.123 jogos, 2021-2026 |
-| `data/h9_shadow/` | Ledger da coorte prospectiva de apostas simuladas |
+| `data/research/h9_shadow.jsonl` | Ledger append-only da coorte prospectiva de apostas simuladas |
 | `data/sofascore_cache/` | Cache da coleta |
 
 **Versionados por exceção** (são artefatos de governança):

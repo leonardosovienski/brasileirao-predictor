@@ -38,7 +38,7 @@ def run():
     fb = _count(conn, "SELECT COUNT(*) FROM player_comp_stats")
     if fb:
         comps = conn.execute("SELECT competition, COUNT(*) FROM player_comp_stats GROUP BY competition").fetchall()
-        print("\n[stats de jogador (FBref)]  -> coletado, NAO conectado")
+        print("\n[stats de jogador agregadas]  -> coletado, NAO conectado")
         print(f"  {fb} linhas: " + ", ".join(f"{c} ({n})" for c, n in comps))
 
     ss = _count(conn, "SELECT COUNT(*) FROM sofascore_matches")
