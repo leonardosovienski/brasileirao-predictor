@@ -205,9 +205,7 @@ class ServingStackEvaluator(PrequentialEvaluator):
         fit_rows = [r for _h, r in hist_cal_rows]
         if not hist_cal:
             hist_cal, fit_rows = hist, rows
-        weights = model.exponential_recency_weights(
-            [r[0] for r in fit_rows], asof, self.goal_half_life_days
-        )
+        weights = model.exponential_recency_weights([r[0] for r in fit_rows], asof, self.goal_half_life_days)
         self.elo = elo
         self.params = model.fit_goal_model(hist_cal, sample_weights=weights)
         self.dynamic_states = self._fit_dynamic(hist, rows) if self.dynamic_cfg is not None else None

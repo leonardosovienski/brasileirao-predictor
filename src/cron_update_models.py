@@ -62,9 +62,7 @@ def compute(cfg, conn):
     hist_cal = [h for h, _r in hist_cal_rows]
     fit_rows = [r for _h, r in hist_cal_rows]
     asof = date.fromisoformat(rows[-1][0][:10])
-    weights = model.exponential_recency_weights(
-        [r[0] for r in fit_rows], asof, cfg["model"]["goal_half_life_days"]
-    )
+    weights = model.exponential_recency_weights([r[0] for r in fit_rows], asof, cfg["model"]["goal_half_life_days"])
     params = model.fit_goal_model(hist_cal, sample_weights=weights)
     return elo, params, len(rows)
 

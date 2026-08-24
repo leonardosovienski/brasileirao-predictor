@@ -60,9 +60,7 @@ def test_invalid_sample_weights_fail_closed(weights):
 
 
 def test_exponential_recency_weights_obey_half_life_exactly():
-    weights = exponential_recency_weights(
-        ["2025-01-11", "2025-07-10", "2026-01-06"], "2026-01-06", 360
-    )
+    weights = exponential_recency_weights(["2025-01-11", "2025-07-10", "2026-01-06"], "2026-01-06", 360)
     assert weights == pytest.approx([0.5, 2**-0.5, 1.0])
 
 
