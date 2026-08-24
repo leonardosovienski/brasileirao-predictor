@@ -1,5 +1,103 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — AUDITORIA INTEGRAL E SWEEP DE HIPÓTESES (2026-08-24) — FONTE DA VERDADE ATUAL
+>
+> **Tudo abaixo permanece histórico quando divergir deste checkpoint.** A
+> conversa que originou este trabalho pode ser apagada: a memória científica
+> completa está em `docs/PROJECT_LOGIC_REGISTER.md`; empate em
+> `docs/DRAW_VARIABLE_CATALOG.md`; emissão em `docs/PREDICTION_PROTOCOL.md` e
+> `docs/PREDICTION_REQUIREMENTS.md`.
+>
+> **Correções estruturais:** `model.goal_half_life_days` passou a alterar de
+> fato a log-verossimilhança NB/DC. Cron, serving e backtests canônicos usam a
+> mesma função de pesos. Cache incompatível é recalculado em memória pela CLI;
+> `kernel_daemon` falha fechado. O cache real foi atualizado sobre 2.125 jogos,
+> hash `f43333f3cda3b0f5`, parâmetros `(a=0.206930030, b=0.652012838,
+> alpha=0.000572746, rho=-0.030461308)`.
+>
+> **Resultado científico da recência:** implementar não significou validar.
+> Em 2021–2023 (`n=940`, coverage 100%), pesos uniformes venceram meias-vidas
+> de 90/180/360/720/1460 dias; quanto maior o decaimento, pior. Em 2024
+> (`n=380`), 360 dias piorou pontualmente RPS `+0.000187`, Brier `+0.000788` e
+> log loss `+0.001207`, com ICs cruzando zero. **360 dias é NO-GO como
+> melhoria preditiva** e não deve ser chamado de promovido. O `config.yaml`
+> ainda o contém porque sua implementação foi solicitada explicitamente;
+> retornar a pesos uniformes exige decisão consciente, não mudança silenciosa.
+>
+> **Sweep disciplinado:** janela de calibração, meia-vida Elo, mando, K,
+> rho, ambiente de gols global/móvel, sensibilidade `b`, dispersão, ataque/
+> defesa por gols, temperature scaling, multiplicador de empate, blends com
+> mercado e prior de promovidos foram testados uma variável por vez. Seleção
+> em 2021–2023 e leitura única de 2024 para o vencedor; 2025 não foi tocado e
+> 2026 não selecionou modelo. **Nenhuma nova especificação passou.** `rho=0`
+> foi a única direção repetida em 2024, mas o efeito é minúsculo e todos os
+> IC95 cruzam zero. Não combinar novamente esses controles olhando 2024.
+>
+> **Empate conectado à saída:** toda previsão agora calcula/exibe/preserva
+> `p_draw`, diagonal 0–0/1–1/2–2..., placar modal, moda empatada, rank do
+> empate, gap entre líderes, gap casa–fora, distância do empate ao melhor lado,
+> entropia e concentração diagonal. `categorical_policy` permanece
+> `ARGMAX_DIAGNOSTIC_ONLY` e `robust_choice=null`: não existe threshold validado
+> para trocar lado por empate. Em 2021–2024, `p_draw` médio 26,96% contra
+> frequência real 26,97%; o problema é resolution jogo a jogo, não falta
+> global de massa de empate.
+>
+> **Próximo trabalho legítimo:** informação nova PIT, especialmente força de
+> escalação/jogador, ou arquitetura causal nova com protocolo próprio. Há 44
+> linhas de escalação arquivadas, ainda sem amostra e transformação
+> jogador→força→lambda validadas. Não continuar buscando combinações dos
+> mesmos thresholds; seria p-hacking.
+>
+> **Estado de segurança:** ensemble xG desligado, capital bloqueado, accuracy
+> `DIAGNOSTIC_ONLY`, nenhuma estatística live com peso quantitativo, nenhuma
+> coleta/automação iniciada. Último CI completo: **684 passed**, 1 deselected,
+> Ruff/Pyright/smokes verdes. Nenhum commit/push foi feito nesta cadeia.
+>
+> **Diretriz atual do operador:** não iniciar coleta, monitor, tarefa agendada,
+> job one-shot ou qualquer processo que gere pop-up até nova ordem explícita ou
+> acordo com o operador. Não continuar automaticamente com análises
+> momentâneas, sweeps ou novas hipóteses: quando houver nova análise, definir e
+> executar o trabalho junto com o operador. Consultas e simulações
+> retrospectivas devem ser identificadas como tais e nunca reclassificadas
+> como previsões prospectivas.
+
+> ## CHECKPOINT — PESO TEMPORAL CONECTADO AO SERVING (2026-08-23)
+>
+> `model.goal_half_life_days=360` agora pondera a log-verossimilhança do
+> `fit_goal_model` em `cron_update_models` e `ServingStackEvaluator`. Antes, a
+> H4 carregava meia-vida de 360 dias, mas o serving NB/DC ignorava o parâmetro
+> e dava peso igual a cada jogo da janela de quatro anos. Peso unitário mantém
+> compatibilidade; pesos inválidos falham fechado; o cache inclui o parâmetro
+> no fingerprint. Benchmarks anteriores medem a pilha sem esta conexão e não
+> comprovam a nova. Ensemble xG permanece desligado; capital bloqueado.
+
+> ## CHECKPOINT — REGISTRO DA LÓGICA DO PROJETO (2026-08-23)
+>
+> `docs/PROJECT_LOGIC_REGISTER.md` consolida as 14 trials do ledger, TRACK A02,
+> MARKET-02, fadiga, correções científicas, lógica do empate, ideias futuras e
+> caminhos rejeitados. O arquivo é memória epistemológica, não pré-registro;
+> nenhuma trial, coleta, feature, serving ou capital foi alterado por ele.
+
+> ## CHECKPOINT — CATÁLOGO DE EMPATE (2026-08-22)
+>
+> `docs/DRAW_VARIABLE_CATALOG.md` registra as variáveis relacionadas ao empate,
+> separando saídas do motor, forças/lambdas, contexto pré-jogo, mercado, live,
+> qualidade PIT e métricas. É inventário de hipóteses, não promoção: nenhuma
+> regra automática de empate ou feature nova foi ativada.
+
+> ## CHECKPOINT — PROTOCOLO DE PREVISÃO (2026-08-22)
+>
+> Foram adicionados `docs/PREDICTION_PROTOCOL.md` e
+> `docs/PREDICTION_REQUIREMENTS.md`, com gate executável em
+> `src/prediction_protocol.py` / `scripts/check_prediction_readiness.py`.
+> O gate separa política científica de estado operacional: 2025 permanece
+> holdout para seleção de arquitetura, mas uma previsão feita em agosto de
+> 2026 deve usar todo resultado elegível já disponível antes de `predicted_at`,
+> inclusive 2025 e 2026 anteriores. Pré-jogo pós-kickoff, histórico corrente
+> incompleto, resultado/escalação/odds futuros, capital ligado e features live
+> não validadas falham fechado. Escalações e odds ausentes ficam explícitas
+> como avisos; não são inventadas. Nenhuma coleta ou automação foi iniciada.
+
 > ## CHECKPOINT — CODEX (2026-08-22, ACOMPANHAMENTO DA RODADA)
 >
 > **Captura prospectiva:** `scripts/capture_sofascore_event.py` registra

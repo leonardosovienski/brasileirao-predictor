@@ -197,7 +197,7 @@ def test_engine_serving_instancia_a_pilha_de_producao() -> None:
             "form_half_life_years": 4.0,
             "k_factors": {"default": 30},
         },
-        "model": {"calibration_window_years": 4, "max_goals": 6},
+        "model": {"calibration_window_years": 4, "goal_half_life_days": 360, "max_goals": 6},
         "ensemble_xg": {"enabled": True, "blend_weight": 0.5},
     }
     ev = bp._make_evaluator("serving", 120.0, cfg)

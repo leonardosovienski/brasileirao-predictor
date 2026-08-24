@@ -129,11 +129,15 @@ def run_walkforward(cfg, conn):
     for bi, (lo, hi) in enumerate(blocks, 1):
         first_date = rows[lo][0]
         cal_cut = (date.fromisoformat(first_date) - timedelta(days=int(cal_years * 365.25))).isoformat()
-        hist_cal = [h for h, r in zip(history, rows) if cal_cut <= r[0] < first_date]
+        cal_pairs = [(h, r) for h, r in zip(history, rows) if cal_cut <= r[0] < first_date]
+        hist_cal = [h for h, _r in cal_pairs]
         if len(hist_cal) < 100:
             print(f"bloco {bi}: só {len(hist_cal)} jogos de calibração — pulado")
             continue
-        params = model.fit_goal_model(hist_cal)
+        weights = model.exponential_recency_weights(
+            [r[0] for _h, r in cal_pairs], first_date, cfg["model"]["goal_half_life_days"]
+        )
+        params = model.fit_goal_model(hist_cal, sample_weights=weights)
         frac1, n_frac = _ht_fraction(rows_ht, first_date)
 
         for i in range(lo, hi):

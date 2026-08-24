@@ -1,5 +1,21 @@
 # Roadmap de Execução — brasileirao-predictor
 
+> O histórico consolidado do raciocínio, incluindo hipóteses formais,
+> tentativas técnicas, ideias ainda não testadas e caminhos rejeitados, está
+> em `docs/PROJECT_LOGIC_REGISTER.md`.
+
+> **Atualização 2026-08-24:** o sweep da seção 17 do registro testou todas
+> as variações simples disponíveis sem tocar em 2025. Nenhuma passou
+> desenvolvimento 2021–2023 + validação 2024. A meia-vida NB/DC de 360 dias,
+> embora agora corretamente conectada, deu NO-GO preditivo contra pesos
+> uniformes. O próximo passo não é mais tuning dos mesmos controles: exige
+> informação PIT nova ou arquitetura causal nova.
+
+> Previsões operacionais devem seguir `docs/PREDICTION_PROTOCOL.md` e passar
+> pelo gate executável de `docs/PREDICTION_REQUIREMENTS.md`. A divisão temporal
+> científica abaixo não autoriza omitir, no serving, resultados que já eram
+> conhecidos antes de uma previsão de 2026.
+
 > **Status:** revisado em 2026-08-22 à noite. Há 14 trials: H12 comprovada e
 > H13 pré-registrada. O serving resolve contra climatologia, mas perde do
 > mercado de fechamento sem vig. TRACK A02 (primeira formulação) e MARKET-02

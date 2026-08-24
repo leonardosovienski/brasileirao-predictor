@@ -31,6 +31,9 @@ elo:
 model:
   # calibra o Poisson só na forma recente (2024-2025 cabem inteiras na janela)
   calibration_window_years: 4
+  # H4 congelou 360 dias, mas o serving NB/DC não consumia esse parâmetro.
+  # Agora pondera a log-verossimilhança: jogo com 360 dias recebe peso 0,5.
+  goal_half_life_days: 360
   max_goals: 12
 
 # Ensemble baseline × atk/def-xG (src/xg_model.py).

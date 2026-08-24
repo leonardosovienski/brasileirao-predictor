@@ -82,6 +82,8 @@ class ServingStackEvaluator(PrequentialEvaluator):
         super().__init__(target_key="result")
         self.cfg = cfg
         self.max_goals: int = int(max_goals or cfg["model"]["max_goals"])
+        self.goal_half_life_days: float = float(cfg["model"]["goal_half_life_days"])
+        model.exponential_recency_weights([], "2000-01-01", self.goal_half_life_days)
         ecfg = (cfg.get("ensemble_xg") or {}) if cfg else {}
         self.ensemble_enabled: bool = bool(ecfg.get("enabled"))
         self.blend_weight: float = float(ecfg.get("blend_weight", 0.5))
@@ -198,9 +200,16 @@ class ServingStackEvaluator(PrequentialEvaluator):
         rows = self._window(rows, self.cfg["elo"].get("window_years"), asof)
         elo, hist = ratings.compute_ratings(rows, self.cfg["elo"])
         cal_cut = _cut(asof, self.cfg["model"]["calibration_window_years"])
-        hist_cal = [h for h, r in zip(hist, rows) if r[0] >= cal_cut]
+        hist_cal_rows = [(h, r) for h, r in zip(hist, rows) if r[0] >= cal_cut]
+        hist_cal = [h for h, _r in hist_cal_rows]
+        fit_rows = [r for _h, r in hist_cal_rows]
+        if not hist_cal:
+            hist_cal, fit_rows = hist, rows
+        weights = model.exponential_recency_weights(
+            [r[0] for r in fit_rows], asof, self.goal_half_life_days
+        )
         self.elo = elo
-        self.params = model.fit_goal_model(hist_cal or hist)
+        self.params = model.fit_goal_model(hist_cal, sample_weights=weights)
         self.dynamic_states = self._fit_dynamic(hist, rows) if self.dynamic_cfg is not None else None
         self.xg_params = self._fit_xg(usable, asof) if self.ensemble_enabled else None
         self._trained_at = max(h["kickoff"] for h in usable)

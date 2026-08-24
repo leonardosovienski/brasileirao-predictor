@@ -18,6 +18,7 @@ def config_hash(cfg) -> str:
     relevant = {
         "elo": cfg["elo"],
         "calibration_window_years": cfg["model"]["calibration_window_years"],
+        "goal_half_life_days": cfg["model"]["goal_half_life_days"],
     }
     # so entra no hash quando ligado: manter o hash historico intacto com a
     # flag desligada evita invalidar o cache de quem nao usa o ensemble.
@@ -25,6 +26,14 @@ def config_hash(cfg) -> str:
         relevant["ensemble_xg"] = cfg["ensemble_xg"]
     blob = json.dumps(relevant, sort_keys=True).encode()
     return hashlib.sha256(blob).hexdigest()[:16]
+
+
+def cache_is_current(cfg, conn, params_row) -> bool:
+    """True only when cached parameters match config and completed data."""
+    if not params_row or len(params_row) < 7:
+        return False
+    n_now = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NOT NULL").fetchone()[0]
+    return params_row[5] == config_hash(cfg) and params_row[4] == n_now
 
 
 def _windowed(cfg, conn):
@@ -49,8 +58,14 @@ def compute(cfg, conn):
     cal_cut = (
         date.fromisoformat(rows[-1][0]) - timedelta(days=int(cfg["model"]["calibration_window_years"] * 365.25))
     ).isoformat()
-    hist_cal = [h for h, r in zip(history, rows) if r[0] >= cal_cut]
-    params = model.fit_goal_model(hist_cal)
+    hist_cal_rows = [(h, r) for h, r in zip(history, rows) if r[0] >= cal_cut]
+    hist_cal = [h for h, _r in hist_cal_rows]
+    fit_rows = [r for _h, r in hist_cal_rows]
+    asof = date.fromisoformat(rows[-1][0][:10])
+    weights = model.exponential_recency_weights(
+        [r[0] for r in fit_rows], asof, cfg["model"]["goal_half_life_days"]
+    )
+    params = model.fit_goal_model(hist_cal, sample_weights=weights)
     return elo, params, len(rows)
 
 

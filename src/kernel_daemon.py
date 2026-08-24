@@ -175,10 +175,16 @@ def _warmup_jit(params: tuple) -> float:
 
 
 def _load_params(db_path: str) -> tuple:
-    """Carrega (a, b, alpha, rho, theta, max_goals) do banco. Nunca mais acessa disco."""
+    """Carrega cache compatível ou falha fechado antes de iniciar o daemon."""
     conn = _db.connect(db_path, read_only=True)
     try:
         prow = _db.load_params(conn)
+        if prow and len(prow) >= 7:
+            from .cron_update_models import cache_is_current
+            from .ingest import load_config
+
+            if not cache_is_current(load_config(), conn, prow):
+                raise RuntimeError("cache desatualizado — rode cron_update_models primeiro")
     finally:
         conn.close()
     if not prow:

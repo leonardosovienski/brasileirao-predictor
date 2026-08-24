@@ -75,6 +75,8 @@ def log_prediction(
             "rho": round(rho, 4),
         },
     }
+    if pred.get("draw_diagnostics") is not None:
+        record["draw_diagnostics"] = pred["draw_diagnostics"]
     if pred.get("ensemble"):
         # o blend com atk/def-xG estava LIGADO nesta predição — sem esta marca
         # a avaliação pós-jogo não separa as populações baseline × ensemble.

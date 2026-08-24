@@ -100,6 +100,7 @@ def compute(name_a, name_b, elo, params, cfg, neutral, conn=None):
             "btts_yes": r["btts"],
             "btts_no": 1.0 - r["btts"],
             "top_score": top5[0],
+            "draw_diagnostics": r["draw_diagnostics"],
             "market": mk,
         },
         "expand": {
@@ -242,6 +243,14 @@ def render(data, level=0, as_json=False):
         f"  modelo  1X2: {ta} {_fmt_pct(core['p_win'])}{marker(ta)} | "
         f"empate {_fmt_pct(core['p_draw'])}{marker('empate')} | "
         f"{tb} {_fmt_pct(core['p_loss'])}{marker(tb)}  (* favorito)"
+    )
+    draw = core["draw_diagnostics"]
+    modal_home, modal_away = draw["modal_score"]
+    print(
+        f"  diagnóstico empate/incerteza: moda {modal_home}x{modal_away} "
+        f"({_fmt_pct(draw['p_modal_score'])}) | gap dos líderes "
+        f"{_fmt_pct(draw['top_1x2_gap'])} | escolha robusta NÃO AVALIADA "
+        "(sem threshold validado)"
     )
     print(f"  {_clv_line(cache, '1x2')}")
     print(f"  ambos marcam: sim {_fmt_pct(core['btts_yes'])} | não {_fmt_pct(core['btts_no'])}")

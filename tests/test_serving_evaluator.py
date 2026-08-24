@@ -27,7 +27,7 @@ CFG = {
         "form_half_life_years": 4.0,
         "k_factors": {"Brasileirão Série A": 30, "default": 30},
     },
-    "model": {"calibration_window_years": 4, "max_goals": 6},
+    "model": {"calibration_window_years": 4, "goal_half_life_days": 360, "max_goals": 6},
     "ensemble_xg": {"enabled": True, "blend_weight": 0.5, "w_xg": 0.85, "half_life_years": 0.75, "ridge_reg": 1.0},
 }
 
@@ -121,6 +121,32 @@ def test_ajuste_ignora_jogos_futuros_mesmo_recebendo_historico_maior() -> None:
     ev_tarde._fit(obs, obs[100]["kickoff"])
     assert ev_cedo.elo != ev_tarde.elo
     assert ev_cedo._trained_at is not None and ev_cedo._trained_at < obs[40]["kickoff"]
+
+
+def test_serving_passa_peso_exponencial_por_recencia(monkeypatch) -> None:
+    obs = _obs(n_rodadas=20)
+    captured = {}
+    original = model.fit_goal_model
+
+    def spy(history, delta_xg=None, sample_weights=None):
+        captured["weights"] = sample_weights
+        return original(history, delta_xg=delta_xg, sample_weights=sample_weights)
+
+    monkeypatch.setattr(model, "fit_goal_model", spy)
+    ev = ServingStackEvaluator(_cfg_sem_ensemble())
+    ev._fit(obs, obs[-1]["kickoff"] + timedelta(days=1))
+    weights = captured["weights"]
+    assert weights is not None
+    assert weights[-1] == pytest.approx(1.0)
+    assert weights[0] < weights[-1]
+    assert weights[0] == pytest.approx(0.5 ** ((19 * 7) / 360))
+
+
+def test_serving_rejeita_half_life_nao_positiva() -> None:
+    cfg = _cfg_sem_ensemble()
+    cfg["model"] = dict(cfg["model"], goal_half_life_days=0)
+    with pytest.raises(ValueError, match="goal_half_life_days"):
+        ServingStackEvaluator(cfg)
 
 
 # ---------- paridade com o serving ----------

@@ -3,6 +3,7 @@ import json
 import numpy as np
 import pytest
 
+from src.model import predict_match
 from src.prediction_log import log_prediction
 
 _PRED = {
@@ -59,6 +60,20 @@ def test_log_appends_one_jsonl_line(tmp_path):
     assert rec["params"]["rho"] == -0.039
     assert "market" not in rec  # sem odds passadas ⇒ sem bloco de mercado
     assert "logged_at" in rec  # carimbo de quando foi congelada
+
+
+def test_log_preserves_draw_diagnostics_from_real_model_output(tmp_path):
+    p = tmp_path / "predictions.jsonl"
+    pred = predict_match(1500, 1500, _PARAMS, max_goals=8)
+
+    log_prediction("A", "B", True, 1500, 1500, _PARAMS, pred, path=p)
+
+    rec = json.loads(p.read_text(encoding="utf-8"))
+    draw = rec["draw_diagnostics"]
+    assert draw["p_draw_1x2"] == pytest.approx(pred["p_draw"])
+    assert draw["modal_score_is_draw"] is True
+    assert draw["categorical_policy"] == "ARGMAX_DIAGNOSTIC_ONLY"
+    assert draw["robust_choice"] is None
 
 
 def test_log_records_1x2_market_block_even_without_ou_odds(tmp_path):

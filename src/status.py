@@ -50,7 +50,7 @@ def run():
         print(f"  {ss} jogos ({xg} com xG, {od} com odds), {rt} notas de jogador")
 
     # cache do modelo (Parte 2)
-    from .cron_update_models import config_hash
+    from .cron_update_models import cache_is_current
 
     elo = db.load_elo(conn)
     prow = db.load_params(conn)
@@ -59,8 +59,7 @@ def run():
         print("  vazio — rode `python -m src.cron_update_models`")
     else:
         a, b, alpha, rho, n_cached, cfg_hash, computed_at = prow
-        n_now = played
-        fresh = (cfg_hash == config_hash(cfg)) and (n_cached == n_now)
+        fresh = cache_is_current(cfg, conn, prow)
         print(f"  {len(elo)} times | a={a:.3f} b={b:.3f} alpha={alpha:.4f} rho={rho:.4f}")
         print(f"  calculado em {computed_at} sobre {n_cached} jogos")
         print(f"  estado: {'atualizado' if fresh else 'DESATUALIZADO — rode o cron'}")

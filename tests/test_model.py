@@ -3,6 +3,7 @@ Dixon-Coles, rho=0) tem que colapsar na Poisson clássica. É o teste que prova
 que o embasamento estatístico está correto, não só calibrado."""
 
 import numpy as np
+import pytest
 from scipy.stats import poisson
 
 from src.model import predict_match, predict_remaining
@@ -29,6 +30,25 @@ def test_nb_colapsa_em_poisson_quando_alpha_zero():
 def test_probabilidades_1x2_somam_um():
     r = predict_match(1850.0, 1850.0, (0.2, 1.0, 0.1, 0.05), 0.0, 12)
     assert abs(r["p_win"] + r["p_draw"] + r["p_loss"] - 1.0) < 1e-9
+
+
+def test_draw_diagnostics_expose_all_discussed_hypotheses_without_decision_rule():
+    r = predict_match(1500, 1500, (0.2, 0.7, 0.1, -0.03), home_adv=0, max_goals=8)
+    d = r["draw_diagnostics"]
+
+    assert d["p_draw_1x2"] == pytest.approx(r["p_draw"])
+    assert sum(d["diagonal_score_probs"].values()) == pytest.approx(r["p_draw"])
+    assert d["modal_score"] == [int(r["top_scores"][0][0][0]), int(r["top_scores"][0][0][1])]
+    assert d["modal_score_is_draw"] is True
+    assert d["p_modal_score"] == pytest.approx(r["top_scores"][0][1])
+    assert d["draw_rank_1x2"] in {1, 2, 3}
+    assert d["top_1x2_gap"] >= 0
+    assert d["side_probability_gap"] == pytest.approx(abs(r["p_win"] - r["p_loss"]))
+    assert d["draw_vs_best_side_gap"] == pytest.approx(r["p_draw"] - max(r["p_win"], r["p_loss"]))
+    assert d["entropy_1x2_nats"] > 0
+    assert 0 < d["diagonal_concentration"] <= 1
+    assert d["categorical_policy"] == "ARGMAX_DIAGNOSTIC_ONLY"
+    assert d["robust_choice"] is None
 
 
 def test_mando_favorece_o_mandante():

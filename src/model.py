@@ -12,11 +12,33 @@ ZONA 3 — Kernel Purista (PROMPT 5)
 
 import math
 import warnings
+from datetime import date
 
 import numpy as np
 from scipy.optimize import minimize
 from scipy.special import gammaln
 from scipy.stats import nbinom
+
+
+def exponential_recency_weights(match_dates, asof, half_life_days):
+    """Return exponential weights with the configured half-life.
+
+    This is the single wiring point shared by serving, cache refresh and the
+    canonical backtests. Future observations fail closed instead of receiving
+    a weight greater than one.
+    """
+    half_life = float(half_life_days)
+    if not math.isfinite(half_life) or half_life <= 0:
+        raise ValueError("model.goal_half_life_days must be finite and > 0")
+    reference = date.fromisoformat(str(asof)[:10])
+    weights = []
+    for value in match_dates:
+        age_days = (reference - date.fromisoformat(str(value)[:10])).days
+        if age_days < 0:
+            raise ValueError("recency weighting received a match after asof")
+        weights.append(math.exp(-math.log(2.0) * age_days / half_life))
+    return weights
+
 
 # Tipo dos hiperparâmetros: tupla legada (a, b, alpha, rho) ou dict estendido
 type Params = tuple[float, float, float, float] | tuple[float, float, float, float, float] | dict[str, float]
@@ -39,10 +61,11 @@ def _tau(hs, as_, lam, mu, rho):
     return t
 
 
-def fit_goal_model(history, delta_xg=None):
+def fit_goal_model(history, delta_xg=None, sample_weights=None):
     """Estima (a, b, alpha, rho, [theta_xg]) por maxima verossimilhanca.
     Se delta_xg for fornecido (lista com um valor por jogo), theta_xg e'
-    estimado como 5o parametro.
+    estimado como 5o parametro. ``sample_weights`` pondera a contribuição de
+    cada jogo à log-verossimilhança (peso 1 preserva o comportamento legado).
     Retorna tupla de 4 (sem delta_xg) ou 5 (com delta_xg).
     """
     if not history:
@@ -51,7 +74,13 @@ def fit_goal_model(history, delta_xg=None):
     diffs = np.array([h[0] for h in history], dtype=float) / 400.0
     hs = np.array([h[1] for h in history], dtype=float)
     as_ = np.array([h[2] for h in history], dtype=float)
-    base = math.log(max(np.r_[hs, as_].mean(), 1e-3))
+    if sample_weights is None:
+        weights = np.ones(len(diffs), dtype=float)
+    else:
+        weights = np.asarray(sample_weights, dtype=float)
+        if weights.shape != diffs.shape or not np.isfinite(weights).all() or np.any(weights <= 0):
+            raise ValueError("sample_weights must be finite, positive and match history length")
+    base = math.log(max(float(np.average(np.r_[hs, as_], weights=np.r_[weights, weights])), 1e-3))
 
     has_xg = delta_xg is not None and len(delta_xg) == len(diffs)
     if has_xg:
@@ -79,7 +108,7 @@ def fit_goal_model(history, delta_xg=None):
         ll = _nb_logpmf(hs, lam, alpha) + _nb_logpmf(as_, mu, alpha) + np.log(tau)
         if not np.isfinite(ll).all():
             return 1e12
-        return -float(ll.sum())
+        return -float(np.dot(weights, ll))
 
     if has_xg:
         x0 = [base, 0.3, math.log(0.1), -0.03, 0.5]
@@ -210,6 +239,30 @@ def _grid_stats(grid, max_goals):
 
     flat = [((i, j), float(grid[i, j])) for i in k for j in k]
     top = sorted(flat, key=lambda t: -t[1])[:5]
+    probs = {"home": p_win, "draw": p_draw, "away": p_loss}
+    ranked = sorted(probs, key=lambda outcome: probs[outcome], reverse=True)
+    ordered = sorted(probs.values(), reverse=True)
+    modal_score, modal_probability = top[0]
+    diagonal = {f"{i}-{i}": float(grid[i, i]) for i in range(max_goals + 1)}
+    entropy = -sum(p * math.log(p) for p in probs.values() if p > 0)
+    draw_diagnostics = {
+        "p_draw_1x2": p_draw,
+        "diagonal_score_probs": diagonal,
+        "modal_score": [int(modal_score[0]), int(modal_score[1])],
+        "modal_score_is_draw": bool(modal_score[0] == modal_score[1]),
+        "p_modal_score": modal_probability,
+        "draw_is_1x2_argmax": ranked[0] == "draw",
+        "draw_rank_1x2": ranked.index("draw") + 1,
+        "top_1x2_gap": ordered[0] - ordered[1],
+        "side_probability_gap": abs(p_win - p_loss),
+        "draw_vs_best_side_gap": p_draw - max(p_win, p_loss),
+        "entropy_1x2_nats": entropy,
+        "diagonal_concentration": max(diagonal.values()) / p_draw if p_draw > 0 else None,
+        # Não existe threshold validado para converter estes diagnósticos
+        # em escolha. O argmax continua sendo apenas um resumo diagnóstico.
+        "categorical_policy": "ARGMAX_DIAGNOSTIC_ONLY",
+        "robust_choice": None,
+    }
 
     return {
         "p_win": p_win,
@@ -218,6 +271,7 @@ def _grid_stats(grid, max_goals):
         "over": over,
         "btts": btts,
         "top_scores": top,
+        "draw_diagnostics": draw_diagnostics,
         "grid": grid,  # exposto para o simulador amostrar placares
     }
 

@@ -30,15 +30,22 @@ def build(cfg):
         elo, params, _ = out
         return conn, elo, params
 
-    a, b, alpha, rho, n_cached, cfg_hash, computed_at = prow
-    from .cron_update_models import config_hash
+    a, b, alpha, rho, _n_cached, _cfg_hash, _computed_at = prow
+    from .cron_update_models import cache_is_current
 
-    n_now = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NOT NULL").fetchone()[0]
-    if cfg_hash != config_hash(cfg) or n_cached != n_now:
+    if not cache_is_current(cfg, conn, prow):
         print(
-            "[cache desatualizado (config ou dados mudaram) — rode `python -m src.cron_update_models`]",
+            "[cache desatualizado (config ou dados mudaram) — recalculando em memória; "
+            "rode `python -m src.cron_update_models` para persistir]",
             file=sys.stderr,
         )
+        from .cron_update_models import compute
+
+        out = compute(cfg, conn)
+        if not out:
+            sys.exit("banco vazio — rode `python -m src.ingest` primeiro")
+        fresh_elo, fresh_params, _ = out
+        return conn, fresh_elo, fresh_params
     return conn, elo, (a, b, alpha, rho)
 
 

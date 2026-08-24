@@ -362,8 +362,14 @@ def run_backtest(cfg, conn):
     if cal_years:
         first_test_date = rows[test_idx[0]][0]
         cal_cut = (date.fromisoformat(first_test_date) - timedelta(days=int(cal_years * 365.25))).isoformat()
-        hist_cal = [h for h, r in zip(history, rows) if cal_cut <= r[0] < first_test_date]
-        params = model.fit_goal_model(hist_cal or history[: test_idx[0]])
+        cal_pairs = [(h, r) for h, r in zip(history, rows) if cal_cut <= r[0] < first_test_date]
+        if not cal_pairs:
+            cal_pairs = list(zip(history[: test_idx[0]], rows[: test_idx[0]]))
+        hist_cal = [h for h, _r in cal_pairs]
+        weights = model.exponential_recency_weights(
+            [r[0] for _h, r in cal_pairs], first_test_date, cfg["model"]["goal_half_life_days"]
+        )
+        params = model.fit_goal_model(hist_cal, sample_weights=weights)
     else:
         params = model.fit_goal_model(history[: test_idx[0]])
     max_goals = cfg["model"]["max_goals"]

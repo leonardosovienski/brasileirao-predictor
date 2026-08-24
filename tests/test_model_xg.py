@@ -1,6 +1,6 @@
 import pytest
 
-from src.model import fit_goal_model, predict_match
+from src.model import exponential_recency_weights, fit_goal_model, predict_match
 
 # AUDITORIA P1: o fixture antigo usava [elo_home, elo_away, hs, as] — formato
 # ERRADO que este teste canonizou e a Fase 2 copiou (o MLE tratava o Elo do
@@ -37,6 +37,44 @@ def test_fit_with_xg():
     a, b, alpha, rho, theta_xg = params
     assert alpha > 0
     assert theta_xg != 0.0  # deve capturar o sinal do delta_xg
+
+
+def test_fit_with_unit_weights_preserves_legacy_result():
+    legacy = fit_goal_model(_HISTORY)
+    weighted = fit_goal_model(_HISTORY, sample_weights=[1.0] * len(_HISTORY))
+    assert weighted == pytest.approx(legacy)
+
+
+@pytest.mark.filterwarnings("ignore::RuntimeWarning")
+def test_recent_matches_receive_more_influence():
+    history = [(0, 0, 0)] * 20 + [(0, 4, 4)] * 5
+    old_heavy = fit_goal_model(history, sample_weights=[1.0] * 20 + [0.01] * 5)
+    recent_heavy = fit_goal_model(history, sample_weights=[0.01] * 20 + [1.0] * 5)
+    assert recent_heavy[0] > old_heavy[0]
+
+
+@pytest.mark.parametrize("weights", [[1.0], [1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, float("nan")]])
+def test_invalid_sample_weights_fail_closed(weights):
+    with pytest.raises(ValueError, match="sample_weights"):
+        fit_goal_model(_HISTORY, sample_weights=weights)
+
+
+def test_exponential_recency_weights_obey_half_life_exactly():
+    weights = exponential_recency_weights(
+        ["2025-01-11", "2025-07-10", "2026-01-06"], "2026-01-06", 360
+    )
+    assert weights == pytest.approx([0.5, 2**-0.5, 1.0])
+
+
+@pytest.mark.parametrize("half_life", [0, -1, float("nan"), float("inf")])
+def test_exponential_recency_weights_reject_invalid_half_life(half_life):
+    with pytest.raises(ValueError, match="goal_half_life_days"):
+        exponential_recency_weights([], "2026-01-01", half_life)
+
+
+def test_exponential_recency_weights_reject_future_match():
+    with pytest.raises(ValueError, match="after asof"):
+        exponential_recency_weights(["2026-01-02"], "2026-01-01", 360)
 
 
 def test_predict_with_xg():

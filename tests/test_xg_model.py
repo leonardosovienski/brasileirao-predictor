@@ -175,13 +175,39 @@ def test_maybe_blend_nunca_lanca(tmp_path, capsys):
 
 
 # ------------------------------------------------------- cron
-def test_config_hash_estavel_com_flag_desligada():
-    """Ligar a flag muda o hash (invalida cache); desligada, hash histórico."""
+def test_config_hash_inclui_recencia_e_flag_do_ensemble():
+    """Recência e ensemble alteram o hash para impedir cache incompatível."""
     from src.cron_update_models import config_hash
 
-    cfg = {"elo": {"k": 1}, "model": {"calibration_window_years": 4}}
+    cfg = {
+        "elo": {"k": 1},
+        "model": {"calibration_window_years": 4, "goal_half_life_days": 360},
+    }
     h0 = config_hash(cfg)
     cfg2 = dict(cfg, ensemble_xg={"enabled": False})
     assert config_hash(cfg2) == h0
     cfg3 = dict(cfg, ensemble_xg={"enabled": True})
     assert config_hash(cfg3) != h0
+    cfg4 = {**cfg, "model": {**cfg["model"], "goal_half_life_days": 180}}
+    assert config_hash(cfg4) != h0
+
+
+def test_cache_is_current_requires_matching_hash_and_completed_count():
+    from src.cron_update_models import cache_is_current, config_hash
+
+    cfg = {
+        "elo": {"k": 1},
+        "model": {"calibration_window_years": 4, "goal_half_life_days": 360},
+    }
+
+    class Conn:
+        def execute(self, _sql):
+            return self
+
+        def fetchone(self):
+            return (10,)
+
+    current = (0.1, 0.2, 0.3, 0.0, 10, config_hash(cfg), "now")
+    assert cache_is_current(cfg, Conn(), current)
+    assert not cache_is_current(cfg, Conn(), (*current[:4], 9, *current[5:]))
+    assert not cache_is_current(cfg, Conn(), (*current[:5], "wrong", current[6]))

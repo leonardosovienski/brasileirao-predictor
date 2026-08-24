@@ -78,6 +78,19 @@ def test_load_params_closes_sports_db_when_cache_is_empty(monkeypatch) -> None:
     assert connection.closed
 
 
+def test_load_params_rejects_stale_versioned_cache(monkeypatch) -> None:
+    connection = _Connection()
+    row = (0.2, 1.1, 0.3, -0.1, 10, "old-hash", "2026-01-01T00:00:00+00:00")
+    monkeypatch.setattr(kernel_daemon._db, "connect", lambda path, read_only: connection)
+    monkeypatch.setattr(kernel_daemon._db, "load_params", lambda conn: row)
+    monkeypatch.setattr("src.cron_update_models.cache_is_current", lambda cfg, conn, params: False)
+    monkeypatch.setattr("src.ingest.load_config", lambda: {})
+
+    with pytest.raises(RuntimeError, match="cache desatualizado"):
+        kernel_daemon._load_params("sports.db")
+    assert connection.closed
+
+
 def test_warmup_invokes_grid_twice(monkeypatch) -> None:
     calls = []
     monkeypatch.setattr(kernel_daemon, "_compute_grid_jit", lambda *args: calls.append(args))
