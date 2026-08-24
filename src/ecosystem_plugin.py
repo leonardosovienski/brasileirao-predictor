@@ -29,8 +29,8 @@ class BrasileiraoPredictorPlugin:
             "supports_prediction": True,
             "supports_settlement": False,
             "supports_collection": True,
-            "scientific_status": None,
-            "predictive_status": None,
+            "scientific_status": "UNKNOWN",
+            "predictive_status": "UNKNOWN",
             "economic_status": "NOT_VALIDATED",
             "capital_permission": "FORBIDDEN",
             "extra": {
