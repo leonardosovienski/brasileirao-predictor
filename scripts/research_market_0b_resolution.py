@@ -43,9 +43,7 @@ def run(*, permutations: int = 1000) -> dict:
         return result
 
     observations = bp._load_observations("2024-12-31")
-    all_rows, _evaluator = bp._run_walkforward(
-        observations, 120.0, bp.RETRAIN_EVERY, engine="serving", cfg=cfg
-    )
+    all_rows, _evaluator = bp._run_walkforward(observations, 120.0, bp.RETRAIN_EVERY, engine="serving", cfg=cfg)
     validation = [row for row in all_rows if "2024-01-01" <= row["date"] <= "2024-12-31"]
     specifications = {
         "ou25": ("p_over", "market_odds_ou25", "actual_over"),

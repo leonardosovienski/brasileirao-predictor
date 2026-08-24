@@ -137,8 +137,26 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
         conn.close()
     obs = []
     for (
-        d, home, away, hs, asc, kickoff_at, tournament, neutral, home_xg, away_xg,
-        oh, od, oa, oho, odo, oao, oo, ou, bty, btn,
+        d,
+        home,
+        away,
+        hs,
+        asc,
+        kickoff_at,
+        tournament,
+        neutral,
+        home_xg,
+        away_xg,
+        oh,
+        od,
+        oa,
+        oho,
+        odo,
+        oao,
+        oo,
+        ou,
+        bty,
+        btn,
     ) in rows:
         obs.append(
             {

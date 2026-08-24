@@ -56,7 +56,7 @@ def paired_records(rows: list[dict[str, Any]], start: str, end: str) -> list[dic
         records.append(
             {
                 "date": row["date"],
-                "event_key": f'{row["date"]}|{row["home"]}|{row["away"]}',
+                "event_key": f"{row['date']}|{row['home']}|{row['away']}",
                 "model": [float(row["p_loss"]), float(row["p_draw"]), float(row["p_win"])],
                 "market": market,
                 "odds": [float(raw_away), float(raw_draw), float(raw_home)],

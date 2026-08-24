@@ -54,8 +54,7 @@ def _histogram(values: list[float]) -> list[dict[str, Any]]:
         index = min(int(value / HISTOGRAM_WIDTH), len(counts) - 1)
         counts[max(index, 0)] += 1
     return [
-        {"lower": i * HISTOGRAM_WIDTH, "upper": (i + 1) * HISTOGRAM_WIDTH, "n": count}
-        for i, count in enumerate(counts)
+        {"lower": i * HISTOGRAM_WIDTH, "upper": (i + 1) * HISTOGRAM_WIDTH, "n": count} for i, count in enumerate(counts)
     ]
 
 
@@ -247,13 +246,10 @@ def full_market_protocol(
         reference = _selection(power_reference, index)
         observed = ordering(selected, reference)
         null_count = sum(
-            ordering(_permuted(selected, seed + index * permutations + i))["monotonic_roi"]
-            for i in range(permutations)
+            ordering(_permuted(selected, seed + index * permutations + i))["monotonic_roi"] for i in range(permutations)
         )
         selection_pass = (
-            observed["monotonic_roi"]
-            and observed["power_minimums_met"]
-            and null_count / permutations < 0.05
+            observed["monotonic_roi"] and observed["power_minimums_met"] and null_count / permutations < 0.05
         )
         passed = passed or selection_pass
         selections[name] = {

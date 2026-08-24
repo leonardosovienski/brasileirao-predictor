@@ -4,10 +4,7 @@ from src.research import market_0b_resolution as m
 
 
 def _rows(probabilities, odds=(1.9, 1.9)):
-    return [
-        {"p_over": p, "p_btts": p, "market_odds_ou25": odds, "market_odds_btts": odds}
-        for p in probabilities
-    ]
+    return [{"p_over": p, "p_btts": p, "market_odds_ou25": odds, "market_odds_btts": odds} for p in probabilities]
 
 
 def test_odds_invalidas_nao_contam_como_cobertura() -> None:
