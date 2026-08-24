@@ -30,6 +30,9 @@ brasileirao-predict = "src.predict:main"
 brasileirao-kernel = "src.kernel_daemon:main"
 brasileirao-shadow = "scripts.sombra_diaria:main"
 
+[project.entry-points."predictor.plugins"]
+brasileirao = "src.ecosystem_plugin:PLUGIN"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src", "scripts"]
 
