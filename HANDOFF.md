@@ -1,5 +1,43 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — ROADMAP V2, SCAFFOLDS E ENTREGA (2026-08-24) — FONTE DA VERDADE ATUAL
+>
+> **Fase 0B:** protocolo MARKET-04 e runner foram implementados para OU2.5 e
+> BTTS. O passo zero reporta desvio-padrão, variância, range, P10/P90 e
+> histograma; se qualquer `std < 0,02`, encerra `NO_GO_STRUCTURAL` sem carregar
+> 2024. Se ambos os mercados também tiverem coverage de odds `>=80%`, o runner
+> executa divergência modelo×mercado sem vig, ambos os lados, cinco faixas,
+> 1.000 permutações e power analysis antes da validação única em 2024. **A
+> execução real permanece bloqueada:** `data/matches.db` operacional não existe
+> neste checkout. A única cópia local encontrada era fixture com 48 partidas e
+> nenhuma linha SofaScore/odds, portanto não foi usada. 2024/2025/2026 não foram
+> consumidos por esta implementação.
+>
+> **Informação PIT:** `src/research/pit_features/` contém somente contratos para
+> desfalques, escalação, xG isolado em nova linhagem e mando por equipe com
+> shrinkage hierárquico. Evidência exige proveniência e
+> `available_at < kickoff_at`; treino falha fechado até MARKET-04 ou viabilidade
+> live produzir GO com referência imutável. Reuso do ensemble H12 e blends de
+> grade/probabilidade são proibidos. Nenhum treino, backtest ou serving mudou.
+>
+> **Live:** `HOLD_NO_LIVE_VIABILITY_GO`. Foi criado apenas o placeholder
+> `docs/experiments/LIVE_BACKTEST_ENGINE_BLOCKED.md`. Não existe motor live.
+> Um futuro backtest deverá falhar se delay de aceitação, suspensão/reabertura,
+> margem por timestamp ou custo de execução estiverem ausentes.
+>
+> **Prospectivo:** `src/research/prospective_validation/` implementa ledger
+> append-only de paper-trading, stake flat 1u, closing pré-kickoff, CLV
+> logarítmico, ROI com IC bootstrap, calibração, coverage, PSR, DSR e power por
+> odd média. As únicas saídas são `CAPITAL_GATE: LOCKED` e
+> `CAPITAL_GATE: ELIGIBLE_FOR_REVIEW`; qualquer decisão é humana e externa.
+>
+> **Governança e validação:** `data/trials.json` tem 22 registros únicos, todos
+> com status. Suíte ampla: 721 passed, 1 deselected, 3 warnings numéricos
+> conhecidos. Ruff verde. Pyright global e explícito dos novos módulos: 0
+> erros/0 warnings. CI estático verde; smokes de serving/live foram pulados por
+> ausência de `data/matches.db`. Nenhuma coleta, treino, validação 2024, aposta,
+> commit ou push foi realizado. Relatório: `docs/FINAL_DELIVERY_ROADMAP_V2.md`.
+
 > ## CHECKPOINT — MARKET-03 FASE 0 (2026-08-24)
 >
 > A hipótese de que a divergência `p_modelo-p_mercado_sem_vig` ordena nichos

@@ -127,7 +127,8 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
             "SELECT m.date, m.home_team, m.away_team, m.home_score, m.away_score, s.kickoff_at, "
             "       m.tournament, m.neutral, s.home_xg, s.away_xg, "
             "       s.odds_home, s.odds_draw, s.odds_away, "
-            "       s.odds_home_open, s.odds_draw_open, s.odds_away_open "
+            "       s.odds_home_open, s.odds_draw_open, s.odds_away_open, "
+            "       s.odds_over, s.odds_under, s.odds_btts_yes, s.odds_btts_no "
             "FROM matches m LEFT JOIN sofascore_matches s "
             "  ON s.date = m.date AND s.home_team = m.home_team AND s.away_team = m.away_team "
             "WHERE m.home_score IS NOT NULL AND m.away_score IS NOT NULL"
@@ -135,7 +136,10 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
     finally:
         conn.close()
     obs = []
-    for d, home, away, hs, asc, kickoff_at, tournament, neutral, home_xg, away_xg, oh, od, oa, oho, odo, oao in rows:
+    for (
+        d, home, away, hs, asc, kickoff_at, tournament, neutral, home_xg, away_xg,
+        oh, od, oa, oho, odo, oao, oo, ou, bty, btn,
+    ) in rows:
         obs.append(
             {
                 "home": home,
@@ -147,6 +151,8 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
                 "neutral": int(neutral or 0),
                 "market_odds_1x2": (oh, od, oa),
                 "market_open_odds_1x2": (oho, odo, oao),
+                "market_odds_ou25": (oo, ou),
+                "market_odds_btts": (bty, btn),
                 # xG vive DENTRO de `result`, junto dos gols, pelo MESMO motivo
                 # documentado em src/evaluator.py: a ABC do core remove só o
                 # `target_key` das features antes do predict_step. Qualquer
@@ -242,6 +248,16 @@ def _p_over_from(metadata: dict[str, Any]) -> float:
     return sum(grid[h][a] for h in range(MAX_GOALS + 1) for a in range(MAX_GOALS + 1) if h + a > OU_LINE)
 
 
+def _p_btts_from(metadata: dict[str, Any]) -> float:
+    """P(ambos marcam) derivada da mesma grade usada pelo motor."""
+    if "p_btts" in metadata:
+        return float(metadata["p_btts"])
+    if "rho" not in metadata:
+        raise KeyError("metadata do evaluator não traz nem 'p_btts' nem 'rho'")
+    grid = DixonColesMatrix(metadata["lam"], metadata["mu"], metadata["rho"], max_goals=MAX_GOALS).grid()
+    return sum(grid[h][a] for h in range(1, MAX_GOALS + 1) for a in range(1, MAX_GOALS + 1))
+
+
 def _ensemble_state(ev: Any) -> dict[str, Any] | None:
     """Estado do ensemble de xG do evaluator, ou `None` se o motor não tem um.
 
@@ -291,6 +307,7 @@ def _run_walkforward(
         p_win, p_draw, p_loss = outcome["home"], outcome["draw"], outcome["away"]
         lam, mu = pred.metadata["lam"], pred.metadata["mu"]
         p_over = _p_over_from(pred.metadata)
+        p_btts = _p_btts_from(pred.metadata)
         rows.append(
             {
                 "date": obs["date"],
@@ -302,12 +319,16 @@ def _run_walkforward(
                 "p_draw": p_draw,
                 "p_loss": p_loss,
                 "p_over": p_over,
+                "p_btts": p_btts,
                 "lambda_total": lam + mu,
                 "effective_elo_diff": pred.metadata.get("effective_elo_diff"),
                 "actual_1x2": _outcomes_1x2(obs["result"]["home_goals"], obs["result"]["away_goals"]),
                 "actual_over": int(obs["result"]["home_goals"] + obs["result"]["away_goals"] > OU_LINE),
+                "actual_btts": int(obs["result"]["home_goals"] > 0 and obs["result"]["away_goals"] > 0),
                 "market_odds_1x2": obs.get("market_odds_1x2"),
                 "market_open_odds_1x2": obs.get("market_open_odds_1x2"),
+                "market_odds_ou25": obs.get("market_odds_ou25"),
+                "market_odds_btts": obs.get("market_odds_btts"),
             }
         )
     return rows, ev

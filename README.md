@@ -101,11 +101,9 @@ permanecem legados; não são completados retrospectivamente.
 
 ## Trials e pré-registro (`data/trials.json`)
 
-O ledger contém 14 trials: H12 é a única comprovada, H13 é a única
-pré-registrada vigente e as outras 12 estão fechadas (refutadas,
-inconclusivas, substituídas, exploratórias ou informativa). Não manter uma
-lista duplicada aqui: nomes, parâmetros, períodos e notas canônicas vivem em
-`data/trials.json`; o resumo interpretativo atual fica no `HANDOFF.md`.
+O ledger é dinâmico. Não manter contagem ou lista duplicada aqui: nomes,
+status, parâmetros, períodos e notas canônicas vivem em `data/trials.json`; o
+resumo interpretativo atual fica no primeiro checkpoint de `HANDOFF.md`.
 
 Criar tentativa NOVA exige o atestado do harness de controle positivo
 (`data/trials.harness_attestation.json`) — o funil precisa provar que detecta

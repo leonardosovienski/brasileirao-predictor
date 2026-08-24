@@ -166,6 +166,7 @@ class ServingStackEvaluator(PrequentialEvaluator):
                 # garantir. Este evaluator não expõe `rho` porque a pilha de
                 # serving não é uma DC pura — quem consome deve usar este campo.
                 "p_over": float(r["over"][2.5]),
+                "p_btts": float(r["btts"]),
                 "ensemble": bool(r.get("ensemble")),
                 "model": "Ensemble(NB+DC, AtkDef-xG)" if r.get("ensemble") else "NegBin+DixonColes",
             },

@@ -69,7 +69,10 @@ _HEADERS = {
 class Sofascore:
     def __init__(self, rate_limit: float = 1.5, cache_dir: str | None = None, impersonate: str = "chrome146"):
         self.rate = rate_limit
-        self.session = creq.Session(impersonate=impersonate)
+        # O curl-cffi aceita aliases de navegador lançados depois da versão
+        # dos stubs instalada; mantenha a string configurável e restrinja o
+        # cast à fronteira da biblioteca.
+        self.session = creq.Session(impersonate=cast(Any, impersonate))
         self.session.headers.update(_HEADERS)
         self.cache = Path(cache_dir) if cache_dir else None
         if self.cache:

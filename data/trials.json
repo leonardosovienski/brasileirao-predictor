@@ -445,5 +445,119 @@
     "status": "refutada",
     "test_period": ["2021-01-01", "2024-12-31"],
     "metric": "rps"
+  },
+  {
+    "name": "market-04-ou25-btts-resolution-and-ordering",
+    "registered_at": "2026-08-24T12:00:00Z",
+    "params": {
+      "markets": ["ou25", "btts"],
+      "engine": "serving",
+      "ensemble_xg_enabled": false,
+      "development": ["2021-01-01", "2023-12-31"],
+      "validation": ["2024-01-01", "2024-12-31"],
+      "threshold_var": {"ou25": 0.02, "btts": 0.02},
+      "minimum_odds_coverage": 0.8,
+      "permutations": 1000,
+      "target_roi": 0.05,
+      "power": 0.8,
+      "alpha": 0.05,
+      "sealed_holdout": "2025",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "PRÉ-REGISTRO implementado, ainda não executado: se o desvio-padrão de OU2.5 ou BTTS ficar abaixo de 0,02 no desenvolvimento, encerra como NO_GO_STRUCTURAL sem carregar 2024. O protocolo completo só roda se variância e cobertura passarem. Execução bloqueada porque data/matches.db operacional não está disponível neste checkout.",
+    "status": "pre-registrada",
+    "test_period": ["2021-01-01", "2024-12-31"],
+    "metric": "roi"
+  },
+  {
+    "name": "pit-absences-new-information",
+    "registered_at": "2026-08-24T12:01:00Z",
+    "params": {
+      "feature_family": "absences",
+      "mechanism": "indisponibilidade declarada altera força esperada da equipe",
+      "pit_requirement": "available_at strictly before kickoff",
+      "training_gate": "phase0b_go OR live_viability_go",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "Mecanismo ex ante registrado como scaffold. Nenhuma materialização, treino ou validação foi executada; informação posterior ou igual ao kickoff falha fechado.",
+    "status": "pre-registrada",
+    "metric": "rps"
+  },
+  {
+    "name": "pit-lineup-strength-new-information",
+    "registered_at": "2026-08-24T12:02:00Z",
+    "params": {
+      "feature_family": "lineup",
+      "mechanism": "composição provável ou confirmada altera força e continuidade esperadas",
+      "pit_requirement": "available_at strictly before kickoff",
+      "training_gate": "phase0b_go OR live_viability_go",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "Mecanismo ex ante registrado como scaffold. Escalação não recebe peso quantitativo antes do gate externo e de transformação congelada.",
+    "status": "pre-registrada",
+    "metric": "rps"
+  },
+  {
+    "name": "pit-isolated-xg-new-lineage",
+    "registered_at": "2026-08-24T12:03:00Z",
+    "params": {
+      "feature_family": "isolated_xg",
+      "architecture": "ISOLATED_XG_NEW_LINEAGE",
+      "forbidden": ["H12_ENSEMBLE_REUSE", "PROBABILITY_BLEND", "GRID_BLEND_WITH_SERVING"],
+      "pit_requirement": "provider publication before cutoff and kickoff",
+      "training_gate": "phase0b_go OR live_viability_go",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "Nova hipótese arquitetural registrada sem reativar o ensemble reprovado em H12. Apenas contrato; nenhum treino ou validação.",
+    "status": "pre-registrada",
+    "metric": "rps"
+  },
+  {
+    "name": "pit-hierarchical-team-home-advantage",
+    "registered_at": "2026-08-24T12:04:00Z",
+    "params": {
+      "feature_family": "hierarchical_home_advantage",
+      "mechanism": "efeito de mando por equipe parcialmente agrupado ao prior da liga",
+      "pit_requirement": "only results published before asof cutoff",
+      "training_gate": "phase0b_go OR live_viability_go",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "Mecanismo ex ante registrado como scaffold. Não confundir com novo threshold do mando global já testado; exige arquitetura hierárquica nova.",
+    "status": "pre-registrada",
+    "metric": "rps"
+  },
+  {
+    "name": "live-backtest-viability-gate",
+    "registered_at": "2026-08-24T12:05:00Z",
+    "params": {
+      "required": ["timestamped_historical_events", "timestamped_live_odds", "real_margin", "suspensions", "acceptance_delay", "execution_cost"],
+      "invalid_without_execution_cost": true,
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "HOLD_NO_LIVE_VIABILITY_GO. Somente placeholder documental foi criado. Motor live permanece proibido até feed histórico, preços, suspensões, delay e custo compatível serem comprovados.",
+    "status": "inconclusiva",
+    "metric": "coverage"
+  },
+  {
+    "name": "prospective-paper-validation-governance",
+    "registered_at": "2026-08-24T12:06:00Z",
+    "params": {
+      "mode": "paper_trading_only",
+      "stake": "fixed-1u",
+      "metrics": ["clv", "roi_bootstrap_ci95", "calibration", "coverage", "psr", "dsr"],
+      "minimum_dsr": 0.95,
+      "allowed_capital_outputs": ["CAPITAL_GATE: LOCKED", "CAPITAL_GATE: ELIGIBLE_FOR_REVIEW"],
+      "capital_decision_authority": "human_outside_code"
+    },
+    "sharpe": null,
+    "notes": "Registro informativo do scaffold de validação prospectiva. Não é evidência de edge e nunca habilita capital automaticamente.",
+    "status": "informativa",
+    "metric": "dsr"
   }
 ]
