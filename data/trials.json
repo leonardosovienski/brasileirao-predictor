@@ -559,5 +559,23 @@
     "notes": "Registro informativo do scaffold de validação prospectiva. Não é evidência de edge e nunca habilita capital automaticamente.",
     "status": "informativa",
     "metric": "dsr"
+  },
+  {
+    "name": "market-05-pinnacle-soft-structural-edge",
+    "registered_at": "2026-08-24T18:00:00Z",
+    "params": {
+      "mode": "shadow_only",
+      "reference_book": "pinnacle",
+      "primary_devig": "shin",
+      "sensitivity_devig": "power",
+      "ev_threshold": 0.03,
+      "max_reference_staleness_seconds": 300,
+      "collection_gate": "5+ named BR books, 7 consecutive days, PIT coverage >= 90%, 50-match manual audit",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "Hipótese registrada sem dados ou resultado econômico. Detector apenas gera PAPER_CANDIDATE; scraping, arbitragem, execução e evasão de limites não foram implementados.",
+    "status": "pre-registrada",
+    "metric": "dsr"
   }
 ]

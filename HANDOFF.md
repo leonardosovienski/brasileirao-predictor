@@ -1,5 +1,18 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — MARKET-05 EDGE ESTRUTURAL SHADOW (2026-08-24)
+>
+> A proposta externa de Pinnacle sem vig versus casa soft foi revisada e
+> integrada somente como detector `SHADOW_ONLY`. O contrato exige identidade
+> exata de evento/mercado/linha/seleções/mapping, timestamps PIT, kickoff
+> coincidente e referência com no máximo 300 segundos; calcula Shin ou power e
+> emite candidato apenas para `EV > 3%`. Toda saída permanece
+> `CAPITAL_GATE: LOCKED`; não há stake, scraping, arbitragem, execução, evasão
+> de limites, treino ou validação econômica. Coleta de 5+ casas, 7 dias,
+> coverage >=90% e auditoria humana de 50 matches continuam como gates futuros.
+> Revisão: `docs/KIMI_STRUCTURAL_EDGE_REVIEW.md`; protocolo:
+> `docs/experiments/STRUCTURAL_EDGE_SHADOW_PROTOCOL.md`.
+
 > ## CHECKPOINT — ROADMAP V2, SCAFFOLDS E ENTREGA (2026-08-24) — FONTE DA VERDADE ATUAL
 >
 > **Fase 0B:** protocolo MARKET-04 e runner foram implementados para OU2.5 e
