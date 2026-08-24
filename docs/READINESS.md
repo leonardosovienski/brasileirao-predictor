@@ -2,6 +2,10 @@
 
 Status: `ENGINEERING_READY / CAPITAL_BLOCKED`.
 
+> Este arquivo é um log de auditoria **append-only**: os "Gates homologados"
+> abaixo são da auditoria original, e cada bloco "Atualização" acrescenta o que
+> mudou. **Para o estado atual, leia a Atualização mais recente no fim.**
+
 ## Gates homologados
 
 - Python local: 637 testes aprovados (1 deselecionado), zero falhas na última execução de `scripts/ci_check.py` em 2026-08-22.

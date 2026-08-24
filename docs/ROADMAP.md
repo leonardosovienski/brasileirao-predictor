@@ -33,7 +33,7 @@
 
 ## 1. Veredito estrutural
 
-**ENGINEERING READY / SCIENTIFICALLY SOUND / PREDICTIVE MODEL STILL LIMITED /
+**ENGINEERING READY / SCIENTIFICALLY SOUND / PREDICTIVE RESOLUTION DEMONSTRATED /
 ECONOMICALLY UNPROVEN / CAPITAL BLOCKED**
 
 A engenharia e a governança estão maduras. O instrumento de medição está
@@ -143,41 +143,33 @@ Três lições que mudam a execução daqui pra frente:
 
 ## 6. Ordem de execução
 
-### P0 — Higiene, antes de qualquer experimento novo
+### P0 — Higiene — ✅ **CONCLUÍDO em 2026-08-22**
 
-1. **Commitar o que só existe na máquina do operador**: `data/trials.json` (com
-   a `h11`), `data/trials.harness_attestation.json` **renovada** (a do repo
-   está expirada: 2026-08-16, core 2.2.0, metric psr) e o relatório do 01A.
-2. **Regerar o baseline v4** com o código atual — o que existe saiu antes das
-   correções de bootstrap e slope:
-   ```
-   python scripts/benchmark_predictor.py --model H4_DIXON_COLES_CALIBRATED \
-       --period 2021-01-01,2024-12-31 \
-       --output reports/benchmark_baseline_v4_<data>.json
-   ```
-   O `benchmark_baseline_v3` que está no repo é **inválido como régua**: foi
-   medido até 2026, atravessando o holdout selado.
-3. **Rodar o controle negativo** — confirma que nada mais vaza:
-   ```
-   python scripts/permutation_test.py --period 2021-01-01,2024-12-31
-   ```
+Os três itens fecharam. Artefatos commitados, baseline v4 regerado
+(`n=1318`, RPS 0,216870) e controle negativo **PASSOU nos dois motores**
+(`reports/permutation_2026-08-22.json` para o `dixon_coles`,
+`reports/permutation_serving_2026-08-22.json` para o `serving`).
 
-### P1 — A decisão que destrava (ou trava) tudo
+### P1 — Custo do walk-forward — **reavaliar antes de decidir**
 
-**Custo do walk-forward.** `fit_dixon_coles_parameters` (`src/dixon_coles.py`)
-avalia o objetivo num laço Python que constrói uma `DixonColesMatrix` inteira
-**por jogo e por avaliação**, e o `minimize` roda **sem gradiente analítico** —
-o scipy faz diferenças finitas sobre ~52 parâmetros, ~53 avaliações por passo
-do gradiente.
+`fit_dixon_coles_parameters` avalia o objetivo num laço Python sem gradiente
+analítico (~42-52 parâmetros por diferenças finitas). Media-se o ganho de uma
+reformulação exata em `scripts/p1_cost_probe.py`: **~85-95x**, com o objetivo
+concordando a ~1e-15 (o normalizador da grade DC tem forma fechada — τ ≡ 1 fora
+das 4 células magras).
 
-Consequência: ~4h30 por experimento com refit por rodada. **A agenda abaixo tem
-dezenas de experimentos.** Nesse ritmo ela não fecha.
+**Mas o gargalo é de UM motor.** Medido em 2026-08-22:
 
-Vetorizar em numpy ou fornecer o jacobiano daria ganho de ordens de grandeza.
-**Mas mexe na numérica e pode mover resultados já congelados** — exige decisão
-explícita do operador e re-congelamento das réguas depois.
+| motor | ajuste por refit | 1318 previsões |
+| --- | --- | --- |
+| `dixon_coles` | `fit_dixon_coles_parameters`, ~42-52 params | **~20 min** |
+| `serving` | `model.fit_goal_model`, 4-5 params | **~3 s** |
 
-*Enquanto isso não for decidido, tratar como o gargalo real do projeto.*
+O motor lento **não é o que se serve**. A agenda da TRACK A poderia rodar sobre
+`--engine serving` em segundos — mas trocar de motor troca a régua, e todas as
+medições congeladas são do `dixon_coles`. **Decidir isto antes de mexer na
+numérica.** Opções e riscos em `docs/RUNBOOK_P0-P2.md`; `src/dixon_coles.py`
+segue intocado.
 
 ### P2 — ensemble xG — **RESPONDIDO / H12 COMPROVADA**
 
@@ -188,11 +180,8 @@ métricas: delta RPS +0,004410, IC95 [+0,001436,+0,007741]. A trial
 
 Comando histórico/reprodutível do motor de serving:
 
-```
-python scripts/benchmark_predictor.py --model H4_DIXON_COLES_CALIBRATED \
-    --engine serving --period 2021-01-01,2024-12-31 \
-    --output reports/benchmark_serving_v1_<data>.json
-```
+Os quatro IC acima de zero: o ensemble piorava **todas** as métricas.
+`ensemble_xg.enabled: false` desde então, com a justificativa no `config.yaml`.
 
 O relatório canônico é `reports/benchmark_serving_noxg_2026-08-22.json`; o
 contraste pareado está no relatório da H12 descrito no `HANDOFF.md`.
