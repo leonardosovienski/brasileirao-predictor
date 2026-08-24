@@ -58,6 +58,13 @@ def ambiente(tmp_path, monkeypatch):
     dbpath = tmp_path / "t.db"
     conn = db.connect(str(dbpath))
     db.save_elo(conn, [("Casa", ELO_HOME), ("Fora", ELO_AWAY)])
+    db.save_params(
+        conn,
+        *PARAMS,
+        0,
+        "test-config",
+        (KICKOFF - timedelta(hours=7)).isoformat(timespec="seconds"),
+    )
     conn.execute(
         "INSERT INTO sofascore_matches (event_id, competition, season, date, home_team, away_team, kickoff_at) "
         "VALUES (1, 'T', '2027', ?, 'Casa', 'Fora', ?)",
@@ -115,6 +122,8 @@ def test_emits_pick_when_fixture_is_in_decision_window(ambiente):
     assert len(ledger_rows) == 1
     assert ledger_rows[0]["bookmaker"] == "williamhill"
     assert ledger_rows[0]["capital_enabled"] is False
+    assert ledger_rows[0]["elo_policy"] == "current_elo"
+    assert len(ledger_rows[0]["policy_fingerprint"]) == 16
 
 
 def test_ignores_fixture_outside_decision_window(ambiente):
@@ -143,6 +152,16 @@ def test_missing_elo_team_is_audited(ambiente):
     outcomes = _run(ambiente, now=KICKOFF - timedelta(minutes=60))
     assert outcomes[0]["status"] == "MISSING_ELO_TEAM"
     assert _attempts_rows(ambiente)[0]["missing_elo_teams"] == ["Fora"]
+
+
+def test_stale_model_cache_fails_before_emission(ambiente):
+    conn = db.connect(str(ambiente["db_path"]))
+    db.save_params(conn, *PARAMS, 0, "test-config", (KICKOFF - timedelta(days=1)).isoformat())
+    conn.commit()
+    conn.close()
+
+    with pytest.raises(RuntimeError, match="cache de modelo stale"):
+        _run(ambiente, now=KICKOFF - timedelta(minutes=60))
 
 
 def test_second_run_in_window_is_idempotent(ambiente):

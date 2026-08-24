@@ -1,5 +1,43 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — MARKET-03 FASE 0 (2026-08-24)
+>
+> A hipótese de que a divergência `p_modelo-p_mercado_sem_vig` ordena nichos
+> úteis foi registrada antes da execução e testada em 2021–2023 (`n=940`) com
+> validação única em 2024 (`n=378/380`, coverage 99,47%). O mercado agregado
+> venceu o serving em RPS/Brier/log loss nos dois períodos. Para empate, ROI
+> diagnóstico por faixa de divergência não foi monotônico; em 2024, 255/1.000
+> permutações estratificadas também produziram monotonicidade e nenhuma faixa
+> atingiu o n de poder calculado. Veredito: `NO_GO_CURRENT_RESIDUAL`. 2025 e
+> 2026 não foram lidos. A hipótese não deve ser resgatada com novos thresholds;
+> exige mecanismo ou informação PIT nova. Capital continua bloqueado.
+>
+> Protocolo: `docs/experiments/MARKET_03_EDGE_ORDERING_PROTOCOL.md`. Runner:
+> `scripts/research_market_edge_ordering.py`. Relatório operacional ignorado:
+> `data/research/market03_edge_ordering_2026-08-24.json`.
+
+> ## CHECKPOINT — REMEDIAÇÃO DE INTEGRIDADE (2026-08-24)
+>
+> O serving voltou ao incumbent de pesos uniformes
+> (`model.goal_half_life_days=null`) após o NO-GO de 360 dias; `null` é política
+> explícita e entra no fingerprint do cache. H9 preserva parâmetros congelados
+> + Elo vivo por desenho e passa a carimbar `policy_fingerprint`/`elo_policy`
+> em novas decisões e tentativas, sem reescrever a coorte existente. O painel
+> canônico ganhou `--engine h9_frozen`, que reproduz exatamente essa combinação
+> em walk-forward; benchmark do engine `serving` não deve ser atribuído à H9.
+>
+> O antigo `market_no_vig` baseado no agregado sem casa nomeada foi renomeado
+> para `sofascore_aggregate_no_vig` e permanece apenas
+> `SOFASCORE_AGGREGATE_UNNAMED_DIAGNOSTIC_ONLY` e nunca é evidência econômica.
+> Evidência H9 pode ser empacotada por `scripts/bundle_h9_evidence.py`, com
+> SHA-256, linhas, bytes e commit de origem; os ledgers operacionais continuam
+> fora do Git e as 42 janelas perdidas permanecem irrecuperáveis.
+>
+> LIVE-001 continua uma previsão live válida, mas está formalmente inelegível
+> para coortes pré-jogo/econômicas. Coverage CI global mínimo passou de 0 para
+> 45% (baseline global real 46%; categorias homologadas >80%). Documentos stale foram marcados e a tarefa separada
+> `brasileirao-model-update` foi explicitada. Capital continua bloqueado.
+
 > ## CHECKPOINT — AUDITORIA INTEGRAL E SWEEP DE HIPÓTESES (2026-08-24) — FONTE DA VERDADE ATUAL
 >
 > **Tudo abaixo permanece histórico quando divergir deste checkpoint.** A

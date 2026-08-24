@@ -10,6 +10,8 @@
 > embora agora corretamente conectada, deu NO-GO preditivo contra pesos
 > uniformes. O próximo passo não é mais tuning dos mesmos controles: exige
 > informação PIT nova ou arquitetura causal nova.
+> O incumbent uniforme foi restaurado no serving em 2026-08-24; nenhuma nova
+> leitura de 2024 foi usada para escolher outra configuração.
 
 > Previsões operacionais devem seguir `docs/PREDICTION_PROTOCOL.md` e passar
 > pelo gate executável de `docs/PREDICTION_REQUIREMENTS.md`. A divisão temporal
@@ -109,7 +111,10 @@ inteiro do lado ruim — guardrail que dispara com ruído vira veto arbitrário)
 * `serving` — a pilha que realmente prevê: Elo + NB/DC + ensemble de xG,
   reconstruída a cada refit sobre histórico truncado.
 
-Baselines de skill score: `climatology` e `market_no_vig` estão implementados.
+Baselines de skill score: `climatology` e
+`sofascore_aggregate_no_vig` estão implementados. O segundo é diagnóstico
+legado sem bookmaker nomeado; `market_no_vig` fica reservado para fonte PIT
+auditável e ainda não está habilitado.
 O segundo usa fechamento 1X2 de-vigado por Shin e pareamento na mesma amostra;
 `elo_baseline` e `current_v3` falham alto se pedidos — nunca silenciam.
 
@@ -237,7 +242,7 @@ concepção.
 
 ### P5 — Pendências menores
 
-* **Baseline `market_no_vig`** — implementado para 1X2. Em 2021–2024 o
+* **Baseline legado `sofascore_aggregate_no_vig`** — implementado para 1X2. Em 2021–2024 o
   serving perdeu do mercado (RPS delta +0,011240, IC95
   [+0,006923,+0,015455], n=1316); capital continua bloqueado. Não estender o
   teto a OU2.5 na mesma base: cobertura de 2023–2024 é só 66%/63%.

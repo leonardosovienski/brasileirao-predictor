@@ -75,7 +75,11 @@ from src.dixon_coles import DixonColesMatrix  # noqa: E402
 from src.evaluator import BrasileiraoDixonColesEvaluator  # noqa: E402
 from src.ingest import load_config  # noqa: E402
 from src.math_utils import shin_probabilities  # noqa: E402
-from src.serving_evaluator import DynamicStrengthServingEvaluator, ServingStackEvaluator  # noqa: E402
+from src.serving_evaluator import (  # noqa: E402
+    DynamicStrengthServingEvaluator,
+    H9FrozenPolicyEvaluator,
+    ServingStackEvaluator,
+)
 
 DB = ROOT / "data" / "matches.db"
 TRIALS = ROOT / "data" / "trials.json"
@@ -93,12 +97,12 @@ PROGRESS_EVERY = 200  # log de progresso do walk-forward (execução longa)
 # Baselines de skill score realmente implementados. Os demais do Roadmap SS6
 # (elo_baseline, current_v3, market_no_vig) exigem rodar outros previsores
 # sobre a MESMA base; pedir um deles falha alto, nunca silencia como zero.
-SUPPORTED_BASELINES = frozenset({"climatology", "market_no_vig"})
+SUPPORTED_BASELINES = frozenset({"climatology", "sofascore_aggregate_no_vig"})
 # Motores mensuráveis. `dixon_coles` é o histórico (Poisson + DC puro) e segue
 # sendo o DEFAULT para não invalidar de repente as medições já feitas contra
 # ele; `serving` é a pilha que realmente prevê (Elo + NB/DC + ensemble xG),
 # reconstruída a cada reajuste em src/serving_evaluator.py.
-ENGINES = ("dixon_coles", "serving", "dynamic_strength")
+ENGINES = ("dixon_coles", "serving", "dynamic_strength", "h9_frozen")
 DEFAULT_ENGINE = "dixon_coles"
 
 
@@ -196,10 +200,13 @@ def _make_evaluator(engine: str, half_life: float, cfg: dict[str, Any] | None):
     """Instancia o motor pedido. `dixon_coles` mede o Poisson+DC puro;
     `serving` mede a pilha que realmente prevê — ver
     src/serving_evaluator.py."""
-    if engine in {"serving", "dynamic_strength"}:
+    if engine in {"serving", "dynamic_strength", "h9_frozen"}:
         if not cfg:
             raise SystemExit("engine 'serving' exige config.yaml carregado (Elo, calibração, ensemble_xg)")
-        evaluator = DynamicStrengthServingEvaluator if engine == "dynamic_strength" else ServingStackEvaluator
+        evaluator = {
+            "dynamic_strength": DynamicStrengthServingEvaluator,
+            "h9_frozen": H9FrozenPolicyEvaluator,
+        }.get(engine, ServingStackEvaluator)
         return evaluator(cfg, max_goals=MAX_GOALS)
     if engine != "dixon_coles":
         raise NotImplementedError(f"engine {engine!r} desconhecido. Disponíveis: {list(ENGINES)}")
@@ -296,6 +303,7 @@ def _run_walkforward(
                 "p_loss": p_loss,
                 "p_over": p_over,
                 "lambda_total": lam + mu,
+                "effective_elo_diff": pred.metadata.get("effective_elo_diff"),
                 "actual_1x2": _outcomes_1x2(obs["result"]["home_goals"], obs["result"]["away_goals"]),
                 "actual_over": int(obs["result"]["home_goals"] + obs["result"]["away_goals"] > OU_LINE),
                 "market_odds_1x2": obs.get("market_odds_1x2"),
@@ -582,18 +590,20 @@ def run(
         raise SystemExit(f"nenhuma previsão cai no período [{start or '-inf'}, {end or '+inf'}] após o walk-forward")
     requested_n = len(rows)
     market_coverage = None
-    if baseline == "market_no_vig":
+    if baseline == "sofascore_aggregate_no_vig":
         paired = [(r, _market_no_vig_probs(r)) for r in rows]
         rows = [r for r, p in paired if p is not None]
         market_coverage = len(rows) / requested_n if requested_n else 0.0
         if not rows:
-            raise SystemExit("baseline market_no_vig sem odds 1X2 completas no período")
+            raise SystemExit("baseline sofascore_aggregate_no_vig sem odds 1X2 completas no período")
     n = len(rows)
 
     probs_1x2 = [[r["p_loss"], r["p_draw"], r["p_win"]] for r in rows]
     outcomes_1x2 = [r["actual_1x2"] for r in rows]
     baseline_probs = (
-        [_market_no_vig_probs(r) for r in rows] if baseline == "market_no_vig" else _climatology_probs(rows)
+        [_market_no_vig_probs(r) for r in rows]
+        if baseline == "sofascore_aggregate_no_vig"
+        else _climatology_probs(rows)
     )
     assert all(p is not None for p in baseline_probs)
     for row, probabilities in zip(rows, baseline_probs):
@@ -717,8 +727,13 @@ def run(
             "requested_n": requested_n,
             "paired_n": n,
             "rate": round(market_coverage, 6) if market_coverage is not None else 1.0,
-            "market": "1x2" if baseline == "market_no_vig" else None,
-            "devig_method": "shin" if baseline == "market_no_vig" else None,
+            "market": "1x2" if baseline == "sofascore_aggregate_no_vig" else None,
+            "devig_method": "shin" if baseline == "sofascore_aggregate_no_vig" else None,
+            "bookmaker": None,
+            "provenance": "SOFASCORE_AGGREGATE_UNNAMED_DIAGNOSTIC_ONLY"
+            if baseline == "sofascore_aggregate_no_vig"
+            else None,
+            "economic_evidence_eligible": False,
         },
         "metrics": metrics,
         "guardrails_ou25": guardrails_ou25,
@@ -783,6 +798,15 @@ def main() -> int:
 
     start, _, end = args.period.partition(",")
     cfg = load_config()  # valida config.yaml cedo, falha alto se ausente
+    if args.engine == "h9_frozen":
+        trial = next((t for t in TrialRegistry(TRIALS).load() if t["name"] == "h9-ou25-prospective-replication"), None)
+        if trial is None:
+            parser.error("trial H9 ausente")
+        frozen = trial["params"]["model"]
+        cfg["h9_frozen_policy"] = {
+            "params": [frozen[key] for key in ("a", "b", "alpha", "rho")],
+            "max_goals": frozen["max_goals"],
+        }
     if args.retrain_every < 1:
         parser.error("--retrain-every >= 1")
     result = run(

@@ -90,6 +90,8 @@ def emit(
         "stake_units": 1.0,
         "scientific_state": "SHADOW",
         "capital_enabled": False,
+        "policy_fingerprint": prediction.get("policy_fingerprint"),
+        "elo_policy": prediction.get("elo_policy"),
     }
     _append(ledger, row)
     return {"status": "EMITTED", **row}

@@ -65,6 +65,8 @@ class PredictionReadinessReport(BaseModel):
     designation: Literal["OFFICIAL_PRE_MATCH", "OFFICIAL_LIVE", "RETROSPECTIVE_ONLY", "BLOCKED"]
     blockers: list[ReadinessFinding]
     warnings: list[ReadinessFinding]
+    pre_match_evidence_eligible: bool
+    economic_evidence_eligible: bool
 
 
 def _utc(value: datetime) -> datetime:
@@ -139,4 +141,6 @@ def assess_prediction_readiness(candidate: PredictionReadinessInput | dict[str, 
         designation=designation,
         blockers=blockers,
         warnings=warnings,
+        pre_match_evidence_eligible=not blockers and designation == "OFFICIAL_PRE_MATCH",
+        economic_evidence_eligible=False,
     )

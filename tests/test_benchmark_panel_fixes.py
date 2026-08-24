@@ -156,7 +156,8 @@ def test_baseline_desconhecido_falha_alto() -> None:
 
 def test_climatology_e_o_baseline_suportado() -> None:
     assert "climatology" in bp.SUPPORTED_BASELINES
-    assert "market_no_vig" in bp.SUPPORTED_BASELINES
+    assert "market_no_vig" not in bp.SUPPORTED_BASELINES
+    assert "sofascore_aggregate_no_vig" in bp.SUPPORTED_BASELINES
 
 
 def test_market_no_vig_e_shin_na_orientacao_do_rps() -> None:

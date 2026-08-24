@@ -2,6 +2,11 @@
 
 Status: `ENGINEERING_READY / CAPITAL_BLOCKED`.
 
+> **Atualizado em 2026-08-24.** Números datados abaixo são histórico
+> append-only. A fonte da verdade corrente é o primeiro checkpoint de
+> `HANDOFF.md`; o número canônico de testes é o da última execução do CI na
+> `main`, não os 637 registrados na auditoria original.
+
 > Este arquivo é um log de auditoria **append-only**: os "Gates homologados"
 > abaixo são da auditoria original, e cada bloco "Atualização" acrescenta o que
 > mudou. **Para o estado atual, leia a Atualização mais recente no fim.**
@@ -50,8 +55,9 @@ Os dois artefatos externos que bloqueavam a classificação `READY` já existem;
 preditiva walk-forward (RPS primário; Brier 1X2/OU2.5, log-loss, ECE,
 calibration slope, resolution e sharpness como guardrails; accuracy/coverage
 como diagnóstico — nunca métrica de promoção). Skill score implementado hoje
-contra `climatology` e `market_no_vig`; o segundo usa fechamento 1X2 de-vigado
-por Shin e pareamento na mesma amostra. `elo_baseline` e `current_v3` ainda
+contra `climatology` e `sofascore_aggregate_no_vig`; o segundo usa agregado
+SofaScore sem casa nomeada e é somente diagnóstico. O nome `market_no_vig`
+fica reservado ao futuro baseline PIT com bookmaker auditável. `elo_baseline` e `current_v3` ainda
 falham alto se pedidos. `scripts/run_h4_sweep.py` teve a lacuna de `pipeline_fingerprint`
 corrigida (mesma classe de bug já corrigida em `h10_fadiga_walkforward.py`).
 
@@ -61,10 +67,13 @@ corrigida (mesma classe de bug já corrigida em `h10_fadiga_walkforward.py`).
    `passed_at=2026-08-20T00:42:38Z`) — rodado via script isolado
    (`scripts/_attest_only.py`, descartado depois de usado) contra o
    `matches.db` real do operador, sem tocar em `data/trials.json`.
-2. `scripts/install_windows_scheduler.ps1` rodado — as 7 tasks
+2. `scripts/install_windows_scheduler.ps1` rodado — as tarefas prospectivas
    (`brasileirao-market-research`, `-prospective-readiness`, `-h9-emit`,
    `-h9-closing`, `-h9-settle`, `-h9-backup`, `-h9-missed-window`) estão
-   `Ready` no Agendador de Tarefas do operador.
+   `Ready` no Agendador de Tarefas do operador. Separadamente, o instalador
+   também registra `brasileirao-model-update` (`src.cron_update_models`), além
+   dos jobs declarados no manifesto; não confundir esse total instalado com
+   as sete tarefas prospectivas.
 3. `config.yaml` ganhou `season_id` de 2021-2023 (treino/burn-in exigido
    pelo Roadmap §3) — coleta real dessas temporadas é ação separada do
    operador (`python -m src.ingest_sofascore`).

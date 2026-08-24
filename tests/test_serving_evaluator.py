@@ -14,7 +14,7 @@ from datetime import UTC, datetime, timedelta
 import pytest
 
 from src import model, xg_model
-from src.serving_evaluator import ServingStackEvaluator
+from src.serving_evaluator import H9FrozenPolicyEvaluator, ServingStackEvaluator
 
 TIMES = ["flamengo", "palmeiras", "gremio", "santos"]
 
@@ -142,11 +142,39 @@ def test_serving_passa_peso_exponencial_por_recencia(monkeypatch) -> None:
     assert weights[0] == pytest.approx(0.5 ** ((19 * 7) / 360))
 
 
+def test_serving_usa_pesos_uniformes_quando_politica_e_null(monkeypatch) -> None:
+    obs = _obs(n_rodadas=20)
+    captured = {}
+    original = model.fit_goal_model
+
+    def spy(history, delta_xg=None, sample_weights=None):
+        captured["weights"] = sample_weights
+        return original(history, delta_xg=delta_xg, sample_weights=sample_weights)
+
+    cfg = _cfg_sem_ensemble()
+    cfg["model"] = dict(cfg["model"], goal_half_life_days=None)
+    monkeypatch.setattr(model, "fit_goal_model", spy)
+    ServingStackEvaluator(cfg)._fit(obs, obs[-1]["kickoff"] + timedelta(days=1))
+    assert captured["weights"] == [1.0] * len(captured["weights"])
+
+
 def test_serving_rejeita_half_life_nao_positiva() -> None:
     cfg = _cfg_sem_ensemble()
     cfg["model"] = dict(cfg["model"], goal_half_life_days=0)
     with pytest.raises(ValueError, match="goal_half_life_days"):
         ServingStackEvaluator(cfg)
+
+
+def test_h9_evaluator_mantem_params_congelados_e_elo_asof() -> None:
+    obs = _obs(n_rodadas=20)
+    cfg = _cfg_sem_ensemble()
+    frozen = (0.1, 0.2, 0.03, -0.04)
+    cfg["h9_frozen_policy"] = {"params": frozen, "max_goals": 6}
+    evaluator = H9FrozenPolicyEvaluator(cfg)
+    evaluator._fit(obs, obs[-1]["kickoff"] + timedelta(days=1))
+    assert evaluator.params == frozen
+    assert evaluator.elo
+    assert evaluator.ensemble_enabled is False
 
 
 # ---------- paridade com o serving ----------

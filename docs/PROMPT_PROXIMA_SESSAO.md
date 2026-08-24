@@ -12,7 +12,7 @@ C:\Users\Superleo13\Projetos\brasileirao-predictor, com a venv ativa
 EXECUTAR, não só propor.
 
 ANTES DE QUALQUER COISA, leia:
-  - HANDOFF.md → o checkpoint de 2026-08-22 (TARDE) no topo é a fonte da verdade
+  - HANDOFF.md → sempre o primeiro checkpoint no topo; não use uma data fixa
   - docs/ROADMAP.md → regras inegociáveis, divisão dos dados, fila priorizada
   - docs/RUNBOOK_P0-P2.md → comandos validados e o memorando do P1
 
@@ -27,7 +27,10 @@ inteiramente abaixo de zero (RPS −0,006650, [−0,010544, −0,002858], n=1318
 controle negativo passou nos DOIS motores. Isso é resolução preditiva
 demonstrada — NÃO é edge econômico, que segue inexistente.
 
-MINHA FILA, na ordem:
+O bloco abaixo é histórico e não é fila operacional. Reavalie-o contra o
+primeiro checkpoint do HANDOFF antes de qualquer ação:
+
+MINHA FILA HISTÓRICA, na ordem:
 
 1. A H9 NUNCA EMITIU. data/research/h9_shadow.jsonl não existe — zero picks
    desde sempre, o que explica a trial estar "inconclusiva". A infraestrutura

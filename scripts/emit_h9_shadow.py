@@ -36,6 +36,7 @@ Uso (Task Scheduler, cadência sugerida: a cada 15 minutos):
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from datetime import UTC, datetime, timedelta
@@ -60,6 +61,7 @@ LEDGER_PATH = ROOT / "data" / "research" / "h9_shadow.jsonl"
 ATTEMPTS_PATH = ROOT / "data" / "research" / "h9_emission_attempts.jsonl"
 
 WINDOW_SLACK = timedelta(minutes=15)
+MAX_MODEL_CACHE_AGE = timedelta(hours=12)
 OU_LINE = 2.5
 
 
@@ -109,6 +111,17 @@ def frozen_model_params(trials_path: Path = TRIALS_PATH) -> tuple[tuple[float, f
     return (float(m["a"]), float(m["b"]), float(m["alpha"]), float(m["rho"])), int(m["max_goals"])
 
 
+def policy_fingerprint(params: tuple[float, float, float, float], max_goals: int, home_advantage: float) -> str:
+    policy = {
+        "elo": "current_elo",
+        "goal_params": list(params),
+        "home_advantage": home_advantage,
+        "max_goals": max_goals,
+        "trial": TRIAL,
+    }
+    return hashlib.sha256(json.dumps(policy, sort_keys=True).encode()).hexdigest()[:16]
+
+
 def approved_bookmaker(stability_path: Path = STABILITY_PATH) -> str | None:
     return stability_report(stability_path).get("recommended_bookmaker")
 
@@ -134,6 +147,21 @@ def _in_decision_window(kickoff_at: str, now: datetime) -> bool:
     return kickoff - HORIZON - WINDOW_SLACK <= now < kickoff
 
 
+def _require_fresh_model_cache(conn, now: datetime) -> None:
+    cached = db.load_params(conn)
+    if not cached or len(cached) < 7:
+        raise RuntimeError("cache de modelo ausente — rode python -m src.cron_update_models")
+    try:
+        computed_at = datetime.fromisoformat(str(cached[6]).replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise RuntimeError("cache de modelo sem timestamp UTC válido") from exc
+    if computed_at.tzinfo is None or computed_at.utcoffset() is None:
+        raise RuntimeError("cache de modelo sem timestamp UTC válido")
+    age = now.astimezone(UTC) - computed_at.astimezone(UTC)
+    if age < timedelta(0) or age > MAX_MODEL_CACHE_AGE:
+        raise RuntimeError(f"cache de modelo stale ({age}); rode python -m src.cron_update_models")
+
+
 def run(
     *,
     now: datetime | None = None,
@@ -148,10 +176,12 @@ def run(
     cfg = load_config()
     params, max_goals = frozen_model_params(trials_path)
     home_adv = float(cfg["elo"]["home_advantage"])
+    fingerprint = policy_fingerprint(params, max_goals, home_adv)
     bookmaker = approved_bookmaker(stability_path)
 
     conn = db.connect(str(db_path or (ROOT / cfg["database"])), read_only=True)
     try:
+        _require_fresh_model_cache(conn, now)
         elo = db.load_elo(conn)
         fixtures = _upcoming_fixtures(conn)
     finally:
@@ -220,6 +250,8 @@ def run(
             "kickoff_at": matched["kickoff_at"],
             "predicted_at": now.isoformat(timespec="seconds"),
             "p_over": p_over,
+            "policy_fingerprint": fingerprint,
+            "elo_policy": "current_elo",
         }
         result = emit(prediction=prediction, quotes=quotes_ou25, approved_bookmaker=bookmaker, ledger=ledger_path)
         outcomes.append({"sofascore_event_id": matched["event_id"], "home": home, "away": away, **result})
@@ -232,6 +264,7 @@ def run(
             "away": away,
             "status": result["status"],
             "approved_bookmaker": bookmaker,
+            "policy_fingerprint": fingerprint,
         }
         if result["status"] == "EMITTED":
             audit_row["selection"] = result["selection"]

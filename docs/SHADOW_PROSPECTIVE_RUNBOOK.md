@@ -1,5 +1,9 @@
 # Runbook: coorte prospectiva H3/H5
 
+> **STALE / HISTÓRICO desde 2026-08-22.** H3/H5 estão mortas/substituídas e
+> este documento não deve operar a coorte vigente. Para H9 e o estado atual,
+> use o topo de `HANDOFF.md` e `docs/READINESS.md`.
+
 H1 permanece `HYPOTHESIS_REFUTED`. H3/H5 usam somente odds correntes pré-jogo,
 modelo, mercado e thresholds congelados em `data/trials.json`; a meta é 100
 `MATURED_ELIGIBLE`, sem capital.

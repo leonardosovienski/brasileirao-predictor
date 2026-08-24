@@ -27,6 +27,8 @@ def exponential_recency_weights(match_dates, asof, half_life_days):
     canonical backtests. Future observations fail closed instead of receiving
     a weight greater than one.
     """
+    if half_life_days is None:
+        return [1.0] * len(match_dates)
     half_life = float(half_life_days)
     if not math.isfinite(half_life) or half_life <= 0:
         raise ValueError("model.goal_half_life_days must be finite and > 0")

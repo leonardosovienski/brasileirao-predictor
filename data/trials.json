@@ -415,5 +415,35 @@
       null
     ],
     "metric": "rps"
+  },
+  {
+    "name": "market-03-edge-ordering-sofascore-diagnostic",
+    "registered_at": "2026-08-24T06:30:00Z",
+    "params": {
+      "market": "1x2",
+      "hypothesis": "a divergencia p_modelo-p_mercado_sem_vig ordena resultados fora da amostra",
+      "engine": "serving",
+      "ensemble_xg_enabled": false,
+      "odds_source": "sofascore-aggregate-unnamed",
+      "economic_evidence_eligible": false,
+      "development": ["2021-01-01", "2023-12-31"],
+      "validation": ["2024-01-01", "2024-12-31"],
+      "sealed_holdout": "2025",
+      "diagnostic_2026_touched": false,
+      "declared_family_trials": 60,
+      "selections": ["away", "draw", "home"],
+      "divergence_bins_pp": ["lt_-5", "-5_0", "0_5", "5_10", "ge_10"],
+      "odds_bins": ["1_2", "2_3", "3_5", "ge_5"],
+      "multiplicity": "DSR with historical ledger plus 60 declared trials; no correlation discount",
+      "negative_control": "permute outcomes within calendar-month x abs-effective-Elo-diff band",
+      "exit": "2024 draw ROI monotonic; power minimums met; permutation null monotonic rate below 5pct",
+      "stake": "fixed-1u-diagnostic-only",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "PRE-SPECIFIED before first canonical run. Historical SofaScore aggregate prices have unknown executability. RESULT 2026-08-24: NO_GO_CURRENT_RESIDUAL. Development n=940 and validation 2024 n=378/380. Market beat serving on RPS/Brier/log loss; draw ROI was non-monotonic in both periods; 255/1000 stratified null permutations were monotonic in 2024; power minimums were not met. 2025 and 2026 were not touched. The current residual is closed until a new mechanism or PIT feature exists.",
+    "status": "refutada",
+    "test_period": ["2021-01-01", "2024-12-31"],
+    "metric": "rps"
   }
 ]

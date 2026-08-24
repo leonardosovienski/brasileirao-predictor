@@ -81,6 +81,24 @@ Tentativa: regressão multinomial usando o mercado como offset e o residual do s
 
 Resultado: NO-GO em 2024; o residual piorou a abertura. Não servir essa especificação. O fato de a abertura pura parecer melhor em 2026 é diagnóstico, não validação retrospectiva.
 
+### MARKET-03 — ordenação do residual por nichos
+
+Hipótese: mesmo perdendo globalmente para o mercado, a divergência
+`p_modelo-p_mercado_sem_vig` poderia ordenar nichos, especialmente empates.
+
+Tentativa pré-especificada: 60 células fixas (3 seleções × 5 faixas de
+divergência × 4 faixas de odds), DSR com todas as tentativas declaradas,
+permutação dentro de mês × faixa de `|ΔElo efetivo|`, desenvolvimento em
+2021–2023 e validação única em 2024. Odds SofaScore agregadas foram usadas
+somente como diagnóstico de executabilidade desconhecida.
+
+Resultado: NO-GO. Desenvolvimento `n=940`; validação `n=378/380`. O mercado
+venceu RPS, Brier e log loss nos dois períodos. ROI de empate não foi
+monotônico; 25,5% das permutações em 2024 também produziram monotonicidade e
+os requisitos de poder ficaram muito acima da amostra. 2025 e 2026 não foram
+tocados. Novos thresholds sobre o mesmo residual são proibidos; reabertura
+exige mecanismo ou informação PIT nova.
+
 ### PoC/H10 — fadiga e descanso
 
 Hipótese: diferença de dias de descanso altera gols/probabilidades.
@@ -442,6 +460,12 @@ pilha anterior. O efeito foi posteriormente avaliado no sweep da seção 17:
 pesos uniformes venceram a grade em desenvolvimento e 360 dias piorou
 pontualmente as três perdas em 2024, com ICs cruzando zero. Logo, a conexão é
 correção de engenharia, mas 360 dias é NO-GO como melhoria preditiva.
+
+Remediação de 24/08: o serving voltou ao incumbent uniforme. Em
+`config.yaml`, `goal_half_life_days: null` significa explicitamente peso 1
+para todas as observações dentro da janela; não significa configuração
+ausente. A opção continua no fingerprint do cache e meias-vidas numéricas
+permanecem disponíveis apenas para protocolos experimentais explícitos.
 
 ## 16. Auditoria de parâmetros configurados versus efeito real (2026-08-23)
 

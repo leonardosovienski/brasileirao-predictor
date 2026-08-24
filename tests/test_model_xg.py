@@ -64,6 +64,10 @@ def test_exponential_recency_weights_obey_half_life_exactly():
     assert weights == pytest.approx([0.5, 2**-0.5, 1.0])
 
 
+def test_exponential_recency_weights_support_explicit_uniform_policy():
+    assert exponential_recency_weights(["2021-01-01", "2026-01-01"], "2026-01-01", None) == [1.0, 1.0]
+
+
 @pytest.mark.parametrize("half_life", [0, -1, float("nan"), float("inf")])
 def test_exponential_recency_weights_reject_invalid_half_life(half_life):
     with pytest.raises(ValueError, match="goal_half_life_days"):

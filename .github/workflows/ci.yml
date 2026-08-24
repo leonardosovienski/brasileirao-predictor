@@ -61,7 +61,8 @@ jobs:
           src/data/bookmaker_stability.py src/data/historical_expansion.py src/data/pit_backfill.py
       - run: uv run coverage run -m pytest
       - run: uv run coverage run --append -m pytest -m integration
-      - run: uv run coverage report --fail-under=0
+      # Baseline global real em 2026-08-24: 46%; categorias homologadas >80%.
+      - run: uv run coverage report --fail-under=45
       - run: uv run coverage json -o coverage.json
       - run: uv run python scripts/coverage_report.py coverage.json --output coverage-by-category.md
       - run: uv build

@@ -82,7 +82,7 @@ class ServingStackEvaluator(PrequentialEvaluator):
         super().__init__(target_key="result")
         self.cfg = cfg
         self.max_goals: int = int(max_goals or cfg["model"]["max_goals"])
-        self.goal_half_life_days: float = float(cfg["model"]["goal_half_life_days"])
+        self.goal_half_life_days: float | None = cfg["model"]["goal_half_life_days"]
         model.exponential_recency_weights([], "2000-01-01", self.goal_half_life_days)
         ecfg = (cfg.get("ensemble_xg") or {}) if cfg else {}
         self.ensemble_enabled: bool = bool(ecfg.get("enabled"))
@@ -151,6 +151,11 @@ class ServingStackEvaluator(PrequentialEvaluator):
                 "away": away,
                 "lam": r["lambda_a"],
                 "mu": r["lambda_b"],
+                # Diagnóstico PIT: diferença Elo efetiva já inclui mando (ou
+                # sua remoção em campo neutro). Expor o valor permite que
+                # controles negativos estratifiquem força sem reconstruir
+                # ratings com risco de divergência/lookahead.
+                "effective_elo_diff": self.elo.get(home, base) + adv - self.elo.get(away, base),
                 # P(over 2.5) da PRÓPRIA grade servida — Negativa Binomial com
                 # correção DC e, quando o ensemble está ligado, misturada com a
                 # grade de xG. Reconstruir uma DixonColesMatrix a partir de
@@ -262,6 +267,46 @@ class DynamicStrengthServingEvaluator(ServingStackEvaluator):
         self.dynamic_cfg = dict(cfg.get("dynamic_strength") or {})
         if not self.dynamic_cfg:
             raise ValueError("dynamic_strength ausente da configuracao")
+
+
+class H9FrozenPolicyEvaluator(ServingStackEvaluator):
+    """Exact H9 sports policy: live/as-of Elo plus frozen goal parameters."""
+
+    def __init__(self, cfg: dict[str, Any], *, max_goals: int | None = None) -> None:
+        frozen = cfg.get("h9_frozen_policy") or {}
+        raw = frozen.get("params")
+        if not isinstance(raw, (list, tuple)) or len(raw) != 4:
+            raise ValueError("h9_frozen_policy.params deve conter a/b/alpha/rho")
+        super().__init__(cfg, max_goals=max_goals or frozen.get("max_goals"))
+        self.frozen_params = tuple(float(value) for value in raw)
+        self.ensemble_enabled = False
+
+    def _fit(self, history: list[dict[str, Any]], horizon: datetime) -> None:
+        usable = [h for h in history if h["kickoff"] < horizon]
+        if len(usable) < 2:
+            self.deferred_refits += 1
+            if self.params is None:
+                raise ValueError("histórico insuficiente para política H9")
+            return
+        self.blocked_observations += len(history) - len(usable)
+        rows = [
+            (
+                h["date"],
+                h["home"],
+                h["away"],
+                h["result"]["home_goals"],
+                h["result"]["away_goals"],
+                h.get("tournament") or self.cfg.get("tournament_name"),
+                int(bool(h.get("neutral"))),
+            )
+            for h in usable
+        ]
+        rows = self._window(rows, self.cfg["elo"].get("window_years"), rows[-1][0])
+        self.elo, _history = ratings.compute_ratings(rows, self.cfg["elo"])
+        self.params = self.frozen_params
+        self.xg_params = None
+        self.dynamic_states = None
+        self._trained_at = max(h["kickoff"] for h in usable)
 
 
 def _cut(asof: str, years: float) -> str:

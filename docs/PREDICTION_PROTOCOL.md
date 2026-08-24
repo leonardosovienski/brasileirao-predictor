@@ -59,6 +59,11 @@ Escalação só altera quantitativamente a previsão se existir transformação 
 
 Em previsão ao vivo, minuto, placar e `live_observed_at` são obrigatórios. Estatísticas ao vivo sem pesos validados não entram no cálculo; podem ser arquivadas e descritas como observação. Cada nova previsão recebe novo ID e linha; nenhuma anterior é editada.
 
+Toda previsão `OFFICIAL_LIVE`, inclusive `LIVE-2026-08-22-001`, recebe
+`pre_match_evidence_eligible=false` e `economic_evidence_eligible=false`.
+Ela pode ser avaliada apenas na coorte live separada; nunca compõe narrativa,
+coverage ou métricas prospectivas pré-jogo.
+
 ## 6. Avaliação
 
 Pré-jogo, ao vivo e retrospectiva são coortes separadas. Sempre informar `n` e coverage. RPS é a métrica primária 1X2; Brier e log loss são guardrails; accuracy é `DIAGNOSTIC_ONLY`. Settlement é append-only e ligado pelo `prediction_id`.

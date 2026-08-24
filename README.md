@@ -9,14 +9,14 @@ operação e monitoramento: `docs/SHADOW_PROSPECTIVE_RUNBOOK.md`. H3/H5 são
 históricas/substituídas; H9 é a replicação econômica inconclusiva e H13 é a
 coorte preditiva pré-registrada vigente.
 
-> ## 📌 ESTADO ATUAL (2026-08-22) — fonte da verdade: HANDOFF.md
+> ## 📌 ESTADO ATUAL (2026-08-24) — fonte da verdade: HANDOFF.md
 >
 > Serving com ensemble xG desligado bate a climatologia em 2021–2024, mas
 > perde do fechamento 1X2 sem vig; não há edge econômico e o capital permanece
 > bloqueado. H12 é a única trial comprovada e H13 é a única pré-registrada
 > aberta. TRACK A02 (primeira formulação) e MARKET-02 1X2 deram NO-GO em
-> 2026-08-22. Suíte local atual: **637 testes passados**, 1 deselecionado,
-> CI 5/5. Detalhes e pendências operacionais estão no primeiro checkpoint de
+> 2026-08-22. A contagem de testes é dinâmica; consulte o CI da `main` em vez
+> de copiar um número histórico. Detalhes e pendências operacionais estão no primeiro checkpoint de
 > `HANDOFF.md`.
 
 Sistema CLI em Python para previsão e apostas de valor no Brasileirão Série A,
