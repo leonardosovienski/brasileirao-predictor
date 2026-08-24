@@ -25,7 +25,10 @@ services:
       RUNTIME_DIR: /app/runtime
       KERNEL_VORP_THETA: "0.0"
       KERNEL_MAX_GOALS: "12"
-    volumes: ["app-data:/app/data"]
+      BRASILEIRAO_CONFIG_PATH: /app/config.yaml
+    volumes:
+      - app-data:/app/data
+      - ./config.yaml:/app/config.yaml:ro
     restart: "no"
 
   kernel:
@@ -33,7 +36,9 @@ services:
       context: .
       dockerfile: Dockerfile.kernel
     environment: *paths
-    volumes: ["app-data:/app/data:ro"]
+    volumes:
+      - app-data:/app/data:ro
+      - ./config.yaml:/app/config.yaml:ro
     read_only: true
     tmpfs: ["/tmp"]
     depends_on:
@@ -54,6 +59,7 @@ services:
     volumes:
       - app-data:/app/data:ro
       - ./docker:/app/config:ro
+      - ./config.yaml:/app/config.yaml:ro
     read_only: true
     tmpfs: ["/tmp"]
     depends_on:

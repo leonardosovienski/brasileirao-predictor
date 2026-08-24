@@ -1,4 +1,5 @@
 import io
+import os
 import sys
 import time
 import urllib.request
@@ -20,7 +21,8 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def load_config() -> dict:
-    with open(ROOT / "config.yaml") as f:
+    config_path = Path(os.environ.get("BRASILEIRAO_CONFIG_PATH", ROOT / "config.yaml"))
+    with config_path.open() as f:
         return yaml.safe_load(f)
 
 

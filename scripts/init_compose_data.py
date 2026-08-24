@@ -3,13 +3,16 @@
 import os
 
 from src import db
+from src.cron_update_models import config_hash
+from src.ingest import load_config
 
 
 def main() -> int:
     sports_path = os.environ["SPORTS_DB_PATH"]
     market_path = os.environ["MARKET_DB_PATH"]
+    cfg = load_config()
     sports = db.connect(sports_path)
-    db.save_params(sports, 0.2, 1.0, 0.1, 0.0, 0, "compose-fixture", "2026-01-01T00:00:00Z")
+    db.save_params(sports, 0.2, 1.0, 0.1, 0.0, 0, config_hash(cfg), "2026-01-01T00:00:00Z")
     sports.commit()
     sports.execute("PRAGMA wal_checkpoint(TRUNCATE)")
     sports.execute("PRAGMA journal_mode=DELETE")

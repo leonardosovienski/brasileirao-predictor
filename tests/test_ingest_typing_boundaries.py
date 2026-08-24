@@ -1,7 +1,15 @@
 import pandas as pd
 
-from src.ingest import normalize
+from src.ingest import load_config, normalize
 from src.ingest_fbref import parse_player_stats
+
+
+def test_load_config_honors_explicit_runtime_path(monkeypatch, tmp_path) -> None:
+    path = tmp_path / "runtime.yaml"
+    path.write_text("league: runtime-league\n", encoding="utf-8")
+    monkeypatch.setenv("BRASILEIRAO_CONFIG_PATH", str(path))
+
+    assert load_config() == {"league": "runtime-league"}
 
 
 def test_normalize_keeps_dataframe_shape_and_nullable_scores():
