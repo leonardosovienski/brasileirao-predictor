@@ -1,4 +1,4 @@
-FROM python:3.13.11-slim-bookworm AS builder
+FROM python:3.14.6-slim-bookworm AS builder
 RUN pip install --no-cache-dir uv==0.12.1
 WORKDIR /build
 COPY pyproject.toml README.md ./
@@ -9,7 +9,7 @@ RUN uv build && uv venv /opt/venv && uv pip install --python /opt/venv/bin/pytho
     "predictor-ops @ https://github.com/leonardosovienski/predictor-ops/releases/download/v3.1.0/predictor_ops-3.1.0-py3-none-any.whl" \
     'dist/brasileirao_predictor-0.1.0-py3-none-any.whl[kernel]'
 
-FROM python:3.13.11-slim-bookworm
+FROM python:3.14.6-slim-bookworm
 RUN useradd --system --uid 10001 --create-home app
 COPY --from=builder /opt/venv /opt/venv
 USER 10001
