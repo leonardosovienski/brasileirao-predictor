@@ -4,6 +4,9 @@ Backfill histórico point-in-time é mantido fora de `matches.db`, em raw
 imutável, curated SQLite isolado e views de avaliação com clocks de disponibilidade.
 Veja `docs/BACKFILL_POINT_IN_TIME.md` e `docs/CLOSING_LINE.md`.
 
+O mapa de armazenamento — banco, tabelas, snapshots A1, quarentena, métricas,
+ledgers, volumes e comandos de auditoria — está em [`docs/DATA_MAP.md`](docs/DATA_MAP.md).
+
 A coleta prospectiva atual preserva contratos completos e capital bloqueado;
 operação e monitoramento: `docs/SHADOW_PROSPECTIVE_RUNBOOK.md`. H3/H5 são
 históricas/substituídas; H9 é a replicação econômica inconclusiva e H13 é a
