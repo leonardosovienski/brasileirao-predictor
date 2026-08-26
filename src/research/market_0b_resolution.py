@@ -99,11 +99,7 @@ def market_summary(
 
 def scalar_summary(rows: list[dict[str, Any]], key: str) -> dict[str, Any]:
     """Describe a finite scalar emitted by the walk-forward serving stack."""
-    values = [
-        float(row[key])
-        for row in rows
-        if isinstance(row.get(key), (int, float)) and math.isfinite(row[key])
-    ]
+    values = [float(row[key]) for row in rows if isinstance(row.get(key), (int, float)) and math.isfinite(row[key])]
     sd = st.pstdev(values) if len(values) > 1 else 0.0 if values else None
     p10 = _quantile(values, 0.10) if values else None
     p90 = _quantile(values, 0.90) if values else None

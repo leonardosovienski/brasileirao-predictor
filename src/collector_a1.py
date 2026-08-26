@@ -87,9 +87,7 @@ class OddsPapiClient:
         return response.json()
 
     def fixtures(self, start: str, end: str) -> list[dict[str, Any]]:
-        payload = self._get(
-            "fixtures", sportId=10, tournamentId=TOURNAMENT_ID, **{"from": start, "to": end}
-        )
+        payload = self._get("fixtures", sportId=10, tournamentId=TOURNAMENT_ID, **{"from": start, "to": end})
         if not isinstance(payload, list):
             raise RuntimeError("payload de fixtures inválido")
         return [item for item in payload if isinstance(item, dict)]
@@ -114,8 +112,7 @@ class SnapshotStore:
     @staticmethod
     def _identity(snapshot: dict[str, Any]) -> tuple[Any, ...]:
         return tuple(
-            snapshot[key]
-            for key in ("source_event_id", "bookmaker", "market", "selection", "line", "captured_at")
+            snapshot[key] for key in ("source_event_id", "bookmaker", "market", "selection", "line", "captured_at")
         )
 
     def quarantine(self, reason: str, payload: dict[str, Any]) -> None:
@@ -216,13 +213,15 @@ def build_snapshots(
     home_result = aliases.resolve(str(payload.get("participant1Name", "")))
     away_result = aliases.resolve(str(payload.get("participant2Name", "")))
     if not home_result.canonical or not away_result.canonical:
-        return [], [{
-            "reason": "unknown_team_alias",
-            "home": payload.get("participant1Name"),
-            "away": payload.get("participant2Name"),
-            "home_suggestion": home_result.suggestion,
-            "away_suggestion": away_result.suggestion,
-        }]
+        return [], [
+            {
+                "reason": "unknown_team_alias",
+                "home": payload.get("participant1Name"),
+                "away": payload.get("participant2Name"),
+                "home_suggestion": home_result.suggestion,
+                "away_suggestion": away_result.suggestion,
+            }
+        ]
     kickoff = str(payload["startTime"])
     if captured_at >= parse_utc(kickoff):
         raise ValueError("captured_at must be strictly before kickoff_at")
@@ -285,8 +284,7 @@ def compute_daily_metrics(
         "freshness": None
         if not snapshots
         else max(
-            (parse_utc(item["kickoff_at"]) - parse_utc(item["captured_at"])).total_seconds()
-            for item in snapshots
+            (parse_utc(item["kickoff_at"]) - parse_utc(item["captured_at"])).total_seconds() for item in snapshots
         ),
         "identity_resolution_rate": 1.0 if snapshots else 0.0,
         "conflict_rate": conflicts / len(snapshots) if snapshots else 0.0,

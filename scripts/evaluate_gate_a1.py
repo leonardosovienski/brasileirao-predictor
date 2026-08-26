@@ -26,11 +26,13 @@ def evaluate(metrics_root: Path) -> dict[str, Any]:
     days = [date.fromisoformat(path.stem) for path in files]
     audit = load_json(metrics_root / "manual_audit.json", {})
     tests = load_json(metrics_root / "test_attestation.json", {})
+
     def minimum(field: str, default: float = 0.0) -> float:
         return min((float(item.get(field, default)) for item in metrics), default=default)
 
     def maximum(field: str, default: float = float("inf")) -> float:
         return max((float(item.get(field, default)) for item in metrics), default=default)
+
     criteria = {
         "sources_5_soft_plus_reference": bool(metrics)
         and all(item.get("reference_present") and int(item.get("soft_books_count", 0)) >= 5 for item in metrics),
