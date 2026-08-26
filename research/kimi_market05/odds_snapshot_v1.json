@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/leonardosovienski/brasileirao-predictor/schemas/odds_snapshot_v1.json",
+  "title": "OddsSnapshot v1 — MARKET-05 Gate A1",
+  "type": "object",
+  "required": [
+    "snapshot_id", "event_id", "bookmaker", "market", "selection",
+    "odd", "captured_at", "kickoff_at", "source_id", "mapping_version",
+    "market_status", "hash_prev"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 dos campos canônicos"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+\\|\\d{4}\\|[a-z0-9_-]+\\|[a-z0-9_-]+\\|\\d{4}-\\d{2}-\\d{2}$",
+      "description": "league|season|canonical_home|canonical_away|kickoff_date"
+    },
+    "bookmaker": {
+      "type": "string",
+      "minLength": 1,
+      "description": "nome canônico da casa (tabela versionada)"
+    },
+    "market": {
+      "type": "string",
+      "enum": ["1X2", "OU", "BTTS", "DC"]
+    },
+    "line": {
+      "type": ["number", "null"],
+      "description": "obrigatório para OU; null em 1X2/BTTS/DC"
+    },
+    "selection": {
+      "type": "string",
+      "enum": ["home", "draw", "away", "over", "under", "yes", "no", "1X", "12", "X2"]
+    },
+    "odd": {
+      "type": "number",
+      "exclusiveMinimum": 1.0,
+      "maximum": 1000.0
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC obrigatório, timezone-aware"
+    },
+    "kickoff_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_id": { "type": "string", "minLength": 1 },
+    "mapping_version": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}\\.v\\d+$"
+    },
+    "market_status": {
+      "type": "string",
+      "enum": ["open", "suspended"]
+    },
+    "hash_prev": {
+      "type": "string",
+      "pattern": "^([0-9a-f]{16}|GENESIS)$"
+    },
+    "identity_status": {
+      "type": "string",
+      "enum": ["resolved", "unresolved"],
+      "description": "ausente equivale a resolved; unresolved = quarentena"
+    },
+    "conflict": {
+      "type": "boolean",
+      "description": "true quando mesma chave diverge no mesmo segundo"
+    },
+    "homologated": {
+      "type": "boolean",
+      "description": "só true após Gate A1 PASS; detector só consome true"
+    },
+    "supersedes": {
+      "type": "string",
+      "description": "snapshot_id corrigido por esta linha (append-only)"
+    }
+  }
+}
