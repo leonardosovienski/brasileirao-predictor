@@ -442,3 +442,59 @@ nova. Entregue: (1) falhas de raciocínio, (2) causas alternativas priorizadas,
 - `data/trials.json`;
 - CI completo do commit `20c5d2c`: Python 3.13/3.14, .NET, Redis e Compose
   aprovados; suíte local com 752 testes e cobertura global de 47%.
+
+## 17. Comparação histórica do mesmo padrão de erro
+
+Após a primeira versão deste dossiê, a mesma decomposição da matriz de confusão
+de 2026 foi aplicada read-only às previsões walk-forward do engine `serving` em
+2021–2024. O processamento parou em 2024; 2025 não foi carregado.
+
+| Ano | n | Accuracy | Argmax casa | Argmax empate | Recall fora | Recall empate | Recall casa | Erros “não casa → casa” |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 2021 | 180 | 52,78% | 85,00% | 0,00% | 18,75% | 0,00% | 89,90% | 75,29% dos erros |
+| 2022 | 380 | 46,32% | 85,26% | 0,00% | 19,23% | 0,00% | 92,86% | 82,35% dos erros |
+| 2023 | 380 | 45,26% | 80,00% | 0,00% | 22,12% | 0,00% | 83,71% | 74,52% dos erros |
+| 2024 | 380 | 48,68% | 81,05% | 0,00% | 29,29% | 0,00% | 86,67% | 77,95% dos erros |
+| 2026 | 225 | 47,11% | 77,78% | 0,00% | 33,93% | 0,00% | 85,29% | 73,95% dos erros |
+
+Matriz agregada 2021–2024, com linhas reais e colunas previstas na ordem
+fora/empate/casa:
+
+| Real \ previsto | Fora | Empate | Casa | Recall |
+|---|---:|---:|---:|---:|
+| Fora | 78 | 0 | 261 | 23,01% |
+| Empate | 78 | 0 | 278 | 0,00% |
+| Casa | 75 | 0 | 550 | 88,00% |
+
+No total foram 1.320 previsões, accuracy 47,58%, 82,50% de argmax casa e 692
+erros. Desses erros, 539 (77,89%) eram empate ou vitória visitante que o modelo
+classificou como vitória da casa.
+
+Portanto o mecanismo observado em 2026 **não é um acidente daquele ano**. É uma
+assinatura estável da regra de decisão atual. Há inclusive melhora gradual do
+recall de vitória visitante — 18,75% em 2021 para 33,93% em 2026 — e redução da
+frequência de argmax casa, mas a assimetria continua grande.
+
+### O que mudou em 2026
+
+| Ano | `p_draw` médio | empate real | previsto − real |
+|---|---:|---:|---:|
+| 2021 | 30,04% | 27,22% | +2,81 pp |
+| 2022 | 27,80% | 28,42% | −0,62 pp |
+| 2023 | 26,47% | 25,79% | +0,68 pp |
+| 2024 | 26,41% | 26,58% | −0,17 pp |
+| 2026 | 25,02% | 29,78% | **−4,76 pp** |
+
+Em 2021–2024, a probabilidade marginal de empate estava próxima da frequência
+real, apesar de empate nunca vencer o argmax. Em 2026, além da velha limitação
+do argmax, apareceu subestimação marginal maior de empate.
+
+Conclusão refinada:
+
+1. **Estrutural e recorrente:** o modelo escolhe casa demais e nunca escolhe
+   empate como classe; a maioria dos erros tem o mesmo sentido em todos os anos.
+2. **Não necessariamente defeito probabilístico histórico:** até 2024, a média
+   de `p_draw` acompanhava a frequência real, mostrando que argmax e calibração
+   são problemas diferentes.
+3. **Sinal específico de 2026:** o gap marginal de empate aumentou para −4,76
+   pp. Isso merece monitoramento, mas ainda não autoriza recalibração pós-hoc.
