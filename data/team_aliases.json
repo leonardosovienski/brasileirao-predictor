@@ -1,0 +1,27 @@
+{
+  "mapping_version": "teams-2026-08-24",
+  "source_id": "oddspapi_v4",
+  "aliases": {
+    "Botafogo FR RJ": "botafogo",
+    "CA Paranaense PR": "athletico-pr",
+    "Athletico Paranaense": "athletico-pr",
+    "Atletico Mineiro MG": "atletico-mg",
+    "EC Bahia BA": "bahia",
+    "Chapecoense SC": "chapecoense",
+    "SC Corinthians SP": "corinthians",
+    "Coritiba PR": "coritiba",
+    "Cruzeiro MG": "cruzeiro",
+    "CR Flamengo RJ": "flamengo",
+    "Fluminense FC RJ": "fluminense",
+    "Gremio FB Porto Alegrense RS": "gremio",
+    "SC Internacional RS": "internacional",
+    "Mirassol FC SP": "mirassol",
+    "SE Palmeiras SP": "palmeiras",
+    "Red Bull Bragantino SP": "red-bull-bragantino",
+    "Clube do Remo PA": "remo",
+    "Santos FC SP": "santos",
+    "Sao Paulo FC SP": "sao-paulo",
+    "CR Vasco da Gama RJ": "vasco-da-gama",
+    "EC Vitoria BA": "vitoria"
+  }
+}

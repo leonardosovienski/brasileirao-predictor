@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "odds_snapshot_v1.json",
+  "title": "Odds snapshot v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "snapshot_id", "source_id", "source_event_id",
+    "event_id", "bookmaker", "market", "selection", "line", "odds",
+    "status", "identity_status", "captured_at", "kickoff_at",
+    "mapping_version", "homologated", "hash_prev", "hash_self", "supersedes"
+  ],
+  "properties": {
+    "schema_version": {"const": "odds_snapshot/1"},
+    "snapshot_id": {"type": "string", "minLength": 16},
+    "source_id": {"const": "oddspapi_v4"},
+    "source_event_id": {"type": "string", "minLength": 1},
+    "event_id": {"type": "string", "pattern": "^br-serie-a\\|2026\\|[^|]+\\|[^|]+\\|\\d{4}-\\d{2}-\\d{2}$"},
+    "bookmaker": {
+      "enum": ["pinnacle", "betano.bet.br", "estrelabet", "sportingbet.bet.br", "superbet.bet.br", "kto", "pixbet"]
+    },
+    "market": {"enum": ["1x2", "ou2.5", "btts"]},
+    "selection": {"enum": ["home", "draw", "away", "over", "under", "yes", "no"]},
+    "line": {"type": ["number", "null"]},
+    "odds": {"type": "number", "exclusiveMinimum": 1},
+    "status": {"enum": ["active", "suspended", "closed"]},
+    "identity_status": {"enum": ["normal", "unverified"]},
+    "captured_at": {"type": "string", "format": "date-time"},
+    "kickoff_at": {"type": "string", "format": "date-time"},
+    "mapping_version": {"type": "string", "pattern": "^teams-\\d{4}-\\d{2}-\\d{2}$"},
+    "homologated": {"const": false},
+    "hash_prev": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "hash_self": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "supersedes": {"type": ["string", "null"]}
+  }
+}

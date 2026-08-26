@@ -4,6 +4,28 @@ Versão: `project-logic-register/1`
 Data de consolidação: 2026-08-23
 Fontes: `data/trials.json`, `HANDOFF.md`, `docs/ROADMAP.md`, protocolos experimentais e discussão operacional da rodada de 22/08/2026.
 
+## Atualização MARKET-04 — 2026-08-24
+
+A Fase 0B foi executada no desenvolvimento 2021–2023 (`n=940`). OU2.5 mostrou
+resolução suficiente (`std=0,026911810`), mas BTTS não (`std=0,012855485`,
+abaixo do gate de `0,02`). O veredito global congelado é
+`NO_GO_STRUCTURAL`. O runner não carregou 2024 e não tocou 2025/2026. Assim,
+o pré-jogo com o modelo atual fica encerrado em todos os mercados; não se
+tentam novos thresholds nem resgates da H1. A trilha legítima seguinte é nova
+informação de mercado PIT por coletor Pinnacle×soft no Gate A1, em shadow.
+
+## Atualização residual — 2026-08-24
+
+O fato de OU2.5 ter passado isoladamente a variância justificou uma única
+triagem nova, pré-registrada e restrita ao desenvolvimento. MARKET-06 não
+mostrou ordenação monotônica sob Shin nem power e foi arquivada sem abrir 2024.
+Isso fecha a nuance do MARKET-04 sem confundir sobrevivência de variância com
+edge. Em paralelo, T2-2026 foi classificado como ruído de resultado: a accuracy
+10/35 é extrema sob p=0,50, mas os erros marginais de lambda ainda têm IC95
+incluindo zero. Internacional/Bahia erram em ambos os mandos, apontando força,
+não mando. O mercado oferece prêmio diagnóstico de 0,011193 RPS no painel
+2021–2024, mas esse número mede informação ausente; não prova capturabilidade.
+
 Este documento é memória do raciocínio do projeto. Ele **não é pré-registro** e não promove nenhuma ideia. Em caso de divergência de estado, prevalecem o topo do `HANDOFF.md`, o ledger `data/trials.json` e o protocolo específico versionado.
 
 ## 1. Tese central do projeto
@@ -574,3 +596,53 @@ não demonstrou ganho. O caso Internacional–Atlético-MG motivou investigar
 empates, mas um placar modal empatado não implica que a soma da classe empate
 seja maior que casa ou fora. Essa distinção está agora exposta nos
 `draw_diagnostics` e catalogada em `docs/DRAW_VARIABLE_CATALOG.md`.
+
+## 19. Consolidação e pivô após os diagnósticos (2026-08-24)
+
+O pré-jogo modelado com a informação atual está encerrado: 1X2 não apresentou
+ordenação útil da divergência; BTTS falhou estruturalmente por baixa variância;
+OU2.5 passou resolução, mas não mostrou monotonicidade em desenvolvimento e
+não justificou consumir 2024; transformações de calibração, mando, força,
+temperatura, rho, xG ensemble e ataque/defesa simples também não sobreviveram
+aos protocolos registrados.
+
+O colapso categórico de T2-2026 foi classificado como ruído de conversão de
+placar, não drift de lambda. Internacional e Bahia erraram como mandantes e
+visitantes, apontando para força escalar lenta/descalibrada, não mando
+heterogêneo. Isso é observação informativa, não licença para novo sweep: só
+vira hipótese se a trilha live morrer e houver retorno pré-registrado ao
+pré-jogo com informação PIT nova. O enriquecimento de venue está especificado
+em `docs/COVERAGE.md` e não pode ser inferido retroativamente.
+
+No benchmark 2021–2024, o prêmio teórico do mercado foi apenas `0,011193` de
+RPS, concentrado nas previsões de baixa confiança e praticamente ausente nas
+de alta confiança. O custo de adquirir escalação/contexto PIT para disputar
+esse prêmio não se justifica no estado atual.
+
+O pivô principal é o **Motor A**, coletor Pinnacle×casas soft, começando pelo
+Gate A1 em shadow. A trilha live permanece
+`HOLD_NO_LIVE_VIABILITY_GO` após o Gate L0 documental de
+`docs/experiments/LIVE_FEASIBILITY_01.md`: coverage histórica completa e custo
+compatível não foram comprovados. O único próximo passo live permitido é uma
+PoC gratuita/de catálogo da coverage Betfair Série A.
+
+Sucesso econômico nunca é accuracy isolada. Exige coorte prospectiva,
+coverage e tamanho amostral declarados, `CLV > 0`, IC95 inferior do ROI acima
+de zero e `DSR >= 0,95`, seguidos de decisão humana separada de capital.
+Accuracy de 55–60% pode descrever um nicho, mas não constitui gate nem prova
+edge sem preço, calibração, coverage e incerteza.
+
+## 20. PoC OddsPapi e ativo histórico não utilizado (2026-08-24)
+
+A PoC prospectiva da OddsPapi v4 confirmou 185 casas no mesmo evento do
+Brasileirão Série A (Botafogo×Athletico-PR) e mercado 1X2 simultâneo em
+Pinnacle + quatro casas BR: Betano, EstrelaBet, Superbet e KTO. Sportingbet BR
+apareceu sem o mercado canônico 101 e Pixbet não apareceu. Isso aprova a fonte
+para ensaio do pipeline A1; não homologa coverage por sete dias.
+
+Ativo não utilizado: a OddsPapi documenta endpoint de odds históricas
+timestamped e Pinnacle nomeado. Estado: **IDENTIFICADO, NÃO UTILIZADO**. Nenhuma
+chamada histórica foi feita nesta sessão. Ele pode futuramente reabrir o Gate
+L0 live e permitir backtest com referência nomeada, mas somente após trial ex
+ante, 2025 selado e 2026 restrito a diagnóstico. Descobrir a existência do
+endpoint não autoriza backfill nem altera o HOLD live.

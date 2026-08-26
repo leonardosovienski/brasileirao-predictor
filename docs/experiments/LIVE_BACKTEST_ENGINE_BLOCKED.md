@@ -2,8 +2,10 @@
 
 Estado: `HOLD_NO_LIVE_VIABILITY_GO`.
 
-Este arquivo é apenas um placeholder de governança. Nenhum motor live foi
-implementado porque a fase de viabilidade ainda não produziu GO documentado.
+Este arquivo é apenas um placeholder de governança. O Gate L0 documental foi
+concluído em `LIVE_FEASIBILITY_01.md` e confirmou o HOLD: nenhuma combinação
+comprovou simultaneamente coverage histórica da Série A, replay executável e
+custo dentro do teto pessoal. Nenhum motor live foi implementado.
 
 ## Condições para desbloqueio
 

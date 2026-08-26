@@ -63,3 +63,17 @@ def test_protocolo_completo_declara_os_dois_lados_e_dez_celulas() -> None:
     assert result["declared_cells"] == 10
     assert set(result["selections"]) == {"side_a", "side_b"}
     assert all(item["permutation"]["n"] == 2 for item in result["selections"].values())
+
+
+def test_evaluate_reports_lambda_total_distribution() -> None:
+    rows = _rows([0.35, 0.45, 0.55])
+    for row, value in zip(rows, (2.0, 2.5, 3.0)):
+        row["lambda_total"] = value
+
+    summary = m.evaluate(rows)["lambda_total"]
+
+    assert summary["n"] == 3
+    assert summary["mean"] == 2.5
+    assert summary["min"] == 2.0
+    assert summary["max"] == 3.0
+    assert summary["range"] == 1.0

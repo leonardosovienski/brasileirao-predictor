@@ -48,3 +48,13 @@ Somente se ambos os desvios e ambas as coberturas passarem, para OU2.5 e BTTS:
 
 GO exige monotonicidade, amostra suficiente em todas as faixas observadas e
 taxa nula de monotonicidade `<5%`. Nada nesta fase habilita capital.
+
+## Resultado congelado — 2026-08-24
+
+Em 2021–2023, após burn-in, `n=940`. OU2.5 passou o gate de resolução com
+`std=0,026911810`; BTTS falhou com `std=0,012855485 < 0,02`. O veredito global
+é **`NO_GO_STRUCTURAL`**. A cobertura no desenvolvimento foi 808/940 (85,96%)
+para OU2.5 e 809/940 (86,06%) para BTTS, mas não sobrepõe o gate estrutural.
+O runner encerrou com `validation_2024_loaded=false`; 2024, 2025 e 2026 não
+foram lidos. O protocolo completo, permutações e exploração bônus H1 não foram
+executados.

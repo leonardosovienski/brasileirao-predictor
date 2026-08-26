@@ -465,9 +465,9 @@
       "capital_enabled": false
     },
     "sharpe": null,
-    "notes": "PRÉ-REGISTRO implementado, ainda não executado: se o desvio-padrão de OU2.5 ou BTTS ficar abaixo de 0,02 no desenvolvimento, encerra como NO_GO_STRUCTURAL sem carregar 2024. O protocolo completo só roda se variância e cobertura passarem. Execução bloqueada porque data/matches.db operacional não está disponível neste checkout.",
-    "status": "pre-registrada",
-    "test_period": ["2021-01-01", "2024-12-31"],
+    "notes": "RESULTADO 2026-08-24: NO_GO_STRUCTURAL no desenvolvimento 2021-2023, n=940 após burn-in. OU2.5 std=0.026911810, variância=0.000724246 e coverage=808/940 (85.96%); BTTS std=0.012855485, variância=0.000165263 e coverage=809/940 (86.06%). Como BTTS ficou abaixo do threshold congelado de 0.02, o runner encerrou antes da validação: validation_2024_loaded=false; 2024, 2025 e 2026 não foram consumidos. O protocolo completo, as permutações e a pergunta bônus H1 não foram executados. Capital permanece bloqueado.",
+    "status": "refutada",
+    "test_period": ["2021-01-01", "2023-12-31"],
     "metric": "roi"
   },
   {
@@ -540,7 +540,7 @@
       "capital_enabled": false
     },
     "sharpe": null,
-    "notes": "HOLD_NO_LIVE_VIABILITY_GO. Somente placeholder documental foi criado. Motor live permanece proibido até feed histórico, preços, suspensões, delay e custo compatível serem comprovados.",
+    "notes": "L0 DOCUMENTAL executado em 2026-08-24, sem teste estatístico, compra ou coleta: HOLD_NO_LIVE_VIABILITY_GO. (a) NÃO: eventos históricos timestamped completos >=2 temporadas da Série A não comprovados sob licença pessoal; (b) NÃO: Betfair Historical é tecnicamente adequado desde 2015, mas coverage específica de duas temporadas/mercados da Série A não foi comprovada, e os demais arquivos live são inadequados ou não documentados; (c) NÃO: API-Football Pro USD228/ano + Betfair ADVANCED GBP699/ano excede teto pessoal declarado de USD600/ano; (d) SIM apenas para Betfair Exchange, cujo feed traz published time, status e betDelay. Nenhum L1/modelo live autorizado. Relatório: docs/experiments/LIVE_FEASIBILITY_01.md.",
     "status": "inconclusiva",
     "metric": "coverage"
   },
@@ -577,5 +577,83 @@
     "notes": "Hipótese registrada sem dados ou resultado econômico. Detector apenas gera PAPER_CANDIDATE; scraping, arbitragem, execução e evasão de limites não foram implementados.",
     "status": "pre-registrada",
     "metric": "dsr"
+  },
+  {
+    "name": "market-06-ou25-dev-only-ordering-triage",
+    "registered_at": "2026-08-24T14:00:00Z",
+    "params": {
+      "market": "ou2.5",
+      "mechanism": "OU2.5 passou isoladamente o gate de resolução do MARKET-04; testar se divergência modelo menos mercado ordena retorno no desenvolvimento antes de decidir qualquer consumo de 2024",
+      "engine": "serving",
+      "ensemble_xg_enabled": false,
+      "development": ["2021-01-01", "2023-12-31"],
+      "validation_2024_allowed": false,
+      "sealed_holdout": "2025",
+      "diagnostic_2026_touched": false,
+      "sides": ["over", "under"],
+      "divergence_bins_pp": ["lt_-5", "-5_0", "0_5", "5_10", "ge_10"],
+      "primary_devig": "shin",
+      "sensitivity_devig": "power",
+      "permutations": 1000,
+      "permutation_strata": "calendar-month x abs-effective-Elo-diff band",
+      "target_validation_n": 380,
+      "power": 0.8,
+      "alpha": 0.05,
+      "triage_go": "same-side ROI nondecreasing across at least 3 populated bins under Shin and power; top-minus-bottom ROI >= 0.15; permutation null monotonic rate < 0.05; strongest positive bin ROI >= MDE estimated for n=380",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "RESULTADO 2026-08-24: ARCHIVE_OU25_CURRENT_RESIDUAL, somente dev 2021-2023, n=808 com odds completas; validation_2024_loaded=false. Nenhum lado teve ROI monotônico sob Shin ou power. Taxa nula de monotonicidade: Shin over=10.0%, under=21.3%; power over=15.1%, under=21.4%. Todas as faixas ficaram sem poder para ROI alvo de 5%; MDE aproximado com n=380 e odd 1.90 foi 13.67%. A célula Shin >=10pp no over teve ROI +116.7%, mas n=3 e requisito de poder 11.251, portanto é ruído extremo e não sinal. Não consumir 2024 para esta formulação; reabertura exige mecanismo novo. Capital bloqueado.",
+    "status": "refutada",
+    "test_period": ["2021-01-01", "2023-12-31"],
+    "metric": "roi"
+  },
+  {
+    "name": "observation-2026-inter-bahia-slow-reactivity",
+    "registered_at": "2026-08-24T15:00:00Z",
+    "params": {
+      "record_type": "observation_not_hypothesis",
+      "teams": ["Internacional", "Bahia"],
+      "season": "2026",
+      "errors_each": 16,
+      "mechanism_candidate": "força escalar com baixa reatividade pode atrasar quebras de elenco, técnico ou regime",
+      "activation_condition": "somente se live morrer e o projeto retornar ao pré-jogo com informação PIT nova",
+      "forbidden_now": ["new_sweep", "threshold_rescue", "training", "capital"],
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "OBSERVAÇÃO, não hipótese e não pré-registro confirmatório. O excesso de erro ocorreu como mandante e visitante, favorecendo força mal estimada em vez de mando heterogêneo. Não autoriza reabrir recência já refutada; eventual mecanismo futuro exige informação PIT nova e protocolo próprio.",
+    "status": "informativa",
+    "test_period": ["2026-01-01", "2026-08-24"],
+    "metric": "coverage"
+  },
+  {
+    "name": "market05-a1-shadow",
+    "registered_at": "2026-08-24T21:00:00Z",
+    "params": {
+      "source_id": "oddspapi_v4",
+      "mode": "economic_rehearsal",
+      "cadence": ["T-24h", "T-6h", "T-1h", "T-10m"],
+      "homologation_clock_started_at": null,
+      "start_blocker": "rotated_ODDSPAPI_KEY_not_confirmed",
+      "reference": "pinnacle",
+      "minimum_soft_books": 5,
+      "consecutive_days": 7,
+      "maximum_gap_seconds": 3600,
+      "minimum_event_coverage": 0.9,
+      "minimum_market_coverage": 0.95,
+      "minimum_continuity": 0.95,
+      "minimum_identity_resolution_rate": 0.99,
+      "maximum_conflict_rate": 0.001,
+      "minimum_manual_audit_events": 50,
+      "failure_policy": "FAIL_RESTART_CLOCK_FROM_ZERO",
+      "economic_mode_verdict": "REHEARSAL_ONLY",
+      "historical_endpoint_allowed": false,
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "Pré-registro do ensaio de pipeline A1. PoC de 2026-08-24 confirmou 185 casas no evento Botafogo x Athletico-PR e 1X2 simultâneo em Pinnacle + Betano BR + EstrelaBet + Superbet BR + KTO. Sportingbet BR existia sem mercado canônico 101 e Pixbet estava ausente. O relógio NÃO começou: a única chave fornecida foi exposta e ainda não houve confirmação de chave rotacionada. Modo econômico nunca pode emitir PASS; exige tier/cadência completa para homologação formal.",
+    "status": "pre-registrada",
+    "metric": "coverage"
   }
 ]

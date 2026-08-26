@@ -18,6 +18,8 @@ dependencies = [
   "scipy>=1.15,<2",
   "PyYAML>=6.0,<7",
   "truststore>=0.10,<1",
+  "requests>=2.32,<3",
+  "jsonschema>=4.25,<5",
 ]
 
 [project.optional-dependencies]

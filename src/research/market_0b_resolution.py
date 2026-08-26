@@ -97,6 +97,30 @@ def market_summary(
     }
 
 
+def scalar_summary(rows: list[dict[str, Any]], key: str) -> dict[str, Any]:
+    """Describe a finite scalar emitted by the walk-forward serving stack."""
+    values = [
+        float(row[key])
+        for row in rows
+        if isinstance(row.get(key), (int, float)) and math.isfinite(row[key])
+    ]
+    sd = st.pstdev(values) if len(values) > 1 else 0.0 if values else None
+    p10 = _quantile(values, 0.10) if values else None
+    p90 = _quantile(values, 0.90) if values else None
+    return {
+        "n": len(values),
+        "mean": st.mean(values) if values else None,
+        "sd": sd,
+        "variance": sd * sd if sd is not None else None,
+        "min": min(values) if values else None,
+        "max": max(values) if values else None,
+        "range": max(values) - min(values) if values else None,
+        "p10": p10,
+        "p90": p90,
+        "p10_p90_spread": p90 - p10 if p10 is not None and p90 is not None else None,
+    }
+
+
 def evaluate(rows: list[dict[str, Any]]) -> dict[str, Any]:
     ou25 = market_summary(rows, "p_over", "market_odds_ou25", threshold_var=THRESHOLD_VAR["ou25"])
     btts = market_summary(rows, "p_btts", "market_odds_btts", threshold_var=THRESHOLD_VAR["btts"])
@@ -113,6 +137,7 @@ def evaluate(rows: list[dict[str, Any]]) -> dict[str, Any]:
             "policy": "ANY_MARKET_SD_BELOW_THRESHOLD_IS_GLOBAL_STRUCTURAL_NO_GO",
         },
         "markets": {"ou25": ou25, "btts": btts},
+        "lambda_total": scalar_summary(rows, "lambda_total"),
         "resolution_candidates": candidates,
         "full_protocol_candidates": covered,
         "verdict": (

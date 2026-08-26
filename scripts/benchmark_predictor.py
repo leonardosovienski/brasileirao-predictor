@@ -125,7 +125,7 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
     try:
         rows = conn.execute(
             "SELECT m.date, m.home_team, m.away_team, m.home_score, m.away_score, s.kickoff_at, "
-            "       m.tournament, m.neutral, s.home_xg, s.away_xg, "
+            "       m.tournament, m.city, m.neutral, m.event_id, s.home_xg, s.away_xg, "
             "       s.odds_home, s.odds_draw, s.odds_away, "
             "       s.odds_home_open, s.odds_draw_open, s.odds_away_open, "
             "       s.odds_over, s.odds_under, s.odds_btts_yes, s.odds_btts_no "
@@ -144,7 +144,9 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
         asc,
         kickoff_at,
         tournament,
+        city,
         neutral,
+        event_id,
         home_xg,
         away_xg,
         oh,
@@ -166,7 +168,9 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
                 "date": d,
                 "has_real_kickoff": kickoff_at is not None,
                 "tournament": tournament,
+                "city": city,
                 "neutral": int(neutral or 0),
+                "event_id": event_id,
                 "market_odds_1x2": (oh, od, oa),
                 "market_open_odds_1x2": (oho, odo, oao),
                 "market_odds_ou25": (oo, ou),
@@ -338,11 +342,18 @@ def _run_walkforward(
                 "p_loss": p_loss,
                 "p_over": p_over,
                 "p_btts": p_btts,
+                "lambda_home": lam,
+                "lambda_away": mu,
                 "lambda_total": lam + mu,
                 "effective_elo_diff": pred.metadata.get("effective_elo_diff"),
                 "actual_1x2": _outcomes_1x2(obs["result"]["home_goals"], obs["result"]["away_goals"]),
                 "actual_over": int(obs["result"]["home_goals"] + obs["result"]["away_goals"] > OU_LINE),
                 "actual_btts": int(obs["result"]["home_goals"] > 0 and obs["result"]["away_goals"] > 0),
+                "home_score": obs["result"]["home_goals"],
+                "away_score": obs["result"]["away_goals"],
+                "city": obs.get("city"),
+                "neutral": obs.get("neutral", 0),
+                "event_id": obs.get("event_id"),
                 "market_odds_1x2": obs.get("market_odds_1x2"),
                 "market_open_odds_1x2": obs.get("market_open_odds_1x2"),
                 "market_odds_ou25": obs.get("market_odds_ou25"),

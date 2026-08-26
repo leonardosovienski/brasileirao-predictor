@@ -8,6 +8,7 @@
 !/data/trials.json
 !/data/trials.harness_attestation.json
 !/data/teams_brasileirao.json
+!/data/team_aliases.json
 *.db
 *.log
 events.jsonl

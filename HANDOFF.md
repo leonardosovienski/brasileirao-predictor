@@ -1,5 +1,90 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — GATE A1 IMPLEMENTADO, ENSAIO AGUARDA CHAVE NOVA (2026-08-24)
+>
+> A PoC OddsPapi v4 passou no fixture Botafogo×Athletico-PR: 185 casas no
+> evento e 1X2 simultâneo em Pinnacle + Betano BR + EstrelaBet + Superbet BR
+> + KTO. O coletor A1 foi implementado em modo econômico, sempre
+> `homologated=false`, sem ligação com `structural_edge.py`, sem histórico e
+> sem saída financeira. Os 17 contratos estão verdes.
+>
+> **Shadow ativo: NÃO. Relógio de 7 dias: NÃO INICIADO.** A chave fornecida
+> anteriormente foi exposta e não houve confirmação de uma chave rotacionada.
+> Nunca instalar tarefa com essa chave. Após configurar uma chave NOVA apenas
+> no ambiente do usuário, executar:
+> `[Environment]::SetEnvironmentVariable('ODDSPAPI_KEY','<NOVA_CHAVE>','User')`;
+> abra um novo PowerShell, rode
+> `uv run python scripts/collect_odds_a1.py --discover` e então
+> `powershell -ExecutionPolicy Bypass -File scripts/install_collector_a1_task.ps1`.
+> As tarefas documentadas são discovery semanal, coleta local a cada 15 min e
+> métricas diárias. O modo econômico custa `4×60+5=245` requests/mês e é
+> somente `REHEARSAL_ONLY`; continuity não é mensurável e nenhum PASS formal
+> pode ser emitido. Ao fim de sete dias, rodar
+> `uv run python scripts/evaluate_gate_a1.py`.
+>
+> Validação final: 17/17 contratos; suíte 752 passed, 1 deselected, 3 warnings
+> conhecidos; Ruff verde; Pyright 0/0; `ci_check.py` 5/5 com smokes verdes.
+> Ledger: 26 registros únicos, todos com status. `ODDSPAPI_KEY` não está
+> configurada e nenhuma tarefa `brasileirao-a1-*` foi instalada. Sem commit ou
+> push.
+
+> ## CHECKPOINT — LIVE FEASIBILITY L0 (2026-08-24) — FONTE DA VERDADE ATUAL
+>
+> Pesquisa documental concluída em `docs/experiments/LIVE_FEASIBILITY_01.md`.
+> Gate L0: eventos históricos completos por duas temporadas **NÃO comprovados**;
+> odds in-play completas **NÃO comprovadas**; custo mínimo plausível **acima**
+> do teto pessoal de USD 600/ano; simulação de suspensão/delay **SIM apenas no
+> Betfair Exchange**. Veredito: `HOLD_NO_LIVE_VIABILITY_GO`. Não criar motor,
+> treinar modelo nem comprar dados. Próxima ação única: PoC gratuita/de catálogo
+> da coverage Betfair Série A; se exigir pagamento, priorizar Motor A / Gate A1.
+>
+> O SQLite operacional está presente neste workspace, mas é artefato local fora
+> do Git. Em checkout limpo sua ausência é esperada, e os smokes dependentes de
+> banco devem pular/falhar de modo ambiental explícito. Bootstrap reproduzível:
+> `uv sync --all-extras --locked`; depois `Test-Path data/matches.db` e
+> `uv run python scripts/ci_check.py`.
+>
+> Validação desta sessão: ledger JSON válido (25 nomes únicos, todos com
+> status), 735 passed, 1 deselected, 3 warnings conhecidos; Ruff verde;
+> Pyright 0 erros/0 warnings; `ci_check.py` com as cinco barreiras e smokes de
+> pré-jogo/live verdes. Nenhum commit ou push.
+
+> ## CHECKPOINT — DIAGNÓSTICOS RESIDUAIS E OU2.5 DEV-ONLY (2026-08-24) — FONTE DA VERDADE ATUAL
+>
+> A trial nova MARKET-06 foi registrada antes da ordenação e executada somente
+> em 2021–2023 (`n=808` com odds). OU2.5 não apresentou monotonicidade em
+> nenhum lado sob Shin ou power; taxas nulas ficaram entre 10,0% e 21,4% e a
+> MDE aproximada para `n=380`, odd 1,90, foi 13,67%. Veredito:
+> `ARCHIVE_OU25_CURRENT_RESIDUAL`; 2024 não foi carregado para essa trial.
+>
+> Em T2-2026, accuracy foi 10/35 (28,57%), fora do intervalo binomial 95%
+> `[12,23]` sob p=0,50. Lambdas casa `1,453 vs 1,143` e fora
+> `1,034 vs 1,114` tiveram IC95 pareados incluindo zero; veredito:
+> `RESULT_NOISE_NOT_PARAMETER_DRIFT`. Internacional e Bahia tiveram 16 erros
+> cada, com excesso tanto como mandante quanto visitante: candidato a força
+> mal estimada, não mando heterogêneo. Não existe campo de estádio/venue e
+> `city` está vazio; enriquecimento PIT permanece tarefa aberta.
+>
+> Benchmark 2021–2024 (`n=1.318`): serving RPS `0,213309`, mercado Shin
+> `0,202115`, prêmio teórico `0,011193` RPS. No recorte em que o modelo previu
+> mandante (`n=1.088`), prêmio `0,009477`. SofaScore agregado permanece
+> `DIAGNOSTIC_ONLY`; capital `LOCKED`. Relatório:
+> `docs/RELATORIO_DIAGNOSTICOS_RESIDUAIS_2026-08-24.md`.
+
+> ## CHECKPOINT — MARKET-04 FASE 0B EXECUTADA (2026-08-24) — FONTE DA VERDADE ATUAL
+>
+> O banco operacional foi confirmado por tamanho `49.508.352` bytes e SHA-256
+> `8A3A2415AAB9B8525708EE18EE7B3FB360B40031904095F5C71B35871E5946CD`.
+> O passo zero do MARKET-04 rodou em 2021–2023 (`n=940` após burn-in).
+> OU2.5 teve `std=0,026911810` e passou resolução; BTTS teve
+> `std=0,012855485 < 0,02`. Veredito global: **`NO_GO_STRUCTURAL`**.
+> O runner encerrou com `validation_2024_loaded=false`; 2024, 2025 e 2026 não
+> foram consumidos. O protocolo completo e a exploração bônus H1 não rodaram.
+> Pelo galho congelado, o pré-jogo com o modelo atual está encerrado em todos
+> os mercados. Próxima ação única: implementar/coletar snapshots PIT
+> Pinnacle×soft para o Gate A1, sempre `SHADOW_ONLY` e `CAPITAL_GATE: LOCKED`.
+> Relatório: `docs/RELATORIO_SESSAO_0B_2026-08-24.md`.
+
 > ## CHECKPOINT — MARKET-05 EDGE ESTRUTURAL SHADOW (2026-08-24)
 >
 > A proposta externa de Pinnacle sem vig versus casa soft foi revisada e
@@ -44,8 +129,10 @@
 > odd média. As únicas saídas são `CAPITAL_GATE: LOCKED` e
 > `CAPITAL_GATE: ELIGIBLE_FOR_REVIEW`; qualquer decisão é humana e externa.
 >
-> **Governança e validação:** `data/trials.json` tem 22 registros únicos, todos
-> com status. Suíte ampla: 721 passed, 1 deselected, 3 warnings numéricos
+> **Governança e validação:** a contagem de `data/trials.json` nunca deve ser
+> hardcoded no handoff; derive-a com
+> `uv run python -c "import json; print(len(json.load(open('data/trials.json', encoding='utf-8'))))"`.
+> Todos os registros têm status. Suíte ampla: 721 passed, 1 deselected, 3 warnings numéricos
 > conhecidos. Ruff verde. Pyright global e explícito dos novos módulos: 0
 > erros/0 warnings. CI estático verde; smokes de serving/live foram pulados por
 > ausência de `data/matches.db`. Nenhuma coleta, treino, validação 2024, aposta,
