@@ -497,7 +497,7 @@ Conclusão refinada:
 
 1. **Estrutural e recorrente:** o modelo escolhe casa demais e nunca escolhe
    empate como classe; a maioria dos erros tem o mesmo sentido em todos os anos.
-2. **Não necessariamente defeito probabilístico histórico:** até 2024, a média
+2. **Não necessariamente defeito probabilístico histórico:** até 2025, a média
    de `p_draw` acompanhava a frequência real, mostrando que argmax e calibração
    são problemas diferentes.
 3. **Sinal específico de 2026:** o gap marginal de empate aumentou para −4,76
