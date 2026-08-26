@@ -5,13 +5,12 @@ O coletor só é considerado implementado quando todos passarem.
 Integração esperada: copiar para tests/ do brasileirao-predictor e ajustar
 os imports para o módulo real do coletor.
 """
-import json
-from datetime import datetime, timedelta, timezone
+
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
 
-UTC = timezone.utc
 KICKOFF = datetime(2026, 9, 1, 19, 0, tzinfo=UTC)
 T0 = KICKOFF - timedelta(hours=2)
 
@@ -42,8 +41,7 @@ def make_snapshot(**over):
 class TestPIT:
     def test_pos_kickoff_rejeitado(self, collector):
         with pytest.raises(ValueError):
-            collector.ingest(make_snapshot(
-                captured_at=(KICKOFF + timedelta(seconds=1)).isoformat()))
+            collector.ingest(make_snapshot(captured_at=(KICKOFF + timedelta(seconds=1)).isoformat()))
 
     def test_exatamente_no_kickoff_rejeitado(self, collector):
         with pytest.raises(ValueError):
@@ -51,8 +49,7 @@ class TestPIT:
 
     def test_timezone_naive_rejeitado(self, collector):
         with pytest.raises(ValueError):
-            collector.ingest(make_snapshot(
-                captured_at="2026-09-01T17:00:00"))  # sem timezone
+            collector.ingest(make_snapshot(captured_at="2026-09-01T17:00:00"))  # sem timezone
 
 
 # ------------------------------------------------------------------
@@ -75,26 +72,28 @@ class TestOdds:
 class TestIdentidade:
     def test_alias_desconhecido_vai_para_quarentena(self, collector):
         result = collector.ingest_raw(
-            home="CR Flamengo",   # nome fora da alias table
+            home="CR Flamengo",  # nome fora da alias table
             away="SE Palmeiras",
-            kickoff=KICKOFF, bookmaker="bet365")
+            kickoff=KICKOFF,
+            bookmaker="bet365",
+        )
         assert result.identity_status == "unresolved"
 
     def test_fuzzy_nao_resolve_sozinho(self, collector):
         """Fuzzy matching pode sugerir, jamais resolver automaticamente."""
         result = collector.ingest_raw(
-            home="Flamengo RJ",   # variação plausível mas não registrada
+            home="Flamengo RJ",  # variação plausível mas não registrada
             away="Palmeiras SP",
-            kickoff=KICKOFF, bookmaker="bet365")
+            kickoff=KICKOFF,
+            bookmaker="bet365",
+        )
         assert result.identity_status == "unresolved"
         assert result.suggested_alias is not None  # sugestão para humano
 
     def test_event_id_canonico_estavel(self, collector):
         """Mesma partida vinda de duas fontes → mesmo event_id."""
-        e1 = collector.ingest_raw(home="Flamengo", away="Palmeiras",
-                                  kickoff=KICKOFF, bookmaker="pinnacle")
-        e2 = collector.ingest_raw(home="Flamengo", away="Palmeiras",
-                                  kickoff=KICKOFF, bookmaker="bet365")
+        e1 = collector.ingest_raw(home="Flamengo", away="Palmeiras", kickoff=KICKOFF, bookmaker="pinnacle")
+        e2 = collector.ingest_raw(home="Flamengo", away="Palmeiras", kickoff=KICKOFF, bookmaker="bet365")
         assert e1.event_id == e2.event_id
 
 
@@ -161,10 +160,8 @@ class TestMercado:
 
     def test_evento_reagendado_novo_event_id(self, collector):
         ko2 = KICKOFF + timedelta(days=1)
-        e1 = collector.ingest_raw(home="Flamengo", away="Palmeiras",
-                                  kickoff=KICKOFF, bookmaker="pinnacle")
-        e2 = collector.ingest_raw(home="Flamengo", away="Palmeiras",
-                                  kickoff=ko2, bookmaker="pinnacle")
+        e1 = collector.ingest_raw(home="Flamengo", away="Palmeiras", kickoff=KICKOFF, bookmaker="pinnacle")
+        e2 = collector.ingest_raw(home="Flamengo", away="Palmeiras", kickoff=ko2, bookmaker="pinnacle")
         assert e1.event_id != e2.event_id
 
 

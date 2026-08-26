@@ -1,13 +1,24 @@
-"""test_bet_engine.py — suíte de validação do motor. Rodar: pytest test_bet_engine.py"""
-import numpy as np
 from datetime import datetime, timedelta
-from bet_engine import (devig_proportional, devig_power, devig_shin, overround,
-                        detect_ev, detect_arb, power_analysis_n, psr, dsr,
-                        sharpe_de_retornos, roi_ic_bootstrap)
+
+import numpy as np
+from bet_engine import (
+    detect_arb,
+    detect_ev,
+    devig_power,
+    devig_proportional,
+    devig_shin,
+    dsr,
+    overround,
+    power_analysis_n,
+    psr,
+    roi_ic_bootstrap,
+    sharpe_de_retornos,
+)
 
 ODDS_EQUIL = [2.55, 3.20, 2.90]
-ODDS_FAV   = [1.57, 3.90, 5.75]
+ODDS_FAV = [1.57, 3.90, 5.75]
 ODDS_ZEBRA = [1.25, 5.50, 11.0]
+
 
 class TestDevig:
     def test_somam_um(self):
@@ -25,35 +36,52 @@ class TestDevig:
     def test_overround(self):
         assert abs(overround([2.0, 2.0]) - 1.0) < 1e-9
 
+
 class TestEV:
     def test_detecta_edge_real(self):
         ts = datetime(2026, 8, 20, 19, 30)
-        a = detect_ev([1.90, 3.40, 4.20], [2.05, 3.30, 4.10], "CasaA", "EV1",
-                      "1X2", ["h","d","a"], ev_threshold=0.03, ts_now=ts, ts_pin=ts)
+        a = detect_ev(
+            [1.90, 3.40, 4.20],
+            [2.05, 3.30, 4.10],
+            "CasaA",
+            "EV1",
+            "1X2",
+            ["h", "d", "a"],
+            ev_threshold=0.03,
+            ts_now=ts,
+            ts_pin=ts,
+        )
         assert len(a) == 1 and a[0].selection == "h" and a[0].ev > 0.03
 
     def test_staleness_bloqueia(self):
         t0 = datetime(2026, 8, 20, 19, 30)
-        a = detect_ev([1.90, 3.40, 4.20], [2.05, 3.30, 4.10], "CasaA", "EV2",
-                      "1X2", ["h","d","a"], ts_now=t0+timedelta(minutes=10), ts_pin=t0)
+        a = detect_ev(
+            [1.90, 3.40, 4.20],
+            [2.05, 3.30, 4.10],
+            "CasaA",
+            "EV2",
+            "1X2",
+            ["h", "d", "a"],
+            ts_now=t0 + timedelta(minutes=10),
+            ts_pin=t0,
+        )
         assert a == []
 
     def test_sem_edge_sem_alerta(self):
-        a = detect_ev([1.90, 3.40, 4.20], [1.80, 3.20, 3.90], "CasaA", "EV3",
-                      "1X2", ["h","d","a"], ev_threshold=0.03)
+        a = detect_ev([1.90, 3.40, 4.20], [1.80, 3.20, 3.90], "CasaA", "EV3", "1X2", ["h", "d", "a"], ev_threshold=0.03)
         assert a == []
+
 
 class TestArb:
     def test_arb_encontrada(self):
-        r = detect_arb({"A": [2.10, 3.30, 3.60], "B": [1.95, 3.60, 3.40],
-                        "P": [2.00, 3.40, 4.30]}, ["h","d","a"])
+        r = detect_arb({"A": [2.10, 3.30, 3.60], "B": [1.95, 3.60, 3.40], "P": [2.00, 3.40, 4.30]}, ["h", "d", "a"])
         assert r["arb"] and r["profit_pct"] > 0.5
-        assert abs(sum(l[3] for l in r["legs"]) - 1.0) < 1e-6
+        assert abs(sum(leg[3] for leg in r["legs"]) - 1.0) < 1e-6
 
     def test_sem_arb(self):
-        r = detect_arb({"A": [1.85, 3.30, 4.00], "B": [1.90, 3.25, 3.95]},
-                       ["h","d","a"])
+        r = detect_arb({"A": [1.85, 3.30, 4.00], "B": [1.90, 3.25, 3.95]}, ["h", "d", "a"])
         assert not r["arb"]
+
 
 class TestEstatistica:
     def test_power_cresce_com_odd(self):
