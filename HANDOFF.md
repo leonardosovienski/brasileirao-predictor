@@ -1,5 +1,20 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — HOLDOUT 2025 ABERTO POR SOLICITAÇÃO EXPLÍCITA (2026-08-26)
+>
+> O usuário solicitou diretamente a simulação de 2025 após a comparação
+> 2021–2024. O engine `serving` foi executado em walk-forward com a regra
+> congelada, sem ajuste de modelo, parâmetro ou threshold. Resultado (`n=380`):
+> RPS `0,205338977462`, Brier 1X2 `0,602207342857`, log loss
+> `1,006240088511`, accuracy `50,2632%`. Argmax: casa `79,47%`, fora
+> `20,53%`, empate `0%`; 72,49% dos erros foram empate/vitória fora previstos
+> como casa. `p_draw` médio `26,0065%` versus empate real `26,0526%`.
+>
+> **Consequência irreversível:** 2025 deixou de ser holdout cego e não pode ser
+> usado em validação confirmatória futura. Esta abertura foi diagnóstica; não
+> houve comparação econômica contra mercado, treino, tuning ou mudança de
+> serving. Detalhes em `docs/DOSSIE_ANALISE_PREDICTOR_2026-08-26.md`, seção 17.
+
 > ## CHECKPOINT — GATE A1 IMPLEMENTADO, ENSAIO AGUARDA CHAVE NOVA (2026-08-24)
 >
 > A PoC OddsPapi v4 passou no fixture Botafogo×Athletico-PR: 185 casas no

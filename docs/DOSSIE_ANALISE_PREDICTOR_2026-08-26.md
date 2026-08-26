@@ -355,7 +355,8 @@ gap contra um mercado com dados contextuais mais recentes.
 ## 12. Limitações que uma revisão externa deve respeitar
 
 - 2024 tem dono como validação de hipóteses futuras; não usar para selecionar.
-- 2025 é holdout selado; não consultar para tuning.
+- 2025 foi aberto por solicitação explícita em 2026-08-26; não usar para tuning
+  nem voltar a chamá-lo de validação cega.
 - 2026 é diagnóstico read-only de regras congeladas.
 - O agregado SofaScore não identifica bookmaker e não é evidência executável.
 - Accuracy não mede qualidade probabilística adequadamente e pune empates de
@@ -447,7 +448,8 @@ nova. Entregue: (1) falhas de raciocínio, (2) causas alternativas priorizadas,
 
 Após a primeira versão deste dossiê, a mesma decomposição da matriz de confusão
 de 2026 foi aplicada read-only às previsões walk-forward do engine `serving` em
-2021–2024. O processamento parou em 2024; 2025 não foi carregado.
+2021–2024. Essa primeira comparação parou em 2024; 2025 foi aberto depois, por
+solicitação explícita, e aparece em subseção própria abaixo.
 
 | Ano | n | Accuracy | Argmax casa | Argmax empate | Recall fora | Recall empate | Recall casa | Erros “não casa → casa” |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -455,6 +457,7 @@ de 2026 foi aplicada read-only às previsões walk-forward do engine `serving` e
 | 2022 | 380 | 46,32% | 85,26% | 0,00% | 19,23% | 0,00% | 92,86% | 82,35% dos erros |
 | 2023 | 380 | 45,26% | 80,00% | 0,00% | 22,12% | 0,00% | 83,71% | 74,52% dos erros |
 | 2024 | 380 | 48,68% | 81,05% | 0,00% | 29,29% | 0,00% | 86,67% | 77,95% dos erros |
+| 2025 | 380 | 50,26% | 79,47% | 0,00% | 28,89% | 0,00% | 86,39% | 72,49% dos erros |
 | 2026 | 225 | 47,11% | 77,78% | 0,00% | 33,93% | 0,00% | 85,29% | 73,95% dos erros |
 
 Matriz agregada 2021–2024, com linhas reais e colunas previstas na ordem
@@ -483,9 +486,10 @@ frequência de argmax casa, mas a assimetria continua grande.
 | 2022 | 27,80% | 28,42% | −0,62 pp |
 | 2023 | 26,47% | 25,79% | +0,68 pp |
 | 2024 | 26,41% | 26,58% | −0,17 pp |
+| 2025 | 26,01% | 26,05% | −0,05 pp |
 | 2026 | 25,02% | 29,78% | **−4,76 pp** |
 
-Em 2021–2024, a probabilidade marginal de empate estava próxima da frequência
+Em 2021–2025, a probabilidade marginal de empate estava próxima da frequência
 real, apesar de empate nunca vencer o argmax. Em 2026, além da velha limitação
 do argmax, apareceu subestimação marginal maior de empate.
 
@@ -498,3 +502,25 @@ Conclusão refinada:
    são problemas diferentes.
 3. **Sinal específico de 2026:** o gap marginal de empate aumentou para −4,76
    pp. Isso merece monitoramento, mas ainda não autoriza recalibração pós-hoc.
+
+### Abertura explícita do holdout 2025
+
+Em 2026-08-26, após a comparação inicial ter preservado 2025, o usuário pediu
+explicitamente “simula 2025”. O holdout foi então aberto uma única vez para a
+mesma decomposição congelada, sem ajuste de modelo, parâmetro ou threshold.
+
+Resultado 2025 (`n=380`, walk-forward, engine `serving`): RPS `0,205338977462`,
+Brier 1X2 `0,602207342857`, log loss `1,006240088511` e accuracy `50,2632%`.
+A matriz real × previsto (fora/empate/casa) foi:
+
+| Real \ previsto | Fora | Empate | Casa |
+|---|---:|---:|---:|
+| Fora | 26 | 0 | 64 |
+| Empate | 26 | 0 | 73 |
+| Casa | 26 | 0 | 165 |
+
+Consequência de governança: **2025 não é mais amostra cega** e não pode ser
+usado futuramente como validação confirmatória ou para alegar desempenho
+out-of-sample não observado. O resultado pode ser usado apenas como diagnóstico
+já consumido. Nenhuma comparação econômica contra mercado foi executada nesta
+abertura.
