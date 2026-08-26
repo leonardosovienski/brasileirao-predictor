@@ -6,6 +6,8 @@ Veja `docs/BACKFILL_POINT_IN_TIME.md` e `docs/CLOSING_LINE.md`.
 
 O mapa de armazenamento — banco, tabelas, snapshots A1, quarentena, métricas,
 ledgers, volumes e comandos de auditoria — está em [`docs/DATA_MAP.md`](docs/DATA_MAP.md).
+O dossiê consolidado sobre acertos, erros, calibração, lambdas, mercados e
+causas está em [`docs/DOSSIE_ANALISE_PREDICTOR_2026-08-26.md`](docs/DOSSIE_ANALISE_PREDICTOR_2026-08-26.md).
 
 A coleta prospectiva atual preserva contratos completos e capital bloqueado;
 operação e monitoramento: `docs/SHADOW_PROSPECTIVE_RUNBOOK.md`. H3/H5 são
