@@ -1,0 +1,268 @@
+{
+  "schema_version": "retrospective-round-replay/1",
+  "status": "DIAGNOSTIC_CONTAMINATED_NOT_CONFIRMATORY",
+  "generated_at": "2026-08-27T19:39:59.239278Z",
+  "decision_rule": "gross EV >= 5%; threshold previously inspected",
+  "odds_provenance": "sofascore aggregate; bookmaker unknown; not executable A1 price",
+  "model_state": {
+    "param_a": 0.1917314090702842,
+    "param_b": 0.6492495181550499,
+    "param_alpha": 0.00034663826469952605,
+    "param_rho": -0.00866390725199985,
+    "n_matches": 2125,
+    "config_hash": "ce8783f131b544b6",
+    "computed_at": "2026-08-24T05:39:16+00:00"
+  },
+  "summary": {
+    "games": 10,
+    "signals": 3,
+    "pnl_units": 3.5,
+    "roi": 1.1666666666666667
+  },
+  "games": [
+    {
+      "event_id": 15235430,
+      "home": "Fluminense",
+      "away": "Remo",
+      "kickoff_at": "2026-08-22T19:00:00+00:00",
+      "score": [
+        2,
+        1
+      ],
+      "captured_at": "2026-08-22T15:13:31Z",
+      "hours_before_kickoff": 3.774722222222222,
+      "probabilities_1x2": [
+        0.5959761534787112,
+        0.23255046675935828,
+        0.17147337976193047
+      ],
+      "p_over_2_5": 0.48124828245163864,
+      "signals": []
+    },
+    {
+      "event_id": 15235438,
+      "home": "Cruzeiro",
+      "away": "Flamengo",
+      "kickoff_at": "2026-08-22T23:30:00+00:00",
+      "score": [
+        2,
+        1
+      ],
+      "captured_at": "2026-08-22T20:12:51Z",
+      "hours_before_kickoff": 3.285833333333333,
+      "probabilities_1x2": [
+        0.3565246023800803,
+        0.27730187463434847,
+        0.3661735229855711
+      ],
+      "p_over_2_5": 0.43620644247534973,
+      "signals": []
+    },
+    {
+      "event_id": 15235446,
+      "home": "Internacional",
+      "away": "Atlético Mineiro",
+      "kickoff_at": "2026-08-22T21:30:00+00:00",
+      "score": [
+        0,
+        0
+      ],
+      "captured_at": "2026-08-22T20:12:50Z",
+      "hours_before_kickoff": 1.2861111111111112,
+      "probabilities_1x2": [
+        0.37601177506387157,
+        0.2771164952695077,
+        0.34687172966662067
+      ],
+      "p_over_2_5": 0.4363805117152943,
+      "signals": []
+    },
+    {
+      "event_id": 15235454,
+      "home": "Palmeiras",
+      "away": "Vasco da Gama",
+      "kickoff_at": "2026-08-23T19:00:00+00:00",
+      "score": [
+        4,
+        1
+      ],
+      "captured_at": "2026-08-22T15:13:35Z",
+      "hours_before_kickoff": 27.773611111111112,
+      "probabilities_1x2": [
+        0.7515563084745719,
+        0.16412490291175658,
+        0.0843187886136715
+      ],
+      "p_over_2_5": 0.5648889993367987,
+      "signals": []
+    },
+    {
+      "event_id": 15235444,
+      "home": "Vitória",
+      "away": "Bahia",
+      "kickoff_at": "2026-08-23T19:00:00+00:00",
+      "score": [
+        0,
+        2
+      ],
+      "captured_at": "2026-08-22T15:13:38Z",
+      "hours_before_kickoff": 27.772777777777776,
+      "probabilities_1x2": [
+        0.4197614540536407,
+        0.27415351925707493,
+        0.30608502668928467
+      ],
+      "p_over_2_5": 0.4391758206583997,
+      "signals": []
+    },
+    {
+      "event_id": 15235436,
+      "home": "Red Bull Bragantino",
+      "away": "Grêmio",
+      "kickoff_at": "2026-08-23T19:00:00+00:00",
+      "score": [
+        1,
+        0
+      ],
+      "captured_at": "2026-08-22T15:13:37Z",
+      "hours_before_kickoff": 27.773055555555555,
+      "probabilities_1x2": [
+        0.5113925207814918,
+        0.2578993949612837,
+        0.23070808425722447
+      ],
+      "p_over_2_5": 0.45496410037058044,
+      "signals": [
+        {
+          "selection": "under",
+          "odd": 1.95,
+          "gross_ev": 0.06282000427736811,
+          "won": true,
+          "pnl_units": 0.95,
+          "indication_score": 0,
+          "indication_reason": "unknown_bookmaker_and_not_proven_executable"
+        }
+      ]
+    },
+    {
+      "event_id": 15235451,
+      "home": "Chapecoense",
+      "away": "São Paulo",
+      "kickoff_at": "2026-08-23T21:30:00+00:00",
+      "score": [
+        1,
+        0
+      ],
+      "captured_at": "2026-08-22T15:13:41Z",
+      "hours_before_kickoff": 30.271944444444443,
+      "probabilities_1x2": [
+        0.2953129071530539,
+        0.27274154279520085,
+        0.4319455500517451
+      ],
+      "p_over_2_5": 0.4405166438935698,
+      "signals": []
+    },
+    {
+      "event_id": 15235435,
+      "home": "Santos",
+      "away": "Mirassol",
+      "kickoff_at": "2026-08-23T21:30:00+00:00",
+      "score": [
+        1,
+        1
+      ],
+      "captured_at": "2026-08-22T15:13:40Z",
+      "hours_before_kickoff": 30.272222222222222,
+      "probabilities_1x2": [
+        0.4593597878897113,
+        0.26869184844207766,
+        0.27194836366821096
+      ],
+      "p_over_2_5": 0.4443940392018346,
+      "signals": [
+        {
+          "selection": "under",
+          "odd": 1.95,
+          "gross_ev": 0.08343162355642253,
+          "won": true,
+          "pnl_units": 0.95,
+          "indication_score": 0,
+          "indication_reason": "unknown_bookmaker_and_not_proven_executable"
+        }
+      ]
+    },
+    {
+      "event_id": 15235437,
+      "home": "Coritiba",
+      "away": "Corinthians",
+      "kickoff_at": "2026-08-23T22:30:00+00:00",
+      "score": [
+        2,
+        1
+      ],
+      "captured_at": "2026-08-22T15:13:43Z",
+      "hours_before_kickoff": 31.27138888888889,
+      "probabilities_1x2": [
+        0.39189163120054604,
+        0.2764353785859249,
+        0.3316729902135292
+      ],
+      "p_over_2_5": 0.437020898956427,
+      "signals": [
+        {
+          "selection": "over",
+          "odd": 2.6,
+          "gross_ev": 0.13625433728671021,
+          "won": true,
+          "pnl_units": 1.6,
+          "indication_score": 0,
+          "indication_reason": "unknown_bookmaker_and_not_proven_executable"
+        }
+      ]
+    },
+    {
+      "event_id": 15235432,
+      "home": "Botafogo",
+      "away": "Athletico",
+      "kickoff_at": "2026-08-24T23:00:00+00:00",
+      "score": [
+        2,
+        3
+      ],
+      "captured_at": "2026-08-22T15:13:44Z",
+      "hours_before_kickoff": 55.77111111111111,
+      "probabilities_1x2": [
+        0.44579989135031267,
+        0.2708429359975364,
+        0.2833571726521511
+      ],
+      "p_over_2_5": 0.4423285712399296,
+      "signals": []
+    }
+  ],
+  "manifest": {
+    "database_sha256": "8a3a2415aab9b8525708ee18ee7b3fb360b40031904095f5c71b35871e5946cd",
+    "config_sha256": "8661fb3284ecb1904280c8a90a6d5ae5554ce12426967b2a972e24b36a531a42",
+    "script_sha256": "a3d1ca97c0bdcc79dd3042c58786934843dc8b7765ea11463477b964d9a94683",
+    "event_ids": [
+      15235430,
+      15235438,
+      15235446,
+      15235454,
+      15235444,
+      15235436,
+      15235451,
+      15235435,
+      15235437,
+      15235432
+    ]
+  },
+  "limitations": [
+    "model cache is consistent with a pre-round state because local results are absent, but no historical cache attestation exists",
+    "SofaScore odds do not identify bookmaker and cannot establish Pinnacle-versus-soft edge",
+    "the 5% threshold and outcomes are already observed; ROI has zero confirmatory weight",
+    "n=3 signals is far below useful statistical power"
+  ],
+  "capital_enabled": false
+}

@@ -1,0 +1,216 @@
+{
+  "schema_version": "hypothesis-error-comparison/1",
+  "hypothesis": "H12_reverse_xg_on_vs_off",
+  "control": {
+    "path": "reports\\losses_serving_v2_2021_2024.json",
+    "sha256": "1aa67a3718ab4c1b51ffeb799fe49b71faef5521ca102d07bed45f86bd525c15"
+  },
+  "treatment": {
+    "path": "reports\\losses_ensemble_xg_on_corrected_2021_2024.json",
+    "sha256": "196b08a52cf8f2cbbe9337e8c380e0e007f2c98638c42b66080bf52fcbd3feec"
+  },
+  "pairing": {
+    "paired_n": 1320,
+    "control_only": 0,
+    "treatment_only": 0
+  },
+  "overall": {
+    "n": 1320,
+    "mean_delta_treatment_minus_control": {
+      "rps": 0.00448501500833763,
+      "brier": 0.02173765949315079,
+      "log_loss": 0.02740086605772269
+    },
+    "moving_block_ci95": {
+      "rps": [
+        0.001563439455823495,
+        0.007961781396547492
+      ],
+      "brier": [
+        0.008878831013990809,
+        0.037661607305840145
+      ],
+      "log_loss": [
+        0.01105311052202804,
+        0.04751991074805651
+      ]
+    }
+  },
+  "argmax_flips": {
+    "n": 383,
+    "directions": {
+      "away->draw": 53,
+      "away->home": 31,
+      "home->away": 17,
+      "home->draw": 282
+    }
+  },
+  "confusion_control": {
+    "away->away": 78,
+    "away->home": 261,
+    "draw->away": 78,
+    "draw->home": 278,
+    "home->away": 75,
+    "home->home": 550
+  },
+  "confusion_treatment": {
+    "away->away": 63,
+    "away->draw": 75,
+    "away->home": 201,
+    "draw->away": 52,
+    "draw->draw": 97,
+    "draw->home": 207,
+    "home->away": 49,
+    "home->draw": 163,
+    "home->home": 413
+  },
+  "by_actual": {
+    "away": {
+      "n": 339,
+      "mean_delta_treatment_minus_control": {
+        "rps": 0.002128318979507526,
+        "brier": 0.045065816987490764,
+        "log_loss": 0.07544133374436993
+      },
+      "moving_block_ci95": {
+        "rps": [
+          -0.003272067121955731,
+          0.0067089865733988025
+        ],
+        "brier": [
+          0.005862999583384089,
+          0.0819623711918599
+        ],
+        "log_loss": [
+          0.011595949353008521,
+          0.13494052253548078
+        ]
+      }
+    },
+    "draw": {
+      "n": 356,
+      "mean_delta_treatment_minus_control": {
+        "rps": -0.023975924891276975,
+        "brier": -0.13064852995538098,
+        "log_loss": -0.18112074678779777
+      },
+      "moving_block_ci95": {
+        "rps": [
+          -0.03608173906832235,
+          -0.011859863819285436
+        ],
+        "brier": [
+          -0.20201451883605084,
+          -0.05873667862495275
+        ],
+        "log_loss": [
+          -0.28119296248597636,
+          -0.08020672258983576
+        ]
+      }
+    },
+    "home": {
+      "n": 625,
+      "mean_delta_treatment_minus_control": {
+        "rps": 0.02197463830119556,
+        "brier": 0.09588364037810448,
+        "log_loss": 0.12011762706129368
+      },
+      "moving_block_ci95": {
+        "rps": [
+          0.01183409088960338,
+          0.03199646465580929
+        ],
+        "brier": [
+          0.049419350295287504,
+          0.1424741940238671
+        ],
+        "log_loss": [
+          0.0625150284762667,
+          0.17766000698017423
+        ]
+      }
+    }
+  },
+  "by_control_error": {
+    "correct": {
+      "n": 628,
+      "mean_delta_treatment_minus_control": {
+        "rps": 0.02529994605506798,
+        "brier": 0.10081776075096316,
+        "log_loss": 0.12590654950882763
+      },
+      "moving_block_ci95": {
+        "rps": [
+          0.016020865126559453,
+          0.03455151553182411
+        ],
+        "brier": [
+          0.05611181242504478,
+          0.14547301513143243
+        ],
+        "log_loss": [
+          0.07151589434707066,
+          0.18028954894860044
+        ]
+      }
+    },
+    "wrong_to_away": {
+      "n": 153,
+      "mean_delta_treatment_minus_control": {
+        "rps": -0.015504789198446582,
+        "brier": -0.05092692990157678,
+        "log_loss": -0.06889525339395898
+      },
+      "moving_block_ci95": {
+        "rps": [
+          -0.01977184309837994,
+          -0.009841450449815417
+        ],
+        "brier": [
+          -0.07109755741690864,
+          -0.02584251463090175
+        ],
+        "log_loss": [
+          -0.09612564401163985,
+          -0.03462695269117907
+        ]
+      }
+    },
+    "wrong_to_draw": {
+      "n": 0,
+      "mean_delta_treatment_minus_control": {
+        "rps": null,
+        "brier": null,
+        "log_loss": null
+      },
+      "moving_block_ci95": {
+        "rps": null,
+        "brier": null,
+        "log_loss": null
+      }
+    },
+    "wrong_to_home": {
+      "n": 539,
+      "mean_delta_treatment_minus_control": {
+        "rps": -0.014092604015240621,
+        "brier": -0.049773697487392535,
+        "log_loss": -0.06003561433408918
+      },
+      "moving_block_ci95": {
+        "rps": [
+          -0.018632051679369096,
+          -0.00985192787843364
+        ],
+        "brier": [
+          -0.07007420606221507,
+          -0.03084524029155495
+        ],
+        "log_loss": [
+          -0.08567170984077264,
+          -0.036954978367054137
+        ]
+      }
+    }
+  }
+}

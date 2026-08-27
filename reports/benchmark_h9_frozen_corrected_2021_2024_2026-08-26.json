@@ -1,0 +1,927 @@
+{
+  "baseline": "climatology",
+  "baseline_coverage": {
+    "bookmaker": null,
+    "devig_method": null,
+    "economic_evidence_eligible": false,
+    "market": null,
+    "paired_n": 1320,
+    "provenance": null,
+    "rate": 1.0,
+    "requested_n": 1320
+  },
+  "block_guard": {
+    "blocked_observations": 2,
+    "deferred_refits": 0,
+    "xg_fit_failures": null
+  },
+  "bootstrap": {
+    "block_length": 21,
+    "n_boot": 1000,
+    "scheme": "moving",
+    "seed": 13
+  },
+  "diagnostic": {
+    "accuracy_1x2": 0.475758,
+    "coverage": 1.0,
+    "lambda_total_variance": 0.009334,
+    "ou25_hit_rate": 0.565152
+  },
+  "engine": "h9_frozen",
+  "ensemble_xg": {
+    "blend_weight": null,
+    "enabled": false
+  },
+  "generated_at": "2026-08-27T00:08:32+00:00",
+  "guardrails_ou25": {
+    "calibration_slope": 2.179078,
+    "ece": 0.016023,
+    "resolution": 0.001447,
+    "sharpness": 0.000584
+  },
+  "half_life_days": 120.0,
+  "kickoff_coverage": {
+    "n_date_only_fallback": 0,
+    "n_observations": 1520,
+    "n_real_kickoff": 1520
+  },
+  "metrics": [
+    {
+      "baseline_value": 0.221284,
+      "delta": -0.009583,
+      "delta_ci95": [
+        -0.01392,
+        -0.005498
+      ],
+      "is_primary": true,
+      "metric": "rps",
+      "n": 1320,
+      "value": 0.211701
+    },
+    {
+      "baseline_value": 0.64013,
+      "delta": -0.021183,
+      "delta_ci95": [
+        -0.030443,
+        -0.012339
+      ],
+      "is_primary": false,
+      "metric": "brier_1x2",
+      "n": 1320,
+      "value": 0.618947
+    },
+    {
+      "baseline_value": 1.060805,
+      "delta": -0.028873,
+      "delta_ci95": [
+        -0.042295,
+        -0.0158
+      ],
+      "is_primary": false,
+      "metric": "log_loss",
+      "n": 1320,
+      "value": 1.031932
+    },
+    {
+      "baseline_value": null,
+      "delta": null,
+      "delta_ci95": null,
+      "is_primary": false,
+      "metric": "brier_ou25",
+      "n": 1320,
+      "value": 0.491361
+    }
+  ],
+  "model_tag": "H9_FROZEN_POLICY",
+  "n": 1320,
+  "period": {
+    "end": "2024-12-31",
+    "start": "2021-01-01"
+  },
+  "retrain_every": 100,
+  "schema_version": "benchmark-predictor/1",
+  "serves_production_model": false,
+  "skill_scores": {
+    "brier_skill_score_vs_climatology": {
+      "delta_ci95": [
+        0.012339,
+        0.030443
+      ],
+      "value": 0.033091
+    },
+    "rps_skill_score_vs_climatology": {
+      "delta_ci95": [
+        0.005498,
+        0.01392
+      ],
+      "value": 0.043307
+    }
+  },
+  "strata": {
+    "by_lambda_total_bucket": {
+      "[2,3)": {
+        "brier_1x2": 0.620614,
+        "brier_ou25": 0.491833,
+        "diagnostic_accuracy_1x2": 0.474164,
+        "diagnostic_ou25_hit_rate": 0.56383,
+        "log_loss": 1.034344,
+        "n": 1316,
+        "rps": 0.212268
+      },
+      "[3,4)": {
+        "brier_1x2": 0.070552,
+        "brier_ou25": 0.335903,
+        "diagnostic_accuracy_1x2": 1.0,
+        "diagnostic_ou25_hit_rate": 1.0,
+        "log_loss": 0.23866,
+        "n": 4,
+        "rps": 0.025026
+      }
+    },
+    "by_month": {
+      "2021-09": {
+        "brier_1x2": 0.653139,
+        "brier_ou25": 0.488601,
+        "diagnostic_accuracy_1x2": 0.428571,
+        "diagnostic_ou25_hit_rate": 0.642857,
+        "log_loss": 1.084935,
+        "n": 14,
+        "rps": 0.191649
+      },
+      "2021-10": {
+        "brier_1x2": 0.609785,
+        "brier_ou25": 0.477841,
+        "diagnostic_accuracy_1x2": 0.464789,
+        "diagnostic_ou25_hit_rate": 0.619718,
+        "log_loss": 1.018515,
+        "n": 71,
+        "rps": 0.194811
+      },
+      "2021-11": {
+        "brier_1x2": 0.538971,
+        "brier_ou25": 0.487581,
+        "diagnostic_accuracy_1x2": 0.626866,
+        "diagnostic_ou25_hit_rate": 0.567164,
+        "log_loss": 0.916654,
+        "n": 67,
+        "rps": 0.186084
+      },
+      "2021-12": {
+        "brier_1x2": 0.590776,
+        "brier_ou25": 0.466195,
+        "diagnostic_accuracy_1x2": 0.5,
+        "diagnostic_ou25_hit_rate": 0.678571,
+        "log_loss": 0.995847,
+        "n": 28,
+        "rps": 0.211332
+      },
+      "2022-04": {
+        "brier_1x2": 0.638747,
+        "brier_ou25": 0.500662,
+        "diagnostic_accuracy_1x2": 0.441176,
+        "diagnostic_ou25_hit_rate": 0.529412,
+        "log_loss": 1.057752,
+        "n": 34,
+        "rps": 0.214904
+      },
+      "2022-05": {
+        "brier_1x2": 0.650085,
+        "brier_ou25": 0.475691,
+        "diagnostic_accuracy_1x2": 0.422222,
+        "diagnostic_ou25_hit_rate": 0.644444,
+        "log_loss": 1.078397,
+        "n": 45,
+        "rps": 0.202501
+      },
+      "2022-06": {
+        "brier_1x2": 0.664481,
+        "brier_ou25": 0.474628,
+        "diagnostic_accuracy_1x2": 0.377049,
+        "diagnostic_ou25_hit_rate": 0.655738,
+        "log_loss": 1.096441,
+        "n": 61,
+        "rps": 0.220518
+      },
+      "2022-07": {
+        "brier_1x2": 0.58722,
+        "brier_ou25": 0.502644,
+        "diagnostic_accuracy_1x2": 0.59322,
+        "diagnostic_ou25_hit_rate": 0.508475,
+        "log_loss": 0.988554,
+        "n": 59,
+        "rps": 0.215682
+      },
+      "2022-08": {
+        "brier_1x2": 0.634903,
+        "brier_ou25": 0.453713,
+        "diagnostic_accuracy_1x2": 0.463415,
+        "diagnostic_ou25_hit_rate": 0.707317,
+        "log_loss": 1.059522,
+        "n": 41,
+        "rps": 0.20409
+      },
+      "2022-09": {
+        "brier_1x2": 0.630997,
+        "brier_ou25": 0.467277,
+        "diagnostic_accuracy_1x2": 0.45,
+        "diagnostic_ou25_hit_rate": 0.675,
+        "log_loss": 1.045551,
+        "n": 40,
+        "rps": 0.198574
+      },
+      "2022-10": {
+        "brier_1x2": 0.565094,
+        "brier_ou25": 0.506318,
+        "diagnostic_accuracy_1x2": 0.508197,
+        "diagnostic_ou25_hit_rate": 0.491803,
+        "log_loss": 0.952145,
+        "n": 61,
+        "rps": 0.194947
+      },
+      "2022-11": {
+        "brier_1x2": 0.634637,
+        "brier_ou25": 0.508922,
+        "diagnostic_accuracy_1x2": 0.410256,
+        "diagnostic_ou25_hit_rate": 0.487179,
+        "log_loss": 1.055923,
+        "n": 39,
+        "rps": 0.233653
+      },
+      "2023-04": {
+        "brier_1x2": 0.538987,
+        "brier_ou25": 0.53197,
+        "diagnostic_accuracy_1x2": 0.62069,
+        "diagnostic_ou25_hit_rate": 0.37931,
+        "log_loss": 0.92357,
+        "n": 29,
+        "rps": 0.197156
+      },
+      "2023-05": {
+        "brier_1x2": 0.633861,
+        "brier_ou25": 0.493624,
+        "diagnostic_accuracy_1x2": 0.431373,
+        "diagnostic_ou25_hit_rate": 0.568627,
+        "log_loss": 1.050836,
+        "n": 51,
+        "rps": 0.21703
+      },
+      "2023-06": {
+        "brier_1x2": 0.59786,
+        "brier_ou25": 0.477805,
+        "diagnostic_accuracy_1x2": 0.525,
+        "diagnostic_ou25_hit_rate": 0.625,
+        "log_loss": 0.998475,
+        "n": 40,
+        "rps": 0.21118
+      },
+      "2023-07": {
+        "brier_1x2": 0.686775,
+        "brier_ou25": 0.482882,
+        "diagnostic_accuracy_1x2": 0.375,
+        "diagnostic_ou25_hit_rate": 0.583333,
+        "log_loss": 1.124762,
+        "n": 48,
+        "rps": 0.224078
+      },
+      "2023-08": {
+        "brier_1x2": 0.567763,
+        "brier_ou25": 0.488544,
+        "diagnostic_accuracy_1x2": 0.5,
+        "diagnostic_ou25_hit_rate": 0.625,
+        "log_loss": 0.957005,
+        "n": 40,
+        "rps": 0.185882
+      },
+      "2023-09": {
+        "brier_1x2": 0.61661,
+        "brier_ou25": 0.499193,
+        "diagnostic_accuracy_1x2": 0.416667,
+        "diagnostic_ou25_hit_rate": 0.555556,
+        "log_loss": 1.029097,
+        "n": 36,
+        "rps": 0.216175
+      },
+      "2023-10": {
+        "brier_1x2": 0.673505,
+        "brier_ou25": 0.487039,
+        "diagnostic_accuracy_1x2": 0.444444,
+        "diagnostic_ou25_hit_rate": 0.648148,
+        "log_loss": 1.114895,
+        "n": 54,
+        "rps": 0.244952
+      },
+      "2023-11": {
+        "brier_1x2": 0.673897,
+        "brier_ou25": 0.478664,
+        "diagnostic_accuracy_1x2": 0.33871,
+        "diagnostic_ou25_hit_rate": 0.596774,
+        "log_loss": 1.111976,
+        "n": 62,
+        "rps": 0.23515
+      },
+      "2023-12": {
+        "brier_1x2": 0.530352,
+        "brier_ou25": 0.526572,
+        "diagnostic_accuracy_1x2": 0.65,
+        "diagnostic_ou25_hit_rate": 0.4,
+        "log_loss": 0.906028,
+        "n": 20,
+        "rps": 0.208196
+      },
+      "2024-04": {
+        "brier_1x2": 0.614225,
+        "brier_ou25": 0.50659,
+        "diagnostic_accuracy_1x2": 0.526316,
+        "diagnostic_ou25_hit_rate": 0.526316,
+        "log_loss": 1.023912,
+        "n": 38,
+        "rps": 0.203945
+      },
+      "2024-05": {
+        "brier_1x2": 0.691194,
+        "brier_ou25": 0.475961,
+        "diagnostic_accuracy_1x2": 0.357143,
+        "diagnostic_ou25_hit_rate": 0.642857,
+        "log_loss": 1.138114,
+        "n": 14,
+        "rps": 0.244311
+      },
+      "2024-06": {
+        "brier_1x2": 0.632359,
+        "brier_ou25": 0.49963,
+        "diagnostic_accuracy_1x2": 0.472222,
+        "diagnostic_ou25_hit_rate": 0.513889,
+        "log_loss": 1.048033,
+        "n": 72,
+        "rps": 0.215447
+      },
+      "2024-07": {
+        "brier_1x2": 0.611238,
+        "brier_ou25": 0.497564,
+        "diagnostic_accuracy_1x2": 0.53125,
+        "diagnostic_ou25_hit_rate": 0.515625,
+        "log_loss": 1.029145,
+        "n": 64,
+        "rps": 0.232926
+      },
+      "2024-08": {
+        "brier_1x2": 0.626809,
+        "brier_ou25": 0.495185,
+        "diagnostic_accuracy_1x2": 0.477273,
+        "diagnostic_ou25_hit_rate": 0.522727,
+        "log_loss": 1.049299,
+        "n": 44,
+        "rps": 0.211704
+      },
+      "2024-09": {
+        "brier_1x2": 0.559049,
+        "brier_ou25": 0.501763,
+        "diagnostic_accuracy_1x2": 0.581395,
+        "diagnostic_ou25_hit_rate": 0.511628,
+        "log_loss": 0.943191,
+        "n": 43,
+        "rps": 0.190001
+      },
+      "2024-10": {
+        "brier_1x2": 0.60907,
+        "brier_ou25": 0.48699,
+        "diagnostic_accuracy_1x2": 0.5,
+        "diagnostic_ou25_hit_rate": 0.558824,
+        "log_loss": 1.012394,
+        "n": 34,
+        "rps": 0.191868
+      },
+      "2024-11": {
+        "brier_1x2": 0.664839,
+        "brier_ou25": 0.512351,
+        "diagnostic_accuracy_1x2": 0.377778,
+        "diagnostic_ou25_hit_rate": 0.466667,
+        "log_loss": 1.088961,
+        "n": 45,
+        "rps": 0.211697
+      },
+      "2024-12": {
+        "brier_1x2": 0.648505,
+        "brier_ou25": 0.516205,
+        "diagnostic_accuracy_1x2": 0.461538,
+        "diagnostic_ou25_hit_rate": 0.461538,
+        "log_loss": 1.073407,
+        "n": 26,
+        "rps": 0.243554
+      }
+    },
+    "by_probability_bucket": {
+      "[0.3,0.4)": {
+        "brier_1x2": 0.667614,
+        "brier_ou25": 0.486543,
+        "diagnostic_accuracy_1x2": 0.359813,
+        "diagnostic_ou25_hit_rate": 0.584112,
+        "log_loss": 1.100533,
+        "n": 214,
+        "rps": 0.224414
+      },
+      "[0.4,0.5)": {
+        "brier_1x2": 0.660867,
+        "brier_ou25": 0.491246,
+        "diagnostic_accuracy_1x2": 0.407473,
+        "diagnostic_ou25_hit_rate": 0.564057,
+        "log_loss": 1.089942,
+        "n": 562,
+        "rps": 0.226351
+      },
+      "[0.5,0.6)": {
+        "brier_1x2": 0.591069,
+        "brier_ou25": 0.493296,
+        "diagnostic_accuracy_1x2": 0.548649,
+        "diagnostic_ou25_hit_rate": 0.559459,
+        "log_loss": 0.992839,
+        "n": 370,
+        "rps": 0.201954
+      },
+      "[0.6,0.7)": {
+        "brier_1x2": 0.479847,
+        "brier_ou25": 0.498807,
+        "diagnostic_accuracy_1x2": 0.686275,
+        "diagnostic_ou25_hit_rate": 0.542484,
+        "log_loss": 0.836067,
+        "n": 153,
+        "rps": 0.166306
+      },
+      "[0.7,0.8)": {
+        "brier_1x2": 0.528278,
+        "brier_ou25": 0.462765,
+        "diagnostic_accuracy_1x2": 0.65,
+        "diagnostic_ou25_hit_rate": 0.65,
+        "log_loss": 0.930561,
+        "n": 20,
+        "rps": 0.201179
+      },
+      "[0.8,0.9)": {
+        "brier_1x2": 0.055982,
+        "brier_ou25": 0.302853,
+        "diagnostic_accuracy_1x2": 1.0,
+        "diagnostic_ou25_hit_rate": 1.0,
+        "log_loss": 0.209244,
+        "n": 1,
+        "rps": 0.019561
+      }
+    },
+    "by_season": {
+      "2021": {
+        "brier_1x2": 0.583842,
+        "brier_ou25": 0.480492,
+        "diagnostic_accuracy_1x2": 0.527778,
+        "diagnostic_ou25_hit_rate": 0.611111,
+        "log_loss": 0.98224,
+        "n": 180,
+        "rps": 0.193887
+      },
+      "2022": {
+        "brier_1x2": 0.622745,
+        "brier_ou25": 0.487009,
+        "diagnostic_accuracy_1x2": 0.463158,
+        "diagnostic_ou25_hit_rate": 0.584211,
+        "log_loss": 1.03743,
+        "n": 380,
+        "rps": 0.210292
+      },
+      "2023": {
+        "brier_1x2": 0.627641,
+        "brier_ou25": 0.491879,
+        "diagnostic_accuracy_1x2": 0.452632,
+        "diagnostic_ou25_hit_rate": 0.573684,
+        "log_loss": 1.044471,
+        "n": 380,
+        "rps": 0.218887
+      },
+      "2024": {
+        "brier_1x2": 0.623085,
+        "brier_ou25": 0.500342,
+        "diagnostic_accuracy_1x2": 0.486842,
+        "diagnostic_ou25_hit_rate": 0.515789,
+        "log_loss": 1.037436,
+        "n": 380,
+        "rps": 0.214361
+      }
+    },
+    "by_team": {
+      "América Mineiro": {
+        "brier_1x2": 0.614197,
+        "brier_ou25": 0.508228,
+        "diagnostic_accuracy_1x2": 0.5,
+        "diagnostic_ou25_hit_rate": 0.5,
+        "log_loss": 1.023448,
+        "n": 46,
+        "rps": 0.226405
+      },
+      "Athletico": {
+        "brier_1x2": 0.620255,
+        "brier_ou25": 0.490657,
+        "diagnostic_accuracy_1x2": 0.515152,
+        "diagnostic_ou25_hit_rate": 0.575758,
+        "log_loss": 1.033254,
+        "n": 66,
+        "rps": 0.204291
+      },
+      "Atlético Goianiense": {
+        "brier_1x2": 0.681523,
+        "brier_ou25": 0.476253,
+        "diagnostic_accuracy_1x2": 0.297872,
+        "diagnostic_ou25_hit_rate": 0.638298,
+        "log_loss": 1.120087,
+        "n": 47,
+        "rps": 0.236148
+      },
+      "Atlético Mineiro": {
+        "brier_1x2": 0.595257,
+        "brier_ou25": 0.497926,
+        "diagnostic_accuracy_1x2": 0.507463,
+        "diagnostic_ou25_hit_rate": 0.522388,
+        "log_loss": 0.996837,
+        "n": 67,
+        "rps": 0.210007
+      },
+      "Avaí": {
+        "brier_1x2": 0.654007,
+        "brier_ou25": 0.519991,
+        "diagnostic_accuracy_1x2": 0.421053,
+        "diagnostic_ou25_hit_rate": 0.421053,
+        "log_loss": 1.081613,
+        "n": 19,
+        "rps": 0.242973
+      },
+      "Bahia": {
+        "brier_1x2": 0.629233,
+        "brier_ou25": 0.494103,
+        "diagnostic_accuracy_1x2": 0.413043,
+        "diagnostic_ou25_hit_rate": 0.543478,
+        "log_loss": 1.047403,
+        "n": 46,
+        "rps": 0.224507
+      },
+      "Botafogo": {
+        "brier_1x2": 0.602823,
+        "brier_ou25": 0.485577,
+        "diagnostic_accuracy_1x2": 0.561404,
+        "diagnostic_ou25_hit_rate": 0.596491,
+        "log_loss": 1.002709,
+        "n": 57,
+        "rps": 0.210897
+      },
+      "Ceará": {
+        "brier_1x2": 0.674476,
+        "brier_ou25": 0.486142,
+        "diagnostic_accuracy_1x2": 0.357143,
+        "diagnostic_ou25_hit_rate": 0.607143,
+        "log_loss": 1.113109,
+        "n": 28,
+        "rps": 0.210904
+      },
+      "Corinthians": {
+        "brier_1x2": 0.603322,
+        "brier_ou25": 0.487617,
+        "diagnostic_accuracy_1x2": 0.492537,
+        "diagnostic_ou25_hit_rate": 0.597015,
+        "log_loss": 1.00692,
+        "n": 67,
+        "rps": 0.182068
+      },
+      "Coritiba": {
+        "brier_1x2": 0.61327,
+        "brier_ou25": 0.47687,
+        "diagnostic_accuracy_1x2": 0.578947,
+        "diagnostic_ou25_hit_rate": 0.631579,
+        "log_loss": 1.022531,
+        "n": 38,
+        "rps": 0.222117
+      },
+      "Criciúma": {
+        "brier_1x2": 0.711625,
+        "brier_ou25": 0.49645,
+        "diagnostic_accuracy_1x2": 0.368421,
+        "diagnostic_ou25_hit_rate": 0.578947,
+        "log_loss": 1.161401,
+        "n": 19,
+        "rps": 0.221209
+      },
+      "Cruzeiro": {
+        "brier_1x2": 0.660183,
+        "brier_ou25": 0.47086,
+        "diagnostic_accuracy_1x2": 0.394737,
+        "diagnostic_ou25_hit_rate": 0.684211,
+        "log_loss": 1.087076,
+        "n": 38,
+        "rps": 0.214036
+      },
+      "Cuiabá": {
+        "brier_1x2": 0.698982,
+        "brier_ou25": 0.481454,
+        "diagnostic_accuracy_1x2": 0.333333,
+        "diagnostic_ou25_hit_rate": 0.636364,
+        "log_loss": 1.141282,
+        "n": 66,
+        "rps": 0.235037
+      },
+      "Flamengo": {
+        "brier_1x2": 0.594544,
+        "brier_ou25": 0.494909,
+        "diagnostic_accuracy_1x2": 0.567164,
+        "diagnostic_ou25_hit_rate": 0.522388,
+        "log_loss": 1.006835,
+        "n": 67,
+        "rps": 0.215167
+      },
+      "Fluminense": {
+        "brier_1x2": 0.576375,
+        "brier_ou25": 0.49274,
+        "diagnostic_accuracy_1x2": 0.560606,
+        "diagnostic_ou25_hit_rate": 0.560606,
+        "log_loss": 0.971467,
+        "n": 66,
+        "rps": 0.197463
+      },
+      "Fortaleza": {
+        "brier_1x2": 0.591734,
+        "brier_ou25": 0.476844,
+        "diagnostic_accuracy_1x2": 0.5,
+        "diagnostic_ou25_hit_rate": 0.636364,
+        "log_loss": 0.994809,
+        "n": 66,
+        "rps": 0.191291
+      },
+      "Goiás": {
+        "brier_1x2": 0.69802,
+        "brier_ou25": 0.471274,
+        "diagnostic_accuracy_1x2": 0.289474,
+        "diagnostic_ou25_hit_rate": 0.657895,
+        "log_loss": 1.146448,
+        "n": 38,
+        "rps": 0.222691
+      },
+      "Grêmio": {
+        "brier_1x2": 0.595451,
+        "brier_ou25": 0.525661,
+        "diagnostic_accuracy_1x2": 0.510638,
+        "diagnostic_ou25_hit_rate": 0.404255,
+        "log_loss": 0.996893,
+        "n": 47,
+        "rps": 0.233046
+      },
+      "Internacional": {
+        "brier_1x2": 0.573781,
+        "brier_ou25": 0.507562,
+        "diagnostic_accuracy_1x2": 0.552239,
+        "diagnostic_ou25_hit_rate": 0.507463,
+        "log_loss": 0.972596,
+        "n": 67,
+        "rps": 0.19088
+      },
+      "Juventude": {
+        "brier_1x2": 0.700462,
+        "brier_ou25": 0.488604,
+        "diagnostic_accuracy_1x2": 0.26087,
+        "diagnostic_ou25_hit_rate": 0.565217,
+        "log_loss": 1.145273,
+        "n": 46,
+        "rps": 0.222962
+      },
+      "Palmeiras": {
+        "brier_1x2": 0.4905,
+        "brier_ou25": 0.49109,
+        "diagnostic_accuracy_1x2": 0.661538,
+        "diagnostic_ou25_hit_rate": 0.569231,
+        "log_loss": 0.86018,
+        "n": 65,
+        "rps": 0.180386
+      },
+      "Red Bull Bragantino": {
+        "brier_1x2": 0.611085,
+        "brier_ou25": 0.48797,
+        "diagnostic_accuracy_1x2": 0.484848,
+        "diagnostic_ou25_hit_rate": 0.575758,
+        "log_loss": 1.022937,
+        "n": 66,
+        "rps": 0.200708
+      },
+      "Santos": {
+        "brier_1x2": 0.641548,
+        "brier_ou25": 0.496322,
+        "diagnostic_accuracy_1x2": 0.413043,
+        "diagnostic_ou25_hit_rate": 0.521739,
+        "log_loss": 1.058957,
+        "n": 46,
+        "rps": 0.21806
+      },
+      "São Paulo": {
+        "brier_1x2": 0.584455,
+        "brier_ou25": 0.500855,
+        "diagnostic_accuracy_1x2": 0.597015,
+        "diagnostic_ou25_hit_rate": 0.477612,
+        "log_loss": 0.98338,
+        "n": 67,
+        "rps": 0.198243
+      },
+      "Vasco da Gama": {
+        "brier_1x2": 0.65696,
+        "brier_ou25": 0.494152,
+        "diagnostic_accuracy_1x2": 0.421053,
+        "diagnostic_ou25_hit_rate": 0.578947,
+        "log_loss": 1.080422,
+        "n": 38,
+        "rps": 0.248887
+      },
+      "Vitória": {
+        "brier_1x2": 0.661047,
+        "brier_ou25": 0.500161,
+        "diagnostic_accuracy_1x2": 0.421053,
+        "diagnostic_ou25_hit_rate": 0.526316,
+        "log_loss": 1.088397,
+        "n": 19,
+        "rps": 0.2578
+      }
+    },
+    "by_turno_of_season": {
+      "2021-T1": {
+        "baseline": "climatology",
+        "brier_1x2": 0.582225,
+        "brier_1x2_baseline": 0.624621,
+        "brier_1x2_delta": -0.042396,
+        "brier_1x2_delta_ci95": [
+          -0.07105,
+          -0.014839
+        ],
+        "brier_ou25": 0.479988,
+        "diagnostic_accuracy_1x2": 0.531792,
+        "diagnostic_ou25_hit_rate": 0.612717,
+        "log_loss": 0.979816,
+        "n": 173,
+        "rps": 0.193185,
+        "rps_baseline": 0.212426,
+        "rps_delta": -0.019241,
+        "rps_delta_ci95": [
+          -0.029795,
+          -0.008518
+        ]
+      },
+      "2021-T2": {
+        "baseline": "climatology",
+        "brier_1x2": 0.623795,
+        "brier_1x2_baseline": 0.534638,
+        "brier_1x2_delta": 0.089157,
+        "brier_1x2_delta_ci95": null,
+        "brier_ou25": 0.492943,
+        "diagnostic_accuracy_1x2": 0.428571,
+        "diagnostic_ou25_hit_rate": 0.571429,
+        "log_loss": 1.042141,
+        "n": 7,
+        "rps": 0.211223,
+        "rps_baseline": 0.167884,
+        "rps_delta": 0.043339,
+        "rps_delta_ci95": null
+      },
+      "2022-T1": {
+        "baseline": "climatology",
+        "brier_1x2": 0.641803,
+        "brier_1x2_baseline": 0.651222,
+        "brier_1x2_delta": -0.009418,
+        "brier_1x2_delta_ci95": [
+          -0.031135,
+          0.013385
+        ],
+        "brier_ou25": 0.48668,
+        "diagnostic_accuracy_1x2": 0.442105,
+        "diagnostic_ou25_hit_rate": 0.589474,
+        "log_loss": 1.064794,
+        "n": 190,
+        "rps": 0.214699,
+        "rps_baseline": 0.219259,
+        "rps_delta": -0.00456,
+        "rps_delta_ci95": [
+          -0.013873,
+          0.005624
+        ]
+      },
+      "2022-T2": {
+        "baseline": "climatology",
+        "brier_1x2": 0.603686,
+        "brier_1x2_baseline": 0.649992,
+        "brier_1x2_delta": -0.046305,
+        "brier_1x2_delta_ci95": [
+          -0.071582,
+          -0.022465
+        ],
+        "brier_ou25": 0.487339,
+        "diagnostic_accuracy_1x2": 0.484211,
+        "diagnostic_ou25_hit_rate": 0.578947,
+        "log_loss": 1.010065,
+        "n": 190,
+        "rps": 0.205885,
+        "rps_baseline": 0.227358,
+        "rps_delta": -0.021473,
+        "rps_delta_ci95": [
+          -0.033003,
+          -0.010632
+        ]
+      },
+      "2023-T1": {
+        "baseline": "climatology",
+        "brier_1x2": 0.623003,
+        "brier_1x2_baseline": 0.63643,
+        "brier_1x2_delta": -0.013427,
+        "brier_1x2_delta_ci95": [
+          -0.032911,
+          0.005639
+        ],
+        "brier_ou25": 0.492592,
+        "diagnostic_accuracy_1x2": 0.468421,
+        "diagnostic_ou25_hit_rate": 0.557895,
+        "log_loss": 1.035907,
+        "n": 190,
+        "rps": 0.213601,
+        "rps_baseline": 0.219757,
+        "rps_delta": -0.006156,
+        "rps_delta_ci95": [
+          -0.014429,
+          0.002725
+        ]
+      },
+      "2023-T2": {
+        "baseline": "climatology",
+        "brier_1x2": 0.632279,
+        "brier_1x2_baseline": 0.645278,
+        "brier_1x2_delta": -0.012999,
+        "brier_1x2_delta_ci95": [
+          -0.040841,
+          0.015505
+        ],
+        "brier_ou25": 0.491166,
+        "diagnostic_accuracy_1x2": 0.436842,
+        "diagnostic_ou25_hit_rate": 0.589474,
+        "log_loss": 1.053035,
+        "n": 190,
+        "rps": 0.224174,
+        "rps_baseline": 0.228849,
+        "rps_delta": -0.004675,
+        "rps_delta_ci95": [
+          -0.017901,
+          0.009367
+        ]
+      },
+      "2024-T1": {
+        "baseline": "climatology",
+        "brier_1x2": 0.618186,
+        "brier_1x2_baseline": 0.627978,
+        "brier_1x2_delta": -0.009791,
+        "brier_1x2_delta_ci95": [
+          -0.027044,
+          0.007476
+        ],
+        "brier_ou25": 0.495778,
+        "diagnostic_accuracy_1x2": 0.510526,
+        "diagnostic_ou25_hit_rate": 0.542105,
+        "log_loss": 1.031164,
+        "n": 190,
+        "rps": 0.215225,
+        "rps_baseline": 0.219202,
+        "rps_delta": -0.003977,
+        "rps_delta_ci95": [
+          -0.012036,
+          0.004385
+        ]
+      },
+      "2024-T2": {
+        "baseline": "climatology",
+        "brier_1x2": 0.627984,
+        "brier_1x2_baseline": 0.647889,
+        "brier_1x2_delta": -0.019905,
+        "brier_1x2_delta_ci95": [
+          -0.040092,
+          0.000993
+        ],
+        "brier_ou25": 0.504906,
+        "diagnostic_accuracy_1x2": 0.463158,
+        "diagnostic_ou25_hit_rate": 0.489474,
+        "log_loss": 1.043707,
+        "n": 190,
+        "rps": 0.213496,
+        "rps_baseline": 0.223309,
+        "rps_delta": -0.009813,
+        "rps_delta_ci95": [
+          -0.020398,
+          0.001012
+        ]
+      }
+    },
+    "overall": {
+      "overall": {
+        "brier_1x2": 0.618947,
+        "brier_ou25": 0.491361,
+        "diagnostic_accuracy_1x2": 0.475758,
+        "diagnostic_ou25_hit_rate": 0.565152,
+        "log_loss": 1.031932,
+        "n": 1320,
+        "rps": 0.211701
+      }
+    }
+  }
+}

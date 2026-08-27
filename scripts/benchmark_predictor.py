@@ -25,8 +25,9 @@ Diagnóstico: coverage (sempre 1.0 — este painel não filtra por edge),
 accuracy 1X2/OU2.5 (DIAGNOSTIC_ONLY, nunca métrica de promoção — Regra 12) e
 variância de lambda_total.
 
-Skill scores: só vs `climatology` (frequência empírica de classe no próprio
-período avaliado) está implementado nesta versão. `elo_baseline`,
+Skill scores: só vs `climatology` prequential (frequência de classe calculada
+apenas com resultados anteriores, congelada por bloco de data) está
+implementado nesta versão. `elo_baseline`,
 `current_v3` e `market_no_vig` exigem rodar OUTROS previsores sobre a mesma
 base e não estão cobertos aqui ainda — `--baseline` desconhecido falha alto
 (NotImplementedError), nunca silencia como zero ou None.
@@ -381,13 +382,45 @@ def _with_progress(ev, total: int, progress: Callable[[int, int], None]):
     return ev
 
 
-def _climatology_probs(rows: list[dict[str, Any]]) -> list[list[float]]:
-    n = len(rows)
-    counts = [0, 0, 0]
-    for r in rows:
-        counts[r["actual_1x2"]] += 1
-    freqs = [c / n for c in counts] if n else [1 / 3, 1 / 3, 1 / 3]
-    return [freqs for _ in rows]
+def _climatology_probs(rows: list[dict[str, Any]], prior_rows: list[dict[str, Any]] | None = None) -> list[list[float]]:
+    """Prequential climatology: every game sees only earlier outcomes."""
+    counts = [1, 1, 1]
+    for row in prior_rows or []:
+        counts[row["actual_1x2"]] += 1
+    probabilities = []
+    index = 0
+    while index < len(rows):
+        block_date = rows[index]["date"]
+        end = index
+        while end < len(rows) and rows[end]["date"] == block_date:
+            end += 1
+        total = sum(counts)
+        frozen = [count / total for count in counts]
+        probabilities.extend([frozen.copy() for _ in rows[index:end]])
+        for row in rows[index:end]:
+            counts[row["actual_1x2"]] += 1
+        index = end
+    return probabilities
+
+
+def _climatology_history(observations: list[dict[str, Any]], first_evaluation_date: str) -> list[dict[str, int]]:
+    """Observed outcomes strictly before the evaluated cohort.
+
+    This deliberately uses the raw observation stream, not only rows for
+    which the model emitted a prediction: model burn-in is already public
+    information at the first evaluated kickoff and belongs in the baseline's
+    information set too.
+    """
+    return [
+        {
+            "actual_1x2": _outcomes_1x2(
+                observation["result"]["home_goals"],
+                observation["result"]["away_goals"],
+            )
+        }
+        for observation in observations
+        if observation["date"] < first_evaluation_date
+    ]
 
 
 def _market_no_vig_probs(row: dict[str, Any]) -> list[float] | None:
@@ -436,7 +469,7 @@ def _bootstrap_mean_ci(values: list[float]) -> tuple[float, float] | None:
     SUPERESTIMA significância — e este painel, sendo a régua de promoção de
     toda trial, tem que ser o mais conservador dos instrumentos, não o menos.
     Mesmo esquema já usado por `h10_fadiga_walkforward.py` e pelo RESEARCH-01A."""
-    if not values:
+    if not values or len(values) < BLOCK_LENGTH:
         return None
     lo, hi, _samples = bootstrap_ci(
         values,
@@ -650,11 +683,15 @@ def run(
 
     probs_1x2 = [[r["p_loss"], r["p_draw"], r["p_win"]] for r in rows]
     outcomes_1x2 = [r["actual_1x2"] for r in rows]
-    baseline_probs = (
-        [_market_no_vig_probs(r) for r in rows]
-        if baseline == "sofascore_aggregate_no_vig"
-        else _climatology_probs(rows)
-    )
+    if baseline == "sofascore_aggregate_no_vig":
+        baseline_probs = [_market_no_vig_probs(r) for r in rows]
+    else:
+        # Include the model's burn-in in the baseline's information set. Using
+        # only rows that already had a prediction silently discarded the first
+        # MIN_HISTORY observed outcomes and made climatology artificially weak.
+        first_evaluation_date = rows[0]["date"] if rows else end
+        climatology_history = _climatology_history(observations, first_evaluation_date)
+        baseline_probs = _climatology_probs(rows, climatology_history)
     assert all(p is not None for p in baseline_probs)
     for row, probabilities in zip(rows, baseline_probs):
         row["_baseline_probs_1x2"] = probabilities

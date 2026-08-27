@@ -212,10 +212,16 @@ def fit_dixon_coles_parameters(
             lo, hi = DixonColesMatrix.valid_rho_bounds(lam, mu)
             if not (lo < rho < hi):
                 return float("inf")
-            m = DixonColesMatrix(lam, mu, rho, max_goals=max_goals)
-            h = min(int(r["home_goals"]), max_goals)
-            a = min(int(r["away_goals"]), max_goals)
-            total += -w * math.log(m.score_prob(h, a))
+            h = int(r["home_goals"])
+            a = int(r["away_goals"])
+            if h < 0 or a < 0:
+                return float("inf")
+            probability = (
+                DixonColesMatrix._poisson_pmf(h, lam)
+                * DixonColesMatrix._poisson_pmf(a, mu)
+                * dc_tau(h, a, lam, mu, rho)
+            )
+            total += -w * math.log(probability)
         total += mean_attack_penalty * float(np.mean(log_a)) ** 2
         return total
 

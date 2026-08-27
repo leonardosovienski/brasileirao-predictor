@@ -21,6 +21,9 @@ namespace LineupWorker.Services;
 /// </summary>
 public sealed class MarketStateEngine : BackgroundService
 {
+    public static double FractionalKelly(double probability, double odds, double fraction, double cap = 0.05)
+        => Math.Min(fraction * (probability * odds - 1.0) / (odds - 1.0), cap);
+
     private const string FAIR_ODDS_READY_PATTERN = "fair_odds_ready:*";
     private const string FAIR_ODDS_KEY_PREFIX    = "fair_odds:";
     private const string STATE_KEY_PREFIX        = "lineup_state:";
@@ -191,7 +194,7 @@ public sealed class MarketStateEngine : BackgroundService
 
             if (edge < _minEdge || edge > _maxEdge) continue;
 
-            var kelly   = Math.Min(_kellyFrac * edge / (marketOdd - 1.0), 0.05);
+            var kelly   = FractionalKelly(pModel, marketOdd, _kellyFrac);
 
             yield return new BetSignal(
                 MatchId:            matchId,

@@ -118,6 +118,10 @@ def test_bootstrap_mean_ci_vazio_e_none() -> None:
     assert bp._bootstrap_mean_ci([]) is None
 
 
+def test_bootstrap_estrato_menor_que_bloco_retorna_none_sem_quebrar_relatorio() -> None:
+    assert bp._bootstrap_mean_ci([0.1] * (bp.BLOCK_LENGTH - 1)) is None
+
+
 # ---------- calibration slope ponderado ----------
 
 
@@ -158,6 +162,31 @@ def test_climatology_e_o_baseline_suportado() -> None:
     assert "climatology" in bp.SUPPORTED_BASELINES
     assert "market_no_vig" not in bp.SUPPORTED_BASELINES
     assert "sofascore_aggregate_no_vig" in bp.SUPPORTED_BASELINES
+
+
+def test_climatologia_e_prequential_e_congela_jogos_do_mesmo_dia() -> None:
+    prior = [{"date": "2025-12-31", "actual_1x2": 2}]
+    rows = [
+        {"date": "2026-01-01", "actual_1x2": 0},
+        {"date": "2026-01-01", "actual_1x2": 1},
+        {"date": "2026-01-02", "actual_1x2": 2},
+    ]
+    probs = bp._climatology_probs(rows, prior)
+    assert probs[0] == probs[1]
+    assert probs[0] == pytest.approx([0.25, 0.25, 0.5])
+    assert probs[2] == pytest.approx([2 / 6, 2 / 6, 2 / 6])
+
+
+def test_climatologia_inclui_burn_in_observado_antes_da_coorte() -> None:
+    observations = [
+        {"date": "2025-12-30", "result": {"home_goals": 0, "away_goals": 1}},
+        {"date": "2025-12-31", "result": {"home_goals": 2, "away_goals": 2}},
+        {"date": "2026-01-01", "result": {"home_goals": 3, "away_goals": 0}},
+    ]
+
+    history = bp._climatology_history(observations, "2026-01-01")
+
+    assert history == [{"actual_1x2": 0}, {"actual_1x2": 1}]
 
 
 def test_market_no_vig_e_shin_na_orientacao_do_rps() -> None:

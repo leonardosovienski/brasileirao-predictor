@@ -204,7 +204,7 @@ class ServingStackEvaluator(PrequentialEvaluator):
         # replay: em 2022 o cron teria visto uma janela terminando em 2022.
         asof = rows[-1][0]
         rows = self._window(rows, self.cfg["elo"].get("window_years"), asof)
-        elo, hist = ratings.compute_ratings(rows, self.cfg["elo"])
+        elo, hist = ratings.compute_ratings(rows, self.cfg["elo"], asof=horizon.date())
         cal_cut = _cut(asof, self.cfg["model"]["calibration_window_years"])
         hist_cal_rows = [(h, r) for h, r in zip(hist, rows) if r[0] >= cal_cut]
         hist_cal = [h for h, _r in hist_cal_rows]
@@ -303,7 +303,7 @@ class H9FrozenPolicyEvaluator(ServingStackEvaluator):
             for h in usable
         ]
         rows = self._window(rows, self.cfg["elo"].get("window_years"), rows[-1][0])
-        self.elo, _history = ratings.compute_ratings(rows, self.cfg["elo"])
+        self.elo, _history = ratings.compute_ratings(rows, self.cfg["elo"], asof=horizon.date())
         self.params = self.frozen_params
         self.xg_params = None
         self.dynamic_states = None

@@ -90,14 +90,18 @@ def test_permutacao_nao_muta_a_entrada() -> None:
 
 
 def _rows(probs_por_jogo, desfechos) -> list[dict]:
-    return [{"p_loss": p[0], "p_draw": p[1], "p_win": p[2], "actual_1x2": y} for p, y in zip(probs_por_jogo, desfechos)]
+    return [
+        {"date": str(i), "p_loss": p[0], "p_draw": p[1], "p_win": p[2], "actual_1x2": y}
+        for i, (p, y) in enumerate(zip(probs_por_jogo, desfechos))
+    ]
 
 
 def test_modelo_igual_a_climatologia_nao_bate_a_climatologia() -> None:
-    """Caso-limite: prever exatamente a frequência empírica não é skill."""
+    """Caso-limite: reproduzir a climatologia prequential não é skill."""
     desfechos = [2] * 120 + [1] * 60 + [0] * 120
-    freq = [120 / 300, 60 / 300, 120 / 300]
-    out = pt._skill_vs_climatology(_rows([freq] * 300, desfechos))
+    seed_rows = _rows([[1 / 3, 1 / 3, 1 / 3]] * 300, desfechos)
+    baseline = pt._climatology_probs(seed_rows)
+    out = pt._skill_vs_climatology(_rows(baseline, desfechos))
     assert out["skill_score"] == pytest.approx(0.0, abs=1e-9)
     assert out["beats_climatology"] is False
 

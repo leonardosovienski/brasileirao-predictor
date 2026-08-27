@@ -23,7 +23,15 @@ from datetime import date
 import numpy as np
 from scipy.optimize import minimize
 
-from .model import _grid_stats, _nb_logpmf, _score_grid, _tau
+from .model import (
+    _all_dc_factors_positive,
+    _dc_normalizer_nb,
+    _grid_stats,
+    _nb_logpmf,
+    _score_grid,
+    _tau,
+    clamp_dc_rho,
+)
 
 # Validados em docs/SIMULACAO_2025_2026.md — mudar exige nova validação.
 DEFAULTS = {
@@ -95,9 +103,12 @@ def fit(matches, xg_map, fit_date, cfg_xg=None):
         log_alpha, rho = x
         alpha = math.exp(log_alpha)
         tau = _tau(hs, as_, lh, la, rho)
-        if np.any(tau <= 1e-12):
+        if np.any(tau <= 1e-12) or not np.all(_all_dc_factors_positive(lh, la, rho)):
             return 1e12
-        ll = _nb_logpmf(hs, lh, alpha) + _nb_logpmf(as_, la, alpha) + np.log(tau)
+        normalizer = _dc_normalizer_nb(lh, la, alpha, rho)
+        if np.any(normalizer <= 1e-12) or not np.isfinite(normalizer).all():
+            return 1e12
+        ll = _nb_logpmf(hs, lh, alpha) + _nb_logpmf(as_, la, alpha) + np.log(tau) - np.log(normalizer)
         return -float((w * ll).sum())
 
     r2 = minimize(
@@ -132,11 +143,14 @@ def predict(xgp, home, away, neutral=False, max_goals=12):
     ha = 0.0 if neutral else xgp["ha"]
     lam_h = math.exp(xgp["mu"] + ha + ah - da)
     lam_a = math.exp(xgp["mu"] + aa - dh)
-    grid = _score_grid(lam_h, lam_a, xgp["alpha"], xgp["rho"], max_goals)
+    rho_used = clamp_dc_rho(float(xgp["rho"]), lam_h, lam_a)
+    grid = _score_grid(lam_h, lam_a, xgp["alpha"], rho_used, max_goals)
     return {
         "lambda_a": lam_h,
         "lambda_b": lam_a,
         "total_goals": lam_h + lam_a,
+        "rho": rho_used,
+        "rho_was_clamped": rho_used != float(xgp["rho"]),
         **_grid_stats(grid, max_goals),
     }
 

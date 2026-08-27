@@ -49,11 +49,11 @@ def evaluate(metrics_root: Path) -> dict[str, Any]:
         and audit.get("passed") is True
         and tests.get("contract_tests_green") is True,
     }
-    economic = bool(metrics) and any(item.get("mode") == "economic" for item in metrics)
+    economic = bool(metrics) and any(str(item.get("mode", "")).startswith("economic") for item in metrics)
     if not metrics:
         verdict = "NOT_STARTED"
     elif economic:
-        verdict = "REHEARSAL_ONLY"
+        verdict = "REHEARSAL_ONLY_BUDGETED"
     else:
         verdict = "PASS" if all(criteria.values()) else "FAIL_RESTART_CLOCK"
     return {
@@ -76,7 +76,7 @@ def main() -> int:
     args.metrics_dir.mkdir(parents=True, exist_ok=True)
     (args.metrics_dir / "gate_a1_verdict.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
-    return 0 if result["verdict"] in {"PASS", "REHEARSAL_ONLY", "NOT_STARTED"} else 2
+    return 0 if result["verdict"] in {"PASS", "REHEARSAL_ONLY_BUDGETED", "NOT_STARTED"} else 2
 
 
 if __name__ == "__main__":

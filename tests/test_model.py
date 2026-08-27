@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 from scipy.stats import poisson
 
-from src.model import predict_match, predict_remaining
+from src.model import _dc_normalizer_nb, predict_match, predict_remaining
 
 
 def test_nb_colapsa_em_poisson_quando_alpha_zero():
@@ -30,6 +30,24 @@ def test_nb_colapsa_em_poisson_quando_alpha_zero():
 def test_probabilidades_1x2_somam_um():
     r = predict_match(1850.0, 1850.0, (0.2, 1.0, 0.1, 0.05), 0.0, 12)
     assert abs(r["p_win"] + r["p_draw"] + r["p_loss"] - 1.0) < 1e-9
+
+
+def test_nb_dixon_coles_expoe_normalizador_nao_trivial():
+    assert _dc_normalizer_nb(1.3, 1.3, 1.0, 0.2) == pytest.approx(0.9795876944407718)
+
+
+def test_rho_que_gera_celula_negativa_falha_em_vez_de_clipar():
+    with pytest.raises(ValueError, match="non-positive Dixon-Coles"):
+        predict_match(1500, 1500, (1.0, 0.5, 0.2, 0.4), max_goals=12)
+
+
+@pytest.mark.parametrize(
+    "params,max_goals",
+    [((0.2, 0.7, 0.0, 0.0), 12), ((0.2, 0.7, 0.1, float("nan")), 12), ((0.2, 0.7, 0.1, 0.0), 0)],
+)
+def test_parametros_invalidos_falham_alto(params, max_goals):
+    with pytest.raises(ValueError):
+        predict_match(1500, 1500, params, max_goals=max_goals)
 
 
 def test_draw_diagnostics_expose_all_discussed_hypotheses_without_decision_rule():
@@ -79,3 +97,17 @@ def test_predict_remaining_fraction_meio_escala_lambda_pela_metade():
 def test_predict_remaining_grid_soma_um():
     r = predict_remaining(1850.0, 1750.0, (0.2, 1.0, 0.1, 0.05), fraction=0.5)
     assert abs(r["grid"].sum() - 1.0) < 1e-9
+
+
+def test_predict_remaining_fraction_zero_is_exactly_no_more_goals():
+    r = predict_remaining(1850.0, 1750.0, (0.2, 1.0, 0.1, 0.05), fraction=0.0)
+    assert r["lambda_a"] == 0.0
+    assert r["lambda_b"] == 0.0
+    assert r["grid"][0, 0] == 1.0
+    assert np.count_nonzero(r["grid"]) == 1
+
+
+@pytest.mark.parametrize("fraction", [-0.1, 1.1, float("nan"), float("inf")])
+def test_predict_remaining_rejeita_fracao_invalida(fraction):
+    with pytest.raises(ValueError, match="fraction"):
+        predict_remaining(1500, 1500, (0.2, 0.7, 0.1, 0.0), fraction=fraction)

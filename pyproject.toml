@@ -42,10 +42,6 @@ packages = ["src", "scripts"]
 predictor-core = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v2.3.0/predictor_core-2.3.0-py3-none-any.whl" }
 predictor-ops = { url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v3.1.0/predictor_ops-3.1.0-py3-none-any.whl" }
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "-ra --strict-markers"
-
 [tool.ruff]
 target-version = "py313"
 line-length = 120

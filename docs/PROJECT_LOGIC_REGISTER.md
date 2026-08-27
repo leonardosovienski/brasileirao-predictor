@@ -56,7 +56,8 @@ A arquitetura atual combina Elo com modelo de gols NB/Dixon–Coles. O serving s
 
 ## 3. Trials formais do ledger
 
-O ledger contém 14 tentativas. Os nomes e estados abaixo refletem `data/trials.json` em 23/08/2026.
+O ledger completo contém 29 tentativas. A tabela abaixo destaca a linhagem H;
+os demais registros permanecem em `data/trials.json`.
 
 | Trial | Pergunta | Tentativa/resultado | Estado |
 | --- | --- | --- | --- |
@@ -73,7 +74,10 @@ O ledger contém 14 tentativas. Os nomes e estados abaixo refletem `data/trials.
 | H9 | Replicação prospectiva estrita do H8 com quote executável H−1,5 | modelo/fonte/horizonte congelados; milestones 100/200/300/500 | `inconclusiva` |
 | H11 | Refit a cada rodada (~10 jogos) supera refit a cada 100 jogos? | n=1318, ganho RPS 0,001764; IC95 cruza zero | `refutada` |
 | H12 | Desligar ensemble xG melhora o serving? | n=1318, ganho RPS 0,004410, IC95 [0,001436; 0,007741]; ensemble desligado | `comprovada` |
-| H13 | Serving sem ensemble supera climatologia prospectivamente? | coorte futura, avaliação única somente em n≥900 | `pre-registrada` |
+| H13 | Serving sem ensemble supera climatologia prospectivamente? | substituída antes da avaliação após correções de algoritmo/baseline | `substituida` |
+| H14 | Serving v2 corrigido supera climatologia prequential prospectivamente? | desenho congelado; coleta append-only ainda `NOT_STARTED`, avaliação única em n≥900 | `pre-registrada` |
+| H11-v2 retrospectiva | Refit 10 vs 100 após correções do algoritmo | segunda leitura do mesmo contraste/painel; IC nominal e Bonferroni m=2 favoráveis, mas sem independência | `inconclusiva` |
+| H15 | Refit 10 supera 100 no serving v2 em coorte futura pareada? | desenho congelado; coleta dos dois braços ainda `NOT_STARTED`, avaliação única em n≥900 | `pre-registrada` |
 
 ### Lições das trials
 
@@ -81,7 +85,9 @@ O ledger contém 14 tentativas. Os nomes e estados abaixo refletem `data/trials.
 - Mais dados após olhar o resultado podem ser úteis para exploração, mas não restauram cegamento.
 - CLV tem variância menor que P&L, porém continua sendo proxy, não lucro.
 - Dixon–Coles não demonstrou ganho sobre Elo na formulação H4, embora faça parte do serving combinado.
-- Recalibrar mais frequentemente não demonstrou ganho robusto.
+- Recalibrar mais frequentemente ganhou sinal retrospectivo após as correções,
+  mas é a segunda leitura do mesmo contraste 10-vs-100 na mesma amostra; somente
+  H15 prospectiva pode confirmá-lo.
 - O ensemble xG não era diversificação útil: piorava probabilidades e deve permanecer desligado.
 - O efeito histórico contra climatologia é real na amostra observada, mas sua confirmação honesta agora depende de futuro prospectivo.
 

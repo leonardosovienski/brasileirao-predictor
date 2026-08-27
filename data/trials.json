@@ -344,6 +344,63 @@
     "metric": "rps"
   },
   {
+    "name": "h11-v2-refit10-vs-100-retrospective-reanalysis",
+    "registered_at": "2026-08-26T23:40:00Z",
+    "params": {
+      "market": "1x2",
+      "variable": "retrain_every",
+      "control": 100,
+      "treatment": 10,
+      "engine": "serving",
+      "algorithm_version": "nbdc-normalized-elo-horizon-v2",
+      "period": ["2021-01-01", "2024-12-31"],
+      "family": "refit_cadence_10_vs_100_same_historical_panel",
+      "family_realized_cadences": [10, 100],
+      "family_look_index": 2,
+      "multiplicity_sensitivity": {
+        "method": "bonferroni_two_looks",
+        "simultaneous_confidence_level": 0.975,
+        "rps_delta_treatment_minus_control_ci": [-0.0042492821711557355, -0.00033439976952178655]
+      },
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "REGISTRO POSTERIOR AO RESULTADO, portanto não é pré-registro nem confirmação. Reexecuta exatamente 10 vs 100 no mesmo painel já usado por H11, depois de correções no algoritmo. IC95 nominal favorável e sensibilidade Bonferroni para duas leituras também favorável, mas isso não recupera independência: código e amostra já foram vistos. Serve somente para gerar H15 prospectiva. Não autoriza mudança de serving nem capital.",
+    "status": "inconclusiva",
+    "test_period": ["2021-01-01", "2024-12-31"],
+    "metric": "rps"
+  },
+  {
+    "name": "h15-refit10-vs-100-serving-v2-prospectivo",
+    "registered_at": "2026-08-26T23:41:00Z",
+    "params": {
+      "market": "1x2",
+      "hypothesis": "refit a cada 10 jogos reduz RPS contra refit a cada 100 jogos numa coorte futura pareada",
+      "engine": "serving",
+      "algorithm_version": "nbdc-normalized-elo-horizon-v2",
+      "control_retrain_every": 100,
+      "treatment_retrain_every": 10,
+      "cohort_start": null,
+      "earliest_eligible_date": "2026-08-27",
+      "collection_status": "NOT_STARTED",
+      "activation_condition": "persist both 10-game and 100-game predictions append-only before kickoff with code fingerprint",
+      "primary_metric": "rps",
+      "guardrails": ["log_loss", "brier_1x2", "brier_ou25"],
+      "bootstrap": {"scheme": "moving", "block_length": 21, "n_boot": 10000, "seed": 42},
+      "min_n_avaliacao": 900,
+      "avaliacoes_intermediarias": false,
+      "historical_family_looks": 2,
+      "prospective_family_id": "track-a-future-2026-08-27",
+      "familywise_rule": "Holm step-down across H14 and H15 at alpha=0.05 for any portfolio-level claim",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "PRÉ-REGISTRO de desenho, sucessor honesto de H11/H11-v2. As duas leituras históricas da mesma família são declaradas e não contam como confirmação. A coorte ainda NÃO começou: só inicia após persistência append-only pré-kickoff dos dois braços com fingerprint do código. Avaliação única em n>=900; nenhuma leitura intermediária. Não autoriza capital.",
+    "status": "pre-registrada",
+    "test_period": ["2026-08-27", null],
+    "metric": "rps"
+  },
+  {
     "name": "h12-ensemble-xg-ligado-vs-desligado",
     "registered_at": "2026-08-22T06:43:15Z",
     "params": {
@@ -408,8 +465,8 @@
       "cohort_start": "2026-08-22"
     },
     "sharpe": null,
-    "notes": "PRÉ-REGISTRO (2026-08-22) — coorte PROSPECTIVA, dados ainda não existentes. Hipótese: a pilha de serving (motor 'serving', ensemble_xg DESLIGADO) bate a climatologia em RPS. GATE declarado antes dos dados: (1) IC95 do delta de RPS vs. climatologia inteiramente abaixo de zero; (2) nenhum guardrail (log_loss, brier_1x2, brier_ou25) materialmente pior, isto é, com IC95 inteiro do lado ruim; (3) controle negativo do motor 'serving' passando na MESMA coorte. PONTO ÚNICO de avaliação em n>=900, SEM olhadas intermediárias (n=440 daria poder ~50% para o efeito observado em 2021-2024 e produziria inconclusiva não-informativa; 900 dá ~80%). MOTIVAÇÃO: em 2026-08-22 mediu-se RPS 0.213339 vs climatologia 0.219989, delta -0.006650, IC95 [-0.010544, -0.002858] em 2021-2024, com controle negativo passando (reports/benchmark_serving_noxg_2026-08-22.json, reports/permutation_serving_2026-08-22.json). Esse resultado NÃO é confirmatório: a amostra já tinha sido vista. 2025 permanece SELADO (Regra 7) — a arquitetura não está congelada, a TRACK A não começou — e 2026 é exploratório (Regra 1). Por isso a única amostra cega é o futuro. NÃO AUTORIZA CAPITAL: hipótese de qualidade de modelo, não de mercado; o gate econômico é separado e depende do market_no_vig, que não existe. Resultado ainda não medido.",
-    "status": "pre-registrada",
+    "notes": "SUBSTITUÍDA em 2026-08-26 antes da avaliação de n>=900: a auditoria encontrou climatologia calculada com os resultados da própria coorte, likelihood NB+DC sem o normalizador servido e decay Elo sem avanço terminal ao kickoff. A hipótese original não pode misturar algoritmos nem baseline. Nenhum resultado H13 foi calculado; a sucessora corrigida é H14.",
+    "status": "substituída",
     "test_period": [
       "2026-08-22",
       null
@@ -655,5 +712,38 @@
     "notes": "Pré-registro do ensaio de pipeline A1. PoC de 2026-08-24 confirmou 185 casas no evento Botafogo x Athletico-PR e 1X2 simultâneo em Pinnacle + Betano BR + EstrelaBet + Superbet BR + KTO. Sportingbet BR existia sem mercado canônico 101 e Pixbet estava ausente. O relógio NÃO começou: a única chave fornecida foi exposta e ainda não houve confirmação de chave rotacionada. Modo econômico nunca pode emitir PASS; exige tier/cadência completa para homologação formal.",
     "status": "pre-registrada",
     "metric": "coverage"
+  },
+  {
+    "name": "h14-serving-v2-vs-climatologia-prequential-prospectivo",
+    "registered_at": "2026-08-26T22:35:33Z",
+    "params": {
+      "market": "1x2",
+      "hypothesis": "a pilha serving v2 corrigida bate climatologia prequential em RPS numa coorte futura",
+      "engine": "serving",
+      "algorithm_version": "nbdc-normalized-elo-horizon-v2",
+      "ensemble_xg_enabled": false,
+      "baseline": "prequential_climatology_dirichlet_1_by_date_block",
+      "retrain_every": 100,
+      "min_history": 200,
+      "block_guard": "kickoff estrito no modelo; climatologia congelada por bloco de data",
+      "bootstrap": {"scheme": "moving", "block_length": 21, "n_boot": 10000, "seed": 42},
+      "primary_metric": "rps",
+      "guardrails": ["log_loss", "brier_1x2", "brier_ou25"],
+      "min_n_avaliacao": 900,
+      "avaliacoes_intermediarias": false,
+      "league": "Brasileirão Série A",
+      "cohort_start": null,
+      "earliest_eligible_date": "2026-08-27",
+      "collection_status": "NOT_STARTED",
+      "activation_condition": "persist serving-v2 and prequential-climatology predictions append-only before kickoff with code fingerprint",
+      "prospective_family_id": "track-a-future-2026-08-27",
+      "familywise_rule": "Holm step-down across H14 and H15 at alpha=0.05 for any portfolio-level claim",
+      "capital_enabled": false
+    },
+    "sharpe": null,
+    "notes": "PRÉ-REGISTRO de desenho posterior às correções matemáticas. A coorte ainda NÃO começou: só inicia após persistência append-only pré-kickoff dos dois braços com fingerprint do código. Avaliação única em n>=900. GO científico exige IC95 do delta RPS inteiro abaixo de zero, guardrails e regra familiar H14/H15. Não autoriza capital nem comparação econômica.",
+    "status": "pre-registrada",
+    "test_period": ["2026-08-27", null],
+    "metric": "rps"
   }
 ]

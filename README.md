@@ -1,5 +1,12 @@
 # brasileirao-predictor
 
+> **Estado corrente — 2026-08-26:** a auditoria matemática posterior ao
+> relatório consolidado corrigiu o normalizador NB+Dixon–Coles, o domínio de
+> `rho`, o decay terminal do Elo, a climatologia prequential e o relatório de
+> estratos pequenos. Métricas produzidas antes dessas correções são históricas
+> e precisam ser recalculadas antes de qualquer comparação científica. Capital
+> continua bloqueado. Veja `docs/AUDITORIA_MATEMATICA_E_CORRECOES_2026-08-26.md`.
+
 Backfill histórico point-in-time é mantido fora de `matches.db`, em raw
 imutável, curated SQLite isolado e views de avaliação com clocks de disponibilidade.
 Veja `docs/BACKFILL_POINT_IN_TIME.md` e `docs/CLOSING_LINE.md`.
@@ -13,10 +20,16 @@ está em [`docs/RELATORIO_FINAL_CONSOLIDADO_2026-08-26.md`](docs/RELATORIO_FINAL
 
 A coleta prospectiva atual preserva contratos completos e capital bloqueado;
 operação e monitoramento: `docs/SHADOW_PROSPECTIVE_RUNBOOK.md`. H3/H5 são
-históricas/substituídas; H9 é a replicação econômica inconclusiva e H13 é a
-coorte preditiva pré-registrada vigente.
+históricas/substituídas; H9 é a replicação econômica inconclusiva; H13 foi
+substituída. H14 e H15 têm desenhos pré-registrados, mas a coleta prospectiva
+dos braços ainda não foi ativada.
 
-> ## 📌 ESTADO ATUAL (2026-08-24) — fonte da verdade: HANDOFF.md
+A calibração operacional do próximo caminho econômico está definida em
+[`docs/A1_OU25_PHASE0_RUNBOOK.md`](docs/A1_OU25_PHASE0_RUNBOOK.md): somente
+OU2.5, sem labels, sem picks, sem Kelly e sem capital até homologação do A1 e
+congelamento prospectivo do orçamento de fricção.
+
+> ## 📌 ESTADO HISTÓRICO (2026-08-24) — supersedido pela nota acima
 >
 > Serving com ensemble xG desligado bate a climatologia em 2021–2024, mas
 > perde do fechamento 1X2 sem vig; não há edge econômico e o capital permanece
@@ -72,7 +85,7 @@ ingest_sofascore.py  →  sofascore_matches (+odds abertura/fechamento, HT, stat
 ## Uso
 
 ```bash
-pip install -r requirements.txt
+uv sync --all-extras --locked
 
 # Coleta (na máquina do operador; o Sofascore não responde ao sandbox)
 python -m src.ingest_sofascore                      # 2024 + 2025 + fixtures 2026

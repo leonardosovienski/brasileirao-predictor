@@ -1,0 +1,70 @@
+{
+  "schema_version": "paired-serving-comparison/1",
+  "period": ["2021-01-01", "2024-12-31"],
+  "v1_commit": "9ee757825bfb63e8e47846a0397d575b0488cc76",
+  "v2_algorithm": "nbdc-normalized-elo-horizon-v2",
+  "database_sha256": "8A3A2415AAB9B8525708EE18EE7B3FB360B40031904095F5C71B35871E5946CD",
+  "pairing": {
+    "keys": ["event_id", "date", "home", "away"],
+    "v1_n": 1320,
+    "v2_n": 1320,
+    "paired_n": 1320,
+    "v1_only": 0,
+    "v2_only": 0
+  },
+  "artifacts": {
+    "v1_losses": {
+      "path": "reports/losses_serving_v1_2021_2024.json",
+      "sha256": "5734c643c238e05c19c9289bd9fd0f1cf1225fd18f72d789ab779b6ff0d844b0"
+    },
+    "v2_losses": {
+      "path": "reports/losses_serving_v2_2021_2024.json",
+      "sha256": "1aa67a3718ab4c1b51ffeb799fe49b71faef5521ca102d07bed45f86bd525c15"
+    }
+  },
+  "direct_argmax_verification": {
+    "different_argmax_games": 0,
+    "different_correctness_games": 0,
+    "max_absolute_cell_probability_shift": 0.03068437571584337,
+    "mean_game_max_absolute_probability_shift": 0.0015366991668999692,
+    "explanation": "The probability vectors changed, but no class boundary was crossed in any paired game; therefore every per-game accuracy delta is exactly zero and its bootstrap CI is [0,0]."
+  },
+  "bootstrap": {
+    "scheme": "moving",
+    "ordering": "chronological by date, then event_id",
+    "block_length": 21,
+    "n_boot": 10000,
+    "seed": 42
+  },
+  "metrics": [
+    {
+      "metric": "rps",
+      "v1": 0.2132781901330887,
+      "v2": 0.2132400450478323,
+      "delta_v2_minus_v1": -0.00003814508525641819,
+      "delta_ci95": [-0.00011853373836985091, 0.00003451163154515039]
+    },
+    {
+      "metric": "brier_1x2",
+      "v1": 0.6223009755806356,
+      "v2": 0.6222217051186342,
+      "delta_v2_minus_v1": -0.00007927046200141433,
+      "delta_ci95": [-0.00027540980651915263, 0.00009389447264610878]
+    },
+    {
+      "metric": "log_loss",
+      "v1": 1.0364892454263237,
+      "v2": 1.0363503816957418,
+      "delta_v2_minus_v1": -0.00013886373058193997,
+      "delta_ci95": [-0.0004173163726009564, 0.00011841400187602898]
+    },
+    {
+      "metric": "accuracy_1x2",
+      "v1": 0.47575757575757577,
+      "v2": 0.47575757575757577,
+      "delta_v2_minus_v1": 0.0,
+      "delta_ci95": [0.0, 0.0]
+    }
+  ],
+  "interpretation": "No measurable aggregate predictive upgrade or trade-off; corrections restore invariants. H14 is only a pre-registered confirmatory design and remains NOT_STARTED until append-only prospective logging and code fingerprinting are active before kickoff."
+}

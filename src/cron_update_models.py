@@ -13,9 +13,12 @@ from datetime import UTC, date, datetime, timedelta
 from . import db, model, ratings
 from .ingest import ROOT, load_config
 
+MODEL_ALGORITHM_VERSION = "nbdc-normalized-elo-horizon-v2"
+
 
 def config_hash(cfg) -> str:
     relevant = {
+        "model_algorithm_version": MODEL_ALGORITHM_VERSION,
         "elo": cfg["elo"],
         "calibration_window_years": cfg["model"]["calibration_window_years"],
         "goal_half_life_days": cfg["model"]["goal_half_life_days"],
@@ -54,7 +57,7 @@ def compute(cfg, conn):
     rows = _windowed(cfg, conn)
     if not rows:
         return None
-    elo, history = ratings.compute_ratings(rows, cfg["elo"])
+    elo, history = ratings.compute_ratings(rows, cfg["elo"], asof=date.today())
     cal_cut = (
         date.fromisoformat(rows[-1][0]) - timedelta(days=int(cfg["model"]["calibration_window_years"] * 365.25))
     ).isoformat()

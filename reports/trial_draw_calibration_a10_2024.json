@@ -1,0 +1,63 @@
+{
+  "schema_version": "trial-draw-calibration-a10/1",
+  "protocol": "docs/PROTOCOL_DRAW_CALIBRATION_A10_2026-08-26.md",
+  "train_period": [
+    "2021-01-01",
+    "2023-12-31"
+  ],
+  "validation_period": [
+    "2024-01-01",
+    "2024-12-31"
+  ],
+  "n_train": 940,
+  "n_validation": 380,
+  "parameters": {
+    "intercept": 0.7266272920110384,
+    "slope": 1.7886292297752626
+  },
+  "metrics": {
+    "rps": {
+      "control": 0.21432394938335508,
+      "treatment": 0.21434880658793984,
+      "delta_treatment_minus_control": 2.4857204584758513e-05,
+      "delta_ci95": [
+        -0.0006064760074158966,
+        0.0006239114440200206
+      ]
+    },
+    "brier": {
+      "control": 0.6231200257692323,
+      "treatment": 0.6233256540912339,
+      "delta_treatment_minus_control": 0.00020562832200153342,
+      "delta_ci95": [
+        -0.002545624736794755,
+        0.0030447178941086597
+      ]
+    },
+    "log_loss": {
+      "control": 1.037422403213589,
+      "treatment": 1.0381747009070212,
+      "delta_treatment_minus_control": 0.0007522976934322004,
+      "delta_ci95": [
+        -0.004246200710448658,
+        0.006036679279036897
+      ]
+    },
+    "brier_draw": {
+      "control": 0.19447212700252206,
+      "treatment": 0.19462804091535413,
+      "delta_treatment_minus_control": 0.00015591391283202206,
+      "delta_ci95": [
+        -0.0015013788450083708,
+        0.0019542784487606908
+      ]
+    }
+  },
+  "argmax": {
+    "flips": 0,
+    "draw_predictions_control": 0,
+    "draw_predictions_treatment": 0,
+    "accuracy_control": 0.4868421052631579,
+    "accuracy_treatment": 0.4868421052631579
+  }
+}

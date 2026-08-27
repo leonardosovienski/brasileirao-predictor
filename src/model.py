@@ -63,6 +63,38 @@ def _tau(hs, as_, lam, mu, rho):
     return t
 
 
+def _nb_low_score_probabilities(mu, alpha):
+    """Return NB probabilities for 0 and 1 goals in mean/dispersion form."""
+    r = 1.0 / alpha
+    q = r / (r + mu)
+    p0 = np.power(q, r)
+    p1 = p0 * r * (1.0 - q)
+    return p0, p1
+
+
+def _dc_normalizer_nb(lam, mu, alpha, rho):
+    """Mass of NB x NB after the four Dixon-Coles corrections."""
+    h0, h1 = _nb_low_score_probabilities(lam, alpha)
+    a0, a1 = _nb_low_score_probabilities(mu, alpha)
+    return 1.0 + rho * (-lam * mu * h0 * a0 + lam * h0 * a1 + mu * h1 * a0 - h1 * a1)
+
+
+def _all_dc_factors_positive(lam, mu, rho):
+    """Whether all four corrected cells are strictly positive."""
+    return (1.0 - lam * mu * rho > 0.0) & (1.0 + lam * rho > 0.0) & (1.0 + mu * rho > 0.0) & (1.0 - rho > 0.0)
+
+
+def valid_dc_rho_bounds(lam: float, mu: float) -> tuple[float, float]:
+    """Open rho interval that keeps all four Dixon-Coles cells positive."""
+    return max(-1.0 / lam, -1.0 / mu), min(1.0 / (lam * mu), 1.0)
+
+
+def clamp_dc_rho(rho: float, lam: float, mu: float, margin: float = 1e-9) -> float:
+    """Clamp a global fitted rho for a new matchup and expose the used value."""
+    lo, hi = valid_dc_rho_bounds(lam, mu)
+    return min(max(rho, lo + margin), hi - margin)
+
+
 def fit_goal_model(history, delta_xg=None, sample_weights=None):
     """Estima (a, b, alpha, rho, [theta_xg]) por maxima verossimilhanca.
     Se delta_xg for fornecido (lista com um valor por jogo), theta_xg e'
@@ -105,9 +137,12 @@ def fit_goal_model(history, delta_xg=None, sample_weights=None):
         mu = mu * np.exp(-theta_xg * dxg)
 
         tau = _tau(hs, as_, lam, mu, rho)
-        if np.any(tau <= 1e-12):
+        if np.any(tau <= 1e-12) or not np.all(_all_dc_factors_positive(lam, mu, rho)):
             return 1e12
-        ll = _nb_logpmf(hs, lam, alpha) + _nb_logpmf(as_, mu, alpha) + np.log(tau)
+        normalizer = _dc_normalizer_nb(lam, mu, alpha, rho)
+        if np.any(normalizer <= 1e-12) or not np.isfinite(normalizer).all():
+            return 1e12
+        ll = _nb_logpmf(hs, lam, alpha) + _nb_logpmf(as_, mu, alpha) + np.log(tau) - np.log(normalizer)
         if not np.isfinite(ll).all():
             return 1e12
         return -float(np.dot(weights, ll))
@@ -121,6 +156,16 @@ def fit_goal_model(history, delta_xg=None, sample_weights=None):
 
     try:
         res = minimize(negll, x0, method="L-BFGS-B", bounds=bounds)
+        if not res.success:
+            retry = minimize(
+                negll,
+                res.x if np.isfinite(res.x).all() else x0,
+                method="Powell",
+                bounds=bounds,
+                options={"maxiter": 2000, "xtol": 1e-8, "ftol": 1e-10},
+            )
+            if retry.success or retry.fun < res.fun:
+                res = retry
         if len(res.x) == 5:
             a, b, log_alpha, rho, theta_xg = res.x
         else:
@@ -155,7 +200,12 @@ def fit_goal_model(history, delta_xg=None, sample_weights=None):
             return (float(a), float(b), float(math.exp(log_alpha)), float(rho), float(theta_xg))
         else:
             return (float(a), float(b), float(math.exp(log_alpha)), float(rho))
-    except Exception:
+    except Exception as exc:
+        warnings.warn(
+            f"fit_goal_model: fallback parameters used after {type(exc).__name__}: {exc}",
+            RuntimeWarning,
+            stacklevel=2,
+        )
         if has_xg:
             return (base, 0.3, 1e-4, 0.0, 0.0)
         return (base, 0.3, 1e-4, 0.0)
@@ -209,6 +259,16 @@ def _score_grid(lam_a, lam_b, alpha, rho, max_goals):
     """Grid de probabilidade P(gols_a=i, gols_b=j) — NB + correção Dixon-Coles
     nas quatro células de placar baixo. Fatorado de `predict_match` pra ser
     reaproveitado por `predict_remaining` com lambdas escalados."""
+    values = (lam_a, lam_b, alpha, rho)
+    if not all(math.isfinite(float(value)) for value in values):
+        raise ValueError("lam_a, lam_b, alpha and rho must be finite")
+    if lam_a <= 0 or lam_b <= 0 or alpha <= 0:
+        raise ValueError("lam_a, lam_b and alpha must be > 0")
+    if not isinstance(max_goals, int) or max_goals < 1:
+        raise ValueError("max_goals must be an integer >= 1")
+    if not bool(_all_dc_factors_positive(lam_a, lam_b, rho)):
+        raise ValueError("rho produces a non-positive Dixon-Coles cell")
+
     k = np.arange(max_goals + 1)
     r = 1.0 / max(alpha, 1e-9)
     pa = nbinom.pmf(k, r, r / (r + lam_a))
@@ -219,8 +279,10 @@ def _score_grid(lam_a, lam_b, alpha, rho, max_goals):
     grid[0, 1] *= 1.0 + lam_a * rho
     grid[1, 0] *= 1.0 + lam_b * rho
     grid[1, 1] *= 1.0 - rho
-    grid = np.clip(grid, 0.0, None)
-    grid /= grid.sum()
+    total = float(grid.sum())
+    if not math.isfinite(total) or total <= 0.0 or np.any(grid < 0.0):
+        raise ValueError("invalid score-grid mass")
+    grid /= total
     return grid
 
 
@@ -299,12 +361,18 @@ def predict_remaining(
 
     Os p_win/p_draw/p_loss e top_scores devolvidos são do TEMPO RESTANTE,
     não do placar final — some ao placar atual pra projetar o jogo inteiro."""
+    if not math.isfinite(fraction) or not 0.0 <= fraction <= 1.0:
+        raise ValueError("fraction must be finite and between 0 and 1")
     a, b, alpha, rho, _theta = _unpack_params(params)
     diff = (elo_a + home_adv - elo_b) / 400.0
     lam_a = math.exp(a + b * diff) * fraction
     lam_b = math.exp(a - b * diff) * fraction
 
-    grid = _score_grid(lam_a, lam_b, alpha, rho, max_goals)
+    if fraction == 0.0:
+        grid = np.zeros((max_goals + 1, max_goals + 1), dtype=float)
+        grid[0, 0] = 1.0
+    else:
+        grid = _score_grid(lam_a, lam_b, alpha, rho, max_goals)
     return {
         "lambda_a": lam_a,
         "lambda_b": lam_b,

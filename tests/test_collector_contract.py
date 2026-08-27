@@ -10,15 +10,19 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator
 
+from scripts.collect_odds_a1 import capture_complete
+from scripts.collect_odds_a1 import main as collector_main
 from scripts.evaluate_gate_a1 import evaluate
 from src.collector_a1 import (
     OddsPapiClient,
+    QuotaGuard,
     SnapshotStore,
     TeamAliases,
     build_snapshots,
     canonical_json,
     event_id,
     parse_utc,
+    quota_status,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -100,6 +104,28 @@ def test_08_all_snapshots_are_unhomologated(payload: dict[str, object], aliases:
     assert rows(payload, aliases) and all(item["homologated"] is False for item in rows(payload, aliases))
 
 
+def test_totals_parser_does_not_collapse_other_lines_into_ou25(
+    payload: dict[str, object], aliases: TeamAliases
+) -> None:
+    payload["bookmakerOdds"]["pinnacle"]["markets"]["totals"] = {  # type: ignore[index]
+        "outcomes": {
+            "all": {
+                "players": {
+                    "o15": {"price": 1.4, "bookmakerOutcomeId": "Over 1.5"},
+                    "u15": {"price": 2.8, "bookmakerOutcomeId": "Under 1.5"},
+                    "o25": {"price": 1.9, "bookmakerOutcomeId": "Over 2.5"},
+                    "u25": {"price": 1.95, "bookmakerOutcomeId": "Under 2.5"},
+                    "o35": {"price": 2.7, "bookmakerOutcomeId": "Over 3.5"},
+                    "u35": {"price": 1.45, "bookmakerOutcomeId": "Under 3.5"},
+                }
+            }
+        }
+    }
+
+    totals = [item for item in rows(payload, aliases) if item["market"] == "ou2.5"]
+    assert [(item["selection"], item["odds"]) for item in totals] == [("over", 1.9), ("under", 1.95)]
+
+
 def test_09_schema_rejects_additional_property(payload: dict[str, object], aliases: TeamAliases) -> None:
     item = rows(payload, aliases)[0]
     item["roi"] = 1
@@ -157,10 +183,40 @@ def test_15_collector_exposes_no_financial_execution_api() -> None:
     assert forbidden.isdisjoint(set(dir(OddsPapiClient)) | set(dir(SnapshotStore)))
 
 
+def test_invalid_middle_row_does_not_poison_valid_batch_tail(
+    tmp_path: Path, payload: dict[str, object], aliases: TeamAliases
+) -> None:
+    store = SnapshotStore(tmp_path / "snapshots", SCHEMA)
+    batch = rows(payload, aliases)[:3]
+    batch[1]["odds"] = 1.0
+
+    assert store.append_batch(batch) == ["written", "conflict", "written"]
+    path = next((tmp_path / "snapshots").glob("*.jsonl"))
+    persisted = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+    assert len(persisted) == 2
+    assert persisted[1]["hash_prev"] == persisted[0]["hash_self"]
+    assert store.verify(path) is True
+
+
+def test_batch_retry_is_deduplicated(tmp_path: Path, payload: dict[str, object], aliases: TeamAliases) -> None:
+    store = SnapshotStore(tmp_path / "snapshots", SCHEMA)
+    batch = rows(payload, aliases)[:3]
+
+    assert store.append_batch(batch) == ["written", "written", "written"]
+    assert store.append_batch(batch) == ["duplicate", "duplicate", "duplicate"]
+
+
+def test_capture_window_is_not_closed_after_partial_batch_failure() -> None:
+    snapshots = [{"snapshot_id": "a"}, {"snapshot_id": "b"}]
+    assert capture_complete(snapshots, [], ["written", "duplicate"]) is True
+    assert capture_complete(snapshots, [], ["written", "conflict"]) is False
+    assert capture_complete(snapshots, [{"reason": "unknown_alias"}], ["written"]) is False
+
+
 def test_16_economic_mode_is_rehearsal_only(tmp_path: Path) -> None:
     for day in range(1, 8):
         (tmp_path / f"2026-08-{day:02d}.json").write_text(json.dumps({"mode": "economic"}), encoding="utf-8")
-    assert evaluate(tmp_path)["verdict"] == "REHEARSAL_ONLY"
+    assert evaluate(tmp_path)["verdict"] == "REHEARSAL_ONLY_BUDGETED"
 
 
 def test_17_full_mode_failure_restarts_clock(tmp_path: Path) -> None:
@@ -169,3 +225,45 @@ def test_17_full_mode_failure_restarts_clock(tmp_path: Path) -> None:
     result = evaluate(tmp_path)
     assert result["verdict"] == "FAIL_RESTART_CLOCK"
     assert result["restart_clock_required"] is True
+
+
+def test_cli_reports_only_sanitized_runtime_detail(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr("sys.argv", ["collect_odds_a1.py", "--discover"])
+    monkeypatch.setattr("scripts.collect_odds_a1.OddsPapiClient", lambda: (_ for _ in ()).throw(RuntimeError("safe")))
+    assert collector_main() == 1
+    assert json.loads(capsys.readouterr().err)["safe_detail"] == "safe"
+
+
+def test_cli_hides_arbitrary_exception_text(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr("sys.argv", ["collect_odds_a1.py", "--discover"])
+    monkeypatch.setattr(
+        "scripts.collect_odds_a1.OddsPapiClient",
+        lambda: (_ for _ in ()).throw(ValueError("must-not-leak")),
+    )
+    assert collector_main() == 1
+    output = json.loads(capsys.readouterr().err)
+    assert output["safe_detail"] is None
+    assert "must-not-leak" not in json.dumps(output)
+
+
+def test_quota_status_accepts_nested_account_and_rejects_invalid() -> None:
+    assert quota_status({"subscription": {"request_count": 12, "request_limit": 250}}) == (12, 250)
+    with pytest.raises(RuntimeError, match="request_count"):
+        quota_status({"subscription": {"request_limit": 250}})
+
+
+def test_quota_guard_reserves_budget_limits_attempts_and_backs_off(tmp_path: Path) -> None:
+    guard = QuotaGuard(tmp_path / "quota.json", reserve=20, max_attempts=2, backoff_minutes=30)
+    now = datetime(2026, 8, 27, 12, tzinfo=UTC)
+    assert guard.allow("f1", "T-1440m", now, 229, 250) == (True, "allowed")
+    assert guard.allow("f1", "T-1440m", now, 230, 250) == (False, "monthly_reserve")
+    guard.record("f1", "T-1440m", now)
+    assert guard.allow("f1", "T-1440m", now, 100, 250) == (False, "backoff")
+    later = datetime(2026, 8, 27, 13, tzinfo=UTC)
+    assert guard.allow("f1", "T-1440m", later, 100, 250) == (True, "allowed")
+    guard.record("f1", "T-1440m", later)
+    assert guard.allow("f1", "T-1440m", later, 100, 250) == (False, "attempt_limit")

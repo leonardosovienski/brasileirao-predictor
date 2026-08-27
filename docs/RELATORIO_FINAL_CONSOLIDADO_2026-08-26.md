@@ -1,5 +1,12 @@
 # Relatório final consolidado — brasileirao-predictor
 
+> **SUPERSEDIDO PARA MÉTRICAS — 2026-08-26:** uma auditoria posterior encontrou
+> diferenças entre a likelihood e a grade servida, decay terminal ausente no
+> Elo e climatologia com informação da própria coorte. O código foi corrigido;
+> os números e o ledger abaixo preservam o estado histórico do commit-base e
+> não devem ser reutilizados como estado corrente. Ver
+> `docs/AUDITORIA_MATEMATICA_E_CORRECOES_2026-08-26.md`.
+
 Data: **2026-08-26**  
 Commit-base analisado: `915b5c6`  
 Escopo: ciência preditiva, erros, mercados, dados, governança e integridade.
@@ -286,21 +293,24 @@ features; é alvo máximo observado, não promessa de capturabilidade.
 
 ## 11. Ledger científico
 
-`data/trials.json` contém 26 nomes únicos, todos com status:
+`data/trials.json` contém agora 29 nomes únicos, todos com status. As grafias
+`substituida`/`substituída` são a mesma categoria:
 
 | Status | Quantidade |
 |---|---:|
 | Refutada | 6 |
 | Informativa | 3 |
-| Substituída | 2 |
-| Inconclusiva | 5 |
+| Substituída | 3 |
+| Inconclusiva | 6 |
 | Exploratória | 2 |
 | Comprovada | 1 |
-| Pré-registrada | 7 |
+| Pré-registrada | 8 |
 
-A única trial `comprovada` é H12: **desligar o ensemble xG melhora a qualidade
-de previsão**. Isso não prova edge econômico. H13 continua pré-registrada para
-dados futuros e não deve usar 2025, agora consumido.
+A única trial com status histórico `comprovada` é H12: desligar o ensemble xG
+melhorou a qualidade no painel reutilizado. A decisão operacional permanece,
+mas a confirmação não foi cega e isso não prova edge econômico. H13 foi
+substituída; H14 e H15 estão pré-registradas, porém a persistência prospectiva
+dos braços ainda está `NOT_STARTED`.
 
 Famílias fechadas na formulação atual: divergência 1X2, OU2.5 residual, BTTS,
 recalibrações simples, mando/força/temperatura escalares, `rho`, ataque-defesa
@@ -365,9 +375,13 @@ dívida real e não deve ser apresentada como “81% do projeto inteiro”.
    commit `1544dbe` corrigiu e o CI seguinte ficou verde.
 2. O teste .NET local falhou sem Redis/Docker Desktop; o mesmo commit passou no
    CI com Redis provisionado. Foi falha ambiental, não funcional.
-3. O painel `h9_frozen` tem bug de relatório para estratos menores que o bloco
-   de bootstrap. As 940 previsões foram geradas, mas o artefato canônico global
-   não foi concluído.
+3. O painel `h9_frozen` tinha bug de relatório para estratos menores que o bloco
+   de bootstrap. A política agora retorna IC nulo nesses estratos e o artefato
+   canônico corrigido foi concluído em
+   `reports/benchmark_h9_frozen_corrected_2021_2024_2026-08-26.json`. O resultado
+   desse painel é somente diagnóstico retrospectivo: os parâmetros congelados
+   de H9 descendem do H8 já observado e não foram escolhidos cegamente antes de
+   2021–2024; portanto, a vantagem histórica não confirma H9 nem autoriza capital.
 4. A afirmação antiga “shadow A1 ativo” não corresponde ao disco: não há
    manifesto, snapshots, métricas ou tarefas instaladas.
 5. Checkpoints antigos do `HANDOFF.md` preservam história e podem dizer que 2025
@@ -409,7 +423,8 @@ que exista um threshold rentável escondido.
 5. Features PIT auditáveis de escalação, lesões, técnico, venue, descanso e
    viagem; atualmente não existem com clocks/proveniência suficientes.
 6. Odds nomeadas e sincronizadas de Pinnacle + softs, sem agregado anônimo.
-7. Evidência prospectiva futura para H13; 2025 não serve mais.
+7. Evidência prospectiva futura para H14/H15; 2025 não serve mais e a coleta
+   dos braços ainda precisa ser ativada antes de qualquer observação elegível.
 8. Amostra maior de T2-2026 para reavaliar ruído versus drift.
 
 Esses itens são lacunas, não autorização automática para experimentos. Cada
@@ -419,8 +434,8 @@ hipótese nova precisa de protocolo, mecanismo e amostra futura legítima.
 
 1. Não tentar “consertar” o argmax com threshold de empate pós-hoc.
 2. Preservar o modelo atual como baseline congelado, não como motor econômico.
-3. Corrigir o bug mecânico do relatório `h9_frozen` sem mudar previsões ou
-   métricas; usar política explícita para estrato menor que `block_length`.
+3. Preservar o fix do relatório `h9_frozen`: estrato menor que `block_length`
+   recebe IC nulo em vez de derrubar o artefato inteiro.
 4. Rotacionar a chave OddsPapi e iniciar o A1 somente com segredo ambiental.
 5. Priorizar o coletor Pinnacle × soft, porque testa um mecanismo econômico que
    não depende de o modelo vencer o mercado em probabilidade pura.

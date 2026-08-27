@@ -98,6 +98,77 @@ class OddsPapiClient:
             raise RuntimeError("payload de odds inválido")
         return payload
 
+    def account(self) -> dict[str, Any]:
+        """Unmetered provider status used to protect the free allowance."""
+        payload = self._get("account")
+        if not isinstance(payload, dict):
+            raise RuntimeError("payload de account inválido")
+        return payload
+
+
+def _numeric_field(value: Any, field: str) -> int | None:
+    if isinstance(value, dict):
+        if field in value and isinstance(value[field], int | float):
+            return int(value[field])
+        for nested in value.values():
+            found = _numeric_field(nested, field)
+            if found is not None:
+                return found
+    elif isinstance(value, list):
+        for nested in value:
+            found = _numeric_field(nested, field)
+            if found is not None:
+                return found
+    return None
+
+
+def quota_status(payload: dict[str, Any]) -> tuple[int, int]:
+    """Extract the authoritative monthly count/limit without retaining account data."""
+    count = _numeric_field(payload, "request_count")
+    limit = _numeric_field(payload, "request_limit")
+    if count is None or limit is None or count < 0 or limit < 1 or count > limit:
+        raise RuntimeError("account sem request_count/request_limit válidos")
+    return count, limit
+
+
+class QuotaGuard:
+    def __init__(self, path: Path, *, reserve: int = 20, max_attempts: int = 2, backoff_minutes: int = 30) -> None:
+        self.path = path
+        self.reserve = reserve
+        self.max_attempts = max_attempts
+        self.backoff_minutes = backoff_minutes
+        self.state: dict[str, Any] = (
+            json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"period": None, "attempts": {}}
+        )
+
+    def _rollover(self, now: datetime) -> None:
+        period = now.astimezone(UTC).strftime("%Y-%m")
+        if self.state.get("period") != period:
+            self.state = {"period": period, "attempts": {}}
+
+    def allow(
+        self, fixture_id: str, label: str, now: datetime, request_count: int, request_limit: int
+    ) -> tuple[bool, str]:
+        self._rollover(now)
+        if request_limit - request_count <= self.reserve:
+            return False, "monthly_reserve"
+        item = self.state["attempts"].get(f"{fixture_id}|{label}", {})
+        if int(item.get("count", 0)) >= self.max_attempts:
+            return False, "attempt_limit"
+        last = item.get("last_attempt_at")
+        if last and (now - parse_utc(str(last))).total_seconds() < self.backoff_minutes * 60:
+            return False, "backoff"
+        return True, "allowed"
+
+    def record(self, fixture_id: str, label: str, now: datetime) -> None:
+        self._rollover(now)
+        key = f"{fixture_id}|{label}"
+        item = self.state["attempts"].setdefault(key, {"count": 0})
+        item["count"] = int(item["count"]) + 1
+        item["last_attempt_at"] = utc_text(now)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        self.path.write_text(json.dumps(self.state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
 
 class SnapshotStore:
     def __init__(self, root: Path, schema_path: Path, quarantine_root: Path | None = None) -> None:
@@ -153,6 +224,34 @@ class SnapshotStore:
             handle.write(json.dumps(snapshot, ensure_ascii=False, sort_keys=True) + "\n")
         return "written"
 
+    def append_batch(self, snapshots: list[dict[str, Any]]) -> list[Literal["written", "duplicate", "conflict"]]:
+        """Append a source batch without letting one rejected row poison its tail.
+
+        `build_snapshots` chains the source batch optimistically. If a middle row
+        fails schema/PIT validation, later valid rows must be rebased onto the
+        last row actually persisted rather than quarantined as hash mismatches.
+        """
+        results: list[Literal["written", "duplicate", "conflict"]] = []
+        for original in snapshots:
+            candidate = dict(original)
+            path = self._path(candidate["captured_at"])
+            existing = (
+                [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()] if path.exists() else []
+            )
+            same = [item for item in existing if self._identity(item) == self._identity(candidate)]
+            ignored = {"snapshot_id", "hash_prev", "hash_self"}
+            semantic = {key: value for key, value in candidate.items() if key not in ignored}
+            if any({key: value for key, value in item.items() if key not in ignored} == semantic for item in same):
+                results.append("duplicate")
+                continue
+            candidate["hash_prev"] = existing[-1]["hash_self"] if existing else None
+            candidate.pop("hash_self", None)
+            candidate["snapshot_id"] = "pending"
+            candidate["snapshot_id"] = hashlib.sha256(canonical_json(candidate)).hexdigest()[:24]
+            candidate["hash_self"] = hashlib.sha256(canonical_json(candidate)).hexdigest()
+            results.append(self.append(candidate))
+        return results
+
     def verify(self, path: Path) -> bool:
         previous: str | None = None
         for line in path.read_text(encoding="utf-8").splitlines():
@@ -194,12 +293,16 @@ def _market_rows(book: dict[str, Any]) -> list[tuple[str, str, float | None, flo
             continue
         flattened = [player for outcome in outcomes.values() for player in outcome.get("players", {}).values()]
         labels = [str(player.get("bookmakerOutcomeId", "")).casefold() for player in flattened]
-        if labels and all(any(side in label for side in ("over", "under")) for label in labels):
-            if any("2.5" in label for label in labels):
-                for player, label in zip(flattened, labels, strict=True):
-                    side = "over" if "over" in label else "under"
-                    if isinstance(player.get("price"), int | float):
-                        rows.append(("ou2.5", side, 2.5, float(player["price"]), "unverified"))
+        total_rows = [
+            (player, label)
+            for player, label in zip(flattened, labels, strict=True)
+            if ("over" in label or "under" in label) and re.search(r"(?<!\d)2[.,]5(?!\d)", label)
+        ]
+        if total_rows:
+            for player, label in total_rows:
+                side = "over" if "over" in label else "under"
+                if isinstance(player.get("price"), int | float):
+                    rows.append(("ou2.5", side, 2.5, float(player["price"]), "unverified"))
         elif set(labels) == {"yes", "no"}:
             for player, label in zip(flattened, labels, strict=True):
                 if isinstance(player.get("price"), int | float):

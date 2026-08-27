@@ -23,6 +23,15 @@ def test_shared_wheel_hashes_are_pinned() -> None:
     assert "490ece696f9173bbaa56c2c53a1ff6e5ffab1a7625fb00ac0a5f896c37081b37" in records
 
 
+def test_python_images_verify_shared_wheels_before_install() -> None:
+    for name in ("Dockerfile.cli", "Dockerfile.kernel"):
+        dockerfile = (ROOT / name).read_text(encoding="utf-8")
+        assert "COPY constraints/shared-wheels.sha256" in dockerfile
+        verify_at = dockerfile.index("sha256sum -c constraints/shared-wheels.sha256")
+        install_at = dockerfile.index("uv pip install")
+        assert verify_at < install_at
+
+
 def test_predictor_ops_closes_owned_stdout_pipe(tmp_path: Path, monkeypatch) -> None:
     spawned = []
     real_popen = predictor_ops.runner.subprocess.Popen

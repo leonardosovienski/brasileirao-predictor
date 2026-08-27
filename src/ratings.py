@@ -28,7 +28,7 @@ def expected_score(rating_diff: float) -> float:
     return 1.0 / (1.0 + 10 ** (-rating_diff / 400.0))
 
 
-def compute_ratings(matches, cfg_elo: dict):
+def compute_ratings(matches, cfg_elo: dict, *, asof: str | date | None = None):
     """matches: iterável ordenado por data de tuplas
     (date, home, away, home_score, away_score, tournament, neutral).
     Aplica regressão à média proporcional ao tempo desde o último jogo de cada
@@ -66,6 +66,13 @@ def compute_ratings(matches, cfg_elo: dict):
         ratings[away] -= delta
         last_seen[home] = last_seen[away] = today
 
+    if asof is not None and last_seen:
+        horizon = asof if isinstance(asof, date) else _parse(str(asof)[:10])
+        if horizon < max(last_seen.values()):
+            raise ValueError("asof cannot be earlier than the latest match")
+        for team in list(last_seen):
+            decay(team, horizon)
+
     return dict(ratings), history
 
 
@@ -90,5 +97,5 @@ def ratings_asof(matches, cfg_elo: dict, dates) -> dict:
         if window:
             cut = (_parse(d) - timedelta(days=int(window * 365.25))).isoformat()
             prefix = [m for m in prefix if m[0] >= cut]
-        out[d], _ = compute_ratings(prefix, cfg_elo)
+        out[d], _ = compute_ratings(prefix, cfg_elo, asof=d)
     return out

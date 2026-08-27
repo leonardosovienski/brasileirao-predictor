@@ -85,6 +85,22 @@ def test_decay_nulo_e_identidade():
     assert h1 == h2
 
 
+def test_decay_terminal_chega_ao_horizonte_da_previsao():
+    cfg = dict(CFG, form_half_life_years=4.0)
+    ms = [_m("2020-01-01", "A", "B", 3, 0)]
+    immediate, history_immediate = compute_ratings(ms, cfg)
+    at_horizon, history_horizon = compute_ratings(ms, cfg, asof="2024-01-01")
+    years = (date(2024, 1, 1) - date(2020, 1, 1)).days / 365.25
+    expected = 1500 + (immediate["A"] - 1500) * 0.5 ** (years / 4.0)
+    assert at_horizon["A"] == pytest.approx(expected)
+    assert history_horizon == history_immediate
+
+
+def test_decay_terminal_rejeita_horizonte_anterior_ao_historico():
+    with pytest.raises(ValueError, match="asof"):
+        compute_ratings([_m("2026-01-02", "A", "B", 1, 0)], CFG, asof="2026-01-01")
+
+
 # ------------------------------------------------------------- K e margem
 def test_k_fallback_de_eliminatoria():
     # torneio desconhecido com "qualification" no nome cai no K de eliminatória.

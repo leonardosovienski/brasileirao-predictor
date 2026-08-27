@@ -20,6 +20,9 @@ def main() -> int:
         if snapshot_path.exists()
         else []
     )
+    if not snapshots:
+        print(json.dumps({"status": "NOT_STARTED_NO_SNAPSHOTS", "date": today, "capital_enabled": False}))
+        return 0
     aliases = TeamAliases(ROOT / "data" / "team_aliases.json")
     expected: set[str] = set()
     if fixtures_path.exists():

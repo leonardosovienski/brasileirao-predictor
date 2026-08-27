@@ -1,0 +1,35 @@
+{
+  "schema_version": "a1-ou25-phase0-policy/1",
+  "policy_id": "a1-ou25-sharp-soft-phase0",
+  "created_at": "2026-08-27T00:00:00Z",
+  "scientific_state": "OPERATIONAL_CALIBRATION_NO_LABELS",
+  "market": "ou2.5",
+  "line": 2.5,
+  "selections": ["over", "under"],
+  "reference_books": ["pinnacle"],
+  "soft_books": ["betano.bet.br", "estrelabet", "sportingbet.bet.br", "superbet.bet.br", "kto", "pixbet"],
+  "reference_methods": ["proportional", "shin"],
+  "reference_policy": "minimum_probability_across_reference_books_methods_and_same-capture-pairs",
+  "capture_windows_minutes": [1440, 360, 60, 10],
+  "quota_policy": {
+    "account_endpoint_unmetered": true,
+    "minimum_monthly_reserve": 20,
+    "maximum_attempts_per_fixture_window": 2,
+    "retry_backoff_minutes": 30,
+    "fail_closed_without_account_status": true
+  },
+  "friction_budget_pp": {
+    "commission": null,
+    "slippage": null,
+    "latency": null,
+    "availability": null,
+    "reference_uncertainty": null,
+    "safety_buffer": null
+  },
+  "threshold_formula": "sum(non-null friction_budget_pp); freeze all components before first labeled scientific observation",
+  "threshold_frozen": false,
+  "labels_forbidden": ["result", "closing_odds", "clv", "roi", "pnl", "won", "settlement", "home_goals", "away_goals"],
+  "capital_enabled": false,
+  "kelly_enabled": false,
+  "activation_requires": ["rotated_ODDSPAPI_KEY", "seven_day_A1_gate", "frozen_friction_budget", "new_append_only_scientific_cohort"]
+}
