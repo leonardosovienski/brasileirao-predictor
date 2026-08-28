@@ -62,6 +62,23 @@ H2_CONF = 0.60  # pick de período: confiança mínima pré-registrada
 H2_LINES = (1.5, 2.5)  # linhas de O/U do 1T aferíveis com o placar de HT
 
 
+def _aligned_blocks(rows, target_games: int) -> list[tuple[int, int]]:
+    """Build expanding test blocks without splitting a date batch."""
+    boundaries = [0]
+    for index in range(1, len(rows)):
+        if str(rows[index][0])[:10] != str(rows[index - 1][0])[:10]:
+            boundaries.append(index)
+    boundaries.append(len(rows))
+    blocks: list[tuple[int, int]] = []
+    start = 0
+    while start < len(rows):
+        candidates = [boundary for boundary in boundaries if boundary > start and boundary - start >= target_games]
+        end = candidates[0] if candidates else len(rows)
+        blocks.append((start, end))
+        start = end
+    return blocks
+
+
 def _ht_fraction(rows_ht, cut_date):
     """Fração média de gols no 1T usando SÓ jogos com HT anteriores a cut_date.
     Espelha display.ht_goal_fraction, mas forward-only (sem lookahead).
@@ -120,11 +137,8 @@ def run_walkforward(cfg, conn):
     rows_ht = [(r[0], r[3], r[4], *ht.get((r[0], r[1], r[2]), (None, None))) for r in rows]
 
     # blocos: o primeiro é burn-in (Elo converge, calibração acumula), nunca testado
-    blocks = []
-    start = block_games
-    while start < len(rows):
-        blocks.append((start, min(start + block_games, len(rows))))
-        start += block_games
+    aligned = _aligned_blocks(rows, block_games)
+    blocks = aligned[1:]
 
     ledger, h2_picks = [], []
     for bi, (lo, hi) in enumerate(blocks, 1):

@@ -115,3 +115,29 @@ def test_margem_cresce_monotonicamente():
     mults = [margin_multiplier(d) for d in range(6)]
     assert mults == sorted(mults)
     assert mults[0] == mults[1] == 1.0
+
+
+def test_same_date_is_updated_as_one_batch_and_is_order_invariant():
+    matches = [
+        _m("2026-06-01", "A", "B", 2, 0),
+        _m("2026-06-01", "C", "D", 0, 1),
+    ]
+    ratings_a, history_a = compute_ratings(matches, CFG)
+    ratings_b, history_b = compute_ratings(list(reversed(matches)), CFG)
+    assert ratings_a == pytest.approx(ratings_b)
+    assert sorted(history_a) == sorted(history_b)
+
+
+def test_reliable_kickoff_allows_multiple_sequential_games_on_same_date():
+    matches = [
+        (*_m("2026-06-01", "A", "B", 2, 0), "2026-06-01T16:00:00Z"),
+        (*_m("2026-06-01", "A", "C", 0, 1), "2026-06-01T20:00:00Z"),
+    ]
+    _ratings, history = compute_ratings(matches, CFG)
+    assert history[1][0] != 0.0
+
+
+def test_duplicate_team_in_date_fallback_batch_uses_same_pre_batch_state():
+    matches = [_m("2026-06-01", "A", "B", 1, 0), _m("2026-06-01", "A", "C", 0, 1)]
+    _ratings, history = compute_ratings(matches, CFG)
+    assert history[0][0] == history[1][0] == 0.0

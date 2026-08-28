@@ -1,5 +1,6 @@
 from collections import defaultdict
 from datetime import date, timedelta
+from itertools import groupby
 
 
 def _parse(d: str) -> date:
@@ -49,22 +50,36 @@ def compute_ratings(matches, cfg_elo: dict, *, asof: str | date | None = None):
         factor = 0.5 ** (years / half_life)
         ratings[team] = base + (ratings[team] - base) * factor
 
-    for d, home, away, hs, as_, tournament, neutral in matches:
-        today = _parse(d)
-        decay(home, today)
-        decay(away, today)
+    materialized = list(matches)
 
-        adv = 0.0 if neutral else home_adv
-        diff = ratings[home] + adv - ratings[away]
-        history.append((diff, hs, as_))
+    def group_key(match):
+        # An optional eighth field carries a reliable UTC kickoff. Legacy rows
+        # have date precision and are conservatively batched for the whole day.
+        return str(match[7]) if len(match) >= 8 and match[7] else str(match[0])[:10]
 
-        we_home = expected_score(diff)
-        result = 1.0 if hs > as_ else (0.5 if hs == as_ else 0.0)
-        k = k_factor(tournament, cfg_elo["k_factors"]) * margin_multiplier(hs - as_)
-        delta = k * (result - we_home)
-        ratings[home] += delta
-        ratings[away] -= delta
-        last_seen[home] = last_seen[away] = today
+    materialized.sort(key=group_key)
+    for _key, batch_iter in groupby(materialized, key=group_key):
+        batch = list(batch_iter)
+        batch_date = _parse(str(batch[0][0])[:10])
+        teams = {str(team) for match in batch for team in match[1:3]}
+        for team in teams:
+            decay(team, batch_date)
+
+        deltas: dict[str, float] = defaultdict(float)
+        for match in batch:
+            d, home, away, hs, as_, tournament, neutral = match[:7]
+            adv = 0.0 if neutral else home_adv
+            diff = ratings[home] + adv - ratings[away]
+            history.append((diff, hs, as_))
+            we_home = expected_score(diff)
+            result = 1.0 if hs > as_ else (0.5 if hs == as_ else 0.0)
+            k = k_factor(tournament, cfg_elo["k_factors"]) * margin_multiplier(hs - as_)
+            delta = k * (result - we_home)
+            deltas[home] += delta
+            deltas[away] -= delta
+        for team, delta in deltas.items():
+            ratings[team] += delta
+            last_seen[team] = batch_date
 
     if asof is not None and last_seen:
         horizon = asof if isinstance(asof, date) else _parse(str(asof)[:10])
