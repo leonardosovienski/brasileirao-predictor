@@ -42,6 +42,25 @@ def test_backup_includes_research_and_runtime(tmp_path):
     assert (backup / "data" / "runtime" / "heartbeat.json").is_file()
 
 
+def test_backup_includes_operational_odds_and_audit_files(tmp_path):
+    source = _root(tmp_path / "source")
+    with sqlite3.connect(source / "data" / "odds_operational.db") as connection:
+        connection.execute("CREATE TABLE snapshots (id INTEGER PRIMARY KEY)")
+    for directory, filename in (
+        ("odds_snapshots", "2026-08-28.jsonl"),
+        ("odds_quarantine", "quarantine.jsonl"),
+        ("collector_state", "collector_heartbeat.json"),
+        ("collector_metrics", "gate_a1_verdict.json"),
+    ):
+        path = source / "data" / directory
+        path.mkdir()
+        (path / filename).write_text("{}\n", encoding="utf-8")
+    backup = create_backup(tmp_path / "backup", root=source)
+    assert (backup / "data" / "odds_operational.db").is_file()
+    assert (backup / "data" / "odds_snapshots" / "2026-08-28.jsonl").is_file()
+    assert verify_backup(backup)["schema_version"] == "brasileirao-backup/1.0"
+
+
 def test_backup_rejeita_tamper_e_overwrite(tmp_path):
     source = _root(tmp_path / "source")
     backup = create_backup(tmp_path / "backup", root=source)

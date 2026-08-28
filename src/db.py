@@ -58,6 +58,15 @@ CREATE TABLE IF NOT EXISTS sofascore_matches (
     odds_home   REAL, odds_draw REAL, odds_away REAL,
     odds_over   REAL, odds_under REAL
 );
+CREATE TABLE IF NOT EXISTS match_kickoff_versions (
+    event_id INTEGER NOT NULL,
+    version INTEGER NOT NULL,
+    kickoff_at TEXT NOT NULL,
+    lifecycle_status TEXT NOT NULL,
+    superseded_by_version INTEGER,
+    recorded_at TEXT NOT NULL,
+    PRIMARY KEY (event_id, version)
+);
 CREATE TABLE IF NOT EXISTS sofascore_player_ratings (
     event_id    INTEGER, player TEXT, team TEXT,
     rating      REAL, minutes INTEGER,
@@ -210,6 +219,12 @@ def _migrate(conn):
         conn.execute("ALTER TABLE sofascore_matches ADD COLUMN kickoff_at TEXT")
     if "superseded_by_event_id" not in cols:
         conn.execute("ALTER TABLE sofascore_matches ADD COLUMN superseded_by_event_id INTEGER")
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS match_kickoff_versions ("
+        "event_id INTEGER NOT NULL,version INTEGER NOT NULL,kickoff_at TEXT NOT NULL,"
+        "lifecycle_status TEXT NOT NULL,superseded_by_version INTEGER,recorded_at TEXT NOT NULL,"
+        "PRIMARY KEY(event_id,version))"
+    )
     match_cols = {r[1] for r in conn.execute("PRAGMA table_info(matches)")}
     if "event_id" not in match_cols:
         conn.execute("ALTER TABLE matches ADD COLUMN event_id INTEGER")
@@ -241,10 +256,13 @@ def completed_matches_with_kickoff(conn: sqlite3.Connection):
     return conn.execute(
         """
         SELECT m.date,m.home_team,m.away_team,m.home_score,m.away_score,m.tournament,m.neutral,
-               (SELECT s.kickoff_at FROM sofascore_matches s
-                WHERE substr(s.date,1,10)=substr(m.date,1,10)
+               COALESCE(
+                 (SELECT s.kickoff_at FROM sofascore_matches s
+                  WHERE m.event_id IS NOT NULL AND s.event_id=m.event_id LIMIT 1),
+                 (SELECT s.kickoff_at FROM sofascore_matches s
+                WHERE m.event_id IS NULL AND substr(s.date,1,10)=substr(m.date,1,10)
                   AND s.home_team=m.home_team AND s.away_team=m.away_team
-                ORDER BY s.kickoff_at DESC LIMIT 1) AS kickoff_at
+                ORDER BY s.kickoff_at DESC LIMIT 1)) AS kickoff_at
         FROM matches m WHERE m.home_score IS NOT NULL
         ORDER BY m.date,m.home_team,m.away_team
         """
@@ -346,10 +364,38 @@ def update_kickoff(conn, event_id, start_ts):
     if not start_ts:
         return
     kickoff = datetime.fromtimestamp(int(start_ts), UTC).isoformat(timespec="seconds")
+    current = conn.execute("SELECT kickoff_at FROM sofascore_matches WHERE event_id=?", (event_id,)).fetchone()
+    old = current[0] if current else None
+    latest = conn.execute(
+        "SELECT version FROM match_kickoff_versions WHERE event_id=? ORDER BY version DESC LIMIT 1", (event_id,)
+    ).fetchone()
+    if old == kickoff and latest is None:
+        conn.execute(
+            "INSERT INTO match_kickoff_versions VALUES (?,1,?,'SCHEDULED',NULL,?)",
+            (event_id, old, datetime.now(UTC).isoformat(timespec="seconds")),
+        )
+        conn.commit()
+        return
+    if old == kickoff:
+        return
+    if old and latest is None:
+        conn.execute(
+            "INSERT INTO match_kickoff_versions VALUES (?,1,?,'SCHEDULED',NULL,?)",
+            (event_id, old, datetime.now(UTC).isoformat(timespec="seconds")),
+        )
+        latest = (1,)
+    version = int(latest[0]) + 1 if latest else 1
+    if latest:
+        conn.execute(
+            "UPDATE match_kickoff_versions SET lifecycle_status='RESCHEDULED',superseded_by_version=? "
+            "WHERE event_id=? AND version=?",
+            (version, event_id, latest[0]),
+        )
     conn.execute(
-        "UPDATE sofascore_matches SET kickoff_at=COALESCE(?, kickoff_at) WHERE event_id=?",
-        (kickoff, event_id),
+        "INSERT INTO match_kickoff_versions VALUES (?, ?, ?, 'SCHEDULED', NULL, ?)",
+        (event_id, version, kickoff, datetime.now(UTC).isoformat(timespec="seconds")),
     )
+    conn.execute("UPDATE sofascore_matches SET kickoff_at=? WHERE event_id=?", (kickoff, event_id))
     conn.commit()
 
 

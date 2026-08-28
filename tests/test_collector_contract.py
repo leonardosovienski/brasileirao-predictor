@@ -234,6 +234,10 @@ def test_operational_mirror_is_bitemporal_and_versions_reschedules(
     assert versions[0][1] == "RESCHEDULED" and versions[0][2] == "fixture-1|v2"
     assert versions[1][0:2] == (2, "SCHEDULED")
     assert [row[0] for row in facts] == [1, 2]
+    persisted = json.loads((tmp_path / "snapshots" / "2026-08-26.jsonl").read_text(encoding="utf-8"))
+    assert persisted["event_version"] == 2
+    assert persisted["lifecycle_status"] == "SCHEDULED"
+    assert persisted["supersedes_event_version"] == 1
 
 
 def test_json_duplicate_repairs_missing_operational_mirror(

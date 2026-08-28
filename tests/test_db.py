@@ -147,10 +147,24 @@ def test_update_kickoff_grava_utc_e_none_e_noop(conn):
     assert conn.execute("SELECT kickoff_at FROM sofascore_matches WHERE event_id=31").fetchone()[0] == value
 
 
+def test_update_kickoff_versions_reschedule(conn):
+    db.upsert_ss_matches(conn, [_row(33)])
+    db.update_kickoff(conn, 33, 1_671_375_600)
+    db.update_kickoff(conn, 33, 1_671_379_200)
+    versions = conn.execute(
+        "SELECT version,lifecycle_status,superseded_by_version FROM match_kickoff_versions "
+        "WHERE event_id=33 ORDER BY version"
+    ).fetchall()
+    assert versions == [(1, "RESCHEDULED", 2), (2, "SCHEDULED", None)]
+    assert conn.execute("SELECT kickoff_at FROM sofascore_matches WHERE event_id=33").fetchone()[0] == (
+        "2022-12-18T16:00:00+00:00"
+    )
+
+
 def test_completed_matches_propagates_best_known_kickoff(conn):
     conn.execute(
-        "INSERT INTO matches (date,home_team,away_team,home_score,away_score,tournament,neutral) "
-        "VALUES ('2026-06-20','Brazil','Serbia',2,0,'WC',0)"
+        "INSERT INTO matches (event_id,date,home_team,away_team,home_score,away_score,tournament,neutral) "
+        "VALUES (32,'2026-06-20','Brasil alias','Servia alias',2,0,'WC',0)"
     )
     db.upsert_ss_matches(conn, [_row(32, home_score=2, away_score=0)])
     db.update_kickoff(conn, 32, 1_671_375_600)

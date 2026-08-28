@@ -27,6 +27,7 @@ LEDGERS = (
     "trials.harness_attestation.json",
     "teams_brasileirao.json",
 )
+OPERATIONAL_DIRECTORIES = ("odds_snapshots", "odds_quarantine", "collector_state", "collector_metrics")
 
 
 class BackupError(RuntimeError):
@@ -64,11 +65,24 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
         finally:
             target.close()
             source.close()
+        odds_db = root / "data" / "odds_operational.db"
+        if odds_db.is_file():
+            source = sqlite3.connect(f"file:{odds_db.resolve().as_posix()}?mode=ro", uri=True, timeout=30)
+            target = sqlite3.connect(data / "odds_operational.db")
+            try:
+                source.backup(target)
+            finally:
+                target.close()
+                source.close()
         for name in LEDGERS:
             path = root / "data" / name
             if path.is_file():
                 shutil.copy2(path, data / name)
         for name in ("research", "runtime"):
+            source_directory = root / "data" / name
+            if source_directory.is_dir():
+                shutil.copytree(source_directory, data / name)
+        for name in OPERATIONAL_DIRECTORIES:
             source_directory = root / "data" / name
             if source_directory.is_dir():
                 shutil.copytree(source_directory, data / name)
@@ -100,13 +114,13 @@ def verify_backup(backup: Path) -> dict[str, Any]:
     actual = {path.relative_to(backup).as_posix(): _hash(path) for path in _files(backup)}
     if actual != manifest["files"]:
         raise BackupError("conteúdo do backup diverge do manifesto")
-    database = backup / "data" / "matches.db"
-    conn = sqlite3.connect(f"file:{database.resolve().as_posix()}?mode=ro&immutable=1", uri=True)
-    try:
-        if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
-            raise BackupError("integrity_check do SQLite falhou")
-    finally:
-        conn.close()
+    for database in (backup / "data").glob("*.db"):
+        conn = sqlite3.connect(f"file:{database.resolve().as_posix()}?mode=ro&immutable=1", uri=True)
+        try:
+            if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
+                raise BackupError(f"integrity_check do SQLite falhou: {database.name}")
+        finally:
+            conn.close()
     return manifest
 
 

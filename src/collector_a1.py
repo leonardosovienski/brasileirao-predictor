@@ -269,7 +269,7 @@ class SnapshotStore:
                 ).fetchone()
             if latest is not None and latest[1] != candidate["kickoff_at"]:
                 candidate["event_version"] = int(latest[0]) + 1
-                candidate["lifecycle_status"] = "RESCHEDULED"
+                candidate["lifecycle_status"] = "SCHEDULED"
                 candidate["supersedes_event_version"] = int(latest[0])
             elif latest is not None:
                 candidate["event_version"] = int(latest[0])
@@ -338,7 +338,7 @@ class SnapshotStore:
         """
         results: list[Literal["written", "duplicate", "conflict"]] = []
         for original in snapshots:
-            candidate = dict(original)
+            candidate = self._enrich_lifecycle(original)
             path = self._path(candidate["captured_at"])
             existing = (
                 [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()] if path.exists() else []
