@@ -8,7 +8,8 @@
     "schema_version", "snapshot_id", "source_id", "source_event_id",
     "event_id", "bookmaker", "market", "selection", "line", "odds",
     "status", "identity_status", "captured_at", "kickoff_at",
-    "mapping_version", "homologated", "hash_prev", "hash_self", "supersedes"
+    "mapping_version", "homologated", "hash_prev", "hash_self", "supersedes",
+    "event_version", "lifecycle_status", "supersedes_event_version"
   ],
   "properties": {
     "schema_version": {"const": "odds_snapshot/1"},
@@ -32,5 +33,8 @@
     "hash_prev": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
     "hash_self": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "supersedes": {"type": ["string", "null"]}
+    ,"event_version": {"type": "integer", "minimum": 1}
+    ,"lifecycle_status": {"enum": ["SCHEDULED", "RESCHEDULED", "CORRECTED"]}
+    ,"supersedes_event_version": {"type": ["integer", "null"], "minimum": 1}
   }
 }

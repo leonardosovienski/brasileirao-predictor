@@ -236,6 +236,22 @@ def test_operational_mirror_is_bitemporal_and_versions_reschedules(
     assert [row[0] for row in facts] == [1, 2]
 
 
+def test_json_duplicate_repairs_missing_operational_mirror(
+    tmp_path: Path, payload: dict[str, object], aliases: TeamAliases
+) -> None:
+    import sqlite3
+
+    db_path = tmp_path / "odds.db"
+    store = SnapshotStore(tmp_path / "snapshots", SCHEMA, operational_db=db_path)
+    item = rows(payload, aliases)[0]
+    assert store.append(item) == "written"
+    with sqlite3.connect(db_path) as connection:
+        connection.execute("DELETE FROM odds_snapshot_facts")
+    assert store.append(item) == "duplicate"
+    with sqlite3.connect(db_path) as connection:
+        assert connection.execute("SELECT COUNT(*) FROM odds_snapshot_facts").fetchone()[0] == 1
+
+
 def test_capture_window_is_not_closed_after_partial_batch_failure() -> None:
     snapshots = [{"snapshot_id": "a"}, {"snapshot_id": "b"}]
     assert capture_complete(snapshots, [], ["written", "duplicate"]) is True

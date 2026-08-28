@@ -39,9 +39,10 @@ def test_all_local_evidence_reaches_human_review_only(tmp_path):
     state = data / "collector_state"
     state.mkdir()
     now = datetime(2026, 8, 28, 12, tzinfo=UTC)
-    (state / "metrics_heartbeat.json").write_text(
-        json.dumps({"checked_at": now.isoformat()}), encoding="utf-8"
-    )
+    for name in ("collector", "discovery", "metrics"):
+        (state / f"{name}_heartbeat.json").write_text(
+            json.dumps({"checked_at": now.isoformat(), "status": "PASS"}), encoding="utf-8"
+        )
     report = assess_operational_readiness(
         tmp_path, env={"ODDSPAPI_KEY": "configured-but-never-returned"}, now=now
     )
@@ -55,7 +56,7 @@ def test_stale_heartbeat_blocks_readiness(tmp_path):
     _catalogs(data)
     state = data / "collector_state"
     state.mkdir()
-    (state / "metrics_heartbeat.json").write_text(
+    (state / "collector_heartbeat.json").write_text(
         json.dumps({"checked_at": "2026-08-01T00:00:00+00:00"}), encoding="utf-8"
     )
     report = assess_operational_readiness(tmp_path, now=datetime(2026, 8, 28, tzinfo=UTC))

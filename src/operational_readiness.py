@@ -72,20 +72,25 @@ def assess_operational_readiness(
             pass
     checks["gate_a1"] = {"status": "PASS" if formal_pass else "PENDING", "formal_pass": formal_pass}
 
-    heartbeat_path = data / "collector_state" / "metrics_heartbeat.json"
-    heartbeat_age: float | None = None
-    try:
-        heartbeat = json.loads(heartbeat_path.read_text(encoding="utf-8"))
-        heartbeat_at = datetime.fromisoformat(str(heartbeat["checked_at"]).replace("Z", "+00:00")).astimezone(UTC)
-        heartbeat_age = (checked_at - heartbeat_at).total_seconds()
-        heartbeat_ok = 0 <= heartbeat_age <= 26 * 3600
-    except (OSError, KeyError, ValueError, json.JSONDecodeError):
-        heartbeat_ok = False
-    checks["collector_heartbeat"] = {
-        "status": "PASS" if heartbeat_ok else "BLOCKED",
-        "age_seconds": heartbeat_age,
-        "maximum_age_seconds": 26 * 3600,
-    }
+    heartbeat_specs = {"collector": 45 * 60, "discovery": 8 * 24 * 3600, "metrics": 26 * 3600}
+    for name, maximum_age in heartbeat_specs.items():
+        heartbeat_path = data / "collector_state" / f"{name}_heartbeat.json"
+        heartbeat_age: float | None = None
+        heartbeat_status = None
+        try:
+            heartbeat = json.loads(heartbeat_path.read_text(encoding="utf-8"))
+            heartbeat_at = datetime.fromisoformat(str(heartbeat["checked_at"]).replace("Z", "+00:00")).astimezone(UTC)
+            heartbeat_age = (checked_at - heartbeat_at).total_seconds()
+            heartbeat_status = heartbeat.get("status", "PASS")
+            heartbeat_ok = 0 <= heartbeat_age <= maximum_age and heartbeat_status == "PASS"
+        except (OSError, KeyError, ValueError, json.JSONDecodeError):
+            heartbeat_ok = False
+        checks[f"{name}_heartbeat"] = {
+            "status": "PASS" if heartbeat_ok else "BLOCKED",
+            "reported_status": heartbeat_status,
+            "age_seconds": heartbeat_age,
+            "maximum_age_seconds": maximum_age,
+        }
 
     blockers = [name for name, check in checks.items() if check["status"] != "PASS"]
     return {

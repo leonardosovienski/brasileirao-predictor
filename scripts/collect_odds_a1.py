@@ -45,6 +45,10 @@ def write_json(path: Path, payload: object) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def write_heartbeat(name: str, now: datetime, status: str) -> None:
+    write_json(STATE / f"{name}_heartbeat.json", {"checked_at": utc_text(now), "status": status})
+
+
 def discover(client: OddsPapiClient, now: datetime) -> dict[str, object]:
     policy = json.loads(PHASE0_POLICY.read_text(encoding="utf-8"))
     reserve = int(policy["quota_policy"]["minimum_monthly_reserve"])
@@ -63,6 +67,7 @@ def discover(client: OddsPapiClient, now: datetime) -> dict[str, object]:
         },
     }
     write_json(FIXTURES, payload)
+    write_heartbeat("discovery", now, "PASS")
     return {
         "mode": "discover",
         "fixtures": len(eligible),
@@ -74,10 +79,13 @@ def discover(client: OddsPapiClient, now: datetime) -> dict[str, object]:
     }
 
 
-def due_label(kickoff: datetime, now: datetime, completed: set[str]) -> str | None:
+def due_label(kickoff: datetime, now: datetime, completed: set[str], *, mode: str = "economic") -> str | None:
     remaining = (kickoff - now).total_seconds() / 60
     if remaining <= 0:
         return None
+    if mode == "full" and remaining <= 8 * 24 * 60:
+        label = f"F-{now.strftime('%Y%m%dT%H')}"
+        return None if label in completed else label
     for target in TARGET_MINUTES:
         label = f"T-{target}m"
         if label not in completed and remaining <= target:
@@ -111,7 +119,7 @@ def append_phase0_observation(log: dict[str, object]) -> bool:
     return True
 
 
-def collect(client: OddsPapiClient, now: datetime) -> dict[str, object]:
+def collect(client: OddsPapiClient, now: datetime, *, mode: str = "economic") -> dict[str, object]:
     if not FIXTURES.exists():
         raise RuntimeError("manifesto ausente; rode --discover primeiro")
     manifest = json.loads(FIXTURES.read_text(encoding="utf-8"))
@@ -148,7 +156,7 @@ def collect(client: OddsPapiClient, now: datetime) -> dict[str, object]:
     for fixture in manifest["fixtures"]:
         fixture_id = str(fixture["fixtureId"])
         completed = set(capture_state.get(fixture_id, []))
-        label = due_label(parse_utc(str(fixture["startTime"])), now, completed)
+        label = due_label(parse_utc(str(fixture["startTime"])), now, completed, mode=mode)
         if label is None:
             continue
         try:
@@ -181,7 +189,7 @@ def collect(client: OddsPapiClient, now: datetime) -> dict[str, object]:
     write_json(CAPTURES, capture_state)
     log = {
         "captured_at": utc_text(now),
-        "mode": "economic_budgeted",
+        "mode": "full" if mode == "full" else "economic_budgeted",
         "quota_request_count": account_count,
         "quota_request_limit": account_limit,
         "quota_reserve": int(quota_policy["minimum_monthly_reserve"]),
@@ -191,6 +199,7 @@ def collect(client: OddsPapiClient, now: datetime) -> dict[str, object]:
     with (METRICS / "collector_daily_log.jsonl").open("a", encoding="utf-8", newline="\n") as handle:
         handle.write(json.dumps(log, sort_keys=True) + "\n")
     append_phase0_observation(log)
+    write_heartbeat("collector", now, "PASS" if counters["errors"] == 0 else "DEGRADED")
     return log
 
 
@@ -199,10 +208,15 @@ def main() -> int:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--discover", action="store_true")
     group.add_argument("--collect", action="store_true")
+    parser.add_argument("--mode", choices=("economic", "full"), default="economic")
     args = parser.parse_args()
     try:
         client = OddsPapiClient()
-        result = discover(client, datetime.now(UTC)) if args.discover else collect(client, datetime.now(UTC))
+        result = (
+            discover(client, datetime.now(UTC))
+            if args.discover
+            else collect(client, datetime.now(UTC), mode=args.mode)
+        )
     except Exception as exc:
         # RuntimeError messages created by OddsPapiClient are sanitized at the
         # source. Never print arbitrary transport exception text: requests can

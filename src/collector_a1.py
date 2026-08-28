@@ -204,6 +204,10 @@ class SnapshotStore:
         if self.operational_db is None:
             return
         with self._connect_operational() as connection:
+            if connection.execute(
+                "SELECT 1 FROM odds_snapshot_facts WHERE hash_self=?", (snapshot["hash_self"],)
+            ).fetchone():
+                return
             latest = connection.execute(
                 "SELECT version,kickoff_at FROM odds_event_versions "
                 "WHERE source_id=? AND source_event_id=? ORDER BY version DESC LIMIT 1",
@@ -254,6 +258,27 @@ class SnapshotStore:
                 ),
             )
 
+    def _enrich_lifecycle(self, snapshot: dict[str, Any]) -> dict[str, Any]:
+        candidate = dict(snapshot)
+        if self.operational_db is not None:
+            with self._connect_operational() as connection:
+                latest = connection.execute(
+                    "SELECT version,kickoff_at FROM odds_event_versions "
+                    "WHERE source_id=? AND source_event_id=? ORDER BY version DESC LIMIT 1",
+                    (candidate["source_id"], candidate["source_event_id"]),
+                ).fetchone()
+            if latest is not None and latest[1] != candidate["kickoff_at"]:
+                candidate["event_version"] = int(latest[0]) + 1
+                candidate["lifecycle_status"] = "RESCHEDULED"
+                candidate["supersedes_event_version"] = int(latest[0])
+            elif latest is not None:
+                candidate["event_version"] = int(latest[0])
+        candidate.pop("hash_self", None)
+        candidate["snapshot_id"] = "pending"
+        candidate["snapshot_id"] = hashlib.sha256(canonical_json(candidate)).hexdigest()[:24]
+        candidate["hash_self"] = hashlib.sha256(canonical_json(candidate)).hexdigest()
+        return candidate
+
     def _path(self, captured_at: str) -> Path:
         return self.root / f"{parse_utc(captured_at).date().isoformat()}.jsonl"
 
@@ -270,6 +295,7 @@ class SnapshotStore:
             handle.write(json.dumps(record, ensure_ascii=False, sort_keys=True) + "\n")
 
     def append(self, snapshot: dict[str, Any]) -> Literal["written", "duplicate", "conflict"]:
+        snapshot = self._enrich_lifecycle(snapshot)
         errors = sorted(self.validator.iter_errors(snapshot), key=lambda error: list(error.path))
         if errors:
             self.quarantine("schema_invalid: " + errors[0].message, snapshot)
@@ -285,6 +311,7 @@ class SnapshotStore:
         same = [item for item in existing if self._identity(item) == self._identity(snapshot)]
         if same:
             if any(item["hash_self"] == snapshot["hash_self"] for item in same):
+                self._mirror_operational(snapshot)
                 return "duplicate"
             self.quarantine("identity_conflict", snapshot)
             return "conflict"
@@ -320,6 +347,10 @@ class SnapshotStore:
             ignored = {"snapshot_id", "hash_prev", "hash_self"}
             semantic = {key: value for key, value in candidate.items() if key not in ignored}
             if any({key: value for key, value in item.items() if key not in ignored} == semantic for item in same):
+                for item in same:
+                    if {key: value for key, value in item.items() if key not in ignored} == semantic:
+                        self._mirror_operational(item)
+                        break
                 results.append("duplicate")
                 continue
             candidate["hash_prev"] = existing[-1]["hash_self"] if existing else None
@@ -435,6 +466,9 @@ def build_snapshots(
                 "homologated": False,
                 "hash_prev": previous,
                 "supersedes": None,
+                "event_version": 1,
+                "lifecycle_status": "SCHEDULED",
+                "supersedes_event_version": None,
             }
             material["snapshot_id"] = hashlib.sha256(canonical_json(material)).hexdigest()[:24]
             material["hash_self"] = hashlib.sha256(canonical_json(material)).hexdigest()

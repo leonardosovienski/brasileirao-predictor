@@ -38,7 +38,12 @@ def main() -> int:
             away = aliases.resolve(str(fixture.get("participant2Name", ""))).canonical
             if home and away:
                 expected.add(event_id(home, away, str(fixture["startTime"])))
-    metrics = compute_daily_metrics(snapshots, expected, mode="economic")
+    log_path = ROOT / "data" / "collector_metrics" / "collector_daily_log.jsonl"
+    latest_mode = "economic"
+    if log_path.exists() and log_path.stat().st_size:
+        last_log = json.loads(log_path.read_text(encoding="utf-8").splitlines()[-1])
+        latest_mode = "full" if last_log.get("mode") == "full" else "economic"
+    metrics = compute_daily_metrics(snapshots, expected, mode=latest_mode)
     output = ROOT / "data" / "collector_metrics" / f"{today}.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf-8")
