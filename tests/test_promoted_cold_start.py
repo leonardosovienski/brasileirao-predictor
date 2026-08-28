@@ -2,9 +2,11 @@ import pytest
 
 from src.data.promotions import Promotion
 from src.research.promoted_cold_start import (
+    ColdStartMatch,
     PromotedEntry,
     build_entries,
     evaluate_empirical_prior,
+    evaluate_first_matches,
     leave_one_season_out_priors,
     protocol_status,
 )
@@ -42,4 +44,17 @@ def test_empirical_prior_blocks_small_samples_and_never_changes_serving():
     entries = [_entry(2022, "a", 1400), _entry(2023, "b", 1420), _entry(2024, "c", 1410)]
     report = evaluate_empirical_prior(entries)
     assert report["status"] == "BLOCKED_DATA"
+    assert report["serving_changed"] is False
+
+
+def test_first_matches_cold_start_runs_oos_and_never_changes_serving():
+    entries = [_entry(2022, "a", 1400), _entry(2023, "b", 1410), _entry(2024, "c", 1420), _entry(2025, "d", 1430)]
+    matches = [
+        ColdStartMatch(season, team, number, 1500.0, number % 2 == 0, number % 3, (number + 1) % 3)
+        for season, team in ((2023, "b"), (2024, "c"), (2025, "d"))
+        for number in range(1, 11)
+    ]
+    report = evaluate_first_matches(entries, matches)
+    assert report["status"] in {"GO_CANDIDATE", "NO_GO"}
+    assert report["n"] == 30
     assert report["serving_changed"] is False
