@@ -1,0 +1,3 @@
+event_id,kickoff_at,season,side,odd,outcome_probability,market_probability_devig,gross_ev,conservative_ev,indication_strength_0_100,strength_cap_reason,uncertainty_haircut,profit,clv,won,contaminated,outer_fold,config_id
+11067339,2023-04-29T19:30:00+00:00,2023,under,1.78,0.6137248260464128,0.5291005291005291,0.0924301903626148,0.01083937426317318,5,NO_PROSPECTIVE_A1_EVIDENCE,0.03460158207833801,-1.0,,False,False,1,a42b92d01c4b1a68
+11067594,2023-11-29T23:00:00+00:00,2023,over,2.83,0.41413516672836054,0.33096926713947994,0.17200252184126041,0.05754672817304397,34,NO_PROSPECTIVE_A1_EVIDENCE,0.033376605536472204,-1.0,,False,False,4,9466712b4989ace3

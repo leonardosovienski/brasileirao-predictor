@@ -74,9 +74,18 @@ def main():
     conn = _conn_ro()
     elo = {t: e for t, e in conn.execute("SELECT team, elo FROM current_elo")}
     prow = conn.execute("SELECT param_a, param_b, param_alpha, param_rho FROM model_parameters WHERE id=1").fetchone()
-    if not prow:
-        sys.exit("cache vazio — rode `python -m src.cron_update_models`")
-    params = tuple(prow)
+    if not elo or not prow:
+        # Paridade com src.predict: um checkout com dados válidos não deve
+        # quebrar só porque o cache derivado ainda não foi materializado.
+        # compute() é puro; esta conexão permanece query_only.
+        from src.cron_update_models import compute
+
+        computed = compute(cfg, conn)
+        if not computed:
+            sys.exit("banco vazio — rode `python -m src.ingest` primeiro")
+        elo, params, _ = computed
+    else:
+        params = tuple(prow)
 
     ta, tb = args.time_a, args.time_b
     for t in (ta, tb):

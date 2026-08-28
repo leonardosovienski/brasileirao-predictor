@@ -1,0 +1,61 @@
+{
+  "artifacts": {
+    "ou25_2021.json": {
+      "bytes": 1596,
+      "sha256": "1224a51a48cf5b32f9fdf0a18b5119a9fc31d827c6860b82ceaca8950327b42c"
+    },
+    "ou25_2021_individual_losses.csv": {
+      "bytes": 22402,
+      "sha256": "d56d59f458851a08e32715960e74cc854a735f5f7d90397da3d09d7b31b27c0c"
+    },
+    "ou25_2022.json": {
+      "bytes": 1539,
+      "sha256": "3dd7ac64e62e2e700f9ae623b87efd0b0fc89e531a838ca646c972ccf459c863"
+    },
+    "ou25_2022_individual_losses.csv": {
+      "bytes": 47961,
+      "sha256": "f376783553c63fd3f6f11d137dc93774786253d086f03664105008736a3dfec3"
+    },
+    "ou25_2023.json": {
+      "bytes": 1642,
+      "sha256": "815a6564db436d98d9884b925181ef293aab22394f1d818c8e825621c2c91865"
+    },
+    "ou25_2023_individual_losses.csv": {
+      "bytes": 47723,
+      "sha256": "d178b6cc3d454bf50929f5e46a98e497bd519aa52651b9257f5185e36bd11673"
+    },
+    "ou25_2024.json": {
+      "bytes": 1675,
+      "sha256": "7718d6d1332bef9f503a341e02ccbdb736516b69f4de9cfe5710dd0e02171100"
+    },
+    "ou25_2024_individual_losses.csv": {
+      "bytes": 21226,
+      "sha256": "94819bdad41c11be5cefe4d343a0129e1096a6ee004f715e87045b468d5abd50"
+    },
+    "ou25_2025.json": {
+      "bytes": 1642,
+      "sha256": "e281d91c0d91e9f20061b02e21b9c53bfdc86f17c38f4c8e839a36fa96685fa1"
+    },
+    "ou25_2025_individual_losses.csv": {
+      "bytes": 52306,
+      "sha256": "38b3070da637a59eeac8ec752418ebaffb76d40c3cef1d0b504ab7b9bf9a38cf"
+    },
+    "ou25_2026.json": {
+      "bytes": 1624,
+      "sha256": "09190602c8c113392f0ada35ca6b7eb92047872898c3115ef8e8e8e6461c699d"
+    },
+    "ou25_2026_individual_losses.csv": {
+      "bytes": 31121,
+      "sha256": "940a4dd63c6f1b5aa6e7404279e6f0f05f0a950ee8a0c9dcfd207d73418d8d50"
+    },
+    "summary.json": {
+      "bytes": 11547,
+      "sha256": "f73ab0ccef5bd982938e0d54098930f0096fe8e7c99183f0d4a40f512e140f24"
+    }
+  },
+  "backfill_sha256": "73a31a5ca780a03b35a06631bc5410b87046fb385b9541e2a929290bb3f7f980",
+  "capital_enabled": false,
+  "database_sha256": "f070ce137578b950b8538e5ebc72aef7ab4d138ea97c44eb5f86b110fef60977",
+  "runner_sha256": "45d6506b3afb345cbe6d39da4c328467fd2b20f5558dc67eb9b121abbf300848",
+  "schema_version": "ou25-annual-manifest/1"
+}

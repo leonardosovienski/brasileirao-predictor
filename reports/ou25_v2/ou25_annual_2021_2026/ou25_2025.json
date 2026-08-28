@@ -1,0 +1,52 @@
+{
+  "always_bet_counterfactual": {
+    "clv": 0.16834782758390218,
+    "clv_ci95_lower": 0.13192831294286,
+    "market_devig_brier": 0.2646273113672559,
+    "model_brier": 0.2477614730779955,
+    "n": 374,
+    "odd_band_roi": {
+      "high": 0.3861702127659574,
+      "low": 0.105,
+      "mid": 0.08782051282051284
+    },
+    "p_holm_across_six_seasons": 8.096868935192347e-05,
+    "p_raw_one_sided": 1.3494781558653912e-05,
+    "profit_units": 89.45,
+    "roi": 0.2391711229946524,
+    "roi_ci95_lower": 0.1320258689839572,
+    "season_roi": {
+      "2025": 0.2391711229946524
+    },
+    "side_roi": {
+      "over": 0.2858695652173913,
+      "under": 0.22393617021276596
+    },
+    "worst_odd_band_roi": 0.08782051282051284,
+    "worst_season_roi": 0.2391711229946524,
+    "worst_side_roi": 0.22393617021276596
+  },
+  "as_of": null,
+  "coverage": {
+    "finished_games": 380,
+    "flat_ou25_pairs": 374,
+    "priced_walkforward_games": 374,
+    "priced_walkforward_games_before_quality_gate": 374,
+    "rejected_invalid_price_pairs": 0
+  },
+  "governed_v2_policy": {
+    "action": "NO_BET",
+    "bets": 0,
+    "capital_enabled": false,
+    "maximum_indication_score": 40,
+    "profit_units": 0.0,
+    "reason": "no frozen candidate passed prospective A1 activation gates",
+    "roi": 0.0
+  },
+  "interpretation": "counterfactual only; not a recommendation and not evidence of executable profit",
+  "price_is_prospective_a1": false,
+  "price_source": "retrospective_sofascore_aggregate",
+  "schema_version": "ou25-annual-ledger/1",
+  "season": "2025",
+  "status": "OBSERVED_CONTAMINATED"
+}

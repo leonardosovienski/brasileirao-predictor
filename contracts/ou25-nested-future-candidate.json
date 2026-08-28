@@ -1,0 +1,24 @@
+{
+  "schema_version": "ou25-frozen-candidate/2",
+  "candidate_id": null,
+  "selection_origin": "no_retrospective_candidate_eligible",
+  "parameters": null,
+  "observed_contaminated_seasons": [
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "validation_status": "FUTURE_PROSPECTIVE_A1_REQUIRED",
+  "retrospective_factorial_verdict": "NO_GO_INSUFFICIENT_AND_UNSTABLE_SAMPLE",
+  "current_action": "NO_BET",
+  "capital_enabled": false,
+  "maximum_indication_score": 40,
+  "freeze_rule": "a candidate must be preregistered before its first eligible future A1 label",
+  "promotion_gates": {
+    "roi_ci95_lower_strictly_above": 0.0,
+    "clv_ci95_lower_strictly_above": 0.0,
+    "minimum_each_side": 30,
+    "minimum_each_populated_odd_band": 30,
+    "minimum_total": 200
+  }
+}

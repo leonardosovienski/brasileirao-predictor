@@ -1,0 +1,17 @@
+{
+  "candidate_id": null,
+  "capital_enabled": false,
+  "current_action": "NO_BET",
+  "eligible_at_freeze": false,
+  "frozen_from_observed_data": true,
+  "maximum_indication_score": 40,
+  "observed_contaminated_seasons": [
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "parameters": null,
+  "schema_version": "ou25-frozen-candidate/2",
+  "source_sha256": "0c70ad50b65e8ef8b2454ec7b11c0be22f71bd07f60376ddd30d3a5e92f1a4e0",
+  "validation_status": "FUTURE_PROSPECTIVE_A1_REQUIRED"
+}

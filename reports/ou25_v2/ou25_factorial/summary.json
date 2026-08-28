@@ -1,0 +1,591 @@
+{
+  "capital_enabled": false,
+  "cells": [
+    {
+      "artifact": "r10_b38.json",
+      "baselines": {
+        "always_bet_best_model_ev": {
+          "clv": null,
+          "clv_ci95_lower": null,
+          "n": 380,
+          "odd_band_roi": {
+            "high": -0.10200000000000001,
+            "low": -0.0978698224852071,
+            "mid": -0.06178217821782179
+          },
+          "roi": -0.08947368421052633,
+          "roi_ci95_lower": -0.19853092105263154,
+          "season_roi": {
+            "2023": -0.08947368421052633
+          },
+          "side_roi": {
+            "over": -0.09974358974358975,
+            "under": -0.08490494296577948
+          },
+          "worst_odd_band_roi": -0.10200000000000001,
+          "worst_season_roi": -0.08947368421052633,
+          "worst_side_roi": -0.09974358974358975
+        },
+        "market_devig": {
+          "brier": 0.24392761282965308,
+          "model_brier_same_rows": 0.24818164189598113,
+          "n": 380,
+          "note": "probability benchmark; a de-vigged fair price is not an executable bet"
+        },
+        "never_bet": {
+          "n": 0,
+          "profit": 0.0,
+          "roi": 0.0
+        }
+      },
+      "block_size": 38,
+      "combination_count_per_fold": 1620,
+      "folds": 10,
+      "metrics": {
+        "clv": null,
+        "clv_ci95_lower": null,
+        "n": 16,
+        "odd_band_roi": {
+          "high": 0.612,
+          "mid": -0.31833333333333336
+        },
+        "roi": 0.26312499999999994,
+        "roi_ci95_lower": -0.26821875,
+        "season_roi": {
+          "2023": 0.26312499999999994
+        },
+        "side_roi": {
+          "over": 0.5266666666666666,
+          "under": -0.07571428571428575
+        },
+        "worst_odd_band_roi": -0.31833333333333336,
+        "worst_season_roi": 0.26312499999999994,
+        "worst_side_roi": -0.07571428571428575
+      },
+      "retrain_every": 10,
+      "sha256": "a04c564915e5a179fc4beb938375f1915d61bf91f517a7b443e8f40c14af33b3",
+      "total_recorded_trials": 16200
+    },
+    {
+      "artifact": "r10_b95.json",
+      "baselines": {
+        "always_bet_best_model_ev": {
+          "clv": null,
+          "clv_ci95_lower": null,
+          "n": 380,
+          "odd_band_roi": {
+            "high": -0.10200000000000001,
+            "low": -0.0978698224852071,
+            "mid": -0.06178217821782179
+          },
+          "roi": -0.08947368421052633,
+          "roi_ci95_lower": -0.19853092105263154,
+          "season_roi": {
+            "2023": -0.08947368421052633
+          },
+          "side_roi": {
+            "over": -0.09974358974358975,
+            "under": -0.08490494296577948
+          },
+          "worst_odd_band_roi": -0.10200000000000001,
+          "worst_season_roi": -0.08947368421052633,
+          "worst_side_roi": -0.09974358974358975
+        },
+        "market_devig": {
+          "brier": 0.24392761282965308,
+          "model_brier_same_rows": 0.24818164189598113,
+          "n": 380,
+          "note": "probability benchmark; a de-vigged fair price is not an executable bet"
+        },
+        "never_bet": {
+          "n": 0,
+          "profit": 0.0,
+          "roi": 0.0
+        }
+      },
+      "block_size": 95,
+      "combination_count_per_fold": 1620,
+      "folds": 4,
+      "metrics": {
+        "clv": null,
+        "clv_ci95_lower": null,
+        "n": 16,
+        "odd_band_roi": {
+          "high": -1.0,
+          "mid": -0.07600000000000003
+        },
+        "roi": -0.13375000000000004,
+        "roi_ci95_lower": -0.744375,
+        "season_roi": {
+          "2023": -0.13375000000000004
+        },
+        "side_roi": {
+          "over": -1.0,
+          "under": -0.07600000000000003
+        },
+        "worst_odd_band_roi": -1.0,
+        "worst_season_roi": -0.13375000000000004,
+        "worst_side_roi": -1.0
+      },
+      "retrain_every": 10,
+      "sha256": "1b9ba75fc964e418d40c1db8114b369004ad2f9f1aa38e37703892d8b4bdca38",
+      "total_recorded_trials": 6480
+    },
+    {
+      "artifact": "r10_b190.json",
+      "baselines": {
+        "always_bet_best_model_ev": {
+          "clv": null,
+          "clv_ci95_lower": null,
+          "n": 380,
+          "odd_band_roi": {
+            "high": -0.10200000000000001,
+            "low": -0.0978698224852071,
+            "mid": -0.06178217821782179
+          },
+          "roi": -0.08947368421052633,
+          "roi_ci95_lower": -0.19853092105263154,
+          "season_roi": {
+            "2023": -0.08947368421052633
+          },
+          "side_roi": {
+            "over": -0.09974358974358975,
+            "under": -0.08490494296577948
+          },
+          "worst_odd_band_roi": -0.10200000000000001,
+          "worst_season_roi": -0.08947368421052633,
+          "worst_side_roi": -0.09974358974358975
+        },
+        "market_devig": {
+          "brier": 0.24392761282965308,
+          "model_brier_same_rows": 0.24818164189598113,
+          "n": 380,
+          "note": "probability benchmark; a de-vigged fair price is not an executable bet"
+        },
+        "never_bet": {
+          "n": 0,
+          "profit": 0.0,
+          "roi": 0.0
+        }
+      },
+      "block_size": 190,
+      "combination_count_per_fold": 1620,
+      "folds": 2,
+      "metrics": {
+        "clv": null,
+        "clv_ci95_lower": null,
+        "n": 13,
+        "odd_band_roi": {
+          "mid": 0.10461538461538461
+        },
+        "roi": 0.10461538461538461,
+        "roi_ci95_lower": -0.5292307692307693,
+        "season_roi": {
+          "2023": 0.10461538461538461
+        },
+        "side_roi": {
+          "under": 0.10461538461538461
+        },
+        "worst_odd_band_roi": 0.10461538461538461,
+        "worst_season_roi": 0.10461538461538461,
+        "worst_side_roi": 0.10461538461538461
+      },
+      "retrain_every": 10,
+      "sha256": "a9d66dc97945658d3b6a2490411564cf2c932150fbcb24d944f16ecc864c5a95",
+      "total_recorded_trials": 3240
+    },
+    {
+      "artifact": "r20_b38.json",
+      "baselines": {
+        "always_bet_best_model_ev": {
+          "clv": null,
+          "clv_ci95_lower": null,
+          "n": 380,
+          "odd_band_roi": {
+            "high": -0.10200000000000001,
+            "low": -0.09352941176470589,
+            "mid": -0.05240000000000001
+          },
+          "roi": -0.08515789473684211,
+          "roi_ci95_lower": -0.19356776315789473,
+          "season_roi": {
+            "2023": -0.08515789473684211
+          },
+          "side_roi": {
+            "over": -0.09198275862068966,
+            "under": -0.08215909090909092
+          },
+          "worst_odd_band_roi": -0.10200000000000001,
+          "worst_season_roi": -0.08515789473684211,
+          "worst_side_roi": -0.09198275862068966
+        },
+        "market_devig": {
+          "brier": 0.24392761282965308,
+          "model_brier_same_rows": 0.24835927358815443,
+          "n": 380,
+          "note": "probability benchmark; a de-vigged fair price is not an executable bet"
+        },
+        "never_bet": {
+          "n": 0,
+          "profit": 0.0,
+          "roi": 0.0
+        }
+      },
+      "block_size": 38,
+      "combination_count_per_fold": 1620,
+      "folds": 10,
+      "metrics": {
+        "clv": null,
+        "clv_ci95_lower": null,
+        "n": 1,
+        "odd_band_roi": {
+          "high": -1.0
+        },
+        "roi": -1.0,
+        "roi_ci95_lower": null,
+        "season_roi": {
+          "2023": -1.0
+        },
+        "side_roi": {
+          "over": -1.0
+        },
+        "worst_odd_band_roi": -1.0,
+        "worst_season_roi": -1.0,
+        "worst_side_roi": -1.0
+      },
+      "retrain_every": 20,
+      "sha256": "48cc89226c5b96b1ef2c87b791c936a4594f01d4dbab0332032bd7dc66caec90",
+      "total_recorded_trials": 16200
+    },
+    {
+      "artifact": "r20_b95.json",
+      "baselines": {
+        "always_bet_best_model_ev": {
+          "clv": null,
+          "clv_ci95_lower": null,
+          "n": 380,
+          "odd_band_roi": {
+            "high": -0.10200000000000001,
+            "low": -0.09352941176470589,
+            "mid": -0.05240000000000001
+          },
+          "roi": -0.08515789473684211,
+          "roi_ci95_lower": -0.19356776315789473,
+          "season_roi": {
+            "2023": -0.08515789473684211
+          },
+          "side_roi": {
+            "over": -0.09198275862068966,
+            "under": -0.08215909090909092
+          },
+          "worst_odd_band_roi": -0.10200000000000001,
+          "worst_season_roi": -0.08515789473684211,
+          "worst_side_roi": -0.09198275862068966
+        },
+        "market_devig": {
+          "brier": 0.24392761282965308,
+          "model_brier_same_rows": 0.24835927358815443,
+          "n": 380,
+          "note": "probability benchmark; a de-vigged fair price is not an executable bet"
+        },
+        "never_bet": {
+          "n": 0,
+          "profit": 0.0,
+          "roi": 0.0
+        }
+      },
+      "block_size": 95,
+      "combination_count_per_fold": 1620,
+      "folds": 4,
+      "metrics": {
+        "clv": null,
+        "clv_ci95_lower": null,
+        "n": 2,
+        "odd_band_roi": {
+          "high": -1.0,
+          "low": -1.0
+        },
+        "roi": -1.0,
+        "roi_ci95_lower": -1.0,
+        "season_roi": {
+          "2023": -1.0
+        },
+        "side_roi": {
+          "over": -1.0,
+          "under": -1.0
+        },
+        "worst_odd_band_roi": -1.0,
+        "worst_season_roi": -1.0,
+        "worst_side_roi": -1.0
+      },
+      "retrain_every": 20,
+      "sha256": "39766562a1b714524c2a630aa917769f51fcfc682d257cb27c5e01bd54ddf1cd",
+      "total_recorded_trials": 6480
+    },
+    {
+      "artifact": "r20_b190.json",
+      "baselines": {
+        "always_bet_best_model_ev": {
+          "clv": null,
+          "clv_ci95_lower": null,
+          "n": 380,
+          "odd_band_roi": {
+            "high": -0.10200000000000001,
+            "low": -0.09352941176470589,
+            "mid": -0.05240000000000001
+          },
+          "roi": -0.08515789473684211,
+          "roi_ci95_lower": -0.19356776315789473,
+          "season_roi": {
+            "2023": -0.08515789473684211
+          },
+          "side_roi": {
+            "over": -0.09198275862068966,
+            "under": -0.08215909090909092
+          },
+          "worst_odd_band_roi": -0.10200000000000001,
+          "worst_season_roi": -0.08515789473684211,
+          "worst_side_roi": -0.09198275862068966
+        },
+        "market_devig": {
+          "brier": 0.24392761282965308,
+          "model_brier_same_rows": 0.24835927358815443,
+          "n": 380,
+          "note": "probability benchmark; a de-vigged fair price is not an executable bet"
+        },
+        "never_bet": {
+          "n": 0,
+          "profit": 0.0,
+          "roi": 0.0
+        }
+      },
+      "block_size": 190,
+      "combination_count_per_fold": 1620,
+      "folds": 2,
+      "metrics": {
+        "clv": null,
+        "clv_ci95_lower": null,
+        "n": 17,
+        "odd_band_roi": {
+          "high": -0.43600000000000005,
+          "low": -0.118,
+          "mid": -0.09999999999999998
+        },
+        "roi": -0.20941176470588235,
+        "roi_ci95_lower": -0.6876617647058825,
+        "season_roi": {
+          "2023": -0.20941176470588235
+        },
+        "side_roi": {
+          "over": -0.43600000000000005,
+          "under": -0.11499999999999999
+        },
+        "worst_odd_band_roi": -0.43600000000000005,
+        "worst_season_roi": -0.20941176470588235,
+        "worst_side_roi": -0.43600000000000005
+      },
+      "retrain_every": 20,
+      "sha256": "9a4b7ab3f63641838718a215f16a90ce2c8531bc549e41d4690d0cf207e0afb1",
+      "total_recorded_trials": 3240
+    },
+    {
+      "artifact": "r100_b38.json",
+      "baselines": {
+        "always_bet_best_model_ev": {
+          "clv": null,
+          "clv_ci95_lower": null,
+          "n": 380,
+          "odd_band_roi": {
+            "high": -0.12352380952380954,
+            "low": -0.10679775280898877,
+            "mid": -0.046185567010309285
+          },
+          "roi": -0.09594736842105264,
+          "roi_ci95_lower": -0.20510921052631576,
+          "season_roi": {
+            "2023": -0.09594736842105264
+          },
+          "side_roi": {
+            "over": -0.11785046728971964,
+            "under": -0.08736263736263737
+          },
+          "worst_odd_band_roi": -0.12352380952380954,
+          "worst_season_roi": -0.09594736842105264,
+          "worst_side_roi": -0.11785046728971964
+        },
+        "market_devig": {
+          "brier": 0.24392761282965308,
+          "model_brier_same_rows": 0.24779027412988983,
+          "n": 380,
+          "note": "probability benchmark; a de-vigged fair price is not an executable bet"
+        },
+        "never_bet": {
+          "n": 0,
+          "profit": 0.0,
+          "roi": 0.0
+        }
+      },
+      "block_size": 38,
+      "combination_count_per_fold": 1620,
+      "folds": 10,
+      "metrics": {
+        "clv": null,
+        "clv_ci95_lower": null,
+        "n": 1,
+        "odd_band_roi": {
+          "high": -1.0
+        },
+        "roi": -1.0,
+        "roi_ci95_lower": null,
+        "season_roi": {
+          "2023": -1.0
+        },
+        "side_roi": {
+          "over": -1.0
+        },
+        "worst_odd_band_roi": -1.0,
+        "worst_season_roi": -1.0,
+        "worst_side_roi": -1.0
+      },
+      "retrain_every": 100,
+      "sha256": "cc6da4eae2cb9fa99dfb2541c63e263816593c22b0892fa817028b3a4885e749",
+      "total_recorded_trials": 16200
+    },
+    {
+      "artifact": "r100_b95.json",
+      "baselines": {
+        "always_bet_best_model_ev": {
+          "clv": null,
+          "clv_ci95_lower": null,
+          "n": 380,
+          "odd_band_roi": {
+            "high": -0.12352380952380954,
+            "low": -0.10679775280898877,
+            "mid": -0.046185567010309285
+          },
+          "roi": -0.09594736842105264,
+          "roi_ci95_lower": -0.20510921052631576,
+          "season_roi": {
+            "2023": -0.09594736842105264
+          },
+          "side_roi": {
+            "over": -0.11785046728971964,
+            "under": -0.08736263736263737
+          },
+          "worst_odd_band_roi": -0.12352380952380954,
+          "worst_season_roi": -0.09594736842105264,
+          "worst_side_roi": -0.11785046728971964
+        },
+        "market_devig": {
+          "brier": 0.24392761282965308,
+          "model_brier_same_rows": 0.24779027412988983,
+          "n": 380,
+          "note": "probability benchmark; a de-vigged fair price is not an executable bet"
+        },
+        "never_bet": {
+          "n": 0,
+          "profit": 0.0,
+          "roi": 0.0
+        }
+      },
+      "block_size": 95,
+      "combination_count_per_fold": 1620,
+      "folds": 4,
+      "metrics": {
+        "clv": null,
+        "clv_ci95_lower": null,
+        "n": 3,
+        "odd_band_roi": {
+          "high": -1.0,
+          "low": -0.125
+        },
+        "roi": -0.4166666666666667,
+        "roi_ci95_lower": -0.4166666666666667,
+        "season_roi": {
+          "2023": -0.4166666666666667
+        },
+        "side_roi": {
+          "over": -1.0,
+          "under": -0.125
+        },
+        "worst_odd_band_roi": -1.0,
+        "worst_season_roi": -0.4166666666666667,
+        "worst_side_roi": -1.0
+      },
+      "retrain_every": 100,
+      "sha256": "f781df2220af152b67a3d6bdd18aa0f57931271c4ae684e2898e28e69f9f9c99",
+      "total_recorded_trials": 6480
+    },
+    {
+      "artifact": "r100_b190.json",
+      "baselines": {
+        "always_bet_best_model_ev": {
+          "clv": null,
+          "clv_ci95_lower": null,
+          "n": 380,
+          "odd_band_roi": {
+            "high": -0.12352380952380954,
+            "low": -0.10679775280898877,
+            "mid": -0.046185567010309285
+          },
+          "roi": -0.09594736842105264,
+          "roi_ci95_lower": -0.20510921052631576,
+          "season_roi": {
+            "2023": -0.09594736842105264
+          },
+          "side_roi": {
+            "over": -0.11785046728971964,
+            "under": -0.08736263736263737
+          },
+          "worst_odd_band_roi": -0.12352380952380954,
+          "worst_season_roi": -0.09594736842105264,
+          "worst_side_roi": -0.11785046728971964
+        },
+        "market_devig": {
+          "brier": 0.24392761282965308,
+          "model_brier_same_rows": 0.24779027412988983,
+          "n": 380,
+          "note": "probability benchmark; a de-vigged fair price is not an executable bet"
+        },
+        "never_bet": {
+          "n": 0,
+          "profit": 0.0,
+          "roi": 0.0
+        }
+      },
+      "block_size": 190,
+      "combination_count_per_fold": 1620,
+      "folds": 2,
+      "metrics": {
+        "clv": null,
+        "clv_ci95_lower": null,
+        "n": 9,
+        "odd_band_roi": {
+          "high": -1.0,
+          "low": -0.292,
+          "mid": -0.09999999999999998
+        },
+        "roi": -0.4066666666666667,
+        "roi_ci95_lower": -0.8011111111111111,
+        "season_roi": {
+          "2023": -0.4066666666666667
+        },
+        "side_roi": {
+          "over": -1.0,
+          "under": -0.23714285714285713
+        },
+        "worst_odd_band_roi": -1.0,
+        "worst_season_roi": -0.4066666666666667,
+        "worst_side_roi": -1.0
+      },
+      "retrain_every": 100,
+      "sha256": "44b5faed7f7218d119feb85d19b8bf5cb15776bc9a6feadfcac9e785de1829d7",
+      "total_recorded_trials": 3240
+    }
+  ],
+  "contaminated_retrospective": true,
+  "maximum_indication_score": 40,
+  "prospective_a1_eligible": false,
+  "schema_version": "ou25-factorial/2",
+  "selection": "none; closed factorial reported in full"
+}

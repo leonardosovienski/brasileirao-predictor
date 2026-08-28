@@ -1,0 +1,19 @@
+{
+  "allowed_use": "exploratory replay only",
+  "by_season": {
+    "2021": 380,
+    "2022": 380,
+    "2023": 380
+  },
+  "capital_enabled": false,
+  "clv_eligible": false,
+  "imported": 1140,
+  "missing_price": 0,
+  "output_sha256": "73a31a5ca780a03b35a06631bc5410b87046fb385b9541e2a929290bb3f7f980",
+  "price_semantics": "retrospective aggregate; capture time and named bookmaker unavailable",
+  "prospective_a1_eligible": false,
+  "schema_version": "ou25-historical-backfill/2",
+  "source_sha256": "4fd20bcf9636c755ddb8181b8d56870c20730564f138d1e01fb9f13a46351223",
+  "source_url": "https://www.kaggle.com/datasets/felipebandeiraramos/brazilian-soccer-odds-data",
+  "unmatched": 0
+}

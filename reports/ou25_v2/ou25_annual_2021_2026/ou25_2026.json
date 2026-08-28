@@ -1,0 +1,52 @@
+{
+  "always_bet_counterfactual": {
+    "clv": 0.0849450684718024,
+    "clv_ci95_lower": 0.0552792106120569,
+    "market_devig_brier": 0.25153243186482,
+    "model_brier": 0.2510189167609066,
+    "n": 219,
+    "odd_band_roi": {
+      "high": 0.1640625,
+      "low": -0.1426,
+      "mid": -0.013622754491017965
+    },
+    "p_holm_across_six_seasons": 1.0,
+    "p_raw_one_sided": 0.4967641706149756,
+    "profit_units": 0.123,
+    "roi": 0.0005616438356164384,
+    "roi_ci95_lower": -0.1135834474885845,
+    "season_roi": {
+      "2026": 0.0005616438356164384
+    },
+    "side_roi": {
+      "over": -0.03303571428571427,
+      "under": 0.005486910994764396
+    },
+    "worst_odd_band_roi": -0.1426,
+    "worst_season_roi": 0.0005616438356164384,
+    "worst_side_roi": -0.03303571428571427
+  },
+  "as_of": "2026-08-27",
+  "coverage": {
+    "finished_games": 235,
+    "flat_ou25_pairs": 235,
+    "priced_walkforward_games": 219,
+    "priced_walkforward_games_before_quality_gate": 235,
+    "rejected_invalid_price_pairs": 16
+  },
+  "governed_v2_policy": {
+    "action": "NO_BET",
+    "bets": 0,
+    "capital_enabled": false,
+    "maximum_indication_score": 40,
+    "profit_units": 0.0,
+    "reason": "no frozen candidate passed prospective A1 activation gates",
+    "roi": 0.0
+  },
+  "interpretation": "counterfactual only; not a recommendation and not evidence of executable profit",
+  "price_is_prospective_a1": false,
+  "price_source": "retrospective_sofascore_aggregate",
+  "schema_version": "ou25-annual-ledger/1",
+  "season": "2026",
+  "status": "PARTIAL_CONTAMINATED"
+}

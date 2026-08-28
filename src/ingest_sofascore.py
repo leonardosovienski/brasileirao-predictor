@@ -361,14 +361,20 @@ def parse_ratings(lineups: dict | None, home_name: str, away_name: str, event_id
     return rows
 
 
-def run(seasons_for: int | None = None) -> None:
+def run(
+    seasons_for: int | None = None,
+    *,
+    outcomes_odds_only: bool = False,
+    through_season: str | None = None,
+    rate_limit: float | None = None,
+) -> None:
     from .sofascore import Sofascore
 
     setup_logging(ROOT / "data")
     cfg = load_config()
     scfg = cfg.get("sofascore", {})
     client = Sofascore(
-        rate_limit=float(scfg.get("rate_limit_seconds", 1.5)),
+        rate_limit=float(scfg.get("rate_limit_seconds", 1.5)) if rate_limit is None else rate_limit,
         cache_dir=str(ROOT / scfg["cache_dir"]) if scfg.get("cache_dir") else None,
     )
 
@@ -384,6 +390,8 @@ def run(seasons_for: int | None = None) -> None:
 
     n_matches = n_ratings = 0
     for comp in comps:
+        if through_season is not None and str(comp["season"]) > through_season:
+            continue
         name, season = comp["name"], str(comp["season"])
         try:
             events = client.season_events(comp["ut_id"], comp["season_id"], upcoming=comp.get("upcoming", False))
@@ -412,7 +420,8 @@ def run(seasons_for: int | None = None) -> None:
 
                 pre = is_pre_match(m["start_ts"])
 
-                if m["finished"]:
+                stats_data = {}
+                if m["finished"] and not outcomes_odds_only:
                     stats_data = client.event_statistics(eid)
                     hxg, axg = parse_xg(stats_data)
                     ratings = parse_ratings(client.event_lineups(eid), m["home_team"], m["away_team"], eid)
@@ -489,4 +498,8 @@ if __name__ == "__main__":
     arg = sys.argv[1:]
     if arg and arg[0] == "--seasons" and len(arg) > 1:
         sys.exit(run(seasons_for=int(arg[1])))
+    if arg and arg[0] == "--outcomes-odds-only":
+        through = arg[arg.index("--through-season") + 1] if "--through-season" in arg else None
+        rate = float(arg[arg.index("--rate-limit") + 1]) if "--rate-limit" in arg else None
+        sys.exit(run(outcomes_odds_only=True, through_season=through, rate_limit=rate))
     sys.exit(run())

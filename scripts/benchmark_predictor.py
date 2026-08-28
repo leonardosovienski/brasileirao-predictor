@@ -129,7 +129,8 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
             "       m.tournament, m.city, m.neutral, m.event_id, s.home_xg, s.away_xg, "
             "       s.odds_home, s.odds_draw, s.odds_away, "
             "       s.odds_home_open, s.odds_draw_open, s.odds_away_open, "
-            "       s.odds_over, s.odds_under, s.odds_btts_yes, s.odds_btts_no "
+            "       s.odds_over, s.odds_under, s.odds_over_open, s.odds_under_open, "
+            "       s.odds_btts_yes, s.odds_btts_no "
             "FROM matches m LEFT JOIN sofascore_matches s "
             "  ON s.date = m.date AND s.home_team = m.home_team AND s.away_team = m.away_team "
             "WHERE m.home_score IS NOT NULL AND m.away_score IS NOT NULL"
@@ -158,6 +159,8 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
         oao,
         oo,
         ou,
+        ooo,
+        ouo,
         bty,
         btn,
     ) in rows:
@@ -175,6 +178,7 @@ def _load_observations(end: str) -> list[dict[str, Any]]:
                 "market_odds_1x2": (oh, od, oa),
                 "market_open_odds_1x2": (oho, odo, oao),
                 "market_odds_ou25": (oo, ou),
+                "market_open_odds_ou25": (ooo, ouo),
                 "market_odds_btts": (bty, btn),
                 # xG vive DENTRO de `result`, junto dos gols, pelo MESMO motivo
                 # documentado em src/evaluator.py: a ABC do core remove só o
@@ -358,6 +362,7 @@ def _run_walkforward(
                 "market_odds_1x2": obs.get("market_odds_1x2"),
                 "market_open_odds_1x2": obs.get("market_open_odds_1x2"),
                 "market_odds_ou25": obs.get("market_odds_ou25"),
+                "market_open_odds_ou25": obs.get("market_open_odds_ou25"),
                 "market_odds_btts": obs.get("market_odds_btts"),
             }
         )
