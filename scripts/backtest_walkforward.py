@@ -107,10 +107,7 @@ def run_walkforward(cfg, conn):
     max_goals = cfg["model"]["max_goals"]
     cal_years = cfg["model"].get("calibration_window_years", 4)
 
-    rows = conn.execute(
-        "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-        "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
-    ).fetchall()
+    rows = db.completed_matches_with_kickoff(conn)
     if len(rows) < 2 * block_games:
         sys.exit(f"base insuficiente: {len(rows)} jogos < 2 blocos de {block_games}")
 

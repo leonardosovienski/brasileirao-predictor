@@ -40,10 +40,7 @@ def cache_is_current(cfg, conn, params_row) -> bool:
 
 
 def _windowed(cfg, conn):
-    rows = conn.execute(
-        "SELECT date, home_team, away_team, home_score, away_score, tournament, neutral "
-        "FROM matches WHERE home_score IS NOT NULL ORDER BY date"
-    ).fetchall()
+    rows = db.completed_matches_with_kickoff(conn)
     if not rows:
         return None
     window = cfg["elo"].get("window_years")

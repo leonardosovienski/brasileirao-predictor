@@ -236,6 +236,21 @@ def upsert_matches(conn: sqlite3.Connection, rows) -> int:
     return cur.rowcount
 
 
+def completed_matches_with_kickoff(conn: sqlite3.Connection):
+    """Canonical completed-match rows with the best known PIT kickoff appended."""
+    return conn.execute(
+        """
+        SELECT m.date,m.home_team,m.away_team,m.home_score,m.away_score,m.tournament,m.neutral,
+               (SELECT s.kickoff_at FROM sofascore_matches s
+                WHERE substr(s.date,1,10)=substr(m.date,1,10)
+                  AND s.home_team=m.home_team AND s.away_team=m.away_team
+                ORDER BY s.kickoff_at DESC LIMIT 1) AS kickoff_at
+        FROM matches m WHERE m.home_score IS NOT NULL
+        ORDER BY m.date,m.home_team,m.away_team
+        """
+    ).fetchall()
+
+
 def upsert_matches_by_event_id(conn: sqlite3.Connection, rows) -> int:
     """Espelho canônico por event_id; preserva compatibilidade do upsert legado."""
     rows = list(rows)

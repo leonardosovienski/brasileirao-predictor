@@ -145,3 +145,14 @@ def test_update_kickoff_grava_utc_e_none_e_noop(conn):
     assert value == "2022-12-18T15:00:00+00:00"
     db.update_kickoff(conn, 31, None)
     assert conn.execute("SELECT kickoff_at FROM sofascore_matches WHERE event_id=31").fetchone()[0] == value
+
+
+def test_completed_matches_propagates_best_known_kickoff(conn):
+    conn.execute(
+        "INSERT INTO matches (date,home_team,away_team,home_score,away_score,tournament,neutral) "
+        "VALUES ('2026-06-20','Brazil','Serbia',2,0,'WC',0)"
+    )
+    db.upsert_ss_matches(conn, [_row(32, home_score=2, away_score=0)])
+    db.update_kickoff(conn, 32, 1_671_375_600)
+    rows = db.completed_matches_with_kickoff(conn)
+    assert rows[0][7] == "2022-12-18T15:00:00+00:00"

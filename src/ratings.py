@@ -1,5 +1,5 @@
 from collections import defaultdict
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from itertools import groupby
 
 
@@ -29,6 +29,25 @@ def expected_score(rating_diff: float) -> float:
     return 1.0 / (1.0 + 10 ** (-rating_diff / 400.0))
 
 
+def temporal_keys(matches) -> list[str]:
+    """Return conservative batch keys, collapsing a date if any kickoff is missing."""
+    materialized = list(matches)
+    dates_with_missing = {
+        str(match[0])[:10] for match in materialized if len(match) < 8 or not match[7]
+    }
+    keys: list[str] = []
+    for match in materialized:
+        day = str(match[0])[:10]
+        if day in dates_with_missing:
+            keys.append(f"{day}T00:00:00+00:00|date")
+            continue
+        parsed = datetime.fromisoformat(str(match[7]).replace("Z", "+00:00"))
+        if parsed.tzinfo is None or parsed.utcoffset() is None:
+            raise ValueError("kickoff_at must be timezone-aware")
+        keys.append(f"{parsed.astimezone(UTC).isoformat()}|kickoff")
+    return keys
+
+
 def compute_ratings(matches, cfg_elo: dict, *, asof: str | date | None = None):
     """matches: iterável ordenado por data de tuplas
     (date, home, away, home_score, away_score, tournament, neutral).
@@ -52,14 +71,10 @@ def compute_ratings(matches, cfg_elo: dict, *, asof: str | date | None = None):
 
     materialized = list(matches)
 
-    def group_key(match):
-        # An optional eighth field carries a reliable UTC kickoff. Legacy rows
-        # have date precision and are conservatively batched for the whole day.
-        return str(match[7]) if len(match) >= 8 and match[7] else str(match[0])[:10]
-
-    materialized.sort(key=group_key)
-    for _key, batch_iter in groupby(materialized, key=group_key):
-        batch = list(batch_iter)
+    keyed = list(zip(temporal_keys(materialized), materialized, strict=True))
+    keyed.sort(key=lambda item: item[0])
+    for _key, batch_iter in groupby(keyed, key=lambda item: item[0]):
+        batch = [item[1] for item in batch_iter]
         batch_date = _parse(str(batch[0][0])[:10])
         teams = {str(team) for match in batch for team in match[1:3]}
         for team in teams:

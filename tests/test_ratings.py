@@ -7,7 +7,7 @@ from datetime import date
 
 import pytest
 
-from src.ratings import compute_ratings, k_factor, margin_multiplier
+from src.ratings import compute_ratings, k_factor, margin_multiplier, temporal_keys
 
 CFG = {
     "initial_rating": 1500,
@@ -141,3 +141,11 @@ def test_duplicate_team_in_date_fallback_batch_uses_same_pre_batch_state():
     matches = [_m("2026-06-01", "A", "B", 1, 0), _m("2026-06-01", "A", "C", 0, 1)]
     _ratings, history = compute_ratings(matches, CFG)
     assert history[0][0] == history[1][0] == 0.0
+
+
+def test_mixed_precision_collapses_the_whole_date_conservatively():
+    rows = [
+        (*_m("2026-06-01", "A", "B", 1, 0), "2026-06-01T16:00:00Z"),
+        _m("2026-06-01", "C", "D", 0, 1),
+    ]
+    assert temporal_keys(rows) == ["2026-06-01T00:00:00+00:00|date"] * 2
