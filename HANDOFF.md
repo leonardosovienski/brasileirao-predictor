@@ -1,5 +1,14 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — OU2.5 2024–2026 E PAPER CAPITAL 29–31/08 (2026-08-28)
+>
+> A auditoria integral, os caminhos locais dos bancos, os resultados por turno,
+> as limitações econômicas e as previsões preliminares da próxima rodada foram
+> consolidados em `docs/HANDOFF_OU25_RODADA_2026_08_29.md`. Estado atual:
+> `PAPER_CAPITAL_TEST`, banca virtual 100u, exposição 0u, zero candidatos na
+> execução preliminar e `capital_enabled=false`. A monitoração automática foi
+> removida; a continuação deve ser manual em uma nova conversa.
+
 > ## CHECKPOINT — HOLDOUT 2025 ABERTO POR SOLICITAÇÃO EXPLÍCITA (2026-08-26)
 >
 > O usuário solicitou diretamente a simulação de 2025 após a comparação

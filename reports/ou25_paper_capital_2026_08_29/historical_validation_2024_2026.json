@@ -1,0 +1,264 @@
+{
+  "candidate": {
+    "maximum_odds": 2.4,
+    "minimum_ev": 0.15,
+    "minimum_odds": 1.8,
+    "side": "under"
+  },
+  "capital_enabled": false,
+  "formal_verdict": "LEDGER_SETTLEMENT_AND_ARITHMETIC_REVALIDATED; PREDICTION_GENERATION_AND_ECONOMIC_EXECUTABILITY_NOT_REVALIDATED",
+  "generated_at": "2026-08-28T21:41:50.815857Z",
+  "input_hashes": {
+    "reports\\ou25_v2\\ou25_annual_2021_2026\\ou25_2024_individual_losses.csv": "94819bdad41c11be5cefe4d343a0129e1096a6ee004f715e87045b468d5abd50",
+    "reports\\ou25_v2\\ou25_annual_2021_2026\\ou25_2025_individual_losses.csv": "38b3070da637a59eeac8ec752418ebaffb76d40c3cef1d0b504ab7b9bf9a38cf",
+    "reports\\ou25_v2\\ou25_annual_2021_2026\\ou25_2026_individual_losses.csv": "940a4dd63c6f1b5aa6e7404279e6f0f05f0a950ee8a0c9dcfd207d73418d8d50"
+  },
+  "not_independently_validatable": [
+    "model fitting history and feature availability for every row because the producing 49.5MB database is absent",
+    "bookmaker and captured_at because aggregate odds do not contain them",
+    "CLV because no same-book opening and closing pair exists",
+    "absence of retrospective selection among the 80 configurations"
+  ],
+  "odds_classification": "POSTGAME_APPROXIMATION",
+  "protocol_components": {
+    "calibration_fit_on_past_only": "IMPLEMENTED_AND_TESTED_NOT_REPLAYED_FROM_RAW",
+    "canonical_identity_and_reschedules": "VALIDATED_AGAINST_SOURCE_EVENT_LIFECYCLE",
+    "contextual_features": "UNAVAILABLE_PIT_NOT_USED",
+    "elo_home_margin_decay_kickoff_batching": "IMPLEMENTED_AND_TESTED_NOT_REPLAYED_FROM_RAW",
+    "named_executable_odds": "MISSING",
+    "negative_binomial_dixon_coles": "IMPLEMENTED_AND_TESTED_NOT_REPLAYED_FROM_RAW",
+    "promoted_cold_start": "BLOCKED_DATA_ENTRY_RATINGS_AND_FIRST_MATCHES_NOT_USED",
+    "same_book_clv": "MISSING",
+    "xg": "DISABLED_BY_FROZEN_NO_GO"
+  },
+  "schema_version": "ou25-2024-2026-game-audit/1",
+  "seasons": {
+    "2024": {
+      "candidate_by_turn": {
+        "T1": {
+          "bets": 2,
+          "interval_status": "INCONCLUSIVE_LOW_POWER",
+          "profit_units": 2.8,
+          "roi": 1.4,
+          "roi_bootstrap_ci95": null,
+          "turnover": 2.0
+        },
+        "T2": {
+          "bets": 73,
+          "interval_status": "ESTIMATED",
+          "profit_units": 7.8500000000000005,
+          "roi": 0.10753424657534247,
+          "roi_bootstrap_ci95": [
+            -0.14965753424657535,
+            0.35205479452054794
+          ],
+          "turnover": 73.0
+        }
+      },
+      "candidate_rows": 75,
+      "duplicate_event_ids": 0,
+      "failure_counts": {},
+      "finished": 380,
+      "finished_round_counts": {
+        "1": 10,
+        "10": 10,
+        "11": 10,
+        "12": 10,
+        "13": 10,
+        "14": 10,
+        "15": 10,
+        "16": 10,
+        "17": 10,
+        "18": 10,
+        "19": 10,
+        "2": 10,
+        "20": 10,
+        "21": 10,
+        "22": 10,
+        "23": 10,
+        "24": 10,
+        "25": 10,
+        "26": 10,
+        "27": 10,
+        "28": 10,
+        "29": 10,
+        "3": 10,
+        "30": 10,
+        "31": 10,
+        "32": 10,
+        "33": 10,
+        "34": 10,
+        "35": 10,
+        "36": 10,
+        "37": 10,
+        "38": 10,
+        "4": 10,
+        "5": 10,
+        "6": 10,
+        "7": 10,
+        "8": 10,
+        "9": 10
+      },
+      "invalid_rows": 0,
+      "postponed_versions": 8,
+      "priced_ledger_rows": 149,
+      "priced_ledger_unique_events": 149,
+      "source_rows": 388,
+      "unique_event_ids": 388,
+      "valid_rows": 149
+    },
+    "2025": {
+      "candidate_by_turn": {
+        "T1": {
+          "bets": 86,
+          "interval_status": "ESTIMATED",
+          "profit_units": 28.599999999999998,
+          "roi": 0.3325581395348837,
+          "roi_bootstrap_ci95": [
+            0.09796511627906976,
+            0.5712209302325582
+          ],
+          "turnover": 86.0
+        },
+        "T2": {
+          "bets": 73,
+          "interval_status": "ESTIMATED",
+          "profit_units": 9.0,
+          "roi": 0.1232876712328767,
+          "roi_bootstrap_ci95": [
+            -0.1424657534246575,
+            0.3873287671232877
+          ],
+          "turnover": 73.0
+        }
+      },
+      "candidate_rows": 159,
+      "duplicate_event_ids": 0,
+      "failure_counts": {},
+      "finished": 380,
+      "finished_round_counts": {
+        "1": 10,
+        "10": 10,
+        "11": 10,
+        "12": 10,
+        "13": 10,
+        "14": 10,
+        "15": 10,
+        "16": 10,
+        "17": 10,
+        "18": 10,
+        "19": 10,
+        "2": 10,
+        "20": 10,
+        "21": 10,
+        "22": 10,
+        "23": 10,
+        "24": 10,
+        "25": 10,
+        "26": 10,
+        "27": 10,
+        "28": 10,
+        "29": 10,
+        "3": 10,
+        "30": 10,
+        "31": 10,
+        "32": 10,
+        "33": 10,
+        "34": 10,
+        "35": 10,
+        "36": 10,
+        "37": 10,
+        "38": 10,
+        "4": 10,
+        "5": 10,
+        "6": 10,
+        "7": 10,
+        "8": 10,
+        "9": 10
+      },
+      "invalid_rows": 0,
+      "postponed_versions": 13,
+      "priced_ledger_rows": 374,
+      "priced_ledger_unique_events": 374,
+      "source_rows": 393,
+      "unique_event_ids": 393,
+      "valid_rows": 374
+    },
+    "2026": {
+      "candidate_by_turn": {
+        "T1": {
+          "bets": 63,
+          "interval_status": "ESTIMATED",
+          "profit_units": 0.625,
+          "roi": 0.00992063492063492,
+          "roi_bootstrap_ci95": [
+            -0.25912698412698415,
+            0.28293650793650793
+          ],
+          "turnover": 63.0
+        },
+        "T2": {
+          "bets": 10,
+          "interval_status": "INCONCLUSIVE_LOW_POWER",
+          "profit_units": 5.0,
+          "roi": 0.5,
+          "roi_bootstrap_ci95": null,
+          "turnover": 10.0
+        }
+      },
+      "candidate_rows": 73,
+      "duplicate_event_ids": 0,
+      "failure_counts": {},
+      "finished": 235,
+      "finished_round_counts": {
+        "1": 10,
+        "10": 10,
+        "11": 10,
+        "12": 10,
+        "13": 10,
+        "14": 10,
+        "15": 10,
+        "16": 10,
+        "17": 10,
+        "18": 10,
+        "19": 10,
+        "2": 10,
+        "20": 10,
+        "21": 6,
+        "22": 10,
+        "23": 10,
+        "24": 10,
+        "3": 10,
+        "4": 9,
+        "5": 10,
+        "6": 10,
+        "7": 10,
+        "8": 10,
+        "9": 10
+      },
+      "invalid_rows": 0,
+      "postponed_versions": 9,
+      "priced_ledger_rows": 219,
+      "priced_ledger_unique_events": 219,
+      "source_rows": 244,
+      "unique_event_ids": 244,
+      "valid_rows": 219
+    }
+  },
+  "source": "Current SofaScore season event API state, fetched read-only at audit time",
+  "source_caveat": "Events, kickoffs and results were reconfirmed against the API's current state; the raw response was not preserved as an immutable snapshot and may be corrected by the source in the future.",
+  "source_snapshot_preserved": false,
+  "total_invalid_rows": 0,
+  "total_ledger_rows": 742,
+  "total_unique_ledger_events": 742,
+  "validated_per_game_fields": [
+    "identity",
+    "kickoff",
+    "round",
+    "result",
+    "won",
+    "profit",
+    "probability",
+    "EV"
+  ]
+}

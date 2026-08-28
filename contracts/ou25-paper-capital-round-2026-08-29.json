@@ -1,0 +1,73 @@
+{
+  "schema_version": "paper-capital-round/1",
+  "experiment_id": "ou25-paper-capital-2026-08-29-to-31",
+  "created_at": "2026-08-28T22:15:00Z",
+  "state": "PAPER_CAPITAL_TEST",
+  "capital_enabled": false,
+  "real_money_execution": false,
+  "parent_cohort": "ou25-under-ev15-odds180-240-next-round-2026",
+  "purpose": "Simular integralmente uma banca e o processo de decisao da proxima rodada, sem apostar dinheiro real.",
+  "virtual_bankroll": {
+    "opening_units": 100.0,
+    "stake_policy": "FLAT_ONE_UNIT",
+    "stake_units_per_eligible_decision": 1.0,
+    "maximum_round_exposure_units": 10.0,
+    "maximum_one_position_per_fixture": true,
+    "kelly_enabled": false
+  },
+  "selection_rule": {
+    "market": "TOTAL_GOALS_2_5",
+    "side": "UNDER",
+    "minimum_model_ev": 0.15,
+    "minimum_decimal_odds": 1.8,
+    "maximum_decimal_odds": 2.4,
+    "quote_classification": "EXECUTABLE_PIT",
+    "requires_named_bookmaker": true,
+    "requires_capture_before_kickoff": true,
+    "requires_model_probability_created_before_kickoff": true,
+    "missing_requirement_decision": "NO_BET"
+  },
+  "round": {
+    "competition": "Brasileiro Serie A",
+    "season": 2026,
+    "round_label": "NEXT_ROUND_2026-08-29_TO_2026-08-31",
+    "round_number": null,
+    "round_number_status": "UNVERIFIED_BY_FIXTURE_SOURCE",
+    "timezone": "America/Sao_Paulo",
+    "fixture_source": "OddsPapi discovery snapshot data/collector_state/fixtures.json captured 2026-08-28T20:30:28.921059Z",
+    "fixtures": [
+      {"fixture_id":"id1000032566886968","home":"Atletico Mineiro","away":"Vitoria","kickoff_at":"2026-08-29T21:30:00Z"},
+      {"fixture_id":"id1000032566886962","home":"Sao Paulo","away":"Bragantino","kickoff_at":"2026-08-29T23:00:00Z"},
+      {"fixture_id":"id1000032566886960","home":"Vasco da Gama","away":"Cruzeiro","kickoff_at":"2026-08-30T00:20:00Z"},
+      {"fixture_id":"id1000032566886972","home":"Athletico-PR","away":"Fluminense","kickoff_at":"2026-08-30T14:00:00Z"},
+      {"fixture_id":"id1000032566886958","home":"Flamengo","away":"Botafogo","kickoff_at":"2026-08-30T19:00:00Z"},
+      {"fixture_id":"id1000032566886964","home":"Corinthians","away":"Santos","kickoff_at":"2026-08-30T19:00:00Z"},
+      {"fixture_id":"id1000032566886966","home":"Mirassol","away":"Palmeiras","kickoff_at":"2026-08-30T21:30:00Z"},
+      {"fixture_id":"id1000032566886970","home":"Gremio","away":"Chapecoense","kickoff_at":"2026-08-30T21:30:00Z"},
+      {"fixture_id":"id1000032566886974","home":"Bahia","away":"Internacional","kickoff_at":"2026-08-30T22:30:00Z"},
+      {"fixture_id":"id1000032566886976","home":"Remo","away":"Coritiba","kickoff_at":"2026-08-31T23:00:00Z"}
+    ]
+  },
+  "decision_states": [
+    "AWAITING_MODEL_PROBABILITY",
+    "AWAITING_EXECUTABLE_QUOTE",
+    "NO_BET",
+    "PAPER_BET_OPEN",
+    "PAPER_BET_SETTLED",
+    "VOID"
+  ],
+  "reporting": {
+    "preserve_every_decision_including_no_bet": true,
+    "clv_reference": "same_bookmaker_same_market_closing_quote",
+    "report_clv_and_roi_separately": true,
+    "track_virtual_balance": true,
+    "track_round_exposure": true,
+    "track_drawdown": true,
+    "track_concentration_by_bookmaker_and_club": true
+  },
+  "promotion": {
+    "this_round_can_enable_real_capital": false,
+    "capital_gate": "LOCKED",
+    "requires_separate_human_review": true
+  }
+}

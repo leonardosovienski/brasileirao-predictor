@@ -1,0 +1,121 @@
+{
+  "candidate": {
+    "maximum_odds": 2.4,
+    "minimum_ev": 0.15,
+    "minimum_odds": 1.8,
+    "side": "under"
+  },
+  "capital_enabled": false,
+  "generated_at": "2026-08-28T21:41:54.833555Z",
+  "odds_classification": "POSTGAME_APPROXIMATION",
+  "schema_version": "ou25-turn-split-2024-2026/1",
+  "seasons": {
+    "2024": {
+      "T1_rounds_1_19": {
+        "bets": 2,
+        "interval_status": "INCONCLUSIVE_LOW_POWER",
+        "profit_units": 2.8,
+        "roi": 1.4,
+        "roi_bootstrap_ci95": null,
+        "turnover": 2.0
+      },
+      "T2_rounds_20_38": {
+        "bets": 73,
+        "interval_status": "ESTIMATED",
+        "profit_units": 7.8500000000000005,
+        "roi": 0.10753424657534247,
+        "roi_bootstrap_ci95": [
+          -0.14965753424657535,
+          0.35205479452054794
+        ],
+        "turnover": 73.0
+      },
+      "candidate_events_with_round": 75,
+      "full": {
+        "bets": 75,
+        "interval_status": "ESTIMATED",
+        "profit_units": 10.65,
+        "roi": 0.14200000000000002,
+        "roi_bootstrap_ci95": [
+          -0.10466666666666666,
+          0.389
+        ],
+        "turnover": 75.0
+      },
+      "missing_round": 0
+    },
+    "2025": {
+      "T1_rounds_1_19": {
+        "bets": 86,
+        "interval_status": "ESTIMATED",
+        "profit_units": 28.599999999999998,
+        "roi": 0.3325581395348837,
+        "roi_bootstrap_ci95": [
+          0.09796511627906976,
+          0.5712209302325582
+        ],
+        "turnover": 86.0
+      },
+      "T2_rounds_20_38": {
+        "bets": 73,
+        "interval_status": "ESTIMATED",
+        "profit_units": 9.0,
+        "roi": 0.1232876712328767,
+        "roi_bootstrap_ci95": [
+          -0.1424657534246575,
+          0.3873287671232877
+        ],
+        "turnover": 73.0
+      },
+      "candidate_events_with_round": 159,
+      "full": {
+        "bets": 159,
+        "interval_status": "ESTIMATED",
+        "profit_units": 37.6,
+        "roi": 0.23647798742138365,
+        "roi_bootstrap_ci95": [
+          0.05911949685534591,
+          0.41210691823899376
+        ],
+        "turnover": 159.0
+      },
+      "missing_round": 0
+    },
+    "2026": {
+      "T1_rounds_1_19": {
+        "bets": 63,
+        "interval_status": "ESTIMATED",
+        "profit_units": 0.625,
+        "roi": 0.00992063492063492,
+        "roi_bootstrap_ci95": [
+          -0.25912698412698415,
+          0.28293650793650793
+        ],
+        "turnover": 63.0
+      },
+      "T2_rounds_20_38": {
+        "bets": 10,
+        "interval_status": "INCONCLUSIVE_LOW_POWER",
+        "profit_units": 5.0,
+        "roi": 0.5,
+        "roi_bootstrap_ci95": null,
+        "turnover": 10.0
+      },
+      "candidate_events_with_round": 73,
+      "full": {
+        "bets": 73,
+        "interval_status": "ESTIMATED",
+        "profit_units": 5.625,
+        "roi": 0.07705479452054795,
+        "roi_bootstrap_ci95": [
+          -0.1726027397260274,
+          0.3219178082191781
+        ],
+        "turnover": 73.0
+      },
+      "missing_round": 0
+    }
+  },
+  "turn_definition": "SofaScore canonical roundInfo.round: T1=1..19; T2=20..38",
+  "warning": "Do not split the priced ledger at row 190; missing prices shift that boundary."
+}

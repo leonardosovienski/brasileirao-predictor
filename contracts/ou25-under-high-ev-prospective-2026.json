@@ -1,0 +1,57 @@
+{
+  "schema_version": "ou25-prospective-cohort/1",
+  "cohort_id": "ou25-under-ev15-odds180-240-next-round-2026",
+  "frozen_at": "2026-08-28T21:40:00Z",
+  "mode": "PAPER_TRADING_ONLY",
+  "market": "ou2.5",
+  "selection": "under",
+  "line": 2.5,
+  "minimum_model_ev": 0.15,
+  "minimum_decimal_odds": 1.80,
+  "maximum_decimal_odds": 2.40,
+  "stake_policy": "fixed_1_unit_paper",
+  "one_selection_per_event_market": true,
+  "decision_clock": "strictly_before_kickoff",
+  "required_quote_fields": [
+    "bookmaker",
+    "source_event_id",
+    "captured_at",
+    "kickoff_at",
+    "market",
+    "selection",
+    "line",
+    "decimal_odds"
+  ],
+  "eligible_books": [
+    "pinnacle",
+    "betano.bet.br",
+    "kto",
+    "estrelabet",
+    "superbet.bet.br",
+    "sportingbet.bet.br",
+    "pixbet"
+  ],
+  "price_classification_required": "EXECUTABLE_PIT",
+  "closing_policy": "last_valid_pre_kickoff_same_bookmaker_same_event_market_line_selection",
+  "primary_signal_metric": "mean_same_book_clv_with_block_bootstrap_ci95",
+  "primary_economic_metric": "prospective_roi_with_block_bootstrap_ci95",
+  "concentration_guardrails": [
+    "no_single_bet_dominates_profit",
+    "report_by_bookmaker",
+    "report_by_turn",
+    "report_by_month",
+    "report_max_drawdown"
+  ],
+  "historical_replay": {
+    "period": ["2024-01-01", "2026-08-27"],
+    "classification": "POSTGAME_APPROXIMATION",
+    "allowed_use": "diagnostic_only",
+    "cannot_unlock_capital": true
+  },
+  "minimum_matured_picks_for_signal_review": 50,
+  "minimum_matured_picks_for_economic_review": 200,
+  "capital_gate": "LOCKED",
+  "capital_enabled": false,
+  "kelly_enabled": false,
+  "parameter_changes_create_new_cohort": true
+}
