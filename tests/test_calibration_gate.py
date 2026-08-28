@@ -20,3 +20,20 @@ def test_gate_requires_primary_and_every_guardrail():
         for name, delta in {"rps": -0.1, "brier": -0.1, "log_loss": 0.01, "brier_draw": -0.1}.items()
     }
     assert assess_a10({"metrics": metrics})["verdict"] == "NO_GO_ARCHIVE_A10"
+
+
+def test_gate_requires_material_rps_gain_and_home_win_guardrail():
+    metrics = {
+        name: {"delta_treatment_minus_control": delta}
+        for name, delta in {
+            "rps": -0.0021,
+            "brier": -0.001,
+            "log_loss": -0.001,
+            "brier_draw": -0.001,
+            "log_loss_home_win": 0.0,
+        }.items()
+    }
+    gate = assess_a10({"metrics": metrics})
+    assert gate["verdict"] == "GO_CANDIDATE_FOR_NEW_PROSPECTIVE_PROTOCOL"
+    metrics["rps"]["delta_treatment_minus_control"] = -0.0019
+    assert assess_a10({"metrics": metrics})["verdict"] == "NO_GO_ARCHIVE_A10"
