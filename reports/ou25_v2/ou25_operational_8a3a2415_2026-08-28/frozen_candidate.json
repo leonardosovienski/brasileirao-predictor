@@ -1,0 +1,31 @@
+{
+  "candidate_id": null,
+  "capital_enabled": false,
+  "current_action": "NO_BET",
+  "eligible_at_freeze": false,
+  "frozen_from_observed_data": true,
+  "maximum_indication_score": 40,
+  "observed_contaminated_seasons": [
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "odd_band_counts": {
+    "high": 70,
+    "low": 0,
+    "mid": 159
+  },
+  "parameters": null,
+  "schema_version": "ou25-frozen-candidate/2",
+  "side_counts": {
+    "over": 6,
+    "under": 223
+  },
+  "source_sha256": "53579f08864a21548b0bdc1f5cc39240be72ad99fc5a7f624de8f59db19216eb",
+  "stability_checks": {
+    "worst_odd_band_roi_nonnegative": true,
+    "worst_season_roi_nonnegative": true,
+    "worst_side_roi_nonnegative": true
+  },
+  "validation_status": "FUTURE_PROSPECTIVE_A1_REQUIRED"
+}

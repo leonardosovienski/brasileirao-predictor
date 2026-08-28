@@ -47,7 +47,13 @@ def load_rows(engine: str, retrain_every: int, backfill_db: Path | None = None) 
             f"banco operacional ausente: {bp.DB}. Este arquivo e ignorado pelo Git; "
             "copie o snapshot verificado do operador ou rode a ingestao documentada no README."
         )
-    price_db = backfill_db if backfill_db and backfill_db.exists() else bp.DB
+    if not backfill_db or not backfill_db.exists():
+        raise SystemExit(
+            "replay economico bloqueado: odds de sofascore_matches sao agregadas e nao possuem "
+            "captured_at/bookmaker point-in-time; forneca uma fonte de snapshots validada "
+            "ou mantenha o resultado como diagnostico nao economico"
+        )
+    price_db = backfill_db
     with sqlite3.connect(f"file:{price_db}?mode=ro", uri=True) as conn:
         if price_db == bp.DB:
             priced = conn.execute(

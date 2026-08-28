@@ -149,3 +149,13 @@ def test_clv_uses_devigged_closing_pair():
     assert pick is not None
     close_over_probability = (1 / 1.8) / (1 / 1.8 + 1 / 2.0)
     assert pick["clv"] == pytest.approx(2.0 * close_over_probability - 1)
+
+
+def test_runner_requires_explicit_point_in_time_price_source(tmp_path, monkeypatch):
+    from scripts import research_ou25_nested_replay as runner
+
+    operational_db = tmp_path / "matches.db"
+    operational_db.write_bytes(b"placeholder")
+    monkeypatch.setattr(runner.bp, "DB", operational_db)
+    with pytest.raises(SystemExit, match="odds.*point-in-time"):
+        runner.load_rows("serving", retrain_every=20, backfill_db=tmp_path / "missing-backfill.sqlite")

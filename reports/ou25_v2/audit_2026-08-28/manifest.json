@@ -38,7 +38,8 @@
       "predict_smoke": "PASS_46.4_26.8_26.8_SUM_100.0",
       "live_smoke": "PASS_SECOND_30.4_39.8_29.8_PERIOD_28.1_44.4_27.5",
       "command": "uv run python scripts/ci_check.py --fast",
-      "full_ci_with_portable_db": "PASS_814_TESTS_AND_OPERATIONAL_SMOKES"
+      "full_ci_with_portable_db": "PASS_815_TESTS_AND_OPERATIONAL_SMOKES",
+    "point_in_time_price_guard_regression": "PASS"
     },
     "dotnet": {
       "status": "BLOCKED",
@@ -105,6 +106,16 @@
     "nested_declared_database_sha256": "5f6c35dfc25d886d7d3c6a88bdd3f6686e93bd41803c26152b04c466738c462b",
     "annual_declared_database_sha256": "f070ce137578b950b8538e5ebc72aef7ab4d138ea97c44eb5f86b110fef60977"
   },
+  "reopened_operational_family": {
+    "directory": "reports/ou25_v2/ou25_operational_8a3a2415_2026-08-28",
+    "database_sha256": "8a3a2415aab9b8525708ee18ee7b3fb360b40031904095f5c71b35871e5946cd",
+    "manifest_sha256": "569cd7571be7ec3a8da0ad777be27fe73d0f07ec116ab4a4ee5667cf2467c145",
+    "nested_replay_sha256": "53579f08864a21548b0bdc1f5cc39240be72ad99fc5a7f624de8f59db19216eb",
+    "individual_losses_sha256": "7c0e6f67e182d354bf1a03fb0a94dcd73b73749b9c12cf2f2e7703eaff5bb3b4",
+    "frozen_candidate_sha256": "c84bb5bc6db4d6fb7584028bfe0d105d0f3cf1211ee6b0851664ae6766ef3e48",
+    "validity": "INVALID_FOR_ECONOMIC_USE",
+    "reason": "generated before point-in-time price guard; aggregate odds lack bookmaker and captured_at; 2024-2026 contaminated"
+  },
   "historical_manifest_reconciliation": {
     "serving_manifest_git_commit": "1d83b02b83bbd8d7a14bc66deef93bb969711328",
     "dixon_coles_manifest_git_commit": "1d83b02b83bbd8d7a14bc66deef93bb969711328",
@@ -120,9 +131,10 @@
   "modified_files": {
     "src/research/ou25_nested_replay.py": "b7f623b8f720ab1ac51a2f350fed5dd4928cd9022af58093acc4bdd94a7e7767",
     "scripts/research_ou25_annual_2021_2026.py": "b292a5701b77f4d0bc5dffa1230197630198bbf6f5752216a0dbe8e6634d66f1",
-    "tests/test_ou25_nested_replay.py": "d4d52c767d07752ccda323fe6c9c1efaafd89e35be615b282d81bdc92bcb12c5",
+    "scripts/research_ou25_nested_replay.py": "3a06266171d1428b9caf73f15650031bacc372364bee408081638fe2e78893c",
+    "tests/test_ou25_nested_replay.py": "1170eace6718b503a539009b51b98c75ca44fa15d2e73e9c9c34e524b9752592",
     "tests/test_ou25_market_anchor.py": "baef226a7d42c85737c912a6402e910424e70f04946643b7b559bb92cc82fbd2",
-    "docs/ou25_v2/AUDITORIA_INTEGRAL_2026-08-28.md": "79f189539dd3de3713aab89d1f01f56cfd10e67b8590102ef3053540b013c5df"
+    "docs/ou25_v2/AUDITORIA_INTEGRAL_2026-08-28.md": "da84471c00e9432e7139a120cb1c8d42c77a1760e50cfbcadae0c3e846729d54"
   },
   "regressions": {
     "before_fix": "2 targeted failures reproduced: simultaneous kickoff split and placeholder price accepted",
