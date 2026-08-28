@@ -23,6 +23,54 @@ import numpy as np
 CONTAMINATED_SEASONS = frozenset({"2024", "2025", "2026"})
 
 
+def valid_ou25_price_pair(pair: tuple[float, float] | list[float]) -> bool:
+    """Return whether an OU2.5 pair is plausible enough for economic use."""
+    try:
+        over, under = map(float, pair)
+    except (TypeError, ValueError):
+        return False
+    if not math.isfinite(over) or not math.isfinite(under):
+        return False
+    return 1.20 <= over <= 5.00 and 1.20 <= under <= 5.00 and 1.00 <= (1 / over + 1 / under) <= 1.30
+
+
+def _group_start(rows: list[dict[str, Any]], index: int) -> int:
+    """Move an index to the first row sharing its kickoff."""
+    index = max(0, min(index, len(rows)))
+    if index == len(rows):
+        return index
+    kickoff = rows[index]["kickoff_at"]
+    while index > 0 and rows[index - 1]["kickoff_at"] == kickoff:
+        index -= 1
+    return index
+
+
+def _group_end(rows: list[dict[str, Any]], index: int) -> int:
+    """Move an index to the end of a kickoff group."""
+    index = max(0, min(index, len(rows)))
+    if index == 0 or index == len(rows):
+        return index
+    kickoff = rows[index - 1]["kickoff_at"]
+    while index < len(rows) and rows[index]["kickoff_at"] == kickoff:
+        index += 1
+    return index
+
+
+def _walk_forward_boundaries(rows: list[dict[str, Any]], minimum_train: int, block_size: int) -> list[tuple[int, int]]:
+    """Build non-overlapping test blocks without splitting simultaneous kickoffs."""
+    if minimum_train < 0 or block_size <= 0:
+        raise ValueError("minimum_train must be non-negative and block_size must be positive")
+    start = _group_start(rows, minimum_train)
+    boundaries = []
+    while start < len(rows):
+        end = _group_end(rows, min(start + block_size, len(rows)))
+        if end <= start:
+            raise ValueError("kickoff group prevented progress through the ordered rows")
+        boundaries.append((start, end))
+        start = end
+    return boundaries
+
+
 @dataclass(frozen=True)
 class FilterParameters:
     min_conservative_ev: float
@@ -60,22 +108,25 @@ def anchor_to_market_prequential(
     ordered = sorted((dict(row) for row in rows), key=lambda row: (row["kickoff_at"], row["event_id"]))
     if any(not 0 <= weight <= 1 for weight in weights):
         raise ValueError("anchor weights must be between zero and one")
-    output = [dict(row) for row in ordered]
+    output = [dict(row) for row in ordered if valid_ou25_price_pair(row.get("offered_odds_ou25", []))]
+    ordered = output
     folds = []
-    for start in range(minimum_history, len(ordered), block_size):
+    boundaries = _walk_forward_boundaries(ordered, minimum_history, block_size)
+    for start, end in boundaries:
         history = ordered[:start]
 
         def loss(weight: float) -> float:
             errors = []
             for row in history:
                 market, _ = devig_proportional(*map(float, row["offered_odds_ou25"]))
-                probability = weight * float(row["p_over"]) + (1 - weight) * market
+                model_probability = float(row.get("p_over_model_unanchored", row["p_over"]))
+                probability = weight * model_probability + (1 - weight) * market
                 errors.append((probability - int(row["actual_over"])) ** 2)
             return mean(errors)
 
         losses = {weight: loss(weight) for weight in weights}
         selected = min(weights, key=lambda weight: (losses[weight], weight))
-        test = output[start : start + block_size]
+        test = output[start:end]
         for row in test:
             market, _ = devig_proportional(*map(float, row["offered_odds_ou25"]))
             row["p_over_model_unanchored"] = float(row["p_over"])
@@ -90,7 +141,7 @@ def anchor_to_market_prequential(
                 "past_brier_by_weight": {str(weight): losses[weight] for weight in weights},
             }
         )
-    evaluated = output[minimum_history:]
+    evaluated = output[boundaries[0][0] :] if boundaries else []
     model_errors = []
     anchored_errors = []
     market_errors = []
@@ -153,48 +204,56 @@ def evaluate_certainty_policies(
     ordered = sorted((dict(row) for row in rows), key=lambda row: (row["kickoff_at"], row["event_id"]))
     policies = []
     raw_p = {}
+    evaluation_start = _group_start(ordered, evaluation_start)
     for confidence in confidences:
         for min_n in minimum_samples:
             for radius in radii:
                 for minimum_ev in minimum_net_evs:
                     picks = []
-                    for index in range(evaluation_start, len(ordered)):
-                        row = ordered[index]
-                        history = ordered[:index]
-                        choices = []
-                        for side in ("over", "under"):
-                            probability = float(row["p_over"] if side == "over" else 1 - row["p_over"])
-                            calibration = []
-                            for past in history:
-                                past_probability = float(past["p_over"] if side == "over" else 1 - past["p_over"])
-                                if abs(past_probability - probability) <= radius:
-                                    outcome = int(past["actual_over"] if side == "over" else not past["actual_over"])
-                                    calibration.append(outcome)
-                            if len(calibration) < min_n:
+                    start = evaluation_start
+                    while start < len(ordered):
+                        end = _group_end(ordered, min(start + 1, len(ordered)))
+                        history = ordered[:start]
+                        for row in ordered[start:end]:
+                            if not valid_ou25_price_pair(row.get("offered_odds_ou25", [])):
                                 continue
-                            lower = _wilson_lower(sum(calibration), len(calibration), confidence)
-                            odd = float(row["offered_odds_ou25"][0 if side == "over" else 1])
-                            conservative_ev = lower * odd - 1 - friction_rate
-                            if conservative_ev >= minimum_ev:
-                                choices.append((conservative_ev, side, odd, probability, lower, len(calibration)))
-                        if not choices:
-                            continue
-                        conservative_ev, side, odd, probability, lower, calibration_n = max(choices)
-                        won = bool(row["actual_over"]) == (side == "over")
-                        picks.append(
-                            {
-                                "event_id": row["event_id"],
-                                "season": row["season"],
-                                "side": side,
-                                "odd": odd,
-                                "profit": odd - 1 if won else -1.0,
-                                "clv": None,
-                                "outcome_probability": probability,
-                                "probability_ci_lower": lower,
-                                "conservative_ev": conservative_ev,
-                                "calibration_n": calibration_n,
-                            }
-                        )
+                            choices = []
+                            for side in ("over", "under"):
+                                probability = float(row["p_over"] if side == "over" else 1 - row["p_over"])
+                                calibration = []
+                                for past in history:
+                                    past_probability = float(past["p_over"] if side == "over" else 1 - past["p_over"])
+                                    if abs(past_probability - probability) <= radius:
+                                        outcome = int(
+                                            past["actual_over"] if side == "over" else not past["actual_over"]
+                                        )
+                                        calibration.append(outcome)
+                                if len(calibration) < min_n:
+                                    continue
+                                lower = _wilson_lower(sum(calibration), len(calibration), confidence)
+                                odd = float(row["offered_odds_ou25"][0 if side == "over" else 1])
+                                conservative_ev = lower * odd - 1 - friction_rate
+                                if conservative_ev >= minimum_ev:
+                                    choices.append((conservative_ev, side, odd, probability, lower, len(calibration)))
+                            if not choices:
+                                continue
+                            conservative_ev, side, odd, probability, lower, calibration_n = max(choices)
+                            won = bool(row["actual_over"]) == (side == "over")
+                            picks.append(
+                                {
+                                    "event_id": row["event_id"],
+                                    "season": row["season"],
+                                    "side": side,
+                                    "odd": odd,
+                                    "profit": odd - 1 if won else -1.0,
+                                    "clv": None,
+                                    "outcome_probability": probability,
+                                    "probability_ci_lower": lower,
+                                    "conservative_ev": conservative_ev,
+                                    "calibration_n": calibration_n,
+                                }
+                            )
+                        start = end
                     policy_id = f"c{confidence:.2f}_n{min_n}_r{radius:.2f}_ev{minimum_ev:.2f}"
                     metrics = _metrics(picks, seed=seed + len(policies), full_bootstrap=True)
                     raw_p[policy_id] = _normal_p_greater([pick["profit"] for pick in picks])
@@ -274,13 +333,16 @@ def score_row(
     *,
     uncertainty_by_side: dict[str, float] | None = None,
 ) -> dict[str, Any] | None:
-    over_odd, under_odd = row["offered_odds_ou25"]
-    close_over, close_under = row.get("closing_odds_ou25") or (None, None)
-    close_probabilities = (
-        devig_proportional(float(close_over), float(close_under)) if close_over and close_under else (None, None)
-    )
-    if not over_odd or not under_odd:
+    offered_pair = row.get("offered_odds_ou25")
+    if not offered_pair or not valid_ou25_price_pair(offered_pair):
         return None
+    over_odd, under_odd = map(float, offered_pair)
+    close_pair = row.get("closing_odds_ou25")
+    close_probabilities = (
+        devig_proportional(*map(float, close_pair))
+        if close_pair and valid_ou25_price_pair(close_pair)
+        else (None, None)
+    )
     market_over, market_under = devig_proportional(float(over_odd), float(under_odd))
     choices = []
     for side, probability, odd, market_probability, close_probability in (
@@ -392,9 +454,10 @@ def nested_walk_forward(
     outer: list[dict[str, Any]] = []
     all_picks: list[dict[str, Any]] = []
     tested: list[dict[str, Any]] = []
-    for fold_no, start in enumerate(range(minimum_train, len(ordered), block_size), 1):
+    boundaries = _walk_forward_boundaries(ordered, minimum_train, block_size)
+    for fold_no, (start, end) in enumerate(boundaries, 1):
         history = ordered[:start]
-        test = ordered[start : start + block_size]
+        test = ordered[start:end]
         if not test:
             break
         config_metrics: dict[str, dict[str, Any]] = {}
@@ -404,12 +467,12 @@ def nested_walk_forward(
             # scored with uncertainty estimated only from their own prefix.
             inner_picks: list[dict[str, Any]] = []
             inner_start = max(40, min(block_size, len(history) // 2))
-            for pos in range(inner_start, len(history), block_size):
-                prefix = history[:pos]
+            for inner_start_pos, inner_end_pos in _walk_forward_boundaries(history, inner_start, block_size):
+                prefix = history[:inner_start_pos]
                 uncertainty_by_side = {
                     side: _uncertainty(prefix, side, config.uncertainty_quantile) for side in ("over", "under")
                 }
-                for row in history[pos : pos + block_size]:
+                for row in history[inner_start_pos:inner_end_pos]:
                     pick = score_row(row, config, prefix, uncertainty_by_side=uncertainty_by_side)
                     if pick:
                         inner_picks.append(pick)
@@ -453,13 +516,13 @@ def nested_walk_forward(
             }
         )
     final_metrics = _metrics(all_picks, seed=seed)
-    evaluated_rows = ordered[minimum_train:]
+    evaluated_rows = ordered[boundaries[0][0] :] if boundaries else []
     always_picks = []
     market_brier = []
     model_brier = []
     for row in evaluated_rows:
         oo, ou = row["offered_odds_ou25"]
-        if not oo or not ou:
+        if not valid_ou25_price_pair((oo, ou)):
             continue
         market_over, _ = devig_proportional(float(oo), float(ou))
         model_brier.append((float(row["p_over"]) - int(row["actual_over"])) ** 2)
@@ -510,8 +573,29 @@ def freeze_candidate(result: dict[str, Any], destination: Path, *, source_hash: 
     candidate_id = fold_ids[-1] if fold_ids else None
     candidate_trial = next((t for t in reversed(result["tested_combinations"]) if t["config_id"] == candidate_id), None)
     metrics = result.get("metrics") or {}
+    picks = result.get("picks") or []
+    side_counts = {side: sum(pick.get("side") == side for pick in picks) for side in ("over", "under")}
+    odd_band_counts = {
+        band: sum(
+            ("low" if float(pick.get("odd", 0.0)) < 1.8 else "mid" if float(pick.get("odd", 0.0)) <= 2.2 else "high")
+            == band
+            for pick in picks
+        )
+        for band in ("low", "mid", "high")
+    }
+    populated_odd_bands_have_minimum = all(count >= 30 for count in odd_band_counts.values() if count > 0)
+    stability_checks = {
+        "worst_season_roi_nonnegative": metrics.get("worst_season_roi") is not None
+        and metrics["worst_season_roi"] >= 0,
+        "worst_side_roi_nonnegative": metrics.get("worst_side_roi") is not None and metrics["worst_side_roi"] >= 0,
+        "worst_odd_band_roi_nonnegative": metrics.get("worst_odd_band_roi") is not None
+        and metrics["worst_odd_band_roi"] >= 0,
+    }
     eligible = bool(
         metrics.get("n", 0) >= 200
+        and all(count >= 30 for count in side_counts.values())
+        and populated_odd_bands_have_minimum
+        and all(stability_checks.values())
         and metrics.get("roi_ci95_lower") is not None
         and metrics["roi_ci95_lower"] > 0
         and metrics.get("clv_ci95_lower") is not None
@@ -528,6 +612,9 @@ def freeze_candidate(result: dict[str, Any], destination: Path, *, source_hash: 
         "maximum_indication_score": 40,
         "current_action": "SHADOW_CANDIDATE" if eligible else "NO_BET",
         "eligible_at_freeze": eligible,
+        "side_counts": side_counts,
+        "odd_band_counts": odd_band_counts,
+        "stability_checks": stability_checks,
         "source_sha256": source_hash,
     }
     destination.write_text(json.dumps(frozen, indent=2, sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")

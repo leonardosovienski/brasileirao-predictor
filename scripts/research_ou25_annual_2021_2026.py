@@ -21,15 +21,15 @@ from src.research.ou25_nested_replay import (
     devig_proportional,
     file_sha256,
     holm_adjust,
+    valid_ou25_price_pair,
 )
 
 SEASONS = tuple(str(year) for year in range(2021, 2027))
 
 
 def _valid_price_pair(pair: tuple[float, float] | list[float]) -> bool:
-    """Reject obvious placeholder/corrupt totals quotes before economics."""
-    over, under = map(float, pair)
-    return 1.20 <= over <= 5.00 and 1.20 <= under <= 5.00 and 1.00 <= (1 / over + 1 / under) <= 1.30
+    """Backward-compatible alias for the shared OU2.5 price-quality gate."""
+    return valid_ou25_price_pair(pair)
 
 
 def _annual_baseline(rows: list[dict], season: str, seed: int) -> tuple[list[dict], dict]:

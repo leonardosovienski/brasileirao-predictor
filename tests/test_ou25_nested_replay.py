@@ -4,7 +4,14 @@ from datetime import UTC, datetime, timedelta
 import numpy as np
 import pytest
 
-from src.research.ou25_nested_replay import FilterParameters, _metrics, holm_adjust, nested_walk_forward, score_row
+from src.research.ou25_nested_replay import (
+    FilterParameters,
+    _metrics,
+    freeze_candidate,
+    holm_adjust,
+    nested_walk_forward,
+    score_row,
+)
 
 
 def _panel(n=520, seed=8):
@@ -58,6 +65,24 @@ def test_outer_fold_has_strict_temporal_boundary_and_operational_caps():
     json.dumps(result, allow_nan=False)
 
 
+def test_simultaneous_kickoff_group_is_never_split_across_outer_boundary():
+    rows = _panel(n=400)
+    shared_kickoff = (datetime(2021, 1, 1, tzinfo=UTC) + timedelta(days=259)).isoformat()
+    for index in range(258, 262):
+        rows[index]["kickoff_at"] = shared_kickoff
+    result = nested_walk_forward(rows, _configs(), minimum_train=260, block_size=65, seed=23)
+    assert result["outer_folds"]
+    assert all(fold["train_max_kickoff"] < fold["test_min_kickoff"] for fold in result["outer_folds"])
+
+
+def test_score_row_rejects_placeholder_price_pair():
+    row = _panel(n=1)[0]
+    row["p_over"] = 0.5
+    row["offered_odds_ou25"] = (51.0, 1.002)
+    params = FilterParameters(-1.0, 100.0, 1.0, 100.0, "both", 0.9, 0.0)
+    assert score_row(row, params, _panel(n=100), uncertainty_by_side={"over": 0.0, "under": 0.0}) is None
+
+
 def test_future_labels_cannot_change_past_fold_selection():
     rows = _panel()
     original = nested_walk_forward(rows, _configs(), minimum_train=260, block_size=65, seed=22)
@@ -77,6 +102,35 @@ def test_replay_is_deterministic_across_repeated_simulations():
     one.pop("generated_at")
     two.pop("generated_at")
     assert one == two
+
+
+def test_freeze_candidate_requires_stability_and_minimum_cells(tmp_path):
+    picks = []
+    for index in range(200):
+        picks.append(
+            {
+                "side": "over" if index % 2 == 0 else "under",
+                "odd": 1.7 if index % 3 == 0 else 2.0 if index % 3 == 1 else 2.5,
+            }
+        )
+    result = {
+        "outer_folds": [{"selected_config_id": "cfg-1"}],
+        "tested_combinations": [{"config_id": "cfg-1", "parameters": {"min_ev": 0.02}}],
+        "picks": picks,
+        "metrics": {
+            "n": 200,
+            "roi_ci95_lower": 0.01,
+            "clv_ci95_lower": 0.01,
+            "worst_season_roi": 0.001,
+            "worst_side_roi": 0.002,
+            "worst_odd_band_roi": 0.003,
+        },
+    }
+    frozen = freeze_candidate(result, tmp_path / "frozen.json", source_hash="source")
+    assert frozen["candidate_id"] == "cfg-1"
+    assert frozen["current_action"] == "SHADOW_CANDIDATE"
+    assert frozen["capital_enabled"] is False
+    assert frozen["maximum_indication_score"] == 40
 
 
 def test_empty_and_singleton_metrics_do_not_claim_estimable_interval():

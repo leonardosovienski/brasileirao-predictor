@@ -1,0 +1,120 @@
+{
+  "schema_version": "ou25-integral-audit/1",
+  "audit_date": "2026-08-28",
+  "repository": "https://github.com/leonardosovienski/brasileirao-predictor",
+  "base_commit": "bec073dcb748dbac63cffe737496f6a7ed8825ac",
+  "base_commit_confirmed": true,
+  "working_tree_clean_before_audit": true,
+  "working_tree_changes_discarded": false,
+  "reproduction": {
+    "uv_sync_locked": "PASS",
+    "python": "3.14.6",
+    "pytest": {
+      "status": "PASS",
+      "passed": 814,
+      "deselected": 1,
+      "warnings": 3,
+      "command": "uv run pytest -q"
+    },
+    "ruff_format": {
+      "status": "PASS",
+      "command": "uv run ruff format --check src scripts tests"
+    },
+    "ruff_check": {
+      "status": "PASS",
+      "command": "uv run ruff check src scripts tests"
+    },
+    "pyright": {
+      "status": "PASS",
+      "errors": 0,
+      "warnings": 0,
+      "command": "uv run pyright"
+    },
+    "ci_check": {
+      "status": "GREEN_WITH_ENVIRONMENTAL_SKIPS",
+      "research_readonly": "PASS",
+      "current_elo_containment": "PASS",
+      "python_suite": "PASS",
+      "predict_smoke": "SKIPPED_DATA_MATCHES_DB_ABSENT",
+      "live_smoke": "SKIPPED_DATA_MATCHES_DB_ABSENT",
+      "command": "uv run python scripts/ci_check.py"
+    },
+    "dotnet": {
+      "status": "BLOCKED",
+      "reason": "dotnet SDK not installed in sandbox",
+      "counted_as_pass": false
+    }
+  },
+  "data": {
+    "operational_database": {
+      "path": "data/matches.db",
+      "present": false,
+      "used_to_generate_new_results": false
+    },
+    "public_backfill": {
+      "path": "reports/ou25_v2/ou25_backfill.sqlite",
+      "sha256": "73a31a5ca780a03b35a06631bc5410b87046fb385b9541e2a929290bb3f7f980",
+      "rows": 1140,
+      "unmatched_rows": 0,
+      "integrity_check": "ok",
+      "price_pairs_valid_under_shared_gate": 1140,
+      "price_pairs_invalid_under_shared_gate": 0,
+      "allowed_use": "exploratory retrospective aggregate only",
+      "clv_eligible": false,
+      "prospective_a1_eligible": false
+    }
+  },
+  "scientific_state": {
+    "trials": 29,
+    "unique_trial_names": 29,
+    "trial_missing_status": 0,
+    "observed_contaminated_seasons": ["2024", "2025", "2026"],
+    "candidate_id": null,
+    "current_action": "NO_BET",
+    "capital_enabled": false,
+    "kelly_enabled": false,
+    "maximum_indication_score": 40,
+    "prospective_a1_required": true,
+    "factorial_evaluations_published": 77760,
+    "holm_correction": "Holm declared across family; source artifacts preserved",
+    "annual_counterfactual_bets": 1682,
+    "annual_counterfactual_profit_units": -15.041,
+    "annual_governed_bets": 0,
+    "annual_governed_profit_units": 0.0
+  },
+  "published_artifacts": {
+    "annual_summary_sha256": "053efd44de3ba039936dfabcf0698e7d37256152c0dd38fef60a43381f244549",
+    "nested_serving_replay_sha256": "0724cfe086f5429b6b587c61577746ecd89e94bf69d11c164c7c6e27f09ae49d",
+    "nested_serving_losses_sha256": "3072ed60abd71ec4bdf106674ae28e9cf956720aa1468d480cfb50162b4eb1a9",
+    "nested_dixon_coles_replay_sha256": "95a6401e19c8df9cddf416298d1f3b9b783b62b4eaa7e3033aa1cc65337617e9",
+    "nested_dixon_coles_losses_sha256": "68c29fd85222d8d8db983461de3e16b9d6b2959e859ccdf440224f1d7403839d"
+  },
+  "historical_manifest_reconciliation": {
+    "serving_manifest_git_commit": "1d83b02b83bbd8d7a14bc66deef93bb969711328",
+    "dixon_coles_manifest_git_commit": "1d83b02b83bbd8d7a14bc66deef93bb969711328",
+    "declared_operator_database_sha256": "5f6c35dfc25d886d7d3c6a88bdd3f6686e93bd41803c26152b04c466738c462b",
+    "operator_database_present": false,
+    "artifact_hashes_byte_match_current_checkout": false,
+    "historical_artifacts_overwritten": false,
+    "interpretation": "historical reports remain preserved; full regeneration is blocked without the matching operational database"
+  },
+  "modified_files": {
+    "src/research/ou25_nested_replay.py": "b7f623b8f720ab1ac51a2f350fed5dd4928cd9022af58093acc4bdd94a7e7767",
+    "scripts/research_ou25_annual_2021_2026.py": "b292a5701b77f4d0bc5dffa1230197630198bbf6f5752216a0dbe8e6634d66f1",
+    "tests/test_ou25_nested_replay.py": "d4d52c767d07752ccda323fe6c9c1efaafd89e35be615b282d81bdc92bcb12c5",
+    "tests/test_ou25_market_anchor.py": "baef226a7d42c85737c912a6402e910424e70f04946643b7b559bb92cc82fbd2",
+    "docs/ou25_v2/AUDITORIA_INTEGRAL_2026-08-28.md": "c4cdc827430dece7ab57d04b77307461b2ff2b4c5e80b9b0b146230bfeedc765"
+  },
+  "regressions": {
+    "before_fix": "2 targeted failures reproduced: simultaneous kickoff split and placeholder price accepted",
+    "after_fix": "16 targeted tests passed",
+    "new_regression_tests": 5
+  },
+  "safety": {
+    "profit_promised": false,
+    "odds_fabricated": false,
+    "captures_fabricated": false,
+    "capital_enabled": false,
+    "retrospective_2024_2026_used_as_new_prospective_validation": false
+  }
+}

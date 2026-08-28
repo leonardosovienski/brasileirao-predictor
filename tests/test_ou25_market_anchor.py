@@ -25,6 +25,27 @@ def test_anchor_selects_market_when_model_is_worse():
     assert report["anchored_brier"] < report["model_brier"]
 
 
+def test_anchor_does_not_split_simultaneous_kickoff_group():
+    rows = _rows(n=40)
+    kickoff = (datetime(2021, 1, 1, tzinfo=UTC) + timedelta(days=19)).isoformat()
+    for index in range(18, 22):
+        rows[index]["kickoff_at"] = kickoff
+    _transformed, report = anchor_to_market_prequential(rows, minimum_history=20, block_size=10)
+    assert report["folds"]
+    assert report["folds"][0]["train_n"] == 18
+    assert report["folds"][0]["test_n"] == 10
+    assert report["folds"][0]["test_min_kickoff"] == kickoff
+
+
+def test_anchor_excludes_invalid_price_pairs():
+    rows = _rows(n=40)
+    rows[25]["offered_odds_ou25"] = (51.0, 1.002)
+    transformed, report = anchor_to_market_prequential(rows, minimum_history=20, block_size=10)
+    assert len(transformed) == 39
+    assert report["evaluated_n"] == 19
+    assert all(row["event_id"] != "25" for row in transformed)
+
+
 def test_future_labels_do_not_change_first_anchor_weight():
     rows = _rows()
     first = anchor_to_market_prequential(rows, minimum_history=20, block_size=10)[1]
