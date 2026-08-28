@@ -94,7 +94,8 @@ def run():
     out = compute(cfg, conn)
     if not out:
         sys.exit("banco vazio — rode `python -m src.ingest` primeiro")
-    elo, (a, b, alpha, rho), n = out
+    elo, fitted_params, n = out
+    a, b, alpha, rho = fitted_params[:4]
     n_total = conn.execute("SELECT COUNT(*) FROM matches WHERE home_score IS NOT NULL").fetchone()[0]
     now = datetime.now(UTC).isoformat(timespec="seconds")
     db.save_elo(conn, list(elo.items()))

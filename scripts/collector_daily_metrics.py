@@ -13,6 +13,13 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def main() -> int:
     today = datetime.now(UTC).date().isoformat()
+    heartbeat = ROOT / "data" / "collector_state" / "metrics_heartbeat.json"
+    heartbeat.parent.mkdir(parents=True, exist_ok=True)
+    heartbeat.write_text(
+        json.dumps({"checked_at": datetime.now(UTC).isoformat(), "date": today, "capital_enabled": False}, indent=2)
+        + "\n",
+        encoding="utf-8",
+    )
     snapshot_path = ROOT / "data" / "odds_snapshots" / f"{today}.jsonl"
     fixtures_path = ROOT / "data" / "collector_state" / "fixtures.json"
     snapshots = (

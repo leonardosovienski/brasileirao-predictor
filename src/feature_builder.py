@@ -30,8 +30,9 @@ def build_features(db_path: str, event_id: int, window: int = 10) -> dict:
     """
     Para um evento, calcula as features dos dois times.
     Retorna dict com chaves 'home_Expected goals', 'away_Expected goals', etc.
-    Inclui 'delta_xg' = home_Expected goals - away_Expected goals.
-    Times sem historico retornam dict vazio para aquele time.
+    Inclui ``delta_xg`` somente quando ambos os lados possuem xG histórico.
+    Missingness permanece explícito por ``None``, flags ``has_*_xg`` e
+    contagens ``*_n_valid``; ausência nunca é convertida em desempenho zero.
     """
     conn = _connect_ro(db_path)
 
@@ -57,9 +58,18 @@ def build_features(db_path: str, event_id: int, window: int = 10) -> dict:
     for stat, val in away_feats.items():
         features[f"away_{stat}"] = val
 
-    home_xg = home_feats.get("Expected goals", 0.0)
-    away_xg = away_feats.get("Expected goals", 0.0)
-    features["delta_xg"] = home_xg - away_xg
+    home_xg = home_feats.get("Expected goals")
+    away_xg = away_feats.get("Expected goals")
+    has_home_xg = home_xg is not None
+    has_away_xg = away_xg is not None
+    features.setdefault("home_Expected goals", None)
+    features.setdefault("away_Expected goals", None)
+    features.setdefault("home_Expected goals_n_valid", 0)
+    features.setdefault("away_Expected goals_n_valid", 0)
+    features["has_home_xg"] = has_home_xg
+    features["has_away_xg"] = has_away_xg
+    features["has_delta_xg"] = has_home_xg and has_away_xg
+    features["delta_xg"] = home_xg - away_xg if home_xg is not None and away_xg is not None else None
 
     return features
 
@@ -114,4 +124,6 @@ def _team_features(conn: sqlite3.Connection, team: str, match_date: str, window:
         sums[r["stat_name"]] = sums.get(r["stat_name"], 0.0) + r["value"]
         counts[r["stat_name"]] = counts.get(r["stat_name"], 0) + 1
 
-    return {stat: sums[stat] / counts[stat] for stat in sums}
+    features = {stat: sums[stat] / counts[stat] for stat in sums}
+    features.update({f"{stat}_n_valid": count for stat, count in counts.items()})
+    return features

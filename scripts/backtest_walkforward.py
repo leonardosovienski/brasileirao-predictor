@@ -53,6 +53,7 @@ from src.backtest import (
 )
 from src.ingest import load_config
 from src.math_utils import shin_probabilities
+from src.research.temporal_replay import build_temporal_manifest
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTCOMES = ("home", "draw", "away")
@@ -302,7 +303,22 @@ def main():
         f"total: {len(ledger)} apostas de valor no funil "
         f"[{cfg['backtest']['min_edge']:.0%}, {cfg['backtest']['max_edge']:.0%}]"
     )
-    summary = {"n_blocks": n_blocks, "n_bets": len(ledger), "markets": {}}
+    temporal_manifest = build_temporal_manifest(
+        [
+            {"date": row[0], "home_team": row[1], "away_team": row[2]}
+            for row in conn.execute(
+                "SELECT date, home_team, away_team FROM matches WHERE home_score IS NOT NULL ORDER BY date"
+            ).fetchall()
+        ]
+    )
+    summary = {
+        "n_blocks": n_blocks,
+        "n_bets": len(ledger),
+        "markets": {},
+        "temporal_policy": temporal_manifest["temporal_policy"],
+        "temporal_source_sha256": temporal_manifest["source_sha256"],
+        "temporal_group_count": temporal_manifest["group_count"],
+    }
     print("\npor mercado:")
     for mkt in sorted({b["market"] for b in ledger}):
         summary["markets"][mkt] = _mkt_line(mkt, [b for b in ledger if b["market"] == mkt])

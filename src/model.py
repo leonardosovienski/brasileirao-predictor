@@ -13,6 +13,7 @@ ZONA 3 — Kernel Purista (PROMPT 5)
 import math
 import warnings
 from datetime import date
+from numbers import Integral, Real
 
 import numpy as np
 from scipy.optimize import minimize
@@ -44,6 +45,48 @@ def exponential_recency_weights(match_dates, asof, half_life_days):
 
 # Tipo dos hiperparâmetros: tupla legada (a, b, alpha, rho) ou dict estendido
 type Params = tuple[float, float, float, float] | tuple[float, float, float, float, float] | dict[str, float]
+
+
+class ModelIntegrityError(ValueError):
+    """Training data violates the goal-model input contract."""
+
+
+class OptimizationFailedError(RuntimeError):
+    """All configured numerical optimization attempts failed to converge."""
+
+
+def _validate_goal_model_inputs(history, delta_xg=None, sample_weights=None) -> None:
+    """Validate non-empty training inputs before NumPy or SciPy can coerce them.
+
+    The canonical history item is ``(elo_diff, home_goals, away_goals)``.
+    Goal counts must be actual integral values (booleans and integral-looking
+    floats are rejected) so corrupt schemas cannot silently reach the solver.
+    """
+    for index, item in enumerate(history):
+        if isinstance(item, (str, bytes, dict)) or not hasattr(item, "__len__") or len(item) != 3:
+            raise ModelIntegrityError(f"history[{index}] must be a three-item (elo_diff, home_goals, away_goals) tuple")
+        elo_diff, home_goals, away_goals = item
+        if isinstance(elo_diff, bool) or not isinstance(elo_diff, Real) or not math.isfinite(float(elo_diff)):
+            raise ModelIntegrityError(f"history[{index}].elo_diff must be a finite real number")
+        for field, value in (("home_goals", home_goals), ("away_goals", away_goals)):
+            if isinstance(value, bool) or not isinstance(value, Integral) or value < 0:
+                raise ModelIntegrityError(f"history[{index}].{field} must be a non-negative integer")
+
+    if sample_weights is not None:
+        try:
+            weights = np.asarray(sample_weights, dtype=float)
+        except (TypeError, ValueError) as exc:
+            raise ModelIntegrityError("sample_weights must be numeric") from exc
+        if weights.shape != (len(history),) or not np.isfinite(weights).all() or np.any(weights <= 0):
+            raise ModelIntegrityError("sample_weights must be finite, positive and match history length")
+
+    if delta_xg is not None:
+        try:
+            values = np.asarray(delta_xg, dtype=float)
+        except (TypeError, ValueError) as exc:
+            raise ModelIntegrityError("delta_xg must be numeric") from exc
+        if values.shape != (len(history),) or not np.isfinite(values).all():
+            raise ModelIntegrityError("delta_xg must be finite and match history length")
 
 
 def _nb_logpmf(k, mu, alpha):
@@ -102,8 +145,16 @@ def fit_goal_model(history, delta_xg=None, sample_weights=None):
     cada jogo à log-verossimilhança (peso 1 preserva o comportamento legado).
     Retorna tupla de 4 (sem delta_xg) ou 5 (com delta_xg).
     """
+    history = list(history)
     if not history:
-        return (0.0, 0.3, 1e-4, 0.0)
+        if sample_weights is not None and len(sample_weights) != 0:
+            raise ModelIntegrityError("sample_weights must match empty history")
+        if delta_xg is not None and len(delta_xg) != 0:
+            raise ModelIntegrityError("delta_xg must match empty history")
+        cold_start = (0.0, 0.3, 1e-4, 0.0)
+        return (*cold_start, 0.0) if delta_xg is not None else cold_start
+
+    _validate_goal_model_inputs(history, delta_xg=delta_xg, sample_weights=sample_weights)
 
     diffs = np.array([h[0] for h in history], dtype=float) / 400.0
     hs = np.array([h[1] for h in history], dtype=float)
@@ -112,22 +163,23 @@ def fit_goal_model(history, delta_xg=None, sample_weights=None):
         weights = np.ones(len(diffs), dtype=float)
     else:
         weights = np.asarray(sample_weights, dtype=float)
-        if weights.shape != diffs.shape or not np.isfinite(weights).all() or np.any(weights <= 0):
-            raise ValueError("sample_weights must be finite, positive and match history length")
     base = math.log(max(float(np.average(np.r_[hs, as_], weights=np.r_[weights, weights])), 1e-3))
 
-    has_xg = delta_xg is not None and len(delta_xg) == len(diffs)
+    has_xg = delta_xg is not None
     if has_xg:
         dxg = np.array(delta_xg, dtype=float)
     else:
         dxg = np.zeros(len(diffs), dtype=float)
 
+    rho_scale = 0.4
+
     def negll(theta):
         if len(theta) == 5:
-            a, b, log_alpha, rho, theta_xg = theta
+            a, b, log_alpha, rho_raw, theta_xg = theta
         else:
-            a, b, log_alpha, rho = theta
+            a, b, log_alpha, rho_raw = theta
             theta_xg = 0.0
+        rho = rho_scale * math.tanh(rho_raw)
 
         alpha = math.exp(log_alpha)
         lam = np.exp(a + b * diffs)
@@ -148,11 +200,11 @@ def fit_goal_model(history, delta_xg=None, sample_weights=None):
         return -float(np.dot(weights, ll))
 
     if has_xg:
-        x0 = [base, 0.3, math.log(0.1), -0.03, 0.5]
-        bounds = [(-3, 3), (-1, 4), (math.log(1e-4), math.log(3)), (-0.4, 0.4), (-5, 5)]
+        x0 = [base, 0.3, math.log(0.1), math.atanh(-0.03 / rho_scale), 0.5]
+        bounds = [(-3, 3), (-1, 4), (math.log(1e-4), math.log(3)), (None, None), (-5, 5)]
     else:
-        x0 = [base, 0.3, math.log(0.1), -0.03]
-        bounds = [(-3, 3), (-1, 4), (math.log(1e-4), math.log(3)), (-0.4, 0.4)]
+        x0 = [base, 0.3, math.log(0.1), math.atanh(-0.03 / rho_scale)]
+        bounds = [(-3, 3), (-1, 4), (math.log(1e-4), math.log(3)), (None, None)]
 
     try:
         res = minimize(negll, x0, method="L-BFGS-B", bounds=bounds)
@@ -166,49 +218,37 @@ def fit_goal_model(history, delta_xg=None, sample_weights=None):
             )
             if retry.success or retry.fun < res.fun:
                 res = retry
-        if len(res.x) == 5:
-            a, b, log_alpha, rho, theta_xg = res.x
-        else:
-            a, b, log_alpha, rho = res.x
-            theta_xg = 0.0
-        if not res.success and res.fun >= 1e11:
-            raise ValueError("otimizacao nao convergiu para regiao valida")
-        # Auditoria P10: falha de convergência ou parâmetro cravado num bound
-        # indicam dado mal-formado (ex.: history no formato errado) ou modelo
-        # mal-especificado. Antes isso passava calado — foi exatamente o que
-        # escondeu o bug do history da Fase 2 (a=3.0 no limite, λ≈23 gols).
-        if not res.success:
+    except (ArithmeticError, FloatingPointError, OverflowError, ValueError) as exc:
+        raise OptimizationFailedError(f"goal-model optimizer raised {type(exc).__name__}: {exc}") from exc
+
+    if not res.success:
+        raise OptimizationFailedError(f"goal-model optimizer did not converge: {res.message}")
+    if not np.isfinite(res.x).all() or not math.isfinite(float(res.fun)) or res.fun >= 1e11:
+        raise OptimizationFailedError("goal-model optimizer returned an invalid solution")
+
+    if len(res.x) == 5:
+        a, b, log_alpha, rho_raw, theta_xg = res.x
+    else:
+        a, b, log_alpha, rho_raw = res.x
+        theta_xg = 0.0
+    rho = rho_scale * math.tanh(rho_raw)
+    # Auditoria P10: parâmetros cravados num bound indicam dado mal-formado ou
+    # modelo mal-especificado. A integridade estrutural já falha antes do solver;
+    # este warning preserva o diagnóstico de uma solução numericamente limítrofe.
+    _names = ("a", "b", "log_alpha", "rho_raw", "theta_xg")
+    for name, val, (lo, hi) in zip(_names, res.x, bounds):
+        if lo is not None and hi is not None and min(abs(val - lo), abs(val - hi)) < 1e-6:
+            if name == "log_alpha" and abs(val - lo) < 1e-6:
+                continue
             warnings.warn(
-                f"fit_goal_model: otimizacao nao convergiu ({res.message})",
+                f"fit_goal_model: parametro {name}={val:.4f} cravado no bound "
+                f"[{lo}, {hi}] — verifique o formato do history (diff, hs, as)",
                 RuntimeWarning,
                 stacklevel=2,
             )
-        _names = ("a", "b", "log_alpha", "rho", "theta_xg")
-        for name, val, (lo, hi) in zip(_names, res.x, bounds):
-            if min(abs(val - lo), abs(val - hi)) < 1e-6:
-                # log_alpha no bound INFERIOR e' legitimo: alpha→0 = Poisson
-                # (sem overdispersao). Os demais bounds sao patologia.
-                if name == "log_alpha" and abs(val - lo) < 1e-6:
-                    continue
-                warnings.warn(
-                    f"fit_goal_model: parametro {name}={val:.4f} cravado no bound "
-                    f"[{lo}, {hi}] — verifique o formato do history (diff, hs, as)",
-                    RuntimeWarning,
-                    stacklevel=2,
-                )
-        if has_xg:
-            return (float(a), float(b), float(math.exp(log_alpha)), float(rho), float(theta_xg))
-        else:
-            return (float(a), float(b), float(math.exp(log_alpha)), float(rho))
-    except Exception as exc:
-        warnings.warn(
-            f"fit_goal_model: fallback parameters used after {type(exc).__name__}: {exc}",
-            RuntimeWarning,
-            stacklevel=2,
-        )
-        if has_xg:
-            return (base, 0.3, 1e-4, 0.0, 0.0)
-        return (base, 0.3, 1e-4, 0.0)
+    if has_xg:
+        return (float(a), float(b), float(math.exp(log_alpha)), float(rho), float(theta_xg))
+    return (float(a), float(b), float(math.exp(log_alpha)), float(rho))
 
 
 def _unpack_params(params: Params) -> tuple[float, float, float, float, float]:

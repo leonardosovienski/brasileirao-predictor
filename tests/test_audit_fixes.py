@@ -11,7 +11,7 @@ import pytest
 
 from src.bootstrap import ci_mean, ci_mean_cluster
 from src.event_models import fit_event_model, predict_event
-from src.model import fit_goal_model, predict_match
+from src.model import OptimizationFailedError, fit_goal_model, predict_match
 from src.ratings import ratings_asof
 
 CFG_ELO = {
@@ -54,9 +54,8 @@ def test_p5_padrao_buggy_documentado():
 # ------------------------------------------------------------------ #
 
 
-def test_p10_history_no_formato_errado_dispara_warning():
-    """O bug P1 (history [elo_h, elo_a, hs, as]) passava CALADO: o fit cravava
-    a no bound superior e ninguém via. Agora tem que avisar."""
+def test_p10_history_no_formato_errado_falha_fechado():
+    """O bug P1 não pode mais terminar em parâmetros fallback utilizáveis."""
     rng = np.random.default_rng(7)
     buggy_history = [
         (
@@ -66,7 +65,9 @@ def test_p10_history_no_formato_errado_dispara_warning():
         )  # h[1] ~ 1450 "gols"
         for _ in range(60)
     ]
-    with pytest.warns(RuntimeWarning):
+    # A tupla ainda satisfaz o schema (três inteiros não negativos), portanto
+    # sem um teto arbitrário de gols a anomalia só é comprovada pelo solver.
+    with pytest.raises(OptimizationFailedError, match="invalid solution"):
         fit_goal_model(buggy_history)
 
 

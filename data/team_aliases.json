@@ -1,11 +1,11 @@
 {
-  "mapping_version": "teams-2026-08-27",
+  "mapping_version": "teams-2026-08-28",
   "source_id": "oddspapi_v4",
   "aliases": {
     "Botafogo FR RJ": "botafogo",
-    "CA Paranaense PR": "athletico-pr",
-    "Athletico Paranaense": "athletico-pr",
-    "Atletico Mineiro MG": "atletico-mg",
+    "CA Paranaense PR": "athletico",
+    "Athletico Paranaense": "athletico",
+    "Atletico Mineiro MG": "atletico-mineiro",
     "EC Bahia BA": "bahia",
     "Chapecoense SC": "chapecoense",
     "SC Corinthians SP": "corinthians",

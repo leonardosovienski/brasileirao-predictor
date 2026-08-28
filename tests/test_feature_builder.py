@@ -52,14 +52,44 @@ def test_build_features(db_path):
     feats = build_features(db_path, event_id=3, window=2)
     assert abs(feats["home_Expected goals"] - 2.25) < 0.01
     assert abs(feats["home_Ball possession"] - 56.5) < 0.01
-    assert "delta_xg" in feats
+    assert feats["home_Expected goals_n_valid"] == 2
+    assert feats["has_home_xg"] is True
+    assert feats["has_away_xg"] is False
+    assert feats["has_delta_xg"] is False
+    assert feats["delta_xg"] is None
 
 
 def test_build_features_empty(db_path):
     feats = build_features(db_path, event_id=1, window=2)
     # Jogo 1 e o primeiro, sem historico anterior
-    assert feats.get("home_Expected goals") is None or feats.get("home_Expected goals") == 0.0
-    assert "delta_xg" in feats
+    assert feats["home_Expected goals"] is None
+    assert feats["away_Expected goals"] is None
+    assert feats["home_Expected goals_n_valid"] == 0
+    assert feats["away_Expected goals_n_valid"] == 0
+    assert feats["has_home_xg"] is False
+    assert feats["has_away_xg"] is False
+    assert feats["has_delta_xg"] is False
+    assert feats["delta_xg"] is None
+
+
+def test_delta_xg_so_existe_quando_os_dois_lados_tem_historico(db_path):
+    conn = sqlite3.connect(db_path)
+    conn.executescript("""
+        INSERT INTO sofascore_matches VALUES
+            (4, '2026-06-12', 'Colombia', 'Chile', 1, 1);
+        INSERT INTO match_statistics VALUES
+            (4, 'home', 'ALL', 'Expected goals', 1.25);
+    """)
+    conn.commit()
+    conn.close()
+
+    feats = build_features(db_path, event_id=3, window=2)
+    assert feats["home_Expected goals"] == pytest.approx(2.25)
+    assert feats["away_Expected goals"] == pytest.approx(1.25)
+    assert feats["has_home_xg"] is True
+    assert feats["has_away_xg"] is True
+    assert feats["has_delta_xg"] is True
+    assert feats["delta_xg"] == pytest.approx(1.0)
 
 
 def test_build_features_filtra_pelo_lado_do_time(db_path):

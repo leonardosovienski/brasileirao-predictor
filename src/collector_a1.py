@@ -6,14 +6,14 @@ import hashlib
 import json
 import os
 import re
-from dataclasses import dataclass
 from datetime import UTC, datetime
-from difflib import get_close_matches
 from pathlib import Path
 from typing import Any, Literal, cast
 
 import requests
 from jsonschema import Draft202012Validator, FormatChecker
+
+from .identity import TeamAliases
 
 SOURCE_ID = "oddspapi_v4"
 BASE_URL = "https://api.oddspapi.io/v4"
@@ -45,25 +45,6 @@ def utc_text(value: datetime) -> str:
 
 def canonical_json(value: dict[str, Any]) -> bytes:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
-
-
-@dataclass(frozen=True)
-class AliasResult:
-    canonical: str | None
-    suggestion: str | None
-
-
-class TeamAliases:
-    def __init__(self, path: Path) -> None:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-        self.mapping_version = str(payload["mapping_version"])
-        self.aliases = {str(key): str(value) for key, value in payload["aliases"].items()}
-
-    def resolve(self, source_name: str) -> AliasResult:
-        if source_name in self.aliases:
-            return AliasResult(self.aliases[source_name], None)
-        suggestions = get_close_matches(source_name, self.aliases, n=1, cutoff=0.72)
-        return AliasResult(None, suggestions[0] if suggestions else None)
 
 
 class OddsPapiClient:

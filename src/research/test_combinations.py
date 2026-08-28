@@ -17,6 +17,22 @@ from src.ingest import ROOT, load_config
 from src.model import fit_goal_model, predict_match
 from src.research.verify_calibration import brier_1x2, load_rows_with_forward_elo
 
+
+def _required_combined_delta(features: dict, feature_names: list[str], event_id: int) -> float:
+    deltas = []
+    for feature_name in feature_names:
+        home = features.get(f"home_{feature_name}")
+        away = features.get(f"away_{feature_name}")
+        if home is None or away is None:
+            raise ValueError(
+                f"feature {feature_name!r} is incomplete for event_id={event_id}; refusing zero imputation"
+            )
+        deltas.append(float(home) - float(away))
+    if not deltas:
+        raise ValueError("feature_names must not be empty")
+    return float(np.mean(deltas))
+
+
 DB_PATH = str(ROOT / "data" / "matches.db")
 
 # Features que mostraram sinal no teste individual
@@ -41,12 +57,7 @@ def test_combination(conn, feature_names, train_rows, test_rows):
     delta_train = []
     for r in train_rows:
         feats = build_features(DB_PATH, r[0])
-        deltas = []
-        for f in feature_names:
-            home_val = feats.get(f"home_{f}", 0.0) or 0.0
-            away_val = feats.get(f"away_{f}", 0.0) or 0.0
-            deltas.append(home_val - away_val)
-        delta_train.append(np.mean(deltas) if deltas else 0.0)
+        delta_train.append(_required_combined_delta(feats, feature_names, r[0]))
 
     params_base = fit_goal_model(history)
     params_feat = fit_goal_model(history, delta_xg=delta_train)
@@ -65,12 +76,7 @@ def test_combination(conn, feature_names, train_rows, test_rows):
             y_true.append(2)
 
         feats = build_features(DB_PATH, r[0])
-        deltas = []
-        for f in feature_names:
-            home_val = feats.get(f"home_{f}", 0.0) or 0.0
-            away_val = feats.get(f"away_{f}", 0.0) or 0.0
-            deltas.append(home_val - away_val)
-        delta = np.mean(deltas) if deltas else 0.0
+        delta = _required_combined_delta(feats, feature_names, r[0])
 
         elo_home = r[6] if r[6] is not None else 1500
         elo_away = r[7] if r[7] is not None else 1500

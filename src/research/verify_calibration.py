@@ -21,6 +21,15 @@ from src.model import fit_goal_model, predict_match
 from src.predict import _canon
 from src.ratings import ratings_asof
 
+
+def _required_feature_delta(features: dict, feature_name: str, event_id: int) -> float:
+    home = features.get(f"home_{feature_name}")
+    away = features.get(f"away_{feature_name}")
+    if home is None or away is None:
+        raise ValueError(f"feature {feature_name!r} is incomplete for event_id={event_id}; refusing zero imputation")
+    return float(home) - float(away)
+
+
 DB_PATH = str(ROOT / "data" / "matches.db")
 
 
@@ -90,9 +99,7 @@ def test_feature(conn, feature_name, train_rows, test_rows):
     delta_train = []
     for r in train_rows:
         feats = build_features(DB_PATH, r[0])
-        home_val = feats.get(f"home_{feature_name}", 0.0) or 0.0
-        away_val = feats.get(f"away_{feature_name}", 0.0) or 0.0
-        delta_train.append(home_val - away_val)
+        delta_train.append(_required_feature_delta(feats, feature_name, r[0]))
 
     # Treina baseline
     params_base = fit_goal_model(history)
@@ -115,9 +122,7 @@ def test_feature(conn, feature_name, train_rows, test_rows):
             y_true.append(2)
 
         feats = build_features(DB_PATH, r[0])
-        home_val = feats.get(f"home_{feature_name}", 0.0) or 0.0
-        away_val = feats.get(f"away_{feature_name}", 0.0) or 0.0
-        delta = home_val - away_val
+        delta = _required_feature_delta(feats, feature_name, r[0])
 
         elo_home = r[6] if r[6] is not None else 1500
         elo_away = r[7] if r[7] is not None else 1500

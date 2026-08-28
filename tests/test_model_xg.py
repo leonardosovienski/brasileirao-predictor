@@ -1,6 +1,15 @@
+from types import SimpleNamespace
+
 import pytest
 
-from src.model import exponential_recency_weights, fit_goal_model, predict_match
+from src import model
+from src.model import (
+    ModelIntegrityError,
+    OptimizationFailedError,
+    exponential_recency_weights,
+    fit_goal_model,
+    predict_match,
+)
 
 # AUDITORIA P1: o fixture antigo usava [elo_home, elo_away, hs, as] — formato
 # ERRADO que este teste canonizou e a Fase 2 copiou (o MLE tratava o Elo do
@@ -55,8 +64,44 @@ def test_recent_matches_receive_more_influence():
 
 @pytest.mark.parametrize("weights", [[1.0], [1.0, 1.0, 1.0, 1.0, 0.0], [1.0, 1.0, 1.0, 1.0, float("nan")]])
 def test_invalid_sample_weights_fail_closed(weights):
-    with pytest.raises(ValueError, match="sample_weights"):
+    with pytest.raises(ModelIntegrityError, match="sample_weights"):
         fit_goal_model(_HISTORY, sample_weights=weights)
+
+
+@pytest.mark.parametrize(
+    "history,match",
+    [
+        ([(float("nan"), 1, 0)], "elo_diff"),
+        ([(float("inf"), 1, 0)], "elo_diff"),
+        ([(0, -1, 0)], "home_goals"),
+        ([(0, 1.5, 0)], "home_goals"),
+        ([(0, True, 0)], "home_goals"),
+        ([(0, 1, float("nan"))], "away_goals"),
+        ([(0, 1)], "three-item"),
+        ([{"elo_diff": 0, "home_goals": 1, "away_goals": 0}], "three-item"),
+    ],
+)
+def test_invalid_goal_history_fails_closed(history, match):
+    with pytest.raises(ModelIntegrityError, match=match):
+        fit_goal_model(history)
+
+
+@pytest.mark.parametrize("delta_xg", [[1.0], [1.0] * 4 + [float("nan")], [1.0] * 4 + [float("inf")]])
+def test_invalid_delta_xg_fails_closed(delta_xg):
+    with pytest.raises(ModelIntegrityError, match="delta_xg"):
+        fit_goal_model(_HISTORY, delta_xg=delta_xg)
+
+
+def test_empty_history_preserves_explicit_cold_start():
+    assert fit_goal_model([]) == (0.0, 0.3, 1e-4, 0.0)
+    assert fit_goal_model([], delta_xg=[]) == (0.0, 0.3, 1e-4, 0.0, 0.0)
+
+
+def test_optimizer_failure_is_typed_and_never_returns_fallback(monkeypatch):
+    failed = SimpleNamespace(success=False, fun=10.0, x=[0.0, 0.3, -2.0, 0.0], message="synthetic failure")
+    monkeypatch.setattr(model, "minimize", lambda *args, **kwargs: failed)
+    with pytest.raises(OptimizationFailedError, match="did not converge"):
+        fit_goal_model(_HISTORY)
 
 
 def test_exponential_recency_weights_obey_half_life_exactly():

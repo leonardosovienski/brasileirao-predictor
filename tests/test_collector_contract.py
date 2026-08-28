@@ -34,8 +34,13 @@ CAPTURED = datetime(2026, 8, 25, 22, tzinfo=UTC)
 @pytest.fixture
 def aliases(tmp_path: Path) -> TeamAliases:
     path = tmp_path / "aliases.json"
+    teams_path = tmp_path / "teams_brasileirao.json"
     path.write_text(
         json.dumps({"mapping_version": "teams-2026-08-24", "aliases": {"Home FC": "home", "Away FC": "away"}}),
+        encoding="utf-8",
+    )
+    teams_path.write_text(
+        json.dumps({"teams": {"Home": {"slug": "home"}, "Away": {"slug": "away"}}}),
         encoding="utf-8",
     )
     return TeamAliases(path)

@@ -9,6 +9,7 @@
 !/data/trials.harness_attestation.json
 !/data/teams_brasileirao.json
 !/data/team_aliases.json
+!/data/promotions_brasileirao_2018_2026.json
 *.db
 *.log
 events.jsonl
