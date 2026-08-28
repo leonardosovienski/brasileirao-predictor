@@ -1,4 +1,11 @@
 {
+  "evidence_artifacts": {
+    "provenance_audit.json": {"sha256": "998aa943fb3971960b53bce2deecb4f5be3266610f97aad0b004e732c94de822", "bytes": 6361},
+    "odds_audit.json": {"sha256": "3ca3446670716a215efe295b76c19a67b5a498a6b69b7f38a5ea48aab2ae4f39", "bytes": 2259},
+    "ci_after_pit_guard.log": {"sha256": "c527eba0912383cc2c6676ae6663f311ee6b9e295152ae32115f5b848b4ba353", "bytes": 611},
+    "replay_analysis.log": {"sha256": "59da63a6405cf8b5e233eeaa42c78658d03b99bd8001aa3a62523325f1bb41cc", "bytes": 2966},
+    "replay_summary.log": {"sha256": "e720bf1548085f71eb3ff4cebf3789a0ef2393edb24961e1f558e9fea6ab777d", "bytes": 22316}
+  },
   "artifacts": {
     "frozen_candidate.json": {
       "bytes": 760,

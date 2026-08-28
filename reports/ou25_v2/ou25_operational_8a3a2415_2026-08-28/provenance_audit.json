@@ -1,0 +1,335 @@
+{
+  "database": {
+    "path": "/home/ubuntu/audit_operational_db_8a3a2415/matches.db",
+    "bytes": 49508352,
+    "sha256": "8a3a2415aab9b8525708ee18ee7b3fb360b40031904095f5c71b35871e5946cd"
+  },
+  "audit_cutoff_utc": "2026-08-28T23:59:59+00:00",
+  "integrity_check": "ok",
+  "foreign_key_check": [],
+  "tables": {
+    "current_elo": {
+      "count": 30,
+      "columns": [
+        "team",
+        "elo"
+      ]
+    },
+    "match_statistics": {
+      "count": 439764,
+      "columns": [
+        "event_id",
+        "team",
+        "period",
+        "stat_name",
+        "value"
+      ]
+    },
+    "matches": {
+      "count": 2281,
+      "columns": [
+        "date",
+        "home_team",
+        "away_team",
+        "home_score",
+        "away_score",
+        "tournament",
+        "city",
+        "country",
+        "neutral",
+        "event_id"
+      ]
+    },
+    "model_parameters": {
+      "count": 1,
+      "columns": [
+        "id",
+        "param_a",
+        "param_b",
+        "param_alpha",
+        "param_rho",
+        "n_matches",
+        "config_hash",
+        "computed_at"
+      ]
+    },
+    "odds_lines": {
+      "count": 17820,
+      "columns": [
+        "event_id",
+        "market",
+        "line",
+        "odd_a",
+        "odd_b",
+        "odd_a_open",
+        "odd_b_open"
+      ]
+    },
+    "odds_snapshots": {
+      "count": 25142,
+      "columns": [
+        "event_id",
+        "captured_at",
+        "market",
+        "selection",
+        "odd",
+        "pre_match"
+      ]
+    },
+    "player_comp_stats": {
+      "count": 5210,
+      "columns": [
+        "player",
+        "team",
+        "competition",
+        "season",
+        "position",
+        "minutes",
+        "games",
+        "goals",
+        "assists",
+        "xg",
+        "xag",
+        "source",
+        "available_at"
+      ]
+    },
+    "sofascore_matches": {
+      "count": 2321,
+      "columns": [
+        "event_id",
+        "competition",
+        "season",
+        "date",
+        "kickoff_at",
+        "home_team",
+        "away_team",
+        "home_score",
+        "away_score",
+        "home_xg",
+        "away_xg",
+        "odds_home",
+        "odds_draw",
+        "odds_away",
+        "odds_over",
+        "odds_under",
+        "odds_home_open",
+        "odds_draw_open",
+        "odds_away_open",
+        "odds_over_open",
+        "odds_under_open",
+        "odds_dc_1x",
+        "odds_dc_x2",
+        "odds_dc_12",
+        "odds_dnb_home",
+        "odds_dnb_away",
+        "odds_btts_yes",
+        "odds_btts_no",
+        "odds_dc_1x_open",
+        "odds_dc_x2_open",
+        "odds_dc_12_open",
+        "odds_dnb_home_open",
+        "odds_dnb_away_open",
+        "odds_btts_yes_open",
+        "odds_btts_no_open",
+        "home_score_ht",
+        "away_score_ht",
+        "superseded_by_event_id"
+      ]
+    },
+    "sofascore_player_ratings": {
+      "count": 65733,
+      "columns": [
+        "event_id",
+        "player",
+        "team",
+        "rating",
+        "minutes"
+      ]
+    },
+    "xg_model_parameters": {
+      "count": 0,
+      "columns": [
+        "id",
+        "params_json",
+        "n_matches",
+        "config_hash",
+        "computed_at"
+      ]
+    }
+  },
+  "matches": {
+    "date_range": [
+      "2021-05-29",
+      "2026-12-02"
+    ],
+    "year_counts": [
+      [
+        "2021",
+        380
+      ],
+      [
+        "2022",
+        380
+      ],
+      [
+        "2023",
+        380
+      ],
+      [
+        "2024",
+        380
+      ],
+      [
+        "2025",
+        380
+      ],
+      [
+        "2026",
+        381
+      ]
+    ],
+    "future_by_date": 141,
+    "null_dates": 0,
+    "finalized": 2125,
+    "unfinalized": 156,
+    "future_and_finalized": 0,
+    "duplicate_pk": [],
+    "event_id_null": 0,
+    "event_id_duplicate": []
+  },
+  "sofascore_matches": {
+    "date_range": [
+      "2021-05-29T22:00:00+00:00",
+      "2026-12-02T18:00:00+00:00"
+    ],
+    "year_counts": [
+      [
+        "2021",
+        393
+      ],
+      [
+        "2022",
+        382
+      ],
+      [
+        "2023",
+        380
+      ],
+      [
+        "2024",
+        388
+      ],
+      [
+        "2025",
+        393
+      ],
+      [
+        "2026",
+        385
+      ]
+    ],
+    "future_by_date": 141,
+    "null_dates": 0,
+    "event_id_null": 0,
+    "event_id_duplicate": [],
+    "superseded": 40
+  },
+  "odds_snapshots": {
+    "range": [
+      "2026-08-19T21:21:09Z",
+      "2026-08-22T20:12:51Z"
+    ],
+    "rows_by_pre_match": [
+      [
+        0,
+        24942
+      ],
+      [
+        1,
+        200
+      ]
+    ],
+    "markets": [
+      [
+        "1x2",
+        15954,
+        2163,
+        2371
+      ],
+      [
+        "ou2.5",
+        9188,
+        1867,
+        2043
+      ]
+    ],
+    "duplicate_keys": [],
+    "nulls": {
+      "event_id": 0,
+      "captured_at": 0,
+      "market": 0,
+      "selection": 0,
+      "odd": 0,
+      "pre_match": 0
+    },
+    "bookmaker_column_present": false,
+    "pre_match_timing": [
+      [
+        200,
+        165,
+        35
+      ]
+    ]
+  },
+  "odds_lines": {
+    "markets": [
+      [
+        "ah",
+        1696,
+        1693
+      ],
+      [
+        "cards",
+        1280,
+        1280
+      ],
+      [
+        "corners",
+        1863,
+        1862
+      ],
+      [
+        "ou",
+        12981,
+        1867
+      ]
+    ],
+    "nulls": {
+      "event_id": 0,
+      "market": 0,
+      "line": 0,
+      "odd_a": 0,
+      "odd_b": 66,
+      "odd_a_open": 0,
+      "odd_b_open": 66
+    },
+    "ou_valid_pairs": 5145,
+    "ou_total_pairs": 12981
+  },
+  "player_comp_stats": {
+    "available_at_range": [
+      "2021-05-29T22:00:00+00:00",
+      "2026-08-17T23:00:00+00:00"
+    ],
+    "available_at_null": 0,
+    "duplicate_pk": []
+  },
+  "feature_point_in_time": {
+    "match_statistics": "post-game event statistics; no point-in-time availability timestamp; excluded from pre-match claims",
+    "sofascore_player_ratings": "no availability timestamp; cannot prove pre-kickoff availability",
+    "player_comp_stats": "has available_at but no event-level join to prove availability before each kickoff",
+    "odds_snapshots": "captured_at and pre_match exist; bookmaker identity absent; only pre_match=1 and captured_at before kickoff can be considered timing evidence",
+    "model_parameters": "materialized parameter table; not used as point-in-time evidence unless recomputed within each fold"
+  }
+}
