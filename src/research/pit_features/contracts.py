@@ -7,7 +7,16 @@ from typing import Any, Literal, Protocol, runtime_checkable
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-FeatureFamily = Literal["absences", "lineup", "isolated_xg", "hierarchical_home_advantage"]
+FeatureFamily = Literal[
+    "absences",
+    "lineup",
+    "isolated_xg",
+    "hierarchical_home_advantage",
+    "rest",
+    "travel",
+    "surface",
+    "coach_tenure",
+]
 
 
 class FeatureDeclaration(BaseModel):
