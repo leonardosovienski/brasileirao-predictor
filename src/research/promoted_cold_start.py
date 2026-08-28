@@ -80,3 +80,27 @@ def protocol_status(entries: list[PromotedEntry]) -> dict[str, object]:
     except ValueError as exc:
         return {"status": "BLOCKED_MISSING_PROMOTION_METADATA", "reason": str(exc), "serving_changed": False}
     return {"status": "READY_FOR_PREQUENTIAL_BACKTEST", "season_priors": priors, "serving_changed": False}
+
+
+def evaluate_empirical_prior(entries: list[PromotedEntry], *, baseline_rating: float = 1500.0) -> dict[str, object]:
+    """Prequentially compare the historical promoted prior with the neutral Elo baseline."""
+    priors = leave_one_season_out_priors(entries)
+    paired: list[tuple[float, float]] = []
+    for entry in entries:
+        if entry.season not in priors:
+            continue
+        empirical_error = abs(priors[entry.season] - entry.entry_rating_estimate)
+        baseline_error = abs(baseline_rating - entry.entry_rating_estimate)
+        paired.append((empirical_error, baseline_error))
+    if len(paired) < 8:
+        return {"status": "BLOCKED_DATA", "n": len(paired), "serving_changed": False}
+    empirical_mae = mean(item[0] for item in paired)
+    baseline_mae = mean(item[1] for item in paired)
+    return {
+        "status": "GO_CANDIDATE" if empirical_mae < baseline_mae else "NO_GO",
+        "n": len(paired),
+        "empirical_mae": empirical_mae,
+        "baseline_mae": baseline_mae,
+        "mae_gain": baseline_mae - empirical_mae,
+        "serving_changed": False,
+    }

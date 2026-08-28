@@ -1,7 +1,13 @@
 import pytest
 
 from src.data.promotions import Promotion
-from src.research.promoted_cold_start import PromotedEntry, build_entries, leave_one_season_out_priors, protocol_status
+from src.research.promoted_cold_start import (
+    PromotedEntry,
+    build_entries,
+    evaluate_empirical_prior,
+    leave_one_season_out_priors,
+    protocol_status,
+)
 
 
 def _entry(season, team, rating):
@@ -30,3 +36,10 @@ def test_build_entries_fails_closed_without_point_in_time_rating():
     promotion = Promotion(2024, 2023, 1, "vitoria", "Vitoria", "https://www.cbf.com.br/source")
     with pytest.raises(ValueError, match="missing point-in-time"):
         build_entries([promotion], {}, as_of_season=2024)
+
+
+def test_empirical_prior_blocks_small_samples_and_never_changes_serving():
+    entries = [_entry(2022, "a", 1400), _entry(2023, "b", 1420), _entry(2024, "c", 1410)]
+    report = evaluate_empirical_prior(entries)
+    assert report["status"] == "BLOCKED_DATA"
+    assert report["serving_changed"] is False
