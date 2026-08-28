@@ -218,8 +218,12 @@ class SnapshotStore:
                 connection.execute(
                     "INSERT INTO odds_event_versions VALUES (?,?,?,?,?,'SCHEDULED',NULL,?)",
                     (
-                        snapshot["source_id"], snapshot["source_event_id"], snapshot["event_id"],
-                        snapshot["kickoff_at"], version, snapshot["captured_at"],
+                        snapshot["source_id"],
+                        snapshot["source_event_id"],
+                        snapshot["event_id"],
+                        snapshot["kickoff_at"],
+                        version,
+                        snapshot["captured_at"],
                     ),
                 )
             elif latest[1] != snapshot["kickoff_at"]:
@@ -233,15 +237,22 @@ class SnapshotStore:
                 connection.execute(
                     "INSERT INTO odds_event_versions VALUES (?,?,?,?,?,'SCHEDULED',NULL,?)",
                     (
-                        snapshot["source_id"], snapshot["source_event_id"], snapshot["event_id"],
-                        snapshot["kickoff_at"], version, snapshot["captured_at"],
+                        snapshot["source_id"],
+                        snapshot["source_event_id"],
+                        snapshot["event_id"],
+                        snapshot["kickoff_at"],
+                        version,
+                        snapshot["captured_at"],
                     ),
                 )
             else:
                 version = int(latest[0])
             logical = (
-                snapshot["event_id"], snapshot["bookmaker"], snapshot["market"],
-                snapshot["selection"], snapshot["line"],
+                snapshot["event_id"],
+                snapshot["bookmaker"],
+                snapshot["market"],
+                snapshot["selection"],
+                snapshot["line"],
             )
             connection.execute(
                 "UPDATE odds_snapshot_facts SET valid_to=? WHERE event_id=? AND bookmaker=? AND market=? "
@@ -251,10 +262,21 @@ class SnapshotStore:
             connection.execute(
                 "INSERT INTO odds_snapshot_facts VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 (
-                    snapshot["snapshot_id"], snapshot["source_id"], snapshot["source_event_id"], version,
-                    snapshot["event_id"], snapshot["bookmaker"], snapshot["market"], snapshot["selection"],
-                    snapshot["line"], snapshot["odds"], snapshot["captured_at"], snapshot["kickoff_at"],
-                    snapshot["captured_at"], None, snapshot["hash_self"],
+                    snapshot["snapshot_id"],
+                    snapshot["source_id"],
+                    snapshot["source_event_id"],
+                    version,
+                    snapshot["event_id"],
+                    snapshot["bookmaker"],
+                    snapshot["market"],
+                    snapshot["selection"],
+                    snapshot["line"],
+                    snapshot["odds"],
+                    snapshot["captured_at"],
+                    snapshot["kickoff_at"],
+                    snapshot["captured_at"],
+                    None,
+                    snapshot["hash_self"],
                 ),
             )
 

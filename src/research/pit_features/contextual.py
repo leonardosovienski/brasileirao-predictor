@@ -12,8 +12,7 @@ REST = FeatureDeclaration(
     required_source_fields=("home_previous_kickoff", "away_previous_kickoff"),
     output_contract=("home_rest_days", "away_rest_days", "rest_days_delta"),
     provenance_policy=(
-        "Previous kickoffs must originate from the immutable schedule "
-        "vintage available before prediction."
+        "Previous kickoffs must originate from the immutable schedule vintage available before prediction."
     ),
 )
 TRAVEL = FeatureDeclaration(
@@ -28,8 +27,7 @@ SURFACE = FeatureDeclaration(
     feature_family="surface",
     version="pit-surface/1",
     mechanism_ex_ante=(
-        "Pre-declared synthetic versus natural surface may interact with "
-        "team familiarity before kickoff."
+        "Pre-declared synthetic versus natural surface may interact with team familiarity before kickoff."
     ),
     required_source_fields=("surface", "home_accustomed", "away_accustomed"),
     output_contract=("synthetic_surface", "surface_familiarity_delta"),

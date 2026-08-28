@@ -32,9 +32,7 @@ def expected_score(rating_diff: float) -> float:
 def temporal_keys(matches) -> list[str]:
     """Return conservative batch keys, collapsing a date if any kickoff is missing."""
     materialized = list(matches)
-    dates_with_missing = {
-        str(match[0])[:10] for match in materialized if len(match) < 8 or not match[7]
-    }
+    dates_with_missing = {str(match[0])[:10] for match in materialized if len(match) < 8 or not match[7]}
     keys: list[str] = []
     for match in materialized:
         day = str(match[0])[:10]

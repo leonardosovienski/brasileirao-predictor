@@ -6,10 +6,7 @@ def test_rho_diagnostic_blocks_without_holdout_data() -> None:
 
 
 def test_rho_diagnostic_returns_finite_oos_metrics() -> None:
-    history = [
-        ((index % 7 - 3) * 40.0, (index * 3) % 4, (index * 5 + 1) % 3)
-        for index in range(140)
-    ]
+    history = [((index % 7 - 3) * 40.0, (index * 3) % 4, (index * 5 + 1) % 3) for index in range(140)]
     groups = [f"round-{index // 10}" for index in range(len(history))]
     report = evaluate_rho(history, group_keys=groups, minimum_matches=100)
     assert report["status"] == "PASS_STABLE"

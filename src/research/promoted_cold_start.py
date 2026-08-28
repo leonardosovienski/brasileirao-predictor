@@ -249,23 +249,16 @@ def evaluate_first_matches(
         samples[index] = np.mean(np.asarray(sample, dtype=float), axis=0)
     means = np.mean(np.asarray([row[1:] for row in per_match], dtype=float), axis=0)
     names = ("rps", "brier", "log_loss")
-    metrics = {
-        f"{name}_delta": float(means[position]) for position, name in enumerate(names)
-    }
+    metrics = {f"{name}_delta": float(means[position]) for position, name in enumerate(names)}
     for position, name in enumerate(names):
-        metrics[f"{name}_delta_ci95"] = [
-            float(value) for value in np.quantile(samples[:, position], [0.025, 0.975])
-        ]
+        metrics[f"{name}_delta_ci95"] = [float(value) for value in np.quantile(samples[:, position], [0.025, 0.975])]
     finite = all(
         bool(np.isfinite(item))
         for value in metrics.values()
         for item in (value if isinstance(value, list) else [value])
     )
     candidate = (
-        finite
-        and metrics["rps_delta_ci95"][1] < 0
-        and metrics["brier_delta"] <= 0
-        and metrics["log_loss_delta"] <= 0
+        finite and metrics["rps_delta_ci95"][1] < 0 and metrics["brier_delta"] <= 0 and metrics["log_loss_delta"] <= 0
     )
     return {
         "status": "GO_CANDIDATE" if candidate else "NO_GO",

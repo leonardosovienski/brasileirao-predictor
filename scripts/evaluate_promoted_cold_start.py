@@ -23,13 +23,9 @@ def main() -> int:
         }
     else:
         raw = json.loads(ratings_path.read_text(encoding="utf-8"))
-        ratings = {
-            (int(item["season"]), str(item["team_id"])): float(item["rating"])
-            for item in raw["ratings"]
-        }
+        ratings = {(int(item["season"]), str(item["team_id"])): float(item["rating"]) for item in raw["ratings"]}
         participation = {
-            str(team): {int(season) for season in seasons}
-            for team, seasons in raw["participation_seasons"].items()
+            str(team): {int(season) for season in seasons} for team, seasons in raw["participation_seasons"].items()
         }
         promotions = load_promotions(ROOT / "data" / "promotions_brasileirao_2018_2026.json")
         entries = build_entries(promotions, ratings, as_of_season=2026, participation_seasons=participation)

@@ -62,10 +62,7 @@ class ContextualBooster:
                     continue
                 left = residual[left_mask].mean(axis=0)
                 right = residual[~left_mask].mean(axis=0)
-                gain = float(
-                    left_mask.sum() * np.square(left).sum()
-                    + (~left_mask).sum() * np.square(right).sum()
-                )
+                gain = float(left_mask.sum() * np.square(left).sum() + (~left_mask).sum() * np.square(right).sum())
                 stump = _Stump(feature, threshold, left, right)
                 if best is None or gain > best[0]:
                     best = (gain, stump)

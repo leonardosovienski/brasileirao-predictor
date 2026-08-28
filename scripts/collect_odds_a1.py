@@ -213,9 +213,7 @@ def main() -> int:
     try:
         client = OddsPapiClient()
         result = (
-            discover(client, datetime.now(UTC))
-            if args.discover
-            else collect(client, datetime.now(UTC), mode=args.mode)
+            discover(client, datetime.now(UTC)) if args.discover else collect(client, datetime.now(UTC), mode=args.mode)
         )
     except Exception as exc:
         # RuntimeError messages created by OddsPapiClient are sanitized at the

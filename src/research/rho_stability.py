@@ -32,10 +32,7 @@ def _moving_block_ci(
     for index in range(n_boot):
         chosen = rng.choice(starts, size=blocks_needed, replace=True)
         sampled_indices = [
-            item
-            for start in chosen
-            for group in ordered_groups[start : start + block]
-            for item in group
+            item for start in chosen for group in ordered_groups[start : start + block] for item in group
         ]
         sample = array[sampled_indices[: len(array)]]
         samples[index] = sample.mean()
@@ -68,9 +65,10 @@ def evaluate_rho(
         probs_rho.append([fitted["p_loss"], fitted["p_draw"], fitted["p_win"]])
         probs_neutral.append([control["p_loss"], control["p_draw"], control["p_win"]])
         outcomes.append(2 if home_goals > away_goals else 1 if home_goals == away_goals else 0)
-    rps_deltas = [rps([treated], [outcome]) - rps([control], [outcome]) for treated, control, outcome in zip(
-        probs_rho, probs_neutral, outcomes, strict=True
-    )]
+    rps_deltas = [
+        rps([treated], [outcome]) - rps([control], [outcome])
+        for treated, control, outcome in zip(probs_rho, probs_neutral, outcomes, strict=True)
+    ]
     log_deltas = [
         log_loss([treated], [outcome]) - log_loss([control], [outcome])
         for treated, control, outcome in zip(probs_rho, probs_neutral, outcomes, strict=True)
@@ -82,9 +80,7 @@ def evaluate_rho(
         "log_loss_delta_ci95": _moving_block_ci(log_deltas, group_keys=test_groups),
     }
     finite = all(
-        math.isfinite(item)
-        for value in metrics.values()
-        for item in (value if isinstance(value, list) else [value])
+        math.isfinite(item) for value in metrics.values() for item in (value if isinstance(value, list) else [value])
     )
     return {
         "status": "PASS_STABLE" if finite else "FAIL_NUMERIC",

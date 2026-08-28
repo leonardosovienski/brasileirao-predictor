@@ -43,9 +43,7 @@ def test_all_local_evidence_reaches_human_review_only(tmp_path):
         (state / f"{name}_heartbeat.json").write_text(
             json.dumps({"checked_at": now.isoformat(), "status": "PASS"}), encoding="utf-8"
         )
-    report = assess_operational_readiness(
-        tmp_path, env={"ODDSPAPI_KEY": "configured-but-never-returned"}, now=now
-    )
+    report = assess_operational_readiness(tmp_path, env={"ODDSPAPI_KEY": "configured-but-never-returned"}, now=now)
     assert report["status"] == "READY_FOR_HUMAN_REVIEW"
     assert report["capital_enabled"] is False
 
