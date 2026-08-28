@@ -117,7 +117,11 @@ def collect(client: OddsPapiClient, now: datetime) -> dict[str, object]:
     manifest = json.loads(FIXTURES.read_text(encoding="utf-8"))
     capture_state = json.loads(CAPTURES.read_text(encoding="utf-8")) if CAPTURES.exists() else {}
     aliases = TeamAliases(ROOT / "data" / "team_aliases.json")
-    store = SnapshotStore(SNAPSHOTS, ROOT / "schemas" / "odds_snapshot_v1.json")
+    store = SnapshotStore(
+        SNAPSHOTS,
+        ROOT / "schemas" / "odds_snapshot_v1.json",
+        operational_db=ROOT / "data" / "odds_operational.db",
+    )
     for closed_day in SNAPSHOTS.glob("????-??-??.jsonl"):
         if closed_day.stem < now.date().isoformat() and not closed_day.with_suffix(".seal.json").exists():
             store.seal(closed_day)

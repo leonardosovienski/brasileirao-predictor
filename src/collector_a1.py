@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import re
+import sqlite3
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal, cast
@@ -152,11 +153,106 @@ class QuotaGuard:
 
 
 class SnapshotStore:
-    def __init__(self, root: Path, schema_path: Path, quarantine_root: Path | None = None) -> None:
+    def __init__(
+        self, root: Path, schema_path: Path, quarantine_root: Path | None = None, operational_db: Path | None = None
+    ) -> None:
         self.root = root
         self.quarantine_root = quarantine_root or root.parent / "odds_quarantine"
         schema = json.loads(schema_path.read_text(encoding="utf-8"))
         self.validator = Draft202012Validator(schema, format_checker=FormatChecker())
+        self.operational_db = operational_db
+        if operational_db is not None:
+            self._init_operational_db()
+
+    def _connect_operational(self) -> sqlite3.Connection:
+        if self.operational_db is None:
+            raise RuntimeError("operational snapshot database is not configured")
+        self.operational_db.parent.mkdir(parents=True, exist_ok=True)
+        connection = sqlite3.connect(self.operational_db)
+        connection.execute("PRAGMA journal_mode=WAL")
+        connection.execute("PRAGMA busy_timeout=30000")
+        return connection
+
+    def _init_operational_db(self) -> None:
+        with self._connect_operational() as connection:
+            connection.executescript(
+                """
+                CREATE TABLE IF NOT EXISTS odds_event_versions (
+                    source_id TEXT NOT NULL, source_event_id TEXT NOT NULL,
+                    event_id TEXT NOT NULL, kickoff_at TEXT NOT NULL,
+                    version INTEGER NOT NULL, lifecycle_status TEXT NOT NULL,
+                    superseded_by TEXT, recorded_at TEXT NOT NULL,
+                    PRIMARY KEY (source_id, source_event_id, version)
+                );
+                CREATE UNIQUE INDEX IF NOT EXISTS uq_odds_event_current
+                  ON odds_event_versions(source_id, source_event_id, kickoff_at);
+                CREATE TABLE IF NOT EXISTS odds_snapshot_facts (
+                    snapshot_id TEXT PRIMARY KEY, source_id TEXT NOT NULL,
+                    source_event_id TEXT NOT NULL, event_version INTEGER NOT NULL,
+                    event_id TEXT NOT NULL, bookmaker TEXT NOT NULL, market TEXT NOT NULL,
+                    selection TEXT NOT NULL, line REAL, odds REAL NOT NULL,
+                    captured_at TEXT NOT NULL, kickoff_at TEXT NOT NULL,
+                    valid_from TEXT NOT NULL, valid_to TEXT,
+                    hash_self TEXT NOT NULL UNIQUE
+                );
+                CREATE INDEX IF NOT EXISTS ix_odds_facts_pit
+                  ON odds_snapshot_facts(event_id, bookmaker, market, selection, valid_from, valid_to);
+                """
+            )
+
+    def _mirror_operational(self, snapshot: dict[str, Any]) -> None:
+        if self.operational_db is None:
+            return
+        with self._connect_operational() as connection:
+            latest = connection.execute(
+                "SELECT version,kickoff_at FROM odds_event_versions "
+                "WHERE source_id=? AND source_event_id=? ORDER BY version DESC LIMIT 1",
+                (snapshot["source_id"], snapshot["source_event_id"]),
+            ).fetchone()
+            if latest is None:
+                version = 1
+                connection.execute(
+                    "INSERT INTO odds_event_versions VALUES (?,?,?,?,?,'SCHEDULED',NULL,?)",
+                    (
+                        snapshot["source_id"], snapshot["source_event_id"], snapshot["event_id"],
+                        snapshot["kickoff_at"], version, snapshot["captured_at"],
+                    ),
+                )
+            elif latest[1] != snapshot["kickoff_at"]:
+                version = int(latest[0]) + 1
+                successor = f"{snapshot['source_event_id']}|v{version}"
+                connection.execute(
+                    "UPDATE odds_event_versions SET lifecycle_status='RESCHEDULED',superseded_by=? "
+                    "WHERE source_id=? AND source_event_id=? AND version=?",
+                    (successor, snapshot["source_id"], snapshot["source_event_id"], latest[0]),
+                )
+                connection.execute(
+                    "INSERT INTO odds_event_versions VALUES (?,?,?,?,?,'SCHEDULED',NULL,?)",
+                    (
+                        snapshot["source_id"], snapshot["source_event_id"], snapshot["event_id"],
+                        snapshot["kickoff_at"], version, snapshot["captured_at"],
+                    ),
+                )
+            else:
+                version = int(latest[0])
+            logical = (
+                snapshot["event_id"], snapshot["bookmaker"], snapshot["market"],
+                snapshot["selection"], snapshot["line"],
+            )
+            connection.execute(
+                "UPDATE odds_snapshot_facts SET valid_to=? WHERE event_id=? AND bookmaker=? AND market=? "
+                "AND selection=? AND line IS ? AND valid_to IS NULL",
+                (snapshot["captured_at"], *logical),
+            )
+            connection.execute(
+                "INSERT INTO odds_snapshot_facts VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                (
+                    snapshot["snapshot_id"], snapshot["source_id"], snapshot["source_event_id"], version,
+                    snapshot["event_id"], snapshot["bookmaker"], snapshot["market"], snapshot["selection"],
+                    snapshot["line"], snapshot["odds"], snapshot["captured_at"], snapshot["kickoff_at"],
+                    snapshot["captured_at"], None, snapshot["hash_self"],
+                ),
+            )
 
     def _path(self, captured_at: str) -> Path:
         return self.root / f"{parse_utc(captured_at).date().isoformat()}.jsonl"
@@ -203,6 +299,7 @@ class SnapshotStore:
             return "conflict"
         with path.open("a", encoding="utf-8", newline="\n") as handle:
             handle.write(json.dumps(snapshot, ensure_ascii=False, sort_keys=True) + "\n")
+        self._mirror_operational(snapshot)
         return "written"
 
     def append_batch(self, snapshots: list[dict[str, Any]]) -> list[Literal["written", "duplicate", "conflict"]]:

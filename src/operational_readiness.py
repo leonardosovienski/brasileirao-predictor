@@ -2,7 +2,9 @@
 
 import json
 import os
+import sqlite3
 from collections.abc import Mapping
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -21,8 +23,11 @@ def _jsonl_rows(path: Path) -> int:
     return count
 
 
-def assess_operational_readiness(root: Path, env: Mapping[str, str] | None = None) -> dict[str, Any]:
+def assess_operational_readiness(
+    root: Path, env: Mapping[str, str] | None = None, *, now: datetime | None = None
+) -> dict[str, Any]:
     environment = env if env is not None else os.environ
+    checked_at = (now or datetime.now(UTC)).astimezone(UTC)
     data = root / "data"
     checks: dict[str, dict[str, Any]] = {}
 
@@ -32,8 +37,22 @@ def assess_operational_readiness(root: Path, env: Mapping[str, str] | None = Non
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         checks["identity_catalog"] = {"status": "FAIL", "reason": str(exc)}
 
-    db_exists = (data / "matches.db").exists()
-    checks["operational_database"] = {"status": "PASS" if db_exists else "BLOCKED", "exists": db_exists}
+    operational_db = data / "odds_operational.db"
+    required_tables = {"odds_event_versions", "odds_snapshot_facts"}
+    present_tables: set[str] = set()
+    if operational_db.exists():
+        try:
+            with sqlite3.connect(operational_db) as connection:
+                query = "SELECT name FROM sqlite_master WHERE type='table'"
+                present_tables = {row[0] for row in connection.execute(query)}
+        except sqlite3.DatabaseError:
+            present_tables = set()
+    db_ready = required_tables <= present_tables
+    checks["operational_database"] = {
+        "status": "PASS" if db_ready else "BLOCKED",
+        "exists": operational_db.exists(),
+        "required_tables_present": db_ready,
+    }
     key_configured = bool(str(environment.get("ODDSPAPI_KEY", "")).strip())
     checks["oddspapi_credential"] = {"status": "PASS" if key_configured else "BLOCKED", "configured": key_configured}
 
@@ -52,6 +71,21 @@ def assess_operational_readiness(root: Path, env: Mapping[str, str] | None = Non
         except json.JSONDecodeError:
             pass
     checks["gate_a1"] = {"status": "PASS" if formal_pass else "PENDING", "formal_pass": formal_pass}
+
+    heartbeat_path = data / "collector_state" / "metrics_heartbeat.json"
+    heartbeat_age: float | None = None
+    try:
+        heartbeat = json.loads(heartbeat_path.read_text(encoding="utf-8"))
+        heartbeat_at = datetime.fromisoformat(str(heartbeat["checked_at"]).replace("Z", "+00:00")).astimezone(UTC)
+        heartbeat_age = (checked_at - heartbeat_at).total_seconds()
+        heartbeat_ok = 0 <= heartbeat_age <= 26 * 3600
+    except (OSError, KeyError, ValueError, json.JSONDecodeError):
+        heartbeat_ok = False
+    checks["collector_heartbeat"] = {
+        "status": "PASS" if heartbeat_ok else "BLOCKED",
+        "age_seconds": heartbeat_age,
+        "maximum_age_seconds": 26 * 3600,
+    }
 
     blockers = [name for name, check in checks.items() if check["status"] != "PASS"]
     return {

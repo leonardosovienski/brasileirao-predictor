@@ -211,6 +211,31 @@ def test_batch_retry_is_deduplicated(tmp_path: Path, payload: dict[str, object],
     assert store.append_batch(batch) == ["duplicate", "duplicate", "duplicate"]
 
 
+def test_operational_mirror_is_bitemporal_and_versions_reschedules(
+    tmp_path: Path, payload: dict[str, object], aliases: TeamAliases
+) -> None:
+    import sqlite3
+
+    db_path = tmp_path / "odds.db"
+    store = SnapshotStore(tmp_path / "snapshots", SCHEMA, operational_db=db_path)
+    first = rows(payload, aliases)[0]
+    assert store.append(first) == "written"
+    moved_payload = dict(payload)
+    moved_payload["startTime"] = "2026-08-26T23:00:00Z"
+    moved = build_snapshots(moved_payload, aliases, datetime(2026, 8, 26, 22, tzinfo=UTC))[0][0]
+    assert store.append(moved) == "written"
+    connection = sqlite3.connect(db_path)
+    versions = connection.execute(
+        "SELECT version,lifecycle_status,superseded_by FROM odds_event_versions ORDER BY version"
+    ).fetchall()
+    facts = connection.execute(
+        "SELECT event_version,valid_from FROM odds_snapshot_facts ORDER BY valid_from"
+    ).fetchall()
+    assert versions[0][1] == "RESCHEDULED" and versions[0][2] == "fixture-1|v2"
+    assert versions[1][0:2] == (2, "SCHEDULED")
+    assert [row[0] for row in facts] == [1, 2]
+
+
 def test_capture_window_is_not_closed_after_partial_batch_failure() -> None:
     snapshots = [{"snapshot_id": "a"}, {"snapshot_id": "b"}]
     assert capture_complete(snapshots, [], ["written", "duplicate"]) is True
