@@ -22,9 +22,10 @@ sem reintroduzir o ensemble.
 
 - Validação: 2024.
 - Primária: Brier binário empate/não-empate.
-- Guardrails: RPS, Brier 1X2 e log loss 1X2, todos pareados.
+- Guardrails: RPS, Brier 1X2, log loss 1X2 e log loss restrito aos
+  jogos vencidos pelo mandante, todos pareados.
 - Diagnósticos: número/direção de flips do argmax e matriz de confusão.
-- Critério de candidato: melhora na primária e nenhum guardrail pior; ICs são
-  reportados, não usados para redefinir a intervenção.
+- Critério de candidato: melhora na primária, ganho de RPS de pelo menos 0,002
+  e nenhum guardrail pior; ICs são reportados, não usados para redefinir a
+  intervenção.
 - 2025 e 2026 não participam de ajuste, escolha ou avaliação.
-

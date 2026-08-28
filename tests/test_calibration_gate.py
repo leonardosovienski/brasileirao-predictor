@@ -1,6 +1,9 @@
 import json
 from pathlib import Path
 
+import numpy as np
+
+from scripts.trial_draw_calibration_a10 import _losses, _moving_ci
 from src.research.calibration_gate import assess_a10
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -37,3 +40,12 @@ def test_gate_requires_material_rps_gain_and_home_win_guardrail():
     assert gate["verdict"] == "GO_CANDIDATE_FOR_NEW_PROSPECTIVE_PROTOCOL"
     metrics["rps"]["delta_treatment_minus_control"] = -0.0019
     assert assess_a10({"metrics": metrics})["verdict"] == "NO_GO_ARCHIVE_A10"
+
+
+def test_a10_producer_can_compute_home_win_guardrail() -> None:
+    probabilities = np.array([[0.1, 0.2, 0.7], [0.6, 0.3, 0.1]])
+    outcomes = np.array([2, 0])
+    losses = _losses(probabilities, outcomes)
+    home_losses = losses["log_loss"][outcomes == 2]
+    assert len(home_losses) == 1
+    assert len(_moving_ci(home_losses, n_boot=20)) == 2

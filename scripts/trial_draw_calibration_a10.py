@@ -47,6 +47,9 @@ def _losses(p: np.ndarray, y: np.ndarray) -> dict[str, np.ndarray]:
 def _moving_ci(delta: np.ndarray, seed: int = 42, n_boot: int = 10_000, block: int = 21) -> list[float]:
     rng = np.random.default_rng(seed)
     n = len(delta)
+    if n == 0:
+        raise ValueError("moving-block CI requires at least one paired loss")
+    block = min(block, n)
     starts = np.arange(n - block + 1)
     means = np.empty(n_boot)
     blocks_needed = int(np.ceil(n / block))
@@ -86,6 +89,19 @@ def main() -> None:
             "delta_treatment_minus_control": float(np.mean(delta)),
             "delta_ci95": _moving_ci(delta),
         }
+    home_mask = y == 2
+    home_control = control_losses["log_loss"][home_mask]
+    home_treatment = treatment_losses["log_loss"][home_mask]
+    if not len(home_control):
+        raise ValueError("A10 validation has no home-win observations")
+    home_delta = home_treatment - home_control
+    metrics["log_loss_home_win"] = {
+        "control": float(np.mean(home_control)),
+        "treatment": float(np.mean(home_treatment)),
+        "delta_treatment_minus_control": float(np.mean(home_delta)),
+        "delta_ci95": _moving_ci(home_delta),
+        "n": int(len(home_delta)),
+    }
     pred_control = np.argmax(p_control, axis=1)
     pred_treatment = np.argmax(p_treatment, axis=1)
     flips = pred_control != pred_treatment
