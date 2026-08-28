@@ -11,10 +11,7 @@ from src.research.rho_stability import evaluate_rho
 def main() -> int:
     cfg = load_config()
     connection = db.connect(str(ROOT / cfg["database"]), read_only=True)
-    rows = connection.execute(
-        "SELECT date,home_team,away_team,home_score,away_score,tournament,neutral "
-        "FROM matches WHERE home_score IS NOT NULL ORDER BY date,home_team,away_team"
-    ).fetchall()
+    rows = db.completed_matches_with_kickoff(connection)
     _current, history = ratings.compute_ratings(rows, cfg["elo"])
     report = evaluate_rho(history)
     output = Path(ROOT) / "reports" / "rho_stability.json"

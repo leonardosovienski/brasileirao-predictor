@@ -3,9 +3,24 @@
 import math
 from typing import Any
 
+import numpy as np
 from predictor_core.measurement.metrics import log_loss, rps
 
 from src import model
+
+
+def _moving_block_ci(values: list[float], *, seed: int = 42, n_boot: int = 2000) -> list[float]:
+    array = np.asarray(values, dtype=float)
+    block = min(max(2, round(len(array) ** 0.5)), len(array))
+    starts = np.arange(len(array) - block + 1)
+    blocks_needed = math.ceil(len(array) / block)
+    rng = np.random.default_rng(seed)
+    samples = np.empty(n_boot)
+    for index in range(n_boot):
+        chosen = rng.choice(starts, size=blocks_needed, replace=True)
+        sample = np.concatenate([array[start : start + block] for start in chosen])[: len(array)]
+        samples[index] = sample.mean()
+    return [float(value) for value in np.quantile(samples, [0.025, 0.975])]
 
 
 def evaluate_rho(history: list[tuple[float, int, int]], *, minimum_matches: int = 100) -> dict[str, Any]:
@@ -24,13 +39,27 @@ def evaluate_rho(history: list[tuple[float, int, int]], *, minimum_matches: int 
         probs_rho.append([fitted["p_loss"], fitted["p_draw"], fitted["p_win"]])
         probs_neutral.append([control["p_loss"], control["p_draw"], control["p_win"]])
         outcomes.append(2 if home_goals > away_goals else 1 if home_goals == away_goals else 0)
+    rps_deltas = [rps([treated], [outcome]) - rps([control], [outcome]) for treated, control, outcome in zip(
+        probs_rho, probs_neutral, outcomes, strict=True
+    )]
+    log_deltas = [
+        log_loss([treated], [outcome]) - log_loss([control], [outcome])
+        for treated, control, outcome in zip(probs_rho, probs_neutral, outcomes, strict=True)
+    ]
     metrics = {
-        "rps_delta": rps(probs_rho, outcomes) - rps(probs_neutral, outcomes),
-        "log_loss_delta": log_loss(probs_rho, outcomes) - log_loss(probs_neutral, outcomes),
+        "rps_delta": float(np.mean(rps_deltas)),
+        "rps_delta_ci95": _moving_block_ci(rps_deltas),
+        "log_loss_delta": float(np.mean(log_deltas)),
+        "log_loss_delta_ci95": _moving_block_ci(log_deltas),
     }
-    finite = all(math.isfinite(value) for value in metrics.values())
+    finite = all(
+        math.isfinite(item)
+        for value in metrics.values()
+        for item in (value if isinstance(value, list) else [value])
+    )
     return {
         "status": "PASS_STABLE" if finite else "FAIL_NUMERIC",
+        "verdict": "GO_CANDIDATE" if finite and metrics["rps_delta_ci95"][1] < 0 else "NO_GO",
         "n": len(test),
         "rho": params[3],
         "near_boundary": abs(params[3]) >= 0.399,

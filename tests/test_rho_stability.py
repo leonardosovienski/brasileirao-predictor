@@ -12,4 +12,10 @@ def test_rho_diagnostic_returns_finite_oos_metrics() -> None:
     ]
     report = evaluate_rho(history, minimum_matches=100)
     assert report["status"] == "PASS_STABLE"
-    assert set(report["metrics"]) == {"rps_delta", "log_loss_delta"}
+    assert set(report["metrics"]) == {
+        "rps_delta",
+        "rps_delta_ci95",
+        "log_loss_delta",
+        "log_loss_delta_ci95",
+    }
+    assert report["verdict"] in {"GO_CANDIDATE", "NO_GO"}
