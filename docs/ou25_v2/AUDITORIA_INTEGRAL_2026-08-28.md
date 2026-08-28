@@ -107,3 +107,21 @@ Para reproduzir o replay científico completo, ainda é necessário fornecer uma
 [3] Protocolo local [`docs/OU25_NESTED_REPLAY.md`](./OU25_NESTED_REPLAY.md), que define replay temporal, contaminação 2024–2026, preços retrospectivos e gates A1.
 
 [4] Contratos locais [`contracts/ou25-recommendation-v2.json`](../../contracts/ou25-recommendation-v2.json) e [`contracts/ou25-nested-future-candidate.json`](../../contracts/ou25-nested-future-candidate.json), que definem `NO_BET`, capital desabilitado, força máxima 40 e promoção prospectiva.
+
+## Validação operacional complementar — cópia portátil
+
+Foi recebida uma cópia portátil em ZIP. O SHA-256 do ZIP foi `4b2a9bc9be02a13e817c2ba4e4d4bd0c58e85a87af06ce42b6861debf9291945`, e o SHA-256 do `matches.db` extraído foi `8a3a2415aab9b8525708ee18ee7b3fb360b40031904095f5c71b35871e5946cd`, ambos conforme informados. O anexo original não foi alterado; a validação e os smokes usaram uma cópia em `/home/ubuntu/audit_operational_db_8a3a2415/matches.db`, depois copiada para `data/matches.db` apenas no clone de trabalho.
+
+A cópia passou em `PRAGMA integrity_check` (`ok`) e `PRAGMA foreign_key_check` (nenhuma linha). O esquema contém dez tabelas: `matches` (2.281), `sofascore_matches` (2.321), `odds_lines` (17.820), `odds_snapshots` (25.142), `match_statistics` (439.764), `player_comp_stats` (5.210), `sofascore_player_ratings` (65.733), `current_elo` (30), `model_parameters` (1) e `xg_model_parameters` (0). A cobertura principal de `matches` e `sofascore_matches` vai de 2021-05-29 a 2026-12-02. `matches` tem 380 linhas em cada temporada de 2021 a 2025 e 381 em 2026; `sofascore_matches` tem 393, 382, 380, 388, 393 e 385, respectivamente. `player_comp_stats` tem 858, 868, 875, 867, 907 e 835 registros por temporada.
+
+Os snapshots de odds vão de 2026-08-19T21:21:09Z a 2026-08-22T20:12:51Z, abrangem 2.163 eventos e dois mercados, com 200 registros pré-jogo e 24.942 registros marcados como não pré-jogo. `odds_lines` contém 1.696 linhas de AH, 1.280 de cards, 1.863 de corners e 12.981 de OU. O banco é, portanto, suficiente para validação operacional de serving, mas não é a base dos artefatos nested históricos.
+
+Com a cópia em `data/matches.db`, `uv run python scripts/ci_check.py --fast` passou sem skips: predict produziu 1X2 de 46,4%/26,8%/26,8% (soma 100,0%); `--segundo-tempo` produziu 30,4%/39,8%/29,8%; `--primeiro-tempo` produziu 28,1%/44,4%/27,5%. A suíte Python completa também foi executada com a base presente e passou com 814 testes aprovados, 1 desmarcado e 3 warnings conhecidos.
+
+A identidade desta base diverge deliberadamente dos manifests nested: `8a3a2415...` não é `5f6c35df...`. Ela também não foi usada para afirmar reprodução byte a byte dos nested históricos. O hash anual declarado `f070ce13...` permanece uma terceira identidade histórica; nenhum manifesto histórico foi reescrito.
+
+## Atualização de status após a cópia portátil
+
+A limitação de ausência de `data/matches.db` descrita na execução inicial refere-se ao clone limpo antes da disponibilização do anexo. Ela foi posteriormente superada para a validação operacional compatível: a cópia portátil com SHA-256 `8a3a2415...` passou em integridade, esquema e cobertura; a CI completa passou com a suíte Python e os smokes de predict/live. A cópia foi usada somente como working copy e não será adicionada ao Git.
+
+Essa validação operacional não altera a conclusão sobre os replays nested históricos. O banco usado nos smokes não corresponde ao SHA `5f6c35df...` declarado pelos manifests nested, e também não transforma a execução em reprodução byte a byte dos artefatos históricos. O bloqueio do SDK .NET permanece, portanto a validação Python/serving está completa para esta base, mas a validação integral multi-stack ainda está pendente.

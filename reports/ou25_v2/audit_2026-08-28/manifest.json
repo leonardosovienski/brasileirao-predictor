@@ -31,13 +31,14 @@
       "command": "uv run pyright"
     },
     "ci_check": {
-      "status": "GREEN_WITH_ENVIRONMENTAL_SKIPS",
+      "status": "GREEN_OPERATIONAL_SMOKES",
       "research_readonly": "PASS",
       "current_elo_containment": "PASS",
       "python_suite": "PASS",
-      "predict_smoke": "SKIPPED_DATA_MATCHES_DB_ABSENT",
-      "live_smoke": "SKIPPED_DATA_MATCHES_DB_ABSENT",
-      "command": "uv run python scripts/ci_check.py"
+      "predict_smoke": "PASS_46.4_26.8_26.8_SUM_100.0",
+      "live_smoke": "PASS_SECOND_30.4_39.8_29.8_PERIOD_28.1_44.4_27.5",
+      "command": "uv run python scripts/ci_check.py --fast",
+      "full_ci_with_portable_db": "PASS_814_TESTS_AND_OPERATIONAL_SMOKES"
     },
     "dotnet": {
       "status": "BLOCKED",
@@ -48,8 +49,14 @@
   "data": {
     "operational_database": {
       "path": "data/matches.db",
-      "present": false,
-      "used_to_generate_new_results": false
+      "present": true,
+      "sha256": "8a3a2415aab9b8525708ee18ee7b3fb360b40031904095f5c71b35871e5946cd",
+      "portable_zip_sha256": "4b2a9bc9be02a13e817c2ba4e4d4bd0c58e85a87af06ce42b6861debf9291945",
+      "integrity_check": "ok",
+      "foreign_key_check": "ok",
+      "tables": 10,
+      "used_to_generate_new_results": false,
+      "used_for_operational_smokes": true
     },
     "public_backfill": {
       "path": "reports/ou25_v2/ou25_backfill.sqlite",
@@ -89,21 +96,33 @@
     "nested_dixon_coles_replay_sha256": "95a6401e19c8df9cddf416298d1f3b9b783b62b4eaa7e3033aa1cc65337617e9",
     "nested_dixon_coles_losses_sha256": "68c29fd85222d8d8db983461de3e16b9d6b2959e859ccdf440224f1d7403839d"
   },
+  "operational_validation": {
+    "status": "COMPATIBLE_OPERATIONAL_VALIDATION_PASS",
+    "predict_smoke": "PASS",
+    "live_smoke": "PASS",
+    "database_sha256": "8a3a2415aab9b8525708ee18ee7b3fb360b40031904095f5c71b35871e5946cd",
+    "nested_bytewise_reproduction": false,
+    "nested_declared_database_sha256": "5f6c35dfc25d886d7d3c6a88bdd3f6686e93bd41803c26152b04c466738c462b",
+    "annual_declared_database_sha256": "f070ce137578b950b8538e5ebc72aef7ab4d138ea97c44eb5f86b110fef60977"
+  },
   "historical_manifest_reconciliation": {
     "serving_manifest_git_commit": "1d83b02b83bbd8d7a14bc66deef93bb969711328",
     "dixon_coles_manifest_git_commit": "1d83b02b83bbd8d7a14bc66deef93bb969711328",
     "declared_operator_database_sha256": "5f6c35dfc25d886d7d3c6a88bdd3f6686e93bd41803c26152b04c466738c462b",
     "operator_database_present": false,
+    "operator_database_meaning": "matching_nested_manifest_database_only",
+    "portable_operational_database_present": true,
+    "portable_operational_database_sha256": "8a3a2415aab9b8525708ee18ee7b3fb360b40031904095f5c71b35871e5946cd",
     "artifact_hashes_byte_match_current_checkout": false,
     "historical_artifacts_overwritten": false,
-    "interpretation": "historical reports remain preserved; full regeneration is blocked without the matching operational database"
+    "interpretation": "historical reports remain preserved; compatible operational validation passed with a different database, but nested bytewise regeneration remains blocked"
   },
   "modified_files": {
     "src/research/ou25_nested_replay.py": "b7f623b8f720ab1ac51a2f350fed5dd4928cd9022af58093acc4bdd94a7e7767",
     "scripts/research_ou25_annual_2021_2026.py": "b292a5701b77f4d0bc5dffa1230197630198bbf6f5752216a0dbe8e6634d66f1",
     "tests/test_ou25_nested_replay.py": "d4d52c767d07752ccda323fe6c9c1efaafd89e35be615b282d81bdc92bcb12c5",
     "tests/test_ou25_market_anchor.py": "baef226a7d42c85737c912a6402e910424e70f04946643b7b559bb92cc82fbd2",
-    "docs/ou25_v2/AUDITORIA_INTEGRAL_2026-08-28.md": "c4cdc827430dece7ab57d04b77307461b2ff2b4c5e80b9b0b146230bfeedc765"
+    "docs/ou25_v2/AUDITORIA_INTEGRAL_2026-08-28.md": "79f189539dd3de3713aab89d1f01f56cfd10e67b8590102ef3053540b013c5df"
   },
   "regressions": {
     "before_fix": "2 targeted failures reproduced: simultaneous kickoff split and placeholder price accepted",
