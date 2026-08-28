@@ -1,5 +1,6 @@
 """Pre-registered-style contracts for a future promoted-team cold-start trial."""
 
+import math
 from dataclasses import dataclass
 from statistics import mean
 
@@ -126,6 +127,53 @@ class ColdStartMatch:
     goals_against: int
 
 
+def evaluate_goal_priors(
+    matches: list[ColdStartMatch],
+    priors: dict[int, tuple[float, float]],
+    *,
+    baseline_goals_for: float,
+    baseline_goals_against: float,
+    bootstrap_seed: int,
+    bootstrap_iterations: int,
+) -> dict[str, object]:
+    """Compare empirical attack/defense multipliers with neutral goal rates."""
+    losses: list[tuple[int, float]] = []
+    for match in matches:
+        if match.season not in priors:
+            continue
+        attack, defense = priors[match.season]
+        if min(attack, defense, baseline_goals_for, baseline_goals_against) <= 0:
+            raise ValueError("goal priors and baseline rates must be positive")
+
+        def nll(goals: int, rate: float) -> float:
+            return rate - goals * math.log(rate) + math.lgamma(goals + 1)
+
+        treatment = nll(match.goals_for, baseline_goals_for * attack) + nll(
+            match.goals_against, baseline_goals_against * defense
+        )
+        control = nll(match.goals_for, baseline_goals_for) + nll(match.goals_against, baseline_goals_against)
+        losses.append((match.season, treatment - control))
+    if len(losses) < 30:
+        return {"status": "BLOCKED_DATA", "n": len(losses), "serving_changed": False}
+    delta = mean(value for _season, value in losses)
+    seasons = sorted({season for season, _value in losses})
+    by_season = {season: [value for item_season, value in losses if item_season == season] for season in seasons}
+    rng = np.random.default_rng(bootstrap_seed)
+    samples = np.empty(bootstrap_iterations)
+    for index in range(bootstrap_iterations):
+        chosen = rng.choice(seasons, size=len(seasons), replace=True)
+        samples[index] = mean(value for season in chosen for value in by_season[int(season)])
+    ci = [float(value) for value in np.quantile(samples, [0.025, 0.975])]
+    return {
+        "status": "GO_CANDIDATE" if ci[1] < 0 else "NO_GO",
+        "n": len(losses),
+        "goal_log_loss_delta": delta,
+        "goal_log_loss_delta_ci95": ci,
+        "bootstrap": {"scheme": "season_cluster", "iterations": bootstrap_iterations, "seed": bootstrap_seed},
+        "serving_changed": False,
+    }
+
+
 def _probabilities(rating: float, match: ColdStartMatch, *, home_advantage: float, draw_rate: float) -> list[float]:
     advantage = home_advantage if match.home else -home_advantage
     win_share = 1.0 / (1.0 + 10 ** (-((rating + advantage) - match.opponent_rating) / 400.0))
@@ -137,11 +185,13 @@ def evaluate_first_matches(
     entries: list[PromotedEntry],
     matches: list[ColdStartMatch],
     *,
-    first_n: int = 10,
-    baseline_rating: float = 1500.0,
-    home_advantage: float = 65.0,
-    draw_rate: float = 0.27,
-    base_k: float = 20.0,
+    first_n: int,
+    baseline_rating: float,
+    home_advantage: float,
+    draw_rate: float,
+    base_k: float,
+    bootstrap_seed: int,
+    bootstrap_iterations: int,
 ) -> dict[str, object]:
     """Prequential first-N comparison of neutral Elo versus empirical prior + dynamic K."""
     priors = leave_one_season_out_priors(entries)
@@ -157,6 +207,7 @@ def evaluate_first_matches(
     control_probs: list[list[float]] = []
     treatment_probs: list[list[float]] = []
     outcomes: list[int] = []
+    evaluated_matches: list[ColdStartMatch] = []
     for match in selected:
         key = (match.season, match.team_id)
         if match.season not in priors:
@@ -167,6 +218,7 @@ def evaluate_first_matches(
         treatment_probs.append(_probabilities(treatment, match, home_advantage=home_advantage, draw_rate=draw_rate))
         outcome = 2 if match.goals_for > match.goals_against else 1 if match.goals_for == match.goals_against else 0
         outcomes.append(outcome)
+        evaluated_matches.append(match)
         score = 1.0 if outcome == 2 else 0.5 if outcome == 1 else 0.0
         control_expectation = control_probs[-1][2] + 0.5 * control_probs[-1][1]
         treatment_expectation = treatment_probs[-1][2] + 0.5 * treatment_probs[-1][1]
@@ -175,17 +227,51 @@ def evaluate_first_matches(
         treatment_ratings[key] += dynamic_k * (score - treatment_expectation)
     if len(outcomes) < 30:
         return {"status": "BLOCKED_DATA", "n": len(outcomes), "serving_changed": False}
+    per_match = []
+    for match, treatment, control, outcome in zip(
+        evaluated_matches, treatment_probs, control_probs, outcomes, strict=True
+    ):
+        per_match.append(
+            (
+                match.season,
+                rps([treatment], [outcome]) - rps([control], [outcome]),
+                brier([treatment], [outcome]) - brier([control], [outcome]),
+                log_loss([treatment], [outcome]) - log_loss([control], [outcome]),
+            )
+        )
+    seasons = sorted({row[0] for row in per_match})
+    rng = np.random.default_rng(bootstrap_seed)
+    samples = np.empty((bootstrap_iterations, 3))
+    by_season = {season: [row[1:] for row in per_match if row[0] == season] for season in seasons}
+    for index in range(bootstrap_iterations):
+        chosen = rng.choice(seasons, size=len(seasons), replace=True)
+        sample = [values for season in chosen for values in by_season[int(season)]]
+        samples[index] = np.mean(np.asarray(sample, dtype=float), axis=0)
+    means = np.mean(np.asarray([row[1:] for row in per_match], dtype=float), axis=0)
+    names = ("rps", "brier", "log_loss")
     metrics = {
-        "rps_delta": rps(treatment_probs, outcomes) - rps(control_probs, outcomes),
-        "brier_delta": brier(treatment_probs, outcomes) - brier(control_probs, outcomes),
-        "log_loss_delta": log_loss(treatment_probs, outcomes) - log_loss(control_probs, outcomes),
+        f"{name}_delta": float(means[position]) for position, name in enumerate(names)
     }
-    finite = all(np.isfinite(value) for value in metrics.values())
-    candidate = finite and metrics["rps_delta"] < 0 and metrics["log_loss_delta"] <= 0
+    for position, name in enumerate(names):
+        metrics[f"{name}_delta_ci95"] = [
+            float(value) for value in np.quantile(samples[:, position], [0.025, 0.975])
+        ]
+    finite = all(
+        bool(np.isfinite(item))
+        for value in metrics.values()
+        for item in (value if isinstance(value, list) else [value])
+    )
+    candidate = (
+        finite
+        and metrics["rps_delta_ci95"][1] < 0
+        and metrics["brier_delta"] <= 0
+        and metrics["log_loss_delta"] <= 0
+    )
     return {
         "status": "GO_CANDIDATE" if candidate else "NO_GO",
         "n": len(outcomes),
         "first_n": first_n,
+        "bootstrap": {"scheme": "season_cluster", "iterations": bootstrap_iterations, "seed": bootstrap_seed},
         "metrics": metrics,
         "serving_changed": False,
     }

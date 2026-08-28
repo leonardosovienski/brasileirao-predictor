@@ -7,6 +7,7 @@ from src.research.promoted_cold_start import (
     build_entries,
     evaluate_empirical_prior,
     evaluate_first_matches,
+    evaluate_goal_priors,
     leave_one_season_out_priors,
     protocol_status,
 )
@@ -54,7 +55,33 @@ def test_first_matches_cold_start_runs_oos_and_never_changes_serving():
         for season, team in ((2023, "b"), (2024, "c"), (2025, "d"))
         for number in range(1, 11)
     ]
-    report = evaluate_first_matches(entries, matches)
+    report = evaluate_first_matches(
+        entries,
+        matches,
+        first_n=10,
+        baseline_rating=1500.0,
+        home_advantage=65.0,
+        draw_rate=0.27,
+        base_k=20.0,
+        bootstrap_seed=13,
+        bootstrap_iterations=200,
+    )
     assert report["status"] in {"GO_CANDIDATE", "NO_GO"}
     assert report["n"] == 30
     assert report["serving_changed"] is False
+    assert report["bootstrap"]["scheme"] == "season_cluster"
+
+
+def test_goal_prior_arm_is_isolated_from_serving():
+    matches = [ColdStartMatch(2024, "c", number, 1500, True, 1, 2) for number in range(1, 31)]
+    report = evaluate_goal_priors(
+        matches,
+        {2024: (0.9, 1.1)},
+        baseline_goals_for=1.3,
+        baseline_goals_against=1.3,
+        bootstrap_seed=42,
+        bootstrap_iterations=100,
+    )
+    assert report["status"] in {"GO_CANDIDATE", "NO_GO"}
+    assert report["serving_changed"] is False
+    assert "goal_log_loss_delta_ci95" in report

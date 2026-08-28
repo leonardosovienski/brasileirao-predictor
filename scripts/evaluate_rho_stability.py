@@ -13,7 +13,8 @@ def main() -> int:
     connection = db.connect(str(ROOT / cfg["database"]), read_only=True)
     rows = db.completed_matches_with_kickoff(connection)
     _current, history = ratings.compute_ratings(rows, cfg["elo"])
-    report = evaluate_rho(history)
+    keyed = sorted(zip(ratings.temporal_keys(rows), rows, strict=True), key=lambda item: item[0])
+    report = evaluate_rho(history, group_keys=[key for key, _row in keyed])
     output = Path(ROOT) / "reports" / "rho_stability.json"
     output.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, indent=2))

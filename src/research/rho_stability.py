@@ -9,25 +9,54 @@ from predictor_core.measurement.metrics import log_loss, rps
 from src import model
 
 
-def _moving_block_ci(values: list[float], *, seed: int = 42, n_boot: int = 2000) -> list[float]:
+def _moving_block_ci(
+    values: list[float],
+    *,
+    group_keys: list[str],
+    seed: int = 42,
+    n_boot: int = 2000,
+) -> list[float]:
     array = np.asarray(values, dtype=float)
-    block = min(max(2, round(len(array) ** 0.5)), len(array))
-    starts = np.arange(len(array) - block + 1)
-    blocks_needed = math.ceil(len(array) / block)
+    if len(group_keys) != len(values):
+        raise ValueError("group_keys must align one-to-one with values")
+    ordered_groups: list[list[int]] = []
+    for index, key in enumerate(group_keys):
+        if not ordered_groups or group_keys[ordered_groups[-1][0]] != key:
+            ordered_groups.append([])
+        ordered_groups[-1].append(index)
+    block = min(max(2, round(len(ordered_groups) ** 0.5)), len(ordered_groups))
+    starts = np.arange(len(ordered_groups) - block + 1)
+    blocks_needed = math.ceil(len(ordered_groups) / block)
     rng = np.random.default_rng(seed)
     samples = np.empty(n_boot)
     for index in range(n_boot):
         chosen = rng.choice(starts, size=blocks_needed, replace=True)
-        sample = np.concatenate([array[start : start + block] for start in chosen])[: len(array)]
+        sampled_indices = [
+            item
+            for start in chosen
+            for group in ordered_groups[start : start + block]
+            for item in group
+        ]
+        sample = array[sampled_indices[: len(array)]]
         samples[index] = sample.mean()
     return [float(value) for value in np.quantile(samples, [0.025, 0.975])]
 
 
-def evaluate_rho(history: list[tuple[float, int, int]], *, minimum_matches: int = 100) -> dict[str, Any]:
+def evaluate_rho(
+    history: list[tuple[float, int, int]],
+    *,
+    group_keys: list[str] | None = None,
+    minimum_matches: int = 100,
+) -> dict[str, Any]:
+    if group_keys is None:
+        group_keys = [str(index) for index in range(len(history))]
+    if len(group_keys) != len(history):
+        raise ValueError("group_keys must align one-to-one with history")
     if len(history) < minimum_matches:
         return {"status": "BLOCKED_DATA", "n": len(history), "serving_changed": False}
     split = max(1, int(len(history) * 0.8))
     train, test = history[:split], history[split:]
+    test_groups = group_keys[split:]
     params = model.fit_goal_model(train)
     neutral = (*params[:3], 0.0)
     probs_rho: list[list[float]] = []
@@ -48,9 +77,9 @@ def evaluate_rho(history: list[tuple[float, int, int]], *, minimum_matches: int 
     ]
     metrics = {
         "rps_delta": float(np.mean(rps_deltas)),
-        "rps_delta_ci95": _moving_block_ci(rps_deltas),
+        "rps_delta_ci95": _moving_block_ci(rps_deltas, group_keys=test_groups),
         "log_loss_delta": float(np.mean(log_deltas)),
-        "log_loss_delta_ci95": _moving_block_ci(log_deltas),
+        "log_loss_delta_ci95": _moving_block_ci(log_deltas, group_keys=test_groups),
     }
     finite = all(
         math.isfinite(item)
@@ -63,6 +92,7 @@ def evaluate_rho(history: list[tuple[float, int, int]], *, minimum_matches: int 
         "n": len(test),
         "rho": params[3],
         "near_boundary": abs(params[3]) >= 0.399,
+        "bootstrap_unit": "consecutive_kickoff_group",
         "metrics": metrics,
         "serving_changed": False,
     }
