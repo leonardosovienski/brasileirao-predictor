@@ -204,3 +204,26 @@ zero candidatos e exposição virtual de 0u.
 7. Preservar o fechamento da mesma casa para calcular CLV.
 8. Após os jogos, liquidar o ledger e reportar separadamente ROI, CLV, saldo,
    drawdown e concentração.
+
+## Encerramento das execuções automáticas
+
+Após a consolidação inicial, todas as tarefas do Agendador do Windows cujo nome
+começa por `brasileirao-` foram interrompidas e desativadas por solicitação
+explícita do usuário. Verificação final em 2026-08-28:
+
+- tarefas do projeto encontradas: 25;
+- tarefas em estado `Disabled`: 25;
+- tarefas em outro estado: 0;
+- processos relacionados ao projeto em execução: 0.
+
+Foram incluídas nessa paralisação as famílias A1 (`collect`, `discover` e
+`metrics`), H8, H9 (`backup`, `closing`, `emit`, `missed-window`, `settle` e
+variantes), captura de lineup, snapshots de fechamento, pesquisa de mercado,
+readiness prospectivo e atualização de modelos. Cinco tarefas H9 exigiram
+elevação administrativa para serem desativadas; a verificação posterior
+confirmou que todas ficaram desativadas.
+
+Essa é uma alteração operacional do Agendador do Windows e, portanto, não é
+representada pelo Git. Este registro documenta o estado observado. Reativação
+futura deve ser explícita, seletiva e acompanhada de nova conferência das
+credenciais, caminhos e contratos antes da primeira execução.

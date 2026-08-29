@@ -7,7 +7,10 @@
 > consolidados em `docs/HANDOFF_OU25_RODADA_2026_08_29.md`. Estado atual:
 > `PAPER_CAPITAL_TEST`, banca virtual 100u, exposição 0u, zero candidatos na
 > execução preliminar e `capital_enabled=false`. A monitoração automática foi
-> removida; a continuação deve ser manual em uma nova conversa.
+> removida; a continuação deve ser manual em uma nova conversa. Em seguida,
+> todas as 25 tarefas `brasileirao-*` do Agendador do Windows foram desativadas;
+> verificação final: 25 `Disabled`, zero tarefas restantes e zero processos do
+> projeto em execução.
 
 > ## CHECKPOINT — HOLDOUT 2025 ABERTO POR SOLICITAÇÃO EXPLÍCITA (2026-08-26)
 >
