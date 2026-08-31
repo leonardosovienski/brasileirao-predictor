@@ -1,6 +1,6 @@
 from datetime import UTC, datetime, timedelta
 
-from src.research.ou25_nested_replay import anchor_to_market_prequential
+from brasileirao_predictor.research.ou25_nested_replay import anchor_to_market_prequential
 
 
 def _rows(n=40):

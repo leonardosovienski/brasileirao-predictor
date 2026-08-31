@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from src.identity import CanonicalTeamResolver
+from brasileirao_predictor.identity import CanonicalTeamResolver
 
 
 def _catalogs(tmp_path, aliases):

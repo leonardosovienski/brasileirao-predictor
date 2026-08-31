@@ -7,7 +7,7 @@ from datetime import date
 
 import pytest
 
-from src.ratings import compute_ratings, k_factor, margin_multiplier, temporal_keys
+from brasileirao_predictor.ratings import compute_ratings, k_factor, margin_multiplier, temporal_keys
 
 CFG = {
     "initial_rating": 1500,

@@ -1,6 +1,6 @@
 import pytest
 
-from src.research.residual_features import build_residual_features, lineup_state_asof
+from brasileirao_predictor.research.residual_features import build_residual_features, lineup_state_asof
 
 
 def test_lineup_state_uses_latest_vintage_available_asof():

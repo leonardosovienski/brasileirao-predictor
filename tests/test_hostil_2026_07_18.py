@@ -20,12 +20,12 @@ import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
 
-from src import db  # noqa: E402
-from src.math_utils import shin_probabilities  # noqa: E402
-from src.predict import _market_probs  # noqa: E402
-from src.settle import record_result  # noqa: E402
+from brasileirao_predictor import db  # noqa: E402
+from brasileirao_predictor.math_utils import shin_probabilities  # noqa: E402
+from brasileirao_predictor.predict import _market_probs  # noqa: E402
+from brasileirao_predictor.settle import record_result  # noqa: E402
 
-spec = importlib.util.spec_from_file_location("sombra_hostil", ROOT / "scripts" / "sombra.py")
+spec = importlib.util.spec_from_file_location("sombra_hostil", ROOT / "brasileirao_scripts" / "sombra.py")
 sombra = importlib.util.module_from_spec(spec)
 sys.modules["sombra_hostil"] = sombra
 spec.loader.exec_module(sombra)

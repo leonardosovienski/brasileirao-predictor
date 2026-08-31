@@ -9,7 +9,7 @@ seleção ou medição nesta sessão. Capital permaneceu bloqueado.
 Comando canônico executado:
 
 ```powershell
-uv run python scripts/benchmark_predictor.py `
+uv run python -m brasileirao_scripts.benchmark_predictor `
   --model h9-ou25-prospective-replication `
   --engine h9_frozen `
   --period 2021-01-01,2023-12-31 `
@@ -124,7 +124,7 @@ O contexto “coletor em shadow” não corresponde ao runtime observado.
 | Sportingbet BR após PoC | sem snapshots posteriores |
 | Pixbet após PoC | sem snapshots posteriores |
 
-`scripts/evaluate_gate_a1.py` retornou `NOT_STARTED`, com `days=[]`, todos os
+`brasileirao_scripts/evaluate_gate_a1.py` retornou `NOT_STARTED`, com `days=[]`, todos os
 nove critérios falsos, `restart_clock_required=false`, `homologated=false` e
 capital desligado. `REHEARSAL_ONLY` só será possível depois que existirem
 métricas econômicas; não é o estado atual.

@@ -7,8 +7,8 @@ inteira de OU (push → 4b) e de AH (4b); orientação (swap) do Double Chance.
 
 import pytest
 
-from src import db
-from src.backtest import run_backtest
+from brasileirao_predictor import db
+from brasileirao_predictor.backtest import run_backtest
 
 CFG = {
     "elo": {

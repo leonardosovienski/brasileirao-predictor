@@ -14,7 +14,7 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from scripts import permutation_test as pt
+from brasileirao_scripts import permutation_test as pt
 
 TIMES = ["flamengo", "palmeiras", "gremio", "santos"]
 

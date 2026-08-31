@@ -10,7 +10,7 @@ import sqlite3
 
 import pytest
 
-from src.predict import _market_probs
+from brasileirao_predictor.predict import _market_probs
 
 
 @pytest.fixture()

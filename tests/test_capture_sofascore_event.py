@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 
 import pytest
 
-from scripts.capture_sofascore_event import (
+from brasileirao_scripts.capture_sofascore_event import (
     append_capture,
     build_capture,
     persist_pre_match_odds,

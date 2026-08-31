@@ -1,7 +1,7 @@
 import hashlib
 from datetime import UTC, datetime
 
-from scripts.bundle_h9_evidence import build_manifest
+from brasileirao_scripts.bundle_h9_evidence import build_manifest
 
 
 def test_bundle_manifest_records_hash_rows_commit_and_capital_lock(tmp_path):

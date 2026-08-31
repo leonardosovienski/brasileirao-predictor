@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from src.settings import Settings
+from brasileirao_predictor.settings import Settings
 
 
 def _valid(tmp_path: Path) -> dict[str, object]:

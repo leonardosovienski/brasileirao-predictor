@@ -11,16 +11,16 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_shared_dependencies_load_from_site_packages() -> None:
-    assert importlib.metadata.version("predictor-core") == "2.3.0"
-    assert importlib.metadata.version("predictor-ops") == "3.1.0"
+    assert importlib.metadata.version("predictor-core") == "3.0.0"
+    assert importlib.metadata.version("predictor-ops") == "4.0.0"
     assert "site-packages" in str(predictor_core.__file__)
     assert "site-packages" in str(predictor_ops.__file__)
 
 
 def test_shared_wheel_hashes_are_pinned() -> None:
     records = (ROOT / "constraints" / "shared-wheels.sha256").read_text(encoding="utf-8")
-    assert "e0d29eac348e2be4092dde1b629c101d54973b54b5d43014cdaee69e4e17b3b9" in records
-    assert "490ece696f9173bbaa56c2c53a1ff6e5ffab1a7625fb00ac0a5f896c37081b37" in records
+    assert "fdc1d3e27b6805a1d125702b6e3bb88f6fa3483791c22ea310bf6c56d5581c4d" in records
+    assert "a79b895492181c88c428ee8984a38d5f3da0d0105f060f89a061376d5cfe2b2b" in records
 
 
 def test_python_images_verify_shared_wheels_before_install() -> None:

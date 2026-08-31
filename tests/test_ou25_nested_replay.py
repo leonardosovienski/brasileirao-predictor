@@ -4,7 +4,7 @@ from datetime import UTC, datetime, timedelta
 import numpy as np
 import pytest
 
-from src.research.ou25_nested_replay import (
+from brasileirao_predictor.research.ou25_nested_replay import (
     FilterParameters,
     _metrics,
     freeze_candidate,
@@ -152,7 +152,7 @@ def test_clv_uses_devigged_closing_pair():
 
 
 def test_runner_requires_explicit_point_in_time_price_source(tmp_path, monkeypatch):
-    from scripts import research_ou25_nested_replay as runner
+    from brasileirao_scripts import research_ou25_nested_replay as runner
 
     operational_db = tmp_path / "matches.db"
     operational_db.write_bytes(b"placeholder")

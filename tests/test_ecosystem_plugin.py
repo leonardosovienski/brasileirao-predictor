@@ -1,4 +1,4 @@
-from src.ecosystem_plugin import PLUGIN
+from brasileirao_predictor.ecosystem_plugin import PLUGIN
 
 
 def test_ecosystem_plugin_contract_shape():

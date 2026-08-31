@@ -2,7 +2,7 @@ import sqlite3
 
 import pytest
 
-from src.feature_builder import build_features
+from brasileirao_predictor.feature_builder import build_features
 
 
 @pytest.fixture

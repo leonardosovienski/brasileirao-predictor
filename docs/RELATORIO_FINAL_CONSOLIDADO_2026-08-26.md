@@ -457,9 +457,9 @@ docs/PROJECT_LOGIC_REGISTER.md
 docs/DATA_MAP.md
 docs/COVERAGE.md
 data/trials.json
-src/model.py
-src/serving_evaluator.py
-scripts/benchmark_predictor.py
+brasileirao_predictor/model.py
+brasileirao_predictor/serving_evaluator.py
+brasileirao_scripts/benchmark_predictor.py
 ```
 
 Não compartilhar `.env`, chave OddsPapi ou banco operacional sem decisão

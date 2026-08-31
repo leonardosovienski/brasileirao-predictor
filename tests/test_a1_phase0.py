@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from src.a1_phase0 import (
+from brasileirao_predictor.a1_phase0 import (
     Phase0Ledger,
     clv_required_sample_size,
     conservative_reference,

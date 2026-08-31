@@ -6,7 +6,7 @@ do teto vira erro ANTES de gravar. Mercado validado (ou25) nunca é afetado.
 
 import pytest
 
-from src import bet_log
+from brasileirao_predictor import bet_log
 
 
 @pytest.fixture()

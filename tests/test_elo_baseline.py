@@ -5,7 +5,7 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from predictor_core.contracts.points import PredictionPoint
 
-from src.elo_baseline import EloBaselineEvaluator
+from brasileirao_predictor.elo_baseline import EloBaselineEvaluator
 
 
 def _obs(n: int = 40) -> list:

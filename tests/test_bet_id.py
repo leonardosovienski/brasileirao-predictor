@@ -2,7 +2,7 @@
 
 import json
 
-from src.bet_log import add_bet, list_bets, settle_bet
+from brasileirao_predictor.bet_log import add_bet, list_bets, settle_bet
 
 
 def test_bet_id_unico_e_presente(tmp_path):

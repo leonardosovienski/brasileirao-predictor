@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 
-from scripts import report_h9_missed_windows as missed
+from brasileirao_scripts import report_h9_missed_windows as missed
 
 
 def test_missed_window_alert_is_not_reported_as_task_failure(monkeypatch, capsys) -> None:

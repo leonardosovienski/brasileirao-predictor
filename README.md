@@ -44,18 +44,18 @@ rodando 100% local (Python + SQLite). Fonte única de dados: **Sofascore**
 (resultados, placar de intervalo, odds de abertura/fechamento, estatísticas,
 xG) — ut_id 325, temporadas 2021–2026. Não existe CSV público equivalente
 ao martj42 para clubes: a tabela `matches` (Elo + calibração) é alimentada pelo
-espelho `scripts/sync_matches_from_sofascore.py`.
+espelho `brasileirao_scripts/sync_matches_from_sofascore.py`.
 
 ## O que muda em relação ao wc-predictor-v2
 
 | Aspecto | Copa (wc-predictor-v2) | Brasileirão (este repo) |
 |---|---|---|
 | Times | seleções (martj42 CSV, ~49k jogos) | 20 clubes da Série A (Sofascore) |
-| `matches` | ingest.py (CSV remoto) | espelho do Sofascore (**não rode** `python -m src.ingest`) |
+| `matches` | ingest.py (CSV remoto) | espelho do Sofascore (**não rode** `python -m brasileirao_predictor.ingest`) |
 | Mando | quase tudo neutro | mando real em TODO jogo (`neutral=0`) |
 | Identidade | constantes "World Cup" no código | `config.yaml: league / tournament_name` |
-| Backtest | params frozen, 1 janela | **walk-forward** por blocos de rodadas (`scripts/backtest_walkforward.py`) |
-| Governança | TrialRegistry não consumido | harness + pré-registro obrigatórios (`scripts/governanca.py`) |
+| Backtest | params frozen, 1 janela | **walk-forward** por blocos de rodadas (`brasileirao_scripts/backtest_walkforward.py`) |
+| Governança | TrialRegistry não consumido | harness + pré-registro obrigatórios (`brasileirao_scripts/governanca.py`) |
 | Simulador | bracket Monte Carlo da Copa | **não se aplica** a pontos corridos (encerra com aviso) |
 | Telemetria | domínio `wc` | domínio `brasileirao` |
 
@@ -69,15 +69,15 @@ e pelo `cron_update_models` no serving.
 ```
 ingest_sofascore.py  →  sofascore_matches (+odds abertura/fechamento, HT, stats, xG)
         │
-        └→ scripts/sync_matches_from_sofascore.py → matches (Elo + calibração)
+        └→ brasileirao_scripts/sync_matches_from_sofascore.py → matches (Elo + calibração)
                 │
                 └→ cron_update_models.py → current_elo + model_parameters (cache serving)
                         │
         ┌───────────────┴────────────────┐
-   predict.py / prever.py           scripts/backtest_walkforward.py
+   predict.py / prever.py           brasileirao_scripts/backtest_walkforward.py
    (serving, log obrigatório)       (pesquisa, read-only, GO/NO-GO)
         │
-   scripts/odds_shop.py (The Odds API, line shopping pré-rodada)
+   brasileirao_scripts/odds_shop.py (The Odds API, line shopping pré-rodada)
         │
    bet_log (banca real)  →  settle (aferição pós-jogo)
 ```
@@ -88,31 +88,31 @@ ingest_sofascore.py  →  sofascore_matches (+odds abertura/fechamento, HT, stat
 uv sync --all-extras --locked
 
 # Coleta (na máquina do operador; o Sofascore não responde ao sandbox)
-python -m src.ingest_sofascore                      # 2024 + 2025 + fixtures 2026
-python scripts/sync_matches_from_sofascore.py       # espelha p/ matches
-python -m src.cron_update_models                    # Elo + params de serving
+python -m brasileirao_predictor.ingest_sofascore                      # 2024 + 2025 + fixtures 2026
+python -m brasileirao_scripts.sync_matches_from_sofascore       # espelha p/ matches
+python -m brasileirao_predictor.cron_update_models                    # Elo + params de serving
 
 # Governança (ordem obrigatória, uma vez por ciclo de pesquisa)
-python scripts/governanca.py                        # harness + pré-registro H1/H2
-python scripts/backtest_walkforward.py              # veredito GO/NO-GO
+python -m brasileirao_scripts.governanca                        # harness + pré-registro H1/H2
+python -m brasileirao_scripts.backtest_walkforward              # veredito GO/NO-GO
 
 # Previsão
-python -m src.predict Flamengo Palmeiras            # mando do 1º time é o default do domínio
-python scripts/prever.py Flamengo Palmeiras --mando # pacote completo
-python scripts/prever.py Flamengo Palmeiras --primeiro-tempo
+python -m brasileirao_predictor.predict Flamengo Palmeiras            # mando do 1º time é o default do domínio
+python -m brasileirao_scripts.prever Flamengo Palmeiras --mando # pacote completo
+python -m brasileirao_scripts.prever Flamengo Palmeiras --primeiro-tempo
 
 # Operação (só após GO)
-python scripts/odds_shop.py --from-file snapshot.json
-python -m src.bet_log banca|list|settle|summary
+python -m brasileirao_scripts.odds_shop --from-file snapshot.json
+python -m brasileirao_predictor.bet_log banca|list|settle|summary
 
 # Testes
 python -m pytest            # suíte Python atual; contagem canônica no HANDOFF
-python scripts/ci_check.py  # 5 barreiras
+python -m brasileirao_scripts.ci_check  # 5 barreiras
 
 # Backup operacional consistente (destino deve ser uma raiz nova)
-python -m src.backup_restore create --output C:\backups\brasileirao-AAAA-MM-DD
-python -m src.backup_restore verify --backup C:\backups\brasileirao-AAAA-MM-DD
-python -m src.backup_restore restore --backup C:\backups\brasileirao-AAAA-MM-DD --destination C:\restore-novo
+python -m brasileirao_predictor.backup_restore create --output C:\backups\brasileirao-AAAA-MM-DD
+python -m brasileirao_predictor.backup_restore verify --backup C:\backups\brasileirao-AAAA-MM-DD
+python -m brasileirao_predictor.backup_restore restore --backup C:\backups\brasileirao-AAAA-MM-DD --destination C:\restore-novo
 ```
 
 Registros prospectivos novos incluem timestamps exatos de previsão e kickoff,
@@ -143,8 +143,8 @@ edge sintético (ataque ×1,3) e rejeita ruído antes de qualquer veredito valer
 
 ```
 config.yaml               # league, tournament_name, elo, model, backtest, sofascore
-src/                      # motor (db, ratings, model, backtest, predict, display…)
-scripts/
+brasileirao_predictor/                      # motor (db, ratings, model, backtest, predict, display…)
+brasileirao_scripts/
   sync_matches_from_sofascore.py   # espelho sofascore → matches (novo)
   governanca.py                    # harness + TrialRegistry (novo)
   backtest_walkforward.py          # walk-forward por rodadas (novo)

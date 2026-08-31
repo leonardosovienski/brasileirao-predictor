@@ -1,6 +1,6 @@
 import json
 
-from src.settle import grade, record_result, summary
+from brasileirao_predictor.settle import grade, record_result, summary
 
 _PRED = {
     "home": "France",

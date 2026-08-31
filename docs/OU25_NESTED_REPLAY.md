@@ -37,7 +37,7 @@ resultado, EV bruto, EV conservador e força 0–100 são campos distintos.
 
 ```powershell
 uv sync --all-extras --locked
-uv run python scripts/research_ou25_nested_replay.py --output data/research/ou25_nested
+uv run python -m brasileirao_scripts.research_ou25_nested_replay --output data/research/ou25_nested
 ```
 
 O comando falha alto se `data/matches.db` estiver ausente ou se não houver
@@ -50,8 +50,8 @@ terá de ser pré-registrado antes do primeiro label A1 que o avaliará.
 Para coleta enxuta de resultados e odds disponíveis na fonte:
 
 ```powershell
-uv run python -m src.ingest_sofascore --outcomes-odds-only --through-season 2023 --rate-limit 0.05
-uv run python scripts/sync_matches_from_sofascore.py
+uv run python -m brasileirao_predictor.ingest_sofascore --outcomes-odds-only --through-season 2023 --rate-limit 0.05
+uv run python -m brasileirao_scripts.sync_matches_from_sofascore
 ```
 
 `--rate-limit` deve respeitar a fonte; o valor baixo acima só é apropriado para

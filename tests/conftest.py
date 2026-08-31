@@ -1,4 +1,4 @@
-"""Garante que `import src.*` funcione rodando o pytest da raiz do projeto.
+"""Garante que `import brasileirao_predictor.*` funcione rodando o pytest da raiz do projeto.
 Sem .venv (abandonada na Batalha 2), o pacote src é resolvido pela raiz do repo."""
 
 import sys

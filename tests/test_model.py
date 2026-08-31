@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 from scipy.stats import poisson
 
-from src.model import _dc_normalizer_nb, predict_match, predict_remaining
+from brasileirao_predictor.model import _dc_normalizer_nb, predict_match, predict_remaining
 
 
 def test_nb_colapsa_em_poisson_quando_alpha_zero():

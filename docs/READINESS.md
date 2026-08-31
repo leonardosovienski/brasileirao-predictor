@@ -13,7 +13,7 @@ Status: `ENGINEERING_READY / CAPITAL_BLOCKED`.
 
 ## Gates homologados
 
-- Python local: 637 testes aprovados (1 deselecionado), zero falhas na última execução de `scripts/ci_check.py` em 2026-08-22.
+- Python local: 637 testes aprovados (1 deselecionado), zero falhas na última execução de `brasileirao_scripts/ci_check.py` em 2026-08-22.
 - .NET 10: build Release com warnings como erro, 0 warnings; 30 testes aprovados, zero falhas e zero skips.
 - Ruff: `ruff check src scripts tests` e `ruff format --check src scripts tests` verdes, sem ignores amplos.
 - Pyright: runtime homologado e fronteiras públicas verdes; pesquisa permanece explicitamente fora do escopo tipado.
@@ -51,32 +51,32 @@ Os dois artefatos externos que bloqueavam a classificação `READY` já existem;
 
 ## Governança de pesquisa (GOV-P0, Roadmap Técnico Consolidado v1.0-final)
 
-`scripts/benchmark_predictor.py` é o painel canônico único de medição
+`brasileirao_scripts/benchmark_predictor.py` é o painel canônico único de medição
 preditiva walk-forward (RPS primário; Brier 1X2/OU2.5, log-loss, ECE,
 calibration slope, resolution e sharpness como guardrails; accuracy/coverage
 como diagnóstico — nunca métrica de promoção). Skill score implementado hoje
 contra `climatology` e `sofascore_aggregate_no_vig`; o segundo usa agregado
 SofaScore sem casa nomeada e é somente diagnóstico. O nome `market_no_vig`
 fica reservado ao futuro baseline PIT com bookmaker auditável. `elo_baseline` e `current_v3` ainda
-falham alto se pedidos. `scripts/run_h4_sweep.py` teve a lacuna de `pipeline_fingerprint`
+falham alto se pedidos. `brasileirao_scripts/run_h4_sweep.py` teve a lacuna de `pipeline_fingerprint`
 corrigida (mesma classe de bug já corrigida em `h10_fadiga_walkforward.py`).
 
 **Atualização 2026-08-20 — checklist GOV-P0/OPS-P0 fechado no operador:**
 
 1. `data/trials.harness_attestation.json` renovado (`controle positivo OK`,
    `passed_at=2026-08-20T00:42:38Z`) — rodado via script isolado
-   (`scripts/_attest_only.py`, descartado depois de usado) contra o
+   (`brasileirao_scripts/_attest_only.py`, descartado depois de usado) contra o
    `matches.db` real do operador, sem tocar em `data/trials.json`.
-2. `scripts/install_windows_scheduler.ps1` rodado — as tarefas prospectivas
+2. `brasileirao_scripts/install_windows_scheduler.ps1` rodado — as tarefas prospectivas
    (`brasileirao-market-research`, `-prospective-readiness`, `-h9-emit`,
    `-h9-closing`, `-h9-settle`, `-h9-backup`, `-h9-missed-window`) estão
    `Ready` no Agendador de Tarefas do operador. Separadamente, o instalador
-   também registra `brasileirao-model-update` (`src.cron_update_models`), além
+   também registra `brasileirao-model-update` (`brasileirao_predictor.cron_update_models`), além
    dos jobs declarados no manifesto; não confundir esse total instalado com
    as sete tarefas prospectivas.
 3. `config.yaml` ganhou `season_id` de 2021-2023 (treino/burn-in exigido
    pelo Roadmap §3) — coleta real dessas temporadas é ação separada do
-   operador (`python -m src.ingest_sofascore`).
+   operador (`python -m brasileirao_predictor.ingest_sofascore`).
 
 **Estado desse checklist em 2026-08-22:** o congelamento deixou de ser
 pendência. Baselines canônicos contra climatologia e `market_no_vig` foram
@@ -115,7 +115,7 @@ Correções (Regra 3 — corrigir o mecanismo, não mascarar no filtro):
   rodada inteira vira um bloco — leitura honesta de um dado ausente. O
   relatório carrega `kickoff_coverage` dizendo quantos jogos caíram no
   fallback.
-* `src/evaluator.py` ganhou fit PREGUIÇOSO: `train_step` só enfileira o
+* `brasileirao_predictor/evaluator.py` ganhou fit PREGUIÇOSO: `train_step` só enfileira o
   histórico; o ajuste acontece no `predict_step`, que conhece o kickoff do
   alvo e trunca o histórico em `kickoff < alvo`. A guarda vale nos DOIS
   braços do experimento e independe da cadência. `block_guard` no relatório
@@ -128,7 +128,7 @@ medido ANTES dessa correção, com a ordenação por data-sem-hora. Ele não ser
 como régua para o RESEARCH-01A e precisa ser regerado como **v4** na máquina
 do operador, com a guarda ativa, antes de qualquer comparação de trial.
 
-**Pré-registro.** `scripts/research_01a_refit_cadence.py` registra a trial
+**Pré-registro.** `brasileirao_scripts/research_01a_refit_cadence.py` registra a trial
 `h11-refit-cadence-rodada-vs-100jogos` com `status="pre-registrada"` ANTES de
 rodar os braços (`--pre-register-only` faz só isso), e depois atualiza a
 MESMA entrada com o resultado — reexecutar com os mesmos `params` atualiza,
@@ -150,12 +150,12 @@ abaixo como pendências abertas.
 
 *Corrigidos:*
 
-1. **`src/elo_baseline.py` não tinha guarda de bloco de kickoff** — e sofria a
+1. **`brasileirao_predictor/elo_baseline.py` não tinha guarda de bloco de kickoff** — e sofria a
    forma MÁXIMA do problema, porque reajusta a cada passo (`retrain_every`
    default = 1): toda previsão de um bloco simultâneo treinava com o resultado
    dos jogos vizinhos. Como este é o H₀ contra o qual o Dixon-Coles precisa
    provar valor, o leakage INFLAVA o baseline e faria o modelo parecer pior do
-   que é — o espelho exato do risco corrigido em `src/evaluator.py` na PR #25.
+   que é — o espelho exato do risco corrigido em `brasileirao_predictor/evaluator.py` na PR #25.
    Mesma correção: fit preguiçoso truncado em `kickoff < alvo`.
 2. **`data/trials.json` não era validado por nenhum teste**, apesar de o core
    instruir explicitamente ("a suíte do consumidor deve falhar se o trials.json
@@ -204,11 +204,11 @@ servir de régua para comparar qualquer trial.
 
 **Alinhamento painel × serving (2026-08-21):**
 
-`src/serving_evaluator.py` (`ServingStackEvaluator`) reconstrói a pilha de
-produção dentro do laço walk-forward, e `scripts/benchmark_predictor.py` ganhou
+`brasileirao_predictor/serving_evaluator.py` (`ServingStackEvaluator`) reconstrói a pilha de
+produção dentro do laço walk-forward, e `brasileirao_scripts/benchmark_predictor.py` ganhou
 `--engine {dixon_coles,serving}` para escolher o que medir.
 
-*Por que não bastava ler o cache do cron.* `src/cron_update_models.py` ajusta
+*Por que não bastava ler o cache do cron.* `brasileirao_predictor/cron_update_models.py` ajusta
 Elo, `fit_goal_model` e as forças atk/def-xG com TODOS os jogos disputados da
 janela do banco. Em produção isso é honesto — o cron roda "agora", e agora só
 existe passado. Num backtest seria vazamento massivo: o mesmo cache serviria
@@ -234,7 +234,7 @@ invisível na hora de prever.
 
 *Duas diferenças deliberadas em relação ao serving:*
 
-1. **Time estreante não derruba a avaliação.** `src/predict.py` faz
+1. **Time estreante não derruba a avaliação.** `brasileirao_predictor/predict.py` faz
    `sys.exit` em time desconhecido; num replay histórico isso mataria a
    execução inteira por causa de um promovido. Aqui ele entra com
    `elo.initial_rating` — mesmo shrinkage neutro que o `xg_model.predict` já
@@ -253,7 +253,7 @@ dois sem perceber.
 
 **Controle negativo do pipeline (2026-08-21):**
 
-`scripts/permutation_test.py` fecha a metade que faltava da validação do
+`brasileirao_scripts/permutation_test.py` fecha a metade que faltava da validação do
 instrumento. `attest_pipeline_power` já provava o controle POSITIVO — a régua
 detecta sinal sintético. Faltava o oposto, sobre dados REAIS: a régua rejeita
 ruído quando roda sobre a base, o carregamento e a ordenação DESTE projeto?
@@ -281,7 +281,7 @@ consome a amostra virgem tanto quanto um experimento.
 **Pendências que seguem abertas — dependem de decisão ou de informação do
 operador, não de implementação:**
 
-1. **Custo do walk-forward.** `fit_dixon_coles_parameters` (src/dixon_coles.py)
+1. **Custo do walk-forward.** `fit_dixon_coles_parameters` (brasileirao_predictor/dixon_coles.py)
    avalia o objetivo num laço Python que constrói uma `DixonColesMatrix`
    inteira POR JOGO e POR AVALIAÇÃO, e o `minimize` roda sem gradiente
    analítico — o scipy faz diferenças finitas sobre ~52 parâmetros, ou seja

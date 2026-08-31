@@ -1,5 +1,15 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## Migração de namespaces de distribuição (2026-08-31)
+>
+> Autorização explícita do operador para corrigir as duas colisões cross-repo
+> confirmadas pela auditoria. Os pacotes genéricos `src` e `scripts` foram
+> renomeados para `brasileirao_predictor` e `brasileirao_scripts`. Entry points,
+> scripts de console, imports, CI, agendadores Windows, testes e documentação
+> operacional foram atualizados. Nenhuma hipótese, parâmetro, dado, ledger ou
+> resultado científico foi alterado. Validação pós-migração: **873 testes verdes,
+> 1 skipped e 1 deselecionado**; o wheel não publica `src` nem `scripts`.
+
 > ## CHECKPOINT — OU2.5 2024–2026 E PAPER CAPITAL 29–31/08 (2026-08-28)
 >
 > A auditoria integral, os caminhos locais dos bancos, os resultados por turno,

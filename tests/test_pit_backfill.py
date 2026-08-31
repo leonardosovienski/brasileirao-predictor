@@ -1,6 +1,6 @@
 import pytest
 
-from src.data.pit_backfill import (
+from brasileirao_predictor.data.pit_backfill import (
     CLOSING_DEFINITION_VERSION,
     choose_closing,
     connect_curated,

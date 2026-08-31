@@ -8,7 +8,7 @@ tournament_name: "Brasileirão Série A"
 # HERANÇA DO WC: o CSV martj42 é SÓ de seleções — não existe equivalente para
 # clubes. No Brasileirão a tabela `matches` é alimentada pelo espelho do
 # Sofascore (scripts/sync_matches_from_sofascore.py); NÃO rode `python -m
-# src.ingest` neste domínio (repovoaria a base com seleções).
+# brasileirao_predictor.ingest` neste domínio (repovoaria a base com seleções).
 source:
   url: null
   local_fallback: null
@@ -84,7 +84,7 @@ backtest:
   min_edge: 0.02
   max_edge: 0.15
   over_under_line: 2.5   # linha principal de gols auditada além do 1X2
-  # bootstrap de significância (python -m src.bootstrap) — IC 95% da média
+  # bootstrap de significância (python -m brasileirao_predictor.bootstrap) — IC 95% da média
   bootstrap_iterations: 1000
   bootstrap_seed: 13
   # walk-forward (scripts/eval_walkforward_brasileirao.py): tamanho do bloco
@@ -106,7 +106,7 @@ sofascore:
   rate_limit_seconds: 1.5
   # ut_id 325 = Brasileirão Série A (season 20/21 na lista = temporada COVID,
   # assinatura da liga). season_ids descobertos via
-  # `python -m src.ingest_sofascore --seasons 325` em 2026-07-10 (2024-2026)
+  # `python -m brasileirao_predictor.ingest_sofascore --seasons 325` em 2026-07-10 (2024-2026)
   # e 2026-08-19 (2021-2023, pro burn-in/treino pedido pelo Roadmap Técnico
   # Consolidado v1.0-final §3 — 2021-2023 treino, 2025 holdout selado).
   competitions:

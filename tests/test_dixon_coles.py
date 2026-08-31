@@ -4,7 +4,7 @@ import math
 
 import pytest
 
-from src.dixon_coles import DixonColesMatrix, dc_tau, time_decay_weight
+from brasileirao_predictor.dixon_coles import DixonColesMatrix, dc_tau, time_decay_weight
 
 # ---------- dc_tau ----------
 

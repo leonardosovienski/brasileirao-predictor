@@ -3,7 +3,7 @@ import sqlite3
 import pytest
 from predictor_core.data.contracts import DataUnavailableError
 
-from src.data.historical_expansion import (
+from brasileirao_predictor.data.historical_expansion import (
     canonical_team,
     connect_shadow,
     coverage_report,

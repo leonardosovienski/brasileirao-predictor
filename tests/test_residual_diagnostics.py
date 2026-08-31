@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from scripts import research_residual_diagnostics as d
+from brasileirao_scripts import research_residual_diagnostics as d
 
 
 def test_losses_are_zero_for_certain_correct_prediction() -> None:

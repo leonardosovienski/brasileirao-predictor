@@ -5,14 +5,14 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from pydantic import ValidationError
 
-from src.research.prospective_validation import (
+from brasileirao_predictor.research.prospective_validation import (
     CohortPolicy,
     PaperPick,
     PaperSettlement,
     evaluate_cohort,
     required_sample_size,
 )
-from src.research.prospective_validation.ledger import append_pick, append_settlement
+from brasileirao_predictor.research.prospective_validation.ledger import append_pick, append_settlement
 
 KICKOFF = datetime(2026, 9, 1, 22, tzinfo=UTC)
 
@@ -74,7 +74,7 @@ def test_ledger_e_append_only_e_recusa_duplicatas(tmp_path) -> None:
 
 
 def test_metricas_e_gate_so_tem_duas_saidas(monkeypatch) -> None:
-    import src.research.prospective_validation.metrics as metrics
+    import brasileirao_predictor.research.prospective_validation.metrics as metrics
 
     rows = [pick(i) for i in range(1, 11)]
     results = [settlement(i, won=i <= 6) for i in range(1, 11)]
@@ -89,7 +89,7 @@ def test_metricas_e_gate_so_tem_duas_saidas(monkeypatch) -> None:
 
 
 def test_dsr_abaixo_do_gate_mantem_capital_locked(monkeypatch) -> None:
-    import src.research.prospective_validation.metrics as metrics
+    import brasileirao_predictor.research.prospective_validation.metrics as metrics
 
     monkeypatch.setattr(metrics.registry_module, "deflated_sharpe_ratio", lambda *_: {"dsr": 0.949})
     report = evaluate_cohort(

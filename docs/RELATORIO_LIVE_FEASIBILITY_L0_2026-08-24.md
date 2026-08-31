@@ -46,6 +46,6 @@ resultado para selecionar modelo, commit ou push.
 - pytest: 735 passed, 1 deselected, 3 warnings numéricos conhecidos;
 - Ruff: verde;
 - Pyright: 0 erros, 0 warnings;
-- `scripts/ci_check.py`: cinco barreiras verdes, incluindo smokes pré-jogo e
+- `brasileirao_scripts/ci_check.py`: cinco barreiras verdes, incluindo smokes pré-jogo e
   live com o banco operacional presente;
 - `git diff --check`: verde.

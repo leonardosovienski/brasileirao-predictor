@@ -1,4 +1,4 @@
-from scripts.research_ou25_annual_2021_2026 import _annual_baseline, _valid_price_pair
+from brasileirao_scripts.research_ou25_annual_2021_2026 import _annual_baseline, _valid_price_pair
 
 
 def _row(pair=(2.0, 2.0), actual=True):

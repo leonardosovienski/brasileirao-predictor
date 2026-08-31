@@ -1,6 +1,6 @@
 import json
 
-from src.data.lineup_archive import persist_lineups
+from brasileirao_predictor.data.lineup_archive import persist_lineups
 
 
 def test_lineup_archive_is_append_only_and_idempotent_by_vintage(tmp_path):

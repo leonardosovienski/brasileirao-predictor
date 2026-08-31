@@ -13,7 +13,7 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from src.evaluator import BrasileiraoDixonColesEvaluator
+from brasileirao_predictor.evaluator import BrasileiraoDixonColesEvaluator
 
 TEAMS = ["flamengo", "palmeiras", "gremio", "santos"]
 

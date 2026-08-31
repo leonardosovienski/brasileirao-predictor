@@ -18,7 +18,7 @@ pytestmark = pytest.mark.skipif(
 def test_no_code_file_is_gitignored() -> None:
     files = [
         path
-        for package in ("src", "scripts", "tests")
+        for package in ("brasileirao_predictor", "brasileirao_scripts", "tests")
         for path in (ROOT / package).rglob("*.py")
         if "__pycache__" not in path.parts and ".venv" not in path.parts
     ]

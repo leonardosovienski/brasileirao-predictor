@@ -1,6 +1,6 @@
 import pytest
 
-from src.data.market_anchor import consensus_anchor, persist_market_observations, remove_overround
+from brasileirao_predictor.data.market_anchor import consensus_anchor, persist_market_observations, remove_overround
 
 
 def test_remove_overround_returns_complete_distribution():

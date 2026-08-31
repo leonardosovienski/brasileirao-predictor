@@ -37,7 +37,7 @@ MINHA FILA HISTÓRICA, na ordem:
    está pronta e funcionando (data/research/prospective.db, armazém bitemporal,
    15 mil observações de the_odds_api, 92% das entidades com 7+ capturas =
    movimento de linha real). Descubra por que o funil nunca aprova um pick:
-   leia src/research/h9_shadow.py e scripts/emit_h9_shadow.py e me diga qual
+   leia brasileirao_predictor/research/h9_shadow.py e brasileirao_scripts/emit_h9_shadow.py e me diga qual
    gate está fechando. Isto é o mais urgente: cada rodada sem emitir é dado
    prospectivo perdido para sempre (Regra 5).
 
@@ -50,8 +50,8 @@ MINHA FILA HISTÓRICA, na ordem:
        Agendador. Um alarme que ninguém separa de ruído não é alarme.
 
 3. market_no_vig — o teste de teto, e a única coisa que responde "existe
-   dinheiro nisso?". Está destravado: o de-vig já existe (src/math_utils.py com
-   Shin, src/data/market_anchor.py proporcional), falta ligar como baseline em
+   dinheiro nisso?". Está destravado: o de-vig já existe (brasileirao_predictor/math_utils.py com
+   Shin, brasileirao_predictor/data/market_anchor.py proporcional), falta ligar como baseline em
    SUPPORTED_BASELINES do benchmark_predictor. Cobertura 1X2 em 2021-2024:
    99,2%. Ressalvas: filtrar home_score IS NOT NULL (34 linhas órfãs de jogos
    adiados), e NÃO medir teto de OU só onde há odds (buraco de 34-37% em
@@ -116,8 +116,8 @@ O que TEM que bater, senão me avise alto:
   - 14 trials: 1 comprovada (h12), 1 pre-registrada (h13), 12 fechadas
   - attestation: evaluate=_rps_pipeline, metric=rps, expires_at 2026-08-29
     (se estiver vencida, renove com:
-     python -c "from scripts.research_01a_refit_cadence import attest_rps_power; attest_rps_power()"
-     e NUNCA com scripts/_attest_only.py, que atesta o funil PSR do H8 -- pipeline
+     python -c "from brasileirao_scripts.research_01a_refit_cadence import attest_rps_power; attest_rps_power()"
+     e NUNCA com brasileirao_scripts/_attest_only.py, que atesta o funil PSR do H8 -- pipeline
      errado, e foi assim que a attestation certa foi sobrescrita em 2026-08-22)
   - serving_noxg: RPS 0.213339, delta -0.006650, IC95 [-0.010544, -0.002858],
     ensemble_xg {enabled: false}

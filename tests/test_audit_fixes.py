@@ -9,10 +9,10 @@ import sqlite3
 import numpy as np
 import pytest
 
-from src.bootstrap import ci_mean, ci_mean_cluster
-from src.event_models import fit_event_model, predict_event
-from src.model import OptimizationFailedError, fit_goal_model, predict_match
-from src.ratings import ratings_asof
+from brasileirao_predictor.bootstrap import ci_mean, ci_mean_cluster
+from brasileirao_predictor.event_models import fit_event_model, predict_event
+from brasileirao_predictor.model import OptimizationFailedError, fit_goal_model, predict_match
+from brasileirao_predictor.ratings import ratings_asof
 
 CFG_ELO = {
     "initial_rating": 1500,
@@ -329,7 +329,7 @@ def event_db(tmp_path):
 
 
 def test_p2_load_event_data_uma_linha_por_jogo_e_so_periodo_all(event_db):
-    from src.backtest_event import load_event_data
+    from brasileirao_predictor.backtest_event import load_event_data
 
     data = load_event_data(event_db, "corners", cfg_elo=CFG_ELO)
     # sem o filtro period='ALL' seriam 90 linhas (10 jogos × 3×3 períodos)
@@ -339,7 +339,7 @@ def test_p2_load_event_data_uma_linha_por_jogo_e_so_periodo_all(event_db):
 
 
 def test_p7_gatilho_e_prob_de_mercado_usam_a_abertura(event_db):
-    from src.backtest_event import backtest_event
+    from brasileirao_predictor.backtest_event import backtest_event
 
     out = backtest_event("corners", min_edge=-1.0, max_edge=1.0, conn=event_db)
     assert out["n_trades"] >= 1

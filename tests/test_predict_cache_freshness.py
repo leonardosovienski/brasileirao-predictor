@@ -1,4 +1,4 @@
-from src import predict
+from brasileirao_predictor import predict
 
 
 class _Conn:
@@ -26,9 +26,9 @@ def test_build_recomputes_in_memory_when_cache_hash_is_stale(monkeypatch, capsys
         "load_params",
         lambda _conn: (0.1, 0.2, 0.3, 0.0, 10, "stale-hash", "2026-01-01T00:00:00+00:00"),
     )
-    monkeypatch.setattr("src.cron_update_models.config_hash", lambda _cfg: "fresh-hash")
+    monkeypatch.setattr("brasileirao_predictor.cron_update_models.config_hash", lambda _cfg: "fresh-hash")
     monkeypatch.setattr(
-        "src.cron_update_models.compute",
+        "brasileirao_predictor.cron_update_models.compute",
         lambda _cfg, _conn: ({"fresh": 2.0}, (1.0, 2.0, 3.0, 4.0), 10),
     )
 
@@ -49,7 +49,7 @@ def test_build_uses_cache_only_when_hash_and_match_count_are_current(monkeypatch
         "load_params",
         lambda _conn: (0.1, 0.2, 0.3, 0.0, 10, "current", "2026-01-01T00:00:00+00:00"),
     )
-    monkeypatch.setattr("src.cron_update_models.config_hash", lambda _cfg: "current")
+    monkeypatch.setattr("brasileirao_predictor.cron_update_models.config_hash", lambda _cfg: "current")
 
     _built_conn, elo, params = predict.build(_cfg())
 

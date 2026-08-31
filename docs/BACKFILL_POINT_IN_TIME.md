@@ -8,4 +8,4 @@ O backfill histórico é deliberadamente isolado de `matches.db`.
 
 Entity resolution usa aliases explícitos e versões de mapeamento. Colisões ou nomes ambíguos são rejeitados; não há escolha heurística silenciosa. O walk-forward exige fronteiras cronológicas estritas e a qualidade usa bootstrap agrupado por partida/cluster. O gate devolve `INSUFFICIENT_SAMPLE` abaixo do mínimo e nunca habilita capital automaticamente.
 
-O módulo implementado é `src/data/pit_backfill.py`, com testes hostis em `tests/test_pit_backfill.py`. A implementação local valida o contrato e a segurança temporal; ela não inventa uma amostra histórica nem considera uma fonte sem odds PIT economicamente elegível.
+O módulo implementado é `brasileirao_predictor/data/pit_backfill.py`, com testes hostis em `tests/test_pit_backfill.py`. A implementação local valida o contrato e a segurança temporal; ela não inventa uma amostra histórica nem considera uma fonte sem odds PIT economicamente elegível.

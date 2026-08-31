@@ -16,14 +16,14 @@ bug que impede exatamente o modo híbrido que ele existe para medir.
 
 | Componente | Estado | Bloqueadores |
 |---|---|---|
-| `src/research/vorp_ridge.py` | **Não executável com o banco atual** | dados de 2021/2022 inexistentes; lookahead de Elo |
-| `src/research/survival_test.py` | **Quebrado no modo híbrido** | `TypeError` na chamada; lookahead de Elo; seasons parciais |
-| `src/kernel_daemon.py` | Protótipo funcional | duplica a matemática do model.py; zero testes; deps pesadas |
+| `brasileirao_predictor/research/vorp_ridge.py` | **Não executável com o banco atual** | dados de 2021/2022 inexistentes; lookahead de Elo |
+| `brasileirao_predictor/research/survival_test.py` | **Quebrado no modo híbrido** | `TypeError` na chamada; lookahead de Elo; seasons parciais |
+| `brasileirao_predictor/kernel_daemon.py` | Protótipo funcional | duplica a matemática do model.py; zero testes; deps pesadas |
 | `dotnet/LineupWorker` | Protótipo compilado | sem testes; depende do kernel; não auditado em detalhe |
 
 ---
 
-## 1. `src/research/vorp_ridge.py` — extração de VORP
+## 1. `brasileirao_predictor/research/vorp_ridge.py` — extração de VORP
 
 **O que faz:** regressão Ridge esparsa (via LSQR, sem sklearn) do xG diferencial
 por partida sobre indicadores de presença de jogador (+1 home, −1 away) com
@@ -42,13 +42,13 @@ por partida sobre indicadores de presença de jogador (+1 home, −1 away) com
 **Lookahead a remover:** `_load_matches` (linhas 34-49) lê `db.load_elo`
 (= `current_elo`, o rating de HOJE) como controle das partidas de treino.
 Trocar por `ratings.ratings_asof(matches, cfg_elo, dates)` — o helper já
-existe desde a auditoria. Monitorado pelo `scripts/ci_check.py` (WARN).
+existe desde a auditoria. Monitorado pelo `brasileirao_scripts/ci_check.py` (WARN).
 
 **Testes que faltam:** nenhum teste existe. Mínimo: (a) β recupera sinal em
 dados sintéticos (jogador bom → coeficiente positivo); (b) replacement level
 por posição; (c) fallback de estreante.
 
-## 2. `src/research/survival_test.py` — Go/No-Go da v3
+## 2. `brasileirao_predictor/research/survival_test.py` — Go/No-Go da v3
 
 **O que faz:** compara Elo puro vs Elo+VORP na temporada de teste com
 Diebold-Mariano/HLN, Brier/BSS, curva de calibração do Over 2.5, CLV simulado
@@ -70,14 +70,14 @@ e PSR com Kelly fracionado. É o quality gate desenhado para decidir a v3.
 seasons de teste para o que existe no banco; (4) cuidado com a chamada
 posicional de `predict_match` (P5) — usar sempre kwargs.
 
-## 3. `src/kernel_daemon.py` — serving quente (Zona 3)
+## 3. `brasileirao_predictor/kernel_daemon.py` — serving quente (Zona 3)
 
 **O que faz:** daemon asyncio residente; recebe pedidos via canal Redis
 `system:invoke_kernel`, computa a grade NB+Dixon-Coles com função Numba
 `@njit(cache=True)` (fallback NumPy/scipy sem Numba) e publica fair odds em
 `fair_odds:{match_id}` (TTL 5s). Hiperparâmetros carregados uma vez no boot.
 
-**Estado real: protótipo funcional (há `scripts/hotpath_smoke.py`), mas:**
+**Estado real: protótipo funcional (há `brasileirao_scripts/hotpath_smoke.py`), mas:**
 - **Duplica a matemática de `model.py`** (grade NB + 4 células DC) em uma
   segunda implementação. A versão JIT clampa células DC negativas a 0 — o
   `model.py` faz `np.clip` equivalente, ok hoje, mas qualquer fix futuro no

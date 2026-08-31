@@ -27,7 +27,7 @@ Para uma previsão operacional em agosto de 2026, o histórico deve conter **tod
 
 1. Fixar evento, mandante, visitante, `event_id`, kickoff e tipo da previsão.
 2. Criar o documento de prontidão descrito em `PREDICTION_REQUIREMENTS.md`.
-3. Executar `python scripts/check_prediction_readiness.py <arquivo.json>`; código 2 bloqueia emissão.
+3. Executar `python -m brasileirao_scripts.check_prediction_readiness <arquivo.json>`; código 2 bloqueia emissão.
 4. Ajustar a versão congelada do serving com histórico completo até `predicted_at`. Ensemble xG permanece desligado.
 5. Gerar a distribuição completa: `P(casa)`, `P(empate)`, `P(fora)`, lambdas e placares mais prováveis.
 6. Congelar entrada, versão/fingerprint, horários e saída em ledger append-only antes de comunicar o resultado.

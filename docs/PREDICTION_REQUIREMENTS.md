@@ -1,7 +1,7 @@
 # Protocolo do que precisa para prever
 
 Versão: `prediction-readiness/1`
-Implementação: `src/prediction_protocol.py` e `scripts/check_prediction_readiness.py`.
+Implementação: `brasileirao_predictor/prediction_protocol.py` e `brasileirao_scripts/check_prediction_readiness.py`.
 
 ## Gate obrigatório
 

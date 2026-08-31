@@ -3,8 +3,8 @@ import json
 import numpy as np
 import pytest
 
-from src.model import predict_match
-from src.prediction_log import log_prediction
+from brasileirao_predictor.model import predict_match
+from brasileirao_predictor.prediction_log import log_prediction
 
 _PRED = {
     "lambda_a": 1.23,
@@ -108,9 +108,9 @@ def test_log_respects_env_path(tmp_path, monkeypatch):
 
 
 def test_show_fails_closed_when_audit_log_cannot_be_persisted(monkeypatch):
-    import src.predict as predict
-    import src.prediction_log as prediction_log
-    import src.xg_model as xg_model
+    import brasileirao_predictor.predict as predict
+    import brasileirao_predictor.prediction_log as prediction_log
+    import brasileirao_predictor.xg_model as xg_model
 
     result = {
         "lambda_a": 1.2,
@@ -169,7 +169,7 @@ _LIVE = {  # forma do dict de display.compute_live (period + final + meta)
 
 
 def test_log_period_prediction_grava_schema_proprio(tmp_path):
-    from src.prediction_log import log_period_prediction
+    from brasileirao_predictor.prediction_log import log_period_prediction
 
     p = tmp_path / "period.jsonl"
     log_period_prediction(
@@ -193,7 +193,7 @@ def test_log_period_prediction_grava_schema_proprio(tmp_path):
 
 
 def test_log_period_respects_env_path(tmp_path, monkeypatch):
-    from src.prediction_log import log_period_prediction
+    from brasileirao_predictor.prediction_log import log_period_prediction
 
     p = tmp_path / "sub" / "periods.jsonl"
     monkeypatch.setenv("PERIOD_LOG_PATH", str(p))

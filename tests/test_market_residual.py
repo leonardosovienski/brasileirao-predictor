@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from src.research.economic_decision import decide_shadow
-from src.research.market_residual import MarketResidualModel, MultinomialMarketResidualModel, ResidualPrediction
+from brasileirao_predictor.research.economic_decision import decide_shadow
+from brasileirao_predictor.research.market_residual import MarketResidualModel, MultinomialMarketResidualModel, ResidualPrediction
 
 
 def _sample(n=200):

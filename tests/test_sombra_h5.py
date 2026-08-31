@@ -10,12 +10,12 @@ import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
 
-spec = importlib.util.spec_from_file_location("sombra", ROOT / "scripts" / "sombra.py")
+spec = importlib.util.spec_from_file_location("sombra", ROOT / "brasileirao_scripts" / "sombra.py")
 sombra = importlib.util.module_from_spec(spec)
 sys.modules["sombra"] = sombra
 spec.loader.exec_module(sombra)
 
-from src import db, model, xg_model  # noqa: E402
+from brasileirao_predictor import db, model, xg_model  # noqa: E402
 
 
 def _cfg(enabled=True):

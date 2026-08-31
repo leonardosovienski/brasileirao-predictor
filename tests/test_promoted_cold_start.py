@@ -1,7 +1,7 @@
 import pytest
 
-from src.data.promotions import Promotion
-from src.research.promoted_cold_start import (
+from brasileirao_predictor.data.promotions import Promotion
+from brasileirao_predictor.research.promoted_cold_start import (
     ColdStartMatch,
     PromotedEntry,
     build_entries,

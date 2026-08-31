@@ -5,12 +5,12 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from pydantic import ValidationError
 
-from src.research.pit_features import ExternalResearchGate, PITFeatureEvidence, assert_training_unlocked
-from src.research.pit_features.absences import DECLARATION as ABSENCES
-from src.research.pit_features.hierarchical_home_advantage import DECLARATION as HOME
-from src.research.pit_features.isolated_xg import ARCHITECTURE_POLICY
-from src.research.pit_features.isolated_xg import DECLARATION as XG
-from src.research.pit_features.lineup import DECLARATION as LINEUP
+from brasileirao_predictor.research.pit_features import ExternalResearchGate, PITFeatureEvidence, assert_training_unlocked
+from brasileirao_predictor.research.pit_features.absences import DECLARATION as ABSENCES
+from brasileirao_predictor.research.pit_features.hierarchical_home_advantage import DECLARATION as HOME
+from brasileirao_predictor.research.pit_features.isolated_xg import ARCHITECTURE_POLICY
+from brasileirao_predictor.research.pit_features.isolated_xg import DECLARATION as XG
+from brasileirao_predictor.research.pit_features.lineup import DECLARATION as LINEUP
 
 KICKOFF = datetime(2026, 8, 24, 22, tzinfo=UTC)
 

@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 
-from scripts.evaluate_shadow_cohort import compute_verdict, evaluate
-from src.data.prospective_shadow import record_hash
+from brasileirao_scripts.evaluate_shadow_cohort import compute_verdict, evaluate
+from brasileirao_predictor.data.prospective_shadow import record_hash
 
 
 def _matured_pick(pick_id: str, match_id: str, clv: float, pnl: float) -> dict:

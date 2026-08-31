@@ -17,8 +17,8 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src import db, model, predict, ratings  # noqa: E402
-from src.settle import record_result  # noqa: E402
+from brasileirao_predictor import db, model, predict, ratings  # noqa: E402
+from brasileirao_predictor.settle import record_result  # noqa: E402
 
 _CFG_ELO = {
     "initial_rating": 1500,
@@ -107,13 +107,13 @@ def test_settle_resultado_real_brasileirao(tmp_path):
 
 
 def test_espelho_sofascore_para_matches():
-    """scripts/sync_matches_from_sofascore: upsert idempotente, tournament do
+    """brasileirao_scripts/sync_matches_from_sofascore: upsert idempotente, tournament do
     config, neutral=0 (liga tem mando sempre).
 
     `competitions` é posicional de propósito: um default reintroduziria em
     silêncio o bug de espelhar a tabela inteira (ver
     tests/test_sync_competition_filter.py)."""
-    spec = importlib.util.spec_from_file_location("sync_matches", ROOT / "scripts" / "sync_matches_from_sofascore.py")
+    spec = importlib.util.spec_from_file_location("sync_matches", ROOT / "brasileirao_scripts" / "sync_matches_from_sofascore.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
 
@@ -144,7 +144,7 @@ def test_espelho_sofascore_para_matches():
 
 def test_espelho_marca_e_remove_linha_orfa_de_adiamento():
     spec = importlib.util.spec_from_file_location(
-        "sync_matches_postponed", ROOT / "scripts" / "sync_matches_from_sofascore.py"
+        "sync_matches_postponed", ROOT / "brasileirao_scripts" / "sync_matches_from_sofascore.py"
     )
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -169,7 +169,7 @@ def test_espelho_marca_e_remove_linha_orfa_de_adiamento():
 
 def test_espelho_remove_fixture_legado_sem_event_id_quando_data_muda():
     spec = importlib.util.spec_from_file_location(
-        "sync_matches_fixture", ROOT / "scripts" / "sync_matches_from_sofascore.py"
+        "sync_matches_fixture", ROOT / "brasileirao_scripts" / "sync_matches_from_sofascore.py"
     )
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -188,7 +188,7 @@ def test_espelho_remove_fixture_legado_sem_event_id_quando_data_muda():
 
 
 def test_odds_shop_sport_key_do_config():
-    spec = importlib.util.spec_from_file_location("odds_shop_dom", ROOT / "scripts" / "odds_shop.py")
+    spec = importlib.util.spec_from_file_location("odds_shop_dom", ROOT / "brasileirao_scripts" / "odds_shop.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     assert mod.SPORT == "soccer_brazil_campeonato"
@@ -215,7 +215,7 @@ def test_proximos_fixtures_excluem_eventos_passados_sem_placar():
 
 def test_ht_fraction_forward_only():
     """H2: a fração de gols do 1T só pode ver jogos ANTERIORES ao corte."""
-    spec = importlib.util.spec_from_file_location("wf", ROOT / "scripts" / "backtest_walkforward.py")
+    spec = importlib.util.spec_from_file_location("wf", ROOT / "brasileirao_scripts" / "backtest_walkforward.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     # 60 jogos antes do corte (1 gol no 1T de 2 no total → frac 0.5),

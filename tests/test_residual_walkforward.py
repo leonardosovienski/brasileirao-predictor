@@ -2,7 +2,7 @@ from datetime import UTC, datetime, timedelta
 
 import numpy as np
 
-from src.research.residual_walkforward import evaluate_walkforward
+from brasileirao_predictor.research.residual_walkforward import evaluate_walkforward
 
 
 def test_walkforward_respects_maturity_and_never_enables_capital():

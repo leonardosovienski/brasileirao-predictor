@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from src.dynamic_strength import corrections, fit
+from brasileirao_predictor.dynamic_strength import corrections, fit
 
 
 def test_fit_rejects_invalid_alphas():

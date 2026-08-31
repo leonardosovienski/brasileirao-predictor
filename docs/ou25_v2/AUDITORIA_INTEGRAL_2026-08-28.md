@@ -13,13 +13,13 @@ O objetivo foi confrontar implementação, dados, testes, artefatos, hipóteses,
 | Alta | O replay OU2.5 externo e interno cortava por índice e podia dividir jogos com o mesmo `kickoff_at` entre treino e teste. O label de um jogo simultâneo podia contaminar a seleção/ajuste de outro jogo do mesmo instante. | Regressão sintética com quatro jogos no mesmo kickoff falhava no commit-base; o primeiro fold tinha treino de 20 linhas e iniciava o teste no meio do grupo. | **Corrigido** com limites por grupo de kickoff no replay externo, no replay interno e no ancoramento. |
 | Alta | O gate de odds `1,20–5,00` e overround `1,00–1,30` existia apenas no gerador anual. `score_row` aceitava o placeholder `51,0/1,002`; o ancoramento e políticas de certeza também não tinham gate compartilhado. | Regressão sintética reproduziu um pick emitido para `51,0/1,002`. | **Corrigido** por `valid_ou25_price_pair`, reutilizado pelo scorer, baseline, ancoramento, certeza e relatório anual. |
 | Média | Os manifestos dos replays publicados referem-se ao commit de geração `1d83b02...` e a um SHA de `data/matches.db` operacional que não está no clone limpo. Os hashes declarados dos artefatos não batem com os bytes presentes no checkout atual. | O verificador encontrou todos os três hashes de artefatos divergentes em cada manifesto nested e 13 hashes divergentes no manifesto anual; o backfill público, por outro lado, bate byte a byte com seu próprio SHA. | **Não reescrito**: os artefatos históricos foram preservados. O fato foi registrado como limitação de reprodução e não como evidência de corrupção. |
-| Média | Os smokes de serving e live da barreira CI não puderam rodar porque `data/matches.db` não é versionado e está ausente no sandbox. | `scripts/ci_check.py` ficou verde, mas reportou os dois smokes como `PULADO (sem banco)`. | **Bloqueio ambiental explícito**, sem fabricar banco ou resultado. |
+| Média | Os smokes de serving e live da barreira CI não puderam rodar porque `data/matches.db` não é versionado e está ausente no sandbox. | `brasileirao_scripts/ci_check.py` ficou verde, mas reportou os dois smokes como `PULADO (sem banco)`. | **Bloqueio ambiental explícito**, sem fabricar banco ou resultado. |
 | Média | A suíte .NET não pôde ser executada porque o SDK `dotnet` não está instalado no sandbox. | Restore/teste não iniciado; o estado foi registrado como `DOTNET_NOT_INSTALLED`. | **Não contado como aprovação**. |
 | Baixa | A suíte do commit-base tinha cobertura insuficiente para simultaneidade no funil OU2.5 e para odds-placeholder fora do gerador anual. | As duas novas regressões falharam antes do fix e passaram depois dele. | **Corrigido** com quatro testes novos no total. |
 
 ## Correções implementadas
 
-O núcleo `src/research/ou25_nested_replay.py` agora possui um gate finito e plausível para pares OU2.5 e helpers que recuam o início para o primeiro jogo de um grupo de kickoff e avançam o fim até o término do grupo. O replay externo e cada replay interno ajustam o limite antes de construir o prefixo; nenhum jogo com o mesmo instante do primeiro teste pode entrar no treino. O ancoramento usa o mesmo corte e exclui odds inválidas antes da comparação de Brier. A sua função de perda também usa explicitamente a probabilidade esportiva original não ancorada quando essa coluna existe, evitando mistura recursiva entre previsão já transformada e previsão original.
+O núcleo `brasileirao_predictor/research/ou25_nested_replay.py` agora possui um gate finito e plausível para pares OU2.5 e helpers que recuam o início para o primeiro jogo de um grupo de kickoff e avançam o fim até o término do grupo. O replay externo e cada replay interno ajustam o limite antes de construir o prefixo; nenhum jogo com o mesmo instante do primeiro teste pode entrar no treino. O ancoramento usa o mesmo corte e exclui odds inválidas antes da comparação de Brier. A sua função de perda também usa explicitamente a probabilidade esportiva original não ancorada quando essa coluna existe, evitando mistura recursiva entre previsão já transformada e previsão original.
 
 `score_row` agora bloqueia qualquer par ausente, não finito, fora do intervalo plausível ou com overround fora do intervalo contratado. Odds de fechamento só alimentam CLV quando o par de fechamento também passa o mesmo gate; preço agregado retrospectivo continua sem CLV elegível. O gerador anual conserva o alias privado `_valid_price_pair` para compatibilidade dos testes, mas delega a regra ao único gate compartilhado.
 
@@ -37,7 +37,7 @@ Foram adicionadas regressões para: grupo de kickoff simultâneo no replay aninh
 | Ruff format | passou; 296 arquivos formatados |
 | Ruff check | passou |
 | Pyright | `0 errors, 0 warnings, 0 informations` |
-| `scripts/ci_check.py` | verde; cinco barreiras reportadas, com smokes predict/live pulados por ausência do banco |
+| `brasileirao_scripts/ci_check.py` | verde; cinco barreiras reportadas, com smokes predict/live pulados por ausência do banco |
 | .NET | não executado: SDK ausente; não contado como aprovação |
 | JSON estrito | 81 JSONs lidos; nenhum `NaN`, `Infinity` ou erro de parsing |
 | Ledger de trials | 29 entradas, 29 nomes únicos, 0 sem status |
@@ -93,7 +93,7 @@ uv run pytest -q
 uv run ruff format --check src scripts tests
 uv run ruff check src scripts tests
 uv run pyright
-uv run python scripts/ci_check.py
+uv run python -m brasileirao_scripts.ci_check
 ```
 
 Para reproduzir o replay científico completo, ainda é necessário fornecer uma cópia consistente do `data/matches.db` operacional correspondente ao SHA declarado nos manifests, preservando os arquivos WAL/SHM quando aplicáveis. Sem esse insumo, o correto é bloquear alto e não gerar números substitutos.
@@ -116,7 +116,7 @@ A cópia passou em `PRAGMA integrity_check` (`ok`) e `PRAGMA foreign_key_check` 
 
 Os snapshots de odds vão de 2026-08-19T21:21:09Z a 2026-08-22T20:12:51Z, abrangem 2.163 eventos e dois mercados, com 200 registros pré-jogo e 24.942 registros marcados como não pré-jogo. `odds_lines` contém 1.696 linhas de AH, 1.280 de cards, 1.863 de corners e 12.981 de OU. O banco é, portanto, suficiente para validação operacional de serving, mas não é a base dos artefatos nested históricos.
 
-Com a cópia em `data/matches.db`, `uv run python scripts/ci_check.py --fast` passou sem skips: predict produziu 1X2 de 46,4%/26,8%/26,8% (soma 100,0%); `--segundo-tempo` produziu 30,4%/39,8%/29,8%; `--primeiro-tempo` produziu 28,1%/44,4%/27,5%. A suíte Python completa também foi executada com a base presente e passou com 814 testes aprovados, 1 desmarcado e 3 warnings conhecidos.
+Com a cópia em `data/matches.db`, `uv run python -m brasileirao_scripts.ci_check --fast` passou sem skips: predict produziu 1X2 de 46,4%/26,8%/26,8% (soma 100,0%); `--segundo-tempo` produziu 30,4%/39,8%/29,8%; `--primeiro-tempo` produziu 28,1%/44,4%/27,5%. A suíte Python completa também foi executada com a base presente e passou com 814 testes aprovados, 1 desmarcado e 3 warnings conhecidos.
 
 A identidade desta base diverge deliberadamente dos manifests nested: `8a3a2415...` não é `5f6c35df...`. Ela também não foi usada para afirmar reprodução byte a byte dos nested históricos. O hash anual declarado `f070ce13...` permanece uma terceira identidade histórica; nenhum manifesto histórico foi reescrito.
 

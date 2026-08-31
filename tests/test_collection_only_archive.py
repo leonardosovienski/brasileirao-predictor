@@ -1,8 +1,8 @@
 from datetime import UTC, datetime
 from pathlib import Path
 
-from src import db
-from src.data.collection_only_archive import collect
+from brasileirao_predictor import db
+from brasileirao_predictor.data.collection_only_archive import collect
 
 
 def _fixture(conn):

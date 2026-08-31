@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import json
 
-from scripts import backfill_player_comp_stats_from_sofascore as backfill
-from src import db
+from brasileirao_scripts import backfill_player_comp_stats_from_sofascore as backfill
+from brasileirao_predictor import db
 
 
 def test_aggregate_and_persist_player_stats_with_provenance(tmp_path) -> None:

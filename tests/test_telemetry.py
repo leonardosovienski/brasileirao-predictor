@@ -3,7 +3,7 @@ com ROI/CLV — testado com ledger sintético, sem precisar de odds reais."""
 
 from predictor_core import obs
 
-from src import backtest
+from brasileirao_predictor import backtest
 
 
 def test_backtest_emits_structured_event(tmp_path, monkeypatch):

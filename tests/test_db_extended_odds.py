@@ -9,7 +9,7 @@ Tudo em SQLite :memory: — sem rede, sem arquivo. Cobre:
 
 import sqlite3
 
-from src import db
+from brasileirao_predictor import db
 
 
 def _fresh():

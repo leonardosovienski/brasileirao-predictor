@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-INSTALLER = ROOT / "scripts" / "install_windows_scheduler.ps1"
+INSTALLER = ROOT / "brasileirao_scripts" / "install_windows_scheduler.ps1"
 JOBS = ROOT / "jobs.market-research.example.json"
 
 
@@ -21,7 +21,7 @@ def test_scheduler_installer_keeps_model_cache_alive() -> None:
     installer = INSTALLER.read_text(encoding="utf-8")
 
     assert '"brasileirao-model-update"' in installer
-    assert '-Module "src.cron_update_models"' in installer
+    assert '-Module "brasileirao_predictor.cron_update_models"' in installer
     assert '$arguments = "-X utf8 -m $Module"' in installer
 
 

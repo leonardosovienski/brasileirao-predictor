@@ -10,7 +10,7 @@ Distribuição de total:
 
 import pytest
 
-from src.market_pricer import (
+from brasileirao_predictor.market_pricer import (
     asian_handicap,
     both_teams_to_score,
     double_chance,

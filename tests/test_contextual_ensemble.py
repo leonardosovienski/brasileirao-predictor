@@ -2,7 +2,7 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from src.research.contextual_ensemble import evaluate_contextual_ensemble
+from brasileirao_predictor.research.contextual_ensemble import evaluate_contextual_ensemble
 
 
 def _rows(count: int) -> list[dict]:

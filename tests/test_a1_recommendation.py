@@ -1,6 +1,6 @@
 import pytest
 
-from src.a1_recommendation import RecommendationInput, assess_recommendation
+from brasileirao_predictor.a1_recommendation import RecommendationInput, assess_recommendation
 
 
 def candidate(**changes):

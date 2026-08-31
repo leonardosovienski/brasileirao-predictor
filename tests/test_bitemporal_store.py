@@ -2,7 +2,7 @@ from datetime import UTC, datetime
 
 import pytest
 
-from src.data.bitemporal_store import BitemporalObservation, append, as_known_at, connect
+from brasileirao_predictor.data.bitemporal_store import BitemporalObservation, append, as_known_at, connect
 
 
 def dt(hour: int) -> datetime:

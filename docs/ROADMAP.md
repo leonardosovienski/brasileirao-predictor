@@ -93,7 +93,7 @@ Na prática: todo experimento roda com `--period 2021-01-01,2024-12-31`.
 
 ## 4. Régua canônica
 
-`scripts/benchmark_predictor.py` é o painel único.
+`brasileirao_scripts/benchmark_predictor.py` é o painel único.
 
 **Primária:** RPS, com IC95 por bootstrap de bloco móvel.
 **Guardrails:** Brier 1X2, Brier OU2.5, log-loss, ECE, calibration slope
@@ -122,7 +122,7 @@ O segundo usa fechamento 1X2 de-vigado por Shin e pareamento na mesma amostra;
 
 * Controle **positivo**: `attest_pipeline_power` — a régua detecta sinal
   sintético.
-* Controle **negativo**: `scripts/permutation_test.py` — a régua rejeita ruído
+* Controle **negativo**: `brasileirao_scripts/permutation_test.py` — a régua rejeita ruído
   nos dados reais. Se o modelo bater a climatologia com os resultados
   embaralhados, é vazamento, não modelo.
 
@@ -159,7 +159,7 @@ Os três itens fecharam. Artefatos commitados, baseline v4 regerado
 
 `fit_dixon_coles_parameters` avalia o objetivo num laço Python sem gradiente
 analítico (~42-52 parâmetros por diferenças finitas). Media-se o ganho de uma
-reformulação exata em `scripts/p1_cost_probe.py`: **~85-95x**, com o objetivo
+reformulação exata em `brasileirao_scripts/p1_cost_probe.py`: **~85-95x**, com o objetivo
 concordando a ~1e-15 (o normalizador da grade DC tem forma fechada — τ ≡ 1 fora
 das 4 células magras).
 
@@ -173,7 +173,7 @@ das 4 células magras).
 O motor lento **não é o que se serve**. A agenda da TRACK A poderia rodar sobre
 `--engine serving` em segundos — mas trocar de motor troca a régua, e todas as
 medições congeladas são do `dixon_coles`. **Decidir isto antes de mexer na
-numérica.** Opções e riscos em `docs/RUNBOOK_P0-P2.md`; `src/dixon_coles.py`
+numérica.** Opções e riscos em `docs/RUNBOOK_P0-P2.md`; `brasileirao_predictor/dixon_coles.py`
 segue intocado.
 
 ### P2 — ensemble xG — **RESPONDIDO / H12 COMPROVADA**
@@ -219,9 +219,9 @@ search em 2021-2024, com 2024 como validação): `alpha_short≈0.3`,
 
 ### P4 — TRACK B (mercado), **em paralelo**
 
-Independe da TRACK A. `src/research/market_residual.py` contém os motores
+Independe da TRACK A. `brasileirao_predictor/research/market_residual.py` contém os motores
 binário e multinomial com o mercado como *offset*, e
-`src/research/residual_gate.py` contém o gate econômico com PSR e bootstrap.
+`brasileirao_predictor/research/residual_gate.py` contém o gate econômico com PSR e bootstrap.
 O primeiro contraste multinomial MARKET-02 foi executado e falhou; isso não
 invalida a infraestrutura, mas impede promover essa especificação.
 

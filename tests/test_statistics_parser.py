@@ -1,4 +1,4 @@
-from src.ingest_sofascore import _safe_float, parse_statistics, parse_statistics_flat
+from brasileirao_predictor.ingest_sofascore import _safe_float, parse_statistics, parse_statistics_flat
 
 MOCK_EVENT_STATS = {
     "statistics": [

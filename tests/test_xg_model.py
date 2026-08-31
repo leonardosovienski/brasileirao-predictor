@@ -5,7 +5,7 @@ import math
 
 import pytest
 
-from src import db, model, xg_model
+from brasileirao_predictor import db, model, xg_model
 
 
 # ---------------------------------------------------------------- fixtures
@@ -177,7 +177,7 @@ def test_maybe_blend_nunca_lanca(tmp_path, capsys):
 # ------------------------------------------------------- cron
 def test_config_hash_inclui_recencia_e_flag_do_ensemble():
     """Recência e ensemble alteram o hash para impedir cache incompatível."""
-    from src.cron_update_models import config_hash
+    from brasileirao_predictor.cron_update_models import config_hash
 
     cfg = {
         "elo": {"k": 1},
@@ -193,7 +193,7 @@ def test_config_hash_inclui_recencia_e_flag_do_ensemble():
 
 
 def test_cache_is_current_requires_matching_hash_and_completed_count():
-    from src.cron_update_models import cache_is_current, config_hash
+    from brasileirao_predictor.cron_update_models import cache_is_current, config_hash
 
     cfg = {
         "elo": {"k": 1},

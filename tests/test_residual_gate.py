@@ -1,4 +1,4 @@
-from src.research.residual_gate import evaluate_economic_gate
+from brasileirao_predictor.research.residual_gate import evaluate_economic_gate
 
 
 def test_gate_is_pending_below_sample_floor():

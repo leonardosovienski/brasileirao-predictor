@@ -4,7 +4,7 @@ from urllib.parse import parse_qs, urlparse
 import pytest
 from predictor_core.data.contracts import DataUnavailableError
 
-from src.data.api_football_provider import ApiFootballProvider
+from brasileirao_predictor.data.api_football_provider import ApiFootballProvider
 
 
 def test_api_football_normalizes_historical_fixture_and_hides_key():

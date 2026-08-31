@@ -12,15 +12,15 @@ walk-forward de 1.165 jogos (`docs/RELATORIO_BACKTEST_2026-07-10.md`), cujo
 Mesma do backtest: Elo forward (só vê o passado, `window_years=6`,
 `form_half_life_years=4.0`), Poisson/Dixon-Coles calibrado apenas com jogos
 anteriores a 2026-01-28 (sem contaminação da temporada 2026 no treino),
-odds de fechamento devigadas por Shin (`src.math_utils.shin_probabilities`).
+odds de fechamento devigadas por Shin (`brasileirao_predictor.math_utils.shin_probabilities`).
 Regra de compra idêntica ao backtest: só entra se `2% <= EV <= 15%`
 (`cfg["backtest"]`).
 
 Scripts (todos aceitam N de jogos como argumento posicional, default 18):
-- [scripts/predict_first18_2026.py](../scripts/predict_first18_2026.py) `[N]` — 1X2 puro (hit-rate bruto)
-- [scripts/predict_first18_ou_dc.py](../scripts/predict_first18_ou_dc.py) `[N]` — OU2.5 e DC (hit-rate bruto)
-- [scripts/predict_walkforward_ev.py](../scripts/predict_walkforward_ev.py) `[N]` — EV/P&L simulado
-- [scripts/predict_first18_teams.py](../scripts/predict_first18_teams.py) `[N]` — quebra por time (gols esperados vs reais, Brier por time)
+- [brasileirao_scripts/predict_first18_2026.py](../brasileirao_scripts/predict_first18_2026.py) `[N]` — 1X2 puro (hit-rate bruto)
+- [brasileirao_scripts/predict_first18_ou_dc.py](../brasileirao_scripts/predict_first18_ou_dc.py) `[N]` — OU2.5 e DC (hit-rate bruto)
+- [brasileirao_scripts/predict_walkforward_ev.py](../brasileirao_scripts/predict_walkforward_ev.py) `[N]` — EV/P&L simulado
+- [brasileirao_scripts/predict_first18_teams.py](../brasileirao_scripts/predict_first18_teams.py) `[N]` — quebra por time (gols esperados vs reais, Brier por time)
 
 ## Resultados — N=18 (2026-07-12)
 
@@ -130,8 +130,8 @@ expectativa**. Em N=18 a leitura foi "cedo demais pra refutar o backtest de
 
 ## Investigação de causa raiz — sweep de hiperparâmetros (2026-07-15)
 
-Scripts: [scripts/investigate_half_life.py](../scripts/investigate_half_life.py) `[N]`,
-[scripts/investigate_calibration_window.py](../scripts/investigate_calibration_window.py) `[N]`
+Scripts: [brasileirao_scripts/investigate_half_life.py](../brasileirao_scripts/investigate_half_life.py) `[N]`,
+[brasileirao_scripts/investigate_calibration_window.py](../brasileirao_scripts/investigate_calibration_window.py) `[N]`
 — ambos read-only (não tocam `config.yaml`), recomputam Elo/Poisson do zero
 por valor do grid e reportam Brier, hit-rate, viés nos 5 times flagged
 (Palmeiras/Grêmio/Botafogo/Internacional/Cruzeiro) e EV/ROI real de OU2.5
@@ -177,8 +177,8 @@ no veredito H1/H4) e confirmação em N=80.
 
 ### Bootstrap do IC95% (2026-07-15) — nenhum candidato é significativo
 
-Script: [scripts/bootstrap_calibration_window.py](../scripts/bootstrap_calibration_window.py) `[CY] [N]`
-— cluster bootstrap por jogo (`src.bootstrap.ci_mean_cluster`, não i.i.d. por
+Script: [brasileirao_scripts/bootstrap_calibration_window.py](../brasileirao_scripts/bootstrap_calibration_window.py) `[CY] [N]`
+— cluster bootstrap por jogo (`brasileirao_predictor.bootstrap.ci_mean_cluster`, não i.i.d. por
 aposta: OVER/UNDER do mesmo jogo compartilham o choque do resultado), 1000
 iterações, seed 13 — mesma config oficial usada no veredito H1/H4.
 
@@ -324,11 +324,11 @@ sem histórico nas marcas anteriores pra confirmar persistência).
 pré-registro formal. Próximos passos, em ordem:
 
 1. **Pré-registrar `calibration_window_years=0,5`** como hipótese única
-   (H-novo), seguindo o padrão de `scripts/governanca.py` — sem mais variar
+   (H-novo), seguindo o padrão de `brasileirao_scripts/governanca.py` — sem mais variar
    o valor depois de registrado.
 2. **Testar em dados que ainda não entraram nesta exploração** — aguardar
    jogos novos além dos 177 já usados (sincronizar via
-   `scripts/sync_matches_from_sofascore.py` quando a temporada avançar) em
+   `brasileirao_scripts/sync_matches_from_sofascore.py` quando a temporada avançar) em
    vez de reaproveitar os mesmos 160 jogos que escolheram o candidato.
 3. Continuar monitorando **Botafogo e Cruzeiro** na quebra por time — os
    únicos dois times com viés crescente e consistente nas quatro marcas,
@@ -340,5 +340,5 @@ pré-registro formal. Próximos passos, em ordem:
 Brasileirão entra em **modo de observação** (mesmo regime já aplicado ao
 mercado cripto): sem intervenções ativas neste teste forward. O modo sombra
 continua operando automaticamente (captura ~10h, settle ~23h,
-`scripts/sombra_diaria.py`), acumulando dados sem necessidade de
+`brasileirao_scripts/sombra_diaria.py`), acumulando dados sem necessidade de
 intervenção manual até a próxima marca de reavaliação.

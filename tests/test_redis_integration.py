@@ -5,7 +5,7 @@ import os
 import pytest
 import redis.asyncio as redis
 
-from src import kernel_daemon
+from brasileirao_predictor import kernel_daemon
 
 pytestmark = pytest.mark.integration
 

@@ -1,7 +1,7 @@
 import asyncio
 import json
 
-from src.kernel_daemon import _handle_invoke
+from brasileirao_predictor.kernel_daemon import _handle_invoke
 
 PARAMS = (0.2, 1.0, 0.1, 0.0, 0.0, 6)
 

@@ -33,8 +33,8 @@
 
 > Pergunta do operador: "simula os jogos do ano passado e as 17 rodadas deste
 > ano, veja por que está ruim e tenta melhorar."
-> Reprodutível: `scripts/sim_2025_2026.py` (baseline + diagnóstico) e
-> `scripts/sim_melhorias.py` (candidatos; `--valida` = escolha de
+> Reprodutível: `brasileirao_scripts/sim_2025_2026.py` (baseline + diagnóstico) e
+> `brasileirao_scripts/sim_melhorias.py` (candidatos; `--valida` = escolha de
 > hiperparâmetros em 2024-H2). Banco read-only; walk-forward mensal sem
 > lookahead (Elo forward, calibração só com jogos anteriores ao mês).
 
@@ -120,7 +120,7 @@ no ensemble (dBrierOU +0,0008, IC cruza zero) — importante porque OU2.5 é a
    alternativos NÃO foram varridos).
 2. Isto melhora **previsão** (Brier/logloss), não prova **edge de aposta**.
    Para virar dinheiro precisa passar pelo funil de governança: registrar
-   como hipótese nova (padrão `scripts/governanca.py`) e medir CLV/ROI
+   como hipótese nova (padrão `brasileirao_scripts/governanca.py`) e medir CLV/ROI
    forward — o mesmo tratamento do candidato `calibration_window_years=0,5`.
 3. xG do Sofascore chega **pós-jogo** — para serving pré-jogo isso não é
    lookahead (usa xG de jogos passados), mas exige o sync rodando em dia.
@@ -131,7 +131,7 @@ no ensemble (dBrierOU +0,0008, IC cruza zero) — importante porque OU2.5 é a
 ## Recomendação
 
 1. ~~Adotar o C4 (ensemble) como candidato de serving atrás de flag/config~~
-   **FEITO (2026-07-17)**: `src/xg_model.py` + cache no cron + hook
+   **FEITO (2026-07-17)**: `brasileirao_predictor/xg_model.py` + cache no cron + hook
    `maybe_blend` nos 3 caminhos de serving; `ensemble_xg.enabled: false`
    por padrão (flag OFF = baseline byte a byte); predições blended saem
    carimbadas `model: ensemble_xg` no log. 17 testes novos (293 no total).

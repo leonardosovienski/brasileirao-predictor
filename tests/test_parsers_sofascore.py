@@ -5,7 +5,7 @@ Os 4 bugs achados na auditoria (substring do handicap, fração não-string,
 decimal malformado, timestamp em ms) nasceram aqui como xfail e viraram verdes
 com os consertos aprovados — os testes agora fixam o comportamento correto."""
 
-from src.ingest_sofascore import frac_to_decimal, is_pre_match, parse_match, parse_odds, parse_ou
+from brasileirao_predictor.ingest_sofascore import frac_to_decimal, is_pre_match, parse_match, parse_odds, parse_ou
 
 
 # ------------------------------------------------------------- frac_to_decimal

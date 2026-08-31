@@ -92,7 +92,7 @@ evidência confirmatória.
 - warnings: três warnings numéricos conhecidos de `rho` no limite em testes;
 - Ruff: verde;
 - Pyright global: 0 erros, 0 warnings;
-- Pyright explícito de `src/research/market_0b_resolution.py`, `pit_features/`
+- Pyright explícito de `brasileirao_predictor/research/market_0b_resolution.py`, `pit_features/`
   e `prospective_validation/`: 0 erros, 0 warnings;
 - CI estático: todas as barreiras verdes;
 - smokes de serving e live: pulados porque `data/matches.db` está ausente.

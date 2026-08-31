@@ -3,7 +3,7 @@ from datetime import UTC, date, datetime
 import pytest
 from predictor_core.data.contracts import DataUnavailableError
 
-from src.data.sportmonks_provider import SportmonksProvider
+from brasileirao_predictor.data.sportmonks_provider import SportmonksProvider
 
 
 def test_sportmonks_uses_raw_authorization_and_hides_token():

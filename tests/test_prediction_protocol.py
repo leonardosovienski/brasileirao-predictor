@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from src.prediction_protocol import assess_prediction_readiness
+from brasileirao_predictor.prediction_protocol import assess_prediction_readiness
 
 NOW = datetime(2026, 8, 22, 20, tzinfo=UTC)
 
@@ -110,7 +110,7 @@ def test_readiness_cli_exit_code(tmp_path: Path, changes, expected_code):
     payload = candidate(**changes)
     input_path.write_text(json.dumps(payload, default=lambda value: value.isoformat()), encoding="utf-8")
     completed = subprocess.run(
-        [sys.executable, "scripts/check_prediction_readiness.py", str(input_path)],
+        [sys.executable, "-m", "brasileirao_scripts.check_prediction_readiness", str(input_path)],
         cwd=Path(__file__).parents[1],
         capture_output=True,
         text=True,

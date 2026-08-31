@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-_spec = importlib.util.spec_from_file_location("odds_shop", ROOT / "scripts" / "odds_shop.py")
+_spec = importlib.util.spec_from_file_location("odds_shop", ROOT / "brasileirao_scripts" / "odds_shop.py")
 odds_shop = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_spec and odds_shop)
 

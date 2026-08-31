@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from src.research import market_edge_ordering as m
+from brasileirao_predictor.research import market_edge_ordering as m
 
 
 def _record(date: str, outcome: int, *, elo: float = 20.0):

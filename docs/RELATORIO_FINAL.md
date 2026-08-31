@@ -4,7 +4,7 @@
 > docs de apoio: [CAUSA_RAIZ.md](CAUSA_RAIZ.md), [CONCLUSOES.md](CONCLUSOES.md),
 > [VIES_ZEBRA.md](VIES_ZEBRA.md), [MAHER_RESULTADO.md](MAHER_RESULTADO.md),
 > [RELATORIO_VIABILIDADE.md](RELATORIO_VIABILIDADE.md), [V2_BLUEPRINT.md](V2_BLUEPRINT.md).
-> Experimentos reproduzíveis em `scripts/`.
+> Experimentos reproduzíveis em `brasileirao_scripts/`.
 
 ## 1. Resumo executivo
 

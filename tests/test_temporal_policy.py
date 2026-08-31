@@ -1,6 +1,6 @@
 import pytest
 
-from src.temporal_policy import TemporalPolicy, assert_unique_teams
+from brasileirao_predictor.temporal_policy import TemporalPolicy, assert_unique_teams
 
 
 def test_groups_equal_utc_kickoffs_and_fingerprints_policy():

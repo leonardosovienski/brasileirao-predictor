@@ -41,7 +41,7 @@ calculado COM os resultados da Copa dentro (lookahead). Isso inflou
 artificialmente a aparência de skill. Este relatório refaz tudo **walk-forward**:
 
 - Elo reconstruído jogo a jogo na ordem cronológica; cada previsão usa só o
-  rating **pré-jogo** (idêntico ao `src.backtest`, sem vazamento).
+  rating **pré-jogo** (idêntico ao `brasileirao_predictor.backtest`, sem vazamento).
 - Parâmetros de gol (a,b,α,ρ) **frozen**, calibrados só com jogos ANTES da Copa.
 - 44 jogos da Copa 2026 avaliados; 35 com odds para comparar contra o mercado.
 
@@ -213,6 +213,6 @@ A infraestrutura walk-forward é o ativo. Próximos testes, por ordem de valor:
    um edge real for provado.
 
 ## Reprodutibilidade
-`python scripts/eval_walkforward.py` (walk-forward + modelo vs mercado +
-discordância). `python scripts/calib_ou.py` (calibração + O/U). Diagnóstico do
-viés: `python scripts/diag_zebra.py`.
+`python -m brasileirao_scripts.eval_walkforward` (walk-forward + modelo vs mercado +
+discordância). `python -m brasileirao_scripts.calib_ou` (calibração + O/U). Diagnóstico do
+viés: `python -m brasileirao_scripts.diag_zebra`.

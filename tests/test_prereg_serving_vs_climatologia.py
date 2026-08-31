@@ -15,7 +15,7 @@ from datetime import UTC, datetime
 import pytest
 from predictor_core.contracts.registry import TrialRegistry, validate_trials
 
-from scripts import prereg_serving_vs_climatologia as prereg
+from brasileirao_scripts import prereg_serving_vs_climatologia as prereg
 
 # ---------- o script não pode olhar dados ----------
 

@@ -64,7 +64,7 @@ Para conferir o estado atual sem escrever no banco:
 ```powershell
 Get-Item data/matches.db | Select-Object FullName,Length,LastWriteTime
 Get-FileHash data/matches.db -Algorithm SHA256
-uv run python scripts/inventario_dados.py
+uv run python -m brasileirao_scripts.inventario_dados
 ```
 
 Ao abrir SQLite manualmente, use URI read-only:
@@ -77,8 +77,8 @@ Não copie somente `matches.db` enquanto houver escrita ativa: os arquivos WAL e
 SHM podem fazer parte do estado consistente. Use o mecanismo de backup:
 
 ```powershell
-uv run python -m src.backup_restore create --output C:\backups\brasileirao-AAAA-MM-DD
-uv run python -m src.backup_restore verify --backup C:\backups\brasileirao-AAAA-MM-DD
+uv run python -m brasileirao_predictor.backup_restore create --output C:\backups\brasileirao-AAAA-MM-DD
+uv run python -m brasileirao_predictor.backup_restore verify --backup C:\backups\brasileirao-AAAA-MM-DD
 ```
 
 ## Coletor A1
@@ -96,16 +96,16 @@ Fluxo operacional:
 
 ```powershell
 # descoberta semanal de fixtures
-uv run python scripts/collect_odds_a1.py --discover
+uv run python -m brasileirao_scripts.collect_odds_a1 --discover
 
 # coleta shadow; a chave é lida somente do ambiente
-uv run python scripts/collect_odds_a1.py --collect
+uv run python -m brasileirao_scripts.collect_odds_a1 --collect
 
 # consolidação diária
-uv run python scripts/collector_daily_metrics.py
+uv run python -m brasileirao_scripts.collector_daily_metrics
 
 # avaliação do gate
-uv run python scripts/evaluate_gate_a1.py
+uv run python -m brasileirao_scripts.evaluate_gate_a1
 
 # contrato da cadeia; na operação, o coletor também verifica antes de selar o dia
 uv run pytest tests/test_collector_contract.py -q
@@ -155,7 +155,7 @@ uv run ruff format --check src scripts tests
 uv run ruff check src scripts tests
 uv run pyright
 uv run pytest -q
-uv run python scripts/ci_check.py
+uv run python -m brasileirao_scripts.ci_check
 
 # trials: quantidade, nomes únicos e presença de status
 uv run python -c "import json; x=json.load(open('data/trials.json',encoding='utf-8')); print('total=',len(x),'unicos=',len({t['name'] for t in x}),'sem_status=',sum(not t.get('status') for t in x))"

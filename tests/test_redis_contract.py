@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from src import kernel_daemon
+from brasileirao_predictor import kernel_daemon
 
 
 def test_shared_schema_is_versioned_and_correlated() -> None:

@@ -9,14 +9,14 @@ modelo, mercado e thresholds congelados em `data/trials.json`; a meta é 100
 `MATURED_ELIGIBLE`, sem capital.
 
 Antes de capturar, a integração de odds deve fornecer um bookmaker real e
-auditável em `BRASILEIRAO_BOOKMAKER`. Sem ele, `scripts/sombra.py --capture`
+auditável em `BRASILEIRAO_BOOKMAKER`. Sem ele, `brasileirao_scripts/sombra.py --capture`
 falha fechado e não grava pick elegível. `sofascore` é a fonte, não um bookmaker.
 
 Após cada ingestão, execute captura. O settle só promove um pick com resultado
 oficial e a última snapshot válida anterior ao kickoff, do mercado/seleção do
 pick. Ausência de closing mantém o pick pendente. Use
-`python scripts/monitor_shadow_cohort.py` para a visão somente leitura e
-`python scripts/evaluate_shadow_cohort.py` para o gate estrito.
+`python -m brasileirao_scripts.monitor_shadow_cohort` para a visão somente leitura e
+`python -m brasileirao_scripts.evaluate_shadow_cohort` para o gate estrito.
 
 Os jobs canônicos `brasileirao-sombra-manha` e `brasileirao-sombra-noite`
 também registram um smoke da fonte antes da rotina de sombra e emitem o

@@ -1,4 +1,4 @@
-from src.research.residual_dataset import materialize_total_market_records
+from brasileirao_predictor.research.residual_dataset import materialize_total_market_records
 
 
 def _quote(book, selection, odd, captured="2026-08-09T10:00:00+00:00"):

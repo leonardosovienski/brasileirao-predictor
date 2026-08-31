@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from src import kernel_daemon
+from brasileirao_predictor import kernel_daemon
 
 
 def test_grid_is_normalized_non_negative_and_dixon_coles_changes_low_scores() -> None:
@@ -83,8 +83,8 @@ def test_load_params_rejects_stale_versioned_cache(monkeypatch) -> None:
     row = (0.2, 1.1, 0.3, -0.1, 10, "old-hash", "2026-01-01T00:00:00+00:00")
     monkeypatch.setattr(kernel_daemon._db, "connect", lambda path, read_only: connection)
     monkeypatch.setattr(kernel_daemon._db, "load_params", lambda conn: row)
-    monkeypatch.setattr("src.cron_update_models.cache_is_current", lambda cfg, conn, params: False)
-    monkeypatch.setattr("src.ingest.load_config", lambda: {})
+    monkeypatch.setattr("brasileirao_predictor.cron_update_models.cache_is_current", lambda cfg, conn, params: False)
+    monkeypatch.setattr("brasileirao_predictor.ingest.load_config", lambda: {})
 
     with pytest.raises(RuntimeError, match="cache desatualizado"):
         kernel_daemon._load_params("sports.db")

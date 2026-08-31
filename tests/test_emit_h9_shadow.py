@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from scripts import emit_h9_shadow as job
-from src import db, model
+from brasileirao_scripts import emit_h9_shadow as job
+from brasileirao_predictor import db, model
 
 KICKOFF = datetime(2027, 3, 1, 19, 0, tzinfo=UTC)
 ELO_HOME, ELO_AWAY, HOME_ADV = 1550, 1450, 100.0

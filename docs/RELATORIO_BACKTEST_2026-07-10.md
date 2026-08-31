@@ -98,7 +98,7 @@ abertura-fantasma?** É exatamente o que a H3 mede.
 
 `h3-ou25-sombra-2026` no TrialRegistry: mesmo funil pré-registrado (SEM mudar
 gatilho — otimizar sub-janela seria tentativa N+1), captura de odds correntes
-pré-apito via `scripts/sombra.py --capture`, settle pós-jogo com CLV vs
+pré-apito via `brasileirao_scripts/sombra.py --capture`, settle pós-jogo com CLV vs
 fechamento. **Decisão com n ≥ 100 liquidados**: CLV IC95 > 0 e ROI aceitável
 → nova leitura de H1 com N ampliado; senão, abertura-fantasma documentada e
 linha encerrada. Primeiro pick já capturado (Botafogo × Santos 16/07, under
@@ -136,7 +136,7 @@ pré-registrado das sombras.
 
 ### Falsificação executada — backtest refeito a preço de FECHAMENTO
 
-`scripts/backtest_close.py` (mesmo walk-forward, mesmos blocos, mesmo
+`brasileirao_scripts/backtest_close.py` (mesmo walk-forward, mesmos blocos, mesmo
 funil; única mudança: preço pactuado = fechamento, o único com evidência
 de ser real). Resultado:
 
@@ -170,20 +170,20 @@ em **21/07** (Atlético-MG×Bahia; 23/07 concentra 5 jogos). 228 fixtures já
 estão no banco. **Por força do NO-GO, a operação é 100% MODO SOMBRA** (zero
 dinheiro real) até a reavaliação:
 
-1. **Pré-rodada (D-1)**: `python -m src.ingest_sofascore` (atualiza odds das
-   fixtures) → `python scripts/sync_matches_from_sofascore.py` →
-   `python -m src.cron_update_models`.
-2. **Conferência de preço**: `python scripts/odds_shop.py --from-file <snap>`
+1. **Pré-rodada (D-1)**: `python -m brasileirao_predictor.ingest_sofascore` (atualiza odds das
+   fixtures) → `python -m brasileirao_scripts.sync_matches_from_sofascore` →
+   `python -m brasileirao_predictor.cron_update_models`.
+2. **Conferência de preço**: `python -m brasileirao_scripts.odds_shop --from-file <snap>`
    (validado hoje com snapshot de teste) ou online com `ODDS_API_KEY`
    (sport key `soccer_brazil_campeonato` — confirmar no /v4/sports na 1ª
    chamada real).
-3. **Previsão + registro obrigatório**: `python scripts/prever.py HOME AWAY
+3. **Previsão + registro obrigatório**: `python -m brasileirao_scripts.prever HOME AWAY
    --mando` (log append-only carimba antes do apito).
 4. **Registro sombra**: apostas OU2.5 que passarem no funil entram no
    `bet_log` com stake informativo (trava `BETLOG_MAX_INFO_STAKE`), nunca
    dinheiro.
-5. **Pós-jogo**: `python -m src.bet_log settle HOME AWAY H A --ht H-A` +
-   `python -m src.settle` (aferição do palpite).
+5. **Pós-jogo**: `python -m brasileirao_predictor.bet_log settle HOME AWAY H A --ht H-A` +
+   `python -m brasileirao_predictor.settle` (aferição do palpite).
 6. **A cada rodada**: reexecutar 1 e acumular população out-of-sample; ao
    fim de cada mês, reavaliar H1 com o N ampliado.
 

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from src.data.bookmaker_stability import append_smoke, stability_report, summarize_smoke
+from brasileirao_predictor.data.bookmaker_stability import append_smoke, stability_report, summarize_smoke
 
 
 def _row(key, executed, coverage=10, seen=10, lag=10):

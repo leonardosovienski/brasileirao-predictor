@@ -1,6 +1,6 @@
 import sqlite3
 
-from src.data.missingness_audit import xg_coverage
+from brasileirao_predictor.data.missingness_audit import xg_coverage
 
 
 def test_xg_coverage_separates_paired_observation_from_legacy_fallback():

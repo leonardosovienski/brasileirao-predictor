@@ -19,8 +19,8 @@
     "notes": "H1: mesma hipótese da Copa (única com CLV comprovado lá: +16,11% na população open). GO exige PSR≥0.80, IC_lower>0, DSR≥0.95 no walk-forward 2024-2025. | RESULTADO 2026-07-10: n=455, ROI +7.9%, CLV open +19.55%, PSR 0.94, IC95 [-0.0218,+0.1719], DSR 0.94 -> NO-GO (IC cruza zero; DSR na trave). Documentado no HANDOFF.",
     "status": "refutada",
     "test_period": [
-      "2024-01-01",
-      "2025-12-31"
+      "2024-01-01T00:00:00Z",
+      "2025-12-31T23:59:59Z"
     ]
   },
   {
@@ -44,8 +44,8 @@
     "notes": "H2: picks de período 1T com prob≥60% — INFORMATIVA (sem odds de período na base → sem ROI/CLV). Valida se acerto real ≥ 60%. | RESULTADO 2026-07-10: n=1493, acerto real 79.0% vs confianca media 79.8% -> VALIDADA (informativa; sem odds de periodo, sharpe nao se aplica).",
     "status": "informativa",
     "test_period": [
-      "2024-01-01",
-      "2025-12-31"
+      "2024-01-01T00:00:00Z",
+      "2025-12-31T23:59:59Z"
     ]
   },
   {
@@ -65,8 +65,8 @@
     "notes": "H3: validação AO VIVO do CLV +19,55% do walk-forward (NO-GO por IC do pnl). Estratificação 2026-07-11: sinal concentrado em UNDER (414/455; CLV +21,5%) e crescente com edge (10-15%: CLV +34,9%, beat 99%); estável nos 4 blocos. Pergunta da H3: o preço de abertura do Sofascore é capturável na vida real? DECISÃO quando n>=100 picks liquidados: CLV médio > 0 com IC95 (bootstrap cluster por jogo) fora do zero E ROI IC_lower > -2% mantém a linha viva -> nova leitura de H1 com N ampliado; caso contrário, abertura-fantasma documentada e linha encerrada. Relatório estratificado (seleção, faixa de edge) meramente observacional — mudar o gatilho é tentativa N+1.",
     "status": "substituida",
     "test_period": [
-      "2026-07-16",
-      "2026-09-30"
+      "2026-07-16T00:00:00Z",
+      "2026-09-30T23:59:59Z"
     ]
   },
   {
@@ -117,8 +117,8 @@
     "notes": "H5: o ensemble validado em PREVISÃO no walk-forward 2025+2026 (docs/SIMULACAO_2025_2026.md: dBrier 1X2 −0,0073, IC95 [−0,0122, −0,0019], OU2.5 preservado) sustenta o funil OU2.5 em CLV/ROI ao vivo? Hiperparâmetros congelados pela validação 2024-H2 ANTES de ver 2025/2026 — mudar blend/w_xg/half_life/ridge é tentativa N+1. DECISÃO com n≥100 picks liquidados (mesmo gate da H3): CLV médio IC95 (bootstrap cluster por jogo, 1000 iter, seed 13) > 0 E ROI IC_lower > −2% mantém a linha viva; senão, linha encerrada. Comparação pareada vs H3 nos jogos comuns é OBSERVACIONAL (mesma regra da estratificação da H3: não muda gatilho).",
     "status": "substituida",
     "test_period": [
-      "2026-07-17",
-      "2026-09-30"
+      "2026-07-17T00:00:00Z",
+      "2026-09-30T23:59:59Z"
     ]
   },
   {
@@ -189,8 +189,8 @@
     "notes": "RESULTADO EXPLORATORIO, NAO CONFIRMATORIO — leia isto antes de citar o numero. Walk-forward de 6 blocos sobre 2023-2026 (n=567 OU2.5): PSR 0.9935, IC95 do pnl medio [+0.0264, +0.2032], ROI +11.48%, CLV open +20.60%. Os tres cortes pre-registrados da H1 sao atingidos mesmo apos a deflacao. PROVENIENCIA QUE O DSR NAO ENXERGA: em 2026-07-25 o baseline SEM 2023 foi executado e observado primeiro (n=461, PSR 0.9578, IC_lower -0.0105, NO-GO); so depois a temporada 2023 (season_id 48982) foi ingerida e o mesmo funil reexecutado, virando o IC_lower para positivo. O DSR desconta pelo NUMERO de tentativas registradas, nunca pelo fato de eu ter escolhido qual registrar DEPOIS de ver o resultado — logo este numero nao tem a forca de um pre-registro. Atenuante verificavel: a ingestao de 2023 foi pre-autorizada no HANDOFF em 2026-07-10, no dia do NO-GO original, antes de qualquer dado de 2023 existir no banco; foi UM movimento pre-especificado, nao varredura de variantes ate uma passar. LIMITE ADICIONAL: e' backtest contra odds AGREGADAS do Sofascore, nao contra book real — nao demonstra capturabilidade. Precedente proprio: no wc-predictor o CLV do funil validado era +16.9% e o P&L real foi -5.84u. A conversao deste achado em evidencia confirmatoria exige replicacao em temporada nunca examinada (2021/2022 estao disponiveis no Sofascore e nunca foram ingeridas), com criterio congelado antes. NAO autoriza capital: nenhum gate deste ecossistema o faz.",
     "status": "exploratoria",
     "test_period": [
-      "2023-01-01",
-      "2026-07-25"
+      "2023-01-01T00:00:00Z",
+      "2026-07-25T23:59:59Z"
     ]
   },
   {
@@ -214,8 +214,8 @@
     "notes": "PRE-REGISTRO em 2026-07-25, ANTES de qualquer pick prospectivo maturar (os 4 picks H3 e 2 H5 capturados hoje tem apito em 26/07 e 29/07). CRITERIO: IC95_lower do CLV medio > 0 com n >= 50 picks liquidados; n < 50 = INCONCLUSIVO_AMOSTRA_INSUFICIENTE, nunca NO-GO. MOTIVO DA REGUA: o P&L por aposta tem desvio 1.099 contra 0.191 do CLV (5.8x). Reamostrando a populacao do H1 (n=567), IC_lower>0 pelo P&L passa em 23% das amostras com N=100 e 26% com N=47 — o gate de 100 picks e' subdimensionado para este efeito. Pelo CLV o mesmo criterio passa em 100% ja com N=47. Isto NAO baixa barra: troca a regua por uma mais precisa. LIMITE DECLARADO ANTES DO RESULTADO: CLV nao e' lucro. Passar aqui prova que o pick pegou preco melhor que o fechamento do Pinnacle, NAO que a estrategia da dinheiro; o wc-predictor teve CLV +16.9% no funil validado e P&L real -5.84u. O poder de 100% acima foi calculado sobre o CLV HISTORICO contra a abertura do agregado Sofascore, benchmark MAIS MOLE que o fechamento do Pinnacle — o poder real aqui deve ser menor, e o n_minimo de 50 pode se revelar insuficiente. NAO SUBSTITUI o gate de 100 picks da h3-ou25-sombra-pinnacle-2026, que permanece o criterio economico. Este e' indicador antecedente. NAO AUTORIZA CAPITAL: nenhum gate deste ecossistema o faz.",
     "status": "inconclusiva",
     "test_period": [
-      "2026-07-26",
-      "2027-12-31"
+      "2026-07-26T00:00:00Z",
+      "2027-12-31T23:59:59Z"
     ],
     "metric": "clv"
   },
@@ -241,8 +241,8 @@
     "notes": "OBSERVED BEFORE REGISTRATION on 2026-08-09; exploratory evidence only. n=76, ROI=0.099342, PSR=0.786630, ROI_CI95=[-0.14703947368421053, 0.3538961038961039]. The 2026 outcomes were not used to fit model parameters, but this record cannot become confirmatory retroactively. Prices are Sofascore postgame closing approximations, not proven executable quotes.",
     "status": "exploratoria",
     "test_period": [
-      "2026-01-01",
-      "2026-08-09"
+      "2026-01-01T00:00:00Z",
+      "2026-08-09T23:59:59Z"
     ],
     "metric": "psr"
   },
@@ -306,8 +306,8 @@
     "notes": "PROSPECTIVE registration before the first H9 decision. Strict H8 replication with named executable H-1.5 bookmaker quote and same-book closing CLV. API-Football lineups are optional and cannot alter this frozen trial. Any model, source, edge, horizon or selection change creates a new registered attempt. Shadow only; no capital.",
     "status": "inconclusiva",
     "test_period": [
-      "2026-08-09",
-      "2027-12-31"
+      "2026-08-09T00:00:00Z",
+      "2027-12-31T23:59:59Z"
     ],
     "metric": "psr"
   },
@@ -338,8 +338,8 @@
     "notes": "RESEARCH-01A: reajustar o Dixon-Coles a cada ~10 jogos (bloco de rodada) vs. a cadência vigente de 100 jogos. Uma variável só; guarda de bloco de kickoff ativa nos DOIS braços. RESULTADO (2026-08-21): n=1318, RPS control=0.216870 treatment=0.215106, ganho pareado=0.001764, IC95=[-0.001650, 0.004750] via bootstrap de bloco móvel (block_length=21, n_boot=10000, seed=42). IC95 do ganho de RPS cruza zero — recalibrar por rodada é indistinguível de sorte. NÃO AUTORIZA CAPITAL — hipótese de qualidade de modelo (RPS), não de mercado. Relatório: research_01a_refit_cadence_2026-08-21.json",
     "status": "refutada",
     "test_period": [
-      "2021-01-01",
-      "2024-12-31"
+      "2021-01-01T00:00:00Z",
+      "2024-12-31T23:59:59Z"
     ],
     "metric": "rps"
   },
@@ -367,7 +367,7 @@
     "sharpe": null,
     "notes": "REGISTRO POSTERIOR AO RESULTADO, portanto não é pré-registro nem confirmação. Reexecuta exatamente 10 vs 100 no mesmo painel já usado por H11, depois de correções no algoritmo. IC95 nominal favorável e sensibilidade Bonferroni para duas leituras também favorável, mas isso não recupera independência: código e amostra já foram vistos. Serve somente para gerar H15 prospectiva. Não autoriza mudança de serving nem capital.",
     "status": "inconclusiva",
-    "test_period": ["2021-01-01", "2024-12-31"],
+    "test_period": ["2021-01-01T00:00:00Z", "2024-12-31T23:59:59Z"],
     "metric": "rps"
   },
   {
@@ -397,7 +397,7 @@
     "sharpe": null,
     "notes": "PRÉ-REGISTRO de desenho, sucessor honesto de H11/H11-v2. As duas leituras históricas da mesma família são declaradas e não contam como confirmação. A coorte ainda NÃO começou: só inicia após persistência append-only pré-kickoff dos dois braços com fingerprint do código. Avaliação única em n>=900; nenhuma leitura intermediária. Não autoriza capital.",
     "status": "pre-registrada",
-    "test_period": ["2026-08-27", null],
+    "test_period": ["2026-08-27T00:00:00Z", null],
     "metric": "rps"
   },
   {
@@ -429,8 +429,8 @@
     "notes": "RESEARCH-XG: ensemble de xG ligado vs. desligado na pilha de serving. Uma variável só; os dois estados forçados no código, não lidos do config.yaml. RESULTADO (2026-08-22): n=1318, RPS com_ensemble=0.217749 sem_ensemble=0.213339, ganho pareado=0.004410, IC95=[0.001436, 0.007741] via bootstrap de bloco móvel (block_length=21, n_boot=10000, seed=42). IC95 do ganho de RPS estritamente positivo e nenhum guardrail materialmente pior — desligar o ensemble de xG melhora a previsão. PROVENIÊNCIA: não é pré-registro cego — o efeito foi observado antes em duas corridas não pareadas do painel (2026-08-22); este experimento pôs IC95 na MESMA amostra. NÃO AUTORIZA CAPITAL — hipótese de qualidade de modelo (RPS), não de mercado. Relatório: research_xg_ensemble_2026-08-22.json",
     "status": "comprovada",
     "test_period": [
-      "2021-01-01",
-      "2024-12-31"
+      "2021-01-01T00:00:00Z",
+      "2024-12-31T23:59:59Z"
     ],
     "metric": "rps"
   },
@@ -468,7 +468,7 @@
     "notes": "SUBSTITUÍDA em 2026-08-26 antes da avaliação de n>=900: a auditoria encontrou climatologia calculada com os resultados da própria coorte, likelihood NB+DC sem o normalizador servido e decay Elo sem avanço terminal ao kickoff. A hipótese original não pode misturar algoritmos nem baseline. Nenhum resultado H13 foi calculado; a sucessora corrigida é H14.",
     "status": "substituída",
     "test_period": [
-      "2026-08-22",
+      "2026-08-22T00:00:00Z",
       null
     ],
     "metric": "rps"
@@ -500,7 +500,7 @@
     "sharpe": null,
     "notes": "PRE-SPECIFIED before first canonical run. Historical SofaScore aggregate prices have unknown executability. RESULT 2026-08-24: NO_GO_CURRENT_RESIDUAL. Development n=940 and validation 2024 n=378/380. Market beat serving on RPS/Brier/log loss; draw ROI was non-monotonic in both periods; 255/1000 stratified null permutations were monotonic in 2024; power minimums were not met. 2025 and 2026 were not touched. The current residual is closed until a new mechanism or PIT feature exists.",
     "status": "refutada",
-    "test_period": ["2021-01-01", "2024-12-31"],
+    "test_period": ["2021-01-01T00:00:00Z", "2024-12-31T23:59:59Z"],
     "metric": "rps"
   },
   {
@@ -524,7 +524,7 @@
     "sharpe": null,
     "notes": "RESULTADO 2026-08-24: NO_GO_STRUCTURAL no desenvolvimento 2021-2023, n=940 após burn-in. OU2.5 std=0.026911810, variância=0.000724246 e coverage=808/940 (85.96%); BTTS std=0.012855485, variância=0.000165263 e coverage=809/940 (86.06%). Como BTTS ficou abaixo do threshold congelado de 0.02, o runner encerrou antes da validação: validation_2024_loaded=false; 2024, 2025 e 2026 não foram consumidos. O protocolo completo, as permutações e a pergunta bônus H1 não foram executados. Capital permanece bloqueado.",
     "status": "refutada",
-    "test_period": ["2021-01-01", "2023-12-31"],
+    "test_period": ["2021-01-01T00:00:00Z", "2023-12-31T23:59:59Z"],
     "metric": "roi"
   },
   {
@@ -662,7 +662,7 @@
     "sharpe": null,
     "notes": "RESULTADO 2026-08-24: ARCHIVE_OU25_CURRENT_RESIDUAL, somente dev 2021-2023, n=808 com odds completas; validation_2024_loaded=false. Nenhum lado teve ROI monotônico sob Shin ou power. Taxa nula de monotonicidade: Shin over=10.0%, under=21.3%; power over=15.1%, under=21.4%. Todas as faixas ficaram sem poder para ROI alvo de 5%; MDE aproximado com n=380 e odd 1.90 foi 13.67%. A célula Shin >=10pp no over teve ROI +116.7%, mas n=3 e requisito de poder 11.251, portanto é ruído extremo e não sinal. Não consumir 2024 para esta formulação; reabertura exige mecanismo novo. Capital bloqueado.",
     "status": "refutada",
-    "test_period": ["2021-01-01", "2023-12-31"],
+    "test_period": ["2021-01-01T00:00:00Z", "2023-12-31T23:59:59Z"],
     "metric": "roi"
   },
   {
@@ -681,7 +681,7 @@
     "sharpe": null,
     "notes": "OBSERVAÇÃO, não hipótese e não pré-registro confirmatório. O excesso de erro ocorreu como mandante e visitante, favorecendo força mal estimada em vez de mando heterogêneo. Não autoriza reabrir recência já refutada; eventual mecanismo futuro exige informação PIT nova e protocolo próprio.",
     "status": "informativa",
-    "test_period": ["2026-01-01", "2026-08-24"],
+    "test_period": ["2026-01-01T00:00:00Z", "2026-08-24T23:59:59Z"],
     "metric": "coverage"
   },
   {
@@ -743,7 +743,7 @@
     "sharpe": null,
     "notes": "PRÉ-REGISTRO de desenho posterior às correções matemáticas. A coorte ainda NÃO começou: só inicia após persistência append-only pré-kickoff dos dois braços com fingerprint do código. Avaliação única em n>=900. GO científico exige IC95 do delta RPS inteiro abaixo de zero, guardrails e regra familiar H14/H15. Não autoriza capital nem comparação econômica.",
     "status": "pre-registrada",
-    "test_period": ["2026-08-27", null],
+    "test_period": ["2026-08-27T00:00:00Z", null],
     "metric": "rps"
   }
 ]

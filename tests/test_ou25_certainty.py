@@ -1,4 +1,4 @@
-from src.research.ou25_nested_replay import _wilson_lower
+from brasileirao_predictor.research.ou25_nested_replay import _wilson_lower
 
 
 def test_wilson_lower_is_conservative_and_tightens_with_sample():

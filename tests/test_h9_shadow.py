@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from src.research.h9_shadow import emit, settle
+from brasileirao_predictor.research.h9_shadow import emit, settle
 
 
 def prediction():

@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def load_reporter():
-    spec = importlib.util.spec_from_file_location("shadow_report_test", ROOT / "scripts" / "report_shadow_mode.py")
+    spec = importlib.util.spec_from_file_location("shadow_report_test", ROOT / "brasileirao_scripts" / "report_shadow_mode.py")
     assert spec and spec.loader
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

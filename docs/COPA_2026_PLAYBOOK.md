@@ -10,17 +10,17 @@
 ## 1. Antes de cada rodada (rede limpa, máquina do Leo)
 
 ```powershell
-python -m src.ingest                   # resultados/fixtures martj42
-python -m src.ingest_sofascore        # odds (abertura/fechamento/snapshots) + stats
-python -m src.cron_update_models      # recalcula Elo/params e materializa o cache
-python scripts/ci_check.py --fast     # barreiras estáticas (pesquisa ro, lookahead)
-python -m src.predict --fixtures 8    # previsões da rodada
+python -m brasileirao_predictor.ingest                   # resultados/fixtures martj42
+python -m brasileirao_predictor.ingest_sofascore        # odds (abertura/fechamento/snapshots) + stats
+python -m brasileirao_predictor.cron_update_models      # recalcula Elo/params e materializa o cache
+python -m brasileirao_scripts.ci_check --fast     # barreiras estáticas (pesquisa ro, lookahead)
+python -m brasileirao_predictor.predict --fixtures 8    # previsões da rodada
 ```
 
 Checks de sanidade a cada coleta:
 - O `cron_update_models` NÃO pode emitir `RuntimeWarning` de convergência/bound
   (alarme novo do MLE). Se emitir, algo mudou nos dados — investigar antes de usar.
-- `python -m src.status` — conferir contagens de odds/snapshots crescendo.
+- `python -m brasileirao_predictor.status` — conferir contagens de odds/snapshots crescendo.
 - Validação da abertura: os snapshots `pre_match=1` acumulados pelo cron são a
   única régua que valida `initialFractionalValue` como abertura real (hoje ~26
   eventos — fraco). Guardar; a revalidação é tarefa do post-mortem.
@@ -65,7 +65,7 @@ Métricas, no conjunto COMPLETO dos 104 jogos da Copa (sem exclusões):
    a comparação primária. Expectativa honesta declarada hoje: o mercado vence
    (walk-forward histórico: ~0.57 vs ~0.49).
 2. **CLV** da população `bet_at='open'` com IC por **cluster de jogo**
-   (`python -m src.bootstrap`) — nunca o IC i.i.d.
+   (`python -m brasileirao_predictor.bootstrap`) — nunca o IC i.i.d.
 3. **P&L** do `live_decisions.csv` (se houver apostas reais) — reportado com
    n, stake total e IC; sem recorte por mercado a posteriori.
 4. **Calibração** por faixa de probabilidade (a tabela que o backtest já

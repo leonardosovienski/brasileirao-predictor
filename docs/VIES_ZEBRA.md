@@ -111,7 +111,7 @@ que o fix certo é **de-comprimir o Elo** (prior FIFA na MLE), não cranguear `b
 ## Demonstração empírica (de "mecanismo plausível" a "provado")
 
 Um peer-review apontou, com razão, que o acima era mecanismo plausível, não
-demonstrado. `scripts/prova_mecanismo.py` fecha a lacuna (walk-forward, 51 jogos
+demonstrado. `brasileirao_scripts/prova_mecanismo.py` fecha a lacuna (walk-forward, 51 jogos
 da Copa com odds, 153 seleções):
 
 **1. P_modelo − P_mercado(Shin) por papel:**
@@ -133,7 +133,7 @@ odds ≥ 3.0**. O "só azarão" é o histograma, não narrativa.
 > mercado no favorito). "Teorema"/"nunca" era overclaim.
 
 ## Como reproduzir
-`python scripts/diag_zebra.py` (cache atual + jogos disputados da Copa 2026). É
+`python -m brasileirao_scripts.diag_zebra` (cache atual + jogos disputados da Copa 2026). É
 medida de **tendência do output**, não backtest sem-lookahead — suficiente para
 expor o viés e dimensioná-lo, insuficiente para calibrar a correção (que precisa
 de validação out-of-sample por CLV).

@@ -10,10 +10,10 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator
 
-from scripts.collect_odds_a1 import capture_complete
-from scripts.collect_odds_a1 import main as collector_main
-from scripts.evaluate_gate_a1 import evaluate
-from src.collector_a1 import (
+from brasileirao_scripts.collect_odds_a1 import capture_complete
+from brasileirao_scripts.collect_odds_a1 import main as collector_main
+from brasileirao_scripts.evaluate_gate_a1 import evaluate
+from brasileirao_predictor.collector_a1 import (
     OddsPapiClient,
     QuotaGuard,
     SnapshotStore,
@@ -275,13 +275,15 @@ def test_17_full_mode_failure_restarts_clock(tmp_path: Path) -> None:
     result = evaluate(tmp_path)
     assert result["verdict"] == "FAIL_RESTART_CLOCK"
     assert result["restart_clock_required"] is True
+    assert result["criteria"]["oddspapi_key_rotated_and_attested"] is False
+    assert result["external_evidence"]["key_rotation_attestation_present"] is False
 
 
 def test_cli_reports_only_sanitized_runtime_detail(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
     monkeypatch.setattr("sys.argv", ["collect_odds_a1.py", "--discover"])
-    monkeypatch.setattr("scripts.collect_odds_a1.OddsPapiClient", lambda: (_ for _ in ()).throw(RuntimeError("safe")))
+    monkeypatch.setattr("brasileirao_scripts.collect_odds_a1.OddsPapiClient", lambda: (_ for _ in ()).throw(RuntimeError("safe")))
     assert collector_main() == 1
     assert json.loads(capsys.readouterr().err)["safe_detail"] == "safe"
 
@@ -291,7 +293,7 @@ def test_cli_hides_arbitrary_exception_text(
 ) -> None:
     monkeypatch.setattr("sys.argv", ["collect_odds_a1.py", "--discover"])
     monkeypatch.setattr(
-        "scripts.collect_odds_a1.OddsPapiClient",
+        "brasileirao_scripts.collect_odds_a1.OddsPapiClient",
         lambda: (_ for _ in ()).throw(ValueError("must-not-leak")),
     )
     assert collector_main() == 1

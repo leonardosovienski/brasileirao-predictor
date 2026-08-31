@@ -181,12 +181,12 @@ entra no veredito. Toda estratificação reportada carrega `n` (Regra 11).
 
 ## P1 — memorando de decisão: custo do walk-forward
 
-**Nada foi alterado em `src/dixon_coles.py`.** Este bloco é a apresentação das
+**Nada foi alterado em `brasileirao_predictor/dixon_coles.py`.** Este bloco é a apresentação das
 opções que o operador pediu antes de autorizar.
 
 ### O gargalo, lido no código
 
-`fit_dixon_coles_parameters` (`src/dixon_coles.py:161`) chama
+`fit_dixon_coles_parameters` (`brasileirao_predictor/dixon_coles.py:161`) chama
 `minimize(..., method="L-BFGS-B")` **sem `jac`**. Duas multiplicações de custo:
 
 1. **Por avaliação do objetivo**, um laço Python sobre os jogos que constrói
@@ -212,7 +212,7 @@ na faixa do futebol — erro relativo máximo **1,2e-15**, o piso do float64.
 
 ### Medições (dados sintéticos, 20 times; nada do banco real)
 
-Reprodutíveis com `python scripts/p1_cost_probe.py` — a sonda não abre o banco.
+Reprodutíveis com `python -m brasileirao_scripts.p1_cost_probe` — a sonda não abre o banco.
 Os tempos variam com a carga da máquina; a tabela abaixo é de uma corrida sob
 scipy 1.17.1. Numa corrida sob scipy 1.18.0 o fit completo deu 85x em vez de
 95x, com os mesmos erros relativos.
@@ -346,17 +346,17 @@ Estado do repositório na mesma sessão, com as dependências instaladas:
   com o número registrado no `HANDOFF.md`.
 * `ruff check` e `ruff format --check` sobre o repo inteiro — limpos (218
   arquivos).
-* `scripts/ci_check.py --fast` — **todas as barreiras verdes**. As barreiras
+* `brasileirao_scripts/ci_check.py --fast` — **todas as barreiras verdes**. As barreiras
   [4/5] e [5/5] (smokes do predict) se auto-pularam por ausência do banco e
   emitiram WARN, que é o comportamento correto e não conta como falha.
-* A barreira [3/5] varre `scripts/` inteiro atrás de `current_elo`/`load_elo`
+* A barreira [3/5] varre `brasileirao_scripts/` inteiro atrás de `current_elo`/`load_elo`
   — é a que pegaria um script de pesquisa novo com lookahead. Inspecionou 14
   arquivos e passou; `p1_cost_probe.py` não abre banco nenhum, então nem entra
   na varredura.
-* `pyright` reportou 75 erros pré-existentes em `src/` (ex.:
-  `src/predict.py:136`, comparação `int | str`). **Não vêm desta mudança** —
+* `pyright` reportou 75 erros pré-existentes em `brasileirao_predictor/` (ex.:
+  `brasileirao_predictor/predict.py:136`, comparação `int | str`). **Não vêm desta mudança** —
   o `pyright` está configurado com `include = ["src"]` e o diff desta branch
-  toca só `docs/` e `scripts/`. Provavelmente é uma versão de `pyright`
+  toca só `docs/` e `brasileirao_scripts/`. Provavelmente é uma versão de `pyright`
   resolvida diferente da usada quando o `HANDOFF.md` registrou "pyright
   limpo"; fica anotado como divergência a conferir, não como regressão.
 

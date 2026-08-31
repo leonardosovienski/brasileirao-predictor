@@ -2,7 +2,7 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from src.research.structural_edge import (
+from brasileirao_predictor.research.structural_edge import (
     MarketSnapshot,
     StructuralEdgePolicy,
     detect_structural_edges,

@@ -4,7 +4,7 @@ Parear a partida errada contamina odd, resultado e CLV de uma vez — por isso
 todo caminho de ambiguidade tem teste, e todos exigem falha fechada.
 """
 
-from src.data.bookmaker_odds import (
+from brasileirao_predictor.data.bookmaker_odds import (
     closing_quote,
     fold,
     load_snapshots,

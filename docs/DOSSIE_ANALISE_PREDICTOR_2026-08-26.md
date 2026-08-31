@@ -410,9 +410,9 @@ docs/experiments/MARKET_05_A1_COLLECTOR_SPEC.md
 data/trials.json
 data/research/residual_diagnostics_2026-08-24.json
 data/research/market04_0b_resolution_2026-08-24.json
-src/model.py
-src/serving_evaluator.py
-scripts/benchmark_predictor.py
+brasileirao_predictor/model.py
+brasileirao_predictor/serving_evaluator.py
+brasileirao_scripts/benchmark_predictor.py
 ```
 
 Não compartilhar `data/matches.db` sem intenção explícita: ele tem 49,5 MB,
@@ -439,7 +439,7 @@ nova. Entregue: (1) falhas de raciocínio, (2) causas alternativas priorizadas,
 - `docs/RELATORIO_SESSAO_0B_2026-08-24.md`;
 - `data/research/residual_diagnostics_2026-08-24.json`;
 - `data/research/market04_0b_resolution_2026-08-24.json`;
-- `src/model.py` e `src/serving_evaluator.py`;
+- `brasileirao_predictor/model.py` e `brasileirao_predictor/serving_evaluator.py`;
 - `data/trials.json`;
 - CI completo do commit `20c5d2c`: Python 3.13/3.14, .NET, Redis e Compose
   aprovados; suíte local com 752 testes e cobertura global de 47%.

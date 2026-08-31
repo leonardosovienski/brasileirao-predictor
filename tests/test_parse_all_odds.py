@@ -7,7 +7,7 @@ Odds em fração: '4/5' → 1 + 4/5 = 1.8; '1/1' → 2.0; '6/5' → 2.2.
 
 import pytest
 
-from src.ingest_sofascore import parse_all_odds
+from brasileirao_predictor.ingest_sofascore import parse_all_odds
 
 
 def _choice(name, frac):

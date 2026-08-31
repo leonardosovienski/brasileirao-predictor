@@ -2,7 +2,7 @@ import json
 import sqlite3
 from datetime import UTC, datetime
 
-from src.operational_readiness import assess_operational_readiness
+from brasileirao_predictor.operational_readiness import assess_operational_readiness
 
 
 def _catalogs(data):

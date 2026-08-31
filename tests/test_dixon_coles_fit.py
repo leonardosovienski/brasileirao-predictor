@@ -7,8 +7,8 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from predictor_core.contracts.points import PredictionPoint
 
-from src.dixon_coles import fit_dixon_coles_parameters
-from src.evaluator import BrasileiraoDixonColesEvaluator
+from brasileirao_predictor.dixon_coles import fit_dixon_coles_parameters
+from brasileirao_predictor.evaluator import BrasileiraoDixonColesEvaluator
 
 
 def _synth_games(n_rounds: int = 30, seed: int = 7) -> list:

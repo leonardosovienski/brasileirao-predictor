@@ -5,7 +5,7 @@ função). Funções puras, sem I/O."""
 import numpy as np
 import pytest
 
-from src.bootstrap import ci_mean
+from brasileirao_predictor.bootstrap import ci_mean
 
 
 def test_ic_contem_a_media_amostral():

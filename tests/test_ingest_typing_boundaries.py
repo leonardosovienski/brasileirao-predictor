@@ -1,7 +1,7 @@
 import pandas as pd
 
-from src.ingest import load_config, normalize
-from src.ingest_fbref import parse_player_stats
+from brasileirao_predictor.ingest import load_config, normalize
+from brasileirao_predictor.ingest_fbref import parse_player_stats
 
 
 def test_load_config_honors_explicit_runtime_path(monkeypatch, tmp_path) -> None:

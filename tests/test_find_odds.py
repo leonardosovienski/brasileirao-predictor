@@ -5,8 +5,8 @@ recebe a própria odd, qualquer que seja a orientação com que as odds foram
 armazenadas. (2ª leva de pytest — Red Team jun/2026.)
 """
 
-from src.backtest import _find_odds
-from src.predict import _canon
+from brasileirao_predictor.backtest import _find_odds
+from brasileirao_predictor.predict import _canon
 
 
 def _cand(

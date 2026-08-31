@@ -16,8 +16,8 @@ erro impõe backoff de 30 minutos. O estado local nunca armazena a chave.
 ## Preparação sem segredo
 
 ```powershell
-uv run python scripts/a1_phase0.py --init
-uv run python scripts/a1_phase0.py --verify
+uv run python -m brasileirao_scripts.a1_phase0 --init
+uv run python -m brasileirao_scripts.a1_phase0 --verify
 uv run pytest tests/test_a1_phase0.py tests/test_collector_contract.py
 ```
 
@@ -29,14 +29,24 @@ e bloqueia novas observações até revisão e nova inicialização explícita.
 Não cole a chave em chat, arquivo versionado ou comando que fique no histórico.
 Configure `ODDSPAPI_KEY` no gerenciador de segredos/ambiente do processo que
 executará o job. Confirme o tier e a cadência permitida antes de agendar.
+Depois de revogar a chave anterior e instalar uma nova, registre somente a
+atestação (nunca a chave) em `data/collector_metrics/key_rotation_attestation.json`:
+
+```json
+{"rotated": true, "rotated_at": "YYYY-MM-DDTHH:MM:SSZ", "attested_by": "responsavel"}
+```
+
+O Gate A1 falha fechado se essa evidência externa estiver ausente. O arquivo
+atesta uma ação humana no provedor; o sistema não presume rotação só porque uma
+credencial existe no ambiente.
 
 ## Execução manual inicial
 
 ```powershell
-uv run python scripts/collect_odds_a1.py --discover
-uv run python scripts/collect_odds_a1.py --collect
-uv run python scripts/a1_phase0.py --report
-uv run python scripts/evaluate_gate_a1.py
+uv run python -m brasileirao_scripts.collect_odds_a1 --discover
+uv run python -m brasileirao_scripts.collect_odds_a1 --collect
+uv run python -m brasileirao_scripts.a1_phase0 --report
+uv run python -m brasileirao_scripts.evaluate_gate_a1
 ```
 
 O primeiro smoke deve ser acompanhado manualmente. A tarefa agendada só deve
@@ -49,7 +59,7 @@ captura a cada 15 minutos e métricas diárias, falhando antes de qualquer
 alteração se a chave não existir no ambiente do usuário:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File scripts/install_collector_a1_task.ps1
+powershell -ExecutionPolicy Bypass -File brasileirao_scripts/install_collector_a1_task.ps1
 ```
 
 ## Saída para a próxima fase
@@ -60,7 +70,10 @@ closing ou resultado da coorte científica. O tamanho da coorte de CLV é
 calculado por:
 
 ```powershell
-uv run python scripts/a1_phase0.py --clv-power <desvio-piloto-log-clv> <efeito-minimo-log-clv>
+uv run python -m brasileirao_scripts.a1_phase0 --clv-power <desvio-piloto-log-clv> <efeito-minimo-log-clv>
 ```
 
 O piloto usado para estimar o desvio não pode ser reutilizado como confirmação.
+Os sete dias precisam ser consecutivos e reais, e `manual_audit.json` precisa
+atestar pelo menos 50 eventos revisados. Nem o teste automatizado nem dados
+sintéticos substituem essas duas evidências prospectivas.

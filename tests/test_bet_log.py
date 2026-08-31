@@ -5,7 +5,7 @@ import json
 
 import pytest
 
-from src.bet_log import (
+from brasileirao_predictor.bet_log import (
     add_bet,
     bank_flow,
     bank_init,

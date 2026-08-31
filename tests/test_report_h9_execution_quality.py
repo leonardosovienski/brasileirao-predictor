@@ -5,7 +5,7 @@ emit_h9_shadow.py já gravou a cada tentativa."""
 import json
 from pathlib import Path
 
-from scripts.report_h9_execution_quality import report
+from brasileirao_scripts.report_h9_execution_quality import report
 
 
 def _write(path: Path, rows: list[dict]) -> None:

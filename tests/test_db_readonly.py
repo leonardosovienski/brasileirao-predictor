@@ -5,7 +5,7 @@ import sqlite3
 
 import pytest
 
-from src import db
+from brasileirao_predictor import db
 
 
 def _seed(path) -> None:

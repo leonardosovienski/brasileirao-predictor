@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from src.backup_restore import BackupError, create_backup, restore_backup, verify_backup
+from brasileirao_predictor.backup_restore import BackupError, create_backup, restore_backup, verify_backup
 
 
 def _root(path: Path) -> Path:

@@ -1,4 +1,4 @@
-from src import display
+from brasileirao_predictor import display
 
 CFG = {
     "elo": {"home_advantage": 0},

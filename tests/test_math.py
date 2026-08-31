@@ -5,9 +5,9 @@ import math
 
 import numpy as np
 
-from src.backtest import _settle
-from src.ingest_sofascore import is_pre_match
-from src.math_utils import shin_probabilities
+from brasileirao_predictor.backtest import _settle
+from brasileirao_predictor.ingest_sofascore import is_pre_match
+from brasileirao_predictor.math_utils import shin_probabilities
 
 
 # ---------------------------------------------------------------- Shin

@@ -85,6 +85,6 @@ os mesmos dados.
 - `reports/error_signature_a02_2021_2023.json`
 - `reports/error_signature_h12_xg_on_2021_2024.json`
 - `reports/trial_draw_calibration_a10_2024.json`
-- `scripts/export_version_losses.py`
-- `scripts/compare_hypothesis_errors.py`
-- `scripts/trial_draw_calibration_a10.py`
+- `brasileirao_scripts/export_version_losses.py`
+- `brasileirao_scripts/compare_hypothesis_errors.py`
+- `brasileirao_scripts/trial_draw_calibration_a10.py`

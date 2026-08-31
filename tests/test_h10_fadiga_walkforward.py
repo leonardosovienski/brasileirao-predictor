@@ -7,9 +7,9 @@ from datetime import date, timedelta
 
 import pytest
 
-from scripts import h10_fadiga_walkforward as h10
-from src import db
-from src.ingest import load_config as _real_load_config
+from brasileirao_scripts import h10_fadiga_walkforward as h10
+from brasileirao_predictor import db
+from brasileirao_predictor.ingest import load_config as _real_load_config
 
 TEAMS = ["Alfa", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot"]
 

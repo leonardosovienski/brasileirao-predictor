@@ -15,10 +15,10 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from scripts import benchmark_predictor as bp
-from scripts import research_01a_refit_cadence as r01a
-from scripts.benchmark_predictor import _kickoff, _load_observations
-from src import db
+from brasileirao_scripts import benchmark_predictor as bp
+from brasileirao_scripts import research_01a_refit_cadence as r01a
+from brasileirao_scripts.benchmark_predictor import _kickoff, _load_observations
+from brasileirao_predictor import db
 
 TIMES = ["flamengo", "palmeiras", "gremio", "santos"]
 
@@ -103,7 +103,7 @@ def _seed_db(path, *, com_kickoff: bool) -> None:
 def test_observacoes_saem_ordenadas_pelo_relogio(tmp_path, monkeypatch) -> None:
     db = tmp_path / "m.db"
     _seed_db(db, com_kickoff=True)
-    monkeypatch.setattr("scripts.benchmark_predictor.DB", db)
+    monkeypatch.setattr("brasileirao_scripts.benchmark_predictor.DB", db)
     obs = _load_observations("")
     assert [o["kickoff"].hour for o in obs] == [16, 18, 21]
     assert all(o["has_real_kickoff"] for o in obs)
@@ -114,7 +114,7 @@ def test_sem_kickoff_marca_o_fallback(tmp_path, monkeypatch) -> None:
     operador não sabe quanta guarda de bloco foi cobrada por dado faltando."""
     db = tmp_path / "m.db"
     _seed_db(db, com_kickoff=False)
-    monkeypatch.setattr("scripts.benchmark_predictor.DB", db)
+    monkeypatch.setattr("brasileirao_scripts.benchmark_predictor.DB", db)
     obs = _load_observations("")
     assert not any(o["has_real_kickoff"] for o in obs)
     assert {o["kickoff"] for o in obs} == {datetime(2021, 4, 3, tzinfo=UTC)}

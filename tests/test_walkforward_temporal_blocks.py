@@ -1,4 +1,4 @@
-from scripts.backtest_walkforward import _aligned_blocks
+from brasileirao_scripts.backtest_walkforward import _aligned_blocks
 
 
 def test_blocks_never_split_a_calendar_date() -> None:

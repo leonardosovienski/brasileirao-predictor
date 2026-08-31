@@ -9,9 +9,9 @@ from __future__ import annotations
 
 import pytest
 
-from scripts import benchmark_predictor as bp
-from src.evaluator import BrasileiraoDixonColesEvaluator
-from src.serving_evaluator import ServingStackEvaluator
+from brasileirao_scripts import benchmark_predictor as bp
+from brasileirao_predictor.evaluator import BrasileiraoDixonColesEvaluator
+from brasileirao_predictor.serving_evaluator import ServingStackEvaluator
 
 # ---------- delta_ci95 no formato de saída (Roadmap §6) ----------
 
@@ -255,7 +255,7 @@ def _liga_sintetica(monkeypatch, rodadas: int = 90) -> None:
     import tempfile
     from datetime import UTC, datetime, timedelta
 
-    from src import db as _db
+    from brasileirao_predictor import db as _db
 
     times = ["flamengo", "palmeiras", "gremio", "santos", "corinthians", "bahia"]
     path = pathlib.Path(tempfile.mkdtemp()) / "m.db"

@@ -5,7 +5,7 @@ sintéticas que espelham o formato real (markets→choices; statistics→groups�
 lineups→players→statistics). Documentam o shape esperado da API.
 """
 
-from src.research.sofascore_probe import (
+from brasileirao_predictor.research.sofascore_probe import (
     summarize_lineups,
     summarize_odds,
     summarize_statistics,

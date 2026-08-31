@@ -1,4 +1,4 @@
-from scripts.compare_hypothesis_errors import _chronological_keys
+from brasileirao_scripts.compare_hypothesis_errors import _chronological_keys
 
 
 def test_moving_block_pairing_uses_time_not_event_id() -> None:

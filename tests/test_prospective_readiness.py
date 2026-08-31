@@ -1,4 +1,4 @@
-from scripts import prospective_readiness
+from brasileirao_scripts import prospective_readiness
 
 
 def test_readiness_fails_closed_without_credentials(monkeypatch, tmp_path):

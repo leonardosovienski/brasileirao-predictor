@@ -72,7 +72,7 @@ flag para `<3 dias`) mitiga, mas não elimina, o shift.
 ## Roteiro de execução
 
 1. ✅ Este blueprint.
-2. ✅ **PoC fadiga** (`scripts/poc_fadiga.py`) — **RESULTADO: ~0 ganho** (ver abaixo).
+2. ✅ **PoC fadiga** (`brasileirao_scripts/poc_fadiga.py`) — **RESULTADO: ~0 ganho** (ver abaixo).
 3. ⬜ Atacar **valor de elenco** com snapshots point-in-time (a parte cara,
    "arqueologia de dados") — é a única feature de sinal alto restante.
 4. ⬜ Ensemble só se 2+ features sobreviverem ao holdout — Elo como UMA feature.

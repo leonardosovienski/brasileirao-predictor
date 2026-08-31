@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from src.data.promotions import load_promotions, load_relegations
+from brasileirao_predictor.data.promotions import load_promotions, load_relegations
 
 DATASET = Path(__file__).parents[1] / "data" / "promotions_brasileirao_2018_2026.json"
 

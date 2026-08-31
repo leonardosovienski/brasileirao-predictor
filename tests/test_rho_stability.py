@@ -1,4 +1,4 @@
-from src.research.rho_stability import evaluate_rho
+from brasileirao_predictor.research.rho_stability import evaluate_rho
 
 
 def test_rho_diagnostic_blocks_without_holdout_data() -> None:

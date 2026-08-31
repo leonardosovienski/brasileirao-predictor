@@ -2,8 +2,8 @@ from types import SimpleNamespace
 
 import pytest
 
-from src import model
-from src.model import (
+from brasileirao_predictor import model
+from brasileirao_predictor.model import (
     ModelIntegrityError,
     OptimizationFailedError,
     exponential_recency_weights,

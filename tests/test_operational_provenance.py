@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def _entrypoint():
-    path = ROOT / "scripts" / "sombra_diaria.py"
+    path = ROOT / "brasileirao_scripts" / "sombra_diaria.py"
     spec = importlib.util.spec_from_file_location("sombra_operational_provenance", path)
     assert spec and spec.loader
     module = importlib.util.module_from_spec(spec)

@@ -7,9 +7,9 @@ from pathlib import Path
 
 import pytest
 
-from scripts import settle_h9_shadow as job
-from src import db
-from src.research.h9_shadow import emit
+from brasileirao_scripts import settle_h9_shadow as job
+from brasileirao_predictor import db
+from brasileirao_predictor.research.h9_shadow import emit
 
 KICKOFF = datetime(2027, 3, 1, 19, 0, tzinfo=UTC)
 

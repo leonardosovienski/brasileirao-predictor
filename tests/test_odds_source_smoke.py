@@ -1,4 +1,4 @@
-from scripts.smoke_odds_source import report
+from brasileirao_scripts.smoke_odds_source import report
 
 
 def test_smoke_lists_only_sanitized_bookmaker_metadata():

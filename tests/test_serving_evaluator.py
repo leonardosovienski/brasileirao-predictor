@@ -13,8 +13,8 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from src import model, xg_model
-from src.serving_evaluator import H9FrozenPolicyEvaluator, ServingStackEvaluator
+from brasileirao_predictor import model, xg_model
+from brasileirao_predictor.serving_evaluator import H9FrozenPolicyEvaluator, ServingStackEvaluator
 
 TIMES = ["flamengo", "palmeiras", "gremio", "santos"]
 

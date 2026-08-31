@@ -1,8 +1,8 @@
 """derive_groups monta os grupos a partir do grafo de fixtures (jogos sem placar),
 sem hardcode das chaves. Injeta um minigrafo em :memory: e prova a derivação."""
 
-from src import db
-from src.simulator import derive_groups
+from brasileirao_predictor import db
+from brasileirao_predictor.simulator import derive_groups
 
 
 def _round_robin(conn, teams, tournament="FIFA World Cup"):

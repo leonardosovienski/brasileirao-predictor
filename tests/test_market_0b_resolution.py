@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.research import market_0b_resolution as m
+from brasileirao_predictor.research import market_0b_resolution as m
 
 
 def _rows(probabilities, odds=(1.9, 1.9)):

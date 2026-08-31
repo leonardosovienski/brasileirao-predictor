@@ -7,9 +7,9 @@ _load_odds real — nada de schema manual, nada de disco."""
 
 import pytest
 
-from src import db
-from src.backtest import _find_odds, _load_odds, run_backtest
-from src.math_utils import shin_probabilities
+from brasileirao_predictor import db
+from brasileirao_predictor.backtest import _find_odds, _load_odds, run_backtest
+from brasileirao_predictor.math_utils import shin_probabilities
 
 
 # Linha de sofascore_matches na ordem do INSERT (20 colunas). Odds distintas em

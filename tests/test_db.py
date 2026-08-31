@@ -3,7 +3,7 @@ SQLite :memory: — exercita schema, migração e upsert de verdade, sem tocar d
 
 import pytest
 
-from src import db
+from brasileirao_predictor import db
 
 
 @pytest.fixture
@@ -110,7 +110,7 @@ def test_snapshots_acumulam_no_tempo(conn):
 def test_ht_goal_fraction_calibra_e_respeita_minimo(conn):
     # fração empírica dos gols do 1o tempo — lida do banco, nunca hardcoded.
     # Abaixo de min_games devolve None (chamador cai no 0.5 ingênuo).
-    from src.display import ht_goal_fraction
+    from brasileirao_predictor.display import ht_goal_fraction
 
     for i in range(60):
         db.upsert_ss_matches(conn, [_row(1000 + i, home_score=2, away_score=1)])

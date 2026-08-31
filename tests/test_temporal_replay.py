@@ -1,4 +1,4 @@
-from src.research.temporal_replay import build_temporal_manifest
+from brasileirao_predictor.research.temporal_replay import build_temporal_manifest
 
 
 def test_temporal_replay_manifest_is_fingerprinted_and_batched() -> None:

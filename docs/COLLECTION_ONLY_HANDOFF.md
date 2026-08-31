@@ -2,7 +2,7 @@
 
 `collection_run_id`: `collection-brasileirao-20260723-core-9d352654`.
 
-Comando: `python scripts/collect_collection_only.py --dry-run` para validar sem
+Comando: `python -m brasileirao_scripts.collect_collection_only --dry-run` para validar sem
 escrita; remova `--dry-run` para o ciclo arquivístico esportivo. O arquivo
 append-only é `data/collection_only/brasileirao_events.jsonl`, ignorado pelo
 Git. Ele arquiva somente calendário, participantes, competição, kickoff,

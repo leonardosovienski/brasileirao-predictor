@@ -1,11 +1,11 @@
 # Resultado: o ganho do "Maher" era ESTIMADOR, não ataque/defesa (CORRIGIDO)
 
-> ⚠️ **CORREÇÃO (confound fechado, `scripts/confound.py`).** A versão anterior
+> ⚠️ **CORREÇÃO (confound fechado, `brasileirao_scripts/confound.py`).** A versão anterior
 > deste doc concluía que ataque/defesa (Maher) batia o Elo. **Estava errado** — era
 > um confound de estimador/cadência. O controle de força-única (mesma máquina batch,
 > 1 rating/time) **bate o Maher** (0.5131 vs 0.5174). **Ataque/defesa NÃO agrega** em
 > seleções (esparsidade). O ganho real vinha do **estimador batch**, não do split.
-> Reprodutível: `scripts/maher.py`, `scripts/maher_verif.py`, `scripts/confound.py`.
+> Reprodutível: `brasileirao_scripts/maher.py`, `brasileirao_scripts/maher_verif.py`, `brasileirao_scripts/confound.py`.
 
 ## Desenho
 
@@ -37,7 +37,7 @@
 - **Refuta a premissa fundadora** ("dado de seleção esparso demais para mais que
   Elo"): atk/def regularizado extrai sinal incremental real mesmo com ~10 jogos/ano.
 
-## O confound fechado (a correção, `scripts/confound.py`)
+## O confound fechado (a correção, `brasileirao_scripts/confound.py`)
 
 Controle: modelo de **força-única** (1 rating/time), MESMA máquina batch
 (Poisson-ridge, refit mensal, janela 4a, mesma regularização) — isola atk/def vs

@@ -3,8 +3,8 @@ from pathlib import Path
 
 import numpy as np
 
-from scripts.trial_draw_calibration_a10 import _losses, _moving_ci
-from src.research.calibration_gate import assess_a10
+from brasileirao_scripts.trial_draw_calibration_a10 import _losses, _moving_ci
+from brasileirao_predictor.research.calibration_gate import assess_a10
 
 ROOT = Path(__file__).resolve().parent.parent
 

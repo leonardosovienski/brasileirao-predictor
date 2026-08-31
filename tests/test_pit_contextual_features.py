@@ -2,8 +2,8 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from src.research.pit_features import PITFeatureEvidence
-from src.research.pit_features.contextual import COACH, REST, SURFACE, TRAVEL, materialize_context
+from brasileirao_predictor.research.pit_features import PITFeatureEvidence
+from brasileirao_predictor.research.pit_features.contextual import COACH, REST, SURFACE, TRAVEL, materialize_context
 
 KICKOFF = datetime(2026, 8, 28, 22, tzinfo=UTC)
 

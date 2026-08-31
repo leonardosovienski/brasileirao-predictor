@@ -3,8 +3,8 @@
 > Investigação causal (não exploratória) conduzida sob revisão científica rigorosa.
 > Regra: separar fato demonstrado / correlação / hipótese; nunca transformar
 > hipótese em conclusão; toda afirmação ligada a um experimento de intervenção.
-> Reprodutível: `scripts/prova_mecanismo.py`, `scripts/experimentos_causa.py`,
-> `scripts/exp_f_rho.py`.
+> Reprodutível: `brasileirao_scripts/prova_mecanismo.py`, `brasileirao_scripts/experimentos_causa.py`,
+> `brasileirao_scripts/exp_f_rho.py`.
 
 ## Correção da premissa
 
@@ -74,21 +74,21 @@ que o projeto não coleta. Logo, hoje, esta é a fronteira honesta da investiga�
 
 ## Auditoria de inspeção + calibração por faixas (fecha a localização)
 
-Inspeção (sem alterar o modelo, `scripts/auditoria.py`):
+Inspeção (sem alterar o modelo, `brasileirao_scripts/auditoria.py`):
 - **Sharpness:** 1X2 do modelo é achatado — prob máxima média 52% vs 66% do
   mercado; entropia 0.994 vs 0.814.
 - **vs realidade (60 jogos):** modelo sub-rateia favorito (42% vs 50% real),
   super-rateia azarão (33.5% vs 23.3%), e é **acurado no empate** (24.5% vs 26.7%).
 - λ_total: média 2.66 (dp só 0.18) vs gols reais 2.95 — separação fraca.
 
-**Calibração de empate por faixas** (`scripts/calib_empate.py`):
+**Calibração de empate por faixas** (`brasileirao_scripts/calib_empate.py`):
 - Modelo, holdout 2.424 jogos (sem odds, N alto): previu ≈ observado em TODA
   faixa (gap ≤ 1.7%). **Demonstrado: o modelo não tem defeito de empate.**
 - Mercado, Copa N=51: empate mercado 20% vs observado 25.5% — sugestivo, mas
   **N pequeno + agregado ⇒ permanece HIPÓTESE** (não se conclui que o mercado
   erra com média de amostra pequena).
 
-### Etapa 2.2 — λ_total é fixo pela FUNÇÃO, não pelos dados (`scripts/elasticidade.py`)
+### Etapa 2.2 — λ_total é fixo pela FUNÇÃO, não pelos dados (`brasileirao_scripts/elasticidade.py`)
 `λ_total = 2·exp(a)·cosh(b·Δelo/400)`. A previsão analítica bate **exata** com o
 observado por faixa de |Δelo| (2.50/2.54/2.68/3.12/4.15). Para 76% dos jogos
 (|Δelo|<200), λ_total ∈ [2.50, 2.69] — quase constante (cosh plano perto de 0).

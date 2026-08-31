@@ -14,7 +14,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.cli
-    entrypoint: ["python", "-m", "scripts.init_compose_data"]
+    entrypoint: ["python", "-m", "brasileirao_scripts.init_compose_data"]
     user: "0:0"
     environment: &paths
       REDIS_URL: redis://redis:6379/0

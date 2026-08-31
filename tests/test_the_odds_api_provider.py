@@ -3,7 +3,7 @@ from datetime import UTC, datetime
 import pytest
 from predictor_core.data.contracts import DataUnavailableError
 
-from src.data.the_odds_api_provider import TheOddsApiProvider
+from brasileirao_predictor.data.the_odds_api_provider import TheOddsApiProvider
 
 
 def test_normalizes_explicit_bookmaker_and_pre_event_quote():

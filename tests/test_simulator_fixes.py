@@ -5,7 +5,7 @@ import random
 
 import numpy as np
 
-from src import simulator
+from brasileirao_predictor import simulator
 
 
 def _twelve_groups():

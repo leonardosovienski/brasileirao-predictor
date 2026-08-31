@@ -278,7 +278,7 @@ Somente depois, antes de observar a amostra decisória, criar protocolo/trial se
 
 ## 13. Complemento da auditoria integral do repositório
 
-Esta seção foi acrescentada após cruzar todos os arquivos em `docs/`, `scripts/`, `src/research/`, `reports/`, `contracts/` e o histórico Git. Ela fecha direções que não apareciam na primeira consolidação.
+Esta seção foi acrescentada após cruzar todos os arquivos em `docs/`, `brasileirao_scripts/`, `brasileirao_predictor/research/`, `reports/`, `contracts/` e o histórico Git. Ela fecha direções que não apareciam na primeira consolidação.
 
 ### 13.1 Proveniência: legado de seleções versus evidência do Brasileirão
 
@@ -525,7 +525,7 @@ Falhas adicionais encontradas e corrigidas:
 
 1. cache com hash divergente era apenas avisado e ainda assim servido;
 2. `kernel_daemon` carregava cache sem validar hash ou quantidade de jogos;
-3. `src.backtest` e `scripts/backtest_walkforward.py`, embora descritos como
+3. `brasileirao_predictor.backtest` e `brasileirao_scripts/backtest_walkforward.py`, embora descritos como
    caminhos de paridade, reajustavam o NB/DC com pesos uniformes.
 
 Agora o peso exponencial tem uma implementação única em

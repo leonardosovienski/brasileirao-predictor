@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from src.sofascore import Sofascore
+from brasileirao_predictor.sofascore import Sofascore
 
 
 def _client(tmp_path, monkeypatch, pages_by_call):
@@ -101,7 +101,7 @@ def test_cache_write_failure_removes_temp_file_and_reraises(tmp_path, monkeypatc
     def failing_fdopen(*args, **kwargs):
         raise OSError("disk full")
 
-    monkeypatch.setattr("src.sofascore.os.fdopen", failing_fdopen)
+    monkeypatch.setattr("brasileirao_predictor.sofascore.os.fdopen", failing_fdopen)
     with pytest.raises(OSError, match="disk full"):
         c.list_seasons(16)
     assert not list(tmp_path.glob("*.tmp"))

@@ -1,6 +1,6 @@
 """Inventário da base — cobertura por ano.
 
-Testa o inventário contra uma base montada com o DDL REAL de `src.db`: um
+Testa o inventário contra uma base montada com o DDL REAL de `brasileirao_predictor.db`: um
 inventário que mente sobre o que existe é pior que nenhum, porque decisões de
 roadmap penduram nele (o `market_no_vig` depende da cobertura de odds).
 """
@@ -15,8 +15,8 @@ import tempfile
 
 import pytest
 
-from scripts import inventario_dados as inv
-from src import db
+from brasileirao_scripts import inventario_dados as inv
+from brasileirao_predictor import db
 
 
 def _base(monkeypatch, com_open: bool = True, open_igual: bool = False) -> pathlib.Path:

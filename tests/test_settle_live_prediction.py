@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 
 import pytest
 
-from scripts.settle_live_prediction import append_settlement, build_settlement, load_prediction
+from brasileirao_scripts.settle_live_prediction import append_settlement, build_settlement, load_prediction
 
 
 def prediction():

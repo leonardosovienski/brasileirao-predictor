@@ -1,4 +1,4 @@
-from scripts import update_h9_fixtures as job
+from brasileirao_scripts import update_h9_fixtures as job
 
 
 def test_refresh_stops_at_first_failed_step(monkeypatch):

@@ -51,12 +51,12 @@ contaminadas. O candidato entregue é um congelamento de protocolo, não o
 
 | SHA-256 | Arquivo |
 |---|---|
-| `f725aad74fcede34b3fbf3288cd6745daa89aff2c296919856c2940e613ee231` | `scripts/benchmark_predictor.py` |
-| `0354a8a3f00fd352c3029abbfb96f60ea6acc434201d6abf344ccf0be0c19c89` | `src/ingest_sofascore.py` |
+| `f725aad74fcede34b3fbf3288cd6745daa89aff2c296919856c2940e613ee231` | `brasileirao_scripts/benchmark_predictor.py` |
+| `0354a8a3f00fd352c3029abbfb96f60ea6acc434201d6abf344ccf0be0c19c89` | `brasileirao_predictor/ingest_sofascore.py` |
 | `1311b489eeeb3aa3897057f8787f72b87dfeca6937e53580c34ed0ce4b0df313` | `contracts/ou25-nested-future-candidate.json` |
 | `a9439436ae39bda2f41d72fdcffc32d13bdb6b7f9e9c2da2f725197305b8b196` | `docs/OU25_NESTED_REPLAY.md` |
-| `6caec562472c2889689e44c25800a39ed02569903a8b6ab31a348f51b65cda70` | `scripts/research_ou25_nested_replay.py` |
-| `ef4430e7d98bcb66e3a8d09cda7645d9bda504e5f33e91905a68412be61a61bc` | `src/research/ou25_nested_replay.py` |
+| `6caec562472c2889689e44c25800a39ed02569903a8b6ab31a348f51b65cda70` | `brasileirao_scripts/research_ou25_nested_replay.py` |
+| `ef4430e7d98bcb66e3a8d09cda7645d9bda504e5f33e91905a68412be61a61bc` | `brasileirao_predictor/research/ou25_nested_replay.py` |
 | `0caf8825f63de09faa6b21547ee78cf2b7cdcdfd0a5bec4b5484e0e5d7fa5033` | `tests/test_ou25_nested_replay.py` |
 
 O runner gera um `manifest.json` novo, contendo o hash do banco, configuração,

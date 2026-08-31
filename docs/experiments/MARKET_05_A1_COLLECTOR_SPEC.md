@@ -78,7 +78,7 @@ PASS; homologação apenas permite conectar o detector em mudança posterior.
 ## 8. Fase 0 OU2.5 sem labels
 
 O contrato `contracts/a1-ou25-phase0-policy.json` e o runner
-`scripts/a1_phase0.py` governam a calibração operacional anterior a qualquer
+`brasileirao_scripts/a1_phase0.py` governam a calibração operacional anterior a qualquer
 coorte econômica. A fase é fingerprinted e append-only, aceita somente
 cobertura, disponibilidade, latência e sensibilidade da referência e rejeita
 resultado, closing, CLV, ROI, P&L e settlement em qualquer nível do payload.
