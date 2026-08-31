@@ -12,8 +12,8 @@ sys.path.insert(0, str(ROOT))
 
 from predictor_core.measurement.metrics import brier, log_loss, rps  # noqa: E402
 
-from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 from brasileirao_predictor.ingest import load_config  # noqa: E402
+from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 
 ALLOWED_PERIODS = {
     "development": ("2021-01-01", "2023-12-31"),

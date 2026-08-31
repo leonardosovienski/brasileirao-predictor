@@ -14,9 +14,9 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
+from brasileirao_predictor import db
 from brasileirao_scripts import benchmark_predictor as bp
 from brasileirao_scripts import research_xg_ensemble as rxg
-from brasileirao_predictor import db
 
 TIMES = ["flamengo", "palmeiras", "gremio", "santos", "corinthians", "bahia"]
 

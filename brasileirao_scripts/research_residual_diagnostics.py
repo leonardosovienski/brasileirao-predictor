@@ -18,11 +18,11 @@ from scipy.stats import binom
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 from brasileirao_predictor.ingest import load_config  # noqa: E402
 from brasileirao_predictor.math_utils import shin_probabilities  # noqa: E402
 from brasileirao_predictor.research.market_0b_resolution import full_market_protocol, valid_two_way_odds  # noqa: E402
 from brasileirao_predictor.research.structural_edge import power_probabilities  # noqa: E402
+from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 
 
 def _losses(probs: list[float], actual: int) -> tuple[float, float, float]:

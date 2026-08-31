@@ -14,7 +14,6 @@ from collections import Counter
 from datetime import UTC, datetime
 from pathlib import Path
 
-from brasileirao_scripts.research_ou25_nested_replay import ROOT, load_rows
 from brasileirao_predictor.research.ou25_nested_replay import (
     _metrics,
     _normal_p_greater,
@@ -23,6 +22,7 @@ from brasileirao_predictor.research.ou25_nested_replay import (
     holm_adjust,
     valid_ou25_price_pair,
 )
+from brasileirao_scripts.research_ou25_nested_replay import ROOT, load_rows
 
 SEASONS = tuple(str(year) for year in range(2021, 2027))
 

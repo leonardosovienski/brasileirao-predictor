@@ -18,8 +18,8 @@ from pathlib import Path
 
 import numpy as np
 
-from brasileirao_scripts.evaluate_shadow_cohort import evaluate
 from brasileirao_predictor.bootstrap import ci_mean_cluster
+from brasileirao_scripts.evaluate_shadow_cohort import evaluate
 
 ROOT = Path(__file__).resolve().parent.parent
 

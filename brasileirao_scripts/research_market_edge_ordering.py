@@ -13,9 +13,9 @@ sys.path.insert(0, str(ROOT))
 
 from predictor_core.contracts.registry import TrialRegistry  # noqa: E402
 
-from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 from brasileirao_predictor.ingest import load_config  # noqa: E402
 from brasileirao_predictor.research.market_edge_ordering import evaluate, paired_records  # noqa: E402
+from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 
 PROTOCOL = "docs/experiments/MARKET_03_EDGE_ORDERING_PROTOCOL.md"
 TRIALS = ROOT / "data" / "trials.json"

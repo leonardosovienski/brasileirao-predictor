@@ -11,9 +11,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 from brasileirao_predictor.ingest import load_config  # noqa: E402
-from brasileirao_predictor.research.market_0b_resolution import evaluate, full_market_protocol, paired_records  # noqa: E402
+from brasileirao_predictor.research.market_0b_resolution import (  # noqa: E402
+    evaluate,
+    full_market_protocol,
+    paired_records,
+)
+from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 
 PROTOCOL = "docs/experiments/MARKET_04_0B_RESOLUTION_PROTOCOL.md"
 

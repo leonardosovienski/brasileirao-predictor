@@ -56,6 +56,7 @@ sys.path.insert(0, str(ROOT))
 
 from predictor_core.contracts.registry import TrialRegistry  # noqa: E402
 
+from brasileirao_predictor.ingest import load_config  # noqa: E402
 from brasileirao_scripts.benchmark_predictor import (  # noqa: E402
     MIN_HISTORY,
     RETRAIN_EVERY,
@@ -79,7 +80,6 @@ from brasileirao_scripts.research_01a_refit_cadence import (  # noqa: E402
     _paired_losses,
     attest_rps_power,
 )
-from brasileirao_predictor.ingest import load_config  # noqa: E402
 
 log = logging.getLogger("research_xg")
 

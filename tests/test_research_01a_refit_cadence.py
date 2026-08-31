@@ -15,10 +15,10 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
+from brasileirao_predictor import db
 from brasileirao_scripts import benchmark_predictor as bp
 from brasileirao_scripts import research_01a_refit_cadence as r01a
 from brasileirao_scripts.benchmark_predictor import _kickoff, _load_observations
-from brasileirao_predictor import db
 
 TIMES = ["flamengo", "palmeiras", "gremio", "santos"]
 

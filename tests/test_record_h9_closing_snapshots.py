@@ -6,8 +6,8 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from predictor_core.data.contracts import DataUnavailableError
 
-from brasileirao_scripts import record_h9_closing_snapshots as job
 from brasileirao_predictor import db
+from brasileirao_scripts import record_h9_closing_snapshots as job
 
 KICKOFF = datetime(2027, 3, 1, 19, 0, tzinfo=UTC)
 

@@ -10,9 +10,6 @@ from pathlib import Path
 import pytest
 from jsonschema import Draft202012Validator
 
-from brasileirao_scripts.collect_odds_a1 import capture_complete
-from brasileirao_scripts.collect_odds_a1 import main as collector_main
-from brasileirao_scripts.evaluate_gate_a1 import evaluate
 from brasileirao_predictor.collector_a1 import (
     OddsPapiClient,
     QuotaGuard,
@@ -24,6 +21,9 @@ from brasileirao_predictor.collector_a1 import (
     parse_utc,
     quota_status,
 )
+from brasileirao_scripts.collect_odds_a1 import capture_complete
+from brasileirao_scripts.collect_odds_a1 import main as collector_main
+from brasileirao_scripts.evaluate_gate_a1 import evaluate
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA = ROOT / "schemas" / "odds_snapshot_v1.json"
@@ -283,7 +283,9 @@ def test_cli_reports_only_sanitized_runtime_detail(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
     monkeypatch.setattr("sys.argv", ["collect_odds_a1.py", "--discover"])
-    monkeypatch.setattr("brasileirao_scripts.collect_odds_a1.OddsPapiClient", lambda: (_ for _ in ()).throw(RuntimeError("safe")))
+    monkeypatch.setattr(
+        "brasileirao_scripts.collect_odds_a1.OddsPapiClient", lambda: (_ for _ in ()).throw(RuntimeError("safe"))
+    )
     assert collector_main() == 1
     assert json.loads(capsys.readouterr().err)["safe_detail"] == "safe"
 

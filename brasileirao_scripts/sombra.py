@@ -328,7 +328,9 @@ def capture_h5(cfg, conn) -> int:
 
     row = db.load_xg_params(conn)
     if not row:
-        print("  [H5 pulada: ensemble_xg ligado mas sem cache — rode python -m brasileirao_predictor.cron_update_models]")
+        print(
+            "  [H5 pulada: ensemble_xg ligado mas sem cache — rode python -m brasileirao_predictor.cron_update_models]"
+        )
         return 0
     xgp = row[0]
     max_goals = cfg["model"]["max_goals"]

@@ -12,8 +12,8 @@ from pathlib import Path
 from predictor_core.measurement.trials import TrialRegistry, attestation_path_for
 from predictor_core.testing.harness import attest_pipeline_power
 
-from brasileirao_scripts.governanca import _make_series, evaluate_funnel
 from brasileirao_predictor.ingest import load_config
+from brasileirao_scripts.governanca import _make_series, evaluate_funnel
 
 ROOT = Path(__file__).resolve().parent.parent
 TRIALS = ROOT / "data" / "trials.json"

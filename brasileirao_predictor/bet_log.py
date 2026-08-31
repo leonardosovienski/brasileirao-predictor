@@ -678,7 +678,10 @@ def main():
             print(f"saque: -{args.saque:.2f}")
         st = bank_state()
         if st is None:
-            print("banca não aberta — use: python -m brasileirao_predictor.bet_log banca --init VALOR --unidade VALOR_DA_UNIDADE")
+            print(
+                "banca não aberta — use: python -m brasileirao_predictor.bet_log banca "
+                "--init VALOR --unidade VALOR_DA_UNIDADE"
+            )
             return
         cur = st["currency"]
         print(f"\n=== BANCA ({cur}) — desde {st['since'][:10]} ===")

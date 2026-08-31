@@ -61,6 +61,7 @@ sys.path.insert(0, str(ROOT))
 
 from predictor_core.measurement.metrics import rps  # noqa: E402
 
+from brasileirao_predictor.ingest import load_config  # noqa: E402
 from brasileirao_scripts.benchmark_predictor import (  # noqa: E402
     DEFAULT_ENGINE,
     ENGINES,
@@ -72,7 +73,6 @@ from brasileirao_scripts.benchmark_predictor import (  # noqa: E402
     _run_walkforward,
     _skill_score_ci,
 )
-from brasileirao_predictor.ingest import load_config  # noqa: E402
 
 log = logging.getLogger("permutation_test")
 

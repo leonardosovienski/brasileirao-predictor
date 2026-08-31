@@ -11,9 +11,15 @@ sys.path.insert(0, str(ROOT))
 from predictor_core.measurement.trials import attestation_path_for  # noqa: E402
 from predictor_core.testing.harness import attest_pipeline_power  # noqa: E402
 
-from brasileirao_scripts.governanca import SEED, TRIALS, _fit_params_pre_teste, _make_series, evaluate_funnel  # noqa: E402
 from brasileirao_predictor import db  # noqa: E402
 from brasileirao_predictor.ingest import load_config  # noqa: E402
+from brasileirao_scripts.governanca import (  # noqa: E402
+    SEED,
+    TRIALS,
+    _fit_params_pre_teste,
+    _make_series,
+    evaluate_funnel,
+)
 
 cfg = load_config()
 conn = db.connect(str(ROOT / "data" / "matches.db"), read_only=True)

@@ -16,7 +16,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 from brasileirao_predictor.ingest import load_config  # noqa: E402
 from brasileirao_predictor.research.ou25_nested_replay import (  # noqa: E402
     FilterParameters,
@@ -24,6 +23,7 @@ from brasileirao_predictor.research.ou25_nested_replay import (  # noqa: E402
     freeze_candidate,
     nested_walk_forward,
 )
+from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 

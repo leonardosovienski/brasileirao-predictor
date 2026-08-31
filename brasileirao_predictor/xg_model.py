@@ -185,7 +185,8 @@ def maybe_blend(r, conn, cfg, name_a, name_b, neutral):
         row = db.load_xg_params(conn)
         if not row:
             print(
-                "[ensemble_xg ligado mas sem cache — rode `python -m brasileirao_predictor.cron_update_models`; usando baseline]",
+                "[ensemble_xg ligado mas sem cache — rode "
+                "`python -m brasileirao_predictor.cron_update_models`; usando baseline]",
                 file=sys.stderr,
             )
             return r

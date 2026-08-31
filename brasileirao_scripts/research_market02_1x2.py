@@ -15,10 +15,10 @@ sys.path.insert(0, str(ROOT))
 
 from predictor_core.measurement.metrics import brier, log_loss, rps  # noqa: E402
 
-from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 from brasileirao_predictor.ingest import load_config  # noqa: E402
 from brasileirao_predictor.math_utils import shin_probabilities  # noqa: E402
 from brasileirao_predictor.research.market_residual import MultinomialMarketResidualModel  # noqa: E402
+from brasileirao_scripts import benchmark_predictor as bp  # noqa: E402
 
 
 def _devig(odds) -> np.ndarray | None:

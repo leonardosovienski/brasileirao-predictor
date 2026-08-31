@@ -5,7 +5,11 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from pydantic import ValidationError
 
-from brasileirao_predictor.research.pit_features import ExternalResearchGate, PITFeatureEvidence, assert_training_unlocked
+from brasileirao_predictor.research.pit_features import (
+    ExternalResearchGate,
+    PITFeatureEvidence,
+    assert_training_unlocked,
+)
 from brasileirao_predictor.research.pit_features.absences import DECLARATION as ABSENCES
 from brasileirao_predictor.research.pit_features.hierarchical_home_advantage import DECLARATION as HOME
 from brasileirao_predictor.research.pit_features.isolated_xg import ARCHITECTURE_POLICY

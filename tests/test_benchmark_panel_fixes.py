@@ -9,9 +9,9 @@ from __future__ import annotations
 
 import pytest
 
-from brasileirao_scripts import benchmark_predictor as bp
 from brasileirao_predictor.evaluator import BrasileiraoDixonColesEvaluator
 from brasileirao_predictor.serving_evaluator import ServingStackEvaluator
+from brasileirao_scripts import benchmark_predictor as bp
 
 # ---------- delta_ci95 no formato de saída (Roadmap §6) ----------
 

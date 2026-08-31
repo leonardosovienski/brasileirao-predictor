@@ -8,8 +8,8 @@ from pathlib import Path
 
 from predictor_core.measurement.metrics import brier, log_loss, rps
 
-from brasileirao_scripts.benchmark_predictor import MIN_HISTORY, RETRAIN_EVERY, _load_observations, _run_walkforward
 from brasileirao_predictor.ingest import load_config
+from brasileirao_scripts.benchmark_predictor import MIN_HISTORY, RETRAIN_EVERY, _load_observations, _run_walkforward
 
 
 def main() -> None:

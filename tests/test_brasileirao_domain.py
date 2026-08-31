@@ -113,7 +113,9 @@ def test_espelho_sofascore_para_matches():
     `competitions` é posicional de propósito: um default reintroduziria em
     silêncio o bug de espelhar a tabela inteira (ver
     tests/test_sync_competition_filter.py)."""
-    spec = importlib.util.spec_from_file_location("sync_matches", ROOT / "brasileirao_scripts" / "sync_matches_from_sofascore.py")
+    spec = importlib.util.spec_from_file_location(
+        "sync_matches", ROOT / "brasileirao_scripts" / "sync_matches_from_sofascore.py"
+    )
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
 

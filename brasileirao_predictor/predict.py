@@ -19,7 +19,8 @@ def build(cfg):
 
     if not elo or not prow:
         print(
-            "[cache vazio — calculando agora; rode `python -m brasileirao_predictor.cron_update_models` para tornar a CLI instantânea]",
+            "[cache vazio — calculando agora; rode "
+            "`python -m brasileirao_predictor.cron_update_models` para tornar a CLI instantânea]",
             file=sys.stderr,
         )
         from .cron_update_models import compute

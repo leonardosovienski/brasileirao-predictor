@@ -54,6 +54,7 @@ from predictor_core.measurement.metrics import brier, log_loss, rps  # noqa: E40
 from predictor_core.testing.harness import attest_pipeline_power  # noqa: E402
 from predictor_core.testing.synth import probabilistic_predictor  # noqa: E402
 
+from brasileirao_predictor.ingest import load_config  # noqa: E402
 from brasileirao_scripts.benchmark_predictor import (  # noqa: E402
     MIN_HISTORY,
     RETRAIN_EVERY,
@@ -61,7 +62,6 @@ from brasileirao_scripts.benchmark_predictor import (  # noqa: E402
     _load_observations,
     _run_walkforward,
 )
-from brasileirao_predictor.ingest import load_config  # noqa: E402
 
 log = logging.getLogger("research_01a")
 

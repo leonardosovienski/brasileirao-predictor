@@ -11,8 +11,8 @@ from __future__ import annotations
 
 import sqlite3
 
-from brasileirao_scripts.sync_matches_from_sofascore import sync
 from brasileirao_predictor import db
+from brasileirao_scripts.sync_matches_from_sofascore import sync
 
 SERIE_A = "Brasileirão Série A 2024"
 SERIE_B = "Brasileirão Série B 2024"

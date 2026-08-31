@@ -15,8 +15,8 @@ import tempfile
 
 import pytest
 
-from brasileirao_scripts import inventario_dados as inv
 from brasileirao_predictor import db
+from brasileirao_scripts import inventario_dados as inv
 
 
 def _base(monkeypatch, com_open: bool = True, open_igual: bool = False) -> pathlib.Path:

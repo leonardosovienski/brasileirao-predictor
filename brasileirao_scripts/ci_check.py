@@ -149,7 +149,9 @@ def check_current_elo_containment() -> None:
     # W6 (auditoria 2026-07-09): scripts/ tambem entra no radar — odds_shop.py
     # usava current_elo fora da varredura; um script de PESQUISA novo com o
     # mesmo padrao passaria despercebido.
-    files = sorted((ROOT / "brasileirao_predictor").rglob("*.py")) + sorted((ROOT / "brasileirao_scripts").rglob("*.py"))
+    files = sorted((ROOT / "brasileirao_predictor").rglob("*.py")) + sorted(
+        (ROOT / "brasileirao_scripts").rglob("*.py")
+    )
     for f in files:
         rel = _rel(f)
         text = f.read_text(encoding="utf-8", errors="replace")

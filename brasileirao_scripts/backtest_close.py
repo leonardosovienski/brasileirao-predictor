@@ -31,7 +31,9 @@ from brasileirao_predictor import backtest as bt_mod  # noqa: E402
 from brasileirao_predictor import db  # noqa: E402
 from brasileirao_predictor.ingest import load_config  # noqa: E402
 
-spec = importlib.util.spec_from_file_location("backtest_walkforward", ROOT / "brasileirao_scripts" / "backtest_walkforward.py")
+spec = importlib.util.spec_from_file_location(
+    "backtest_walkforward", ROOT / "brasileirao_scripts" / "backtest_walkforward.py"
+)
 wf = importlib.util.module_from_spec(spec)
 sys.modules["backtest_walkforward"] = wf
 spec.loader.exec_module(wf)

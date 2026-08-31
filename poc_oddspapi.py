@@ -125,9 +125,7 @@ def main() -> int:
         "target_br_matches": matched_br,
         "target_br_count": len(matched_br),
         "one_x_two": {
-            key: summary
-            for key in selected_keys
-            if (summary := summarize_1x2(bookmaker_odds[key])) is not None
+            key: summary for key in selected_keys if (summary := summarize_1x2(bookmaker_odds[key])) is not None
         },
         "gate": gate,
         "read_only": True,
