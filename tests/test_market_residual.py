@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from brasileirao_predictor.research.economic_decision import decide_shadow
+from brasileirao_predictor.research.economic_decision import choose_shadow_side, decide_shadow
 from brasileirao_predictor.research.market_residual import (
     MarketResidualModel,
     MultinomialMarketResidualModel,
@@ -41,6 +41,48 @@ def test_shadow_decision_uses_lower_confidence_bound_and_never_enables_capital()
     assert decision.action == "SHADOW_BET"
     assert 0 < decision.stake_units <= 0.25
     assert decision.capital_enabled is False
+
+
+def test_shadow_decision_subtracts_friction_and_can_choose_under():
+    prediction = ResidualPrediction(0.35, 0.30, 0.40, 0.50, -0.6)
+    decision = choose_shadow_side(
+        prediction,
+        odds_over=2.0,
+        odds_under=1.90,
+        friction_rate=0.01,
+    )
+    assert decision.action == "SHADOW_BET"
+    assert decision.selection == "under"
+    assert decision.expected_value == pytest.approx(0.65 * 1.90 - 1.0 - 0.01)
+    assert decision.friction_rate == 0.01
+
+
+def test_friction_can_turn_apparent_edge_into_no_bet():
+    prediction = ResidualPrediction(0.53, 0.52, 0.54, 0.50, 0.12)
+    without_cost = decide_shadow(prediction, best_odds=2.0, minimum_conservative_edge=0.0)
+    with_cost = decide_shadow(
+        prediction,
+        best_odds=2.0,
+        minimum_conservative_edge=0.0,
+        friction_rate=0.05,
+    )
+    assert without_cost.action == "SHADOW_BET"
+    assert with_cost.action == "NO_BET"
+
+
+def test_fractional_kelly_uses_post_friction_win_and_loss_payoffs():
+    prediction = ResidualPrediction(0.60, 0.58, 0.62, 0.50, 0.4)
+    decision = decide_shadow(
+        prediction,
+        best_odds=2.0,
+        minimum_conservative_edge=0.0,
+        friction_rate=0.02,
+        kelly_fraction=0.10,
+        maximum_stake_units=1.0,
+    )
+    conservative_ev = 0.58 * 2.0 - 1.0 - 0.02
+    full_kelly = conservative_ev / ((2.0 - 1.0 - 0.02) * (1.0 + 0.02))
+    assert decision.stake_units == pytest.approx(0.10 * full_kelly)
 
 
 def test_residual_artifact_roundtrip_is_shadow_only():

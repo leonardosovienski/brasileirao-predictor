@@ -1,5 +1,19 @@
 # HANDOFF.md — brasileirao-predictor
 
+> **Estado técnico corrente — 2026-09-01:** pacotes
+> `brasileirao_predictor`/`brasileirao_scripts`, Core 3.0.x e Ops 4.0.x por
+> wheels. Caminhos `src/*`/`scripts/*`, Core 2.x, Ops 3.x e contagens de teste
+> encontrados nos checkpoints antigos são evidência histórica, não comandos ou
+> dependências vigentes.
+
+> ## Revisão econômica cross-domain (2026-09-01)
+>
+> O candidato residual de totais continua estritamente `SHADOW`. A decisão agora
+> avalia Over e Under com odds realmente observadas, rejeita pares de cotações com
+> mais de 60 segundos de defasagem, desconta fricção no EV/P&L e usa o payoff
+> líquido correto no Kelly fracionário. Maturidade temporal é comparada como
+> `datetime` timezone-aware, não como texto. Nenhuma trava de capital foi aberta.
+
 > ## Migração de namespaces de distribuição (2026-08-31)
 >
 > Autorização explícita do operador para corrigir as duas colisões cross-repo

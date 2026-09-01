@@ -23,11 +23,12 @@ def materialize_total_market_records(
     results: list[dict[str, Any]],
     *,
     horizon_hours: float = 24.0,
+    max_pair_skew_seconds: float = 60.0,
     context: dict[str, dict[str, float]] | None = None,
 ) -> list[dict[str, Any]]:
     """Create one ``over`` research row per event/total line at a fixed horizon."""
-    if horizon_hours <= 0:
-        raise ValueError("horizon_hours must be positive")
+    if horizon_hours <= 0 or max_pair_skew_seconds < 0:
+        raise ValueError("horizon and pair-skew policy must be valid")
     result_by_event = {str(row["source_event_id"]): row for row in results}
     by_event_market: dict[tuple[str, str, float], list[dict[str, Any]]] = defaultdict(list)
     for row in observations:
@@ -50,7 +51,8 @@ def materialize_total_market_records(
             key = (str(row.get("bookmaker")), str(row.get("selection")))
             if key not in latest or captured > latest[key][0]:
                 latest[key] = (captured, row)
-        fair_by_book, best_odds = {}, 0.0
+        fair_by_book = {}
+        best_odds = {"over": 0.0, "under": 0.0}
         for bookmaker in {key[0] for key in latest}:
             pair = {
                 selection: latest[(bookmaker, selection)][1]
@@ -59,12 +61,18 @@ def materialize_total_market_records(
             }
             if set(pair) != {"over", "under"}:
                 continue
+            pair_times = [_utc(str(row["odds_captured_at"])) for row in pair.values()]
+            if (max(pair_times) - min(pair_times)).total_seconds() > max_pair_skew_seconds:
+                # Do not create a synthetic de-vig pair from two different
+                # market states. Both legs must belong to the same snapshot.
+                continue
             try:
                 fair = remove_overround({selection: float(row["decimal_odds"]) for selection, row in pair.items()})
             except (KeyError, TypeError, ValueError):
                 continue
             fair_by_book[bookmaker] = fair["over"]
-            best_odds = max(best_odds, float(pair["over"]["decimal_odds"]))
+            for selection in ("over", "under"):
+                best_odds[selection] = max(best_odds[selection], float(pair[selection]["decimal_odds"]))
         if not fair_by_book:
             continue
         probabilities = list(fair_by_book.values())
@@ -88,7 +96,8 @@ def materialize_total_market_records(
                 "settled_at": str(result["settled_at"]),
                 "features": features,
                 "market_probability": anchor,
-                "best_odds": best_odds,
+                "best_odds": best_odds["over"],
+                "best_odds_by_selection": best_odds,
                 "outcome": int(total > line),
                 "book_count": len(fair_by_book),
                 "scientific_state": "COLLECTION_ONLY",

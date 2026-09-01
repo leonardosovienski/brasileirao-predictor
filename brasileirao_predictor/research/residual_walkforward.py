@@ -4,11 +4,12 @@ from __future__ import annotations
 
 import math
 import statistics as st
+from datetime import datetime
 from typing import Any
 
 import numpy as np
 
-from brasileirao_predictor.research.economic_decision import decide_shadow
+from brasileirao_predictor.research.economic_decision import choose_shadow_side, decide_shadow
 from brasileirao_predictor.research.market_residual import MarketResidualModel
 from brasileirao_predictor.research.residual_features import FEATURE_NAMES
 
@@ -24,15 +25,26 @@ def _log_loss(probabilities, outcomes):
     )
 
 
+def _utc(value: str) -> datetime:
+    parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    if parsed.tzinfo is None:
+        raise ValueError("walk-forward timestamps must be timezone-aware")
+    return parsed
+
+
 def evaluate_walkforward(
     records: list[dict[str, Any]],
     *,
     minimum_train: int = 100,
     block_size: int = 50,
     l2: float = 5.0,
+    friction_rate: float = 0.0,
+    minimum_conservative_edge: float = 0.02,
 ) -> dict[str, Any]:
     """Fit only on matured earlier events and evaluate each later block once."""
-    ordered = sorted(records, key=lambda row: (row["kickoff_at"], row["event_id"]))
+    if not 0 <= friction_rate < 1:
+        raise ValueError("friction_rate must be between zero and one")
+    ordered = sorted(records, key=lambda row: (_utc(row["kickoff_at"]), row["event_id"]))
     if minimum_train < 20 or block_size < 1 or len(ordered) <= minimum_train:
         raise ValueError("insufficient walk-forward configuration or records")
     predictions, anchors, outcomes, pnl, selected = [], [], [], [], 0
@@ -40,8 +52,8 @@ def evaluate_walkforward(
         train, test = ordered[:start], ordered[start : start + block_size]
         # Strict boundary: a training result must have matured before the first
         # test prediction timestamp, not merely have an earlier kickoff.
-        first_prediction = min(row["predicted_at"] for row in test)
-        train = [row for row in train if row["settled_at"] <= first_prediction]
+        first_prediction = min(_utc(row["predicted_at"]) for row in test)
+        train = [row for row in train if _utc(row["settled_at"]) <= first_prediction]
         if len(train) < minimum_train:
             continue
         model = MarketResidualModel(l2=l2).fit(
@@ -52,14 +64,33 @@ def evaluate_walkforward(
         )
         for row in test:
             prediction = model.predict(np.asarray(row["features"]), row["market_probability"])
-            decision = decide_shadow(prediction, best_odds=row["best_odds"])
+            quotes = row.get("best_odds_by_selection")
+            if quotes:
+                decision = choose_shadow_side(
+                    prediction,
+                    odds_over=float(quotes["over"]),
+                    odds_under=float(quotes["under"]),
+                    friction_rate=friction_rate,
+                    minimum_conservative_edge=minimum_conservative_edge,
+                )
+            else:
+                # Legacy records contain an observed Over quote only. Never
+                # invent an executable Under price from the fair probability.
+                decision = decide_shadow(
+                    prediction,
+                    best_odds=float(row["best_odds"]),
+                    friction_rate=friction_rate,
+                    minimum_conservative_edge=minimum_conservative_edge,
+                )
             y = int(row["outcome"])
             predictions.append(prediction.probability)
             anchors.append(row["market_probability"])
             outcomes.append(y)
             if decision.action == "SHADOW_BET":
                 selected += 1
-                pnl.append((row["best_odds"] - 1.0) if y else -1.0)
+                won = bool(y) if decision.selection == "over" else not bool(y)
+                gross = (decision.best_odds - 1.0) if won else -1.0
+                pnl.append(gross - friction_rate)
     if not outcomes:
         return {"status": "PENDING_SAMPLE", "n": 0}
     model_brier, market_brier = _brier(predictions, outcomes), _brier(anchors, outcomes)
@@ -75,5 +106,7 @@ def evaluate_walkforward(
         "market_logloss": market_logloss,
         "delta_logloss": model_logloss - market_logloss,
         "roi": st.mean(pnl) if pnl else None,
+        "friction_rate": friction_rate,
+        "minimum_conservative_edge": minimum_conservative_edge,
         "capital_enabled": False,
     }

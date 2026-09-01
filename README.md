@@ -1,5 +1,11 @@
 # brasileirao-predictor
 
+> **Atualização econômica — 2026-09-01.** O candidato residual de totais avalia
+> Over e Under com odds realmente observadas, pares temporalmente compatíveis e
+> EV/Kelly/P&L líquidos de fricção. A avaliação permanece `SHADOW`, sem promoção
+> de hipótese e com capital bloqueado. Veja o checkpoint mais recente em
+> `HANDOFF.md`.
+
 > **Estado corrente — 2026-08-26:** a auditoria matemática posterior ao
 > relatório consolidado corrigiu o normalizador NB+Dixon–Coles, o domínio de
 > `rho`, o decay terminal do Elo, a climatologia prequential e o relatório de

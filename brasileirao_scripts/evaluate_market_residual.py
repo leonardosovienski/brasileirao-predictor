@@ -25,6 +25,8 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DEFAULT_REPORT)
     parser.add_argument("--minimum-train", type=int, default=200)
     parser.add_argument("--block-size", type=int, default=50)
+    parser.add_argument("--friction-rate", type=float, default=0.02)
+    parser.add_argument("--minimum-conservative-edge", type=float, default=0.02)
     args = parser.parse_args()
     records = _load_jsonl(args.records)
     if len(records) <= args.minimum_train:
@@ -39,6 +41,8 @@ def main() -> None:
             records,
             minimum_train=args.minimum_train,
             block_size=args.block_size,
+            friction_rate=args.friction_rate,
+            minimum_conservative_edge=args.minimum_conservative_edge,
         )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
