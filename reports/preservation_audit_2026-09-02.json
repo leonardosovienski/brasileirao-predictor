@@ -1,0 +1,108 @@
+{
+  "schema_version": "br-preservation-audit/1.0",
+  "audited_at": "2026-09-02",
+  "result": "BLOCKED",
+  "pass_rule": "at least one verified offsite copy of every critical irreversible asset",
+  "assets": [
+    {
+      "asset": "historical matches database",
+      "source_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-27\\analise-o-reposit-rio-brasileirao-predictor\\outputs\\matches-db-operacional-8a3a2415\\matches.db",
+      "destination_path": "data/matches.db",
+      "backup_status": "verified local copy restored",
+      "offsite_copy": true,
+      "hash_verified": true,
+      "sha256": "8a3a2415aab9b8525708ee18ee7b3fb360b40031904095f5c71b35871e5946cd",
+      "reconstructible": false,
+      "risk": "OneDrive account availability and retention",
+      "action_required": "periodically verify the OneDrive manifest and retention"
+    },
+    {
+      "asset": "legacy trial registry",
+      "source_path": "data/trials.json",
+      "backup_status": "present; original preserved",
+      "offsite_copy": true,
+      "hash_verified": true,
+      "sha256": "215e7579ca7f0619ab17caa4210e27e6356b1fd6ad290b3f1b57e9efffaf19bc",
+      "reconstructible": false,
+      "risk": "legacy metadata is incomplete",
+      "action_required": "retain beside the non-destructive V2 migration"
+    },
+    {
+      "asset": "general prediction store",
+      "source_path": "UNKNOWN",
+      "backup_status": "not located",
+      "offsite_copy": false,
+      "hash_verified": false,
+      "reconstructible": false,
+      "risk": "irreversible prospective evidence may be unavailable",
+      "action_required": "locate the original store; do not reconstruct retroactively"
+    },
+    {
+      "asset": "dedicated prospective database",
+      "source_path": "UNKNOWN",
+      "backup_status": "not located",
+      "offsite_copy": false,
+      "hash_verified": false,
+      "reconstructible": false,
+      "risk": "prospective provenance incomplete",
+      "action_required": "locate the original database; do not reconstruct retroactively"
+    },
+    {
+      "asset": "round prospective forecasts",
+      "source_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\reports\\ou25_paper_capital_2026_08_29",
+      "backup_status": "verified local copies restored or pre-existing and hash-compared",
+      "offsite_copy": true,
+      "hash_verified": true,
+      "reconstructible": false,
+      "risk": "two pre-existing destination files differ from source",
+      "action_required": "retain both variants with distinct hashes"
+    },
+    {
+      "asset": "odds operational database",
+      "source_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\data\\odds_operational.db",
+      "destination_path": "data/odds_operational.db",
+      "backup_status": "verified local copy restored; SQLite integrity ok; 153 facts",
+      "offsite_copy": true,
+      "hash_verified": true,
+      "sha256": "9d2f6613ac405968929a57d311b067a25930de4d126bd3fa8f7ea56f8ff0338e",
+      "reconstructible": false,
+      "risk": "OneDrive account availability and retention",
+      "action_required": "periodically verify the OneDrive manifest"
+    },
+    {
+      "asset": "odds snapshots and seal",
+      "source_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\data\\odds_snapshots",
+      "backup_status": "three verified local files restored",
+      "offsite_copy": true,
+      "hash_verified": true,
+      "reconstructible": false,
+      "risk": "OneDrive account availability and retention",
+      "action_required": "periodically verify the OneDrive manifest"
+    },
+    {
+      "asset": "relevant reports and experiment ledgers",
+      "source_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\reports\\ou25_paper_capital_2026_08_29",
+      "backup_status": "local assets inventoried; missing files restored without overwrite",
+      "offsite_copy": true,
+      "hash_verified": true,
+      "reconstructible": false,
+      "risk": "OneDrive account availability and retention",
+      "action_required": "periodically verify source and destination variants"
+    },
+    {
+      "asset": "harness attestation",
+      "source_path": "data/trials.harness_attestation.json",
+      "backup_status": "reissued by executing the Core 3.0 harness",
+      "offsite_copy": true,
+      "hash_verified": true,
+      "sha256": "5ec21869c52e1baedd5809d8bbaaaa02c863a5879ad9653437f0722780d86533",
+      "reconstructible": true,
+      "risk": "attestation expires; source data and code fingerprint remain required",
+      "action_required": "include in offsite preservation set"
+    }
+  ],
+  "prohibited_source": {
+    "path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\data\\matches.db",
+    "reason": "empty database (matches=0, sofascore_matches=0); not a historical source"
+  }
+}

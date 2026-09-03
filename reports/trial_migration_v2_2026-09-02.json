@@ -1,0 +1,17 @@
+{
+  "schema_version": "br-trial-migration-audit/1.0",
+  "core_version": "3.1.0",
+  "core_release": "https://github.com/leonardosovienski/core-predictor/releases/tag/v3.1.0",
+  "source": "data/trials.json",
+  "destination": "data/trials.v2.json",
+  "legacy_count": 29,
+  "migrated_count": 29,
+  "unique_trial_ids": 29,
+  "duplicate_trial_ids": [],
+  "validation_errors": [],
+  "idempotent": true,
+  "source_sha256": "215e7579ca7f0619ab17caa4210e27e6356b1fd6ad290b3f1b57e9efffaf19bc",
+  "destination_sha256": "6eed1efaadc49a58467d24e7e48db8b109ab2a92dd8cfb7996a8659a06a8b5d3",
+  "unknown_field_count": 529,
+  "source_preserved": true
+}

@@ -1,0 +1,40 @@
+{
+  "engine": "dixon_coles",
+  "generated_at": "2026-09-02T23:20:48+00:00",
+  "half_life_days": 360.0,
+  "period": [
+    "2021-01-01",
+    "2024-12-31"
+  ],
+  "permutations": [
+    {
+      "beats_climatology": false,
+      "gain_ci95": [
+        -0.015195,
+        -0.003401
+      ],
+      "n": 1320,
+      "rps": 0.23067,
+      "rps_climatology": 0.2215,
+      "seed": 20260821,
+      "skill_score": -0.041395
+    }
+  ],
+  "reference_run": {
+    "beats_climatology": false,
+    "gain_ci95": [
+      -0.001169,
+      0.009947
+    ],
+    "n": 1320,
+    "rps": 0.216765,
+    "rps_climatology": 0.220983,
+    "skill_score": 0.019085
+  },
+  "retrain_every": 100,
+  "schema_version": "permutation-test/1",
+  "verdict": {
+    "detail": "nenhuma permutação bateu a climatologia com significância — o pipeline rejeita ruído",
+    "passed": true
+  }
+}

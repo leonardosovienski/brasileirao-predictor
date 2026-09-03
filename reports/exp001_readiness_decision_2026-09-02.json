@@ -1,0 +1,45 @@
+{
+  "schema_version": "exp001-readiness-decision/1.0",
+  "decided_at": "2026-09-02",
+  "preservation": {
+    "status": "BLOCKED",
+    "verified_offsite_bundle": "C:\\Users\\Superleo13\\OneDrive\\Codex-Offsite\\brasileirao-predictor\\20260903T001757Z",
+    "verified_exact_source_bundle": "C:\\Users\\Superleo13\\OneDrive\\Codex-Offsite\\brasileirao-predictor\\source-originals-20260902T233806Z",
+    "remaining": ["original general prediction store not located", "original dedicated prospective database not located"]
+  },
+  "trial_schema": {
+    "status": "PASS",
+    "core_version": "3.1.0",
+    "legacy_trials": 29,
+    "migrated_trials": 29,
+    "unique_trial_ids": 29,
+    "idempotent": true,
+    "validation_errors": 0
+  },
+  "harness": {
+    "status": "PASS",
+    "core_version": "3.1.0",
+    "executed_at": "2026-09-02T23:37:28Z",
+    "expires_at": "2026-09-09T23:37:28Z"
+  },
+  "market_data": {
+    "status": "PASS_FOR_2026_COVERAGE_ONLY",
+    "fixtures": 245,
+    "coverage_H24": 1.0,
+    "coverage_H6": 1.0,
+    "coverage_H1": 1.0,
+    "multi_season_history": false,
+    "stale_outliers_present": true
+  },
+  "model_feature_pit": {
+    "status": "FAIL_CLOSED",
+    "H24": "NOT_PROVEN",
+    "H6": "NOT_PROVEN",
+    "H1": "NOT_PROVEN",
+    "reason": "historical score and xG records lack result_published_at/completed_at"
+  },
+  "EXP001_DATA_STATUS": "PARTIALLY_READY",
+  "EXP001_EXECUTION": "NOT_STARTED",
+  "EXP001_PROTOCOL": "NOT_REGISTERED_BECAUSE_DATA_NOT_READY",
+  "BR_RESEARCH_DECISION": "UNKNOWN"
+}

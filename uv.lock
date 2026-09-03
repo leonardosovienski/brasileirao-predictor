@@ -92,7 +92,7 @@ requires-dist = [
     { name = "numpy", specifier = ">=2.2,<3" },
     { name = "pandas", specifier = ">=2.2,<4" },
     { name = "pre-commit", marker = "extra == 'dev'", specifier = ">=4.3,<5" },
-    { name = "predictor-core", url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.0.0/predictor_core-3.0.0-py3-none-any.whl" },
+    { name = "predictor-core", url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.1.0/predictor_core-3.1.0-py3-none-any.whl" },
     { name = "predictor-ops", url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.0.0/predictor_ops-4.0.0-py3-none-any.whl" },
     { name = "pydantic", specifier = ">=2.11,<3" },
     { name = "pydantic-settings", specifier = ">=2.10,<3" },
@@ -741,10 +741,10 @@ wheels = [
 
 [[package]]
 name = "predictor-core"
-version = "3.0.0"
-source = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.0.0/predictor_core-3.0.0-py3-none-any.whl" }
+version = "3.1.0"
+source = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.1.0/predictor_core-3.1.0-py3-none-any.whl" }
 wheels = [
-    { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.0.0/predictor_core-3.0.0-py3-none-any.whl", hash = "sha256:fdc1d3e27b6805a1d125702b6e3bb88f6fa3483791c22ea310bf6c56d5581c4d" },
+    { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.1.0/predictor_core-3.1.0-py3-none-any.whl", hash = "sha256:b4ef7d4723c8255f93a3e47f54af292195e913fca60e7b7e9c6de90ebdd5a491" },
 ]
 
 [package.metadata]

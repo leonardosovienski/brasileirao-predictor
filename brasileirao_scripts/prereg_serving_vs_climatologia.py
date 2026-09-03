@@ -156,7 +156,9 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", datefmt="%H:%M:%S")
 
-    inicio = datetime.now(UTC).date().isoformat()
+    # Trial Registry requires closed bounds in canonical UTC, even when the
+    # other side is intentionally open.
+    inicio = datetime.now(UTC).strftime("%Y-%m-%dT00:00:00Z")
     params = _params(inicio)
 
     if args.dry_run:

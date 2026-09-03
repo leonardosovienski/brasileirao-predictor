@@ -1,0 +1,33 @@
+{
+  "schema_version": "exp001-coverage-identity-assessment/1.0",
+  "audited_at": "2026-09-02",
+  "coverage_source": "reports/exp001_coverage_audit_2026-09-02.json",
+  "provider_period": ["2026-01-01", "2026-09-02"],
+  "fixture_count": 245,
+  "errors_after_retry": 0,
+  "requests_used": 247,
+  "horizons": {
+    "H-24h": {"covered": 245, "coverage": 1.0, "median_age_minutes": 479.342, "p95_age_minutes": 719.237, "max_age_minutes": 2879.021, "within_60_minutes": 20, "within_360_minutes": 101, "within_1440_minutes": 242},
+    "H-6h": {"covered": 245, "coverage": 1.0, "median_age_minutes": 52.504, "p95_age_minutes": 119.002, "max_age_minutes": 3959.021, "within_60_minutes": 129, "within_360_minutes": 241, "within_1440_minutes": 241},
+    "H-1h": {"covered": 245, "coverage": 1.0, "median_age_minutes": 24.451, "p95_age_minutes": 59.248, "max_age_minutes": 4259.021, "within_60_minutes": 241, "within_360_minutes": 242, "within_1440_minutes": 242}
+  },
+  "identity_and_kickoff": {
+    "internal_completed_2026": 225,
+    "provider_fixtures": 245,
+    "matched_by_exact_utc_kickoff_and_explicit_team_aliases": 225,
+    "unmatched_internal": 0,
+    "provider_only_after_internal_database_max_kickoff": 20,
+    "verdict": "all overlapping internal fixtures matched; the local database ends earlier than the provider population"
+  },
+  "older_period_probes": [
+    {"season": 2024, "fixture_catalog_available": true, "sample_historical_odds_status": 404, "sample_result": "No historical odds found"},
+    {"season": 2025, "fixture_catalog_available": true, "sample_historical_odds_status": 404, "sample_result": "No historical odds found"}
+  ],
+  "limitations": [
+    "coverage is complete for returned 2026 fixtures but not multi-season",
+    "three to four fixtures per horizon have snapshots more than 24 hours older than the requested cutoff",
+    "a maximum-age inclusion rule must be preregistered before performance is inspected",
+    "the internal outcomes database must be updated for the 20 latest provider fixtures before evaluation"
+  ],
+  "data_status": "PARTIALLY_READY"
+}

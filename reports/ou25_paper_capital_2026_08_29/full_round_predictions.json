@@ -1,0 +1,1106 @@
+{
+  "schema_version": "full-round-predictions/1",
+  "experiment_id": "ou25-paper-capital-2026-08-29-to-31",
+  "generated_at": "2026-08-29T23:28:36.090902Z",
+  "capital_enabled": false,
+  "model_state": {
+    "database": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-27\\analise-o-reposit-rio-brasileirao-predictor\\outputs\\matches-db-operacional-8a3a2415\\matches.db",
+    "database_access": "READ_ONLY",
+    "n_matches": 2125,
+    "config_hash": "ce8783f131b544b6",
+    "computed_at": "2026-08-24T05:39:16+00:00",
+    "staleness_warning": "State is frozen before the 2026-08-22/24 completed round; preliminary only."
+  },
+  "integrity": {
+    "preliminary_ou25_parity": "PASS",
+    "maximum_absolute_probability_delta": 0.0,
+    "source_sha256": "9e376dea853a66fd69fef4cd1d7f37618196dba519fe19173530b977cf2bbede"
+  },
+  "evaluation_policy": {
+    "prospective_metrics_include_only": "PROSPECTIVE_PRE_KICKOFF",
+    "post_kickoff_reconstruction_is_excluded": true,
+    "economic_decisions_remain_under_frozen_ou25_contract": true
+  },
+  "fixtures": [
+    {
+      "fixture_id": "id1000032566886968",
+      "home": "Atletico Mineiro",
+      "away": "Vitoria",
+      "model_home_team": "Atlético Mineiro",
+      "model_away_team": "Vitória",
+      "kickoff_at": "2026-08-29T21:30:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "POST_KICKOFF_RECONSTRUCTION",
+      "model": {
+        "expected_goals_home": 1.6066173135819781,
+        "expected_goals_away": 0.9133207889447602,
+        "expected_goals_total": 2.5199381025267384,
+        "home_win": 0.5354123078460239,
+        "draw": 0.25163854025995375,
+        "away_win": 0.21294915189402247,
+        "double_chance": {
+          "1X": 0.7870508481059777,
+          "X2": 0.4645876921539762,
+          "12": 0.7483614597400463
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.5354123078460239,
+            "push": 0.25163854025995375,
+            "lose": 0.21294915189402247
+          },
+          "2": {
+            "win": 0.21294915189402247,
+            "push": 0.25163854025995375,
+            "lose": 0.5354123078460239
+          }
+        },
+        "over_1_5": 0.7177199094518588,
+        "under_1_5": 0.2822800905481412,
+        "over_2_5": 0.461259820415142,
+        "under_2_5": 0.538740179584858,
+        "over_3_5": 0.24671844186436295,
+        "under_3_5": 0.753281558135637,
+        "btts_yes": 0.47963250864816837,
+        "btts_no": 0.5203674913518317,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 0,
+            "prob": 0.12825733922316587
+          },
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.11905970075700635
+          },
+          {
+            "home": 2,
+            "away": 0,
+            "prob": 0.10383017867265326
+          },
+          {
+            "home": 2,
+            "away": 1,
+            "prob": 0.09480024770787626
+          },
+          {
+            "home": 0,
+            "away": 0,
+            "prob": 0.0815357732583177
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 5.410317702666283,
+          "la": 4.890509154853124,
+          "lam": 10.300826857519407,
+          "over": {
+            "7.5": 0.8056644667942375,
+            "8.5": 0.7000158264802595,
+            "9.5": 0.579097120746189
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.4509134783862083,
+          "la": 2.6077372570826194,
+          "lam": 5.058650735468827,
+          "over": {
+            "2.5": 0.8802016739099048,
+            "3.5": 0.7431107397956679,
+            "4.5": 0.5697369511248948
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    },
+    {
+      "fixture_id": "id1000032566886962",
+      "home": "Sao Paulo",
+      "away": "Bragantino",
+      "model_home_team": "São Paulo",
+      "model_away_team": "Red Bull Bragantino",
+      "kickoff_at": "2026-08-29T23:00:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "POST_KICKOFF_RECONSTRUCTION",
+      "model": {
+        "expected_goals_home": 1.3297923812664867,
+        "expected_goals_away": 1.1034481871339201,
+        "expected_goals_total": 2.433240568400407,
+        "home_win": 0.4172318105715009,
+        "draw": 0.27441573385058693,
+        "away_win": 0.3083524555779122,
+        "double_chance": {
+          "1X": 0.6916475444220878,
+          "X2": 0.5827681894284991,
+          "12": 0.7255842661494131
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.4172318105715009,
+            "push": 0.27441573385058693,
+            "lose": 0.3083524555779122
+          },
+          "2": {
+            "win": 0.3083524555779122,
+            "push": 0.27441573385058693,
+            "lose": 0.4172318105715009
+          }
+        },
+        "over_1_5": 0.6997764112453714,
+        "under_1_5": 0.3002235887546286,
+        "over_2_5": 0.43892744422877045,
+        "under_2_5": 0.5610725557712295,
+        "over_3_5": 0.22827850573246178,
+        "under_3_5": 0.7717214942675382,
+        "btts_yes": 0.4925041543519574,
+        "btts_no": 0.5074958456480426,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.12983679261344613
+          },
+          {
+            "home": 1,
+            "away": 0,
+            "prob": 0.11558288556927264
+          },
+          {
+            "home": 0,
+            "away": 1,
+            "prob": 0.09572711323417035
+          },
+          {
+            "home": 0,
+            "away": 0,
+            "prob": 0.08891358995118569
+          },
+          {
+            "home": 2,
+            "away": 1,
+            "prob": 0.08557669590362349
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 4.996679522671961,
+          "la": 5.29535827452956,
+          "lam": 10.292037797201521,
+          "over": {
+            "7.5": 0.8049423031804399,
+            "8.5": 0.6990863630689559,
+            "9.5": 0.578033770103878
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.5735742079506316,
+          "la": 2.4834482610715827,
+          "lam": 5.057022469022215,
+          "over": {
+            "2.5": 0.8800692292187644,
+            "3.5": 0.7428874452660243,
+            "4.5": 0.5694546043186341
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    },
+    {
+      "fixture_id": "id1000032566886960",
+      "home": "Vasco da Gama",
+      "away": "Cruzeiro",
+      "model_home_team": "Vasco da Gama",
+      "model_away_team": "Cruzeiro",
+      "kickoff_at": "2026-08-30T00:20:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "PROSPECTIVE_PRE_KICKOFF",
+      "model": {
+        "expected_goals_home": 1.0326535385839846,
+        "expected_goals_away": 1.4209576954387833,
+        "expected_goals_total": 2.453611234022768,
+        "home_win": 0.27290421558296274,
+        "draw": 0.26888516009213914,
+        "away_win": 0.45821062432489823,
+        "double_chance": {
+          "1X": 0.5417893756751019,
+          "X2": 0.7270957844170374,
+          "12": 0.731114839907861
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.27290421558296274,
+            "push": 0.26888516009213914,
+            "lose": 0.45821062432489823
+          },
+          "2": {
+            "win": 0.45821062432489823,
+            "push": 0.26888516009213914,
+            "lose": 0.27290421558296274
+          }
+        },
+        "over_1_5": 0.7040757226711786,
+        "under_1_5": 0.29592427732882143,
+        "over_2_5": 0.44420787142188217,
+        "under_2_5": 0.5557921285781178,
+        "over_3_5": 0.23258042567015075,
+        "under_3_5": 0.7674195743298493,
+        "btts_yes": 0.4894274390186959,
+        "btts_no": 0.5105725609813041,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.1272199838375071
+          },
+          {
+            "home": 0,
+            "away": 1,
+            "prob": 0.12108953472782151
+          },
+          {
+            "home": 1,
+            "away": 2,
+            "prob": 0.08959765891936528
+          },
+          {
+            "home": 1,
+            "away": 0,
+            "prob": 0.08771255592751313
+          },
+          {
+            "home": 0,
+            "away": 0,
+            "prob": 0.08712218667348696
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 4.492520117662933,
+          "la": 5.889613749647004,
+          "lam": 10.382133867309935,
+          "over": {
+            "7.5": 0.8122491250061474,
+            "8.5": 0.7085275691716333,
+            "9.5": 0.5888774494383449
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.7472536233606695,
+          "la": 2.3264464325850103,
+          "lam": 5.07370005594568,
+          "over": {
+            "2.5": 0.8814196436565028,
+            "3.5": 0.7451675512791485,
+            "4.5": 0.5723419890997239
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    },
+    {
+      "fixture_id": "id1000032566886972",
+      "home": "Athletico-PR",
+      "away": "Fluminense",
+      "model_home_team": "Athletico",
+      "model_away_team": "Fluminense",
+      "kickoff_at": "2026-08-30T14:00:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "PROSPECTIVE_PRE_KICKOFF",
+      "model": {
+        "expected_goals_home": 1.3695468930449282,
+        "expected_goals_away": 1.0714178534702181,
+        "expected_goals_total": 2.4409647465151463,
+        "home_win": 0.43533604819449884,
+        "draw": 0.2723053742171688,
+        "away_win": 0.2923585775883323,
+        "double_chance": {
+          "1X": 0.7076414224116676,
+          "X2": 0.5646639518055011,
+          "12": 0.7276946257828312
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.43533604819449884,
+            "push": 0.2723053742171688,
+            "lose": 0.2923585775883323
+          },
+          "2": {
+            "win": 0.2923585775883323,
+            "push": 0.2723053742171688,
+            "lose": 0.43533604819449884
+          }
+        },
+        "over_1_5": 0.7014126994022712,
+        "under_1_5": 0.29858730059772876,
+        "over_2_5": 0.44093198363997305,
+        "under_2_5": 0.559068016360027,
+        "over_3_5": 0.2299073671379368,
+        "under_3_5": 0.7700926328620632,
+        "btts_yes": 0.49133367001437883,
+        "btts_no": 0.5086663299856211,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.1288382689700582
+          },
+          {
+            "home": 1,
+            "away": 0,
+            "prob": 0.11815457655551766
+          },
+          {
+            "home": 0,
+            "away": 1,
+            "prob": 0.09220269746220068
+          },
+          {
+            "home": 0,
+            "away": 0,
+            "prob": 0.08823002658001029
+          },
+          {
+            "home": 2,
+            "away": 1,
+            "prob": 0.08745601847086129
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 5.0589681486681775,
+          "la": 5.230159091339413,
+          "lam": 10.289127240007591,
+          "over": {
+            "7.5": 0.8047027057697527,
+            "8.5": 0.6987781634599768,
+            "9.5": 0.5776813752749925
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.5540714426417765,
+          "la": 2.5024117512009996,
+          "lam": 5.056483193842777,
+          "over": {
+            "2.5": 0.8800253353319497,
+            "3.5": 0.742813458420761,
+            "4.5": 0.5693610710214982
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    },
+    {
+      "fixture_id": "id1000032566886958",
+      "home": "Flamengo",
+      "away": "Botafogo",
+      "model_home_team": "Flamengo",
+      "model_away_team": "Botafogo",
+      "kickoff_at": "2026-08-30T19:00:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "PROSPECTIVE_PRE_KICKOFF",
+      "model": {
+        "expected_goals_home": 1.800643327128048,
+        "expected_goals_away": 0.8149070780793536,
+        "expected_goals_total": 2.6155504052074017,
+        "home_win": 0.6066909426849044,
+        "draw": 0.22870575520480543,
+        "away_win": 0.16460330211029028,
+        "double_chance": {
+          "1X": 0.8353966978897098,
+          "X2": 0.3933090573150957,
+          "12": 0.7712942447951947
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.6066909426849044,
+            "push": 0.22870575520480543,
+            "lose": 0.16460330211029028
+          },
+          "2": {
+            "win": 0.16460330211029028,
+            "push": 0.22870575520480543,
+            "lose": 0.6066909426849044
+          }
+        },
+        "over_1_5": 0.7364532101297884,
+        "under_1_5": 0.26354678987021163,
+        "over_2_5": 0.48542734702201373,
+        "under_2_5": 0.5145726529779863,
+        "over_3_5": 0.26740731864950085,
+        "under_3_5": 0.7325926813504992,
+        "btts_yes": 0.4660896871346087,
+        "btts_no": 0.5339103128653913,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 0,
+            "prob": 0.13075383613893873
+          },
+          {
+            "home": 2,
+            "away": 0,
+            "prob": 0.11852467758378363
+          },
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.10820902021846637
+          },
+          {
+            "home": 2,
+            "away": 1,
+            "prob": 0.09655932280806488
+          },
+          {
+            "home": 0,
+            "away": 0,
+            "prob": 0.07410734482134856
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 5.676069017249855,
+          "la": 4.661537443456473,
+          "lam": 10.33760646070633,
+          "over": {
+            "7.5": 0.8086644974306363,
+            "8.5": 0.7038855586480235,
+            "9.5": 0.5835340659252356
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.379804419232677,
+          "la": 2.6856569976176607,
+          "lam": 5.065461416850338,
+          "over": {
+            "2.5": 0.880754249495005,
+            "3.5": 0.7440431288976845,
+            "4.5": 0.5709169022376592
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    },
+    {
+      "fixture_id": "id1000032566886964",
+      "home": "Corinthians",
+      "away": "Santos",
+      "model_home_team": "Corinthians",
+      "model_away_team": "Santos",
+      "kickoff_at": "2026-08-30T19:00:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "PROSPECTIVE_PRE_KICKOFF",
+      "model": {
+        "expected_goals_home": 1.5890483044383972,
+        "expected_goals_away": 0.9234187458458653,
+        "expected_goals_total": 2.5124670502842625,
+        "home_win": 0.5284809850082443,
+        "draw": 0.25352453239791944,
+        "away_win": 0.21799448259383652,
+        "double_chance": {
+          "1X": 0.7820055174061638,
+          "X2": 0.47151901499175597,
+          "12": 0.7464754676020808
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.5284809850082443,
+            "push": 0.25352453239791944,
+            "lose": 0.21799448259383652
+          },
+          "2": {
+            "win": 0.21799448259383652,
+            "push": 0.25352453239791944,
+            "lose": 0.5284809850082443
+          }
+        },
+        "over_1_5": 0.7162098994715732,
+        "under_1_5": 0.2837901005284268,
+        "over_2_5": 0.45935031071779064,
+        "under_2_5": 0.5406496892822094,
+        "over_3_5": 0.2451164708011417,
+        "under_3_5": 0.7548835291988583,
+        "btts_yes": 0.48071905910664997,
+        "btts_no": 0.5192809408933501,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 0,
+            "prob": 0.1277947560823505
+          },
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.11995206204450622
+          },
+          {
+            "home": 2,
+            "away": 0,
+            "prob": 0.10233401385981036
+          },
+          {
+            "home": 2,
+            "away": 1,
+            "prob": 0.09446690860842744
+          },
+          {
+            "home": 0,
+            "away": 0,
+            "prob": 0.08214667737173326
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 5.385355484542302,
+          "la": 4.913177659580653,
+          "lam": 10.298533144122956,
+          "over": {
+            "7.5": 0.8054761970417679,
+            "8.5": 0.6997734367080307,
+            "9.5": 0.5788197277388896
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.457882710894862,
+          "la": 2.600343117734338,
+          "lam": 5.0582258286292,
+          "over": {
+            "2.5": 0.8801671241681699,
+            "3.5": 0.7430524838836973,
+            "4.5": 0.569663280141167
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    },
+    {
+      "fixture_id": "id1000032566886966",
+      "home": "Mirassol",
+      "away": "Palmeiras",
+      "model_home_team": "Mirassol",
+      "model_away_team": "Palmeiras",
+      "kickoff_at": "2026-08-30T21:30:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "PROSPECTIVE_PRE_KICKOFF",
+      "model": {
+        "expected_goals_home": 1.002880557384108,
+        "expected_goals_away": 1.463142326939138,
+        "expected_goals_total": 2.466022884323246,
+        "home_win": 0.25792153912168514,
+        "draw": 0.26557024425645215,
+        "away_win": 0.4765082166218627,
+        "double_chance": {
+          "1X": 0.5234917833781373,
+          "X2": 0.7420784608783149,
+          "12": 0.7344297557435479
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.25792153912168514,
+            "push": 0.26557024425645215,
+            "lose": 0.4765082166218627
+          },
+          "2": {
+            "win": 0.4765082166218627,
+            "push": 0.26557024425645215,
+            "lose": 0.25792153912168514
+          }
+        },
+        "over_1_5": 0.7066700361642503,
+        "under_1_5": 0.2933299638357497,
+        "over_2_5": 0.4474154749967195,
+        "under_2_5": 0.5525845250032805,
+        "over_3_5": 0.23521115737719864,
+        "under_3_5": 0.7647888426228013,
+        "btts_yes": 0.4875687794545999,
+        "btts_no": 0.5124312205454,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.12565152151749684
+          },
+          {
+            "home": 0,
+            "away": 1,
+            "prob": 0.12317795637056955
+          },
+          {
+            "home": 1,
+            "away": 2,
+            "prob": 0.09111883455238157
+          },
+          {
+            "home": 0,
+            "away": 2,
+            "prob": 0.09088870069232963
+          },
+          {
+            "home": 0,
+            "away": 0,
+            "prob": 0.08604844963200076
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 4.437582504033906,
+          "la": 5.962527622078261,
+          "lam": 10.400110126112168,
+          "over": {
+            "7.5": 0.8136816400152497,
+            "8.5": 0.7103882473757004,
+            "9.5": 0.5910257297366945
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.7680872626304143,
+          "la": 2.3089367440678923,
+          "lam": 5.077024006698307,
+          "over": {
+            "2.5": 0.8816871640976126,
+            "3.5": 0.7456201389258693,
+            "4.5": 0.5729162505966281
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    },
+    {
+      "fixture_id": "id1000032566886970",
+      "home": "Gremio",
+      "away": "Chapecoense",
+      "model_home_team": "Grêmio",
+      "model_away_team": "Chapecoense",
+      "kickoff_at": "2026-08-30T21:30:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "PROSPECTIVE_PRE_KICKOFF",
+      "model": {
+        "expected_goals_home": 1.8601178142460713,
+        "expected_goals_away": 0.7888516421567315,
+        "expected_goals_total": 2.648969456402803,
+        "home_win": 0.6266293771465091,
+        "draw": 0.2211933383443366,
+        "away_win": 0.15217728450915452,
+        "double_chance": {
+          "1X": 0.8478227154908458,
+          "X2": 0.3733706228534911,
+          "12": 0.7788066616556637
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.6266293771465091,
+            "push": 0.2211933383443366,
+            "lose": 0.15217728450915452
+          },
+          "2": {
+            "win": 0.15217728450915452,
+            "push": 0.2211933383443366,
+            "lose": 0.6266293771465091
+          }
+        },
+        "over_1_5": 0.7427464743891602,
+        "under_1_5": 0.2572535256108398,
+        "over_2_5": 0.49375026719216614,
+        "under_2_5": 0.5062497328078339,
+        "over_3_5": 0.2747115526903484,
+        "under_3_5": 0.7252884473096516,
+        "btts_yes": 0.4615101258143328,
+        "btts_no": 0.5384898741856672,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 0,
+            "prob": 0.13066416826055802
+          },
+          {
+            "home": 2,
+            "away": 0,
+            "prob": 0.12232520028468555
+          },
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.10465451627911793
+          },
+          {
+            "home": 2,
+            "away": 1,
+            "prob": 0.09647005575498369
+          },
+          {
+            "home": 3,
+            "away": 0,
+            "prob": 0.07585010337136758
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 5.75417606350632,
+          "la": 4.598261847314836,
+          "lam": 10.352437910821155,
+          "over": {
+            "7.5": 0.8098642375142205,
+            "8.5": 0.7054369749818579,
+            "9.5": 0.5853173359192679
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.3599174880661695,
+          "la": 2.7082889227246008,
+          "lam": 5.06820641079077,
+          "over": {
+            "2.5": 0.8809763178941163,
+            "3.5": 0.7444181901014861,
+            "4.5": 0.5713919954204376
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    },
+    {
+      "fixture_id": "id1000032566886974",
+      "home": "Bahia",
+      "away": "Internacional",
+      "model_home_team": "Bahia",
+      "model_away_team": "Internacional",
+      "kickoff_at": "2026-08-30T22:30:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "PROSPECTIVE_PRE_KICKOFF",
+      "model": {
+        "expected_goals_home": 1.5468955969111384,
+        "expected_goals_away": 0.9485817887794374,
+        "expected_goals_total": 2.4954773856905756,
+        "home_win": 0.5115282481355599,
+        "draw": 0.2578662104380443,
+        "away_win": 0.230605541426396,
+        "double_chance": {
+          "1X": 0.7693944585736041,
+          "X2": 0.4884717518644403,
+          "12": 0.7421337895619559
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.5115282481355599,
+            "push": 0.2578662104380443,
+            "lose": 0.230605541426396
+          },
+          "2": {
+            "win": 0.230605541426396,
+            "push": 0.2578662104380443,
+            "lose": 0.5115282481355599
+          }
+        },
+        "over_1_5": 0.7127507579179183,
+        "under_1_5": 0.2872492420820817,
+        "over_2_5": 0.4549971462800918,
+        "under_2_5": 0.5450028537199082,
+        "over_3_5": 0.24148215677294907,
+        "under_3_5": 0.758517843227051,
+        "btts_yes": 0.4832056327725809,
+        "btts_no": 0.5167943672274191,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 0,
+            "prob": 0.12650856826734702
+          },
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.12200633722522747
+          },
+          {
+            "home": 2,
+            "away": 0,
+            "prob": 0.09863989864080258
+          },
+          {
+            "home": 2,
+            "away": 1,
+            "prob": 0.0935372550690241
+          },
+          {
+            "home": 0,
+            "away": 0,
+            "prob": 0.08355301340558165
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 5.3248048639052215,
+          "la": 4.969047492220804,
+          "lam": 10.293852356126026,
+          "over": {
+            "7.5": 0.8050915650509325,
+            "8.5": 0.6992784060966958,
+            "9.5": 0.5782534021400054
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.475006619715888,
+          "la": 2.5823520392068082,
+          "lam": 5.057358658922697,
+          "over": {
+            "2.5": 0.8800965858961919,
+            "3.5": 0.7429335612429547,
+            "4.5": 0.5695129086394355
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    },
+    {
+      "fixture_id": "id1000032566886976",
+      "home": "Remo",
+      "away": "Coritiba",
+      "model_home_team": "Remo",
+      "model_away_team": "Coritiba",
+      "kickoff_at": "2026-08-31T23:00:00Z",
+      "generated_at": "2026-08-29T23:28:36.090902Z",
+      "timing_classification": "PROSPECTIVE_PRE_KICKOFF",
+      "model": {
+        "expected_goals_home": 1.386811580841816,
+        "expected_goals_away": 1.0580795636868672,
+        "expected_goals_total": 2.4448911445286834,
+        "home_win": 0.44308674392355024,
+        "draw": 0.2712388559947464,
+        "away_win": 0.2856744000817033,
+        "double_chance": {
+          "1X": 0.7143255999182967,
+          "X2": 0.5569132560764497,
+          "12": 0.7287611440052535
+        },
+        "draw_no_bet": {
+          "1": {
+            "win": 0.44308674392355024,
+            "push": 0.2712388559947464,
+            "lose": 0.2856744000817033
+          },
+          "2": {
+            "win": 0.2856744000817033,
+            "push": 0.2712388559947464,
+            "lose": 0.44308674392355024
+          }
+        },
+        "over_1_5": 0.7022416220522822,
+        "under_1_5": 0.29775837794771776,
+        "over_2_5": 0.4419498708421205,
+        "under_2_5": 0.5580501291578794,
+        "over_3_5": 0.23073646450073604,
+        "under_3_5": 0.769263535499264,
+        "btts_yes": 0.49074048961837496,
+        "btts_no": 0.5092595103816251,
+        "top_5_exact_scores": [
+          {
+            "home": 1,
+            "away": 1,
+            "prob": 0.12833364243306408
+          },
+          {
+            "home": 1,
+            "away": 0,
+            "prob": 0.1191887838008297
+          },
+          {
+            "home": 0,
+            "away": 1,
+            "prob": 0.0906850224947422
+          },
+          {
+            "home": 2,
+            "away": 1,
+            "prob": 0.08821111186543289
+          },
+          {
+            "home": 0,
+            "away": 0,
+            "prob": 0.08788457165214592
+          }
+        ],
+        "one_x_two_policy": "ARGMAX_DIAGNOSTIC_ONLY"
+      },
+      "secondary_unvalidated_models": {
+        "corners": {
+          "insufficient": false,
+          "n": 2124,
+          "b": 0.2730583996396007,
+          "lh": 5.085692621034909,
+          "la": 5.202675471599597,
+          "lam": 10.288368092634506,
+          "over": {
+            "7.5": 0.804640175999407,
+            "8.5": 0.6986977443315067,
+            "9.5": 0.5775894405950466
+          },
+          "adjusted": null
+        },
+        "yellow_cards": {
+          "insufficient": false,
+          "n": 2098,
+          "b": -0.16766081248109616,
+          "lh": 2.545822289070652,
+          "la": 2.510520242874776,
+          "lam": 5.056342531945428,
+          "over": {
+            "2.5": 0.8800138839124109,
+            "3.5": 0.7427941573857464,
+            "4.5": 0.5693366725210729
+          },
+          "adjusted": null
+        },
+        "warning": "Diagnostic only; historical confidence interval crosses zero and no executable CLV is validated."
+      },
+      "economic_scope": {
+        "market": "UNDER_2_5_ONLY",
+        "capital_enabled": false,
+        "real_money_execution": false,
+        "decision_source": "manual_round_decisions.jsonl"
+      }
+    }
+  ]
+}

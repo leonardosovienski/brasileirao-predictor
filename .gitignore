@@ -6,6 +6,7 @@
 # honesto se o denominador sobreviver ao esquecimento seletivo — core trials.py)
 /data/*
 !/data/trials.json
+!/data/trials.v2.json
 !/data/trials.harness_attestation.json
 !/data/teams_brasileirao.json
 !/data/team_aliases.json
@@ -42,3 +43,7 @@ TestResults*/
 .DS_Store
 Thumbs.db
 logs/
+
+# Provider-derived price rows are retained locally/offsite but not redistributed.
+/reports/exp001_data_pilot_2026-09-02.json
+/reports/exp001_coverage_audit_2026-09-02.json

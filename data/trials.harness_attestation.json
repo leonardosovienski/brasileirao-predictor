@@ -1,11 +1,16 @@
 {
   "schema_version": "pipeline-power/2",
-  "passed_at": "2026-08-22T13:57:33+00:00",
-  "expires_at": "2026-08-29T13:57:33+00:00",
-  "core_version": "2.3.0",
+  "passed_at": "2026-09-02T23:37:28Z",
+  "expires_at": "2026-09-09T23:37:28Z",
+  "core_version": "3.1.0",
   "evaluate": "_rps_pipeline",
   "edge_verdict": "COMPROVADA",
   "note": "RESEARCH-01A: controle positivo da régua RPS (edge sintético k=3 detectado, ruído uniforme rejeitado)",
   "metric": "rps",
-  "pipeline_fingerprint": "48ceac3abff360baf17d033c01c09437e4e8a11bb1d71f32830292216d9405d0"
+  "pipeline_fingerprint": "3bbf3be2588d8440fe391a83743a2ef44176e01d5f1e04c2641a9e2252c9ca58",
+  "executed_at": "2026-09-02T23:37:28Z",
+  "code_version": "git:08370d3e4403218c9fdd25612b691e39c7b7ae49;dirty",
+  "dataset_reference_fingerprint": "sha256:3d1b7f7a268123c01db558649d856c460a2ad3a7ab01524cf4f0ca4863c76642",
+  "positive_control_result": "COMPROVADA",
+  "negative_control_result": "REFUTADA"
 }

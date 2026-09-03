@@ -61,6 +61,22 @@ def test_backup_includes_operational_odds_and_audit_files(tmp_path):
     assert verify_backup(backup)["schema_version"] == "brasileirao-backup/1.0"
 
 
+def test_backup_includes_trial_v2_paper_capital_and_reports(tmp_path):
+    source = _root(tmp_path / "source")
+    (source / "data" / "trials.v2.json").write_text("[]", encoding="utf-8")
+    paper = source / "data" / "paper_capital"
+    paper.mkdir()
+    (paper / "forecast.json").write_text("{}\n", encoding="utf-8")
+    reports = source / "reports"
+    reports.mkdir()
+    (reports / "ledger.jsonl").write_text("{}\n", encoding="utf-8")
+    backup = create_backup(tmp_path / "backup", root=source)
+    assert (backup / "data" / "trials.v2.json").is_file()
+    assert (backup / "data" / "paper_capital" / "forecast.json").is_file()
+    assert (backup / "reports" / "ledger.jsonl").is_file()
+    assert verify_backup(backup)["schema_version"] == "brasileirao-backup/1.0"
+
+
 def test_backup_rejeita_tamper_e_overwrite(tmp_path):
     source = _root(tmp_path / "source")
     backup = create_backup(tmp_path / "backup", root=source)

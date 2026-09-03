@@ -24,10 +24,18 @@ LEDGERS = (
     "sombra_h5_picks.jsonl",
     "sombra_h5_results.jsonl",
     "trials.json",
+    "trials.v2.json",
     "trials.harness_attestation.json",
     "teams_brasileirao.json",
 )
-OPERATIONAL_DIRECTORIES = ("odds_snapshots", "odds_quarantine", "collector_state", "collector_metrics")
+OPERATIONAL_DIRECTORIES = (
+    "odds_snapshots",
+    "odds_quarantine",
+    "collector_state",
+    "collector_metrics",
+    "paper_capital",
+)
+ROOT_DIRECTORIES = ("reports",)
 
 
 class BackupError(RuntimeError):
@@ -86,6 +94,10 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
             source_directory = root / "data" / name
             if source_directory.is_dir():
                 shutil.copytree(source_directory, data / name)
+        for name in ROOT_DIRECTORIES:
+            source_directory = root / name
+            if source_directory.is_dir():
+                shutil.copytree(source_directory, temporary / name)
         files = {path.relative_to(temporary).as_posix(): _hash(path) for path in _files(temporary)}
         manifest: dict[str, Any] = {
             "schema_version": SCHEMA_VERSION,

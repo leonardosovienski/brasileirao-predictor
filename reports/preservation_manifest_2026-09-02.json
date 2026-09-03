@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-09-02",
+  "policy": {
+    "source_files_unchanged": true,
+    "overwrite_existing_destinations": false,
+    "offsite_backup_verified": true,
+    "offsite_backup_root": "C:\\Users\\Superleo13\\OneDrive\\Codex-Offsite\\brasileirao-predictor",
+    "exact_source_bundle": "source-originals-20260902T233806Z"
+  },
+  "copied_and_verified": [
+    {
+      "source": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-27\\analise-o-reposit-rio-brasileirao-predictor\\outputs\\matches-db-operacional-8a3a2415\\matches.db",
+      "destination": "data/matches.db",
+      "bytes": 49508352,
+      "sha256": "8a3a2415aab9b8525708ee18ee7b3fb360b40031904095f5c71b35871e5946cd",
+      "sqlite_integrity_check": "ok",
+      "record_counts": {"matches": 2281, "sofascore_matches": 2321}
+    },
+    {
+      "source": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\data\\odds_operational.db",
+      "destination": "data/odds_operational.db",
+      "bytes": 131072,
+      "sha256": "9d2f6613ac405968929a57d311b067a25930de4d126bd3fa8f7ea56f8ff0338e",
+      "sqlite_integrity_check": "ok",
+      "record_counts": {"odds_event_versions": 6, "odds_snapshot_facts": 153}
+    },
+    {
+      "source": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\data\\odds_snapshots\\2026-08-28.jsonl",
+      "destination": "data/odds_snapshots/2026-08-28.jsonl",
+      "bytes": 13079,
+      "sha256": "cb0625042dc7d68ad79070d7d128edd12abaf58413786aa874849f87d1168f7a"
+    },
+    {
+      "source": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\data\\odds_snapshots\\2026-08-28.seal.json",
+      "destination": "data/odds_snapshots/2026-08-28.seal.json",
+      "bytes": 164,
+      "sha256": "eea2aa03637cb314cb354c3d43020ca330263bdacc965ca2d7cde2c79eda7794"
+    },
+    {
+      "source": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\data\\odds_snapshots\\2026-08-29.jsonl",
+      "destination": "data/odds_snapshots/2026-08-29.jsonl",
+      "bytes": 104898,
+      "sha256": "134c8fb58586f15e406036a61baebf84cbff4306301bd72667d75ed92ae772f4"
+    },
+    {
+      "source": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\data\\paper_capital\\ou25-preliminary-predictions-2026-08-28.json",
+      "destination": "data/paper_capital/ou25-preliminary-predictions-2026-08-28.json",
+      "bytes": 7351,
+      "sha256": "9e376dea853a66fd69fef4cd1d7f37618196dba519fe19173530b977cf2bbede"
+    },
+    {
+      "source": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\reports\\ou25_paper_capital_2026_08_29\\full_round_predictions.json",
+      "destination": "reports/ou25_paper_capital_2026_08_29/full_round_predictions.json",
+      "bytes": 34890,
+      "sha256": "fd62fc433c5ecf4bc90457f0379bb1a9a180b8dd028b08b5c55c157820242953"
+    },
+    {
+      "source": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\reports\\ou25_paper_capital_2026_08_29\\manual_round_decisions.jsonl",
+      "destination": "reports/ou25_paper_capital_2026_08_29/manual_round_decisions.jsonl",
+      "bytes": 5929,
+      "sha256": "010850bd46efdafb05333067f6164015808601a57a6d9f956cfebe447e0c9a3a"
+    },
+    {
+      "source": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\reports\\ou25_paper_capital_2026_08_29\\manual_round_settlements.jsonl",
+      "destination": "reports/ou25_paper_capital_2026_08_29/manual_round_settlements.jsonl",
+      "bytes": 3544,
+      "sha256": "4f2aa0c1e7d1b6855e26423865430a1e102d48516abab9493c984dce12b71e7f"
+    }
+  ],
+  "preserved_existing_destinations": [
+    {"path": "reports/ou25_paper_capital_2026_08_29/preliminary_predictions_2026_08_28.json", "source_equals_destination": true, "sha256": "9e376dea853a66fd69fef4cd1d7f37618196dba519fe19173530b977cf2bbede"},
+    {"path": "reports/ou25_paper_capital_2026_08_29/historical_validation_2024_2026.json", "source_equals_destination": true, "sha256": "e3f3262c7ab62f6e632d7922a479f62479b85057f497c28b5ec7707a605c12f6"},
+    {"path": "reports/ou25_paper_capital_2026_08_29/historical_turn_split_2024_2026.json", "source_equals_destination": true, "sha256": "bf8b3a1db85564ecd4a30ae2f221796b97af404d328f859952a2a2906788b3a0"},
+    {"path": "reports/ou25_paper_capital_2026_08_29/initial_round_ledger.jsonl", "source_equals_destination": false, "source_sha256": "65814fb373eaaef805b023c0afabe7e5214eefddf9ddcf0dc834ccbc6677b73d", "destination_sha256": "8479debacb129e7c3a5946d9af5015a4c25f2029d9171a9f886483e0a849d23f"},
+    {"path": "reports/ou25_paper_capital_2026_08_29/historical_game_audit_2024_2026.jsonl", "source_equals_destination": false, "source_sha256": "64c6606af3b485d6aa74b31e7ab4664b98c8bfd29642339b77e1e0197d564c83", "destination_sha256": "8482607cae41a3c1aa2ed88e400fd12cfec2e8eeb0474c2f3a7113b148543394"}
+  ],
+  "not_copied": [
+    {"path": "data/trials.json", "reason": "destination already contains the audited 29-trial registry"},
+    {"path": "data/trials.harness_attestation.json", "reason": "destination contains the newly executed Core 3.0 harness attestation"},
+    {"path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-08-28\\a\\brasileirao-predictor\\data\\matches.db", "reason": "known empty database; prohibited historical source"}
+  ],
+  "unresolved": [
+    "original general prediction store such as data/predictions.jsonl",
+    "dedicated prospective database",
+    "verified offsite copy of preserved assets"
+  ]
+}
