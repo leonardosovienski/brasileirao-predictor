@@ -779,7 +779,7 @@
     "result": {
       "sharpe": null
     },
-    "status": "substituída",
+    "status": "substituida",
     "notes": "SUBSTITUÍDA em 2026-08-26 antes da avaliação de n>=900: a auditoria encontrou climatologia calculada com os resultados da própria coorte, likelihood NB+DC sem o normalizador servido e decay Elo sem avanço terminal ao kickoff. A hipótese original não pode misturar algoritmos nem baseline. Nenhum resultado H13 foi calculado; a sucessora corrigida é H14."
   },
   {
