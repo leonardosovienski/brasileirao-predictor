@@ -39,7 +39,7 @@ def test_scheduler_disables_stale_h11_and_audits_repository_root() -> None:
     assert "tarefas apontando para outro repositorio" in installer
 
 
-def test_scheduler_installer_declares_18_unique_tasks() -> None:
+def test_scheduler_installer_declares_20_unique_tasks() -> None:
     jobs = {job["id"] for job in json.loads(JOBS.read_text(encoding="utf-8"))["jobs"]}
     direct = {
         "brasileirao-market-research",
@@ -49,6 +49,16 @@ def test_scheduler_installer_declares_18_unique_tasks() -> None:
         "brasileirao-h9-settle",
         "brasileirao-h9-backup",
         "brasileirao-h9-missed-window",
+        "brasileirao-h14-persist",
+        "brasileirao-h15-persist",
     }
 
-    assert len(jobs | direct) == 18
+    assert len(jobs | direct) == 20
+
+
+def test_scheduler_installer_covers_h14_and_h15_persistence() -> None:
+    installer = INSTALLER.read_text(encoding="utf-8")
+    assert '"brasileirao-h14-persist"' in installer
+    assert '"brasileirao-h15-persist"' in installer
+    assert "persist_h14_prospective.py" in installer
+    assert "persist_h15_prospective.py" in installer
