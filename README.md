@@ -1,5 +1,12 @@
 # brasileirao-predictor
 
+> **Estado corrente — 2026-09-04.** Coorte prospectiva H14 (serving-v2 vs.
+> climatologia) e H15 (refit 10 vs. 100 jogos) começaram a coletar de verdade
+> — persistência append-only pré-kickoff rodando, avaliação só em
+> `n>=900` (ponto único, gate mecânico). Gate A1 (odds multi-casa) com relógio
+> de 7 dias em andamento. Capital continua bloqueado em todos os mercados.
+> Veja o checkpoint mais recente em `HANDOFF.md`.
+
 > **Atualização econômica — 2026-09-01.** O candidato residual de totais avalia
 > Over e Under com odds realmente observadas, pares temporalmente compatíveis e
 > EV/Kelly/P&L líquidos de fricção. A avaliação permanece `SHADOW`, sem promoção
