@@ -77,6 +77,16 @@ Install-ScriptTask -Name "brasileirao-h9-settle" -ScriptPath (Join-Path $repo "b
 Install-ScriptTask -Name "brasileirao-h9-backup" -ScriptPath (Join-Path $repo "brasileirao_scripts\backup_h9_runtime.py") -Trigger $h9Backup -Description "H9 shadow: backup diario do ledger + integrity check" -TimeLimitMinutes 20
 Install-ScriptTask -Name "brasileirao-h9-missed-window" -ScriptPath (Join-Path $repo "brasileirao_scripts\report_h9_missed_windows.py") -Trigger $h9Missed -Description "H9 shadow: alerta de jogos que deveriam ter entrado na janela e nao entraram" -TimeLimitMinutes 15
 
+# H14/H15: persistencia prospectiva append-only, pre-kickoff, mesma cadencia
+# do H9 (15min). Nao calculam RPS nem decidem GO/NO-GO; so persistem os
+# bracos declarados no pre-registro. Instalar isto INICIA o relogio das
+# coortes -- exige decisao explicita do operador de rodar este instalador.
+$h14Persist = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(5) -RepetitionInterval (New-TimeSpan -Minutes 15)
+$h15Persist = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(6) -RepetitionInterval (New-TimeSpan -Minutes 15)
+
+Install-ScriptTask -Name "brasileirao-h14-persist" -ScriptPath (Join-Path $repo "brasileirao_scripts\persist_h14_prospective.py") -Trigger $h14Persist -Description "H14: persistencia prospectiva serving-v2 vs climatologia (15min)"
+Install-ScriptTask -Name "brasileirao-h15-persist" -ScriptPath (Join-Path $repo "brasileirao_scripts\persist_h15_prospective.py") -Trigger $h15Persist -Description "H15: persistencia prospectiva refit10 vs refit100 (15min)"
+
 foreach ($legacy in "brasileirao-archival-collection", "brasileirao-closing-snapshot", "brasileirao-sombra-manha", "brasileirao-sombra-noite", "brasileirao-h11-1x2-shadow") {
     if (Get-ScheduledTask -TaskName $legacy -ErrorAction SilentlyContinue) {
         Disable-ScheduledTask -TaskName $legacy | Out-Null
@@ -86,7 +96,7 @@ foreach ($legacy in "brasileirao-archival-collection", "brasileirao-closing-snap
 $installedNames = @($manifest.jobs | ForEach-Object { [string]$_.id }) + @(
     "brasileirao-market-research", "brasileirao-model-update", "brasileirao-h9-emit", `
     "brasileirao-h9-closing", "brasileirao-h9-settle", "brasileirao-h9-backup", `
-    "brasileirao-h9-missed-window"
+    "brasileirao-h9-missed-window", "brasileirao-h14-persist", "brasileirao-h15-persist"
 )
 Get-ScheduledTask -TaskName ($installedNames | Sort-Object -Unique) |
     Select-Object TaskName, State
