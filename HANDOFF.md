@@ -1,5 +1,54 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-09-04) — FONTE DA VERDADE ATUAL
+>
+> **PIT futuro do EXP-001:** `sofascore_matches` ganhou a coluna
+> `result_observed_at`, carimbada por trigger SQLite (write-once) no primeiro
+> `INSERT`/`UPDATE` em que `home_score`/`away_score` deixam de ser `NULL`.
+> Histórico já coletado permanece `NULL` de propósito — não há evidência real
+> de quando cada placar antigo foi observado, e não foi inventada. Resolve só
+> o acúmulo futuro do bloqueio do EXP-001; o histórico continua irrecuperável
+> (PR #49).
+>
+> **H14 e H15 saíram de `collection_status=NOT_STARTED` para coleta real.**
+> `persist_h14_prospective.py` (serving-v2 vs. climatologia prequential) e
+> `persist_h15_prospective.py` (refit a cada 10 vs. 100 jogos, dois estados de
+> modelo independentes via `cron_update_models.compute`) persistem os braços
+> append-only, pré-kickoff, idempotentes por `event_id` (PRs #50, #51). O
+> instalador canônico (`install_windows_scheduler.ps1`) passou a cobrir
+> `brasileirao-h14-persist`/`brasileirao-h15-persist` (15min, mesma cadência
+> do H9) — **rodado pelo operador em 2026-09-04**, `LastTaskResult=0` nos
+> dois. O relógio das duas coortes está ativo.
+>
+> `evaluate_h14_prospective.py`/`evaluate_h15_prospective.py` (PR #52) são o
+> terceiro passo, ainda sem uso: casam o ledger com o resultado real e medem
+> ganho pareado de RPS por bootstrap de bloco móvel — mas com gate de poder
+> MECÂNICO (`n < min_n_avaliacao` não calcula nada, só informa quanto falta)
+> e recusa a sobrescrever um relatório de ponto único já escrito. Nenhum dos
+> dois script de avaliação foi executado ainda: `min_n_avaliacao=900` está
+> longe (mesma conta do H13: ~899/380 ≈ 2,4 temporadas).
+>
+> **Gate A1 (coletor de odds multi-casa):** chave `ODDSPAPI_KEY` rotacionada e
+> atestada pelo operador em `data/collector_metrics/key_rotation_attestation.json`
+> (arquivo local, fora do Git). Tarefas `brasileirao-a1-collect/-discover/-metrics`
+> instaladas e confirmadas rodando (`LastTaskResult=0`) desde 2026-09-04.
+> Relógio dos 7 dias em andamento; conclusão esperada por volta de
+> 2026-09-10/11. Continua `REHEARSAL_ONLY` no plano gratuito — homologação
+> formal provavelmente exige plano pago. `market05-a1-shadow` continua
+> bloqueada até o relógio fechar; nenhum campo de trial foi editado
+> manualmente para simular essa evidência (seria fabricar dado).
+>
+> **Nenhuma trava de capital foi aberta.** Nenhum resultado científico,
+> parâmetro de modelo ou veredito de trial existente foi alterado. Suíte após
+> os 4 PRs: **905 passed**, 1 deselected. `ruff check`/`ruff format --check`
+> limpos. CI verde nos 4 merges (`main` em `ad41db4`).
+>
+> **O que NÃO foi resolvido nesta sessão, por não ter solução de código:**
+> preservação offsite (`preservation.status=BLOCKED`, 2 caminhos `UNKNOWN` só
+> localizáveis na máquina do operador); as 4 trials PIT (escalação, xG
+> isolado, mando hierárquico), travadas por `training_gate` — decisão de
+> governança explícita, não dado ou código faltando.
+
 > **Estado técnico corrente — 2026-09-01:** pacotes
 > `brasileirao_predictor`/`brasileirao_scripts`, Core 3.0.x e Ops 4.0.x por
 > wheels. Caminhos `src/*`/`scripts/*`, Core 2.x, Ops 3.x e contagens de teste
