@@ -120,6 +120,31 @@ CREATE TABLE IF NOT EXISTS xg_model_parameters (
 );
 """
 
+# result_observed_at: quando ESTE banco viu pela primeira vez um placar final
+# pra este event_id (não é o instante em que o Sofascore publicou o resultado
+# — é um proxy conservador do lado da coleta, PIT em relação ao nosso próprio
+# pipeline). Write-once via trigger: não reescreve se já tiver valor, então
+# reingestão/backfill não distorce o timestamp original. Histórico coletado
+# antes desta migração permanece NULL de propósito — não é preenchido
+# retroativamente, porque não há evidência real de quando cada placar antigo
+# foi observado (não inventar disponibilidade histórica e chamar de PIT).
+_RESULT_OBSERVED_TRIGGERS = """
+CREATE TRIGGER IF NOT EXISTS trg_result_observed_at_insert
+AFTER INSERT ON sofascore_matches
+WHEN NEW.home_score IS NOT NULL AND NEW.away_score IS NOT NULL AND NEW.result_observed_at IS NULL
+BEGIN
+    UPDATE sofascore_matches SET result_observed_at = strftime('%Y-%m-%dT%H:%M:%SZ','now')
+    WHERE event_id = NEW.event_id;
+END;
+CREATE TRIGGER IF NOT EXISTS trg_result_observed_at_update
+AFTER UPDATE OF home_score, away_score ON sofascore_matches
+WHEN NEW.home_score IS NOT NULL AND NEW.away_score IS NOT NULL AND NEW.result_observed_at IS NULL
+BEGIN
+    UPDATE sofascore_matches SET result_observed_at = strftime('%Y-%m-%dT%H:%M:%SZ','now')
+    WHERE event_id = NEW.event_id;
+END;
+"""
+
 UPSERT = """
 INSERT INTO matches (date, home_team, away_team, home_score, away_score,
                      tournament, city, country, neutral)
@@ -167,6 +192,7 @@ def connect(db_path: str, read_only: bool = False) -> sqlite3.Connection:
     conn.execute("PRAGMA synchronous=NORMAL")
     conn.executescript(SCHEMA)
     _migrate(conn)
+    conn.executescript(_RESULT_OBSERVED_TRIGGERS)
     return conn
 
 
@@ -219,6 +245,8 @@ def _migrate(conn):
         conn.execute("ALTER TABLE sofascore_matches ADD COLUMN kickoff_at TEXT")
     if "superseded_by_event_id" not in cols:
         conn.execute("ALTER TABLE sofascore_matches ADD COLUMN superseded_by_event_id INTEGER")
+    if "result_observed_at" not in cols:
+        conn.execute("ALTER TABLE sofascore_matches ADD COLUMN result_observed_at TEXT")
     conn.execute(
         "CREATE TABLE IF NOT EXISTS match_kickoff_versions ("
         "event_id INTEGER NOT NULL,version INTEGER NOT NULL,kickoff_at TEXT NOT NULL,"
