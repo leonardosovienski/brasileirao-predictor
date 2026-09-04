@@ -41,3 +41,40 @@ def test_toda_trial_declara_status() -> None:
     não é interpretável na leitura do registro."""
     sem_status = [t["name"] for t in TrialRegistry(TRIALS).load() if not t.get("status")]
     assert sem_status == [], f"trials sem status: {sem_status}"
+
+
+# O core valida `status` apenas como string não-vazia (`validate_trial_v2`), então
+# variantes ortográficas do mesmo veredito — "substituida" vs "substituída" —
+# passavam pelo schema e quebravam qualquer leitura agregada do registro (contagem
+# por status, filtro de hipóteses ainda abertas). O vocabulário é fechado por
+# decisão de governança; é o consumidor que precisa travá-lo.
+STATUS_VOCABULARY = frozenset(
+    {
+        "pre-registrada",
+        "exploratoria",
+        "informativa",
+        "inconclusiva",
+        "refutada",
+        "comprovada",
+        "substituida",
+    }
+)
+
+TRIALS_V2 = ROOT / "data" / "trials.v2.json"
+
+
+def test_status_pertence_ao_vocabulario_fechado() -> None:
+    for caminho in (TRIALS, TRIALS_V2):
+        registro = json.loads(caminho.read_text(encoding="utf-8"))
+        fora = sorted({t["status"] for t in registro if t.get("status") not in STATUS_VOCABULARY})
+        assert fora == [], f"{caminho.name}: status fora do vocabulário: {fora}"
+
+
+def test_status_por_trial_e_o_mesmo_nas_duas_geracoes_do_registro() -> None:
+    """v1 e v2 descrevem as MESMAS tentativas. Divergência de veredito entre elas
+    significa que uma das duas mentiu sobre o estado de uma hipótese."""
+    v1 = {t["name"]: t["status"] for t in json.loads(TRIALS.read_text(encoding="utf-8"))}
+    v2 = {t["trial_id"]: t["status"] for t in json.loads(TRIALS_V2.read_text(encoding="utf-8"))}
+    assert set(v1) == set(v2), f"identidades divergentes: {sorted(set(v1) ^ set(v2))}"
+    divergentes = {k: (v1[k], v2[k]) for k in v1 if v1[k] != v2[k]}
+    assert divergentes == {}, f"status divergente entre v1 e v2: {divergentes}"
