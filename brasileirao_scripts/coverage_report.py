@@ -43,6 +43,26 @@ MIGRATION = {
 # The operator smoke is executed as an E2E container gate and reported separately.
 REDIS_INTEGRATION: set[str] = set()
 KERNEL = {"brasileirao_predictor/kernel_daemon.py"}
+# Código que produz EVIDÊNCIA publicada: os artefatos de reports/ que sustentam
+# vereditos fechados no registro de tentativas, e a régua que os desconta.
+# Auditoria adversarial 2026-09-05, achado 6 (issue #57): estes arquivos caíam
+# em "pesquisa"/"legado", categorias sem gate, enquanto os contratos ficavam
+# acima de 80%. O caminho que vai do dado bruto até a afirmação publicada era o
+# menos exercitado do repositório — 22% em quem calcula o DSR, 54% em quem
+# produziu a única trial `comprovada`.
+EVIDENCIA = {
+    "brasileirao_scripts/research_xg_ensemble.py",
+    "brasileirao_scripts/backtest_walkforward.py",
+    "brasileirao_scripts/trial_draw_calibration_a10.py",
+    "brasileirao_scripts/research_market_edge_ordering.py",
+    "brasileirao_scripts/benchmark_predictor.py",
+    "brasileirao_predictor/research/market_edge_ordering.py",
+    "brasileirao_predictor/research/prospective_validation/metrics.py",
+}
+# Piso-catraca, não meta. Medido em 2026-09-05: 56,40%. O alvo é 80%, o mesmo
+# das categorias homologadas; subir o piso exige escrever teste, e ele nunca
+# desce. Colocar 80 aqui hoje quebraria o CI sem corrigir nada.
+EVIDENCIA_PISO = 56.0
 
 
 def _percent(files: dict[str, dict], names: Iterable[str]) -> tuple[float, int, int]:
@@ -65,6 +85,8 @@ def classify(path: str) -> str:
         return "integracao_redis"
     if path in PROVIDERS:
         return "providers"
+    if path in EVIDENCIA:
+        return "geradores_de_evidencia"
     if path in MIGRATION:
         return "migracao"
     if (
@@ -99,6 +121,7 @@ def main() -> int:
         "kernel",
         "integracao_redis",
         "providers",
+        "geradores_de_evidencia",
         "pesquisa",
         "migracao",
         "legado",
@@ -118,13 +141,26 @@ def main() -> int:
             "Worker .NET (collector Cobertura): **85,15% linhas / 80,92% branches**.",
             "",
             "A cobertura global inclui pesquisa, migração e legado sem exclusões silenciosas.",
+            "",
+            f"`geradores_de_evidencia` é o código que produz os artefatos de `reports/` "
+            f"que sustentam vereditos fechados. Piso-catraca em {EVIDENCIA_PISO:.0f}% "
+            "(medido em 2026-09-05); alvo 80%, o mesmo das categorias homologadas.",
         ]
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps(results, sort_keys=True))
     required = ("runtime_homologado", "kernel", "integracao_redis", "providers")
-    return 0 if all(results[group] >= 80 for group in required) else 1
+    falhas = [f"{g} {results[g]:.2f}% < 80%" for g in required if results[g] < 80]
+    evidencia = results["geradores_de_evidencia"]
+    if evidencia < EVIDENCIA_PISO:
+        falhas.append(
+            f"geradores_de_evidencia {evidencia:.2f}% < piso {EVIDENCIA_PISO:.2f}% — "
+            "o código que produz evidência publicada não pode regredir"
+        )
+    for falha in falhas:
+        print(f"GATE: {falha}")
+    return 1 if falhas else 0
 
 
 if __name__ == "__main__":
