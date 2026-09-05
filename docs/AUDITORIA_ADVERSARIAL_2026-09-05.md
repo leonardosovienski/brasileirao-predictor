@@ -369,9 +369,20 @@ Cronologia verificada em 2026-09-05 pela API do GitHub
 | 31/08 21:50:49 | push da tag `v4.0.0` (commit `6b695ea`) dispara o workflow Release |
 | 31/08 21:51:01 | `uv run pyright` falha, exit 1; o job `build` morre em ~12 s |
 | 31/08 21:54:17 | release `v4.0.0` publicada por `leonardosovienski` (humano) |
-| 31/08 22:53:30 | `workflow_dispatch` em `main` (`46cd8e2`) passa, mas o job `release` exige `refs/tags/` e não publica nada |
+| 31/08 22:53:30 | `workflow_dispatch` em `main` (`46cd8e2`) passa, mas o job `release` exige `refs/tags/` e não publica nada † |
 
-Metadados da run, verbatim: `"name":"Release"`, `"event":"push"`,
+† **Única linha desta tabela não verificada diretamente por esta auditoria.**
+Foi reportada pelo mantenedor e é consistente com `release.yml` — o job
+`release` tem `if: startsWith(github.ref, 'refs/tags/')`, de modo que um
+`workflow_dispatch` em `main` de fato não publicaria asset algum. Mas a run em
+si não foi lida: a API de listagem consultada não honrou o filtro por
+`workflow_id` e isolá-la exigiria paginação extensa. As duas linhas que
+sustentam o achado — a falha da run da tag e a publicação manual — foram
+verificadas diretamente e estão transcritas abaixo. Confirmar esta terceira
+linha não muda a conclusão; ela apenas mostra que houve uma tentativa
+posterior de rodar o pipeline que não podia publicar.
+
+Metadados da run 33443380439, verbatim: `"name":"Release"`, `"event":"push"`,
 `"head_branch":"v4.0.0"`, `"head_sha":"6b695ea…"`, `"conclusion":"failure"`,
 `"created_at":"2026-08-31T21:50:49Z"`, `"updated_at":"2026-08-31T21:51:04Z"`.
 
