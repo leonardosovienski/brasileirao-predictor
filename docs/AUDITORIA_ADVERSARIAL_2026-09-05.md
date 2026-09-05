@@ -33,15 +33,19 @@ executável, mas nenhuma das 29 trials do registro é reproduzível por terceiro
 
 ## Sumário dos achados
 
-| # | Severidade | Achado | Repositório | Confiança |
+| # | Severidade | Achado | Confiança | Rastreamento |
 |---|---|---|---|---|
-| 1 | Crítico | Nenhuma trial é reproduzível por terceiro: 29/29 com proveniência `UNKNOWN` | brasileirao | Alta (medido) |
-| 2 | Crítico | O desconto do Deflated Sharpe é quase inoperante na prática | core | Alta (mecanismo) / Média (magnitude) |
-| 3 | Alto | Bypass do gate de atestação de poder por sobrescrita de veredito | core | Alta (executado) |
-| 4 | Alto | A wheel `predictor-ops 4.0.0` em produção nunca passou pelos gates de release | ops | **Alta (confirmado por log)** |
-| 5 | Médio | Colisão de versão `4.0.0` — já conhecido, correção em voo (PR #17) | ops | Alta |
-| 6 | Médio | O código que produz as evidências é o menos testado do repositório | brasileirao | Alta (medido) |
-| 7 | Baixo | Atestação de poder emitida a partir de árvore de trabalho suja | brasileirao | Alta |
+| 1 | Crítico | Nenhuma trial é reproduzível por terceiro: 29/29 com proveniência `UNKNOWN` | Alta (medido) | brasileirao#56 |
+| 2 | Crítico | O desconto do Deflated Sharpe é quase inoperante na prática | Alta (mecanismo) / Média (magnitude) | core-predictor#20 |
+| 3 | Alto | Bypass do gate de atestação de poder por sobrescrita de veredito | Alta (executado) | core-predictor#21 |
+| 4 | Alto | A wheel `predictor-ops 4.0.0` em produção nunca passou pelos gates de release | **Alta (confirmado por log)** | predictor-ops#18 |
+| 5 | Médio | Colisão de versão `4.0.0` — já conhecido, correção em voo | Alta | predictor-ops#17 |
+| 6 | Médio | O código que produz as evidências é o menos testado do repositório | Alta (medido) | brasileirao#57 |
+| 7 | Baixo | Atestação de poder emitida a partir de árvore de trabalho suja | Alta | brasileirao#58 |
+
+Este documento foi registrado em brasileirao-predictor#55. Cada achado tem uma
+issue no repositório onde está o código, com o que a fecharia; o documento
+preserva o raciocínio e a evidência, as issues preservam o trabalho pendente.
 
 ---
 
