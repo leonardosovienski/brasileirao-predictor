@@ -562,13 +562,45 @@ Registrado explicitamente porque um "não testado" honesto vale mais que um
 "provavelmente ok".
 
 - **Job `dotnet` do CI do brasileirao** (worker .NET 10, gate de 80 % de linha
-  *e* de branch): `dotnet: command not found` no ambiente remoto. **Zero
-  cobertura de auditoria** sobre o worker .NET e sobre o gate de 80 %.
+  *e* de branch): não reproduzido — `dotnet: command not found` no ambiente
+  remoto.
 - **Job `containers`** (`docker compose config/build/up --wait`, smoke
   `hotpath_smoke`, perda e reconexão do Redis, shutdown gracioso com verificação
-  de exit code 0): o binário `docker` existe, mas não há daemon —
-  `docker info` falha. Nenhuma das garantias de compose foi exercida.
-- **Matriz Python 3.14**: apenas a perna 3.13 foi executada nos três repositórios.
+  de exit code 0): não reproduzido — o binário `docker` existe, mas não há
+  daemon; `docker info` falha.
+- **Matriz Python 3.14**: não reproduzida localmente; apenas a perna 3.13 foi
+  executada nos três repositórios.
+
+  **Correção posterior a estes três itens.** A primeira redação deste documento
+  afirmava "zero cobertura de auditoria" sobre o worker .NET e "nenhuma das
+  garantias de compose foi exercida". Isso era mais forte que a evidência
+  disponível, e a evidência estava a uma consulta de distância. A run
+  [33932961360](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/33932961360),
+  do commit `c1f6c48` deste mesmo documento, tem os quatro jobs verdes, com os
+  passos nomeados individualmente:
+
+  - `.NET 10 build and test` → `dotnet restore --locked-mode`, `dotnet build
+    --warnaserror`, `dotnet test --collect:"XPlat Code Coverage"` e
+    **`Enforce Worker line and branch coverage` com `conclusion: success`** —
+    isto é, o gate de 80 % de linha e de branch passa.
+  - `Compose build and health` → `docker compose config --quiet`, `build`,
+    `up --detach --wait`, `Versioned Python Redis .NET smoke`,
+    **`Redis loss and reconnection`** e **`Graceful shutdown`**, todos
+    `success`.
+  - `Python 3.14` → verde, mesma sequência da perna 3.13.
+
+  A distinção que importa: isto **não** é verificação independente desta
+  auditoria. Eu não reproduzi esses jobs nem li os números que eles produziram
+  — li a conclusão de uma execução feita pela infraestrutura do próprio
+  projeto, que é exatamente o tipo de afirmação que esta auditoria se propôs a
+  não aceitar sem conferir. O estado correto destes três itens é "não
+  reproduzido por esta auditoria, e verde no CI deste commit", não "zero
+  cobertura" e não "verificado".
+
+  **O que faria destes itens verificação de verdade:** um ambiente com daemon
+  Docker e SDK .NET 10, onde os jobs sejam reexecutados à mão e os números
+  reais de cobertura do worker (linha e branch) sejam lidos, em vez do
+  booleano do gate.
 - **Divergência de versões de ferramenta**: a auditoria usou `uv 0.8.17`,
   enquanto o CI fixa `0.12.1`; Redis local 7.0.15 contra `redis:8.2.1-alpine3.22`
   no CI. Os números de cobertura podem diferir na margem.
