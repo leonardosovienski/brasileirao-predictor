@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_shared_packages_are_supported_versions() -> None:
     assert version("predictor-core").startswith("3.1.")
-    assert version("predictor-ops").startswith("4.0.")
+    assert version("predictor-ops").startswith("4.1.")
 
 
 def test_vendor_does_not_return() -> None:

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_shared_dependencies_load_from_site_packages() -> None:
     assert importlib.metadata.version("predictor-core") == "3.1.0"
-    assert importlib.metadata.version("predictor-ops") == "4.0.0"
+    assert importlib.metadata.version("predictor-ops") == "4.1.0"
     assert "site-packages" in str(predictor_core.__file__)
     assert "site-packages" in str(predictor_ops.__file__)
 
@@ -20,7 +20,11 @@ def test_shared_dependencies_load_from_site_packages() -> None:
 def test_shared_wheel_hashes_are_pinned() -> None:
     records = (ROOT / "constraints" / "shared-wheels.sha256").read_text(encoding="utf-8")
     assert "b4ef7d4723c8255f93a3e47f54af292195e913fca60e7b7e9c6de90ebdd5a491" in records
-    assert "a79b895492181c88c428ee8984a38d5f3da0d0105f060f89a061376d5cfe2b2b" in records
+    # predictor-ops 4.1.0, primeira wheel desta linha construída pelo pipeline de
+    # release (a 4.0.0 foi publicada à mão depois da run da tag falhar em pyright
+    # — auditoria adversarial 2026-09-05, achado 4). Hash conferido byte a byte
+    # contra o release asset: create_system=3, zero CRLF, conteúdo idêntico a a9a4743.
+    assert "6d428a4d3d4fbd3f692725bf684024131f0fa65cc11d0e739e9ccb82ba9834e4" in records
 
 
 def test_python_images_verify_shared_wheels_before_install() -> None:
