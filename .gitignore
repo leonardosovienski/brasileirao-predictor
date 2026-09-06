@@ -36,6 +36,13 @@ htmlcov/
 artifacts/
 coverage.json
 work-coverage.json
+# wheelhouse/ e onde o CI baixa as wheels compartilhadas canonicas para
+# conferir o sha256 (passo "Verify canonical shared wheel hashes"). Nunca foi
+# para ser versionado, mas faltava aqui, entao a arvore do runner ficava suja
+# durante o pytest -- calado, ate o core 3.2.0 passar a recusar arvore suja na
+# emissao de atestado (achado 7 da auditoria adversarial de 2026-09-05). O gate
+# nao criou o problema; expos um que ja existia.
+wheelhouse/
 .wheelhouse-e2e/
 TestResults*/
 
