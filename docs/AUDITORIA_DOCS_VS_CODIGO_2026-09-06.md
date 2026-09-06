@@ -145,3 +145,76 @@ composição incorretamente: quem ler só ele conclui que o runtime é stdlib pu
    `RESEARCH_FREEZE.md` de que esses três vereditos só têm evidência local.
 6. **ops**: marcar a matriz de migração como plano, já que `tests_v2/test_consumer_contracts.py`
    não existe.
+
+## Adendo — varredura estendida (mesma data)
+
+A primeira versão deste relatório rodou a checagem de referências mortas só em
+`stocks`, `core` e `ops`. Ficaram de fora justamente os dois repositórios com mais
+documentação. Corrigido: a varredura cobriu os **182 arquivos `.md`** dos cinco
+repositórios (stocks 25, core 15, ops 10, cripto 50, brasileirao 82).
+
+### `cripto` e `brasileirao` não produziram achados novos
+
+Todas as referências a arquivos inexistentes nesses dois caem em três categorias
+legítimas, verificadas uma a uma:
+
+- **Blocos datados append-only.** O `ADENDO ECOSSISTEMA (2026-07-18)` do
+  `brasileirao/HANDOFF.md` cita `tools/vendor_byte_audit.py`,
+  `FINAL_FORENSIC_REVIEW.md` e `PENDENCIAS_ABERTAS.md` — artefatos da era vendor,
+  num bloco que o próprio documento marca como histórico. `docs/READINESS.md`
+  declara no cabeçalho que é log append-only e aponta o HANDOFF como fonte
+  corrente. No cripto, `HANDOFF.md:821` cita `core/retry.py` e `core/http_client.py`
+  **dizendo que foram deletados** — a referência é ao fato da remoção.
+- **Entregáveis planejados.** `docs/POSTMORTEM_COPA_2026.md` (campo "Entregável:"),
+  `src/research/ev_detector.py` e `docs/experiments/MARKET_05_A1_AUDIT.md` aparecem
+  em checklists `- [ ]` não concluídos.
+- **Artefatos locais gitignored.** `data/collector_metrics/key_rotation_attestation.json`,
+  `data/research/*.json` e `reports/exp001_*.json` estão sob `.gitignore` e já
+  constam de `docs/ESTADO_LOCAL_E_OPERACAO.md` como existentes só na máquina do
+  operador. Exceção única: `reports/benchmark_baseline_v4_2026-08-21.json` **não**
+  está gitignored e não está no repo, citado em `docs/READINESS.md:191` — dentro de
+  um documento que se declara histórico, então baixo.
+
+Conclusão: sob a varredura profunda, `brasileirao` e `cripto` se sustentam. A
+disciplina de datar bloco e marcar append-only é o que os segura — é a mesma
+disciplina cuja ausência produz os achados A2, A3 e A5.
+
+### A2 é contradição de três documentos, não de dois
+
+Além do `CLAUDE.md` (3.1.0) contra o `pyproject.toml` (3.0.0),
+`STOCKS_CURRENT_STATE.md:69` declara "resolução canônica do CI/lock: wheel oficial
+`predictor-core==3.0.0`". Ou seja: dois documentos dizem 3.0.0, um diz 3.1.0, e o
+atestado vigente foi emitido com 3.1.0 — o único artefato que registra o que de fato
+rodou é o que discorda da maioria dos documentos. Para contraste,
+`cripto/CR_RESEARCH_FREEZE.md:12` afirma "3.0.0 (pyproject.toml + uv.lock,
+consistentes)" e a afirmação confere.
+
+### Relógios correndo
+
+Três atestados de poder com validade de 7 dias, e nenhum documento os reúne:
+
+| repo | expira | core do atestado |
+|---|---|---|
+| cripto | 2026-09-10 | 3.0.0 |
+| stocks | **2026-09-11** | 3.1.0 |
+| brasileirao | 2026-09-13 | 3.2.0 |
+
+O do stocks vence antes da H18 se a decisão da ordem das rodadas demorar, e qualquer
+bump do core o invalida na hora — o que torna a decisão de A2 e a renovação do
+atestado uma coisa só, não duas.
+
+## Limites desta auditoria
+
+Declarado para que ninguém leia mais do que foi feito:
+
+- As suítes rodaram em **Linux**, não no Windows do operador, e com o core instalado
+  em modo editable a partir do `main` — não a partir da wheel publicada. Falhas
+  específicas de Windows ou de empacotamento não apareceriam aqui.
+- Nenhum banco real foi exercitado: `matches.db`, `feature_store.db` e o banco do
+  stocks são gitignored e estão só na máquina do operador. Nada sobre **dados** foi
+  verificado — só sobre código, documentos e artefatos versionados.
+- Os ~180 `.md` foram varridos por referências e por afirmações de versão/contagem;
+  **não** foram lidos integralmente um a um. Uma afirmação factual errada no meio de
+  um documento de análise, que não cite arquivo nem versão, passaria.
+- Os vereditos científicos em si (H1–H16, gates, DSR) não foram reauditados: esta é
+  uma conferência de documentação contra código, não uma revisão de método.
