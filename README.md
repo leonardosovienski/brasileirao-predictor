@@ -31,6 +31,16 @@ causas está em [`docs/DOSSIE_ANALISE_PREDICTOR_2026-08-26.md`](docs/DOSSIE_ANAL
 O fechamento completo, incluindo 2025 aberto, governança, coletor e lacunas,
 está em [`docs/RELATORIO_FINAL_CONSOLIDADO_2026-08-26.md`](docs/RELATORIO_FINAL_CONSOLIDADO_2026-08-26.md).
 
+A auditoria adversarial de 2026-09-05, com os sete achados, a evidência
+reproduzível de cada um e dois adendos de encerramento, está em
+[`docs/AUDITORIA_ADVERSARIAL_2026-09-05.md`](docs/AUDITORIA_ADVERSARIAL_2026-09-05.md).
+**Comece por [`docs/ESTADO_LOCAL_E_OPERACAO.md`](docs/ESTADO_LOCAL_E_OPERACAO.md)**
+se você precisa operar o sistema: ele reúne o que NÃO está versionado — onde
+vive o `matches.db`, como renovar o atestado de poder (validade de 7 dias, e
+todo bump do `predictor-core` o invalida), o estado da coleta agendada no
+Windows Task Scheduler, e as diferenças entre ambiente local, CI e sandbox que
+já causaram diagnóstico errado.
+
 A coleta prospectiva atual preserva contratos completos e capital bloqueado;
 operação e monitoramento: `docs/SHADOW_PROSPECTIVE_RUNBOOK.md`. H3/H5 são
 históricas/substituídas; H9 é a replicação econômica inconclusiva; H13 foi
