@@ -218,3 +218,54 @@ Declarado para que ninguém leia mais do que foi feito:
   um documento de análise, que não cite arquivo nem versão, passaria.
 - Os vereditos científicos em si (H1–H16, gates, DSR) não foram reauditados: esta é
   uma conferência de documentação contra código, não uma revisão de método.
+
+## Encerramento — o que foi aplicado (2026-09-06, mesmo dia)
+
+Todos os seis achados foram tratados e mergeados nas `main` no mesmo dia da
+auditoria. **Quem ler este relatório depois não deve tratar os achados acima como
+abertos** — eles são o registro do que estava errado, não do que está.
+
+| # | achado | como fechou |
+|---|---|---|
+| A1 | `CHANGELOG` do core se contradizia | abertura do 3.2.0 reescrita: nomeia a quebra, o consumidor afetado e o resultado medido nos três domínios (core#27) |
+| A2 | três versões do core, stocks contradizendo-se em 3 documentos | tudo alinhado em **3.2.0** — `pyproject`, `uv.lock`, `ci.yml`, `CLAUDE.md`, `RUNBOOK_H18`, `STOCKS_CURRENT_STATE`, `RESEARCH_FREEZE` (stocks#66) |
+| A3 | ops anunciando 4.0.0 | README e HANDOFF em 4.1.0, com aviso de por que 4.0.0 não deve ser instalada (ops#19) |
+| A4 | H14–H16 sem relatório versionado | nota de evidência no `RESEARCH_FREEZE`: o que o veredito continua tendo, o que falta, e o comando para fechar na máquina do operador (stocks#66) |
+| A5 | `CLAUDE.md` omitindo PyYAML | seção *Ambiente* declara a dependência real e onde é usada (stocks#66) |
+| A6 | referências mortas | caminhos corrigidos no `RJ_DESIGN`; matriz do ops marcada como plano (stocks#66, ops#19) |
+
+O cripto subiu **ops 4.1.0** e mantém **core 3.0.0 de propósito** (cripto#103): o
+bump do core exige emitir atestado nos cinco pontos que atualizam veredito, e está
+registrado como pendência no HANDOFF de lá.
+
+### O achado que só apareceu ao aplicar
+
+Não estava na auditoria e é o mais reutilizável: **os pins de core/ops vivem em
+quatro ou cinco arquivos por repositório, e nenhum deriva do outro.**
+
+| repo | onde o pin vive |
+|---|---|
+| cripto | `pyproject.toml`, `uv.lock`, `Dockerfile`, `.github/workflows/ci.yml`, `scripts/verify_installed_wheels.py` (+ `tests/test_core_integrity.py`) |
+| stocks | `pyproject.toml`, `uv.lock`, `.github/workflows/ci.yml` |
+
+Trocar só o `pyproject` **passa na suíte local e quebra o CI** com
+`ResolutionImpossible`, porque a suíte não enxerga Dockerfile nem workflow. Custou
+três rodadas de CI vermelho (duas no cripto, uma no stocks) para o inventário
+fechar. Registrado no HANDOFF do cripto, que é quem ainda vai encostar nesses
+arquivos ao subir o core.
+
+### Consequência operacional da migração do stocks
+
+Sob o core 3.2.0, rodar a suíte com **qualquer** alteração não commitada derruba 21
+testes com `DirtyWorkingTreeError` — é o guard novo funcionando, não regressão
+(com a árvore limpa: 374/374). Está no `CLAUDE.md` e no `RUNBOOK_H18` do stocks.
+
+### O que seguiu com o operador
+
+Nada disto é código, e nenhum podia ser feito a partir do sandbox:
+
+1. **Reemitir o atestado do stocks** — o bump invalidou o vigente (emitido com
+   3.1.0, expirava em 2026-09-11). Exige a máquina do operador e `git status` limpo.
+2. **Fixar a ordem das rodadas** H17/H18/H19 antes da primeira medição.
+3. **`git add -f`** dos relatórios H14/H15/H16, que só existem na máquina do operador.
+4. **Bump do core no cripto**, quando fizer sentido — caminho mapeado no HANDOFF de lá.
