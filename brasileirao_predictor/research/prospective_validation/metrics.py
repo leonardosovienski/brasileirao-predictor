@@ -85,7 +85,18 @@ def evaluate_cohort(
     roi = st.mean(pnl) if pnl else None
     psr = probabilistic_sharpe_ratio(pnl, 0.0) if len(pnl) >= 2 else None
     denominator = list(policy.historical_trial_sharpes) + [None] * policy.declared_trials
-    dsr_result = registry_module.deflated_sharpe_ratio(pnl, denominator) if len(pnl) >= 2 else None
+    # strict=True: se SR0 não é estimável (menos de 2 sharpes finitos no
+    # denominador), o core levanta em vez de devolver DSR == PSR. Este é o gate
+    # de capital: um DSR sem desconto aplicado é indistinguível de um DSR com
+    # desconto e destravaria o gate por engano — achado 2 da auditoria
+    # adversarial de 2026-09-05. Aqui a não-estimabilidade TRAVA, não passa.
+    dsr_result = None
+    deflation_error = None
+    if len(pnl) >= 2:
+        try:
+            dsr_result = registry_module.deflated_sharpe_ratio(pnl, denominator, strict=True)
+        except registry_module.DeflationNotEstimableError as exc:
+            deflation_error = str(exc)
     dsr = float(dsr_result["dsr"]) if dsr_result and math.isfinite(float(dsr_result["dsr"])) else None
     eligible = len(matured) >= policy.min_matured and dsr is not None and dsr >= policy.dsr_gate
     gate: CapitalGate = "CAPITAL_GATE: ELIGIBLE_FOR_REVIEW" if eligible else "CAPITAL_GATE: LOCKED"
@@ -103,6 +114,10 @@ def evaluate_cohort(
         "psr": float(psr) if psr is not None and math.isfinite(float(psr)) else None,
         "dsr": dsr,
         "dsr_gate": policy.dsr_gate,
+        "dsr_deflation_applied": bool(dsr_result["deflation_applied"]) if dsr_result else False,
+        "dsr_sr0_estimable": bool(dsr_result["sr0_estimable"]) if dsr_result else False,
+        "dsr_sharpe_coverage": float(dsr_result["sharpe_coverage"]) if dsr_result else None,
+        "dsr_not_estimable_reason": deflation_error,
         "mean_odds": mean_odds,
         "power_required_n": required_sample_size(mean_odds) if mean_odds and mean_odds > 1.05 else None,
         "capital_gate": gate,

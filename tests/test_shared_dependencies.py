@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_shared_dependencies_load_from_site_packages() -> None:
-    assert importlib.metadata.version("predictor-core") == "3.1.0"
+    assert importlib.metadata.version("predictor-core") == "3.2.0"
     assert importlib.metadata.version("predictor-ops") == "4.1.0"
     assert "site-packages" in str(predictor_core.__file__)
     assert "site-packages" in str(predictor_ops.__file__)
@@ -19,7 +19,7 @@ def test_shared_dependencies_load_from_site_packages() -> None:
 
 def test_shared_wheel_hashes_are_pinned() -> None:
     records = (ROOT / "constraints" / "shared-wheels.sha256").read_text(encoding="utf-8")
-    assert "b4ef7d4723c8255f93a3e47f54af292195e913fca60e7b7e9c6de90ebdd5a491" in records
+    assert "9166dd6bd3be99668c0eb8bd3c59a92061e765186608465c0caf48a2417e3009" in records
     # predictor-ops 4.1.0, primeira wheel desta linha construída pelo pipeline de
     # release (a 4.0.0 foi publicada à mão depois da run da tag falhar em pyright
     # — auditoria adversarial 2026-09-05, achado 4). Hash conferido byte a byte
