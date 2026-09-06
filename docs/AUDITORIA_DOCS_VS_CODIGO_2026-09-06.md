@@ -230,7 +230,7 @@ abertos** — eles são o registro do que estava errado, não do que está.
 | A1 | `CHANGELOG` do core se contradizia | abertura do 3.2.0 reescrita: nomeia a quebra, o consumidor afetado e o resultado medido nos três domínios (core#27) |
 | A2 | três versões do core, stocks contradizendo-se em 3 documentos | tudo alinhado em **3.2.0** — `pyproject`, `uv.lock`, `ci.yml`, `CLAUDE.md`, `RUNBOOK_H18`, `STOCKS_CURRENT_STATE`, `RESEARCH_FREEZE` (stocks#66) |
 | A3 | ops anunciando 4.0.0 | README e HANDOFF em 4.1.0, com aviso de por que 4.0.0 não deve ser instalada (ops#19) |
-| A4 | H14–H16 sem relatório versionado | nota de evidência no `RESEARCH_FREEZE`: o que o veredito continua tendo, o que falta, e o comando para fechar na máquina do operador (stocks#66) |
+| A4 | H14–H16 sem relatório versionado | **registrado, não fechado** — nota de evidência no `RESEARCH_FREEZE` diz o que o veredito continua tendo, o que falta e o comando para fechar; a lacuna em si depende da máquina do operador (stocks#66) |
 | A5 | `CLAUDE.md` omitindo PyYAML | seção *Ambiente* declara a dependência real e onde é usada (stocks#66) |
 | A6 | referências mortas | caminhos corrigidos no `RJ_DESIGN`; matriz do ops marcada como plano (stocks#66, ops#19) |
 
@@ -262,10 +262,19 @@ testes com `DirtyWorkingTreeError` — é o guard novo funcionando, não regress
 
 ### O que seguiu com o operador
 
-Nada disto é código, e nenhum podia ser feito a partir do sandbox:
+Nada disto é código, e nenhum podia ser feito a partir do sandbox. **A origem de cada
+um é diferente e vale distinguir** — dois deles são dívida que esta auditoria criou ou
+deixou aberta, e ler a lista como "quatro pendências equivalentes" esconde isso:
 
-1. **Reemitir o atestado do stocks** — o bump invalidou o vigente (emitido com
-   3.1.0, expirava em 2026-09-11). Exige a máquina do operador e `git status` limpo.
-2. **Fixar a ordem das rodadas** H17/H18/H19 antes da primeira medição.
-3. **`git add -f`** dos relatórios H14/H15/H16, que só existem na máquina do operador.
-4. **Bump do core no cripto**, quando fizer sentido — caminho mapeado no HANDOFF de lá.
+| # | pendência | origem | estado |
+|---|---|---|---|
+| 1 | **Reemitir o atestado do stocks** (exige `git status` limpo) | **criada por esta sessão** — o atestado estava válido até 2026-09-11 e o bump para 3.2.0 o invalidou | dívida nova, com prazo: sem ela a H18 não registra trial |
+| 2 | **Fixar a ordem** H17/H18/H19 | **anterior à sessão** — já pendente no `CLAUDE.md` e no `HANDOFF` do stocks | a auditoria só confirmou que segue aberta |
+| 3 | **`git add -f`** dos relatórios H14/H15/H16 | **achado A4 desta auditoria** | documentado, **não fechado**: a lacuna existe até os arquivos serem versionados |
+| 4 | **Bump do core no cripto** | **achado A1 desta auditoria** | adiado por decisão do operador; caminho mapeado no HANDOFF de lá |
+
+Só o item 1 bloqueia alguma coisa hoje (a H18). Nenhum deles impede ler ou usar os
+repositórios, e nenhum contradiz o resultado da auditoria — mas o item 1 é dívida que
+não existia antes desta sessão, e o 3 é achado que ficou registrado em vez de resolvido.
+Contabilizar os dois como "fechados" seria o mesmo tipo de imprecisão que esta auditoria
+foi feita para encontrar.
