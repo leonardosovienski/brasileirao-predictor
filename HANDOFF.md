@@ -1,6 +1,40 @@
 # HANDOFF.md — brasileirao-predictor
 
-> ## CHECKPOINT — SESSÃO CLAUDE (2026-09-04) — FONTE DA VERDADE ATUAL
+> ## CHECKPOINT — AUDITORIA ADVERSARIAL, ENCERRAMENTO (2026-09-06) — FONTE DA VERDADE ATUAL
+>
+> **Estado técnico corrente — 2026-09-06:** pacotes
+> `brasileirao_predictor`/`brasileirao_scripts`, **Core 3.2.0 e Ops 4.1.0** por
+> wheels, ambas verificadas byte a byte contra o release asset antes do pin
+> (sha256 igual ao digest da API, `create_system=3`, zero CRLF, `diff -rq`
+> vazio contra o `git archive` da tag, upload por `github-actions[bot]`). A
+> linha "Core 3.0.x e Ops 4.0.x" do checkpoint de 2026-09-01 está superada.
+>
+> **Os sete achados da auditoria adversarial de 2026-09-05 estão fechados no
+> repositório E no artefato.** Até a manhã de 2026-09-06, três deles existiam
+> só no `main` do core e a wheel que produção instalava não os continha.
+> Registro completo em `docs/AUDITORIA_ADVERSARIAL_2026-09-05.md`, com dois
+> adendos — o segundo corrige dois erros da própria auditoria.
+>
+> **Mudanças de comportamento que valem saber:**
+> - O gate de capital (`research/prospective_validation/metrics.py`) usa
+>   `strict=True` no Deflated Sharpe. Quando o SR0 não é estimável, ele agora
+>   **TRAVA** em vez de destravar com um PSR disfarçado de DSR.
+> - `attest_pipeline_power` recusa árvore de trabalho suja. Todo bump do
+>   `predictor-core` invalida o atestado vigente e exige reemissão.
+> - Atestado vigente até **2026-09-13**, `code_version`
+>   `package:3.2.0;git:61f72e7b`, sem `;dirty`. Renovação:
+>   `uv run python brasileirao_scripts/renew_core3_harness.py` com árvore
+>   limpa — **não precisa da `matches.db`**.
+>
+> **O que NÃO está versionado** — `matches.db`, atestados locais, estado do
+> Agendador de Tarefas, diferenças entre ambientes e permissões de sessão
+> automatizada — está em `docs/ESTADO_LOCAL_E_OPERACAO.md`. Comece por lá para
+> operar.
+>
+> **Prazo em aberto:** o relógio de 7 dias do coletor A1 fecha por volta de
+> **2026-09-10/11**, e `market05-a1-shadow` segue bloqueada até lá.
+
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-09-04)
 >
 > **PIT futuro do EXP-001:** `sofascore_matches` ganhou a coluna
 > `result_observed_at`, carimbada por trigger SQLite (write-once) no primeiro
