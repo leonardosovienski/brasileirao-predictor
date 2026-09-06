@@ -6,10 +6,20 @@ Construído e validado com dados sintéticos retrospectivos:
 - detect_arb: arbitragem multi-casa com stakes ótimos
 - power_analysis_n, psr, dsr: gates estatísticos (Bailey & López de Prado)
 - roi_ic_bootstrap: ROI com intervalo de confiança
-Validação executada:
-- Casa lenta (edge real 8-18%): detectada, ROI +13.7%, DSR 0.999
-- Casa justa (sem edge): 0/200 falsos positivos, detector silencioso
-- CLV converge a partir de n~50 (validador antecedente)
+Validação executada — TODOS os números abaixo vêm de dados SINTÉTICOS, gerados
+por este mesmo código com o edge injetado de propósito. Nenhum deles é um
+resultado de mercado, e nenhum deles é evidência de que o edge exista:
+- Casa lenta com edge de 8-18% injetado no gerador: detectada; ROI +13.7% e
+  DSR 0.999 medidos SOBRE A SIMULAÇÃO — é o detector recuperando o parâmetro
+  que a simulação plantou, não um retorno observado.
+- Casa justa (sem edge injetado): 0/200 falsos positivos, detector silencioso.
+- CLV converge a partir de n~50 (validador antecedente), também em simulação.
+
+Estado no registro de hipóteses: `market-05-pinnacle-soft-structural-edge` está
+como `pre-registrada` — "Hipótese registrada sem dados ou resultado econômico".
+Enquanto esse status não mudar, qualquer leitura destes números como resultado
+econômico é uma afirmação mais forte que a evidência que a sustenta.
+(Ver docs/AUDITORIA_ADVERSARIAL_2026-09-05.md, adendo de 2026-09-06.)
 """
 
 import math

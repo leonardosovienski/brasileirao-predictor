@@ -21,9 +21,13 @@ Regra de decisão adotada: toda documentação foi tratada como afirmação sob
 suspeita, nunca como evidência. Nenhum achado foi registrado sem comando e
 saída reproduzíveis. Achados sem execução direta estão rotulados como
 inferência, com o grau de confiança e o que os confirmaria ou derrubaria.
-Nenhuma correção foi aplicada nesta auditoria — por decisão explícita do
-mantenedor, este documento **registra** e não conserta, para que as correções
-sejam decididas separadamente da sessão que descobriu os problemas.
+Nenhuma correção foi aplicada **no momento em que este documento foi escrito** —
+por decisão explícita do mantenedor, o registro veio antes do conserto, para que
+as correções fossem decididas separadamente da sessão que descobriu os problemas.
+As correções foram autorizadas e aplicadas depois, uma a uma; o estado atual de
+cada achado está no **Adendo 2026-09-06** no fim deste documento. As seções de
+achado abaixo descrevem o ecossistema **como ele estava em 2026-09-05** e não
+foram reescritas — o valor delas é histórico.
 
 **Veredito em uma linha:** a tese se sustenta na camada de engenharia e falha
 na camada científica — o CI é real e reproduzível e as fronteiras são código
@@ -609,9 +613,25 @@ Registrado explicitamente porque um "não testado" honesto vale mais que um
   Essa impossibilidade é o achado 1, não uma lacuna da auditoria.
 - **Fora de escopo por decisão de orçamento**, priorizando profundidade no
   caminho dado bruto → afirmação publicada: os ~70 relatórios de `docs/`,
-  o diretório `research/kimi_market05/`, e o exame individual das 27 trials com
+  o diretório `research/kimi_market05/`, e o exame individual das trials do
+  registro uma a uma.
+
+  Correção de 2026-09-06: a versão original desta linha dizia "as 27 trials com
   status `refutada`, `inconclusiva`, `exploratoria`, `substituida` e
-  `pre-registrada`.
+  `pre-registrada`". O número estava errado e a lista misturava vereditos
+  fechados com abertos. A contagem real, medida:
+
+  ```
+  $ python -c "import json,collections; print(collections.Counter(t['status'] for t in json.load(open('data/trials.json'))))"
+  Counter({'pre-registrada': 8, 'refutada': 6, 'inconclusiva': 6,
+           'informativa': 3, 'substituida': 3, 'exploratoria': 2, 'comprovada': 1})
+  ```
+
+  São 29 trials: **19 com veredito fechado** (`refutada`, `inconclusiva`,
+  `informativa`, `substituida`, `comprovada`) e **10 em aberto** (8
+  `pre-registrada` + 2 `exploratoria`). O erro era meu, na redação do escopo, e
+  não afeta nenhum achado — o achado 1 mede 29/29 e essa contagem foi verificada
+  em separado.
 
 ---
 
@@ -631,3 +651,118 @@ engenharia está pronta e o capital está travado por código, não por convenç
 O que não se sustenta é a implicação de que o registro formal de hipóteses é
 auditável por um terceiro. Ele é um formulário bem desenhado, com governança
 real na entrada, e com o campo de proveniência em branco em 100 % das entradas.
+
+---
+
+## Adendo 2026-09-06 — estado das correções
+
+Escrito no dia seguinte à auditoria, depois que o mantenedor autorizou as
+correções em grupos. Nada acima foi reescrito: as seções de achado continuam
+descrevendo o ecossistema de 2026-09-05. Esta seção registra o que mudou.
+
+### Situação por achado
+
+| # | Achado | Correção | Estado |
+|---|---|---|---|
+| 1 | 29/29 trials com proveniência `UNKNOWN` | brasileirao#59 | mergeado |
+| 2 | DSR degenera em PSR sem sinalizar | core-predictor#24 | mergeado em `main`, **fora da wheel publicada** |
+| 3 | Bypass do gate de atestação no caminho de update | core-predictor#23 | mergeado em `main`, **fora da wheel publicada** |
+| 4 | Wheel `predictor-ops 4.0.0` nunca passou pelos gates | predictor-ops#17 + tag `v4.1.0` + brasileirao#60 | **fechado ponta a ponta** |
+| 5 | Colisão de versão `4.0.0` | predictor-ops#17 | mergeado |
+| 6 | Código gerador de evidência é o menos testado | brasileirao#59 | mergeado, com piso medido |
+| 7 | Atestação a partir de árvore suja | core-predictor#22 | mergeado em `main`, **fora da wheel publicada** |
+
+Todas as issues de achado foram fechadas, exceto predictor-ops#18, fechada por
+verificação (abaixo).
+
+### O que foi verificado, e não apenas afirmado
+
+O achado 4 foi o único fechado com verificação byte a byte do artefato que
+produção passou a consumir. A `v4.1.0` foi publicada pelo pipeline em
+2026-09-05, e o pin só mudou depois de:
+
+```
+sha256         6d428a4d3d4fbd3f692725bf684024131f0fa65cc11d0e739e9ccb82ba9834e4
+               (igual ao digest declarado pela API do GitHub)
+create_system  3 (Unix)     — a 4.0.0 era 0 (Windows)
+CRLF           0 de 13      — a 4.0.0 tinha 13 de 13
+uploader       github-actions[bot], 21:43:58
+conteúdo       `diff -rq` contra `git archive a9a4743 src/predictor_ops`
+               vazio, sem normalizar terminadores de linha
+```
+
+Na `4.0.0` foi preciso `--strip-trailing-cr` para conseguir comparar. A run de
+Release da `v4.1.0` (33993850404) executou todos os gates que nunca haviam
+rodado para a `v4.0.0`: pytest, pip-audit, `uv build`, o smoke da wheel em venv
+isolado e `actions/attest`.
+
+### O achado 5 se repetiu no core — e continua aberto na prática
+
+Os PRs core-predictor#22, #23 e #24 mergearam em `main` mantendo
+`version = "3.1.0"`, a mesma versão da wheel publicada, que não contém nenhum
+deles. Isso é literalmente o achado 5, agora no core: `predictor-core==3.1.0`
+passou a designar dois conteúdos diferentes conforme a origem da instalação.
+
+O core-predictor#25 corrigiu o número para `3.2.0` e mergeou em `main`
+(`9fd8317`). **A tag `v3.2.0` não foi criada até a data deste adendo**, medido:
+
+```
+$ list_tags leonardosovienski/core-predictor
+v3.1.0 (29eb8b7), v3.0.0, v2.3.0, v2.2.1, v2.2.0, v2.1.0, 1.0.1, 1.0.0
+```
+
+`29eb8b7` é o commit anterior aos quatro PRs. Consequência, e é a que importa:
+**os achados 2, 3 e 7 estão corrigidos no repositório e ausentes da wheel que
+o brasileirao instala.** Produção roda `predictor_core-3.1.0-py3-none-any.whl`.
+
+Isso vale ser nomeado pelo que é: o ecossistema fechou o achado 5 no ops e
+reproduziu o mesmo padrão no core dentro da mesma semana. A trava que faltava —
+um teste que compare a versão do `pyproject` com a última release publicada, e
+não com o CHANGELOG — continua faltando nos dois repositórios.
+
+Fica bloqueado atrás da tag:
+
+1. Atualizar o pin do brasileirao para core 3.2.0, com a mesma verificação byte
+   a byte aplicada à ops 4.1.0.
+2. Ligar `strict=True` do `deflated_sharpe_ratio` num gate. O parâmetro não
+   existe na 3.1.0 pinada — verificado na wheel instalada, cuja assinatura é
+   `(returns, trial_sharpes) -> dict`.
+
+### O que continua sem correção, e por quê
+
+- **O atestado de poder `data/trials.harness_attestation.json` ainda é o emitido
+  a partir de árvore suja**, e expira em **2026-09-09**. Até lá ele continua
+  destravando o registro de trials novas. Reemitir exige o `matches.db` real —
+  `brasileirao_scripts/_attest_only.py` abre o banco para refitar os parâmetros
+  — e a cópia disponível no ambiente de auditoria tem 0 linhas. É uma pendência
+  operacional, na máquina do mantenedor, não uma decisão em aberto.
+
+- **Fora de escopo desde o início e assim permanece**: os ~70 relatórios de
+  `docs/` e a maior parte de `research/kimi_market05/`.
+
+### Duas afirmações mais fortes que sua evidência, ainda no repositório
+
+Encontradas durante a auditoria, reportadas e não corrigidas — as duas são
+exatamente o tipo de coisa que a tese sob teste nega, então ficam registradas
+mesmo sem correção:
+
+1. `research/kimi_market05/bet_engine/bet_engine.py` afirma no docstring
+   *"Casa lenta (edge real 8-18%): detectada, ROI +13.7%, DSR 0.999"*, enquanto
+   a entrada correspondente do registro,
+   `market-05-pinnacle-soft-structural-edge`, está como `pre-registrada` com a
+   nota *"Hipótese registrada sem dados ou resultado econômico."* Um número
+   econômico publicado num docstring contra uma hipótese que o registro declara
+   sem resultado.
+
+2. `brasileirao_scripts/_attest_only.py` continua versionado apesar do próprio
+   docstring instruir *"Apague este arquivo depois de rodar; nao faz parte do
+   repo canonico"*.
+
+### Julgamento revisado
+
+O veredito de 2026-09-05 não muda: a tese se sustenta na engenharia e falha na
+ciência. O que o dia seguinte acrescenta é uma observação sobre o mecanismo de
+correção em si — **corrigir no repositório não é corrigir em produção**, e o
+ecossistema demonstrou duas vezes, em repositórios diferentes, que não tem
+trava para essa distância. Enquanto a `v3.2.0` não existir, três dos sete
+achados estão fechados no rastreador e vivos no artefato.
