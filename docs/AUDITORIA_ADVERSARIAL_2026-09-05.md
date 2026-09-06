@@ -766,3 +766,208 @@ correção em si — **corrigir no repositório não é corrigir em produção**
 ecossistema demonstrou duas vezes, em repositórios diferentes, que não tem
 trava para essa distância. Enquanto a `v3.2.0` não existir, três dos sete
 achados estão fechados no rastreador e vivos no artefato.
+
+---
+
+## Adendo 2026-09-06 (segunda entrada) — encerramento, e duas coisas que eu li errado
+
+O adendo acima foi escrito de manhã, quando a tag `v3.2.0` ainda não existia e
+três achados estavam corrigidos só no repositório. À tarde a tag saiu e o resto
+foi fechado. Esta entrada registra o encerramento e, principalmente, **dois
+erros meus na auditoria original**, porque um relatório que só acumula acertos
+não é um relatório.
+
+### O estado final, medido
+
+```
+main do brasileirao-predictor    0fae082
+predictor_core-3.2.0             9166dd6bd3be99668c0eb8bd3c59a92061e765186608465c0caf48a2417e3009
+predictor_ops-4.1.0              6d428a4d3d4fbd3f692725bf684024131f0fa65cc11d0e739e9ccb82ba9834e4
+atestado core_version            3.2.0
+atestado code_version            package:3.2.0;git:61f72e7b1d0abb35fcbcb96561ab10ad31f13525
+atestado expires_at              2026-09-13T16:42:06Z
+pipeline_fingerprint             3bbf3be2588d8440fe391a83743a2ef44176e01d5f1e04c2641a9e2252c9ca58
+```
+
+Os sete achados estão fechados **no repositório e no artefato**. Até a manhã de
+2026-09-06 três deles existiam apenas no `main` do core; a wheel que produção
+instalava não os continha.
+
+A `v3.2.0` foi publicada pelo pipeline (run 34045356305, 13 passos verdes) e
+verificada byte a byte antes de qualquer pin mudar: sha256 igual ao digest da
+API, `create_system=3`, 0 CRLF em 41 módulos, `diff -rq` vazio contra
+`git archive 9fd8317 src/predictor_core` sem normalizar terminadores, e upload
+por `github-actions[bot]`. As três correções foram conferidas **importando da
+wheel**, não do checkout.
+
+Por que a tag demorou: ela existia como **rascunho** desde as 02:52 e só foi
+publicada às 16:24. Uma release em rascunho não cria a tag, e sem a tag o
+`release.yml` (gatilho `v*.*.*`) nunca dispara.
+
+### Erro meu 1 — o `;dirty` do achado 7 era, em boa parte, bug do produtor
+
+O achado 7 afirmou que o atestado vigente fora "emitido a partir de árvore de
+trabalho suja". Eu li o campo `code_version` pelo valor de face.
+
+Ao reemitir, o script saiu `;dirty` a partir de uma árvore **comprovadamente
+limpa** (`git status --porcelain` vazio antes de rodar). Causa, em
+`brasileirao_scripts/renew_core3_harness.py`:
+
+```python
+def run() -> dict:
+    record = attest_rps_power()      # <- ESCREVE o arquivo do atestado
+    ...
+    "code_version": _code_version(), # <- e SO ENTAO mede a arvore
+```
+
+`_code_version()` rodava `git status --porcelain` depois de a própria função
+ter escrito `data/trials.harness_attestation.json`. A árvore estava suja pela
+escrita do próprio atestado. O campo mentia por defeito de ordenação, não por
+estado do repositório.
+
+**O que o achado 7 acertou mesmo assim:** o campo era inútil como garantia de
+reprodutibilidade, e um consumidor não tinha como distinguir "árvore realmente
+suja" de "artefato do produtor". A correção certa continua sendo a do core
+3.2.0 — gravar `code_version` dentro de `attest_pipeline_power`, antes da
+escrita, e recusar árvore suja.
+
+Um teste estava **protegendo o defeito**: `test_core3_harness_contract` exigia
+`code_version.startswith("git:")`, exatamente o formato pobre que o override
+com bug produzia. Substituído por um teste que exige o contrário.
+
+### Erro meu 2 — eu apontei o script errado para reemitir o atestado
+
+Registrei no relatório, na issue #62 e num comentário de PR que reemitir o
+atestado exigia a `matches.db` real e só era possível na máquina do mantenedor.
+**Falso, e o erro foi propagado para três lugares.**
+
+O `brasileirao_scripts/_attest_only.py` de fato abre o banco — mas não é ele
+quem produz este atestado. O campo `note` do arquivo committado diz
+`RESEARCH-01A`, e o produtor é o `renew_core3_harness.py`, cujo
+`attest_rps_power` é **puramente sintético**: `probabilistic_predictor` com
+seeds fixas 13 e 17, e `dataset_reference_fingerprint` é o hash de um JSON
+constante, não do banco. Nunca abre `matches.db`.
+
+A lição que sobra: eu identifiquei o produtor por proximidade de nome em vez de
+casar o campo `note` do artefato com o script que o escreve. O artefato dizia
+quem o produziu; eu não li.
+
+### Um achado novo, que só apareceu porque o gate novo existe
+
+Depois da reemissão o CI continuou vermelho com o local verde:
+
+```
+FAILED tests/test_h10_fadiga_walkforward.py::test_main_registers_a_new_trial_with_attestation
+DirtyWorkingTreeError: árvore de trabalho suja (package:3.2.0;git:438d3937...;dirty)
+```
+
+O passo `Verify canonical shared wheel hashes` do `ci.yml` baixa as wheels
+canônicas para **`wheelhouse/`**, e esse diretório **não estava no
+`.gitignore`** — enquanto o `.wheelhouse-e2e/`, que faz o mesmo no job de
+containers, estava.
+
+Reproduzido em clone limpo antes de corrigir:
+
+```
+git status → limpo   →  package:3.2.0;git:7d2fc09
+mkdir wheelhouse/    →  package:3.2.0;git:7d2fc09;dirty
+```
+
+**A árvore do CI sempre esteve suja durante o pytest inteiro**, do passo 6 em
+diante. O gate do core 3.2.0 não introduziu o problema — expôs um que já
+existia e passava calado, porque o core 3.1.0 não olhava. Qualquer atestado
+emitido em CI teria nascido `;dirty` sem ninguém notar.
+
+Virado contrato em `tests/test_ci_nao_suja_a_arvore.py`, com dois testes: todo
+diretório de artefato do CI tem que estar ignorado, e a lista não envelhece —
+se o `ci.yml` ganhar um `--output` para diretório não catalogado, falha.
+
+Isso generaliza o achado 7: a limpeza da árvore virou propriedade **do
+pipeline**, não só do desenvolvedor.
+
+### O achado 2 saiu do papel e virou trava de capital
+
+`brasileirao_predictor/research/prospective_validation/metrics.py` é o gate de
+capital: `eligible = ... dsr >= policy.dsr_gate`. Era ali que o achado 2 mordia
+— com menos de dois sharpes finitos no denominador, o SR0 não é estimável, o
+DSR degenera em PSR puro, e um número alto sem desconto aplicado é
+indistinguível de um descontado. **Ele destravava o gate.**
+
+Agora usa `strict=True`, e a não-estimabilidade **trava**: `dsr` vira `None`,
+o gate fica `LOCKED`, e o relatório carrega `dsr_deflation_applied`,
+`dsr_sr0_estimable`, `dsr_sharpe_coverage` e `dsr_not_estimable_reason` — um
+`None` sem motivo é indistinguível de "ainda não calculado".
+
+`market_edge_ordering.py` **não** usa `strict`: é caminho de pesquisa, reporta
+e não decide. Publica os mesmos diagnósticos.
+
+Dois dubles de teste devolviam `{"dsr": 0.96}` — um retorno que esconde
+exatamente o que o achado expôs. Substituídos por um duble que respeita o
+contrato inteiro.
+
+### A trava que continua faltando
+
+Não existe, em nenhum dos três repositórios, um teste que compare a versão do
+`pyproject.toml` com a **última release publicada**. O `test_version_contract`
+do ops compara `pyproject` com `CHANGELOG`, e os dois estavam consistentes nas
+duas vezes em que a divergência aconteceu — porque nenhum dos dois sabe o que
+está publicado.
+
+Isso deixou passar o achado 5 no ops e o repetiu no core na mesma semana. É a
+única recomendação desta auditoria que **não foi implementada**.
+
+### Inventário de branches (2026-09-06)
+
+Levantado ao fim da sessão, e vale registrar porque não é óbvio:
+`brasileirao-predictor` tem **duas histórias git disjuntas**.
+
+```
+raiz do main                    b3468e74
+raiz de 8 branches de agosto    bc74926f
+```
+
+As oito (`agent/h9-runtime-collection`, `claude/affectionate-cannon-ds4j6j`,
+`claude/brasileirao-p0-housekeeping-tlyyds`,
+`claude/brasileirao-predictor-overview-e6r03o`,
+`claude/brasileirao-setup-push-yndysg`,
+`claude/predictor-ecosystem-audit-srpwl3`, `fix/f0-wheel-integrity`,
+`p1/ecosystem-plugin-v1`) não têm ancestral comum com o `main`: o repositório
+foi refeito entre 2026-08-23 e 2026-09-04.
+
+Conteúdo conferido arquivo a arquivo: cada uma tem 5–6 arquivos ausentes do
+`main`, todos no layout antigo (`src/`, `scripts/`) que virou
+`brasileirao_predictor/` e `brasileirao_scripts/`. Todos têm sucessor, e o do
+`main` é maior (`model.py` 257 → 421 linhas, `economic_decision.py` 41 → 95).
+Nenhuma linha de código se perde ao apagá-las; a história de agosto, sim.
+
+O `main` tem ~4,29 milhões de linhas que elas não têm, quase todas em
+`reports/ou25_v2/*.json`.
+
+### Julgamento, terceira e última revisão
+
+O veredito de 2026-09-05 continua de pé: a tese se sustenta na engenharia e
+falha na ciência. Nada feito em 2026-09-06 torna as 29 trials históricas
+reproduzíveis — elas seguem com proveniência `UNKNOWN`. O que existe agora é a
+trava que impede a trigésima de nascer assim.
+
+O que os dois dias acrescentam é uma observação sobre auditoria, não sobre o
+ecossistema: **dois dos sete achados estavam parcialmente mal lidos, e os dois
+erros só apareceram quando alguém tentou executar a correção.** Ler um artefato
+não é o mesmo que reproduzi-lo. O achado 7 leu um campo; quem reemitiu
+descobriu que o campo mentia por bug. O relatório afirmou que a reemissão
+exigia um banco; quem tentou reemitir descobriu que não.
+
+Isso é exatamente o que a tese sob teste dizia — *"um terceiro consegue
+verificar isso sozinho"*. A auditoria também está sujeita a ela.
+
+### Onde foi parar o que não cabe num relatório
+
+O estado que não está versionado — `matches.db`, o procedimento de renovação do
+atestado de poder, a coleta agendada no Windows Task Scheduler, as diferenças
+entre ambiente local/CI/sandbox e as permissões de sessão automatizada — foi
+escrito em [`ESTADO_LOCAL_E_OPERACAO.md`](ESTADO_LOCAL_E_OPERACAO.md).
+
+Motivo de existir um segundo documento: este aqui é um **registro datado** de
+uma auditoria e não deve ser reescrito. Aquele é **operacional** e envelhece —
+o atestado vence a cada 7 dias, as tarefas do agendador ligam e desligam, o
+sandbox muda. Misturar os dois faria o registro apodrecer ou o runbook mentir.
