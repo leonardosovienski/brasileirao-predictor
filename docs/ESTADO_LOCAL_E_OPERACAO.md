@@ -98,21 +98,72 @@ o skip em `tests/test_prereg_serving_vs_climatologia.py`.
 
 ## 3. Coleta prospectiva agendada — Windows Task Scheduler
 
-**Onde:** máquina Windows do mantenedor, tarefas com prefixo `brasileirao-*`.
+**Onde:** máquina Windows do mantenedor.
 
-**Estado informado pelo mantenedor:** **desabilitadas em 2026-09-04.**
+> **Correção de 2026-09-06.** A primeira versão desta seção dizia que as
+> tarefas `brasileirao-*` estavam "desabilitadas em 2026-09-04", como se fosse
+> todas. **Está errado.** Foi generalização minha a partir de uma informação
+> sobre um trilho específico, sem cruzar com o `HANDOFF.md`, que diz o
+> contrário para os outros. Um leitor concluiria que a coleta parou — quando há
+> relógio correndo. Segue o quadro real.
 
-**Consequência, e isto não é defeito:** qualquer série prospectiva que pare
-depois de 2026-09-04 parou porque a coleta foi desligada. Uma auditoria futura
-que encontre séries truncadas nessa data não deve registrar isso como bug de
-pipeline.
+Há **quatro grupos distintos**, e o estado difere entre eles:
 
-`tests/test_windows_scheduler_contract.py` valida o contrato das tarefas, não o
-estado ligado/desligado delas — o teste passar não significa que a coleta esteja
+| Grupo | Tarefas | Estado (fonte: `HANDOFF.md`) |
+|---|---|---|
+| H3/H5 antigo (`sombra.py`, bookmaker fixo) | 4 tarefas | **desabilitadas** — dormente, não descontinuado |
+| H8/H9 (bookmaker dinâmico) | `brasileirao-market-research` (6h), `brasileirao-prospective-readiness` (diária) | ativos e saudáveis |
+| H14/H15 persist | `brasileirao-h14-persist`, `brasileirao-h15-persist` (15min) | rodados pelo operador em 2026-09-04, `LastTaskResult=0` |
+| Coletor A1 | `brasileirao-a1-collect`, `-discover`, `-metrics` | **confirmadas rodando** desde 2026-09-04, `LastTaskResult=0` |
+
+**Consequência para leitura de séries:** uma série do trilho H3/H5 que pare não
+indica defeito de pipeline — aquele trilho está dormente por decisão. Uma série
+dos outros três que pare **é** sinal de problema.
+
+**Não verificado por mim:** não tenho acesso à máquina. Tudo acima vem do
+`HANDOFF.md` e do que o mantenedor informou. Confirme com
+`Get-ScheduledTask brasileirao-*` antes de concluir qualquer coisa.
+
+`tests/test_windows_scheduler_contract.py` valida o **contrato** das tarefas,
+não o estado ligado/desligado — o teste passar não significa que a coleta esteja
 rodando.
 
-**Não verificado por mim:** não tenho acesso à máquina. Confirme antes de tirar
-conclusões de qualquer série interrompida.
+---
+
+## 3b. Prazos em aberto
+
+Itens com relógio correndo. Estes são os que apodrecem se ninguém olhar.
+
+| Prazo | O que é | O que acontece se passar |
+|---|---|---|
+| **2026-09-10/11** | Relógio de 7 dias do coletor A1, iniciado em 2026-09-04 | `market05-a1-shadow` continua bloqueada; a homologação não avança |
+| **2026-09-13** | Validade do atestado de poder (seção 2) | Registro de trials novas trava com `PowerAttestationMissingError` |
+
+Sobre o A1: continua **`REHEARSAL_ONLY`** no plano gratuito da API — a
+homologação formal provavelmente exige plano pago. Nenhum campo de trial foi
+editado manualmente para simular a evidência do relógio; fazer isso seria
+fabricar dado.
+
+---
+
+## 3c. Outros artefatos que só existem na máquina do operador
+
+Levantados do `HANDOFF.md` em 2026-09-06. Não estavam nesta lista na primeira
+versão do documento.
+
+- **`data/collector_metrics/key_rotation_attestation.json`** — atestado de
+  rotação da `ODDSPAPI_KEY`, gerado pelo operador. Arquivo local, **fora do
+  Git**. Sem ele não há prova de quando a chave foi rotacionada.
+- **`ODDSPAPI_KEY`** — credencial do coletor A1. Rotacionada e atestada pelo
+  operador. Não versionada, como deve ser.
+- **Preservação offsite: `preservation.status=BLOCKED`.** Há **2 caminhos
+  `UNKNOWN`** que, segundo o `HANDOFF.md`, "só são localizáveis na máquina do
+  operador". Essa é a única menção a eles em todo o repositório — não há código,
+  manifesto ou script que os defina. **Se a máquina se perder, ninguém sabe o
+  que deveria estar preservado offsite.** É o item mais frágil deste documento.
+- **4 trials PIT** (escalação, xG isolado, mando hierárquico) travadas por
+  `training_gate`. Decisão de governança explícita, não dado ou código faltando
+  — registrada aqui para que uma auditoria futura não a leia como defeito.
 
 ---
 

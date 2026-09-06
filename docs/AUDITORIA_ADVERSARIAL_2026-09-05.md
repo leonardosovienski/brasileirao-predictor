@@ -971,3 +971,65 @@ Motivo de existir um segundo documento: este aqui é um **registro datado** de
 uma auditoria e não deve ser reescrito. Aquele é **operacional** e envelhece —
 o atestado vence a cada 7 dias, as tarefas do agendador ligam e desligam, o
 sandbox muda. Misturar os dois faria o registro apodrecer ou o runbook mentir.
+
+### Terceira entrada, 2026-09-06 — releitura final, e três erros a mais
+
+Varredura final do projeto pedida pelo mantenedor. Achou coisa, o que é o
+resultado esperado: uma releitura que não acha nada é releitura fraca.
+
+**Erro meu 3 — eu generalizei o estado do agendador de tarefas.** Registrei em
+`ESTADO_LOCAL_E_OPERACAO.md` que as tarefas `brasileirao-*` estavam
+"desabilitadas em 2026-09-04", como se fosse todas. O `HANDOFF.md` diz o
+contrário para três dos quatro grupos: H8/H9 ativos, H14/H15 rodados em
+2026-09-04 com `LastTaskResult=0`, e o coletor A1 **confirmado rodando** desde
+2026-09-04. Só o trilho antigo H3/H5 está desabilitado, e por decisão.
+
+Escrevi a informação que recebi sem cruzar com o repositório, num documento
+cujo propósito declarado é justamente ser a fonte para quem não estava aqui.
+Corrigido, com o quadro por grupo e a instrução de confirmar na máquina.
+
+**Erro meu 4 — não registrei um prazo que está correndo.** O relógio de 7 dias
+do coletor A1 fecha por volta de **2026-09-10/11**, e `market05-a1-shadow`
+segue bloqueada até lá. Isso é um prazo operacional tão real quanto a validade
+do atestado, e eu tinha documentado só o segundo.
+
+**Erro meu 5 — faltavam quatro artefatos locais.** `key_rotation_attestation.json`
+(fora do Git), a `ODDSPAPI_KEY`, as 4 trials PIT travadas por `training_gate`
+(decisão de governança, não defeito), e o mais grave: **`preservation.status=BLOCKED`
+com 2 caminhos `UNKNOWN` "só localizáveis na máquina do operador"**. Essa é a
+única menção a eles em todo o repositório — não há código, manifesto ou script
+que os defina. Se a máquina se perder, ninguém sabe o que deveria estar
+preservado offsite. É a fragilidade mais séria que sobra no ecossistema, e ela
+não tem correção de código.
+
+**Documentação desatualizada, encontrada e corrigida:**
+
+- `HANDOFF.md`, primeiro checkpoint — declarado "FONTE DA VERDADE ATUAL",
+  afirmava "Core 3.0.x e Ops 4.0.x" com data de 2026-09-01. É o pior lugar
+  possível para um dado velho, porque o próprio bloco instrui o leitor a tratar
+  checkpoints antigos como histórico e este como vigente. Novo checkpoint no
+  topo, sem reescrever o anterior.
+- `docs/MODERNIZATION.md` — sem data, sem ressalva, afirmava no presente
+  "`predictor_core` 2.3.x / `predictor_ops` 3.1.x": duas versões maiores
+  atrasado. Corrigido, com nota de quando e por quê.
+- `docs/READINESS.md` cita as mesmas versões velhas, mas se declara histórico
+  append-only e aponta o `HANDOFF.md` como fonte corrente. **Deixado como
+  está** — está fazendo o que promete.
+
+**Verificado e consistente:** `core-predictor` em `pyproject 3.2.0` /
+`CHANGELOG [3.2.0]`, `predictor-ops` em `pyproject 4.1.0` / `CHANGELOG 4.1.0`,
+ambos com release publicada e wheel atestada. Nenhuma divergência entre
+repositório e artefato nos três repos — que era o achado 5, agora fechado nos
+dois lugares onde apareceu.
+
+**O padrão que estes cinco erros formam** vale mais que qualquer um deles
+isolado: todos são do mesmo tipo — **eu li um artefato e afirmei sobre o
+sistema**. O `;dirty` foi lido do campo, não reproduzido. O produtor do
+atestado foi inferido do nome, não do campo `note`. O estado do agendador foi
+recebido e não cruzado. Em cada caso, a evidência que teria evitado o erro
+estava a um comando de distância.
+
+É exatamente o defeito que a auditoria acusou no ecossistema — afirmação mais
+forte que a evidência que a sustenta — reproduzido pela auditoria. Registrado
+aqui porque um relatório que corrige o objeto e não a si mesmo está fazendo
+metade do trabalho.
