@@ -278,3 +278,57 @@ repositórios, e nenhum contradiz o resultado da auditoria — mas o item 1 é d
 não existia antes desta sessão, e o 3 é achado que ficou registrado em vez de resolvido.
 Contabilizar os dois como "fechados" seria o mesmo tipo de imprecisão que esta auditoria
 foi feita para encontrar.
+
+## Remedição em ambiente correto (2026-09-07)
+
+Releitura e reteste completos, com cada suíte rodada em **venv dedicado, contra os
+pins que o próprio repositório declara e com os extras declarados instalados**. A
+tabela de suítes acima foi medida num ambiente compartilhado e incompleto: as
+"falhas de ambiente" que registrei eram, em boa parte, **extras que faltavam no meu
+setup** — não do repositório.
+
+| repo | registrado em 2026-09-06 | medido em ambiente correto |
+|---|---|---|
+| core-predictor | 264 passaram | **264/264** — confere |
+| ecosystem-predictor | (não medido) | **52/52** |
+| predictor-ops | 65 passaram, 2 "falhas de ambiente" | **67/67** — as duas eram install editable ausente e `hatchling` faltando |
+| stocks-predictor | 374 passaram | **374/374** — confere, com a wheel 3.2.0 e `vendor/` fora do path |
+| brasileirao-predictor | 914 passaram, 1 "falha de ambiente" | **916/916** (1 deselecionado) — faltavam os extras `providers` e `kernel` |
+| cripto-predictor | 939 passaram, 5 reais + 2 de ambiente | **978/978** sob Core 3.0.0 — exatamente o número que o README dele afirma para `--all-extras` |
+
+**Nenhum repositório do ecossistema tem falha de teste.** As seis suítes passam
+inteiras quando o ambiente reproduz o que cada repo declara.
+
+### O achado A1 se confirma, e com precisão
+
+Remedido no ambiente completo: com o Core trocado para **3.2.0**, o cripto dá
+`978 → 972 passaram, 6 falharam`. Cinco são exatamente os pontos nomeados no A1,
+todos com `PowerAttestationMissingError`:
+
+- `test_experiment_registry.py::test_reexecucao_mesma_config_atualiza_sharpe_preservando_registro`
+- `test_experiment_registry.py::test_backtest_fecha_sharpe_da_trial_casada`
+- `test_experiment_registry.py::test_backtest_divide_eras_entre_trial_encerrada_e_sucessora`
+- `test_experiment_registry.py::test_h6_matura_com_dado_posterior_ao_registro_e_score_baixo`
+- `test_trials.py::test_registro_roundtrip_e_dedup_por_nome`
+
+A sexta é `test_core_integrity.py::test_shared_versions_are_exactly_compatible`, que
+falha **porque deve**: o pin declarado é 3.0.0 e o instalado era 3.2.0. É o teste de
+integridade fazendo o trabalho dele, não uma quebra a mais.
+
+A decisão registrada em `DEC-ECO-020` (Cripto fica em 3.0.0 até o trabalho de código
+ser revisado) permanece correta, agora medida sem ruído de ambiente.
+
+### O resto reconferido, item a item
+
+Contra o `main` mergeado, não contra memória: PyYAML declarado no `CLAUDE.md` do
+stocks e de fato importado em `rj_pipeline.py` e `rj_power.py`; os dois caminhos
+corrigidos no `RJ_DESIGN.md` existem e nenhuma referência antiga sobrou; a nota de
+evidência de H14–H16 está no `RESEARCH_FREEZE.md`; o README e o HANDOFF do ops em
+4.1.0; a abertura do `CHANGELOG` 3.2.0 do core sem a contradição. O
+`check_ecosystem_drift.py` roda limpo nos dois modos contra os seis repositórios em
+`main` (`ECOSYSTEM_NO_DRIFT`).
+
+**A lição, de novo:** um número de teste só vale com o ambiente em que foi medido
+declarado junto. "Falha de ambiente" é uma hipótese, não um diagnóstico — e nas
+duas vezes em que a tratei como diagnóstico, a causa real era o meu setup
+incompleto, não o repositório.
