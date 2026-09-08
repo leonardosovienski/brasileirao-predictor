@@ -1,0 +1,15 @@
+{
+  "name": "static_barriers_verified",
+  "started_at_utc": "2026-09-07T23:23:26.670869+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "-c",
+    "import json; from brasileirao_scripts import ci_check as ci; ci.check_research_readonly(); ci.check_current_elo_containment(); print(json.dumps({\"failures\":ci.failures,\"known_warnings\":ci.warnings_})); assert not ci.failures"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\final_project_review\\repo",
+  "live_data_used": false,
+  "external_python_network_blocked": true,
+  "credentials_removed": true,
+  "exit_code": 0,
+  "seconds": 0.0931094999978086
+}

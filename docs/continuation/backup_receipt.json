@@ -1,0 +1,13 @@
+{
+  "created_at_utc": "2026-09-08T00:25:01.115419+00:00",
+  "source_root": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le",
+  "backup_root": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07",
+  "operational_repo": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor",
+  "scope": "session outputs and research work, with private local data preserved opaquely; not a fresh live database backup",
+  "credentials_copied": false,
+  "source_files_removed": false,
+  "verified_files": 477,
+  "verified_bytes": 332995520,
+  "manifest_sha256": "0f5f0e529e9af4dc3e86d3ea8db660b948298bc02d98b6412245b5b0c1bc81cf",
+  "excluded_entries": 20
+}

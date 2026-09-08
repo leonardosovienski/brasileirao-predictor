@@ -1,0 +1,94 @@
+{
+  "id": "SEASON-2026-TURN-SPLIT-PAPER-V1",
+  "frozen_at": "2026-09-07T22:20:10.373320+00:00",
+  "user_instruction": "considera o segundo turno de 2026 como inteiro como pra apostar ok? o primeiro como teste e o resto vc escolhe",
+  "scope": "New evaluation namespace; older studies and protected cohorts remain as originally recorded",
+  "execution_mode": "paper",
+  "capital_enabled": false,
+  "splits": [
+    {
+      "seasons": [
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "role": "train",
+      "purpose": "model estimation/development before later-year evaluation"
+    },
+    {
+      "seasons": [
+        2025
+      ],
+      "role": "calibration",
+      "purpose": "calibration and rule choice before evaluating2026"
+    },
+    {
+      "seasons": [
+        2026
+      ],
+      "rounds_inclusive": [
+        1,
+        19
+      ],
+      "role": "test_exploratory",
+      "expected_fixtures": 190,
+      "fit_allowed": false
+    },
+    {
+      "seasons": [
+        2026
+      ],
+      "rounds_inclusive": [
+        20,
+        38
+      ],
+      "role": "paper_betting",
+      "expected_fixtures": 190,
+      "fit_allowed": false
+    }
+  ],
+  "round_source": "https://stcbfsiteprdimgbrs.blob.core.windows.net/img-site/cdn/Tabela_BA_sica_Brasileiro_SA_rie_A_2026_d64996b4d8.pdf",
+  "round_source_pdf_sha256": "5fc7bccb00eabba0f60ba112e0fe36e8290230ab4883a06faea7c0d14629bcd3",
+  "schedule_manifest": "data/research/season_2026_turn_split/schedule_manifest.json",
+  "schedule_manifest_sha256": "30a726e635cc7e9546977a9b96771eb3ffc58fd7900346ddc6a12e17ea60aeda",
+  "role_key": "season + official CBF round; official fixture linked by ordered home/away identities, never chronological encounter count",
+  "postponed_games": "retain original round; never use future labels to approve an earlier paper decision",
+  "decision_before_kickoff_hours": 1,
+  "historical_second_turn": "decisions at/before frozen_at may only be reconstructed as exploratory replay, never backdated prospective bets",
+  "future_second_turn": "paper signal requires decision later than frozen_at, candidate and price attested available no later than decision, and a passed economic criterion",
+  "model_selection_source": "2025 calibration, without optimizing on either2026turn",
+  "current_candidate": null,
+  "current_candidate_note": "No strategy was promoted. The prior price candidate failed its additional51fixture study; changing the split does not revive it.",
+  "bet_every_fixture": false,
+  "max_virtual_bets_per_fixture": 1,
+  "missing_policy": "retain every scheduled fixture; missing time=>pending, missing eligible candidate/price/economic criterion=>NO_BET; do not invent odds, outcomes or dates",
+  "research_history": "2025/2026 have already been examined, including first-turn price training/testing. This is an exploratory reorganization, not an untouched holdout or erasure of past searches.",
+  "prior_studies": "Do not rewrite H14/H15/H9/A1 source, cohort ledgers, contracts or closed study results",
+  "operational_change": "Added explicit split contract, metadata universe and pure paper classifier; no scheduler or live decision runner changed",
+  "identity_resolutions": [
+    {
+      "event_id": 16987855,
+      "excluded_local_ids": [
+        15235419
+      ],
+      "kickoff_at": "2026-09-16T22:30:00+00:00",
+      "source": "https://www.cbf.com.br/futebol-brasileiro/jogos/campeonato-brasileiro/serie-a/2026/botafogo-x-gremio/832091?view=escalacao",
+      "reason": "Official CBF fixture202/round21 rescheduled to16Sep19:30Brasilia; select unique local identity matching that kickoff, retain old ID as alias only."
+    }
+  ],
+  "sources": [
+    "https://stcbfsiteprdimgbrs.blob.core.windows.net/img-site/cdn/Tabela_BA_sica_Brasileiro_SA_rie_A_2026_d64996b4d8.pdf",
+    "https://www.cbf.com.br/futebol-brasileiro/jogos/campeonato-brasileiro/serie-a/2026/botafogo-x-gremio/832091?view=escalacao"
+  ],
+  "historical_input_source": {
+    "path": "data/research/season_2026_turn_split/historical_2021_2025.json",
+    "sha256": "14153f7cbb348e9eef22a8e1c438757b1ef482951e2576d4a8381d7928e8e142",
+    "partition_path": "data/research/season_2026_turn_split/historical_partition.json",
+    "partition_sha256": "0349ba47899450352458f6ba433a79f2e37bd8ea907c5136a566953884da7035",
+    "train_events": 1520,
+    "calibration_events": 380,
+    "selection_note": "Reuse the previously verified1900-event snapshot; raw database metadata counts include noncanonical/incomplete rows and are not training sample sizes"
+  },
+  "provenance_finalized_at": "2026-09-07T22:23:18.421720+00:00"
+}

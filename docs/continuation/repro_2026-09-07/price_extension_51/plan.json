@@ -1,0 +1,85 @@
+{
+  "id": "DISCOVERY-B-PIN-EXT51-20260907",
+  "frozen_at": "2026-09-07T21:17:23.410990+00:00",
+  "registration_semantics": "NEW_EXPLORATORY_EXTENSION_AFTER_PREVIOUS_RESULTS_NOT_BLIND_OR_FUTURE_REPLICATION",
+  "previous_stopping_preserved": "The prior 30-ID study is complete and unchanged. This separate bounded extension follows the user's request to continue without waiting for future games.",
+  "selected_n": 51,
+  "selection_file_sha256": "5da96f38349b1b7535cf11109e84071dc1ae0b351b0cf986c4d3b5822c7cca6a",
+  "source_universe_sha256": "6264b2a1b795928fdf0dc6476e311535a42fbc96c12caf5cf881777b7779caba",
+  "excluded_previous_selection_file_sha256": "447a8ccd2e3cb895de23c4bbc68f27c9b95407ce47db250018f48536121a45db",
+  "source_pinnacle_results_sha256": "6ba95ff991e01428d195599c4fa54c1e28311bb8e741d52f16ca48f55ca4fb77",
+  "source_replay_sha256": "5738d8bd717ec8d234a7fdf1a86c4a04c9cfdc4215928a6589be8c9be0913f8b",
+  "source_replay_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\selection_reanalysis\\price_discovery_replay.py",
+  "source_pinnacle_results_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\selection_reanalysis\\pinnacle_only_results.json",
+  "excluded_previous_selection_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\selection_reanalysis\\price_history\\fixture_selection_30.json",
+  "source_universe_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\selection_reanalysis\\price_history\\fixture_universe_jan_jun_2026.json",
+  "selection_rule": "All unused IDs in the metadata universe whose T-1h decision is strictly after latest training T-10min target; exclude all30 prior selected IDs including failed requests. No replacement.",
+  "training_latest_target_at": "2026-04-19T21:20:00+00:00",
+  "beta": -0.31988646513691255,
+  "new_fits": 0,
+  "models": [
+    "persistence",
+    "frozen_ridge_momentum"
+  ],
+  "forecast": "normalized(q_T1 + beta*(q_T1-q_T6)); clamp coordinates at1e-6 then normalize; same existing implementation",
+  "bookmaker": "pinnacle",
+  "market": "1X2",
+  "side_order": [
+    "home",
+    "draw",
+    "away"
+  ],
+  "feature_cutoffs": [
+    "T6H",
+    "T1H"
+  ],
+  "target_cutoff": "T10M",
+  "decimal_odds_range": [
+    1.01,
+    20.0
+  ],
+  "complete_vector_overround_range": [
+    0.99,
+    1.3
+  ],
+  "oldest_leg_max_age_hours": 6,
+  "last_state_rule": "last timestamp <=cutoff first, explicit active true second; reject conflicts, stale or incomplete vectors; no interpolation",
+  "primary_metric": "Mean over events of mean squared error across three coordinates; paired same valid panel",
+  "minimum_complete_test_events": 30,
+  "diagnostics": [
+    "monthly paired errors",
+    "leave_one_event_delta_range",
+    "number of events better",
+    "missing reasons over all51"
+  ],
+  "inference": "Descriptive only. No formal confidence or profit verdict; entire historical search/adaptation retained.",
+  "secondary_price_proxy": {
+    "selection": "At most one per feature-valid event: max(predicted_q_T10*quoted_odds_T1-1)>0.02; ties home, draw, away. Never use target for selection.",
+    "threshold": 0.02,
+    "observed": "q_observed_T10[selected]*quoted_odds_T1[selected]-1",
+    "cost_scenario": 0.02,
+    "net_proxy": "observed minus cost_scenario; not realised profit, trueEV, settlement or executed CLV",
+    "missing_target": "retain as unassessed signal; never suppress from signal denominator"
+  },
+  "requests": {
+    "historical_free_max": 51,
+    "new_billable_requests": 0,
+    "bookmakers": [
+      "pinnacle"
+    ],
+    "reserve": 20,
+    "cooldown_after_response_seconds": 7,
+    "cooldown_after_429_seconds": 30,
+    "automatic_retries": false,
+    "stop_on_auth_or_payment_error": true,
+    "stop_after_consecutive_429": 3
+  },
+  "stopping": "One acquisition of at most51 distinct histories and one evaluation. Keep failures, no retries/replacements/refits/threshold changes/new books. Stop and report regardless of sign. No prospective study or capital promotion.",
+  "protected_scope": "Only Jan-Jun2026 previously exploratory metadata, before protected cohorts; no A1 data or football results accessed",
+  "raw_data_policy": "Private local work/raw only, no provider raw redistribution",
+  "prior_result": "13 training/9 test,3.35%MSE reduction fragile to removing one event; new51 interleaved in same test period, not independent future replication",
+  "official_sources": [
+    "https://oddspapi.io/us/docs/get-historical-odds",
+    "https://oddspapi.io/us/docs/requests-and-quota"
+  ]
+}

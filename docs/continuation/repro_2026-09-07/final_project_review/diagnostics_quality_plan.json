@@ -1,0 +1,48 @@
+{
+  "purpose": "POST_RESULT_DESCRIPTIVE_QUALITY_DIAGNOSTIC_NO_TUNING",
+  "created_at_utc": "2026-09-07T23:07:31.051132+00:00",
+  "markets": [
+    "1x2",
+    "ou25",
+    "btts"
+  ],
+  "models": [
+    "raw",
+    "calibrated",
+    "market_devig",
+    "climatology_train"
+  ],
+  "metrics": [
+    "brier",
+    "log_loss"
+  ],
+  "climatology": "Empirical class frequencies on 2021-2024 only; no smoothing",
+  "panel": "Within each official turn and market, completed common panel with original quote gates and all four forecasts",
+  "brier": "1X2 sum over three classes; binary squared error for positive class",
+  "log_loss": {
+    "base": "e",
+    "zero_probability_epsilon": 1e-15
+  },
+  "bootstrap": {
+    "unit": "official round",
+    "paired": true,
+    "replicates": 2000,
+    "seed": 20260909,
+    "seed_offsets": "100*turn_index + market_index",
+    "interval": "percentile 2.5/97.5",
+    "min_clusters_for_interval": 2,
+    "few_cluster_warning_below": 10
+  },
+  "all_pairwise_differences": true,
+  "multiplicity_adjustment": false,
+  "stop": "One fixed diagnostic, publish every panel; no refit, threshold change, selection or promotion",
+  "source_sha256": {
+    "canonical_input_2026.json": "cb99a959d9a7d910a0ee2836eb665feb1153105f9744e340e732c5077bbe3e84",
+    "candidate.json": "a0eae58a59496fc43371b7267f4d616a5c297c6952a4a89d9ca90a59071e15fc",
+    "forecasts_2026.json": "eb5e238bedfd82f90b2db2ff9ecc459bbea8be76e1643385fafac8de30764d8c",
+    "replay_inputs.json": "c452d872c0e9ccb8b4b837a69fde2ee2ec3246d81d6a849e2af3a385050a85ab",
+    "original_plan": "5561ed31a36945d40e5ffe258dea5f07d890a8f677f57e463ccdb875e3d45f20",
+    "historical_2021_2025": "14153f7cbb348e9eef22a8e1c438757b1ef482951e2576d4a8381d7928e8e142"
+  },
+  "script_sha256": "22cd9edab33458a70b850317133e184b068ecf28cd7b948d0f2afcbd1ab285b2"
+}

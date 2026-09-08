@@ -1,0 +1,56 @@
+{
+  "experiment": "NOVO-TURNOS-2026-V1",
+  "frozen_at_utc": "2026-09-07T22:43:02Z",
+  "as_of_utc": "2026-09-07T22:43:02Z",
+  "completion_buffer_hours": 48,
+  "training_years": [2021, 2022, 2023, 2024],
+  "training_horizon_utc": "2025-01-01T00:00:00Z",
+  "calibration_year": 2025,
+  "test": {"season": 2026, "rounds": [1, 19]},
+  "paper_replay": {"season": 2026, "rounds": [20, 38], "official_fixture_denominator": 190},
+  "model": "ServingStackEvaluator from operational repository, current config, single fit on verified 1520 training matches; all model and Elo state frozen thereafter",
+  "calibration": {
+    "method": "Brier-optimal scalar convex blend per market: q + w*(p-q), q proportional devig of same retrospective market quotes; w=clip(sum((onehot(y)-q)*(p-q))/sum((p-q)^2),0,1)",
+    "minimum_valid_events_per_market": 200,
+    "zero_denominator_weight": 0,
+    "insufficient_sample": "disable market in primary arm",
+    "sample": "all valid 2025 complete price vectors, identical quote gates to 2026; never fit on 2026"
+  },
+  "arms": {
+    "primary_calibrated": "2021-2024 serving model plus frozen 2025 scalar market blend",
+    "diagnostic_raw": "same frozen model without 2025 blend; descriptive comparator, never promoted based on 2026 results"
+  },
+  "selection": {
+    "markets": ["1x2", "ou25", "btts"],
+    "side_order": {"1x2": ["home", "draw", "away"], "ou25": ["over", "under"], "btts": ["yes", "no"]},
+    "probability_edge": "p - 1/decimal_odd",
+    "min_edge_exclusive": 0.02,
+    "max_edge_inclusive": 0.15,
+    "net_ev_must_be_positive": true,
+    "max_bets_per_event": 1,
+    "rank": "maximum p*odd-1-0.02, then market order, then side order",
+    "odds_bounds_inclusive": {"1x2": [1.05, 20], "ou25": [1.2, 5], "btts": [1.2, 5]},
+    "complete_market_required": true,
+    "overround_inclusive": [1.0, 1.3],
+    "missing_price_or_forecast": "no bet on affected market",
+    "price_source": "existing retrospective flat aggregate columns in verified historical input (2025) and sofascore_matches (2026); no attested historical bookmaker or quote timestamp"
+  },
+  "accounting": {
+    "stake_units": 1,
+    "extra_cost_units_per_bet": 0.02,
+    "compound": false,
+    "bankroll_stop": false,
+    "illustration_stake_brl": 50,
+    "illustration_initial_bankroll_brl": 5000,
+    "illustration": "constant R$50 per wager, purely linear conversion of units; disclose any capital insufficiency",
+    "drawdown": "chronological cumulative net profit by kickoff and event id, with initial zero",
+    "uncompleted_or_unavailable_outcome": "excluded from settlement and ROI, retained in full official fixture denominator"
+  },
+  "data_sources": {
+    "historical_sha256": "14153f7cbb348e9eef22a8e1c438757b1ef482951e2576d4a8381d7928e8e142",
+    "schedule_sha256": "30a726e635cc7e9546977a9b96771eb3ffc58fd7900346ddc6a12e17ea60aeda",
+    "contract_sha256": "4ea8c62a77cd07deb05ef6887318d811a9ed8204573a2839801bab2c1b9d5e68"
+  },
+  "interpretation": "Retrospective exploratory replay; 2026 has previously been explored. Plan frozen before this run's new result extraction, not a historical preregistration. Only completed available matches through cutoff can have realized counterfactual payouts. No evidence of future full-turn profit or quote executability.",
+  "stop": "Execute both predefined arms once, audit arithmetic and leakage, report result including zero/negative; no tuning on either 2026 turn; no live wagers or operational cohort evaluation"
+}

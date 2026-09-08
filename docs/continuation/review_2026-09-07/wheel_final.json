@@ -1,0 +1,17 @@
+{
+  "name": "wheel_final",
+  "started_at_utc": "2026-09-07T23:15:49.249969+00:00",
+  "command": [
+    "uv",
+    "build",
+    "--wheel",
+    "--out-dir",
+    "C:/Users/Superleo13/Documents/Codex/2026-09-07/le/work/final_project_review/wheel_final"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\final_project_review\\repo",
+  "live_data_used": false,
+  "external_python_network_blocked": true,
+  "credentials_removed": true,
+  "exit_code": 0,
+  "seconds": 0.7971893000067212
+}

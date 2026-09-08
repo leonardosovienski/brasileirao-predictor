@@ -77,6 +77,8 @@ SERVING_ALLOWLIST = {
     "brasileirao_scripts/emit_h9_shadow.py",  # serving pre-jogo da H9: mesmo motivo do
     # sombra.py — jogos FUTUROS, Elo corrente; so' a/b/alpha/rho vem
     # congelados da trial, nao do cache (ver docstring do modulo)
+    "brasileirao_scripts/persist_h14_prospective.py",  # captura de serving prospectiva:
+    # exige cache calculado <= now e now < kickoff; nao e replay retrospectivo
     "brasileirao_scripts/prever.py",  # CLI de serving (previsao completa / live)
     "brasileirao_scripts/ci_check.py",  # este arquivo (regex da propria barreira)
 }

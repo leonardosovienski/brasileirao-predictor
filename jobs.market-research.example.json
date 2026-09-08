@@ -3,7 +3,7 @@
   "jobs": [
     {
       "id": "brasileirao-h9-fixture-refresh",
-      "command": [".venv/Scripts/python.exe", "scripts/update_h9_fixtures.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/update_h9_fixtures.py"],
       "timeout_seconds": 5400,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -11,7 +11,7 @@
     },
     {
       "id": "brasileirao-market-research-featured",
-      "command": [".venv/Scripts/python.exe", "scripts/collect_market_research.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/collect_market_research.py"],
       "timeout_seconds": 180,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -19,7 +19,7 @@
     },
     {
       "id": "brasileirao-prospective-readiness",
-      "command": [".venv/Scripts/python.exe", "scripts/prospective_readiness.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/prospective_readiness.py"],
       "timeout_seconds": 120,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -27,7 +27,7 @@
     },
     {
       "id": "brasileirao-market-research-first-half",
-      "command": [".venv/Scripts/python.exe", "scripts/collect_market_research.py", "--first-half"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/collect_market_research.py", "--first-half"],
       "timeout_seconds": 300,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -35,7 +35,7 @@
     },
     {
       "id": "brasileirao-closing-snapshots",
-      "command": [".venv/Scripts/python.exe", "scripts/record_closing_snapshots.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/record_closing_snapshots.py"],
       "timeout_seconds": 180,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -43,7 +43,7 @@
     },
     {
       "id": "brasileirao-h8-gate-monitor",
-      "command": [".venv/Scripts/python.exe", "scripts/monitor_h8_gate.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/monitor_h8_gate.py"],
       "timeout_seconds": 120,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -51,7 +51,7 @@
     },
     {
       "id": "brasileirao-h9-emit-shadow",
-      "command": [".venv/Scripts/python.exe", "scripts/emit_h9_shadow.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/emit_h9_shadow.py"],
       "timeout_seconds": 120,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -59,7 +59,7 @@
     },
     {
       "id": "brasileirao-h9-closing-snapshots",
-      "command": [".venv/Scripts/python.exe", "scripts/record_h9_closing_snapshots.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/record_h9_closing_snapshots.py"],
       "timeout_seconds": 180,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -67,7 +67,7 @@
     },
     {
       "id": "brasileirao-h9-settle-shadow",
-      "command": [".venv/Scripts/python.exe", "scripts/settle_h9_shadow.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/settle_h9_shadow.py"],
       "timeout_seconds": 120,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -75,7 +75,7 @@
     },
     {
       "id": "brasileirao-h9-quality-report",
-      "command": [".venv/Scripts/python.exe", "scripts/report_h9_execution_quality.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/report_h9_execution_quality.py"],
       "timeout_seconds": 120,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},
@@ -83,7 +83,7 @@
     },
     {
       "id": "brasileirao-h9-runtime-backup",
-      "command": [".venv/Scripts/python.exe", "scripts/backup_h9_runtime.py"],
+      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/backup_h9_runtime.py"],
       "timeout_seconds": 900,
       "heartbeat_interval_seconds": 10,
       "runtime": {"backend": "local", "root": "data/runtime"},

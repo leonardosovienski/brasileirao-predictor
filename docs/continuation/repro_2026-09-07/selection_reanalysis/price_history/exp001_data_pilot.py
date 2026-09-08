@@ -21,12 +21,7 @@ OUTCOMES = {"101": "home_odds", "102": "draw_odds", "103": "away_odds"}
 
 
 def _get(path: str, key: str, **params: object) -> Any:
-    try:
-        response = requests.get(f"{BASE}/{path}", params={**params, "apiKey": key}, timeout=60)
-    except requests.RequestException:
-        # Transport exceptions may contain the prepared URL, including apiKey.
-        # Suppress their traceback context as well as their message.
-        raise RuntimeError("provider transport request failed") from None
+    response = requests.get(f"{BASE}/{path}", params={**params, "apiKey": key}, timeout=60)
     if response.status_code != 200:
         detail = response.text[:200].replace(key, "[REDACTED]")
         raise RuntimeError(f"provider HTTP {response.status_code}: {detail}")

@@ -1,0 +1,95 @@
+{
+  "id": "DISCOVERY-SELECTIVE-MULTIMARKET-20260907",
+  "mode": "CONTRAFACTUAL_WITH_RETROSPECTIVE_PRICES",
+  "created_at": "2026-09-07T19:26:50.267028+00:00",
+  "status": "EXPLORATORY_NOT_A_CONFIRMATORY_TRIAL",
+  "question": "Does selective abstention and cross-market choice improve the observed historical decisions?",
+  "period": [
+    "2021-01-01",
+    "2025-12-31"
+  ],
+  "decision_evaluation_years": [
+    2023,
+    2024,
+    2025
+  ],
+  "markets": [
+    "1x2",
+    "ou25",
+    "btts"
+  ],
+  "decision_before_kickoff_hours": 1,
+  "historical_result_buffer_hours": 48,
+  "forecast_min_history": 200,
+  "forecast_refit_every": 100,
+  "max_goals": 12,
+  "calibration": {
+    "frequency": "calendar_month; all training before first decision cutoff of month",
+    "min_games_per_market": 200,
+    "market_reference": "proportional devig of same complete retrospective vector",
+    "learned_blend": "Brier optimum, weight clipped to [0,1], learned on past only",
+    "residual": "softmax(log(q) + w*(log(p)-log(q)) + class_bias), L2 mean penalty 0.01, w in [-1,1], each bias in [-0.35,0.35], final class bias fixed zero"
+  },
+  "odds_gates": {
+    "1x2": [
+      1.05,
+      20.0
+    ],
+    "ou25": [
+      1.2,
+      5.0
+    ],
+    "btts": [
+      1.2,
+      5.0
+    ],
+    "complete_vector_overround": [
+      1.0,
+      1.3
+    ]
+  },
+  "additional_cost_per_unit": 0.02,
+  "net_ev_threshold": 0.02,
+  "conservative_probability_subtraction": 0.03,
+  "policies": [
+    "no_bet",
+    "confidence_60",
+    "confidence_70",
+    "raw_ev",
+    "half_market_blend",
+    "learned_market_blend",
+    "calibrated_residual",
+    "conservative_residual",
+    "residual_1x2_only",
+    "residual_ou25_only",
+    "residual_btts_only",
+    "hash_placebo"
+  ],
+  "max_unit_bets_per_event": 1,
+  "tie_break": "score descending, market name ascending, selection index ascending",
+  "stress": {
+    "additional_cost_rates": [
+      0.0,
+      0.02,
+      0.05
+    ],
+    "proportional_odds_reduction": [
+      0.0,
+      0.01,
+      0.03
+    ]
+  },
+  "bootstrap": {
+    "scheme": "noncircular moving blocks of 4 consecutive ISO calendar weeks; all arms shared",
+    "replicates": 2000,
+    "seed": 20260907,
+    "interval": "descriptive percentile 95%; not selection-adjusted; no confirmation"
+  },
+  "stopping": "Publish all frozen arms and yearly results once; no threshold search after results; no capital promotion.",
+  "search_history": "Existing project search includes 29 ledger trials and extensive OU25 threshold exploration; new namespace does not reset multiplicity. Historical 2024/2025 already examined.",
+  "limitations": [
+    "Odds are retrospective aggregates without named bookmaker or observed_at; no executable profit or CLV claim",
+    "48h result buffer is an assumption, not proof of historical publication/ingestion times",
+    "Hypothesis design itself informed by already examined historical results"
+  ]
+}

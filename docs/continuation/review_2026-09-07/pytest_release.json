@@ -1,0 +1,25 @@
+{
+  "name": "pytest_release",
+  "started_at_utc": "2026-09-07T23:21:40.514777+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests",
+    "-q",
+    "-o",
+    "addopts=",
+    "-m",
+    "not integration",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp",
+    "C:/Users/Superleo13/Documents/Codex/2026-09-07/le/work/final_project_review/pytest_release_tmp"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\final_project_review\\repo",
+  "live_data_used": false,
+  "external_python_network_blocked": true,
+  "credentials_removed": true,
+  "exit_code": 0,
+  "seconds": 44.12406699999701
+}

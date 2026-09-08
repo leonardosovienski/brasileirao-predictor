@@ -5,6 +5,7 @@ Competições e season_id ficam em config.yaml (sofascore.competitions). Para
 descobrir o season_id de uma competição: `python -m brasileirao_predictor.ingest_sofascore --seasons UT_ID`.
 """
 
+import math
 import re
 import sys
 import time
@@ -191,8 +192,38 @@ def parse_odds(odds: dict | None, initial: bool = False):
     return None, None, None
 
 
-# handicap no fim do nome do choice ('Over 2.5' → '2.5')
-_HANDICAP = re.compile(r"(\d+(?:\.\d+)?)\s*$")
+_OU_CHOICE = re.compile(r"(over|under)(?:\s+(\d+(?:\.\d+)?))?", re.IGNORECASE)
+_FULL_TIME_GOALS_NAMES = frozenset(
+    {"match goals", "total goals", "goals", "over/under", "over/under goals", "goals over/under"}
+)
+_FULL_TIME_PERIODS = frozenset(
+    {"full time", "fulltime", "ft", "match", "all", "regular time", "regulation", "90 minutes"}
+)
+
+
+def _full_time_goals_market(market: dict) -> bool:
+    """Recognize match-goal totals, retaining the legacy name-only payload.
+
+    A total for corners, cards, one team or one half must never enter the goal
+    columns. An explicit unknown identity/period fails closed; missing period
+    metadata keeps the provider's documented marketId 9/default-match meaning.
+    """
+    mid = market.get("marketId")
+    if mid is not None and (type(mid) is not int or mid != 9):
+        return False
+    name = market.get("marketName")
+    if name is None or name == "":
+        if mid != 9:
+            return False
+    elif not isinstance(name, str) or " ".join(name.lower().split()) not in _FULL_TIME_GOALS_NAMES:
+        return False
+    for field in ("period", "periodName", "marketPeriod", "periodId"):
+        value = market.get(field)
+        if value is not None and (
+            not isinstance(value, str) or " ".join(value.lower().split()) not in _FULL_TIME_PERIODS
+        ):
+            return False
+    return True
 
 
 def parse_ou(odds: dict | None, line: float = 2.5, initial: bool = False):
@@ -201,30 +232,55 @@ def parse_ou(odds: dict | None, line: float = 2.5, initial: bool = False):
     ('Over 2.5') ou no `market.choiceGroup`. A comparação é NUMÉRICA: matching
     por substring deixava a linha 12.5 sobrescrever a 2.5 sem exceção e a odd
     errada entrava no banco calada. Retorna (over, under).
+    Só aceita totais de gols do jogo inteiro. Identidades, linhas ou preços
+    conflitantes devolvem ausência, nunca a primeira cotação por acaso.
     initial=True lê a ABERTURA (initialFractionalValue)."""
+    if type(line) not in (int, float) or not math.isfinite(line) or line < 0:
+        return None, None
     key = "initialFractionalValue" if initial else "fractionalValue"
-    for market in (odds or {}).get("markets", []):
-        name = market.get("marketName", "").lower()
-        if "total" not in name and "over/under" not in name and "goals" not in name:
+    pairs = set()
+    for market in (odds or {}).get("markets", []) or []:
+        if not isinstance(market, dict) or not _full_time_goals_market(market):
             continue
         group = market.get("choiceGroup")
-        over = under = None
-        for choice in market.get("choices", []):
-            cname = (choice.get("name") or "").lower()
-            m = _HANDICAP.search(cname)
-            handicap = m.group(1) if m else group
-            try:
-                if handicap is None or float(handicap) != line:
-                    continue
-            except (TypeError, ValueError):
+        try:
+            group_line = float(group) if group is not None else None
+        except (TypeError, ValueError):
+            continue
+        if group_line is not None and not math.isfinite(group_line):
+            continue
+        sides = {}
+        for choice in market.get("choices", []) or []:
+            if not isinstance(choice, dict) or not isinstance(choice.get("name"), str):
                 continue
-            if "over" in cname:
-                over = frac_to_decimal(choice, key)
-            elif "under" in cname:
-                under = frac_to_decimal(choice, key)
-        if over and under:
-            return over, under
-    return None, None
+            match = _OU_CHOICE.fullmatch(choice["name"].strip())
+            if match is None:
+                continue
+            side, choice_line = match.groups()
+            choice_line = float(choice_line) if choice_line is not None else None
+            if choice_line is not None and group_line is not None and choice_line != group_line:
+                if line in (choice_line, group_line):
+                    return None, None
+                continue
+            handicap = choice_line if choice_line is not None else group_line
+            if handicap != line:
+                continue
+            price = frac_to_decimal(choice, key)
+            if price is None:
+                continue
+            try:
+                valid_price = math.isfinite(price) and price > 1
+            except (TypeError, ValueError):
+                valid_price = False
+            if not valid_price:
+                return None, None
+            side = side.lower()
+            if side in sides and sides[side] != price:
+                return None, None
+            sides[side] = price
+        if "over" in sides and "under" in sides:
+            pairs.add((sides["over"], sides["under"]))
+    return next(iter(pairs)) if len(pairs) == 1 else (None, None)
 
 
 # Linha do handicap asiático embutida no nome do choice: "(-0.75) Croatia".
@@ -288,16 +344,13 @@ def parse_all_odds(
                 out["btts"][c.get("name")] = frac_to_decimal(c, key)
         elif mid == 9:
             line = _line_value(market)
-            if line is None:
+            if line is None or not _full_time_goals_market(market):
                 continue
-            over = under = None
-            for c in choices:
-                nm = (c.get("name") or "").strip().lower()
-                if nm == "over":
-                    over = frac_to_decimal(c, key)
-                elif nm == "under":
-                    under = frac_to_decimal(c, key)
-            out["ou"][line] = {"Over": over, "Under": under}
+            # The normalized line table and legacy goal columns must use the
+            # same scope/conflict rules, including when duplicate markets exist.
+            over, under = parse_ou(odds, line, initial=initial)
+            if over is not None and under is not None:
+                out["ou"][line] = {"Over": over, "Under": under}
         elif mid == 17:
             home_line = None
             entry = {}

@@ -1,0 +1,514 @@
+{
+  "reports": [
+    {
+      "source": "outputs/REVISAO_FINAL/RESULTADO.md",
+      "destination": "docs/continuation/review_2026-09-07/RESULTADO.md",
+      "sha256": "64a101ca0e2c7b0a97bd3b70d568000ff189ddeea9f2d341d968d2da3f96280b"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/estado_final.json",
+      "destination": "docs/continuation/review_2026-09-07/estado_final.json",
+      "sha256": "353c4185b08d42516182d3b3f26ca64514d1743de03ab3c2c4866e50bf61d1d8"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/VALIDAR_REDIS_ISOLADO.ps1",
+      "destination": "docs/continuation/review_2026-09-07/VALIDAR_REDIS_ISOLADO.ps1",
+      "sha256": "69e72fc629c1e9107766cae89a5b67a5eeef3465fe2fbe6ec1013306964a49e0"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/METHODOLOGY_FINDINGS.md",
+      "destination": "docs/continuation/review_2026-09-07/METHODOLOGY_FINDINGS.md",
+      "sha256": "6a01694dd973bb78477b501d27d8d4d786a40d3b6b6059728fa0162da4eebc53"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/DIAGNOSTICO_QUALIDADE.md",
+      "destination": "docs/continuation/review_2026-09-07/DIAGNOSTICO_QUALIDADE.md",
+      "sha256": "0f3e87f3707d4dcaecd38603d08ff6fc9ad53a6fd5e8a5a85f0bc86579161ea5"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/data_audit.md",
+      "destination": "docs/continuation/review_2026-09-07/data_audit.md",
+      "sha256": "d9b98fbf1a4027da360750aecf684b10f4c1ff0e8b26735c6580aa037c3f9775"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/operational_code_review.md",
+      "destination": "docs/continuation/review_2026-09-07/operational_code_review.md",
+      "sha256": "4856c58ce1c774a2fc3a60d118a8061ae4615698524e75c3a0017845a58ff8d0"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/studies_reexecution.json",
+      "destination": "docs/continuation/review_2026-09-07/studies_reexecution.json",
+      "sha256": "e66a63785040c547f9f26e275aa49870dbcac9934d3a9bf29a7064eb1348006b"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/diagnostics_quality_plan.json",
+      "destination": "docs/continuation/review_2026-09-07/diagnostics_quality_plan.json",
+      "sha256": "b6d79525a06451c15011536da22c6ff516eab4db68e2ec4d5702500ebc552320"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/diagnostics_quality_results.json",
+      "destination": "docs/continuation/review_2026-09-07/diagnostics_quality_results.json",
+      "sha256": "e7a2673c02b8ce8a2ed43b43375cfa6fee9d37a569f8d1cf9972e1c8ad61affe"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/diagnostics_quality_verification.json",
+      "destination": "docs/continuation/review_2026-09-07/diagnostics_quality_verification.json",
+      "sha256": "944c5b44f9f21e8ee92a933a94c0696b7fa67e0c5e94ea88fd270cf4612955cf"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/pytest_release.json",
+      "destination": "docs/continuation/review_2026-09-07/pytest_release.json",
+      "sha256": "719bea60b5192ee207a90c9cc92c62556ee83779ca0d1422d8e48dc1179378db"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/lint_release.json",
+      "destination": "docs/continuation/review_2026-09-07/lint_release.json",
+      "sha256": "3328e29b7aa18fd8f725a8018af6ac9ce796488cc408444b9563eb76b3119697"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/format_release.json",
+      "destination": "docs/continuation/review_2026-09-07/format_release.json",
+      "sha256": "e9726d7a21b03deeb32f01051d18650efd7cb5ee21f05c835580426d6288c3f0"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/types_final.json",
+      "destination": "docs/continuation/review_2026-09-07/types_final.json",
+      "sha256": "5f3c44376e38a8c9a053c1b8653ace852525ce29f11a8761affc98a46d691c62"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/dotnet_build.json",
+      "destination": "docs/continuation/review_2026-09-07/dotnet_build.json",
+      "sha256": "5ff9d8355756f7955a5e757aef4d4ba417fe0e5a19592d0b8e112369e5429138"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/dotnet_unit.json",
+      "destination": "docs/continuation/review_2026-09-07/dotnet_unit.json",
+      "sha256": "b1a00581db6fb0fa33b7962d771023c4d498c1c7307c1aea3c1af2eae14610bc"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/wheel_final.json",
+      "destination": "docs/continuation/review_2026-09-07/wheel_final.json",
+      "sha256": "a6a72e90816fe2a68dd60c4214e0807d1b413f6811419bba73d0c67aa4548964"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/coverage_gate.json",
+      "destination": "docs/continuation/review_2026-09-07/coverage_gate.json",
+      "sha256": "1f1f8ce34e5d5b843a67fa22977cbab8064a681bf9e42dc44877de64a3c8fd6e"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/env_schema.json",
+      "destination": "docs/continuation/review_2026-09-07/env_schema.json",
+      "sha256": "296ecff8429cf6fa526d17fae98b49bb727b4507b7d8b2ed1654be6a736d1e2c"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/static_barriers_verified.json",
+      "destination": "docs/continuation/review_2026-09-07/static_barriers_verified.json",
+      "sha256": "d78311de9a39613272a940f2d38648d99a41ac718afd4a3fb123e1911030f814"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/docker_probe.json",
+      "destination": "docs/continuation/review_2026-09-07/docker_probe.json",
+      "sha256": "3f1297dcfbfe8328ac8715076abd8075dbfde8adc658180cb625939c9a512a70"
+    },
+    {
+      "source": "outputs/REVISAO_FINAL/evidencias/scheduled_tasks_final.json",
+      "destination": "docs/continuation/review_2026-09-07/scheduled_tasks_final.json",
+      "sha256": "a96dc655b0e334ccf783d4d0570fcca18c3327a67cd34e13c056bc6be4692c66"
+    }
+  ],
+  "source_and_plans": [
+    {
+      "source": "work/capture_operational_metadata.ps1",
+      "destination": "docs/continuation/repro_2026-09-07/capture_operational_metadata.ps1",
+      "sha256": "140f98de321a5bdcc1c5768856a0afb40feb8f2eaa33ca5ee0650cc84fdfbc90"
+    },
+    {
+      "source": "work/check_historical_available.py",
+      "destination": "docs/continuation/repro_2026-09-07/check_historical_available.py",
+      "sha256": "040c42079ca21e82fd8f0c1e5a52c9a494281bedafb5f343fe5caebcc3c74cab"
+    },
+    {
+      "source": "work/complete_resume.py",
+      "destination": "docs/continuation/repro_2026-09-07/complete_resume.py",
+      "sha256": "4aeef1d43170bba70dceccf431a1b35a7f61393381e192cac4d3748663d8c2cc"
+    },
+    {
+      "source": "work/configure_passive_tasks.ps1",
+      "destination": "docs/continuation/repro_2026-09-07/configure_passive_tasks.ps1",
+      "sha256": "9a1412beddff2164d2a5baef91f07282824f20b8f8e8e1606b09c8531bbf5978"
+    },
+    {
+      "source": "work/finalize_resume.py",
+      "destination": "docs/continuation/repro_2026-09-07/finalize_resume.py",
+      "sha256": "32ab0245ec61311563e53eac2d93b03d0282919035be421966bdb57bb3a8c8d6"
+    },
+    {
+      "source": "work/inspect_turn_split_sources.py",
+      "destination": "docs/continuation/repro_2026-09-07/inspect_turn_split_sources.py",
+      "sha256": "ba4d588b95df340a8a9a659c59bf09a8164f677ececc92f7e6c2e5e64c14e4e7"
+    },
+    {
+      "source": "work/operational_health.py",
+      "destination": "docs/continuation/repro_2026-09-07/operational_health.py",
+      "sha256": "55408a4f2ae5c7c4fa7a034a05c6a397581076d9de3c3767d82f63ca0464a03b"
+    },
+    {
+      "source": "work/package_deliverables.py",
+      "destination": "docs/continuation/repro_2026-09-07/package_deliverables.py",
+      "sha256": "1278788784c32b8948aa78e3acb791756ce00fe34490f34f2b9438b03cfae8fa"
+    },
+    {
+      "source": "work/prepare_price_extension.py",
+      "destination": "docs/continuation/repro_2026-09-07/prepare_price_extension.py",
+      "sha256": "63eb7826f6e4acd828aa9d85b24660c6231bef8568cf2b4227efc435eeb527e8"
+    },
+    {
+      "source": "work/record_horizon_choice.py",
+      "destination": "docs/continuation/repro_2026-09-07/record_horizon_choice.py",
+      "sha256": "c452578046a5899e96786ccca0ede552e65e53b588b9dcc59018016975d0c7c7"
+    },
+    {
+      "source": "work/resume_preflight.py",
+      "destination": "docs/continuation/repro_2026-09-07/resume_preflight.py",
+      "sha256": "c5f1b1949a107bd1ee973ac9624b47c55912614bfdf50e38c3e56bb5ec724e25"
+    },
+    {
+      "source": "work/session_git_handoff.py",
+      "destination": "docs/continuation/repro_2026-09-07/session_git_handoff.py",
+      "sha256": "69ac5d38d48bde308bba31f9118ede114a448efc88e740ccf105fbfbed19d8ed"
+    },
+    {
+      "source": "work/summarize_historical_quality.py",
+      "destination": "docs/continuation/repro_2026-09-07/summarize_historical_quality.py",
+      "sha256": "d5b00f0cf9d2b83375d5a528a28a99f294f256835b4c345ab5d633957ebbdb52"
+    },
+    {
+      "source": "work/verify_resume_integrity.py",
+      "destination": "docs/continuation/repro_2026-09-07/verify_resume_integrity.py",
+      "sha256": "b38ba51aaaafa5f76782c18b63b17f9169339857b05899d0204f9df39729ae4a"
+    },
+    {
+      "source": "work/final_project_review/VALIDAR_REDIS_ISOLADO.ps1",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/VALIDAR_REDIS_ISOLADO.ps1",
+      "sha256": "69e72fc629c1e9107766cae89a5b67a5eeef3465fe2fbe6ec1013306964a49e0"
+    },
+    {
+      "source": "work/final_project_review/assemble_delivery.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/assemble_delivery.py",
+      "sha256": "598c355f14f25dc1a2d986ee3e09d42f158e58111756581a6e3997b980af48d3"
+    },
+    {
+      "source": "work/final_project_review/audit_frozen_data.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/audit_frozen_data.py",
+      "sha256": "db3b1b0859c0b844ec39657c06b6d7fe7b43a93b4f1088ab8f6df4e253460e27"
+    },
+    {
+      "source": "work/final_project_review/diagnostics_quality.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/diagnostics_quality.py",
+      "sha256": "22cd9edab33458a70b850317133e184b068ecf28cd7b948d0f2afcbd1ab285b2"
+    },
+    {
+      "source": "work/final_project_review/diagnostics_quality_plan.json",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/diagnostics_quality_plan.json",
+      "sha256": "b6d79525a06451c15011536da22c6ff516eab4db68e2ec4d5702500ebc552320"
+    },
+    {
+      "source": "work/final_project_review/package_data_audit.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/package_data_audit.py",
+      "sha256": "ab99bc3374e40ac42e67045e1f230bbc3c0db9239279488e493737b32f53c705"
+    },
+    {
+      "source": "work/final_project_review/prepare_snapshot.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/prepare_snapshot.py",
+      "sha256": "e4a00463e1346c3b383fcd1e573f3f9cffaaaba4ff2226e1addff25537a802ab"
+    },
+    {
+      "source": "work/final_project_review/recheck_studies.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/recheck_studies.py",
+      "sha256": "1af3233cc24900b8fe1fd6a47a81a344bf748d769caae16d60575094e5e1e2a9"
+    },
+    {
+      "source": "work/final_project_review/reproduce_ou_scope_bug.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/reproduce_ou_scope_bug.py",
+      "sha256": "17f997b61773817af35bd0c72abc1f67111e5a67961131923fa925c691181fa1"
+    },
+    {
+      "source": "work/final_project_review/run_check.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/run_check.py",
+      "sha256": "90d2ca4ef8f43386cc3507c39be7396a5d4a0ccd165147e108a5f1cbbac00c0d"
+    },
+    {
+      "source": "work/final_project_review/test_diagnostics_quality.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/test_diagnostics_quality.py",
+      "sha256": "f4de6fb6825eb7d1e3336f44ff59f976fe9fcef9188cfe334c1f421d7ea11b7d"
+    },
+    {
+      "source": "work/final_project_review/extension_derived_check/acquire.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/extension_derived_check/acquire.py",
+      "sha256": "a7a6eca11caaff31cd316ca9ba9ad88f023aacee1752430c45feb21727ca1de2"
+    },
+    {
+      "source": "work/final_project_review/extension_derived_check/audit_result_independently.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/extension_derived_check/audit_result_independently.py",
+      "sha256": "36f3e5c8166cb36d18aa284a222ece9703012555aa7bc596713fa00a1e29c465"
+    },
+    {
+      "source": "work/final_project_review/extension_derived_check/evaluate.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/extension_derived_check/evaluate.py",
+      "sha256": "f754ab8723a4666e6ef73a1d452f7e09d55de8e1a5d2a4750bdc66ce5b3e7729"
+    },
+    {
+      "source": "work/final_project_review/extension_derived_check/plan.json",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/extension_derived_check/plan.json",
+      "sha256": "c02666646fdbe39dee9ab0b614a2077d8d3dca073a2b9ff5c88af4475990d9fd"
+    },
+    {
+      "source": "work/final_project_review/extension_derived_check/test_evaluate.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/extension_derived_check/test_evaluate.py",
+      "sha256": "54d07a7df780983d8a3b818f8b7163caef714dcac0da6f2081e1de8c8c6d13a9"
+    },
+    {
+      "source": "work/final_project_review/extension_derived_check/test_independent_acquisition.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/extension_derived_check/test_independent_acquisition.py",
+      "sha256": "c84b67a23d1624820cfee40d7cd8d3c5e8ba5f617f5cb1eba10d595fdab580b7"
+    },
+    {
+      "source": "work/final_project_review/extension_derived_check/test_independent_evaluation.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/extension_derived_check/test_independent_evaluation.py",
+      "sha256": "13c91aac7a6cd945b2dc8b90caf552d804b755080ea0775a4f5ce65619c1510d"
+    },
+    {
+      "source": "work/final_project_review/guard/sitecustomize.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/guard/sitecustomize.py",
+      "sha256": "b3f38f3488610c10ddaa2834ec84b2655a60395a2711e452cf5b762fe0cf488d"
+    },
+    {
+      "source": "work/final_project_review/isolated_tests/test_operational_review_regressions.py",
+      "destination": "docs/continuation/repro_2026-09-07/final_project_review/isolated_tests/test_operational_review_regressions.py",
+      "sha256": "256fb98123a90db73a370de16253c7f037fd4107ab6113c9acc5ddb061cb3864"
+    },
+    {
+      "source": "work/new_split_backtest/audit_results.py",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/audit_results.py",
+      "sha256": "ecd7df5c06b46cd354293964f4b9ef7bb187279cfb63c3de992fdc1a8dce9928"
+    },
+    {
+      "source": "work/new_split_backtest/economics.py",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/economics.py",
+      "sha256": "03466723e4a1f0a77e7daf7b36db6e8d575c4ff474bd74fe4accd89780ff0851"
+    },
+    {
+      "source": "work/new_split_backtest/extract_inputs.py",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/extract_inputs.py",
+      "sha256": "f8a878b7f48ae8e75ee70b01fcdaf2cd63d06225ba86ac05b558756ad8add98e"
+    },
+    {
+      "source": "work/new_split_backtest/package_results.py",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/package_results.py",
+      "sha256": "c3fccfee2791687b685c2b5b30b5146c6c42861347a4732a1d7a8be19fc96a94"
+    },
+    {
+      "source": "work/new_split_backtest/plan.json",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/plan.json",
+      "sha256": "5561ed31a36945d40e5ffe258dea5f07d890a8f677f57e463ccdb875e3d45f20"
+    },
+    {
+      "source": "work/new_split_backtest/runner.py",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/runner.py",
+      "sha256": "cd854de951b5585b8877f365fb7e952b3f1f4bf965f5b2e81773b0bef35b9ccb"
+    },
+    {
+      "source": "work/new_split_backtest/test_audit_results.py",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/test_audit_results.py",
+      "sha256": "0f8525292b5029fae34d926d20262e503e29ef38d7d887c456a99a1367eacb37"
+    },
+    {
+      "source": "work/new_split_backtest/test_economics.py",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/test_economics.py",
+      "sha256": "5cfe7b6a9fb34a6a8abb318402de26843f74115a038f9937e34d7ced5bce7edf"
+    },
+    {
+      "source": "work/new_split_backtest/test_extract_inputs.py",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/test_extract_inputs.py",
+      "sha256": "9d36caf310eec900c05b6b003e20e6e2413b26aead399becfa942c57888ec842"
+    },
+    {
+      "source": "work/new_split_backtest/test_runner.py",
+      "destination": "docs/continuation/repro_2026-09-07/new_split_backtest/test_runner.py",
+      "sha256": "c1df4dd4ecb54797260eb7fcf1d851ff651756aee1aee655a3819de9dd8b9580"
+    },
+    {
+      "source": "work/price_extension_51/acquire.py",
+      "destination": "docs/continuation/repro_2026-09-07/price_extension_51/acquire.py",
+      "sha256": "a7a6eca11caaff31cd316ca9ba9ad88f023aacee1752430c45feb21727ca1de2"
+    },
+    {
+      "source": "work/price_extension_51/audit_result_independently.py",
+      "destination": "docs/continuation/repro_2026-09-07/price_extension_51/audit_result_independently.py",
+      "sha256": "36f3e5c8166cb36d18aa284a222ece9703012555aa7bc596713fa00a1e29c465"
+    },
+    {
+      "source": "work/price_extension_51/evaluate.py",
+      "destination": "docs/continuation/repro_2026-09-07/price_extension_51/evaluate.py",
+      "sha256": "f754ab8723a4666e6ef73a1d452f7e09d55de8e1a5d2a4750bdc66ce5b3e7729"
+    },
+    {
+      "source": "work/price_extension_51/finalize_checkpoint.py",
+      "destination": "docs/continuation/repro_2026-09-07/price_extension_51/finalize_checkpoint.py",
+      "sha256": "041c7928653dfb479f3c4a02abfd16f64f3cf1217978a7e9f2f104a7e1541c28"
+    },
+    {
+      "source": "work/price_extension_51/package_delivery.py",
+      "destination": "docs/continuation/repro_2026-09-07/price_extension_51/package_delivery.py",
+      "sha256": "863215c894a42a10dbfe7e5e97028c4ff31ca3a605f40228aa2e964408d9bddd"
+    },
+    {
+      "source": "work/price_extension_51/plan.json",
+      "destination": "docs/continuation/repro_2026-09-07/price_extension_51/plan.json",
+      "sha256": "c02666646fdbe39dee9ab0b614a2077d8d3dca073a2b9ff5c88af4475990d9fd"
+    },
+    {
+      "source": "work/price_extension_51/test_evaluate.py",
+      "destination": "docs/continuation/repro_2026-09-07/price_extension_51/test_evaluate.py",
+      "sha256": "54d07a7df780983d8a3b818f8b7163caef714dcac0da6f2081e1de8c8c6d13a9"
+    },
+    {
+      "source": "work/price_extension_51/test_independent_acquisition.py",
+      "destination": "docs/continuation/repro_2026-09-07/price_extension_51/test_independent_acquisition.py",
+      "sha256": "c84b67a23d1624820cfee40d7cd8d3c5e8ba5f617f5cb1eba10d595fdab580b7"
+    },
+    {
+      "source": "work/price_extension_51/test_independent_evaluation.py",
+      "destination": "docs/continuation/repro_2026-09-07/price_extension_51/test_independent_evaluation.py",
+      "sha256": "13c91aac7a6cd945b2dc8b90caf552d804b755080ea0775a4f5ce65619c1510d"
+    },
+    {
+      "source": "work/selection_reanalysis/analysis_plan.json",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/analysis_plan.json",
+      "sha256": "98ca4160ede7517d639b7e13d624a67e610b959811ea9b0b9f991fb7a6628cf1"
+    },
+    {
+      "source": "work/selection_reanalysis/config_frozen.yaml",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/config_frozen.yaml",
+      "sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+    },
+    {
+      "source": "work/selection_reanalysis/finalize_delivery.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/finalize_delivery.py",
+      "sha256": "5616e4cc4ac24c9a2828f4336e34cea048860fdf09db830b1dd82ac42f0bcab1"
+    },
+    {
+      "source": "work/selection_reanalysis/generate_predictions.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/generate_predictions.py",
+      "sha256": "47476b3f4c861243e71730722704e2d2450576109039173dbfa332fdc9ba6fc9"
+    },
+    {
+      "source": "work/selection_reanalysis/package_price_results.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/package_price_results.py",
+      "sha256": "675b5dc664000e8c17462aae7552a744b63303503fb3fe9d747587c49526e171"
+    },
+    {
+      "source": "work/selection_reanalysis/package_reanalysis.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/package_reanalysis.py",
+      "sha256": "91ad7c9da69e3de06898d6cb32981416969385cfcb1190782fe9858be970b3cd"
+    },
+    {
+      "source": "work/selection_reanalysis/pinnacle_only_replay.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/pinnacle_only_replay.py",
+      "sha256": "b3e1018a97a592eafa23970e006916ef92c96ddb4ef8db46bef8287a86b93c1a"
+    },
+    {
+      "source": "work/selection_reanalysis/prepare_input.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/prepare_input.py",
+      "sha256": "7bbd06db9605b0a9de8af1e9c0b225f7add00f6c7f1740b7e4daa9d6b5151a6e"
+    },
+    {
+      "source": "work/selection_reanalysis/price_discovery_replay.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/price_discovery_replay.py",
+      "sha256": "5738d8bd717ec8d234a7fdf1a86c4a04c9cfdc4215928a6589be8c9be0913f8b"
+    },
+    {
+      "source": "work/selection_reanalysis/selective_replay.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/selective_replay.py",
+      "sha256": "d5e892dfc2c50e18ca4374bc06742452d86b8eee7a0b63162b2adc4bc8cbbd04"
+    },
+    {
+      "source": "work/selection_reanalysis/test_generate_predictions.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/test_generate_predictions.py",
+      "sha256": "08166d1a9023c6e81ede93bc95cdc3d9c86b3d05870ca899b24c14a3cbfb01f8"
+    },
+    {
+      "source": "work/selection_reanalysis/test_pinnacle_only_replay.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/test_pinnacle_only_replay.py",
+      "sha256": "56e016b8db018034c4bb99f25c246ae8c58cd3e007bef589abbbe5f3af943b41"
+    },
+    {
+      "source": "work/selection_reanalysis/test_price_discovery_replay.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/test_price_discovery_replay.py",
+      "sha256": "b1eafa198ddefcd06c4c785a9b15a9ee27280019382e28d86f00b8c90bc200b1"
+    },
+    {
+      "source": "work/selection_reanalysis/test_selective_replay.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/test_selective_replay.py",
+      "sha256": "01f5faae4d3b89c8dd068b288ccf0561b32427e9dc34091a24f04332aa87ef35"
+    },
+    {
+      "source": "work/selection_reanalysis/price_history/acquire_history_once.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/price_history/acquire_history_once.py",
+      "sha256": "f688984effcc0e1ec9453ddeaf1f254dbd5ce64de2956f0fb4ecb1412d205197"
+    },
+    {
+      "source": "work/selection_reanalysis/price_history/collect_fixture_metadata.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/price_history/collect_fixture_metadata.py",
+      "sha256": "c35dddf4dfd75b0ddbdc96db113a6bf0a226b664cbb29f4321497a1aac4190ce"
+    },
+    {
+      "source": "work/selection_reanalysis/price_history/exp001_data_pilot.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/price_history/exp001_data_pilot.py",
+      "sha256": "21712b34a13f931264eaaad2cc563be1771ef84f5830d9a772442d452a912746"
+    },
+    {
+      "source": "work/selection_reanalysis/price_history/exp001_data_pilot_original.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/price_history/exp001_data_pilot_original.py",
+      "sha256": "3b0826e9b8272c617b4e0643da771404698938825fbb8cba9c5b6769ab23162a"
+    },
+    {
+      "source": "work/selection_reanalysis/price_history/exp001_operational_before.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/price_history/exp001_operational_before.py",
+      "sha256": "3b0826e9b8272c617b4e0643da771404698938825fbb8cba9c5b6769ab23162a"
+    },
+    {
+      "source": "work/selection_reanalysis/price_history/test_price_history_parser.py",
+      "destination": "docs/continuation/repro_2026-09-07/selection_reanalysis/price_history/test_price_history_parser.py",
+      "sha256": "5aa8dc2e90380a146e081fb13e14ad6bcce732602ccceccf9f84e6f7d5f50697"
+    },
+    {
+      "source": "work/turn_split_2026/apply_policy.py",
+      "destination": "docs/continuation/repro_2026-09-07/turn_split_2026/apply_policy.py",
+      "sha256": "5db55ae0d09f891251746e50447e3c49dd04666a7ed10796618bd8661b5fe72f"
+    },
+    {
+      "source": "work/turn_split_2026/build_manifest.py",
+      "destination": "docs/continuation/repro_2026-09-07/turn_split_2026/build_manifest.py",
+      "sha256": "591321faf4d960be758bbbbe5744d8d08f5c3ce785178cd634b03c1cf38606f4"
+    },
+    {
+      "source": "work/turn_split_2026/finalize_delivery.py",
+      "destination": "docs/continuation/repro_2026-09-07/turn_split_2026/finalize_delivery.py",
+      "sha256": "21cb847e949fe9dcba84497fbadc9163d5569a692df84dbc8f94114e3e4e476f"
+    },
+    {
+      "source": "work/turn_split_2026/split_policy.py",
+      "destination": "docs/continuation/repro_2026-09-07/turn_split_2026/split_policy.py",
+      "sha256": "e82ed8082be9a4a3b6ac4e86ac7afc235d34d63515b24c25d93bfe71ea06f444"
+    },
+    {
+      "source": "work/turn_split_2026/test_split_policy.py",
+      "destination": "docs/continuation/repro_2026-09-07/turn_split_2026/test_split_policy.py",
+      "sha256": "ba83ad0e62bdca8433452f95d1449e2b23ee11336853abd319441030b5995c73"
+    }
+  ],
+  "source_root": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le",
+  "persistent_root": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07",
+  "frozen_sources_relocated_without_edits": true
+}

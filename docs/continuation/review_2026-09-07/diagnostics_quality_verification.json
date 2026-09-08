@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "new_quality_tests_passed": 14,
+  "ruff": "PASS",
+  "python": "3.14.6",
+  "numpy": "2.5.2",
+  "script_hash_matches_frozen_diagnostic_plan": true,
+  "plan_hash_matches_results": true,
+  "original_experiments_modified": false,
+  "model_refitted_by_this_diagnostic": false,
+  "outputs": {
+    "diagnostics_quality.py": "22cd9edab33458a70b850317133e184b068ecf28cd7b948d0f2afcbd1ab285b2",
+    "test_diagnostics_quality.py": "f4de6fb6825eb7d1e3336f44ff59f976fe9fcef9188cfe334c1f421d7ea11b7d",
+    "diagnostics_quality_plan.json": "b6d79525a06451c15011536da22c6ff516eab4db68e2ec4d5702500ebc552320",
+    "diagnostics_quality_results.json": "e7a2673c02b8ce8a2ed43b43375cfa6fee9d37a569f8d1cf9972e1c8ad61affe",
+    "diagnostics_quality_event_losses.json": "bc0442e74da358b5b51373ddf5c1f1e5d65fe10019870978bfda0e9566299cd1",
+    "DIAGNOSTICO_QUALIDADE.md": "0f3e87f3707d4dcaecd38603d08ff6fc9ad53a6fd5e8a5a85f0bc86579161ea5",
+    "METHODOLOGY_FINDINGS.md": "6a01694dd973bb78477b501d27d8d4d786a40d3b6b6059728fa0162da4eebc53"
+  },
+  "turn_timeline_note": {
+    "turn2_first_kickoff_utc": "2026-07-25T21:30:00+00:00",
+    "turn1_last_kickoff_utc": "2026-09-02T22:30:00+00:00",
+    "turn1_fixtures_after_turn2_start": 1,
+    "postponed_fixture_id": 16890992,
+    "requires_recalculating_payouts": false
+  }
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "TaskName": "brasileirao-a1-collect",
+    "State": 3,
+    "Actions": {
+      "Execute": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\pythonw.exe",
+      "Arguments": "-X utf8 -m brasileirao_scripts.run_passive_task a1-collect",
+      "WorkingDirectory": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor"
+    }
+  },
+  {
+    "TaskName": "brasileirao-a1-discover",
+    "State": 3,
+    "Actions": {
+      "Execute": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\pythonw.exe",
+      "Arguments": "-X utf8 -m brasileirao_scripts.run_passive_task a1-discover",
+      "WorkingDirectory": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor"
+    }
+  },
+  {
+    "TaskName": "brasileirao-a1-metrics",
+    "State": 3,
+    "Actions": {
+      "Execute": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\pythonw.exe",
+      "Arguments": "-X utf8 -m brasileirao_scripts.run_passive_task a1-metrics",
+      "WorkingDirectory": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor"
+    }
+  },
+  {
+    "TaskName": "brasileirao-h14-persist",
+    "State": 3,
+    "Actions": {
+      "Execute": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\pythonw.exe",
+      "Arguments": "-X utf8 -m brasileirao_scripts.run_passive_task h14-persist",
+      "WorkingDirectory": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor"
+    }
+  },
+  {
+    "TaskName": "brasileirao-h15-persist",
+    "State": 3,
+    "Actions": {
+      "Execute": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\pythonw.exe",
+      "Arguments": "-X utf8 -m brasileirao_scripts.run_passive_task h15-persist",
+      "WorkingDirectory": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor"
+    }
+  },
+  {
+    "TaskName": "brasileirao-h9-fixture-refresh",
+    "State": 3,
+    "Actions": {
+      "Execute": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\pythonw.exe",
+      "Arguments": "-X utf8 -m brasileirao_scripts.run_passive_task fixture-refresh",
+      "WorkingDirectory": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor"
+    }
+  },
+  {
+    "TaskName": "brasileirao-model-update",
+    "State": 3,
+    "Actions": {
+      "Execute": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\pythonw.exe",
+      "Arguments": "-X utf8 -m brasileirao_scripts.run_passive_task model-update",
+      "WorkingDirectory": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor"
+    }
+  }
+]

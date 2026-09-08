@@ -1,0 +1,16 @@
+{
+  "name": "types_final",
+  "started_at_utc": "2026-09-07T23:11:29.041258+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\pyright.exe",
+    "--pythonpath",
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "brasileirao_predictor"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\final_project_review\\repo",
+  "live_data_used": false,
+  "external_python_network_blocked": true,
+  "credentials_removed": true,
+  "exit_code": 0,
+  "seconds": 6.171276699998998
+}

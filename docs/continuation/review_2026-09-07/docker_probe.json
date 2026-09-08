@@ -1,0 +1,12 @@
+{
+  "command": [
+    "docker",
+    "version",
+    "--format",
+    "{{.Server.Version}}"
+  ],
+  "service_start_failed": "Cannot open com.docker.service from current Windows session",
+  "exit_code": 1,
+  "stdout": "\n",
+  "stderr": "error during connect: Get \"http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.45/version\": EOF\n"
+}

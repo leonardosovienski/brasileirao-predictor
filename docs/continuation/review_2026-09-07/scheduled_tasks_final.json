@@ -1,0 +1,44 @@
+[
+  {
+    "Name": "brasileirao-a1-collect",
+    "State": "Ready",
+    "LastRun": "2026-09-07T23:04:04.0000000Z",
+    "LastResult": 0
+  },
+  {
+    "Name": "brasileirao-a1-discover",
+    "State": "Ready",
+    "LastRun": "2026-09-07T18:22:22.0000000Z",
+    "LastResult": 0
+  },
+  {
+    "Name": "brasileirao-a1-metrics",
+    "State": "Ready",
+    "LastRun": "2026-09-07T18:24:24.0000000Z",
+    "LastResult": 0
+  },
+  {
+    "Name": "brasileirao-h14-persist",
+    "State": "Ready",
+    "LastRun": "2026-09-07T23:15:15.0000000Z",
+    "LastResult": 0
+  },
+  {
+    "Name": "brasileirao-h15-persist",
+    "State": "Ready",
+    "LastRun": "2026-09-07T23:16:16.0000000Z",
+    "LastResult": 0
+  },
+  {
+    "Name": "brasileirao-h9-fixture-refresh",
+    "State": "Ready",
+    "LastRun": "2026-09-07T20:00:00.0000000Z",
+    "LastResult": 0
+  },
+  {
+    "Name": "brasileirao-model-update",
+    "State": "Ready",
+    "LastRun": "2026-09-07T19:59:59.0000000Z",
+    "LastResult": 0
+  }
+]

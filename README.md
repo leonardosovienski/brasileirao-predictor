@@ -1,5 +1,24 @@
 # brasileirao-predictor
 
+Retomada sem depender do histórico do chat:
+[prompt atual](docs/continuation/PROMPT_MELHORIA_LUCRO.md) e
+[guia com resultados, caminhos persistentes e pendências](docs/continuation/RETOMADA.md).
+
+> **Revisão final local — 2026-09-07.** Correções de escopo das odds de gols,
+> encerramento da árvore de processos no timeout, sanitização de erros de rede
+> e caminhos do manifesto foram aplicadas. A suíte final isolada passou com
+> 1.082 testes Python; tipos, lint, formatação, wheel e build .NET passaram.
+> Integração Docker/Redis ainda não revalidada nesta sessão: o serviço Docker
+> não respondeu e o Windows negou a abertura do serviço para iniciá-lo.
+>
+> A qualidade econômica continua **NÃO DEMONSTRADA / CAPITAL BLOQUEADO**.
+> O replay fixo com treino 2021–2024 e calibração 2025 foi reproduzido: no
+> segundo turno disponível, 9 apostas e saldo líquido −1,23 unidade em 58
+> jogos avaliáveis de 190 oficiais. Odds retrospectivas não comprovam
+> execução; o candidato estático não reproduz a atualização contínua do
+> serving. O teste de probabilidades também não mostrou vantagem sobre o
+> mercado. Veja o checkpoint atual em `HANDOFF.md`.
+
 > **Atualização econômica — 2026-09-01.** O candidato residual de totais avalia
 > Over e Under com odds realmente observadas, pares temporalmente compatíveis e
 > EV/Kelly/P&L líquidos de fricção. A avaliação permanece `SHADOW`, sem promoção
@@ -27,8 +46,9 @@ está em [`docs/RELATORIO_FINAL_CONSOLIDADO_2026-08-26.md`](docs/RELATORIO_FINAL
 A coleta prospectiva atual preserva contratos completos e capital bloqueado;
 operação e monitoramento: `docs/SHADOW_PROSPECTIVE_RUNBOOK.md`. H3/H5 são
 históricas/substituídas; H9 é a replicação econômica inconclusiva; H13 foi
-substituída. H14 e H15 têm desenhos pré-registrados, mas a coleta prospectiva
-dos braços ainda não foi ativada.
+substituída. H14 e H15 têm desenhos pré-registrados e sua coleta passiva foi
+retomada em 07/09/2026. Heartbeats operacionais confirmam execução; isso não
+equivale a conclusão da coleta, avaliação científica ou lucro.
 
 A calibração operacional do próximo caminho econômico está definida em
 [`docs/A1_OU25_PHASE0_RUNBOOK.md`](docs/A1_OU25_PHASE0_RUNBOOK.md): somente

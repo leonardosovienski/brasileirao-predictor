@@ -1,0 +1,24 @@
+{
+  "name": "dotnet_unit",
+  "started_at_utc": "2026-09-07T23:09:22.618443+00:00",
+  "command": [
+    "dotnet",
+    "test",
+    "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+    "--configuration",
+    "Release",
+    "--no-restore",
+    "--filter",
+    "FullyQualifiedName!~WorkerRuntimeTests",
+    "--logger",
+    "trx;LogFileName=dotnet_unit.trx",
+    "--results-directory",
+    "C:/Users/Superleo13/Documents/Codex/2026-09-07/le/work/final_project_review/dotnet_results"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\final_project_review\\repo",
+  "live_data_used": false,
+  "external_python_network_blocked": true,
+  "credentials_removed": true,
+  "exit_code": 0,
+  "seconds": 3.672958600000129
+}

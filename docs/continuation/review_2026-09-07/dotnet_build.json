@@ -1,0 +1,19 @@
+{
+  "name": "dotnet_build",
+  "started_at_utc": "2026-09-07T23:06:27.988525+00:00",
+  "command": [
+    "dotnet",
+    "build",
+    "dotnet/LineupWorker/LineupWorker.csproj",
+    "--configuration",
+    "Release",
+    "--no-restore",
+    "--warnaserror"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\le\\work\\final_project_review\\repo",
+  "live_data_used": false,
+  "external_python_network_blocked": true,
+  "credentials_removed": true,
+  "exit_code": 0,
+  "seconds": 2.8749505000014324
+}

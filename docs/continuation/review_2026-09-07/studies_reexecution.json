@@ -1,0 +1,261 @@
+{
+  "status": "PASS",
+  "new_split": {
+    "forecasts_compared": 760,
+    "decisions_compared": 760,
+    "scientific_fingerprint": "b10e06065423c9331121eac460def5da3ff5f2b788edddf581128aba5e77548f",
+    "same_scientific_state": true,
+    "execution_hash_note": "Original candidate hash includes optimizer duration. Stable scientific fingerprint excludes runtime observations."
+  },
+  "selection_2023_2025": {
+    "status": "PASS",
+    "decisions_recomputed": 13680,
+    "policies_recomputed": 12,
+    "same_all_metrics": true,
+    "policies": {
+      "no_bet": {
+        "events": 1140,
+        "bets": 0,
+        "profit_units": 0.0,
+        "roi": null,
+        "hit_rate": null,
+        "coverage": 0.0,
+        "max_drawdown_units": 0.0,
+        "by_market_bets": {},
+        "roi_ci95_descriptive": null,
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 0,
+        "calendar_weeks": 139,
+        "active_weeks": 0,
+        "not_multiple_search_adjusted": true
+      },
+      "confidence_60": {
+        "events": 1140,
+        "bets": 239,
+        "profit_units": -17.546000000000003,
+        "roi": -0.0734142259414226,
+        "hit_rate": 0.606694560669456,
+        "coverage": 0.20964912280701756,
+        "max_drawdown_units": 21.729999999999983,
+        "by_market_bets": {
+          "1x2": 128,
+          "ou25": 111
+        },
+        "roi_ci95_descriptive": [
+          -0.1458948823740454,
+          0.0023656464266877215
+        ],
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 2000,
+        "calendar_weeks": 139,
+        "active_weeks": 71,
+        "not_multiple_search_adjusted": true
+      },
+      "confidence_70": {
+        "events": 1140,
+        "bets": 20,
+        "profit_units": 0.963,
+        "roi": 0.04815,
+        "hit_rate": 0.8,
+        "coverage": 0.017543859649122806,
+        "max_drawdown_units": 2.4770000000000003,
+        "by_market_bets": {
+          "1x2": 20
+        },
+        "roi_ci95_descriptive": null,
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 2000,
+        "calendar_weeks": 139,
+        "active_weeks": 15,
+        "not_multiple_search_adjusted": true
+      },
+      "raw_ev": {
+        "events": 1140,
+        "bets": 952,
+        "profit_units": -210.911,
+        "roi": -0.2215451680672269,
+        "hit_rate": 0.24894957983193278,
+        "coverage": 0.8350877192982457,
+        "max_drawdown_units": 215.54400000000211,
+        "by_market_bets": {
+          "ou25": 99,
+          "1x2": 828,
+          "btts": 25
+        },
+        "roi_ci95_descriptive": [
+          -0.3190341612520011,
+          -0.11556961597675385
+        ],
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 2000,
+        "calendar_weeks": 139,
+        "active_weeks": 99,
+        "not_multiple_search_adjusted": true
+      },
+      "half_market_blend": {
+        "events": 1140,
+        "bets": 667,
+        "profit_units": -133.551,
+        "roi": -0.20022638680659668,
+        "hit_rate": 0.23238380809595202,
+        "coverage": 0.5850877192982457,
+        "max_drawdown_units": 144.23399999999975,
+        "by_market_bets": {
+          "1x2": 615,
+          "ou25": 50,
+          "btts": 2
+        },
+        "roi_ci95_descriptive": [
+          -0.31897823382126334,
+          -0.06643015432633968
+        ],
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 2000,
+        "calendar_weeks": 139,
+        "active_weeks": 96,
+        "not_multiple_search_adjusted": true
+      },
+      "learned_market_blend": {
+        "events": 1140,
+        "bets": 2,
+        "profit_units": -2.04,
+        "roi": -1.02,
+        "hit_rate": 0.0,
+        "coverage": 0.0017543859649122807,
+        "max_drawdown_units": 2.04,
+        "by_market_bets": {
+          "btts": 2
+        },
+        "roi_ci95_descriptive": null,
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 1753,
+        "calendar_weeks": 139,
+        "active_weeks": 2,
+        "not_multiple_search_adjusted": true
+      },
+      "calibrated_residual": {
+        "events": 1140,
+        "bets": 19,
+        "profit_units": 0.4199999999999997,
+        "roi": 0.02210526315789472,
+        "hit_rate": 0.42105263157894735,
+        "coverage": 0.016666666666666666,
+        "max_drawdown_units": 4.26,
+        "by_market_bets": {
+          "1x2": 19
+        },
+        "roi_ci95_descriptive": null,
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 2000,
+        "calendar_weeks": 139,
+        "active_weeks": 17,
+        "not_multiple_search_adjusted": true
+      },
+      "conservative_residual": {
+        "events": 1140,
+        "bets": 0,
+        "profit_units": 0.0,
+        "roi": null,
+        "hit_rate": null,
+        "coverage": 0.0,
+        "max_drawdown_units": 0.0,
+        "by_market_bets": {},
+        "roi_ci95_descriptive": null,
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 0,
+        "calendar_weeks": 139,
+        "active_weeks": 0,
+        "not_multiple_search_adjusted": true
+      },
+      "residual_1x2_only": {
+        "events": 1140,
+        "bets": 19,
+        "profit_units": 0.4199999999999997,
+        "roi": 0.02210526315789472,
+        "hit_rate": 0.42105263157894735,
+        "coverage": 0.016666666666666666,
+        "max_drawdown_units": 4.26,
+        "by_market_bets": {
+          "1x2": 19
+        },
+        "roi_ci95_descriptive": null,
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 2000,
+        "calendar_weeks": 139,
+        "active_weeks": 17,
+        "not_multiple_search_adjusted": true
+      },
+      "residual_ou25_only": {
+        "events": 1140,
+        "bets": 0,
+        "profit_units": 0.0,
+        "roi": null,
+        "hit_rate": null,
+        "coverage": 0.0,
+        "max_drawdown_units": 0.0,
+        "by_market_bets": {},
+        "roi_ci95_descriptive": null,
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 0,
+        "calendar_weeks": 139,
+        "active_weeks": 0,
+        "not_multiple_search_adjusted": true
+      },
+      "residual_btts_only": {
+        "events": 1140,
+        "bets": 0,
+        "profit_units": 0.0,
+        "roi": null,
+        "hit_rate": null,
+        "coverage": 0.0,
+        "max_drawdown_units": 0.0,
+        "by_market_bets": {},
+        "roi_ci95_descriptive": null,
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 0,
+        "calendar_weeks": 139,
+        "active_weeks": 0,
+        "not_multiple_search_adjusted": true
+      },
+      "hash_placebo": {
+        "events": 1140,
+        "bets": 1132,
+        "profit_units": -89.47900000000001,
+        "roi": -0.07904505300353358,
+        "hit_rate": 0.4090106007067138,
+        "coverage": 0.9929824561403509,
+        "max_drawdown_units": 98.03000000000031,
+        "by_market_bets": {
+          "1x2": 647,
+          "ou25": 223,
+          "btts": 262
+        },
+        "roi_ci95_descriptive": [
+          -0.13308961151401216,
+          -0.009393361039736457
+        ],
+        "ci_sample_guard": "at least 30 bets and 8 active calendar weeks",
+        "resamples_with_bets": 2000,
+        "calendar_weeks": 139,
+        "active_weeks": 100,
+        "not_multiple_search_adjusted": true
+      }
+    }
+  },
+  "extension_51": {
+    "status": "VERIFIED",
+    "checks": 3214,
+    "errors": [],
+    "primary": {
+      "n": 50,
+      "persistence_mean_mse": 0.0003203463381416489,
+      "frozen_ridge_momentum_mean_mse": 0.0003250714434251413,
+      "paired_mean_mse_delta": 4.725105283492441e-06,
+      "relative_mse_reduction": -0.01474998999802235,
+      "events_lower_mse": 23,
+      "events_equal_mse": 0,
+      "events_higher_mse": 27
+    },
+    "new_api_requests": 0
+  }
+}

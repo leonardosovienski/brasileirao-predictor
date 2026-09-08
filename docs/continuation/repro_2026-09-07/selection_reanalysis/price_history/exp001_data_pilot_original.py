@@ -21,12 +21,7 @@ OUTCOMES = {"101": "home_odds", "102": "draw_odds", "103": "away_odds"}
 
 
 def _get(path: str, key: str, **params: object) -> Any:
-    try:
-        response = requests.get(f"{BASE}/{path}", params={**params, "apiKey": key}, timeout=60)
-    except requests.RequestException:
-        # Transport exceptions may contain the prepared URL, including apiKey.
-        # Suppress their traceback context as well as their message.
-        raise RuntimeError("provider transport request failed") from None
+    response = requests.get(f"{BASE}/{path}", params={**params, "apiKey": key}, timeout=60)
     if response.status_code != 200:
         detail = response.text[:200].replace(key, "[REDACTED]")
         raise RuntimeError(f"provider HTTP {response.status_code}: {detail}")
@@ -38,29 +33,17 @@ def _at(value: str) -> datetime:
 
 
 def _latest_at_cutoff(book: dict[str, Any], cutoff: datetime) -> dict[str, Any] | None:
-    """Return last known states, rejecting suspended or ambiguous selections.
-
-    Filtering inactive rows before selecting the last state resurrects old quotes.
-    Equal-time rows have no documented ordering; conflicting active/price states
-    therefore fail closed instead of depending on the provider's array order.
-    """
     outcomes = book.get("markets", {}).get("101", {}).get("outcomes", {})
     selected: dict[str, Any] = {}
     timestamps: list[datetime] = []
     for outcome_id, label in OUTCOMES.items():
         timeline = outcomes.get(outcome_id, {}).get("players", {}).get("0", [])
-        eligible = [row for row in timeline if _at(row["createdAt"]) <= cutoff]
+        eligible = [row for row in timeline if _at(row["createdAt"]) <= cutoff and row.get("active", True)]
         if not eligible:
             return None
-        latest_at = max(_at(row["createdAt"]) for row in eligible)
-        latest_rows = [row for row in eligible if _at(row["createdAt"]) == latest_at]
-        if any(row.get("active") is not True for row in latest_rows):
-            return None
-        latest = latest_rows[0]
-        if any(row["price"] != latest["price"] for row in latest_rows[1:]):
-            return None
+        latest = max(eligible, key=lambda row: _at(row["createdAt"]))
         selected[label] = latest["price"]
-        timestamps.append(latest_at)
+        timestamps.append(_at(latest["createdAt"]))
     returned = min(timestamps)
     return {
         **selected,
