@@ -63,6 +63,18 @@ fixture acima e a recusa correta de Core 3.2 a emitir um atestado sintético em
 árvore ainda suja pelo merge. O aceite final exige repetir a suíte no commit
 limpo, sem desabilitar a exigência de proveniência.
 
+No commit limpo `3db29a8`, passaram 1.541 testes locais (um skip de plataforma,
+30 integrações reservadas ao Redis isolado), Ruff, Pyright e os gates de
+cobertura global e por categoria. O primeiro CI desse commit passou Python
+3.13 e 3.14, incluindo Redis, mas encontrou uma fixture .NET incompleta:
+o subprocesso de health recebia apenas os caminhos VORP/titularidade e herdava
+implicitamente Redis/bancos do ambiente. No runner Linux essas três variáveis
+não existiam, levando à saída 134 antes da verificação de saúde. A fixture
+passa a fornecer Redis descartável e os dois caminhos sintéticos explicitamente,
+e a mostrar a saída do subprocesso em caso de falha. A validação de configuração
+do Worker em produção foi preservada. O resultado do novo CI deve ser associado
+ao commit da correção, conforme o recibo final abaixo.
+
 Os resultados finais, SHA consolidado, inventários local/remoto e remoções
 confirmadas são registrados fora da árvore versionada em
 `outputs/GIT_MAIN_UNICA/ESTADO_FINAL.json`, na pasta da tarefa de origem.

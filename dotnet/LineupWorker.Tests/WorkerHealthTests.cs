@@ -33,6 +33,11 @@ public sealed partial class WorkerRuntimeTests
         };
         start.ArgumentList.Add(typeof(MarketStateEngine).Assembly.Location);
         start.ArgumentList.Add("--healthcheck");
+        // The child process must use this fixture's validated Redis and paths,
+        // independently of the developer machine or CI job environment.
+        start.Environment["REDIS_URL"] = _redisUrl;
+        start.Environment["SPORTS_DB_PATH"] = Path.Combine(_root, "sports.db");
+        start.Environment["MARKET_DB_PATH"] = Path.Combine(_root, "market.db");
         start.Environment["VORP_ARTIFACT_PATH"] = Path.Combine(_root, "unused-vorp.json");
         start.Environment["TITULARIDADE_PATH"] = Path.Combine(_root, "unused-titularidade.json");
         using var process = System.Diagnostics.Process.Start(start)!;
@@ -42,7 +47,8 @@ public sealed partial class WorkerRuntimeTests
         try { await process.WaitForExitAsync(timeout.Token); }
         catch (OperationCanceledException) { process.Kill(entireProcessTree: true); throw; }
         await Task.WhenAll(stdout, stderr);
-        Assert.InRange(process.ExitCode, 0, 1);
+        Assert.True(process.ExitCode is 0 or 1,
+            $"Healthcheck exited unexpectedly ({process.ExitCode}).\nstdout:\n{await stdout}\nstderr:\n{await stderr}");
         return process.ExitCode;
     }
 
