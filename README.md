@@ -1,5 +1,10 @@
 # brasileirao-predictor
 
+Consolidação de 08/09/2026: código local e remoto reunidos, mantendo o runtime
+Redis v2 e as dependências fixadas Core 3.2.0 / Ops 4.1.0. O estado e as
+validações desta integração estão no primeiro checkpoint de `HANDOFF.md`.
+As notas datadas abaixo preservam o histórico das respectivas execuções.
+
 Retomada sem depender do histórico do chat:
 [prompt atual](docs/continuation/PROMPT_MELHORIA_LUCRO.md) e
 [guia com resultados, caminhos persistentes e pendências](docs/continuation/RETOMADA.md).
@@ -18,6 +23,13 @@ Retomada sem depender do histórico do chat:
 > execução; o candidato estático não reproduz a atualização contínua do
 > serving. O teste de probabilidades também não mostrou vantagem sobre o
 > mercado. Veja o checkpoint atual em `HANDOFF.md`.
+
+> **Checkpoint histórico — 2026-09-04.** Coorte prospectiva H14 (serving-v2 vs.
+> climatologia) e H15 (refit 10 vs. 100 jogos) começaram a coletar de verdade
+> — persistência append-only pré-kickoff rodando, avaliação só em
+> `n>=900` (ponto único, gate mecânico). Gate A1 (odds multi-casa) com relógio
+> de 7 dias em andamento. Capital continua bloqueado em todos os mercados.
+> Veja o checkpoint mais recente em `HANDOFF.md`.
 
 > **Atualização econômica — 2026-09-01.** O candidato residual de totais avalia
 > Over e Under com odds realmente observadas, pares temporalmente compatíveis e
@@ -42,6 +54,17 @@ O dossiê consolidado sobre acertos, erros, calibração, lambdas, mercados e
 causas está em [`docs/DOSSIE_ANALISE_PREDICTOR_2026-08-26.md`](docs/DOSSIE_ANALISE_PREDICTOR_2026-08-26.md).
 O fechamento completo, incluindo 2025 aberto, governança, coletor e lacunas,
 está em [`docs/RELATORIO_FINAL_CONSOLIDADO_2026-08-26.md`](docs/RELATORIO_FINAL_CONSOLIDADO_2026-08-26.md).
+
+A auditoria adversarial de 2026-09-05, com os sete achados, a evidência
+reproduzível de cada um e dois adendos de encerramento, está em
+[`docs/AUDITORIA_ADVERSARIAL_2026-09-05.md`](docs/AUDITORIA_ADVERSARIAL_2026-09-05.md).
+[`docs/ESTADO_LOCAL_E_OPERACAO.md`](docs/ESTADO_LOCAL_E_OPERACAO.md) registra
+o estado local da auditoria de 06/09. Para operar, confira primeiro o checkpoint
+mais recente de `HANDOFF.md`; o documento histórico reúne o que NÃO está versionado — onde
+vive o `matches.db`, como renovar o atestado de poder (validade de 7 dias, e
+todo bump do `predictor-core` o invalida), o estado da coleta agendada no
+Windows Task Scheduler, e as diferenças entre ambiente local, CI e sandbox que
+já causaram diagnóstico errado.
 
 A coleta prospectiva atual preserva contratos completos e capital bloqueado;
 operação e monitoramento: `docs/SHADOW_PROSPECTIVE_RUNBOOK.md`. H3/H5 são

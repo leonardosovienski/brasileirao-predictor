@@ -1,6 +1,16 @@
 """Renovacao isolada do harness attestation (etapa 1 de governanca.py, sem
 a etapa 2 de pre-registro). Uso: python brasileirao_scripts/_attest_only.py
-Apague este arquivo depois de rodar; nao faz parte do repo canonico."""
+
+Este arquivo diz de si mesmo, desde que foi criado, que nao faz parte do repo
+canonico e que devia ser apagado depois de rodar -- e continua versionado. A
+auditoria adversarial de 2026-09-05 registrou isso. Ele NAO foi apagado agora
+de proposito: o atestado vigente em data/trials.harness_attestation.json foi
+emitido a partir de arvore suja (achado 7) e expira em 2026-09-09, e esta e a
+ferramenta que reemite. Precisa da matches.db real, entao so roda na maquina do
+mantenedor.
+
+Apague depois da reemissao, ou promova a etapa a governanca.py e apague de vez.
+Ver docs/AUDITORIA_ADVERSARIAL_2026-09-05.md, adendo de 2026-09-06."""
 
 import sys
 from pathlib import Path

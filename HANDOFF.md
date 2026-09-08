@@ -1,5 +1,19 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — CONSOLIDAÇÃO DA MAIN (08/09/2026)
+>
+> Evidências e limites: docs/continuation/main_consolidation_2026-09-08/RESULTADO.md.
+> Integra main local d42a3e0 com main remota 3a88f31, preservando os 12 históricos
+> de branches auditados. Runtime Redis v2 local mantido; Core 3.2/Ops 4.1 e
+> auditorias remotas incorporados. Corrigidas metadata mínima de Core, trava de
+> avaliação única H14/H15 e corrida na fixture Windows de timeout.
+> Os três artefatos de governança incorporados já existiam no GitHub; nenhum
+> atestado operacional, avaliação de coorte ou refit foi executado nesta etapa.
+> O ZIP de dados continua vinculado a d42a3e0; não é uma captura da nova main.
+> Aceite do commit limpo, publicação, CI e inventário final de branches ficam
+> no recibo externo outputs/GIT_MAIN_UNICA/ESTADO_FINAL.json da tarefa de origem.
+> Os checkpoints abaixo são históricos; não representam o estado deste merge.
+
 > ## CHECKPOINT — CONTINUAÇÃO DO DOCKER (08/09/2026, 12h UTC)
 >
 > Evidências: docs/continuation/docker_completion_2026-09-08/RESULTADO.md.
@@ -513,6 +527,89 @@
 >
 > Retomada em preparação: conferir checkpoint de conclusão operacional
 > acima deste antes de afirmar que tarefas voltaram a operar.
+
+> ## CHECKPOINT — AUDITORIA ADVERSARIAL, ENCERRAMENTO (2026-09-06) — FONTE DA VERDADE ATUAL
+>
+> **Estado técnico corrente — 2026-09-06:** pacotes
+> `brasileirao_predictor`/`brasileirao_scripts`, **Core 3.2.0 e Ops 4.1.0** por
+> wheels, ambas verificadas byte a byte contra o release asset antes do pin
+> (sha256 igual ao digest da API, `create_system=3`, zero CRLF, `diff -rq`
+> vazio contra o `git archive` da tag, upload por `github-actions[bot]`). A
+> linha "Core 3.0.x e Ops 4.0.x" do checkpoint de 2026-09-01 está superada.
+>
+> **Os sete achados da auditoria adversarial de 2026-09-05 estão fechados no
+> repositório E no artefato.** Até a manhã de 2026-09-06, três deles existiam
+> só no `main` do core e a wheel que produção instalava não os continha.
+> Registro completo em `docs/AUDITORIA_ADVERSARIAL_2026-09-05.md`, com dois
+> adendos — o segundo corrige dois erros da própria auditoria.
+>
+> **Mudanças de comportamento que valem saber:**
+> - O gate de capital (`research/prospective_validation/metrics.py`) usa
+>   `strict=True` no Deflated Sharpe. Quando o SR0 não é estimável, ele agora
+>   **TRAVA** em vez de destravar com um PSR disfarçado de DSR.
+> - `attest_pipeline_power` recusa árvore de trabalho suja. Todo bump do
+>   `predictor-core` invalida o atestado vigente e exige reemissão.
+> - Atestado vigente até **2026-09-13**, `code_version`
+>   `package:3.2.0;git:61f72e7b`, sem `;dirty`. Renovação:
+>   `uv run python brasileirao_scripts/renew_core3_harness.py` com árvore
+>   limpa — **não precisa da `matches.db`**.
+>
+> **O que NÃO está versionado** — `matches.db`, atestados locais, estado do
+> Agendador de Tarefas, diferenças entre ambientes e permissões de sessão
+> automatizada — está em `docs/ESTADO_LOCAL_E_OPERACAO.md`. Comece por lá para
+> operar.
+>
+> **Prazo em aberto:** o relógio de 7 dias do coletor A1 fecha por volta de
+> **2026-09-10/11**, e `market05-a1-shadow` segue bloqueada até lá.
+
+> ## CHECKPOINT — SESSÃO CLAUDE (2026-09-04)
+>
+> **PIT futuro do EXP-001:** `sofascore_matches` ganhou a coluna
+> `result_observed_at`, carimbada por trigger SQLite (write-once) no primeiro
+> `INSERT`/`UPDATE` em que `home_score`/`away_score` deixam de ser `NULL`.
+> Histórico já coletado permanece `NULL` de propósito — não há evidência real
+> de quando cada placar antigo foi observado, e não foi inventada. Resolve só
+> o acúmulo futuro do bloqueio do EXP-001; o histórico continua irrecuperável
+> (PR #49).
+>
+> **H14 e H15 saíram de `collection_status=NOT_STARTED` para coleta real.**
+> `persist_h14_prospective.py` (serving-v2 vs. climatologia prequential) e
+> `persist_h15_prospective.py` (refit a cada 10 vs. 100 jogos, dois estados de
+> modelo independentes via `cron_update_models.compute`) persistem os braços
+> append-only, pré-kickoff, idempotentes por `event_id` (PRs #50, #51). O
+> instalador canônico (`install_windows_scheduler.ps1`) passou a cobrir
+> `brasileirao-h14-persist`/`brasileirao-h15-persist` (15min, mesma cadência
+> do H9) — **rodado pelo operador em 2026-09-04**, `LastTaskResult=0` nos
+> dois. O relógio das duas coortes está ativo.
+>
+> `evaluate_h14_prospective.py`/`evaluate_h15_prospective.py` (PR #52) são o
+> terceiro passo, ainda sem uso: casam o ledger com o resultado real e medem
+> ganho pareado de RPS por bootstrap de bloco móvel — mas com gate de poder
+> MECÂNICO (`n < min_n_avaliacao` não calcula nada, só informa quanto falta)
+> e recusa a sobrescrever um relatório de ponto único já escrito. Nenhum dos
+> dois script de avaliação foi executado ainda: `min_n_avaliacao=900` está
+> longe (mesma conta do H13: ~899/380 ≈ 2,4 temporadas).
+>
+> **Gate A1 (coletor de odds multi-casa):** chave `ODDSPAPI_KEY` rotacionada e
+> atestada pelo operador em `data/collector_metrics/key_rotation_attestation.json`
+> (arquivo local, fora do Git). Tarefas `brasileirao-a1-collect/-discover/-metrics`
+> instaladas e confirmadas rodando (`LastTaskResult=0`) desde 2026-09-04.
+> Relógio dos 7 dias em andamento; conclusão esperada por volta de
+> 2026-09-10/11. Continua `REHEARSAL_ONLY` no plano gratuito — homologação
+> formal provavelmente exige plano pago. `market05-a1-shadow` continua
+> bloqueada até o relógio fechar; nenhum campo de trial foi editado
+> manualmente para simular essa evidência (seria fabricar dado).
+>
+> **Nenhuma trava de capital foi aberta.** Nenhum resultado científico,
+> parâmetro de modelo ou veredito de trial existente foi alterado. Suíte após
+> os 4 PRs: **905 passed**, 1 deselected. `ruff check`/`ruff format --check`
+> limpos. CI verde nos 4 merges (`main` em `ad41db4`).
+>
+> **O que NÃO foi resolvido nesta sessão, por não ter solução de código:**
+> preservação offsite (`preservation.status=BLOCKED`, 2 caminhos `UNKNOWN` só
+> localizáveis na máquina do operador); as 4 trials PIT (escalação, xG
+> isolado, mando hierárquico), travadas por `training_gate` — decisão de
+> governança explícita, não dado ou código faltando.
 
 > **Estado técnico corrente — 2026-09-01:** pacotes
 > `brasileirao_predictor`/`brasileirao_scripts`, Core 3.0.x e Ops 4.0.x por

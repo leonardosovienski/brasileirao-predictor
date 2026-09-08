@@ -24,7 +24,11 @@ coleta prospectiva. Caminhos relativos partem da raiz do repositório.
 | `data/collector_state/` | estado local necessário ao coletor/dedupe/hash-chain | não | interno do coletor; preservar junto dos snapshots |
 | `data/collector_metrics/AAAA-MM-DD.json` | coverage, continuidade, resolução, conflitos e consumo diário | não | gerado por `collector_daily_metrics.py` |
 | `data/collector_metrics/gate_a1_verdict.json` | resultado agregado do Gate A1 | não | gerado por `evaluate_gate_a1.py`; não editar à mão |
+| `data/collector_metrics/key_rotation_attestation.json` | atestação humana externa de rotação da `ODDSPAPI_KEY` | não | nunca a chave em si; sem este arquivo o Gate A1 falha fechado |
 | `data/research/` | ledgers e resultados de pesquisa/shadow | não | regras específicas de cada protocolo em `docs/experiments/` |
+| `data/research/h14_serving_vs_climatologia.jsonl` | ledger append-only da H14 (serving-v2 vs. climatologia prequential) | não | `persist_h14_prospective.py`; avaliação só em `n>=900` |
+| `data/research/h15_refit10_vs_100.jsonl` | ledger append-only da H15 (refit 10 vs. 100 jogos) | não | `persist_h15_prospective.py`; avaliação só em `n>=900` |
+| `data/research/h15_state_treatment_refit10.json` / `h15_state_control_refit100.json` | Elo e parâmetros congelados no último refit de cada braço da H15 | não | interno; não editar à mão |
 | `data/predictions.jsonl` | previsões pré-jogo congeladas antes do kickoff | não | append-only; caminho substituível por `PREDICTIONS_LOG_PATH` |
 | `data/period_predictions.jsonl` | previsões por período/primeiro tempo | não | append-only |
 | `data/bets.jsonl` | ledger operacional de banca/apostas | não | capital permanece bloqueado sem GO explícito |

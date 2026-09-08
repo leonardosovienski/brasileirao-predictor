@@ -25,6 +25,22 @@ backup Git local; sua criação não significa que o commit foi enviado ao GitHu
 Se o commit já estiver publicado no repositório remoto, também é possível
 clonar por lá e selecionar esse mesmo commit.
 
+Uma consolidação posterior da `main` não altera a captura de dados já entregue.
+O ZIP anterior referencia `d42a3e0`; esse commit permanece no histórico. Para
+reproduzir exatamente aquela captura, selecione o commit do manifesto em
+checkout destacado. Para adotar a `main` posterior, mantenha os registros
+versionados de governança da versão escolhida: não os sobrescreva com versões
+mais antigas do ZIP. Preserve as duas versões como histórico. O código
+consolidado usa Core 3.2.0 / Ops 4.1.0, enquanto a instalação operacional da
+captura anterior usava Core 3.1.0 / Ops 4.0.0; a migração não atualiza essa
+instalação automaticamente.
+
+Se houver tentativas H14/H15 após a captura, transporte a pasta oculta
+`.prospective_evaluation_claims` junto do ledger correspondente. Essa pasta
+conserva o bloqueio de avaliação única ao mudar a raiz do projeto. Copiar somente
+o ledger ou renomeá-lo não é uma migração completa desse estado; relatórios e
+travas de tentativas anteriores também precisam acompanhar os dados.
+
 ## Verificar e extrair os dados
 
 Mantenha o ZIP e seu arquivo `.zip.sha256` juntos. O verificador está no código

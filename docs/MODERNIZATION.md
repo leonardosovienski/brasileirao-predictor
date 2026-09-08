@@ -1,10 +1,15 @@
 # Modernization and migration
 
+> **Versions updated 2026-09-06** to `predictor_core` 3.2.0 / `predictor_ops` 4.1.0.
+> This file describes architecture in the present tense and carried 2.3.0/3.1.0
+> — two major versions stale — until the adversarial audit closeout. The
+> canonical current state is the first checkpoint of `HANDOFF.md`.
+
 ## Runtime architecture
 
-The domain remains scientifically isolated from operations. The installable Python package owns the CLI and scientific code; `predictor_core` 2.3.x supplies shared contracts and measurement primitives; `predictor_ops` 3.1.x supplies the portable scheduler/runner. Redis is ephemeral coordination only. Sports and market SQLite files have different required absolute paths and are never merged. PostgreSQL and Object Storage are future adapters, not implicit migrations.
+The domain remains scientifically isolated from operations. The installable Python package owns the CLI and scientific code; `predictor_core` 3.2.x supplies shared contracts and measurement primitives; `predictor_ops` 4.1.x supplies the portable scheduler/runner. Redis is ephemeral coordination only. Sports and market SQLite files have different required absolute paths and are never merged. PostgreSQL and Object Storage are future adapters, not implicit migrations.
 
-The Redis protocol is `brasileirao.redis/1`, defined in `contracts/redis-protocol-v1.schema.json`. Every invocation carries `job_id`, `run_id`, `match_id`, and `idempotency_key`. Claims expire after 60 seconds; fair odds expire after 5 seconds. Replays of a claimed key are ignored. Redis AOF uses `everysec`; consumers reconnect and fail closed when ephemeral fair odds are absent.
+The runtime uses `brasileirao.redis/2`, documented in `contracts/redis-protocol-v2.md` and its v2 schemas. Invocations also carry a registered `state_version`; calculation and publication require the current immutable request, lineup snapshot and lease owner. Requests live for 60 seconds and processing leases for five seconds. Pending and ready indexes recover missed notifications; the accepted signal outbox and lineup inbox use Redis Streams. Worker health requires both active loops from the same session. Fair odds retain their original short validity. The v1 schema is historical and cannot be sent to the v2 runtime. Redis AOF uses `everysec`; missing or stale economic state prevents publication.
 
 ## Script inventory
 
@@ -21,4 +26,4 @@ No production database is changed by this modernization. To adopt the new runtim
 
 ## Distribution
 
-`predictor_core` 2.3.0 and `predictor_ops` 3.1.0 are validated from wheels outside their source checkouts and are consumed from their canonical GitHub Release asset URLs (`[tool.uv.sources]` in `pyproject.toml`, hash-pinned in `uv.lock` and `constraints/shared-wheels.sha256`). They are not on public PyPI. This is no longer a blocker: CI/container installation resolves and verifies these release-URL wheels successfully on every run (see `.github/workflows/ci.yml`). Vendoring or copying their implementation back into this domain remains prohibited.
+`predictor_core` 3.2.0 and `predictor_ops` 4.1.0 are consumed from their canonical GitHub Release asset URLs (`[tool.uv.sources]` in `pyproject.toml`, hash-pinned in `uv.lock` and `constraints/shared-wheels.sha256`). The domain distribution requires Core >=3.2 because strict DSR and its exception type are not present in 3.1. Container builds retain locked exports, hash verification and installation of the domain wheel without resolving dependencies again. CI runs the integration checks; consult the receipt for the exact commit before claiming a run passed. Vendoring or copying their implementation back into this domain remains prohibited.

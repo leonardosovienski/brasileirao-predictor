@@ -140,10 +140,18 @@ def selection_rows(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def _dsr(returns: list[float], historical_trial_sharpes: list[float | None]) -> dict[str, Any]:
     denominator = list(historical_trial_sharpes) + [None] * DECLARED_FAMILY_TRIALS
     result = registry_module.deflated_sharpe_ratio(returns, denominator)
+    # Caminho de pesquisa, não de gate: aqui o DSR é reportado, não decide nada,
+    # então não usa strict=True. Mas o relatório passa a dizer se o desconto foi
+    # de fato aplicado — sem isso um DSR igual ao PSR se lê como DSR descontado.
+    # Achado 2 da auditoria adversarial de 2026-09-05.
     return {
         "dsr": _finite_or_none(float(result["dsr"])),
         "sr0": _finite_or_none(float(result["sr0"])),
         "n_trials": int(result["n_trials"]),
+        "n_sharpes": int(result["n_sharpes"]),
+        "sr0_estimable": bool(result["sr0_estimable"]),
+        "deflation_applied": bool(result["deflation_applied"]),
+        "sharpe_coverage": float(result["sharpe_coverage"]),
         "declared_family_trials": DECLARED_FAMILY_TRIALS,
         "effective_trials_policy": "CONSERVATIVE_NO_CORRELATION_DISCOUNT",
     }
