@@ -1,0 +1,173 @@
+{
+  "created_at_utc": "2026-09-08T01:34:13.225818+00:00",
+  "request": "Implementar comparação entre casas e candidato dinâmico xG independente.",
+  "base_commit": "4dfdec6804b1c5716e3663b4ffcf9bd3aab411ab",
+  "source_sha256": {
+    "brasileirao_predictor/research/price_strength/__init__.py": "931f821e5316968cbd90d982f636463313e2622681d74ffd5759384719ef2a8e",
+    "brasileirao_predictor/research/price_strength/__main__.py": "21f914530bbffc494b94907b79f80badf9dc02086260e7796b317f6de168d0e4",
+    "brasileirao_predictor/research/price_strength/artifacts.py": "6e32f2e80f36559264abaf87b945989a852e8b243f379716f88c0e50e6fce4b7",
+    "brasileirao_predictor/research/price_strength/demo.py": "01a643b5739101a9fd9ca1f08a9b2cdbac190c35f5e886ce4d8a0ef84eeb92a3",
+    "brasileirao_predictor/research/price_strength/dynamic_xg.py": "8376b9ba40ba944f106a38b79e9e5eaaa2115f84b5969a91899a7d5fe87a344b",
+    "brasileirao_predictor/research/price_strength/quotes.py": "0b9eba9a7673ea4ae1fe7bf96965f533c986f98369f773190cb94eda95b68664",
+    "brasileirao_predictor/research/price_strength/study.py": "bef25afd3aeb2ee26092f50a202199085f02d485004de58480850b226b3c2ffb",
+    "tests/test_price_strength_artifacts.py": "323506e4963c795c0f9d240d793f8748af0b385a5e0543687f5272161548c207",
+    "tests/test_price_strength_dynamic_xg.py": "1f41f845fab67606713616b40723220adcd31ce8269a6bb4ef769a082d66f5a7",
+    "tests/test_price_strength_quotes.py": "ba8d05cdcd9b757235ec93bca5f2200cb1f8859caa7bb00a4ef219c59062ee21",
+    "tests/test_price_strength_study.py": "304571539f6c6be693b501f67ef0dff8ecbc11450a8295506c86b81810535bfb"
+  },
+  "protected_hash_checks": {
+    "config.yaml": true,
+    "pyproject.toml": true,
+    "uv.lock": true,
+    "data/trials.json": true,
+    "contracts/a1-ou25-phase0-policy.json": true,
+    "brasileirao_scripts/persist_h14_prospective.py": true,
+    "brasileirao_scripts/persist_h15_prospective.py": true,
+    "brasileirao_predictor/model.py": true,
+    "brasileirao_predictor/ratings.py": true,
+    "brasileirao_predictor/cron_update_models.py": true,
+    "brasileirao_scripts/collect_odds_a1.py": true,
+    "brasileirao_predictor/collector_a1.py": true,
+    "schemas/odds_snapshot_v1.json": true,
+    "data/team_aliases.json": true
+  },
+  "checks": {
+    "price_strength_final_tests": {
+      "name": "price_strength_final_tests",
+      "started_at_utc": "2026-09-08T01:30:21.711135+00:00",
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_price_strength_quotes.py",
+        "tests/test_price_strength_dynamic_xg.py",
+        "tests/test_price_strength_artifacts.py",
+        "tests/test_price_strength_study.py",
+        "-q",
+        "-rs"
+      ],
+      "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+      "live_data_used": false,
+      "environment_allowlist": true,
+      "python_external_network_blocked": true,
+      "exit_code": 0,
+      "seconds": 1.977928799999063
+    },
+    "price_strength_lint_green": {
+      "name": "price_strength_lint_green",
+      "started_at_utc": "2026-09-08T01:26:53.510806+00:00",
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "brasileirao_predictor/research/price_strength",
+        "tests/test_price_strength_quotes.py",
+        "tests/test_price_strength_dynamic_xg.py",
+        "tests/test_price_strength_artifacts.py",
+        "tests/test_price_strength_study.py",
+        "--no-cache"
+      ],
+      "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+      "live_data_used": false,
+      "environment_allowlist": true,
+      "python_external_network_blocked": true,
+      "exit_code": 0,
+      "seconds": 0.09437590000743512
+    },
+    "price_strength_format": {
+      "name": "price_strength_format",
+      "started_at_utc": "2026-09-08T01:28:51.443399+00:00",
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "brasileirao_predictor/research/price_strength",
+        "tests/test_price_strength_quotes.py",
+        "tests/test_price_strength_dynamic_xg.py",
+        "tests/test_price_strength_artifacts.py",
+        "tests/test_price_strength_study.py",
+        "--no-cache"
+      ],
+      "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+      "live_data_used": false,
+      "environment_allowlist": true,
+      "python_external_network_blocked": true,
+      "exit_code": 0,
+      "seconds": 0.08844669999962207
+    },
+    "price_strength_typecheck_green": {
+      "name": "price_strength_typecheck_green",
+      "started_at_utc": "2026-09-08T01:28:51.629065+00:00",
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pyright",
+        "--project",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\price_strength_pyright.json",
+        "--stats"
+      ],
+      "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+      "live_data_used": false,
+      "environment_allowlist": true,
+      "python_external_network_blocked": true,
+      "exit_code": 0,
+      "seconds": 1.7956403999996837
+    },
+    "price_strength_gates": {
+      "name": "price_strength_gates",
+      "started_at_utc": "2026-09-08T01:30:21.919270+00:00",
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\check_price_strength_gates.py"
+      ],
+      "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+      "live_data_used": false,
+      "environment_allowlist": true,
+      "python_external_network_blocked": true,
+      "exit_code": 0,
+      "seconds": 0.13345359999220818
+    },
+    "price_strength_demo": {
+      "name": "price_strength_demo",
+      "started_at_utc": "2026-09-08T01:30:22.101233+00:00",
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "brasileirao_predictor.research.price_strength",
+        "demo",
+        "--output-dir",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\outputs\\IMPLEMENTACAO_PRECOS_XG\\demo"
+      ],
+      "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+      "live_data_used": false,
+      "environment_allowlist": true,
+      "python_external_network_blocked": true,
+      "exit_code": 0,
+      "seconds": 1.083753600003547
+    }
+  },
+  "test_result": {
+    "passed": 141,
+    "skipped": 1,
+    "reason": "Windows denied synthetic symlink creation"
+  },
+  "demo": {
+    "synthetic_only": true,
+    "historical_matches": 24,
+    "calibration_targets": 8,
+    "evaluation_fixtures": 4,
+    "manifest_sha256": "0c5ea8c8e3fa6f34f1dd84b818e33ac8a969d6285269c80d0bd99b66c572dee1"
+  },
+  "discarded_check": "price_strength_typecheck checked zero files due to inherited research exclusion; replaced by explicit config.",
+  "real_data_backtest_run": false,
+  "real_capital_enabled": false,
+  "profitability_established": false,
+  "legacy_training_gate_changed": false,
+  "new_dependencies": false,
+  "commit_created": false,
+  "previous_pending": "Redis/Compose integration from runtime stage remains pending; not required by offline research.",
+  "reproduction": "See GUIA.md and copied validation_runner.py, guard/sitecustomize.py, price_strength_pyright.json."
+}

@@ -1,0 +1,34 @@
+{
+  "at_utc": "2026-09-08T03:30:32.840012+00:00",
+  "redis_url": "redis://127.0.0.1:26380/12",
+  "run_id": "97c7a9cc8a5fa8deb9387dd63a0505f8b66e9196",
+  "synthetic_only": true,
+  "no_global_cleanup": true,
+  "source_hashes": {
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\dotnet\\LineupWorker\\Services\\KernelRedisProtocolV2.cs": "d0276db9d2a196100675226fb5f5eafb3f8057b62af2f9494905681d80bec350",
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\brasileirao_predictor\\kernel_redis_v2.py": "dc0b9da313bdbdcc6e98abe782a1edf39f4243ebc7e73a0b0fa237cd7ea1e4eb"
+  },
+  "dbsize_before": 0,
+  "signals_baseline": {
+    "script_sha256": "3c9de747b3ae59908d5581abc990e7244b3754f84223abb4ab0dfe405152ae51",
+    "acl_denial": "ACL failure in script: User review_lua_ccdc67c465994f31a561a05307be5890 has no permissions to run the 'publish' command script: 56af9856258d84188631a4fb2fa0545282ea3849, on @user_script:12.",
+    "marker_written_despite_failed_publish": true,
+    "allowed_replay_result": 0
+  },
+  "signals_current": {
+    "script_sha256": "060015cf10137be9e6cdcdb93422f52c606709d3a88d4b217dd7349818a450ae",
+    "acl_denial": "user_script:7: protocol command permission unavailable script: d2e900decea7923797dbf6ee891c2a45f6cc0156, on @user_script:7.",
+    "marker_written_despite_failed_publish": false,
+    "allowed_replay_result": 1
+  },
+  "python_completion_current": {
+    "script_sha256": "27a3005d17cbeb70e026d8b7f289a20dfdc218942971a67b08e1cc726567d1be",
+    "reply": null,
+    "acl_denial": "Lua redis lib command arguments must be strings or integers script: 9c45616cf7a7f95baf02f32ae2b3a4be5d88955d, on @user_script:4.",
+    "request_status": "pending",
+    "fair_written": false,
+    "notification_observed": false,
+    "lease_still_owned": true
+  },
+  "dbsize_after": 0
+}

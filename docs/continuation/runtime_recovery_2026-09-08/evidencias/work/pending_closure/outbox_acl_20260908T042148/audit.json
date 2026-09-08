@@ -1,0 +1,88 @@
+{
+  "at_utc": "2026-09-08T04:21:48.982275+00:00",
+  "run_id": "273e80f8cca2bcfdf62f19e6244aabc4dc5ecd06",
+  "process_id": "10",
+  "url": "redis://127.0.0.1:26380/12",
+  "source_path": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\dotnet\\LineupWorker\\Services\\KernelRedisProtocolV2.cs",
+  "source_sha256": "1ad2128c9d82d26bed3e36d984fadd8464ad883e4f1915d60a28a5136f7a8f3f",
+  "script_sha256": "535e0cc6f5b78b22273718d30e178501beed0d3a413fa54cb527dba236c7d925",
+  "synthetic_only": true,
+  "global_cleanup_used": false,
+  "cases": [
+    {
+      "denied_command": "xadd",
+      "error": "user_script:7: protocol command permission unavailable script: 33c34dca82b51155ee72d15001bb4a5d361deb05, on @user_script:7.",
+      "reply": null,
+      "after_denial": {
+        "marker": 0,
+        "outbox_count": 0,
+        "ready_present": true
+      },
+      "allowed_replay": 1,
+      "final": {
+        "marker": 1,
+        "outbox_count": 1,
+        "ready_present": false
+      },
+      "batch_identity_and_payload_preserved": true,
+      "passed": true
+    },
+    {
+      "denied_command": "set",
+      "error": "user_script:7: protocol command permission unavailable script: 33c34dca82b51155ee72d15001bb4a5d361deb05, on @user_script:7.",
+      "reply": null,
+      "after_denial": {
+        "marker": 0,
+        "outbox_count": 0,
+        "ready_present": true
+      },
+      "allowed_replay": 1,
+      "final": {
+        "marker": 1,
+        "outbox_count": 1,
+        "ready_present": false
+      },
+      "batch_identity_and_payload_preserved": true,
+      "passed": true
+    },
+    {
+      "denied_command": "zrem",
+      "error": "user_script:7: protocol command permission unavailable script: 33c34dca82b51155ee72d15001bb4a5d361deb05, on @user_script:7.",
+      "reply": null,
+      "after_denial": {
+        "marker": 0,
+        "outbox_count": 0,
+        "ready_present": true
+      },
+      "allowed_replay": 1,
+      "final": {
+        "marker": 1,
+        "outbox_count": 1,
+        "ready_present": false
+      },
+      "batch_identity_and_payload_preserved": true,
+      "passed": true
+    },
+    {
+      "denied_command": "publish",
+      "error": null,
+      "reply": 1,
+      "after_denial": {
+        "marker": 1,
+        "outbox_count": 1,
+        "ready_present": false
+      },
+      "allowed_replay": 0,
+      "final": {
+        "marker": 1,
+        "outbox_count": 1,
+        "ready_present": false
+      },
+      "batch_identity_and_payload_preserved": true,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "dbsize_before": 0,
+  "dbsize_after": 0
+}

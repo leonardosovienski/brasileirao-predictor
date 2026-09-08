@@ -1,0 +1,204 @@
+{
+  "verified_at_utc": "2026-09-08T02:52:40.558808+00:00",
+  "status": "PASS",
+  "backup_manifests": [
+    {
+      "archive": "initial_477",
+      "files": 477,
+      "passed": 477,
+      "manifest_sha256": "0f5f0e529e9af4dc3e86d3ea8db660b948298bc02d98b6412245b5b0c1bc81cf"
+    },
+    {
+      "archive": "runtime_contracts_2026-09-07",
+      "files": 51,
+      "passed": 51,
+      "manifest_sha256": "4489dce231a5696131f46e478fe3583e2f1320e21e589b6fce15b3f522ef2844"
+    },
+    {
+      "archive": "model_research_2026-09-07",
+      "files": 5,
+      "passed": 5,
+      "manifest_sha256": "eceefe315431d0b464931ba5417c7c1ca3efbd87d7adcc9be7dbfacdf274cbc4"
+    },
+    {
+      "archive": "price_strength_2026-09-07",
+      "files": 55,
+      "passed": 55,
+      "manifest_sha256": "92cf6af9e409b5fec77f556ed4c89ca4669987ca2232ddd1d996fabff2fee1ad"
+    },
+    {
+      "archive": "price_strength_evaluation_2026-09-07",
+      "files": 44,
+      "passed": 44,
+      "manifest_sha256": "0a8857ca439bf506b33eb2bc9905c5b82def9bfaf0ddf28c1e330cf0e86be878"
+    },
+    {
+      "archive": "price_strength_diagnosis_2026-09-07",
+      "files": 132,
+      "passed": 132,
+      "manifest_sha256": "2739f5350edfde979544380d9f9118a522bb6e89012ada8af2ae06eec5f59333"
+    }
+  ],
+  "total_archived_files": 764,
+  "backup_failures": [],
+  "current_sources": {
+    "brasileirao_predictor/kernel_daemon.py": {
+      "expected": "785bd1b55cd7557758762850551ed589083288f4131ec6cc89b6fd2762296f5a",
+      "actual": "785bd1b55cd7557758762850551ed589083288f4131ec6cc89b6fd2762296f5a"
+    },
+    "tests/test_kernel_protocol.py": {
+      "expected": "10dbf9a4648bb1fedbd2ed52a47241e14fd6a1a540f1b069799efe6c677a29fc",
+      "actual": "10dbf9a4648bb1fedbd2ed52a47241e14fd6a1a540f1b069799efe6c677a29fc"
+    },
+    "compose.yaml": {
+      "expected": "a042e9b514ea8b5617827914d36ff570640e61d74d6d78a3790e89079372849b",
+      "actual": "a042e9b514ea8b5617827914d36ff570640e61d74d6d78a3790e89079372849b"
+    },
+    "dotnet/LineupWorker/Models/KernelContracts.cs": {
+      "expected": "9201de310f11759fd8283c8c33ec413f6f080d8209e1d31b4a69fbf29545b15d",
+      "actual": "9201de310f11759fd8283c8c33ec413f6f080d8209e1d31b4a69fbf29545b15d"
+    },
+    "dotnet/LineupWorker/Services/MarketStateEngine.cs": {
+      "expected": "9b0964f03f8afe255f2d1a7ec2abc77f424e7063dff99335cc6cc043008ff01f",
+      "actual": "9b0964f03f8afe255f2d1a7ec2abc77f424e7063dff99335cc6cc043008ff01f"
+    },
+    "dotnet/LineupWorker/Worker.cs": {
+      "expected": "42d146720e9aa13b32d40b6e420460de99311fccdcbe5d50d88be7d7214dd228",
+      "actual": "42d146720e9aa13b32d40b6e420460de99311fccdcbe5d50d88be7d7214dd228"
+    },
+    "dotnet/LineupWorker.Tests/RedisProtocolTests.cs": {
+      "expected": "77763bff180a7c56377719bf76910870990b313dbb818e6b45631f4f84c30349",
+      "actual": "77763bff180a7c56377719bf76910870990b313dbb818e6b45631f4f84c30349"
+    },
+    "dotnet/LineupWorker.Tests/WorkerRuntimeTests.cs": {
+      "expected": "5a3ba943ad068a08a7ec91eafe680c3fc1add5075df80653ac49447d70c18524",
+      "actual": "5a3ba943ad068a08a7ec91eafe680c3fc1add5075df80653ac49447d70c18524"
+    },
+    "dotnet/LineupWorker.Tests/KernelInvocationIdentityTests.cs": {
+      "expected": "e253c91ba40fb09865defd942e202d3928964578935141719f74d40b127b659f",
+      "actual": "e253c91ba40fb09865defd942e202d3928964578935141719f74d40b127b659f"
+    },
+    "dotnet/LineupWorker.Tests/FairOddsCorrelationTests.cs": {
+      "expected": "c040ce044601045a4f3dc23dfccb780fffc453b59657c88887487b4c182b6609",
+      "actual": "c040ce044601045a4f3dc23dfccb780fffc453b59657c88887487b4c182b6609"
+    },
+    "brasileirao_predictor/research/price_strength/__init__.py": {
+      "expected": "931f821e5316968cbd90d982f636463313e2622681d74ffd5759384719ef2a8e",
+      "actual": "931f821e5316968cbd90d982f636463313e2622681d74ffd5759384719ef2a8e"
+    },
+    "brasileirao_predictor/research/price_strength/__main__.py": {
+      "expected": "21f914530bbffc494b94907b79f80badf9dc02086260e7796b317f6de168d0e4",
+      "actual": "21f914530bbffc494b94907b79f80badf9dc02086260e7796b317f6de168d0e4"
+    },
+    "brasileirao_predictor/research/price_strength/artifacts.py": {
+      "expected": "6e32f2e80f36559264abaf87b945989a852e8b243f379716f88c0e50e6fce4b7",
+      "actual": "6e32f2e80f36559264abaf87b945989a852e8b243f379716f88c0e50e6fce4b7"
+    },
+    "brasileirao_predictor/research/price_strength/demo.py": {
+      "expected": "01a643b5739101a9fd9ca1f08a9b2cdbac190c35f5e886ce4d8a0ef84eeb92a3",
+      "actual": "01a643b5739101a9fd9ca1f08a9b2cdbac190c35f5e886ce4d8a0ef84eeb92a3"
+    },
+    "brasileirao_predictor/research/price_strength/dynamic_xg.py": {
+      "expected": "9eeb66f6bed994bb060aab0571cbcaff7987d2da960171fae830950d8174f21d",
+      "actual": "9eeb66f6bed994bb060aab0571cbcaff7987d2da960171fae830950d8174f21d"
+    },
+    "brasileirao_predictor/research/price_strength/quotes.py": {
+      "expected": "0b9eba9a7673ea4ae1fe7bf96965f533c986f98369f773190cb94eda95b68664",
+      "actual": "0b9eba9a7673ea4ae1fe7bf96965f533c986f98369f773190cb94eda95b68664"
+    },
+    "brasileirao_predictor/research/price_strength/study.py": {
+      "expected": "bef25afd3aeb2ee26092f50a202199085f02d485004de58480850b226b3c2ffb",
+      "actual": "bef25afd3aeb2ee26092f50a202199085f02d485004de58480850b226b3c2ffb"
+    },
+    "tests/test_price_strength_artifacts.py": {
+      "expected": "323506e4963c795c0f9d240d793f8748af0b385a5e0543687f5272161548c207",
+      "actual": "323506e4963c795c0f9d240d793f8748af0b385a5e0543687f5272161548c207"
+    },
+    "tests/test_price_strength_dynamic_xg.py": {
+      "expected": "f0b3dfa5c1cd62935149d78e43a1d22eb60c02744af82cf90c30ae0036fbab6e",
+      "actual": "f0b3dfa5c1cd62935149d78e43a1d22eb60c02744af82cf90c30ae0036fbab6e"
+    },
+    "tests/test_price_strength_quotes.py": {
+      "expected": "ba8d05cdcd9b757235ec93bca5f2200cb1f8859caa7bb00a4ef219c59062ee21",
+      "actual": "ba8d05cdcd9b757235ec93bca5f2200cb1f8859caa7bb00a4ef219c59062ee21"
+    },
+    "tests/test_price_strength_study.py": {
+      "expected": "304571539f6c6be693b501f67ef0dff8ecbc11450a8295506c86b81810535bfb",
+      "actual": "304571539f6c6be693b501f67ef0dff8ecbc11450a8295506c86b81810535bfb"
+    },
+    "brasileirao_predictor/data/xg_quality.py": {
+      "expected": "de0127169b88c53dcdbd22e13f2dd0a5e679a6fd1ca807e1b55c23a1b47eab75",
+      "actual": "de0127169b88c53dcdbd22e13f2dd0a5e679a6fd1ca807e1b55c23a1b47eab75"
+    },
+    "brasileirao_predictor/data/missingness_audit.py": {
+      "expected": "553577dff74ebf582dee964cf60c96f0cb4dee5238b0b531875666f1d686e19f",
+      "actual": "553577dff74ebf582dee964cf60c96f0cb4dee5238b0b531875666f1d686e19f"
+    },
+    "brasileirao_predictor/ingest_sofascore.py": {
+      "expected": "d87cbc352b45d06531aa355a2f0a14408edaf67596940f9610e4691a6aa78dd1",
+      "actual": "d87cbc352b45d06531aa355a2f0a14408edaf67596940f9610e4691a6aa78dd1"
+    },
+    "brasileirao_predictor/research/price_strength_reliability.py": {
+      "expected": "3b8338cb3972ae6bd23bbaee17097a562a525b5b6dcbb6e286056e4896c9d271",
+      "actual": "3b8338cb3972ae6bd23bbaee17097a562a525b5b6dcbb6e286056e4896c9d271"
+    },
+    "tests/test_xg_input_quality.py": {
+      "expected": "4309d9a6f694b43b315f1852357fd82ae58e914a976e7ae4a659df32410fc732",
+      "actual": "4309d9a6f694b43b315f1852357fd82ae58e914a976e7ae4a659df32410fc732"
+    },
+    "tests/test_missingness_audit.py": {
+      "expected": "cadbd3db94c919542c0aa980de42a151191700a8f30db5b45695ee21ee3a75c5",
+      "actual": "cadbd3db94c919542c0aa980de42a151191700a8f30db5b45695ee21ee3a75c5"
+    },
+    "tests/test_price_strength_reliability.py": {
+      "expected": "2741f6f48218cb41dff98603486ae574352c6b08bc8e5e8597826559bb067eaf",
+      "actual": "2741f6f48218cb41dff98603486ae574352c6b08bc8e5e8597826559bb067eaf"
+    }
+  },
+  "protected_checks": {
+    "config.yaml": true,
+    "pyproject.toml": true,
+    "uv.lock": true,
+    "data/trials.json": true,
+    "contracts/a1-ou25-phase0-policy.json": true,
+    "brasileirao_scripts/persist_h14_prospective.py": true,
+    "brasileirao_scripts/persist_h15_prospective.py": true,
+    "brasileirao_predictor/model.py": true,
+    "brasileirao_predictor/ratings.py": true,
+    "brasileirao_predictor/cron_update_models.py": true,
+    "brasileirao_scripts/collect_odds_a1.py": true,
+    "brasileirao_predictor/collector_a1.py": true,
+    "schemas/odds_snapshot_v1.json": true,
+    "data/team_aliases.json": true
+  },
+  "study_manifests": {
+    "TESTE_XG_REAL": {
+      "files": 7,
+      "all_passed": true,
+      "manifest_sha256": "1bd969fb887a995dc2b7c18c9954cc3e03bf1d6c09489d5cb61acc17b0a6cdd1"
+    },
+    "CORRECAO": {
+      "files": 12,
+      "all_passed": true,
+      "manifest_sha256": "fe541e7d7a8af0f11bb5f58cf17a2c41c7ee965c0ab2eabf64ced162b74264e2"
+    }
+  },
+  "previous_helpers": {
+    "evaluate.py": {
+      "current_sha256": "015d9751b2a2d92a3f6230ed1558bcc0a3541b93132f067212b4a12af4434ca9",
+      "earlier_archive_sha256": "015d9751b2a2d92a3f6230ed1558bcc0a3541b93132f067212b4a12af4434ca9",
+      "identical_to_archive_before_correction": true
+    },
+    "conditional_model.py": {
+      "current_sha256": "bf16b0d299678e760adaf4fb76a8dfef0231c2cee5af2788c341b4d625e25733",
+      "earlier_archive_sha256": "bf16b0d299678e760adaf4fb76a8dfef0231c2cee5af2788c341b4d625e25733",
+      "identical_to_archive_before_correction": true
+    },
+    "frozen_economics.py": {
+      "current_sha256": "03466723e4a1f0a77e7daf7b36db6e8d575c4ff474bd74fe4accd89780ff0851",
+      "earlier_archive_sha256": "03466723e4a1f0a77e7daf7b36db6e8d575c4ff474bd74fe4accd89780ff0851",
+      "identical_to_archive_before_correction": true
+    }
+  },
+  "limits": "Hashes prove agreement with saved bytes, not truth of input data, immutable timestamps or independent external validation."
+}

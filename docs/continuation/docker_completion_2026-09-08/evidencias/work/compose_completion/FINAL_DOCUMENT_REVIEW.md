@@ -1,0 +1,7 @@
+Conferência factual curta de `outputs/INTEGRACAO_DOCKER/RESULTADO.md`, em 08/09/2026, após a preparação do harness.
+
+As afirmações sobre a fixture VORP, Compose/CI original, hashes dos 36 arquivos (35 iguais ao checkout isolado e uma exceção documental), parser, dois bancos sintéticos e interpretação de `create_host_path` correspondem aos recibos desta subtask. O texto distingue corretamente validação offline de execução em containers e não soma novamente os testes da etapa encerrada.
+
+O runner futuro foi acrescentado em `work/compose_completion/run_compose.py`: sintaxe e modo `plan` conferidos, modo `run` não executado. Após revisão, passou a exigir Server Linux e a tratar timeout com `Popen`/encerramento restrito à árvore do PID próprio. Comandos, plano e limites finais estão em `HARNESS_REVIEW.md`, `runner_plan_final.json` e `runner_validation_final.json`. O relato não deve passar a dizer que build/up, recovery de containers, timeout ou cleanup do runner foram testados em execução real.
+
+Não identifiquei divergência factual na parte revisada. A confirmação dos eventos UAC/boot e da busca de produtores pertence aos recibos específicos da tarefa principal, não a uma nova sondagem feita por este agente. A presença de `estado.json` e das cópias finais de evidências deve ser confirmada no empacotamento pela tarefa principal. Nenhuma fonte operacional, estudo encerrado ou backup foi editado nesta revisão.

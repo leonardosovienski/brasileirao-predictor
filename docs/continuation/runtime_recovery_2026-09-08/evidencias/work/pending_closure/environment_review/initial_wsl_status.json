@@ -1,0 +1,12 @@
+{
+  "started_at_utc": "2026-09-08T04:03:45.591977+00:00",
+  "command": [
+    "wsl.exe",
+    "--status"
+  ],
+  "environment_allowlist": true,
+  "read_only": true,
+  "external_credentials_removed": true,
+  "exit_code": 0,
+  "seconds": 0.030240699998103082
+}

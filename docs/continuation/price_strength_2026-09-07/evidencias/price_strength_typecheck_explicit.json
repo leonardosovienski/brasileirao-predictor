@@ -1,0 +1,18 @@
+{
+  "name": "price_strength_typecheck_explicit",
+  "started_at_utc": "2026-09-08T01:27:50.284334+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pyright",
+    "--project",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\price_strength_pyright.json",
+    "--stats"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 1,
+  "seconds": 1.784280799998669
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "started_at_utc": "2026-09-08T12:28:41.942051+00:00",
+    "command": [
+      "C:/Program Files/Docker/Docker/resources/bin/docker.exe",
+      "--config",
+      "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\harness\\docker_config",
+      "--host",
+      "npipe:////./pipe/docker_engine",
+      "version",
+      "--format",
+      "json"
+    ],
+    "read_only": true,
+    "daemon_started": false,
+    "local_endpoint_only": true,
+    "timed_out": false,
+    "exit_code": 1,
+    "stdout": "{\"Client\":{\"CloudIntegration\":\"v1.0.35+desktop.13\",\"Version\":\"26.0.0\",\"ApiVersion\":\"1.45\",\"DefaultAPIVersion\":\"1.45\",\"GitCommit\":\"2ae903e\",\"GoVersion\":\"go1.21.8\",\"Os\":\"windows\",\"Arch\":\"amd64\",\"BuildTime\":\"Wed Mar 20 15:18:56 2024\",\"Context\":\"default\"},\"Server\":null}\n",
+    "stderr": "error during connect: this error may indicate that the docker daemon is not running: Get \"http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.45/version\": open //./pipe/docker_engine: O sistema não pode encontrar o arquivo especificado.\n",
+    "finished_at_utc": "2026-09-08T12:28:42.023687+00:00"
+  },
+  {
+    "started_at_utc": "2026-09-08T12:28:42.023701+00:00",
+    "command": [
+      "C:/Program Files/Docker/Docker/resources/bin/docker.exe",
+      "--config",
+      "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\harness\\docker_config",
+      "--host",
+      "npipe:////./pipe/dockerDesktopLinuxEngine",
+      "version",
+      "--format",
+      "json"
+    ],
+    "read_only": true,
+    "daemon_started": false,
+    "local_endpoint_only": true,
+    "timed_out": false,
+    "exit_code": 1,
+    "stdout": "{\"Client\":{\"CloudIntegration\":\"v1.0.35+desktop.13\",\"Version\":\"26.0.0\",\"ApiVersion\":\"1.45\",\"DefaultAPIVersion\":\"1.45\",\"GitCommit\":\"2ae903e\",\"GoVersion\":\"go1.21.8\",\"Os\":\"windows\",\"Arch\":\"amd64\",\"BuildTime\":\"Wed Mar 20 15:18:56 2024\",\"Context\":\"default\"},\"Server\":null}\n",
+    "stderr": "error during connect: Get \"http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.45/version\": open //./pipe/dockerDesktopLinuxEngine: O sistema não pode encontrar o arquivo especificado.\n",
+    "finished_at_utc": "2026-09-08T12:28:42.115625+00:00"
+  }
+]

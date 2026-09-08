@@ -1,0 +1,12 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+COPY dotnet/LineupWorker/LineupWorker.csproj dotnet/LineupWorker/
+RUN dotnet restore dotnet/LineupWorker/LineupWorker.csproj
+COPY dotnet/LineupWorker dotnet/LineupWorker
+RUN dotnet publish dotnet/LineupWorker/LineupWorker.csproj -c Release --no-restore -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/runtime:10.0
+WORKDIR /app
+COPY --from=build /app/publish .
+USER app
+ENTRYPOINT ["dotnet", "LineupWorker.dll"]

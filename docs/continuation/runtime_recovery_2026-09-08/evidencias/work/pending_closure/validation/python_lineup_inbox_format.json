@@ -1,0 +1,23 @@
+{
+  "name": "python_lineup_inbox_format",
+  "started_at_utc": "2026-09-08T04:25:10.606051+00:00",
+  "command": [
+    "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/python.exe",
+    "-m",
+    "ruff",
+    "format",
+    "--check",
+    "tests/test_lineup_inbox_redis.py"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "redis_url": "redis://127.0.0.1:26380/14",
+  "redis_run_id": "273e80f8cca2bcfdf62f19e6244aabc4dc5ecd06",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "redis_ownership_verified_before": true,
+  "exit_code": 0,
+  "seconds": 0.07877750000625383,
+  "redis_ownership_verified_after": true,
+  "redis_dbsize_after": 0
+}

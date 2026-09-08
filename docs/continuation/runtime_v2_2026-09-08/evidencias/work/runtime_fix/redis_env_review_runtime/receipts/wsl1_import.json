@@ -1,0 +1,17 @@
+{
+  "started_at_utc": "2026-09-08T03:17:49.361172+00:00",
+  "command": [
+    "wsl.exe",
+    "--import",
+    "codex-brasileirao-redis-20260908",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\runtime_fix\\redis_env_review_runtime\\distro-wsl1",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\runtime_fix\\redis_env_review_runtime\\alpine-isolated.tar",
+    "--version",
+    "1"
+  ],
+  "environment_allowlist": true,
+  "distro": "codex-brasileirao-redis-20260908",
+  "existing_services_modified": false,
+  "exit_code": 0,
+  "seconds": 0.36321749999478925
+}

@@ -1,0 +1,21 @@
+{
+  "name": "kernel_v2_unit_round1",
+  "started_at_utc": "2026-09-08T03:33:09.893903+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests/test_kernel_protocol.py",
+    "tests/test_kernel_runtime.py",
+    "tests/test_kernel_v2_runtime.py",
+    "-q",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 3.2020525999978418
+}

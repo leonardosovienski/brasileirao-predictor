@@ -1,0 +1,17 @@
+{
+  "name": "compose_config",
+  "started_at_utc": "2026-09-08T00:45:15.903590+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "config",
+    "--format",
+    "json"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 0.2127667000022484
+}

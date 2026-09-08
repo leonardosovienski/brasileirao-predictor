@@ -10,7 +10,7 @@ public sealed class ModelBranchTests
     public void FairOddsAllowsMissingOptionalPrices()
     {
         using var document = JsonDocument.Parse(
-            """{"protocol_version":"brasileirao.redis/1","job_id":"j","run_id":"r","match_id":"m"}""");
+            """{"protocol_version":"brasileirao.redis/2","job_id":"j","run_id":"r","match_id":"m","state_version":"1","idempotency_key":"idem"}""");
         var fair = FairOddsPayload.FromDict(document.RootElement);
         Assert.Null(fair.Home);
         Assert.Null(fair.Draw);
@@ -31,6 +31,8 @@ public sealed class ModelBranchTests
             ["job_id"] = "j",
             ["run_id"] = "r",
             ["match_id"] = "m",
+            ["state_version"] = "1",
+            ["idempotency_key"] = "idem",
         };
         values[field] = " ";
         using var document = JsonDocument.Parse(JsonSerializer.Serialize(values));

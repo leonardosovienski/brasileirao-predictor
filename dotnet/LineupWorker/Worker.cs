@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Channels;
 using LineupWorker.Models;
@@ -12,13 +14,13 @@ namespace LineupWorker;
 /// Fluxo de latência auditado (todos os timestamps em UTC de alta resolução):
 ///
 ///   T0 (source) → [Redis pub/sub] → T1 (received) → [VORP lookup O(1)] →
-///   T2 (vorp computed) → [Redis SET] → T3 (redis written) →
+///   T2 (vorp computed) → [Redis atomic registration] → T3 (redis written) →
 ///   → [lineup_complete] → MarketStateEngine → T4 (market read)
 ///
 /// Garantias de latência:
 ///   • VORP lookup: O(1) — ConcurrentDictionary em memória, sem lock.
 ///   • Nenhuma alocação de string no caminho do VORP (chaves pré-interned).
-///   • Redis pipeline: SET + ZADD em 1 round-trip (batch).
+///   • Redis: CAS do snapshot e registro da invocação em um script.
 ///   • GC: Channel<T> pré-alocado; LineupEvent é um record (sem boxing).
 ///
 /// Fallback de timeout (watchdog a cada 60s):
@@ -31,13 +33,13 @@ public sealed class LineupWorkerService : BackgroundService
     private const string LINEUP_CHANNEL_PATTERN = "lineups:*";
     private const string STATE_KEY_PREFIX       = "lineup_state:";
     private const string WIDEN_CHANNEL          = "variance_widen";
-    private const string COMPLETE_CHANNEL       = "lineup_complete";
 
     private readonly ILogger<LineupWorkerService> _log;
     private readonly VorpStateService             _vorp;
     private readonly LatencyAuditService          _audit;
     private readonly MarketStateEngine            _mse;
     private readonly IConnectionMultiplexer       _redis;
+    private readonly WorkerHealth?                _health;
     private readonly int    _timeoutMinutes;
     private readonly double _widenFactor;
     private readonly int    _watchdogIntervalSec;
@@ -47,39 +49,38 @@ public sealed class LineupWorkerService : BackgroundService
     // BoundedChannel com DropOldest garante que GC pause nunca bloqueia o receptor Redis.
     private readonly Channel<(LineupEvent Event, DateTimeOffset T1_Received)> _queue;
 
-    // Partidas aguardando escalação: matchId → (deadline, homeOk, awayOk)
-    private readonly Dictionary<string, MatchTracking> _pending = new();
-
     public LineupWorkerService(
         ILogger<LineupWorkerService> log,
         VorpStateService vorp,
         LatencyAuditService audit,
         MarketStateEngine mse,
         IConnectionMultiplexer redis,
-        IConfiguration cfg)
+        IConfiguration cfg,
+        WorkerHealth? health = null)
     {
         _log                = log;
         _vorp               = vorp;
         _audit              = audit;
         _mse                = mse;
         _redis              = redis;
+        _health             = health;
         _timeoutMinutes     = cfg.GetValue<int>("Worker:LineupTimeoutMinutes",    55);
         _widenFactor        = cfg.GetValue<double>("Worker:VarianceWideningFactor", 1.35);
         _watchdogIntervalSec = cfg.GetValue<int>("Worker:WatchdogIntervalSeconds",  60);
         _redisStateTtlHours = cfg.GetValue<int>("Worker:RedisStateTtlHours",        6);
 
         var cap = cfg.GetValue<int>("Worker:QueueCapacity", 512);
-        _queue = Channel.CreateBounded<(LineupEvent, DateTimeOffset)>(
+        _queue = Channel.CreateBounded<(LineupEvent Event, DateTimeOffset T1_Received)>(
             new BoundedChannelOptions(cap)
             {
                 SingleReader = false,
                 FullMode     = BoundedChannelFullMode.DropOldest,
-            });
+            }, OnLineupDropped);
     }
 
     protected override async Task ExecuteAsync(CancellationToken ct)
     {
-        if (!_vorp.IsReady)
+        while (!_vorp.IsReady)
         {
             _log.LogWarning("[Worker] VorpStateService ainda não aqueceu — aguardando…");
             await Task.Delay(2_000, ct);
@@ -102,13 +103,13 @@ public sealed class LineupWorkerService : BackgroundService
                 var ev = JsonSerializer.Deserialize<LineupEvent>(message.ToString());
                 if (ev is null) return;
 
-                // TryWrite: false = Channel cheio, DropOldest ativou
-                // → SLA_BREACH_CRITICAL: dispara fallback de incerteza imediato
+                // DropOldest reports the actual evicted item through its callback.
+                // A false result here means this incoming item was not accepted.
                 if (!_queue.Writer.TryWrite((ev, t1)))
                 {
                     _log.LogCritical(
                         "[CRITICAL] SLA_BREACH_CRITICAL {Match}/{Side} — Channel " +
-                        "cheio (DropOldest ativado). Fallback de incerteza imediato.",
+                        "indisponível. Fallback de incerteza imediato.",
                         ev.MatchId, ev.Side);
                     _ = TriggerImmediateFallbackAsync(ev.MatchId, ev.Side, ev.CapturedAt);
                 }
@@ -121,10 +122,26 @@ public sealed class LineupWorkerService : BackgroundService
 
         _log.LogInformation("[Worker] escutando {Pattern}", LINEUP_CHANNEL_PATTERN);
 
-        await Task.WhenAll(
-            ProcessQueueAsync(ct),
-            TimeoutWatchdogAsync(ct)
-        );
+        try
+        {
+            await Task.WhenAll(
+                ProcessQueueAsync(ct),
+                TimeoutWatchdogAsync(ct),
+                new LineupStreamConsumer(_redis.GetDatabase(), _log, HandleLineupAsync,
+                    TimeSpan.FromMinutes(_timeoutMinutes),
+                    _health is null ? null : () => _health.RenewAsync("inbox")).RunAsync(ct)
+            );
+        }
+        finally
+        {
+            if (_health is not null)
+            {
+                try { await _health.ReleaseAsync("inbox"); }
+                catch (RedisException) { _log.LogWarning("[Worker] saúde expirará por TTL após parada"); }
+            }
+            try { await queue.UnsubscribeAsync(); }
+            catch (RedisException) { _log.LogWarning("[Worker] Redis indisponível ao remover assinatura legada"); }
+        }
     }
 
     // ---------------------------------------------------------------------------
@@ -133,68 +150,98 @@ public sealed class LineupWorkerService : BackgroundService
 
     private async Task ProcessQueueAsync(CancellationToken ct)
     {
+        // This is bounded recovery for an already captured event, not durable ingestion.
+        // After three transient failures, the event is logged and processing continues.
         await foreach (var (ev, t1) in _queue.Reader.ReadAllAsync(ct))
         {
-            try { await HandleLineupAsync(ev, t1, ct); }
-            catch (Exception ex)
+            for (var attempt = 1; attempt <= 3; attempt++)
             {
-                _log.LogError(ex, "[Worker] erro ao processar {Match}", ev.MatchId);
+                try
+                {
+                    await HandleLineupAsync(ev, t1, ct);
+                    break;
+                }
+                catch (OperationCanceledException) when (ct.IsCancellationRequested) { return; }
+                catch (Exception ex) when (attempt < 3 && (ex is RedisConnectionException or RedisTimeoutException))
+                {
+                    _log.LogWarning("[Worker] retry Redis {Match}, tentativa {Attempt}/3", ev.MatchId, attempt);
+                    await Task.Delay(TimeSpan.FromMilliseconds(100 * attempt), ct);
+                }
+                catch (Exception ex)
+                {
+                    _log.LogError(ex, "[Worker] evento não concluído {Match}, tentativa {Attempt}/3", ev.MatchId, attempt);
+                    break; // Malformed/permanent errors are not retried indefinitely.
+                }
             }
         }
     }
 
+    private void OnLineupDropped((LineupEvent Event, DateTimeOffset T1_Received) dropped)
+    {
+        _log.LogCritical("[CRITICAL] SLA_BREACH_CRITICAL {Match}/{Side} — escalação descartada por DropOldest",
+            dropped.Event.MatchId, dropped.Event.Side);
+        _ = TriggerImmediateFallbackAsync(dropped.Event.MatchId, dropped.Event.Side, dropped.Event.CapturedAt)
+            .ContinueWith(task => _log.LogError(task.Exception, "[Worker] falha no fallback do item descartado"),
+                TaskContinuationOptions.OnlyOnFaulted);
+    }
+
     private async Task HandleLineupAsync(LineupEvent ev, DateTimeOffset t1, CancellationToken ct)
     {
+        if (!LineupStreamConsumer.IsValid(ev))
+            throw new ArgumentException("Lineup requires valid identity, side, players and declared capture timestamp");
         // T2: VORP calculado em O(1) — lookup em ConcurrentDictionary em memória
         var starters = ev.Starters.Select(p => (Player: p, Position: "UNKNOWN"));
         var delta    = _vorp.ComputeDeltaVorp(starters);
         var t2       = DateTimeOffset.UtcNow;
 
-        // Registra o deadline para o watchdog (idempotente)
-        _pending.TryAdd(ev.MatchId,
-            new MatchTracking(ev.CapturedAt.AddMinutes(_timeoutMinutes), false, false));
-
-        // Atualiza tracking de lado recebido
-        if (_pending.TryGetValue(ev.MatchId, out var tracking))
-        {
-            _pending[ev.MatchId] = ev.Side == "home"
-                ? tracking with { HomeOk = true }
-                : tracking with { AwayOk = true };
-        }
-
-        // Lê/cria estado corrente da partida
+        var sourceEvent = JsonSerializer.Serialize(ev);
+        var eventIdentity = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(sourceEvent)));
         var db   = _redis.GetDatabase();
         var key  = STATE_KEY_PREFIX + ev.MatchId;
-        var raw  = await db.StringGetAsync(key);
-
-        var current = raw.HasValue
-            ? JsonSerializer.Deserialize<LineupState>(raw.ToString())!
-            : new LineupState(ev.MatchId, 0, 0, false, false,
-                              ev.CapturedAt, DateTimeOffset.UtcNow, "none");
-
-        var updated = ev.Side == "home"
-            ? current with { DeltaVorpHome = delta, HomeLineupComplete = true,
-                             LineupCapturedAt = ev.CapturedAt, ComputedAt = t2 }
-            : current with { DeltaVorpAway = delta, AwayLineupComplete = true,
-                             LineupCapturedAt = ev.CapturedAt, ComputedAt = t2 };
-
-        // T3: escrita Redis — pipeline SET + notificação lineup_complete se completo
-        var batch = db.CreateBatch();
-        var ttl   = TimeSpan.FromHours(_redisStateTtlHours);
-        var setTask = batch.StringSetAsync(key, JsonSerializer.Serialize(updated), ttl);
-
-        // Emite lineup_complete apenas quando AMBOS os lados chegaram
-        Task? notifyTask = null;
-        if (updated.HomeLineupComplete && updated.AwayLineupComplete)
+        LineupState updated;
+        while (true)
         {
-            var completeMsg = JsonSerializer.Serialize(
-                new { MatchId = ev.MatchId, CompleteAt = t2 });
-            notifyTask = batch.PublishAsync(
-                RedisChannel.Literal(COMPLETE_CHANNEL), completeMsg);
+            ct.ThrowIfCancellationRequested();
+            var raw = await db.StringGetAsync(key);
+            var current = raw.HasValue
+                ? JsonSerializer.Deserialize<LineupState>(raw.ToString())
+                    ?? throw new JsonException("Invalid lineup state")
+                : new LineupState(ev.MatchId, 0, 0, false, false, ev.CapturedAt, t2, "none");
+            if (current.MatchId != ev.MatchId) throw new JsonException("Lineup state identity mismatch");
+            var previousCapture = ev.Side == "home" ? current.HomeCapturedAt : current.AwayCapturedAt;
+            var previousIdentity = ev.Side == "home" ? current.HomeEventIdentity : current.AwayEventIdentity;
+            if (previousCapture.HasValue && ev.CapturedAt <= previousCapture.Value)
+            {
+                var reason = ev.CapturedAt < previousCapture.Value ? "older_capture" :
+                    previousIdentity == eventIdentity ? "duplicate_event" : "conflicting_equal_capture";
+                if (current.WatchdogDeadlineUnixMs.HasValue)
+                {
+                    var currentInvocation = await db.StringGetAsync(KernelRedisProtocolV2.CurrentPrefix + ev.MatchId);
+                    if (await SynchronizeWatchdogAsync(db, ev.MatchId, raw, currentInvocation) == 0) continue;
+                }
+                _log.LogInformation("[Worker] IGNORE {Match}/{Side} — {Reason}", ev.MatchId, ev.Side, reason);
+                return;
+            }
+            var deadline = current.WatchdogDeadlineUnixMs ??
+                current.LineupCapturedAt.AddMinutes(_timeoutMinutes).ToUnixTimeMilliseconds();
+            updated = ev.Side == "home"
+                ? current with { DeltaVorpHome = delta, HomeLineupComplete = true,
+                    LineupCapturedAt = ev.CapturedAt, ComputedAt = t2,
+                    HomeCapturedAt = ev.CapturedAt, HomeEventIdentity = eventIdentity,
+                    WatchdogDeadlineUnixMs = deadline }
+                : current with { DeltaVorpAway = delta, AwayLineupComplete = true,
+                    LineupCapturedAt = ev.CapturedAt, ComputedAt = t2,
+                    AwayCapturedAt = ev.CapturedAt, AwayEventIdentity = eventIdentity,
+                    WatchdogDeadlineUnixMs = deadline };
+            // Commit state, version, current request and wakeup in one Redis script.
+            // CAS failure rereads and merges the other side; invocation is awaited.
+            var registration = await _mse.InvokeKernelAsync(ev.MatchId, 1500.0, 1500.0,
+                updated, raw.HasValue ? raw.ToString() : null, sourceEvent,
+                TimeSpan.FromHours(_redisStateTtlHours), ct);
+            if (registration.Status == "conflict") continue;
+            if (registration.Status != "registered") return;
+            break;
         }
-        batch.Execute();
-        await setTask;
-        if (notifyTask != null) await notifyTask;
 
         var t3 = DateTimeOffset.UtcNow;
 
@@ -211,17 +258,6 @@ public sealed class LineupWorkerService : BackgroundService
             IsFallback:         false,
             FallbackReason:     null
         );
-        // Invoca o Kernel Python após T2 (VORP já calculado) — fire-and-forget
-        // O Kernel recebe os λ inputs e publica fair_odds:{matchId} (TTL 5s)
-        _ = _mse.InvokeKernelAsync(
-                matchId: ev.MatchId,
-                eloA:    1500.0,   // TODO: passar Elo real via LineupEvent quando disponível
-                eloB:    1500.0,
-                dvorpA:  updated.DeltaVorpHome,
-                dvorpB:  updated.DeltaVorpAway)
-            .ContinueWith(t => _log.LogError(t.Exception, "[Worker] falha ao invocar kernel"),
-                          TaskContinuationOptions.OnlyOnFaulted);
-
         // Fire-and-forget na auditoria — não bloqueia o hot path
         _ = _audit.RecordAsync(latRec).AsTask()
             .ContinueWith(t => _log.LogError(t.Exception, "[Worker] falha na auditoria"),
@@ -239,86 +275,107 @@ public sealed class LineupWorkerService : BackgroundService
     // Watchdog de timeout — fallback quando escalação não chega
     // ---------------------------------------------------------------------------
 
+    private static async Task<long> SynchronizeWatchdogAsync(IDatabase db, string matchId,
+        RedisValue state, RedisValue current)
+        => (long)await db.ScriptEvaluateAsync(WatchdogStateStore.Synchronize,
+            [STATE_KEY_PREFIX + matchId, KernelRedisProtocolV2.CurrentPrefix + matchId, KernelRedisProtocolV2.WatchdogKey],
+            [state.HasValue ? "1" : "0", state.HasValue ? state : "",
+             current.HasValue ? "1" : "0", current.HasValue ? current : "", matchId]);
+
     private async Task TimeoutWatchdogAsync(CancellationToken ct)
     {
+        var cursor = "0";
         while (!ct.IsCancellationRequested)
         {
-            await Task.Delay(TimeSpan.FromSeconds(_watchdogIntervalSec), ct);
-
-            var now     = DateTimeOffset.UtcNow;
-            var expired = _pending
-                .Where(kv => kv.Value.Deadline < now)
-                .Select(kv => kv.Key)
-                .ToList();
-
-            foreach (var matchId in expired)
+            try
             {
-                _pending.Remove(matchId);
-                var tracking = _pending.GetValueOrDefault(matchId);
-
-                var db  = _redis.GetDatabase();
-                var raw = await db.StringGetAsync(STATE_KEY_PREFIX + matchId);
-                if (!raw.HasValue) continue;
-
-                var state   = JsonSerializer.Deserialize<LineupState>(raw.ToString())!;
-                bool needH  = !state.HomeLineupComplete;
-                bool needA  = !state.AwayLineupComplete;
-                if (!needH && !needA) continue;
-
-                _log.LogWarning("[Worker] TIMEOUT {Match} — fallback widening (home={H} away={A})",
-                    matchId, needH, needA);
-
-                var sub = _redis.GetSubscriber();
-                foreach (var (side, needed, team) in new[]
+                var db = _redis.GetDatabase();
+                var due = (RedisResult[]?)await db.ScriptEvaluateAsync(WatchdogStateStore.ReadDue,
+                    [KernelRedisProtocolV2.WatchdogKey], [cursor])
+                    ?? throw new JsonException("Invalid watchdog scan reply");
+                cursor = due[0].ToString();
+                var now = DateTimeOffset.FromUnixTimeMilliseconds((long)due[1]);
+                foreach (var item in due.Skip(2))
                 {
-                    ("home", needH, matchId.Split('_').ElementAtOrDefault(0) ?? ""),
-                    ("away", needA, matchId.Split('_').ElementAtOrDefault(1) ?? ""),
-                })
-                {
-                    if (!needed) continue;
-
-                    var mat    = _vorp.GetTitularidadeMatrix(team);
-                    var signal = new VarianceWideningSignal(
-                        MatchId:            matchId,
-                        Side:               side,
-                        VarianceMultiplier: _widenFactor,
-                        TitularidadeMatrix: mat ?? Array.Empty<double>(),
-                        IssuedAt:           now
-                    );
-                    await sub.PublishAsync(
-                        RedisChannel.Literal(WIDEN_CHANNEL),
-                        JsonSerializer.Serialize(signal));
-
-                    // Grava registro de fallback na auditoria
-                    var latRec = new LatencyRecord(
-                        MatchId:            matchId,
-                        Side:               side,
-                        T0_SourcePublished: now.AddMinutes(-_timeoutMinutes),
-                        T1_Received:        now,
-                        T2_VorpComputed:    now,
-                        T3_RedisWritten:    now,
-                        T4_MarketEngineRead: null,
-                        DeltaVorp:          0,
-                        IsFallback:         true,
-                        FallbackReason:     "timeout_widen_variance"
-                    );
-                    _ = _audit.RecordAsync(latRec).AsTask();
+                    ct.ThrowIfCancellationRequested();
+                    var matchId = item.ToString();
+                    try { await ApplyTimeoutAsync(db, matchId, now, ct); }
+                    catch (Exception ex) when (ex is RedisException or JsonException)
+                    {
+                        _log.LogWarning("[Worker] watchdog {Match} adiado; índice preservado ({Error})", matchId, ex.GetType().Name);
+                    }
                 }
-
-                var fallback = state with { FallbackStrategy = "timeout_widen_variance",
-                                            ComputedAt = now };
-                await db.StringSetAsync(
-                    STATE_KEY_PREFIX + matchId,
-                    JsonSerializer.Serialize(fallback),
-                    TimeSpan.FromHours(_redisStateTtlHours));
             }
+            catch (Exception ex) when (ex is RedisException or JsonException)
+            {
+                _log.LogWarning("[Worker] índice watchdog indisponível; será retomado ({Error})", ex.GetType().Name);
+                cursor = "0";
+            }
+            // First scan is immediate. Subsequent pages are bounded scans, with
+            // short gaps rather than waiting a full interval for every page.
+            await Task.Delay(cursor == "0" ? TimeSpan.FromSeconds(_watchdogIntervalSec)
+                : TimeSpan.FromMilliseconds(100), ct);
         }
     }
 
+    private async Task ApplyTimeoutAsync(IDatabase db, string matchId, DateTimeOffset now, CancellationToken ct)
+    {
+        var raw = await db.StringGetAsync(STATE_KEY_PREFIX + matchId);
+        var currentRaw = await db.StringGetAsync(KernelRedisProtocolV2.CurrentPrefix + matchId);
+        if (!raw.HasValue)
+        {
+            await SynchronizeWatchdogAsync(db, matchId, raw, currentRaw);
+            return;
+        }
+        var state = JsonSerializer.Deserialize<LineupState>(raw.ToString())
+            ?? throw new JsonException("Invalid watchdog state");
+        if (state.MatchId != matchId) throw new JsonException("Watchdog state identity mismatch");
+        bool needH = !state.HomeLineupComplete;
+        bool needA = !state.AwayLineupComplete;
+        if ((!needH && !needA) || !state.WatchdogDeadlineUnixMs.HasValue ||
+            state.WatchdogDeadlineUnixMs > now.ToUnixTimeMilliseconds() ||
+            (!currentRaw.HasValue && state.FallbackStrategy == "timeout_widen_variance"))
+        {
+            await SynchronizeWatchdogAsync(db, matchId, raw, currentRaw);
+            return;
+        }
+        _log.LogWarning("[Worker] TIMEOUT {Match} — fallback widening (home={H} away={A})", matchId, needH, needA);
+        var signals = new List<VarianceWideningSignal>();
+        foreach (var (side, needed, team) in new[]
+        {
+            ("home", needH, matchId.Split('_').ElementAtOrDefault(0) ?? ""),
+            ("away", needA, matchId.Split('_').ElementAtOrDefault(1) ?? ""),
+        })
+        {
+            if (!needed) continue;
+            signals.Add(new VarianceWideningSignal(matchId, side, _widenFactor,
+                _vorp.GetTitularidadeMatrix(team) ?? Array.Empty<double>(), now));
+        }
+        var fallback = state with { FallbackStrategy = "timeout_widen_variance", ComputedAt = now };
+        var arguments = new List<RedisValue>
+        {
+            raw, currentRaw.HasValue ? "1" : "0", currentRaw.HasValue ? currentRaw : "",
+            JsonSerializer.Serialize(fallback), checked((long)TimeSpan.FromHours(_redisStateTtlHours).TotalMilliseconds),
+            KernelRedisProtocolV2.LeasePrefix, WIDEN_CHANNEL
+        };
+        arguments.AddRange(signals.Select(signal => (RedisValue)JsonSerializer.Serialize(signal)));
+        ct.ThrowIfCancellationRequested();
+        var applied = (long)await db.ScriptEvaluateAsync(KernelRedisProtocolV2.ApplyWatchdog,
+            [STATE_KEY_PREFIX + matchId, KernelRedisProtocolV2.CurrentPrefix + matchId,
+             "fair_odds:" + matchId, KernelRedisProtocolV2.PendingKey,
+             KernelRedisProtocolV2.ReadyKey, KernelRedisProtocolV2.WatchdogKey], arguments.ToArray());
+        if (applied != 1) return; // The newer state and its durable index remain untouched.
+        foreach (var signal in signals)
+        {
+            var record = new LatencyRecord(matchId, signal.Side, state.LineupCapturedAt, now, now, now,
+                null, 0, true, "timeout_widen_variance");
+            _ = _audit.RecordAsync(record).AsTask();
+        }
+    }
     /// <summary>
     /// Fallback imediato para quando o Channel descarta uma escalação (SLA_BREACH_CRITICAL).
     /// Emite VarianceWideningSignal e registra o breach na auditoria.
-    /// Executado fora do hot path (Task.Run implícito via fire-and-forget).
+    /// Iniciado pelo callback; a conclusão assíncrona não bloqueia o receptor.
     /// </summary>
     private async Task TriggerImmediateFallbackAsync(
         string matchId, string side, DateTimeOffset sourceTs)
@@ -352,5 +409,4 @@ public sealed class LineupWorkerService : BackgroundService
         await _audit.RecordAsync(latRec);
     }
 
-    private record MatchTracking(DateTimeOffset Deadline, bool HomeOk, bool AwayOk);
 }

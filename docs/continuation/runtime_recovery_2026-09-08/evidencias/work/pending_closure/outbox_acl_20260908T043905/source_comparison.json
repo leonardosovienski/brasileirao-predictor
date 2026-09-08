@@ -1,0 +1,25 @@
+{
+  "at_utc": "2026-09-08T04:39:31.235592+00:00",
+  "old_snapshot": "work\\pending_closure\\outbox_acl_20260908T042148\\KernelRedisProtocolV2.cs.snapshot",
+  "new_snapshot": "work\\pending_closure\\outbox_acl_20260908T043905\\KernelRedisProtocolV2.cs.snapshot",
+  "publish_signals_body_equal": true,
+  "body_sha256": "cfe50c026be1b4f30420737d2a036f584301ddbc1890e6e57c560f56bbb3c458",
+  "checks_equal": false,
+  "checks_diff": [
+    "--- old Checks",
+    "+++ final Checks",
+    "@@ -19,3 +19,11 @@",
+    "             end",
+    "             return parsed.run_id",
+    "         end",
+    "+        local function watchdogDeadline(state)",
+    "+            local value = state.WatchdogDeadlineUnixMs",
+    "+            if value == nil or value == cjson.null then return nil end",
+    "+            if type(value) ~= 'number' or value <= 0 or value > 9007199254740991 or math.floor(value) ~= value then",
+    "+                error('invalid watchdog deadline')",
+    "+            end",
+    "+            return value",
+    "+        end"
+  ],
+  "type_and_acl_helpers_equal": true
+}

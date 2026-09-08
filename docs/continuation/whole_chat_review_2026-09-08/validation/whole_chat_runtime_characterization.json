@@ -1,0 +1,19 @@
+{
+  "name": "whole_chat_runtime_characterization",
+  "started_at_utc": "2026-09-08T02:55:59.153087+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\whole_chat_review\\test_runtime_characterization.py",
+    "-q",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 1.052570999992895
+}

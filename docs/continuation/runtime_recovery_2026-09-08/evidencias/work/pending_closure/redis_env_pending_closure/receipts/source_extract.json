@@ -1,0 +1,19 @@
+{
+  "started_at_utc": "2026-09-08T04:05:59.712744+00:00",
+  "command": [
+    "wsl.exe",
+    "-d",
+    "codex-brasileirao-pending-20260908",
+    "--exec",
+    "/bin/tar",
+    "-xz",
+    "-C",
+    "/opt"
+  ],
+  "environment_allowlist": true,
+  "distro": "codex-brasileirao-pending-20260908",
+  "existing_services_modified": false,
+  "exit_code": 0,
+  "seconds": 1.089977399999043,
+  "stdin_sha256": "517e47ebce911ebbed2fe86047a871d9cbeadc7d2de15ffca37a1540eb4d588f"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "research_review_targeted_pytest",
+  "started_at_utc": "2026-09-08T02:59:28.569235+00:00",
+  "command": [
+    "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/python.exe",
+    "-m",
+    "pytest",
+    "tests/test_price_strength_review_regressions.py",
+    "tests/test_price_strength_quotes.py",
+    "tests/test_price_strength_study.py",
+    "tests/test_price_strength_dynamic_xg.py",
+    "tests/test_price_strength_artifacts.py",
+    "tests/test_price_strength_reliability.py",
+    "-q",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 2.0164739999891026
+}

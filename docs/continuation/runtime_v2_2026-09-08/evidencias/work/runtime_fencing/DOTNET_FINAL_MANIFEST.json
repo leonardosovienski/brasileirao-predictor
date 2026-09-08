@@ -1,0 +1,62 @@
+[
+  {
+    "path": "dotnet/LineupWorker/Worker.cs",
+    "sha256": "bbb5702fccb1ff0bb2288110f59fb1069b87d157b3f52ce9bef9a296d72f7964",
+    "isolated_sha256": "bbb5702fccb1ff0bb2288110f59fb1069b87d157b3f52ce9bef9a296d72f7964"
+  },
+  {
+    "path": "dotnet/LineupWorker/Models/KernelContracts.cs",
+    "sha256": "28967e7f5b1d152ac53970a7e5f9b6c841355449c51ce937d83f102d5c6fc98e",
+    "isolated_sha256": "28967e7f5b1d152ac53970a7e5f9b6c841355449c51ce937d83f102d5c6fc98e"
+  },
+  {
+    "path": "dotnet/LineupWorker/Models/LineupEvent.cs",
+    "sha256": "be807e4c8c6b6a183383a7404f3afba524d1d31765836a2f703ab59cf7b15eb6",
+    "isolated_sha256": "be807e4c8c6b6a183383a7404f3afba524d1d31765836a2f703ab59cf7b15eb6"
+  },
+  {
+    "path": "dotnet/LineupWorker/Models/LatencyRecord.cs",
+    "sha256": "b2a2d848af0e5bc326de8e9071d97c0d1c4e469a0c563d27c885c83c0e50d7b7",
+    "isolated_sha256": "b2a2d848af0e5bc326de8e9071d97c0d1c4e469a0c563d27c885c83c0e50d7b7"
+  },
+  {
+    "path": "dotnet/LineupWorker/Services/MarketStateEngine.cs",
+    "sha256": "ec906c1f8372b46eda2d973c93920175d50c3b383c528ac55ed5b4191b2fb8e6",
+    "isolated_sha256": "ec906c1f8372b46eda2d973c93920175d50c3b383c528ac55ed5b4191b2fb8e6"
+  },
+  {
+    "path": "dotnet/LineupWorker/Services/KernelRedisProtocolV2.cs",
+    "sha256": "d0276db9d2a196100675226fb5f5eafb3f8057b62af2f9494905681d80bec350",
+    "isolated_sha256": "d0276db9d2a196100675226fb5f5eafb3f8057b62af2f9494905681d80bec350"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/RedisProtocolTests.cs",
+    "sha256": "5d3e7d332da89128f641d4745f1c7272a105ae4dd8e619260fb605a37473bdb2",
+    "isolated_sha256": "5d3e7d332da89128f641d4745f1c7272a105ae4dd8e619260fb605a37473bdb2"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/ModelBranchTests.cs",
+    "sha256": "729234e7dfcc754513932a7d89af3a38c69da4b9d76f0e8c671dd9626e02da84",
+    "isolated_sha256": "729234e7dfcc754513932a7d89af3a38c69da4b9d76f0e8c671dd9626e02da84"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/KernelInvocationIdentityTests.cs",
+    "sha256": "15478a6019a427f556a2d088e370d527948cd4a4ce77e8f270bb49688e2c6b73",
+    "isolated_sha256": "15478a6019a427f556a2d088e370d527948cd4a4ce77e8f270bb49688e2c6b73"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/FairOddsCorrelationTests.cs",
+    "sha256": "e8caf81b28487706753ca743533098a3f6faac79d72ae1697520bff9289bfd74",
+    "isolated_sha256": "e8caf81b28487706753ca743533098a3f6faac79d72ae1697520bff9289bfd74"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WorkerRuntimeTests.cs",
+    "sha256": "3dfe9b2a5ffedf9954e820f80c550f545a812d50e55e5689d642af1241608157",
+    "isolated_sha256": "3dfe9b2a5ffedf9954e820f80c550f545a812d50e55e5689d642af1241608157"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WorkerRuntimeFencingTests.cs",
+    "sha256": "2b14997a7d9537a089648de8af8a599de823036a28eceba39fc1c0bc4ebc3868",
+    "isolated_sha256": "2b14997a7d9537a089648de8af8a599de823036a28eceba39fc1c0bc4ebc3868"
+  }
+]

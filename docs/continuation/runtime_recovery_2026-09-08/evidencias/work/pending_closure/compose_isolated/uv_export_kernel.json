@@ -1,0 +1,26 @@
+{
+  "at_utc": "2026-09-08T04:20:17.855794+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\.local\\bin\\uv.exe",
+    "export",
+    "--locked",
+    "--offline",
+    "--no-python-downloads",
+    "--python",
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "--no-dev",
+    "--no-emit-project",
+    "--format",
+    "requirements.txt",
+    "--extra",
+    "kernel",
+    "--output-file",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\pending_closure\\compose_isolated\\kernel.requirements.lock"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "environment_allowlist": true,
+  "exit_code": 0,
+  "seconds": 0.034582100008265115,
+  "operational_data_used": false,
+  "docker_build_or_run": false
+}

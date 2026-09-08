@@ -1,0 +1,9 @@
+{
+  "include": ["integration-repo/brasileirao_predictor/research/price_strength"],
+  "exclude": [],
+  "extraPaths": ["integration-repo"],
+  "pythonVersion": "3.13",
+  "typeCheckingMode": "basic",
+  "venvPath": "C:/Users/Superleo13/projetos/brasileirao-predictor",
+  "venv": ".venv"
+}

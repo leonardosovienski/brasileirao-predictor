@@ -34,8 +34,15 @@ public sealed record OperationalSettings(
     public ConfigurationOptions RedisConfiguration()
     {
         if (!Uri.TryCreate(RedisUrl, UriKind.Absolute, out var uri) ||
-            (uri.Scheme != "redis" && uri.Scheme != "rediss"))
+            (uri.Scheme != "redis" && uri.Scheme != "rediss") ||
+            string.IsNullOrWhiteSpace(uri.Host) || uri.Query != "" || uri.Fragment != "")
             throw new InvalidOperationException("REDIS_URL must use redis:// or rediss://");
+
+        var databasePath = uri.AbsolutePath.TrimStart('/');
+        var database = 0;
+        if (databasePath.Length > 0 &&
+            (databasePath.Any(c => c is < '0' or > '9') || !int.TryParse(databasePath, out database)))
+            throw new InvalidOperationException("REDIS_URL database must be a nonnegative integer");
 
         var options = new ConfigurationOptions
         {
@@ -43,13 +50,14 @@ public sealed record OperationalSettings(
             ConnectTimeout = 3000,
             SyncTimeout = 1000,
             Ssl = uri.Scheme == "rediss",
-            DefaultDatabase = uri.AbsolutePath is { Length: > 1 } && int.TryParse(uri.AbsolutePath[1..], out var db) ? db : 0,
+            DefaultDatabase = database,
             ReconnectRetryPolicy = new ExponentialRetry(5000),
         };
         options.EndPoints.Add(uri.Host, uri.IsDefaultPort ? 6379 : uri.Port);
         if (!string.IsNullOrEmpty(uri.UserInfo))
         {
             var parts = uri.UserInfo.Split(':', 2);
+            if (parts[0].Length > 0) options.User = Uri.UnescapeDataString(parts[0]);
             if (parts.Length == 2) options.Password = Uri.UnescapeDataString(parts[1]);
         }
         return options;

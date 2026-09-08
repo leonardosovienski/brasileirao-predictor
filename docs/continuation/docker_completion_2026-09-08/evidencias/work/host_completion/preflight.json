@@ -1,0 +1,44 @@
+{
+  "captured_at_utc": "2026-09-08T12:26:00.0004859Z",
+  "scope": "Read-only host checks after cancelled UAC; no retry of elevation",
+  "elevated": false,
+  "computer": {
+    "HypervisorPresent": false
+  },
+  "cpu": {
+    "VirtualizationFirmwareEnabled": true,
+    "SecondLevelAddressTranslationExtensions": true
+  },
+  "os": {
+    "Version": "10.0.19045",
+    "BuildNumber": "19045",
+    "LastBootUpTime": "2026-09-06T17:01:24.5-03:00"
+  },
+  "changes_performed": [],
+  "restart_performed": false,
+  "services": [
+    {
+      "name": "com.docker.service",
+      "status": "Stopped",
+      "start_type": "Manual"
+    },
+    {
+      "name": "vmcompute",
+      "status": "Running",
+      "start_type": "Manual"
+    },
+    {
+      "name": "WslService",
+      "status": "Running",
+      "start_type": "Automatic"
+    }
+  ],
+  "elevation_attempt": {
+    "started_at_utc": "2026-09-08T12:21:57.9275422Z",
+    "action": "Normal Windows UAC elevation for read-only Docker/WSL diagnosis",
+    "script": "work/host_completion/diagnose_admin.ps1",
+    "changes_requested": false,
+    "status": "FAILED",
+    "error": "This command cannot be run due to the error: An error occurred trying to start process 'C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe' with working directory 'C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13'. A operação foi cancelada pelo usuário."
+  }
+}

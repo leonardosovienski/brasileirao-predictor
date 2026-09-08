@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "created_at_utc": "2026-09-08T03:45:34.8265369Z",
+  "scope": "Python kernel Redis v2, lifecycle, heartbeat and targeted tests",
+  "unit_passed": 139,
+  "redis_integration_passed": 18,
+  "redis_version": "8.2.1",
+  "redis_database": 14,
+  "redis_run_id": "97c7a9cc8a5fa8deb9387dd63a0505f8b66e9196",
+  "redis_dbsize_after": 0,
+  "ruff": "PASS",
+  "pyright_errors": 0,
+  "pyright_warnings": 0,
+  "operational_data_used": false,
+  "model_formulas_changed": false,
+  "source": [
+    {
+      "path": "brasileirao_predictor/kernel_daemon.py",
+      "sha256": "9daae68634199b47bca84e54a2a06537ae30ef0f1098f2455a9ac72d9d9bf8ea",
+      "tested_copy_identical": true
+    },
+    {
+      "path": "brasileirao_predictor/kernel_redis_v2.py",
+      "sha256": "281b405d9443939e3597a4cf7658416372b1e805e47ec01494810ad6c7fe7866",
+      "tested_copy_identical": true
+    },
+    {
+      "path": "tests/test_kernel_protocol.py",
+      "sha256": "93816017c8be005643c038b4cf97864623201b8431e86d096040f752bc155c31",
+      "tested_copy_identical": true
+    },
+    {
+      "path": "tests/test_kernel_runtime.py",
+      "sha256": "bf315b577df06340ad3c69a8ebffcada8394bf67367df189cea084b4f4b54954",
+      "tested_copy_identical": true
+    },
+    {
+      "path": "tests/test_kernel_v2_runtime.py",
+      "sha256": "785fa64052fdecc6e62e219bc37eb8e93b34270c5a9396f63a7c0c4f0ab1c907",
+      "tested_copy_identical": true
+    },
+    {
+      "path": "tests/test_redis_integration.py",
+      "sha256": "245637689dcf02f290db3d67a2bae65bb868a5e23b0d33508a7f557947e8f46f",
+      "tested_copy_identical": true
+    }
+  ],
+  "receipts": [
+    "work/validation/kernel_v2_unit_health.json",
+    "work/runtime_fix/validation/kernel_v2_redis_health.json",
+    "work/validation/kernel_v2_lint_health.json",
+    "work/validation/kernel_v2_health_format.json",
+    "work/validation/kernel_v2_pyright_health.json"
+  ]
+}

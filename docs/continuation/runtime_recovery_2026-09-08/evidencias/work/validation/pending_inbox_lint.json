@@ -1,0 +1,21 @@
+{
+  "name": "pending_inbox_lint",
+  "started_at_utc": "2026-09-08T04:15:53.383615+00:00",
+  "command": [
+    "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/python.exe",
+    "-m",
+    "ruff",
+    "check",
+    "brasileirao_scripts/lineup_inbox.py",
+    "brasileirao_scripts/hotpath_smoke.py",
+    "tests/test_lineup_inbox.py",
+    "tests/test_hotpath_smoke.py",
+    "--no-cache"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 0.07455779999145307
+}

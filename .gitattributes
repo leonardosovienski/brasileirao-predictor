@@ -4,3 +4,17 @@
 *.yaml text eol=lf
 *.txt text eol=lf
 VERSION text eol=lf
+
+# Evidencias arquivadas: manter os bytes usados nos recibos SHA-256.
+docs/continuation/docker_completion_2026-09-08/** -text whitespace=cr-at-eol
+docs/continuation/model_research_2026-09-07/** -text whitespace=cr-at-eol
+docs/continuation/price_strength_2026-09-07/** -text whitespace=cr-at-eol
+docs/continuation/price_strength_diagnosis_2026-09-07/** -text whitespace=cr-at-eol
+docs/continuation/price_strength_evaluation_2026-09-07/** -text whitespace=cr-at-eol
+docs/continuation/runtime_contracts_2026-09-07/** -text whitespace=cr-at-eol
+docs/continuation/runtime_recovery_2026-09-08/** -text whitespace=cr-at-eol
+docs/continuation/runtime_v2_2026-09-08/** -text whitespace=cr-at-eol
+docs/continuation/whole_chat_review_2026-09-08/** -text whitespace=cr-at-eol
+docs/continuation/migration_source_history_2026-09-08/** -text whitespace=cr-at-eol
+# Linhas vazias de contexto em patches preservados contem um espaco significativo.
+docs/continuation/migration_source_history_2026-09-08/files/*.patch whitespace=cr-at-eol,-blank-at-eol

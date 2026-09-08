@@ -1,5 +1,64 @@
 # Retomada independente do chat — 7 de setembro de 2026
 
+> Etapa mais recente: [continuação Docker](docker_completion_2026-09-08/RESULTADO.md).
+> Fixture de teste corrigida; validações offline passaram. Acesso administrativo
+> não foi concedido pelo Windows; Compose continua sem execução em containers.
+> Ler o primeiro checkpoint do HANDOFF e os limites do relatório.
+
+
+> Etapa mais recente: [recuperação e pendências de software](runtime_recovery_2026-09-08/RESULTADO.md).
+> Inbox, ready, outbox, watchdog persistente e health corrigidos e testados.
+> Redis e processos reais validados; Compose ainda depende de correção do host.
+> Ler primeiro checkpoint do HANDOFF, estado.json e limites de migração.
+> Nenhum resultado econômico novo ou capital liberado.
+
+
+> Etapa mais recente: [correções do runtime v2](runtime_v2_2026-09-08/RESULTADO.md).
+> Respostas antigas, lease/retry, descarte de fila e saúde corrigidos. Passaram
+> 151 unitários Python, 18 integrações Redis, 81 .NET e 1 entre processos.
+> Redis real validado; ambiente temporário removido. Compose/CI remoto pendentes.
+> Produtor e consumidor devem migrar juntos. Ler os limites no relatório e o
+> primeiro checkpoint do HANDOFF. Não houve novo resultado econômico.
+
+
+> Etapa mais recente: [revisão do chat completo](whole_chat_review_2026-09-08/RESULTADO.md).
+> Quatro falhas de pesquisa corrigidas; 230 testes passaram/1 skip; Ruff e Pyright
+> dirigidos passaram. Duas limitações do runtime foram reproduzidas e permanecem
+> pendentes, junto de Redis/Compose. Nenhum novo backtest ou resultado econômico.
+> Auditoria dos dados deveria preceder a modelagem; 2025 segue exploratório;
+> verificações anteriores foram internas por implementações separadas.
+> Ler o primeiro checkpoint do HANDOFF e o estado desta revisão.
+
+
+> Etapa mais recente: [diagnóstico dos erros/acertos e tentativa de correção](price_strength_diagnosis_2026-09-07/RESULTADO.md).
+> Três reparos de integridade; nova combinação raw/mercado aprendida só em 2024,
+> testada uma vez em 2025 já visto. Nos mesmos 362 jogos, −23,373u / 170 apostas
+> contra xG calibrado −65,850u / 307 apostas. ROI novo −13,75%, pior que o bruto
+> (−7,96%); contra raw,
+> ganho líquido é economia de custos. 1X2 copia mercado, sem edge demonstrado.
+> Quarentena de zeros não muda apostas no comum. Estudos anteriores preservados;
+> investigação encerrada sem retune/promoção. Ler primeiro checkpoint do HANDOFF.
+
+> Teste posterior: [xG em histórico 2025](price_strength_evaluation_2026-09-07/RESULTADO.md).
+> Resultado negativo/misto: calibrado −22,02% ROI hipotético, bruto −8,23%,
+> anterior bruto −13,35%, nos mesmos 368 jogos. Hipótese de disponibilidade 48h;
+> não é teste PIT atestado. Estudo encerrado sem retune; multicasas não avaliado.
+
+> Implementação posterior: [preços entre casas e candidato xG](price_strength_2026-09-07/RESULTADO.md),
+> com CLI offline `scan/study/demo`, 141 testes aprovados e demonstração sintética.
+> [Guia de uso](price_strength_2026-09-07/GUIA.md). Nenhum backtest real, coleta,
+> promoção ou alteração de coorte; lucro realizável continua não demonstrado.
+
+> Pesquisa posterior: [modelos e mecanismos de lucro](model_research_2026-09-07/PESQUISA.md).
+> Fontes primárias e código público examinados, sem reprodução dos backtests ou
+> alteração de candidatos. Pistas para investigação: preço entre casas e xG/GAP.
+> Preservar estudos encerrados; nenhuma vantagem econômica nova foi demonstrada.
+
+> Atualização posterior nesta mesma data: [contratos do runtime](runtime_contracts_2026-09-07/RESULTADO.md)
+> corrigidos, com 119 testes Python e 46 .NET direcionados aprovados. Redis/Compose
+> continua pendente. Leia o primeiro checkpoint do HANDOFF e a reprodução desta
+> etapa; o material abaixo preserva o encerramento anterior e seus números.
+
 Este diretório preserva o contexto necessário para continuar o projeto mesmo
 sem o histórico da conversa. O pedido final do operador foi salvar tudo no Git,
 conferir o prompt contra a sessão e permitir a exclusão do chat. Nenhuma conversa

@@ -1,0 +1,448 @@
+diff --git a/HANDOFF.md b/HANDOFF.md
+index 4ffd759..60651ea 100644
+--- a/HANDOFF.md
++++ b/HANDOFF.md
+@@ -1,5 +1,67 @@
+ # HANDOFF.md — brasileirao-predictor
+ 
++> ## CHECKPOINT — VALIDAÇÃO ECONÔMICA E PREFLIGHT SINTÉTICO (2026-09-07)
++>
++> Auditoria sobre `02b8d88`, em clone isolado. Este checkpoint **supersede somente
++> as afirmações de coleta local ativa e densidade de snapshots** dos checkpoints
++> anteriores, para a máquina e instante descritos em
++> `docs/ESTADO_LOCAL_E_OPERACAO.md`, adendo de 07/09. Contratos científicos,
++> resultados registrados e decisões históricas permanecem vigentes.
++>
++> 1. **CURRENT_NEXT_IRREVERSIBLE_DECISION:** abrir preços futuros/fechamentos
++>    protegidos para selecionar price discovery. Não feito nem autorizado:
++>    `contracts/a1-ou25-phase0-policy.json` proíbe esses labels na Fase 0.
++>    Antes de revelar: decisão explícita, DECISION_RECORD, gates e amostra
++>    separada. A1 10/11-09 é prazo operacional, não PASS automático. Datas dos
++>    marcos H9 e H14/H15 são NÃO_MENSURÁVEL_AQUI sem leitura de coortes.
++>    Atestado documentado expira em 13/09; nenhuma renovação foi necessária.
++> 2. **PRICE_DISCOVERY_EDGE: NÃO_MENSURÁVEL_AQUI.** Tarefa a cada 15min não
++>    significa captura nessa frequência: econômico tem T-1440/360/60/10min;
++>    full deduplica por hora UTC. Sete casas/três mercados são suporte, não
++>    cobertura. Nenhuma das 29 trials tem alvo FUTURE_MARKET_PRICE identificável;
++>    `data/trials.v2.json` conserva UNKNOWN, portanto não se afirma dívida zero.
++> 3. **EXECUTION_LINE_SHOPPING_EDGE: NÃO_MENSURÁVEL_AQUI.** Preços devem casar
++>    evento/versão/casa/mercado/linha/seleção, simultaneidade e liquidação.
++>    Diferença cotada não é fill; faltam disponibilidade e preço executável.
++> 4. **FRICTION_REAL: NÃO_MENSURÁVEL_AQUI.** Schema não registra preço da fonte,
++>    recebimento individual ou execução; captured_at nasce antes do laço HTTP.
++>    A1 ainda tem fricções nulas. Referência candidata: última cotação válida
++>    pré-kickoff por casa (docs/CLOSING_LINE.md), com idade explícita, vetores
++>    completos, 1X2/proporcional e baseline de persistência. Não é pré-registro.
++> 5. **MINIMUM_ECONOMICALLY_INTERESTING_OUTCOME:** depende do valor do tempo e
++>    retorno futuro escolhido pelo operador; não foi inventado. Meta atual R$0,
++>    custos autorizados R$0. Cenários condicionais com banca R$5.000, odds 2 e
++>    stake estática: 3%/¼ Kelly/150 → R$37,50 de stake e R$168,75/ano;
++>    5%/¼/250 → R$62,50 e R$781,25; 5%/½/250 → R$125 e R$1.562,50.
++>    Fórmula: stake=k*B*edge/(odd-1), lucro=n*stake*edge. Não são medições,
++>    teto ou garantia de drawdown ≤R$1.500; não descontar vig duas vezes.
++> 6. **EV_OF_RESEARCH:** não quantificável sem probabilidades/utilidade/tempo.
++>    Ao parar: B esparso WATCH, C WATCH, D WATCH, pesquisa ativa A PAUSE,
++>    H14/H15 PAUSE operacional aguardando horizonte, dados pagos KILL,
++>    live PAUSE/HOLD com PoC gratuita ainda possível. Nenhum DOUBLE_DOWN.
++> 7. **PRIORITY_1: DISCOVERY.** `python -m brasileirao_scripts.price_discovery_preflight`
++>    executa due_label real em 15 fases sintéticas de ticks de 15min: T-10
++>    ausente em 5 fases, mesmo com sucesso ideal. Não é taxa observada nem N
++>    econômico. Premissa densa REJECT; hipótese esparsa não testada. Próxima
++>    pesquisa requer amostra admissível, alvos maturados antes do treino,
++>    divisão por eventos completos e inferência em blocos; sem confirmação.
++>    Corrigida a recusa H14/H15: relatório existente agora bloqueia antes de
++>    evaluate()/print. Nada mudou em métrica, min_n, contrato ou primeira
++>    avaliação; regressão sintética impede nova leitura/divulgação.
++> 8. **DECISÃO_DE_HORIZONTE: PENDENTE.** 900/380=2,37 temporadas completas;
++>    com 80% elegíveis, 2,96. Recomenda-se (b): preservar e preparar retomada
++>    passiva, pesquisa ativa em B/C/D. Alternativas: (a) também pesquisar
++>    outcomes; (c) encerrar H14/H15 explicitamente; (d) encerrar domínio.
++>    Nenhuma escolha foi feita pelo operador nesta execução até este registro.
++>
++> Nenhuma coorte, odds ou resultado operacional foi aberto; nenhum gasto,
++> tarefa reativada, trial registrada, core/ops alterado, commit/push ou
++> implantação. Alterações preparadas apenas no clone de trabalho.
++> Validação: **70 testes pertinentes passaram**; Ruff check e format --check
++> de 344 arquivos passaram; git diff --check limpo. Data/contratos/schema,
++> coletor e dependências permanecem idênticos ao HEAD. Suíte completa/CI
++> Redis/.NET/containers não foram executados nesta alteração localizada.
++
+ > ## CHECKPOINT — AUDITORIA ADVERSARIAL, ENCERRAMENTO (2026-09-06) — FONTE DA VERDADE ATUAL
+ >
+ > **Estado técnico corrente — 2026-09-06:** pacotes
+diff --git a/brasileirao_scripts/evaluate_h14_prospective.py b/brasileirao_scripts/evaluate_h14_prospective.py
+index bb3672b..14c2d98 100644
+--- a/brasileirao_scripts/evaluate_h14_prospective.py
++++ b/brasileirao_scripts/evaluate_h14_prospective.py
+@@ -186,19 +186,19 @@ def evaluate(
+ 
+ 
+ def main() -> int:
+-    result = evaluate()
+-    print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+-    if result["status"] == "AGUARDANDO_N":
+-        return 0
+     existing = sorted(REPORTS_DIR.glob("h14_avaliacao_*.json"))
+     if existing:
+         print(
+             f"AVISO: já existe relatório de avaliação ({existing[-1].name}). "
+             "H14 é ponto único — reavaliar exige decisão de governança explícita, "
+-            "não é automático. Nenhum arquivo novo foi escrito.",
++            "não é automático. Nenhuma avaliação foi executada.",
+             file=sys.stderr,
+         )
+         return 1
++    result = evaluate()
++    print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
++    if result["status"] == "AGUARDANDO_N":
++        return 0
+     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+     from datetime import UTC, datetime
+ 
+diff --git a/brasileirao_scripts/evaluate_h15_prospective.py b/brasileirao_scripts/evaluate_h15_prospective.py
+index 44d4ca5..8cbcb41 100644
+--- a/brasileirao_scripts/evaluate_h15_prospective.py
++++ b/brasileirao_scripts/evaluate_h15_prospective.py
+@@ -172,19 +172,19 @@ def evaluate(
+ 
+ 
+ def main() -> int:
+-    result = evaluate()
+-    print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
+-    if result["status"] == "AGUARDANDO_N":
+-        return 0
+     existing = sorted(REPORTS_DIR.glob("h15_avaliacao_*.json"))
+     if existing:
+         print(
+             f"AVISO: já existe relatório de avaliação ({existing[-1].name}). "
+             "H15 é ponto único — reavaliar exige decisão de governança explícita, "
+-            "não é automático. Nenhum arquivo novo foi escrito.",
++            "não é automático. Nenhuma avaliação foi executada.",
+             file=sys.stderr,
+         )
+         return 1
++    result = evaluate()
++    print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
++    if result["status"] == "AGUARDANDO_N":
++        return 0
+     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+     from datetime import UTC, datetime
+ 
+diff --git a/brasileirao_scripts/price_discovery_preflight.py b/brasileirao_scripts/price_discovery_preflight.py
+new file mode 100644
+index 0000000..fd9ea78
+--- /dev/null
++++ b/brasileirao_scripts/price_discovery_preflight.py
+@@ -0,0 +1,120 @@
++"""Read-only, synthetic cadence preflight; never loads a scientific cohort."""
++
++from __future__ import annotations
++
++import json
++from datetime import UTC, datetime, timedelta
++from pathlib import Path
++from typing import Any
++
++from brasileirao_scripts.collect_odds_a1 import due_label
++
++ROOT = Path(__file__).resolve().parent.parent
++SCHEMA = ROOT / "schemas" / "odds_snapshot_v1.json"
++POLICY = ROOT / "contracts" / "a1-ou25-phase0-policy.json"
++KICKOFF = datetime(2026, 1, 3, tzinfo=UTC)  # Fictional event, no source data.
++TICK_MINUTES = 15
++
++
++def simulate_schedule(mode: str, phase_minutes: int) -> list[dict[str, Any]]:
++    """Exercise the actual due-label function with successful ideal captures."""
++    if mode not in {"economic", "full"} or phase_minutes not in range(TICK_MINUTES):
++        raise ValueError("expected economic/full and an integer phase from 0 to 14")
++    now = KICKOFF - timedelta(minutes=1440 + TICK_MINUTES - phase_minutes)
++    completed: set[str] = set()
++    captures: list[dict[str, Any]] = []
++    while now < KICKOFF:
++        label = due_label(KICKOFF, now, completed, mode=mode)
++        if label is not None:
++            captures.append(
++                {
++                    "label": label,
++                    "minutes_before_kickoff": int((KICKOFF - now).total_seconds() / 60),
++                }
++            )
++            completed.add(label)
++        now += timedelta(minutes=TICK_MINUTES)
++    return captures
++
++
++def build_report() -> dict[str, Any]:
++    """Read only two versioned contracts; all schedule rows are synthetic."""
++    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
++    policy = json.loads(POLICY.read_text(encoding="utf-8"))
++    properties = schema["properties"]
++    phases = []
++    for phase in range(TICK_MINUTES):
++        economic = simulate_schedule("economic", phase)
++        full = simulate_schedule("full", phase)
++        phases.append(
++            {
++                "phase_minutes": phase,
++                "economic": economic,
++                "economic_missing_labels": [
++                    f"T-{window}m"
++                    for window in policy["capture_windows_minutes"]
++                    if f"T-{window}m" not in {row["label"] for row in economic}
++                ],
++                "full": full,
++                "full_max_captures_per_utc_hour": max(
++                    sum(other["label"] == row["label"] for other in full) for row in full
++                ),
++            }
++        )
++    execution_fields = [
++        "source_price_updated_at",
++        "request_sent_at",
++        "response_received_at",
++        "request_latency_ms",
++        "available_stake",
++        "accepted_odds",
++    ]
++    return {
++        "schema_version": "price-discovery-preflight/1",
++        "status": "SYNTHETIC_PREFLIGHT_ONLY",
++        "inputs": ["schemas/odds_snapshot_v1.json", "contracts/a1-ou25-phase0-policy.json"],
++        "real_cohort_read": False,
++        "network_calls": 0,
++        "database_access": False,
++        "capital_enabled": False,
++        "observed_provider_coverage": None,
++        "declared_support": {
++            "bookmakers": properties["bookmaker"]["enum"],
++            "markets": properties["market"]["enum"],
++            "time_fields": [name for name, spec in properties.items() if spec.get("format") == "date-time"],
++            "additional_properties_allowed": schema["additionalProperties"],
++            "execution_fields_absent": [name for name in execution_fields if name not in properties],
++            "forbidden_labels": policy["labels_forbidden"],
++            "threshold_frozen": policy["threshold_frozen"],
++        },
++        "simulation": {
++            "kickoff_utc": KICKOFF.isoformat(),
++            "tick_minutes": TICK_MINUTES,
++            "phase_definition": "integer minute after kickoff minus 1455 minutes",
++            "assumptions": [
++                "fictional event; no real fixture identifiers or odds",
++                "ideal successful captures; no latency, quota failures, reschedules or downtime",
++                "first tick precedes T-24h; stop strictly before kickoff",
++                "15 deterministic phases are scenarios, never an economic sample",
++            ],
++            "phases_missing_t10": [row["phase_minutes"] for row in phases if "T-10m" in row["economic_missing_labels"]],
++            "phases": phases,
++        },
++        "limits": [
++            "configured books and markets do not establish observed coverage",
++            "job ticks do not establish quote capture cadence",
++            "captured_at is a collector clock; source freshness and receipt ordering remain unverified",
++            "schema fields do not prove executability or price leadership",
++            "future quotes and closing prices require a separately frozen prospective protocol",
++            "repeated books, selections and timestamps for one event are dependent observations",
++        ],
++    }
++
++
++def main() -> int:
++    print(json.dumps(build_report(), ensure_ascii=False, indent=2))
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/docs/ESTADO_LOCAL_E_OPERACAO.md b/docs/ESTADO_LOCAL_E_OPERACAO.md
+index f58333c..9acdf4f 100644
+--- a/docs/ESTADO_LOCAL_E_OPERACAO.md
++++ b/docs/ESTADO_LOCAL_E_OPERACAO.md
+@@ -2,6 +2,48 @@
+ 
+ Criado em 2026-09-06, ao fim da auditoria adversarial.
+ 
++## Adendo medido em 2026-09-07, 18:05 UTC (15:05 BRT)
++
++Inspeção somente de metadados na máquina Windows do operador:
++
++- **27/27 tarefas `brasileirao-*` em `Disabled`**, incluindo A1/H14/H15.
++  LastTaskResult=0 das últimas execuções não comprova operação atual.
++- As tarefas A1/H14/H15 apontam para
++  `C:\Users\Superleo13\projetos\brasileirao-predictor`, HEAD `7b5f833`.
++  O código atual auditado em clone isolado é `02b8d88`: não confundir versões.
++- `data/matches.db` existe, 49.516.544 bytes, última escrita em
++  2026-09-04T19:59:10.6794206Z. Conteúdo não foi aberto.
++- O diretório A1 contém um arquivo diário `2026-09-04.jsonl`, 46.356 bytes,
++  última escrita em 2026-09-04T21:49:40.6167153Z. Não se contaram linhas,
++  eventos, odds, fechamentos nem se calculou qualquer métrica da coorte.
++- Os ledgers H14/H15 existem (822/1.247 bytes), última escrita em
++  04/09 às 21:45:27/21:46:15 UTC. Tamanho não é N elegível.
++
++Este adendo **supersede a afirmação de tarefas atualmente ativas** da seção 3
++abaixo apenas nesta máquina/instante. A ativação relatada em 04/09 continua
++registro histórico; o momento/motivo da desativação não foi determinado.
++Não há evidência para atribuir a pausa a falha do coletor. Nenhuma tarefa
++foi reativada. O horizonte foi submetido ao operador conforme solicitação.
++
++O prazo A1 10/11-09 continua referência histórica: calendário decorrido não
++substitui continuidade, auditoria humana ou os gates. O modo econômico
++permanece REHEARSAL_ONLY. O atestado versionado expira em 13/09; não foi
++renovado nem usado para registrar trial nesta sessão.
++
++Checagem reproduzível e segura: `Get-ScheduledTask -TaskName 'brasileirao-*'`
++para estado; `Get-ScheduledTaskInfo` para últimas execuções; `Get-Item` e
++`Get-ChildItem -File` para existência/tamanho/data. **Não** executar avaliações
++de coorte para checar saúde. Para conferir apenas cadência/configuração,
++`uv run python -m brasileirao_scripts.price_discovery_preflight` usa dados
++inteiramente sintéticos e lê somente schema/policy versionados.
++
++Outro limite documental: a conta histórica 4×60+5=245 requests não incorpora
++a reserva atual de 20 (`contracts/a1-ou25-phase0-policy.json`). **Se** o limite
++for 250 como declarado no repo, ficam 230 chamadas utilizáveis; com cinco
++descobertas, cabem 56 eventos×4 capturas, antes de retries. Isso é aritmética
++condicional, não verificação atual de tarifa/conta do provedor. Reserva, plano
++e cadência não foram alterados.
++
+ Este documento existe porque partes do sistema **não estão versionadas e não
+ são reconstruíveis a partir deste repositório**. Sem elas escritas em algum
+ lugar, a informação vive só na cabeça do mantenedor ou num chat que vai ser
+diff --git a/tests/test_price_discovery_preflight.py b/tests/test_price_discovery_preflight.py
+new file mode 100644
+index 0000000..5a5be58
+--- /dev/null
++++ b/tests/test_price_discovery_preflight.py
+@@ -0,0 +1,80 @@
++from __future__ import annotations
++
++import builtins
++import io
++import json
++import sqlite3
++from pathlib import Path
++
++import pytest
++import requests
++
++from brasileirao_scripts import price_discovery_preflight as preflight
++
++
++def test_economic_t10_can_be_missed_with_ideal_15_minute_ticks() -> None:
++    missing = []
++    for phase in range(15):
++        rows = preflight.simulate_schedule("economic", phase)
++        labels = {row["label"] for row in rows}
++        assert {"T-1440m", "T-360m", "T-60m"} <= labels
++        if "T-10m" not in labels:
++            missing.append(phase)
++        else:
++            t10 = next(row for row in rows if row["label"] == "T-10m")
++            assert 0 < t10["minutes_before_kickoff"] <= 10
++        assert all(row["minutes_before_kickoff"] > 0 for row in rows)
++    assert missing == [0, 1, 2, 3, 4]
++
++
++def test_full_mode_deduplicates_hourly_despite_15_minute_ticks() -> None:
++    for phase in range(15):
++        rows = preflight.simulate_schedule("full", phase)
++        assert len(rows) == len({row["label"] for row in rows})
++        offsets = [row["minutes_before_kickoff"] for row in rows]
++        # Ignore the initial partial hour; all subsequent captures are hourly.
++        assert {left - right for left, right in zip(offsets[1:], offsets[2:], strict=False)} == {60}
++        assert all(row["label"].startswith("F-") for row in rows)
++
++
++def test_preflight_reads_only_versioned_contracts_and_never_uses_io_services(
++    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
++) -> None:
++    real_read_text = Path.read_text
++    real_open = io.open
++    reads: list[Path] = []
++
++    def guarded_open(file: object, mode: str = "r", *args: object, **kwargs: object) -> object:
++        assert Path(file) in {preflight.SCHEMA, preflight.POLICY}
++        assert mode in {"r", "rb"}
++        return real_open(file, mode, *args, **kwargs)
++
++    def guarded_read(path: Path, *args: object, **kwargs: object) -> str:
++        assert path in {preflight.SCHEMA, preflight.POLICY}
++        reads.append(path)
++        return real_read_text(path, *args, **kwargs)
++
++    def forbidden(*args: object, **kwargs: object) -> None:
++        raise AssertionError("preflight must not access runtime, network, databases or write files")
++
++    monkeypatch.setattr(Path, "read_text", guarded_read)
++    monkeypatch.setattr(builtins, "open", guarded_open)
++    monkeypatch.setattr(io, "open", guarded_open)
++    monkeypatch.setattr(Path, "write_text", forbidden)
++    monkeypatch.setattr(Path, "write_bytes", forbidden)
++    monkeypatch.setattr(sqlite3, "connect", forbidden)
++    monkeypatch.setattr(requests.sessions.Session, "request", forbidden)
++    assert preflight.main() == 0
++    report = json.loads(capsys.readouterr().out)
++    assert reads == [preflight.SCHEMA, preflight.POLICY]
++    assert report["status"] == "SYNTHETIC_PREFLIGHT_ONLY"
++    assert report["observed_provider_coverage"] is None
++    assert report["real_cohort_read"] is report["capital_enabled"] is False
++    assert report["simulation"]["phases_missing_t10"] == [0, 1, 2, 3, 4]
++    support = report["declared_support"]
++    assert set(support["time_fields"]) == {"captured_at", "kickoff_at"}
++    assert {"source_price_updated_at", "response_received_at", "available_stake"} <= set(
++        support["execution_fields_absent"]
++    )
++    assert "closing_odds" in support["forbidden_labels"]
++    assert all(row["full_max_captures_per_utc_hour"] == 1 for row in report["simulation"]["phases"])
+diff --git a/tests/test_prospective_evaluation_guard.py b/tests/test_prospective_evaluation_guard.py
+new file mode 100644
+index 0000000..1341963
+--- /dev/null
++++ b/tests/test_prospective_evaluation_guard.py
+@@ -0,0 +1,47 @@
++"""Relatório existente impede nova avaliação e divulgação de métricas."""
++
++import json
++from unittest.mock import Mock
++
++import pytest
++
++from brasileirao_scripts import evaluate_h14_prospective as h14
++from brasileirao_scripts import evaluate_h15_prospective as h15
++
++
++@pytest.mark.parametrize(("job", "prefix"), [(h14, "h14"), (h15, "h15")])
++def test_relatorio_existente_impede_avaliacao_e_saida_de_metricas(job, prefix, tmp_path, monkeypatch, capsys):
++    reports_dir = tmp_path / "reports"
++    reports_dir.mkdir()
++    report = reports_dir / f"{prefix}_avaliacao_2027-01-01T000000Z.json"
++    report.write_text('{"synthetic": true}\n', encoding="utf-8")
++    original = report.read_bytes()
++    evaluate = Mock(side_effect=AssertionError("não pode ler ou avaliar a coorte"))
++    monkeypatch.setattr(job, "REPORTS_DIR", reports_dir)
++    monkeypatch.setattr(job, "evaluate", evaluate)
++
++    assert job.main() == 1
++
++    evaluate.assert_not_called()
++    captured = capsys.readouterr()
++    assert captured.out == ""
++    assert "Nenhuma avaliação foi executada." in captured.err
++    assert report.read_bytes() == original
++    assert list(reports_dir.iterdir()) == [report]
++
++
++@pytest.mark.parametrize("job", [h14, h15], ids=["h14", "h15"])
++def test_primeira_chamada_aguardando_n_permanece_permitida(job, tmp_path, monkeypatch, capsys):
++    reports_dir = tmp_path / "reports"
++    result = {"status": "AGUARDANDO_N", "n": 3, "min_n_avaliacao": 900, "faltam": 897}
++    evaluate = Mock(return_value=result)
++    monkeypatch.setattr(job, "REPORTS_DIR", reports_dir)
++    monkeypatch.setattr(job, "evaluate", evaluate)
++
++    assert job.main() == 0
++
++    evaluate.assert_called_once_with()
++    captured = capsys.readouterr()
++    assert json.loads(captured.out) == result
++    assert captured.err == ""
++    assert not reports_dir.exists()

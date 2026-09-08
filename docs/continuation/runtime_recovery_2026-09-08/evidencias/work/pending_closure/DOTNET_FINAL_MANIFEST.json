@@ -1,0 +1,37 @@
+[
+  {
+    "path": "dotnet/LineupWorker/Services/MarketStateEngine.cs",
+    "sha256": "6ac1e83af3d1d66c11b17db58764c44f1e07be1c3be06c6cb9b5362e4063d65e",
+    "isolated_sha256": "6ac1e83af3d1d66c11b17db58764c44f1e07be1c3be06c6cb9b5362e4063d65e"
+  },
+  {
+    "path": "dotnet/LineupWorker/Services/KernelRedisProtocolV2.cs",
+    "sha256": "1ad2128c9d82d26bed3e36d984fadd8464ad883e4f1915d60a28a5136f7a8f3f",
+    "isolated_sha256": "1ad2128c9d82d26bed3e36d984fadd8464ad883e4f1915d60a28a5136f7a8f3f"
+  },
+  {
+    "path": "dotnet/LineupWorker/Services/WorkerHealth.cs",
+    "sha256": "b3231e9f861326cc8c04354b068313762c9ea195f25eee276b83dcaba6c33d40",
+    "isolated_sha256": "b3231e9f861326cc8c04354b068313762c9ea195f25eee276b83dcaba6c33d40"
+  },
+  {
+    "path": "dotnet/LineupWorker/Program.cs",
+    "sha256": "d1d34f51a95b3c112ee6b95202f49be2ec3b6401fa64f078216b3188715542b7",
+    "isolated_sha256": "d1d34f51a95b3c112ee6b95202f49be2ec3b6401fa64f078216b3188715542b7"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/FairOddsRecoveryTests.cs",
+    "sha256": "866a88455302b405c4fc551b87e7f8bd4fb04ab32332e2cdc4c31385eb52cb5c",
+    "isolated_sha256": "866a88455302b405c4fc551b87e7f8bd4fb04ab32332e2cdc4c31385eb52cb5c"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WorkerHealthTests.cs",
+    "sha256": "f4b2d944db9f2755748c3e5c384c9b1603ce02b1836a6b1e85389a31212e520b",
+    "isolated_sha256": "f4b2d944db9f2755748c3e5c384c9b1603ce02b1836a6b1e85389a31212e520b"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WorkerRuntimeFencingTests.cs",
+    "sha256": "bb0d12a8e4b78273dae68b94e5406dc605c656f101d05c27587da63ca5aefb80",
+    "isolated_sha256": "bb0d12a8e4b78273dae68b94e5406dc605c656f101d05c27587da63ca5aefb80"
+  }
+]

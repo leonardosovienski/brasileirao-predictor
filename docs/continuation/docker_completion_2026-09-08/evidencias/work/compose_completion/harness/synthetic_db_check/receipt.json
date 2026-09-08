@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-09-08T12:27:17.678821+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "-X",
+    "utf8",
+    "-c",
+    "import json, os\nfrom brasileirao_scripts.init_compose_data import main\nassert main() == 0\nfrom brasileirao_predictor.kernel_daemon import _load_params\nfrom brasileirao_predictor import db\nparams = _load_params(os.environ[\"SPORTS_DB_PATH\"])\nassert params == (0.2, 1.0, 0.1, 0.0, 0.0, 12), params\nfor path in (os.environ[\"SPORTS_DB_PATH\"], os.environ[\"MARKET_DB_PATH\"]):\n    con = db.connect(path, read_only=True)\n    assert con.execute(\"SELECT COUNT(*) FROM matches\").fetchone()[0] == 0\n    con.close()\nprint(json.dumps({\"status\":\"PASS\",\"synthetic_params\":params,\"real_match_rows\":0,\"fit_or_backtest\":False}))\n"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "exit_code": 0,
+  "environment_allowlist": true,
+  "external_network_guard": true,
+  "only_new_synthetic_databases": true,
+  "operational_data_access": false,
+  "fit_or_backtest": false
+}

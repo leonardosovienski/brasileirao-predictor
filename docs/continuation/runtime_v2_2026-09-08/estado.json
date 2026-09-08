@@ -1,0 +1,408 @@
+{
+  "verified_at_utc": "2026-09-08T03:57:31.154389+00:00",
+  "status": "RUNTIME_FIXES_VALIDATED_LOCALLY_WITH_DOCUMENTED_DEPLOYMENT_LIMITS",
+  "source_sha256": {
+    "brasileirao_predictor/kernel_daemon.py": "9daae68634199b47bca84e54a2a06537ae30ef0f1098f2455a9ac72d9d9bf8ea",
+    "brasileirao_predictor/kernel_redis_v2.py": "281b405d9443939e3597a4cf7658416372b1e805e47ec01494810ad6c7fe7866",
+    "tests/test_kernel_protocol.py": "93816017c8be005643c038b4cf97864623201b8431e86d096040f752bc155c31",
+    "tests/test_kernel_runtime.py": "bf315b577df06340ad3c69a8ebffcada8394bf67367df189cea084b4f4b54954",
+    "tests/test_kernel_v2_runtime.py": "785fa64052fdecc6e62e219bc37eb8e93b34270c5a9396f63a7c0c4f0ab1c907",
+    "tests/test_redis_integration.py": "245637689dcf02f290db3d67a2bae65bb868a5e23b0d33508a7f557947e8f46f",
+    "dotnet/LineupWorker/Worker.cs": "bbb5702fccb1ff0bb2288110f59fb1069b87d157b3f52ce9bef9a296d72f7964",
+    "dotnet/LineupWorker/Models/KernelContracts.cs": "28967e7f5b1d152ac53970a7e5f9b6c841355449c51ce937d83f102d5c6fc98e",
+    "dotnet/LineupWorker/Models/LineupEvent.cs": "be807e4c8c6b6a183383a7404f3afba524d1d31765836a2f703ab59cf7b15eb6",
+    "dotnet/LineupWorker/Models/LatencyRecord.cs": "b2a2d848af0e5bc326de8e9071d97c0d1c4e469a0c563d27c885c83c0e50d7b7",
+    "dotnet/LineupWorker/Services/MarketStateEngine.cs": "ec906c1f8372b46eda2d973c93920175d50c3b383c528ac55ed5b4191b2fb8e6",
+    "dotnet/LineupWorker/Services/KernelRedisProtocolV2.cs": "d0276db9d2a196100675226fb5f5eafb3f8057b62af2f9494905681d80bec350",
+    "dotnet/LineupWorker.Tests/RedisProtocolTests.cs": "5d3e7d332da89128f641d4745f1c7272a105ae4dd8e619260fb605a37473bdb2",
+    "dotnet/LineupWorker.Tests/ModelBranchTests.cs": "729234e7dfcc754513932a7d89af3a38c69da4b9d76f0e8c671dd9626e02da84",
+    "dotnet/LineupWorker.Tests/KernelInvocationIdentityTests.cs": "15478a6019a427f556a2d088e370d527948cd4a4ce77e8f270bb49688e2c6b73",
+    "dotnet/LineupWorker.Tests/FairOddsCorrelationTests.cs": "e8caf81b28487706753ca743533098a3f6faac79d72ae1697520bff9289bfd74",
+    "dotnet/LineupWorker.Tests/WorkerRuntimeTests.cs": "3dfe9b2a5ffedf9954e820f80c550f545a812d50e55e5689d642af1241608157",
+    "dotnet/LineupWorker.Tests/WorkerRuntimeFencingTests.cs": "2b14997a7d9537a089648de8af8a599de823036a28eceba39fc1c0bc4ebc3868",
+    ".github/workflows/ci.yml": "272c987a67ffb326e2cb9304d07ef5a1c0829d12e321d7ab3f35192eda7d9e90",
+    "brasileirao_scripts/hotpath_smoke.py": "0f2392c4a8f85683685e2d1484905ac95e51245c237ac157089e3abc816e4c83",
+    "tests/test_hotpath_smoke.py": "ecac28d7f84224aa0e8f32112a9b1ae1277ae8823d58a78882db6d6767d06304",
+    "dotnet/LineupWorker.Tests/KernelCrossProcessTests.cs": "7d0e52a33c4b05fb238cc66b3151bc3d1adfc62c857d4464744e27d5e7983cc2",
+    "contracts/redis-protocol-v2.schema.json": "b78b42aeb10fb5837f387d6dcb055be0e9a32e06ad3e05945e3bc85625a0651a",
+    "contracts/redis-fair-odds-v2.schema.json": "b58008be93c4e049ac38a2409b2ae4e32445686c695bb06e4c18f126597511b0",
+    "contracts/redis-protocol-v2.md": "14832fb29269a3464b1db08c0174f1ffb5c3ec5bbc3f27ee9720bb7fcff09e50"
+  },
+  "tested_copy_identical_count": 24,
+  "documentation_only_source": "contracts/redis-protocol-v2.md",
+  "unchanged_prior_sources_sha256": {
+    "compose.yaml": "a042e9b514ea8b5617827914d36ff570640e61d74d6d78a3790e89079372849b",
+    "brasileirao_predictor/research/price_strength/__init__.py": "931f821e5316968cbd90d982f636463313e2622681d74ffd5759384719ef2a8e",
+    "brasileirao_predictor/research/price_strength/__main__.py": "6d65c28142f583a1cf2aaa1be17e52f1fefa1253c67eea2f9ab3554dd3040119",
+    "brasileirao_predictor/research/price_strength/artifacts.py": "6e32f2e80f36559264abaf87b945989a852e8b243f379716f88c0e50e6fce4b7",
+    "brasileirao_predictor/research/price_strength/demo.py": "01a643b5739101a9fd9ca1f08a9b2cdbac190c35f5e886ce4d8a0ef84eeb92a3",
+    "brasileirao_predictor/research/price_strength/dynamic_xg.py": "e780a459b08dd778877ceddb029fbc2855d02490b692a3bd456239754ba75d06",
+    "brasileirao_predictor/research/price_strength/quotes.py": "31e04a5b5739e1f13aa8c3339a0bb527dc3616decb2697aa9995ce69e0ee8889",
+    "brasileirao_predictor/research/price_strength/study.py": "ff513cada2f69394a89c5d3067a952a556f71f036ce978124d8de54a4d7da998",
+    "tests/test_price_strength_artifacts.py": "323506e4963c795c0f9d240d793f8748af0b385a5e0543687f5272161548c207",
+    "tests/test_price_strength_dynamic_xg.py": "f0b3dfa5c1cd62935149d78e43a1d22eb60c02744af82cf90c30ae0036fbab6e",
+    "tests/test_price_strength_quotes.py": "ba8d05cdcd9b757235ec93bca5f2200cb1f8859caa7bb00a4ef219c59062ee21",
+    "tests/test_price_strength_study.py": "304571539f6c6be693b501f67ef0dff8ecbc11450a8295506c86b81810535bfb",
+    "brasileirao_predictor/data/xg_quality.py": "de0127169b88c53dcdbd22e13f2dd0a5e679a6fd1ca807e1b55c23a1b47eab75",
+    "brasileirao_predictor/data/missingness_audit.py": "553577dff74ebf582dee964cf60c96f0cb4dee5238b0b531875666f1d686e19f",
+    "brasileirao_predictor/ingest_sofascore.py": "d87cbc352b45d06531aa355a2f0a14408edaf67596940f9610e4691a6aa78dd1",
+    "brasileirao_predictor/research/price_strength_reliability.py": "3b8338cb3972ae6bd23bbaee17097a562a525b5b6dcbb6e286056e4896c9d271",
+    "tests/test_xg_input_quality.py": "4309d9a6f694b43b315f1852357fd82ae58e914a976e7ae4a659df32410fc732",
+    "tests/test_missingness_audit.py": "cadbd3db94c919542c0aa980de42a151191700a8f30db5b45695ee21ee3a75c5",
+    "tests/test_price_strength_reliability.py": "2741f6f48218cb41dff98603486ae574352c6b08bc8e5e8597826559bb067eaf",
+    "tests/test_price_strength_review_regressions.py": "30d482f625597399e851dc135094b9f61a2797a57f20090c7d1b6100361e57de",
+    "contracts/redis-protocol-v1.schema.json": "f05250a4f21733630f6524731978c0ce4e9a8a4585dd790bc1f77b0e0b982afe"
+  },
+  "protected_sha256": {
+    "config.yaml": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009",
+    "pyproject.toml": "aecdb32ed59d5e78369c51f7383656e546b99e1f3ec3498360b7236568d369aa",
+    "uv.lock": "5031afe4ae912cf43e29f01e2bf276adc1534400baf9ddd8305be00a970cebd1",
+    "data/trials.json": "215e7579ca7f0619ab17caa4210e27e6356b1fd6ad290b3f1b57e9efffaf19bc",
+    "contracts/a1-ou25-phase0-policy.json": "ae45680d9cae103e3eb97d7577674934da8029cc97c197ac43fb33953a7feb35",
+    "brasileirao_scripts/persist_h14_prospective.py": "43be3f19977e2bee70ce137308cecee4bde18e3b6f72a6ee0d23ef4e3b2b187d",
+    "brasileirao_scripts/persist_h15_prospective.py": "0bbb9b4d89f4d34995c9b79c85ee293b3b4a55d2c1a6cfb62a3d24d157f0118e",
+    "brasileirao_predictor/model.py": "5b974eab0027275b829c3adfe41125fbad6ff4e0055578d7191167d5d65c4f2e",
+    "brasileirao_predictor/ratings.py": "de5594965ccef95903a75c7896126edbee039886a4044a4a8ef4dd7deb664041",
+    "brasileirao_predictor/cron_update_models.py": "4d637bdfbf0c99fa2a41abfd836c95e1791324fd9666700b843a88d6456d2337",
+    "brasileirao_scripts/collect_odds_a1.py": "a5f797949fd86801574ce8e2e0158af09c49d40c719d23e1041deed3db4b8653",
+    "brasileirao_predictor/collector_a1.py": "44b1f5b7f7417386f21a05c13ff7780617ea81b913347d6ad4d8a6cefe3bd647",
+    "schemas/odds_snapshot_v1.json": "2f6788b6269b8ee16f99e8c179046250526d94a2c82d81c52eefaafe0befe44a",
+    "data/team_aliases.json": "f5394bf22dfc0cfe962d7f02bbe67a1411501312a463eaed09c5fa855a49ef2a"
+  },
+  "protected_checks": {
+    "config.yaml": true,
+    "pyproject.toml": true,
+    "uv.lock": true,
+    "data/trials.json": true,
+    "contracts/a1-ou25-phase0-policy.json": true,
+    "brasileirao_scripts/persist_h14_prospective.py": true,
+    "brasileirao_scripts/persist_h15_prospective.py": true,
+    "brasileirao_predictor/model.py": true,
+    "brasileirao_predictor/ratings.py": true,
+    "brasileirao_predictor/cron_update_models.py": true,
+    "brasileirao_scripts/collect_odds_a1.py": true,
+    "brasileirao_predictor/collector_a1.py": true,
+    "schemas/odds_snapshot_v1.json": true,
+    "data/team_aliases.json": true
+  },
+  "previous_backup_manifests": [
+    {
+      "archive": "initial_477",
+      "files": 477,
+      "passed": 477,
+      "manifest_sha256": "0f5f0e529e9af4dc3e86d3ea8db660b948298bc02d98b6412245b5b0c1bc81cf",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true
+    },
+    {
+      "archive": "runtime_contracts_2026-09-07",
+      "files": 51,
+      "passed": 51,
+      "manifest_sha256": "4489dce231a5696131f46e478fe3583e2f1320e21e589b6fce15b3f522ef2844",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true
+    },
+    {
+      "archive": "model_research_2026-09-07",
+      "files": 5,
+      "passed": 5,
+      "manifest_sha256": "eceefe315431d0b464931ba5417c7c1ca3efbd87d7adcc9be7dbfacdf274cbc4",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true
+    },
+    {
+      "archive": "price_strength_2026-09-07",
+      "files": 55,
+      "passed": 55,
+      "manifest_sha256": "92cf6af9e409b5fec77f556ed4c89ca4669987ca2232ddd1d996fabff2fee1ad",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true
+    },
+    {
+      "archive": "price_strength_evaluation_2026-09-07",
+      "files": 44,
+      "passed": 44,
+      "manifest_sha256": "0a8857ca439bf506b33eb2bc9905c5b82def9bfaf0ddf28c1e330cf0e86be878",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true
+    },
+    {
+      "archive": "price_strength_diagnosis_2026-09-07",
+      "files": 132,
+      "passed": 132,
+      "manifest_sha256": "2739f5350edfde979544380d9f9118a522bb6e89012ada8af2ae06eec5f59333",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true
+    },
+    {
+      "archive": "whole_chat_review_2026-09-08",
+      "files": 48,
+      "manifest_sha256": "cdc4e47ca96d3601b0e704ba80cfb28e492a9835d6d3d16ff43130fe49c50dca",
+      "verified_after_runtime_v2": true
+    }
+  ],
+  "previous_archived_files_verified": 812,
+  "closed_studies": {
+    "TESTE_XG_REAL": {
+      "files": 7,
+      "all_passed": true,
+      "manifest_sha256": "1bd969fb887a995dc2b7c18c9954cc3e03bf1d6c09489d5cb61acc17b0a6cdd1",
+      "verified_after_patch": true
+    },
+    "CORRECAO": {
+      "files": 12,
+      "all_passed": true,
+      "manifest_sha256": "fe541e7d7a8af0f11bb5f58cf17a2c41c7ee965c0ab2eabf64ced162b74264e2",
+      "verified_after_patch": true
+    }
+  },
+  "closed_studies_reverified": true,
+  "transitive_helpers_unchanged": true,
+  "validation_receipts": {
+    "work/validation/kernel_v2_unit_health.json": {
+      "sha256": "33e700440e7ef23d861f32ac7e8784f4e7f4b6563dda186d30ea6b4bef6e6b31",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_kernel_protocol.py",
+        "tests/test_kernel_runtime.py",
+        "tests/test_kernel_v2_runtime.py",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ]
+    },
+    "work/runtime_fix/validation/kernel_v2_redis_health.json": {
+      "sha256": "f4355206758cce9116912a660d1a342f64725e3c63bd89b6f449afddf7b650a6",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_redis_integration.py",
+        "-m",
+        "integration",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ]
+    },
+    "work/validation/kernel_v2_lint_health.json": {
+      "sha256": "81ba84dca339bdef2bb23a4ec9b0c0b03e3477eac7c753c047cc196046d68f2b",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "brasileirao_predictor/kernel_daemon.py",
+        "brasileirao_predictor/kernel_redis_v2.py",
+        "tests/test_kernel_protocol.py",
+        "tests/test_kernel_runtime.py",
+        "tests/test_kernel_v2_runtime.py",
+        "tests/test_redis_integration.py",
+        "--no-cache"
+      ]
+    },
+    "work/validation/kernel_v2_health_format.json": {
+      "sha256": "645e848516b6d638d2bd621d1cb9c4e5a80050c16dccaad2771e4099da839ff9",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "brasileirao_predictor/kernel_daemon.py",
+        "brasileirao_predictor/kernel_redis_v2.py",
+        "tests/test_kernel_protocol.py",
+        "tests/test_kernel_runtime.py",
+        "tests/test_kernel_v2_runtime.py",
+        "tests/test_redis_integration.py"
+      ]
+    },
+    "work/validation/kernel_v2_pyright_health.json": {
+      "sha256": "27ffe80e030944d690b46001c75a753731a3b1c373e5952f3f0a8037fa649b47",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pyright",
+        "brasileirao_predictor/kernel_daemon.py",
+        "brasileirao_predictor/kernel_redis_v2.py",
+        "--pythonpath",
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe"
+      ]
+    },
+    "work/validation/runtime_v2_smoke_final3.json": {
+      "sha256": "1f666ed5b4d795eea01b7296b44c6a995a9241cf90a36a8047da7b903022a02b",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_hotpath_smoke.py",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ]
+    },
+    "work/validation/runtime_v2_smoke_lint_final.json": {
+      "sha256": "ee58d4e00fd8a1cdfd66204d05fe0b8b9104c49bc934beaf3029e27f3a98d136",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "brasileirao_scripts/hotpath_smoke.py",
+        "tests/test_hotpath_smoke.py"
+      ]
+    },
+    "work/validation/runtime_v2_smoke_format_check.json": {
+      "sha256": "b5b5411fc65113e8bb9da3afa184c0e4ba568b8922a4bba1b94f2b22d0ca77b7",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "brasileirao_scripts/hotpath_smoke.py",
+        "tests/test_hotpath_smoke.py"
+      ]
+    },
+    "work/validation/runtime_v2_smoke_pyright_verified.json": {
+      "sha256": "ad08573d00eec2d935bef70a5ed0a4f67ab87c38ac08b7cea3307eae2526dee4",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\pyright.exe",
+        "--project",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\runtime_fix\\smoke_pyright.json",
+        "--stats"
+      ]
+    },
+    "work/validation/runtime_v2_static.json": {
+      "sha256": "45bbd11e03afca364a36d104e31974f61502e932951024663228380c54f50d77",
+      "exit_code": 0,
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\runtime_fix\\check_static.py"
+      ]
+    },
+    "work/runtime_fix/validation/dotnet_v2_fourth.json": {
+      "sha256": "06bd8f8aab56d1d5378e5f4eb7f6fc186a0fd35b11c7a99b6cbebdbe4b15b28c",
+      "exit_code": 0,
+      "command": [
+        "dotnet",
+        "test",
+        "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+        "--configuration",
+        "Release",
+        "--no-restore",
+        "--collect:XPlat Code Coverage",
+        "--results-directory",
+        "artifacts/dotnet-runtime-v2-fourth"
+      ]
+    },
+    "work/runtime_fix/validation/dotnet_v2_warnaserror.json": {
+      "sha256": "1152a65f2184d0746977e47a5c88e68f07e482370c5da2926d7eed9835e900b4",
+      "exit_code": 0,
+      "command": [
+        "dotnet",
+        "build",
+        "dotnet/LineupWorker/LineupWorker.csproj",
+        "--configuration",
+        "Release",
+        "--no-restore",
+        "--warnaserror"
+      ]
+    },
+    "work/runtime_fix/validation/runtime_v2_cross_process.json": {
+      "sha256": "d956b6ce14e5dbfd30c3eb24b02915138409387f3e97887696be1d3d98c28423",
+      "exit_code": 0,
+      "command": [
+        "dotnet",
+        "test",
+        "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+        "--configuration",
+        "Release",
+        "--no-restore",
+        "--filter",
+        "FullyQualifiedName~KernelCrossProcessTests",
+        "--logger",
+        "trx",
+        "--results-directory",
+        "artifacts/runtime-v2-cross-process"
+      ]
+    }
+  },
+  "validation_counts": {
+    "python_kernel_unit_passed": 139,
+    "python_smoke_unit_passed": 12,
+    "python_redis_integration_passed": 18,
+    "dotnet_suite_passed": 81,
+    "dotnet_suite_cross_process_skipped": 1,
+    "separate_cross_process_passed": 1,
+    "separate_cross_process_skipped": 0
+  },
+  "coverage": {
+    "line-rate": "0.8612000000000001",
+    "branch-rate": "0.8034",
+    "version": "1.9",
+    "timestamp": "1788839186",
+    "lines-covered": "695",
+    "lines-valid": "807",
+    "branches-covered": "233",
+    "branches-valid": "290"
+  },
+  "coverage_existing_gate_percent": 80,
+  "redis": {
+    "ready_at_utc": "2026-09-08T03:22:14.554752+00:00",
+    "distro": "codex-brasileirao-redis-20260908",
+    "redis_version": "8.2.1",
+    "run_id": "97c7a9cc8a5fa8deb9387dd63a0505f8b66e9196",
+    "process_id": "12",
+    "python_url": "redis://127.0.0.1:26380/14",
+    "dotnet_url": "redis://127.0.0.1:26380/15",
+    "verified_from_windows": true,
+    "config": {
+      "port": "26380",
+      "bind": "127.0.0.1",
+      "save": "",
+      "databases": "16",
+      "appendonly": "no",
+      "dir": "/opt/redis-test"
+    },
+    "db14_initial_size": 0,
+    "db15_initial_size": 0,
+    "ownership": "new instance; not an existing endpoint"
+  },
+  "redis_cleanup": {
+    "at_utc": "2026-09-08T03:49:27.461961+00:00",
+    "distro_removed": "codex-brasileirao-redis-20260908",
+    "port_no_longer_accepts_connections": 26380,
+    "source_archives_and_receipts_preserved": true
+  },
+  "internal_review": true,
+  "docker_compose_executed": false,
+  "remote_ci_executed": false,
+  "no_new_economic_fit_or_backtest": true,
+  "profitability_established": false,
+  "live_database_access": false,
+  "financial_actions": false,
+  "commit_or_push": false,
+  "remaining_limits": [
+    "Deploy producer and consumer together on protocol v2; no deployment performed.",
+    "Docker daemon unavailable; WSL2 HCS_E_HYPERV_NOT_INSTALLED; Compose not validated.",
+    "Redis standalone only; durability depends on Redis persistence and exceptional server failures.",
+    "Pub/Sub fair-ready and final signals have no acknowledgement; lost fair-ready may abstain.",
+    "Pending recovery starts at accepted registration and ends at original 60-second expiry.",
+    "Pre-registration retry is bounded; upstream must recover longer failures or process loss.",
+    "Provider CapturedAt is not an authenticated revision clock.",
+    "Synthetic tests establish code behavior, not executable odds, financial edge or profit."
+  ],
+  "persistent_docs": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\docs\\continuation\\runtime_v2_2026-09-08",
+  "persistent_backup": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\runtime_v2_2026-09-08"
+}

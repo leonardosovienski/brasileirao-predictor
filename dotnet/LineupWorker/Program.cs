@@ -6,9 +6,12 @@ var operational = OperationalSettings.FromEnvironment();
 
 if (args.Contains("--healthcheck"))
 {
-    using var connection = await ConnectionMultiplexer.ConnectAsync(operational.RedisConfiguration());
-    await connection.GetDatabase().PingAsync().WaitAsync(TimeSpan.FromSeconds(3));
-    return 0;
+    try
+    {
+        using var connection = await ConnectionMultiplexer.ConnectAsync(operational.RedisConfiguration());
+        return await WorkerHealth.CheckAsync(connection).WaitAsync(TimeSpan.FromSeconds(3)) ? 0 : 1;
+    }
+    catch (Exception ex) when (ex is RedisException or TimeoutException) { return 1; }
 }
 
 var host = Host.CreateDefaultBuilder(args)
@@ -35,6 +38,7 @@ var host = Host.CreateDefaultBuilder(args)
 
         // LatencyAuditService: singleton compartilhado entre Worker e MarketStateEngine
         services.AddSingleton<LatencyAuditService>();
+        services.AddSingleton<WorkerHealth>();
 
         // MarketOddsCache: singleton que mantém True Odds via WebSocket (Zona 2 - Contrato 3)
         services.AddSingleton<MarketOddsCache>();

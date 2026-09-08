@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://brasileirao-predictor.local/contracts/redis-fair-odds-v2.schema.json",
+  "title": "Brasileirao Redis current fair-odds result v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "job_id", "run_id", "match_id", "idempotency_key", "state_version", "1", "X", "2", "o25", "u25"],
+  "properties": {
+    "protocol_version": {"const": "brasileirao.redis/2"},
+    "job_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "match_id": {"type": "string", "minLength": 1},
+    "idempotency_key": {"type": "string", "minLength": 1},
+    "state_version": {"type": "string", "pattern": "^[1-9][0-9]{0,18}$"},
+    "1": {"type": ["number", "null"], "minimum": 1},
+    "X": {"type": ["number", "null"], "minimum": 1},
+    "2": {"type": ["number", "null"], "minimum": 1},
+    "o25": {"type": ["number", "null"], "minimum": 1},
+    "u25": {"type": ["number", "null"], "minimum": 1}
+  }
+}

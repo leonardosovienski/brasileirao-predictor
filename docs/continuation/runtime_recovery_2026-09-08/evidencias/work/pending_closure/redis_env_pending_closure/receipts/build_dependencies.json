@@ -1,0 +1,19 @@
+{
+  "started_at_utc": "2026-09-08T04:05:50.132700+00:00",
+  "command": [
+    "wsl.exe",
+    "-d",
+    "codex-brasileirao-pending-20260908",
+    "--exec",
+    "/sbin/apk",
+    "add",
+    "--no-cache",
+    "build-base",
+    "linux-headers"
+  ],
+  "environment_allowlist": true,
+  "distro": "codex-brasileirao-pending-20260908",
+  "existing_services_modified": false,
+  "exit_code": 0,
+  "seconds": 9.578395000004093
+}

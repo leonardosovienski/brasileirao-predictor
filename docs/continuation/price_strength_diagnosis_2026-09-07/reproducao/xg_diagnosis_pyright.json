@@ -1,0 +1,15 @@
+{
+  "include": [
+    "integration-repo/brasileirao_predictor/data/missingness_audit.py",
+    "integration-repo/brasileirao_predictor/data/xg_quality.py",
+    "integration-repo/brasileirao_predictor/ingest_sofascore.py",
+    "integration-repo/brasileirao_predictor/research/price_strength/dynamic_xg.py",
+    "integration-repo/brasileirao_predictor/research/price_strength_reliability.py"
+  ],
+  "exclude": [],
+  "extraPaths": ["integration-repo"],
+  "pythonVersion": "3.13",
+  "typeCheckingMode": "basic",
+  "venvPath": "C:/Users/Superleo13/projetos/brasileirao-predictor",
+  "venv": ".venv"
+}

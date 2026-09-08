@@ -1,0 +1,596 @@
+{
+  "status": "EXPLORATORY_AFTER_DIAGNOSIS_NOT_NEW_HOLDOUT",
+  "plan_sha256": "2c9a6615f77c2568ecc70868ce8283f6bb6a5796c622df898bc3858927e11a92",
+  "coverage": {
+    "universe": 380,
+    "original_common": 368,
+    "new_common": 362,
+    "additional_excluded_ids": [
+      "13473341",
+      "13473357",
+      "13473359",
+      "13473377",
+      "13473380",
+      "13473397"
+    ],
+    "changed_raw_ids": [
+      "13473341",
+      "13473357",
+      "13473359",
+      "13473377",
+      "13473380",
+      "13473397",
+      "13473398",
+      "13473417",
+      "13473426",
+      "13473438"
+    ]
+  },
+  "weights": {
+    "1x2": {
+      "weight": 0.0,
+      "n": 366,
+      "dimension": 3,
+      "model_loss": 0.6255304680293435,
+      "market_loss": 0.5896173990046232,
+      "blended_loss": 0.5896173990046232,
+      "numerator": -3.016427518077634,
+      "denominator": 7.1113282268923985
+    },
+    "ou25": {
+      "weight": 0.5913381541287918,
+      "n": 246,
+      "dimension": 2,
+      "model_loss": 0.2475181579881864,
+      "market_loss": 0.24834469990968389,
+      "blended_loss": 0.24676252511397628,
+      "numerator": 0.6581936190427199,
+      "denominator": 1.11305792539706
+    },
+    "btts": {
+      "weight": 0.8178670375974273,
+      "n": 247,
+      "dimension": 2,
+      "model_loss": 0.250241360927694,
+      "market_loss": 0.25215157101960245,
+      "blended_loss": 0.25014168673013837,
+      "numerator": 0.6069952653379705,
+      "denominator": 0.7421686379745596
+    }
+  },
+  "probabilistic_common": {
+    "quality_raw_market_blend": {
+      "1x2": {
+        "brier": 0.5795973399203309,
+        "log_loss": 0.9705933058168238
+      },
+      "ou25": {
+        "brier": 0.24612243306238973,
+        "log_loss": 0.6854349419187019
+      },
+      "btts": {
+        "brier": 0.25186355475583644,
+        "log_loss": 0.6968942927328116
+      }
+    },
+    "quality_raw": {
+      "1x2": {
+        "brier": 0.6027929408526604,
+        "log_loss": 1.00890819407325
+      },
+      "ou25": {
+        "brier": 0.25113671878597693,
+        "log_loss": 0.695504575168013
+      },
+      "btts": {
+        "brier": 0.2532492664712659,
+        "log_loss": 0.6996873935177284
+      }
+    },
+    "quality_rate_calibrated": {
+      "1x2": {
+        "brier": 0.6007555215140897,
+        "log_loss": 1.0056983856128279
+      },
+      "ou25": {
+        "brier": 0.25099557811841927,
+        "log_loss": 0.6953044544756234
+      },
+      "btts": {
+        "brier": 0.25147070014371975,
+        "log_loss": 0.6960872747495065
+      }
+    },
+    "xg_calibrated_primary": {
+      "1x2": {
+        "brier": 0.6007555435046953,
+        "log_loss": 1.005698416439457
+      },
+      "ou25": {
+        "brier": 0.25099562112383866,
+        "log_loss": 0.6953045445782883
+      },
+      "btts": {
+        "brier": 0.25147070497256546,
+        "log_loss": 0.6960872857105161
+      }
+    },
+    "xg_raw_diagnostic": {
+      "1x2": {
+        "brier": 0.6027929634722196,
+        "log_loss": 1.008908224859682
+      },
+      "ou25": {
+        "brier": 0.2511367595767061,
+        "log_loss": 0.6955046591596223
+      },
+      "btts": {
+        "brier": 0.25324926876413467,
+        "log_loss": 0.6996873988737407
+      }
+    },
+    "old_raw_frozen_2024": {
+      "1x2": {
+        "brier": 0.6144965469978148,
+        "log_loss": 1.0244187659454267
+      },
+      "ou25": {
+        "brier": 0.24984426488159528,
+        "log_loss": 0.6929132055883627
+      },
+      "btts": {
+        "brier": 0.24818775690220757,
+        "log_loss": 0.6895218867179254
+      }
+    },
+    "market_proportional_devig": {
+      "1x2": {
+        "brier": 0.5795973399203309,
+        "log_loss": 0.9705933058168238
+      },
+      "ou25": {
+        "brier": 0.2423867281150053,
+        "log_loss": 0.677870444956178
+      },
+      "btts": {
+        "brier": 0.2490137162145127,
+        "log_loss": 0.6912149288544781
+      }
+    }
+  },
+  "economics_common": {
+    "quality_raw_market_blend": {
+      "fixtures": 362,
+      "bets": 170,
+      "wins": 66,
+      "losses": 104,
+      "stake_units": 170,
+      "gross_profit_units": -19.973,
+      "cost_units": 3.4,
+      "net_profit_units": -23.373,
+      "net_roi": -0.13748823529411766,
+      "net_profit_per_fixture": -0.06456629834254143,
+      "max_drawdown_units": 27.020999999999972
+    },
+    "quality_raw": {
+      "fixtures": 362,
+      "bets": 334,
+      "wins": 100,
+      "losses": 234,
+      "stake_units": 334,
+      "gross_profit_units": -19.916999999999998,
+      "cost_units": 6.68,
+      "net_profit_units": -26.597,
+      "net_roi": -0.0796317365269461,
+      "net_profit_per_fixture": -0.07347237569060774,
+      "max_drawdown_units": 38.94499999999998
+    },
+    "quality_rate_calibrated": {
+      "fixtures": 362,
+      "bets": 307,
+      "wins": 82,
+      "losses": 225,
+      "stake_units": 307,
+      "gross_profit_units": -59.71,
+      "cost_units": 6.140000000000001,
+      "net_profit_units": -65.85,
+      "net_roi": -0.21449511400651464,
+      "net_profit_per_fixture": -0.18190607734806627,
+      "max_drawdown_units": 71.94500000000025
+    },
+    "xg_calibrated_primary": {
+      "fixtures": 362,
+      "bets": 307,
+      "wins": 82,
+      "losses": 225,
+      "stake_units": 307,
+      "gross_profit_units": -59.71,
+      "cost_units": 6.140000000000001,
+      "net_profit_units": -65.85,
+      "net_roi": -0.21449511400651464,
+      "net_profit_per_fixture": -0.18190607734806627,
+      "max_drawdown_units": 71.94500000000025
+    },
+    "xg_raw_diagnostic": {
+      "fixtures": 362,
+      "bets": 334,
+      "wins": 100,
+      "losses": 234,
+      "stake_units": 334,
+      "gross_profit_units": -19.916999999999998,
+      "cost_units": 6.68,
+      "net_profit_units": -26.597,
+      "net_roi": -0.0796317365269461,
+      "net_profit_per_fixture": -0.07347237569060774,
+      "max_drawdown_units": 38.94499999999998
+    },
+    "old_raw_frozen_2024": {
+      "fixtures": 362,
+      "bets": 293,
+      "wins": 83,
+      "losses": 210,
+      "stake_units": 293,
+      "gross_profit_units": -33.951,
+      "cost_units": 5.86,
+      "net_profit_units": -39.811,
+      "net_roi": -0.13587372013651877,
+      "net_profit_per_fixture": -0.10997513812154697,
+      "max_drawdown_units": 43.45100000000009
+    },
+    "market_proportional_devig": {
+      "fixtures": 362,
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "stake_units": 0,
+      "gross_profit_units": 0.0,
+      "cost_units": 0.0,
+      "net_profit_units": 0.0,
+      "net_roi": null,
+      "net_profit_per_fixture": 0.0,
+      "max_drawdown_units": 0.0
+    }
+  },
+  "economics_original_panel_with_explicit_abstentions": {
+    "quality_raw_market_blend": {
+      "fixtures": 368,
+      "bets": 170,
+      "wins": 66,
+      "losses": 104,
+      "stake_units": 170,
+      "gross_profit_units": -19.973,
+      "cost_units": 3.4,
+      "net_profit_units": -23.373,
+      "net_roi": -0.13748823529411766,
+      "net_profit_per_fixture": -0.06351358695652175,
+      "max_drawdown_units": 27.020999999999972
+    },
+    "quality_raw": {
+      "fixtures": 368,
+      "bets": 334,
+      "wins": 100,
+      "losses": 234,
+      "stake_units": 334,
+      "gross_profit_units": -19.916999999999998,
+      "cost_units": 6.68,
+      "net_profit_units": -26.597,
+      "net_roi": -0.0796317365269461,
+      "net_profit_per_fixture": -0.07227445652173914,
+      "max_drawdown_units": 38.94499999999998
+    },
+    "quality_rate_calibrated": {
+      "fixtures": 368,
+      "bets": 307,
+      "wins": 82,
+      "losses": 225,
+      "stake_units": 307,
+      "gross_profit_units": -59.71,
+      "cost_units": 6.140000000000001,
+      "net_profit_units": -65.85,
+      "net_roi": -0.21449511400651464,
+      "net_profit_per_fixture": -0.17894021739130433,
+      "max_drawdown_units": 71.94500000000025
+    },
+    "xg_calibrated_primary": {
+      "fixtures": 368,
+      "bets": 312,
+      "wins": 83,
+      "losses": 229,
+      "stake_units": 312,
+      "gross_profit_units": -62.46,
+      "cost_units": 6.24,
+      "net_profit_units": -68.7,
+      "net_roi": -0.22019230769230771,
+      "net_profit_per_fixture": -0.18668478260869567,
+      "max_drawdown_units": 74.79500000000016
+    },
+    "xg_raw_diagnostic": {
+      "fixtures": 368,
+      "bets": 340,
+      "wins": 102,
+      "losses": 238,
+      "stake_units": 340,
+      "gross_profit_units": -21.166999999999998,
+      "cost_units": 6.8,
+      "net_profit_units": -27.967000000000002,
+      "net_roi": -0.08225588235294118,
+      "net_profit_per_fixture": -0.07599728260869566,
+      "max_drawdown_units": 38.94499999999998
+    },
+    "old_raw_frozen_2024": {
+      "fixtures": 368,
+      "bets": 297,
+      "wins": 85,
+      "losses": 212,
+      "stake_units": 297,
+      "gross_profit_units": -33.701,
+      "cost_units": 5.94,
+      "net_profit_units": -39.641,
+      "net_roi": -0.13347138047138046,
+      "net_profit_per_fixture": -0.10772010869565217,
+      "max_drawdown_units": 42.261000000000095
+    },
+    "market_proportional_devig": {
+      "fixtures": 368,
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "stake_units": 0,
+      "gross_profit_units": 0.0,
+      "cost_units": 0.0,
+      "net_profit_units": 0.0,
+      "net_roi": null,
+      "net_profit_per_fixture": 0.0,
+      "max_drawdown_units": 0.0
+    }
+  },
+  "bootstrap_common": {
+    "weeks": 33,
+    "replicates": 2000,
+    "seed": 20260908,
+    "comparisons": {
+      "xg_calibrated_primary": {
+        "probabilistic": {
+          "1x2": {
+            "brier": {
+              "delta_mean": -0.02115820358436438,
+              "ci95_descriptive": [
+                -0.037533398461721434,
+                -0.005720510902564881
+              ]
+            },
+            "log_loss": {
+              "delta_mean": -0.03510511062263305,
+              "ci95_descriptive": [
+                -0.05818559639317541,
+                -0.013819448505821945
+              ]
+            }
+          },
+          "ou25": {
+            "brier": {
+              "delta_mean": -0.00487318806144893,
+              "ci95_descriptive": [
+                -0.007294628470790514,
+                -0.0025623133994115976
+              ]
+            },
+            "log_loss": {
+              "delta_mean": -0.009869602659586404,
+              "ci95_descriptive": [
+                -0.014864784722409975,
+                -0.005130859687468739
+              ]
+            }
+          },
+          "btts": {
+            "brier": {
+              "delta_mean": 0.0003928497832709049,
+              "ci95_descriptive": [
+                -0.001457329424174249,
+                0.0020813108946669333
+              ]
+            },
+            "log_loss": {
+              "delta_mean": 0.0008070070222954407,
+              "ci95_descriptive": [
+                -0.0029005330233682603,
+                0.004194397200930407
+              ]
+            }
+          }
+        },
+        "net_per_fixture": {
+          "delta_mean": 0.11733977900552488,
+          "ci95_descriptive": [
+            -0.02532254256965946,
+            0.24546882414202156
+          ]
+        }
+      },
+      "xg_raw_diagnostic": {
+        "probabilistic": {
+          "1x2": {
+            "brier": {
+              "delta_mean": -0.02319562355188874,
+              "ci95_descriptive": [
+                -0.03906912558102605,
+                -0.008685200155428289
+              ]
+            },
+            "log_loss": {
+              "delta_mean": -0.03831491904285815,
+              "ci95_descriptive": [
+                -0.06049291503560002,
+                -0.01751327831732444
+              ]
+            }
+          },
+          "ou25": {
+            "brier": {
+              "delta_mean": -0.005014326514316388,
+              "ci95_descriptive": [
+                -0.008149043799728346,
+                -0.0018615659499838985
+              ]
+            },
+            "log_loss": {
+              "delta_mean": -0.010069717240920477,
+              "ci95_descriptive": [
+                -0.016431476930949783,
+                -0.0036430600247492747
+              ]
+            }
+          },
+          "btts": {
+            "brier": {
+              "delta_mean": -0.0013857140082982726,
+              "ci95_descriptive": [
+                -0.0025263983409730575,
+                -0.0001829599178942919
+              ]
+            },
+            "log_loss": {
+              "delta_mean": -0.0027931061409290753,
+              "ci95_descriptive": [
+                -0.0050977116854078195,
+                -0.00036072766805830516
+              ]
+            }
+          }
+        },
+        "net_per_fixture": {
+          "delta_mean": 0.008906077348066298,
+          "ci95_descriptive": [
+            -0.1279279643678669,
+            0.1457343564303905
+          ]
+        }
+      },
+      "old_raw_frozen_2024": {
+        "probabilistic": {
+          "1x2": {
+            "brier": {
+              "delta_mean": -0.03489920707748394,
+              "ci95_descriptive": [
+                -0.054381015236505965,
+                -0.016730267428390316
+              ]
+            },
+            "log_loss": {
+              "delta_mean": -0.05382546012860295,
+              "ci95_descriptive": [
+                -0.08229688690441965,
+                -0.02774863241692832
+              ]
+            }
+          },
+          "ou25": {
+            "brier": {
+              "delta_mean": -0.0037218318192055446,
+              "ci95_descriptive": [
+                -0.008385463406916942,
+                0.0005043493451117703
+              ]
+            },
+            "log_loss": {
+              "delta_mean": -0.007478263669660778,
+              "ci95_descriptive": [
+                -0.016972747829536436,
+                0.0010410037580819349
+              ]
+            }
+          },
+          "btts": {
+            "brier": {
+              "delta_mean": 0.0036757978536288162,
+              "ci95_descriptive": [
+                -0.0011474119754206914,
+                0.008448647832804001
+              ]
+            },
+            "log_loss": {
+              "delta_mean": 0.0073724060148861945,
+              "ci95_descriptive": [
+                -0.002311782043781842,
+                0.01696872927232778
+              ]
+            }
+          }
+        },
+        "net_per_fixture": {
+          "delta_mean": 0.04540883977900552,
+          "ci95_descriptive": [
+            -0.09620580993080993,
+            0.19353273973954196
+          ]
+        }
+      },
+      "market_proportional_devig": {
+        "probabilistic": {
+          "1x2": {
+            "brier": {
+              "delta_mean": 0.0,
+              "ci95_descriptive": [
+                0.0,
+                0.0
+              ]
+            },
+            "log_loss": {
+              "delta_mean": 0.0,
+              "ci95_descriptive": [
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "ou25": {
+            "brier": {
+              "delta_mean": 0.0037357049473844307,
+              "ci95_descriptive": [
+                -0.0008516918094088344,
+                0.008337685860415677
+              ]
+            },
+            "log_loss": {
+              "delta_mean": 0.007564496962523869,
+              "ci95_descriptive": [
+                -0.0020338782183111468,
+                0.0172926527544337
+              ]
+            }
+          },
+          "btts": {
+            "brier": {
+              "delta_mean": 0.002849838541323675,
+              "ci95_descriptive": [
+                -0.0025717201414364814,
+                0.00797247103189287
+              ]
+            },
+            "log_loss": {
+              "delta_mean": 0.005679363878333388,
+              "ci95_descriptive": [
+                -0.005246084182940133,
+                0.01607338883480665
+              ]
+            }
+          }
+        },
+        "net_per_fixture": {
+          "delta_mean": -0.06456629834254143,
+          "ci95_descriptive": [
+            -0.13552451580089517,
+            0.003437875991563002
+          ]
+        }
+      }
+    }
+  },
+  "rate_calibration_2024_unchanged": true,
+  "availability_policy": "ASSUMED_48H_NOT_OBSERVED",
+  "execution_attested": false,
+  "joint_score_distribution_attested": false,
+  "promoted": false,
+  "real_capital_enabled": false
+}

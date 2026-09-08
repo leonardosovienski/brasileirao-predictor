@@ -22,7 +22,18 @@ public record LineupState(
     DateTimeOffset LineupCapturedAt,
     DateTimeOffset ComputedAt,
     string  FallbackStrategy   // "none" | "timeout_historical" | "timeout_widen_variance"
-);
+)
+{
+    // Declared capture order per side, not an authenticated provider revision.
+    // Legacy snapshots may omit these; never infer one side's clock from the other.
+    public DateTimeOffset? HomeCapturedAt { get; init; }
+    public DateTimeOffset? AwayCapturedAt { get; init; }
+    public string? HomeEventIdentity { get; init; }
+    public string? AwayEventIdentity { get; init; }
+    // Original accepted timeout, persisted before acknowledging the first lineup.
+    // Corrections retain this deadline. Legacy snapshots may omit it.
+    public long? WatchdogDeadlineUnixMs { get; init; }
+}
 
 /// <summary>Sinal de widening emitido quando o timeout de escalação expira.</summary>
 public record VarianceWideningSignal(

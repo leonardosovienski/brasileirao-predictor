@@ -1,0 +1,151 @@
+{
+  "schema_version": "rolling-xg-arithmetic-audit/1",
+  "plan_sha256": "507c69fc01aaabd9d78734b1153f740c3c347f601f5b1609cd54839a1698aaaa",
+  "status": "PASS",
+  "audit_source_sha256": "a6ac23422db50405dc365e925296e31683715d2c4f9ebdebe2ac72548f3be25b",
+  "performed_at_utc": "2026-09-08T01:55:02.398852+00:00",
+  "coverage": {
+    "universe": 380,
+    "common_panel": 368,
+    "excluded": 12,
+    "exclusion_reason_counts_nonexclusive": {
+      "raw:INSUFFICIENT_HISTORY": 6,
+      "calibrated:INSUFFICIENT_HISTORY": 6,
+      "incomplete_or_invalid_prices": 6
+    }
+  },
+  "recomputed_probabilistic": {
+    "xg_calibrated_primary": {
+      "1x2": {
+        "n": 368,
+        "brier": 0.6014101964594842,
+        "log_loss": 1.0066369306079062
+      },
+      "ou25": {
+        "n": 368,
+        "brier": 0.25097344684802864,
+        "log_loss": 0.6952602250209109
+      },
+      "btts": {
+        "n": 368,
+        "brier": 0.2515122059465651,
+        "log_loss": 0.696171801238852
+      }
+    },
+    "xg_raw_diagnostic": {
+      "1x2": {
+        "n": 368,
+        "brier": 0.6032797221361538,
+        "log_loss": 1.0096330545161083
+      },
+      "ou25": {
+        "n": 368,
+        "brier": 0.2511009099947328,
+        "log_loss": 0.6954332896165577
+      },
+      "btts": {
+        "n": 368,
+        "brier": 0.2532618720892115,
+        "log_loss": 0.699711525152468
+      }
+    },
+    "old_raw_frozen_2024": {
+      "1x2": {
+        "n": 368,
+        "brier": 0.6139031507630462,
+        "log_loss": 1.023530951695614
+      },
+      "ou25": {
+        "n": 368,
+        "brier": 0.24980115061736735,
+        "log_loss": 0.6928239095473965
+      },
+      "btts": {
+        "n": 368,
+        "brier": 0.24831789262233184,
+        "log_loss": 0.6897837208363103
+      }
+    },
+    "market_proportional_devig": {
+      "1x2": {
+        "n": 368,
+        "brier": 0.5802110447660493,
+        "log_loss": 0.9713548971905671
+      },
+      "ou25": {
+        "n": 368,
+        "brier": 0.24263780764961218,
+        "log_loss": 0.6783825804079209
+      },
+      "btts": {
+        "n": 368,
+        "brier": 0.24903645958255075,
+        "log_loss": 0.6912574958426607
+      }
+    }
+  },
+  "recomputed_economics": {
+    "xg_calibrated_primary": {
+      "fixtures": 368,
+      "bets": 312,
+      "wins": 83,
+      "losses": 229,
+      "stake_units": 312,
+      "gross_profit_units": -62.46,
+      "cost_units": 6.24,
+      "net_profit_units": -68.7,
+      "net_roi": -0.22019230769230771,
+      "net_profit_per_fixture": -0.18668478260869567,
+      "max_drawdown_units": 74.79500000000016
+    },
+    "xg_raw_diagnostic": {
+      "fixtures": 368,
+      "bets": 340,
+      "wins": 102,
+      "losses": 238,
+      "stake_units": 340,
+      "gross_profit_units": -21.166999999999998,
+      "cost_units": 6.8,
+      "net_profit_units": -27.967,
+      "net_roi": -0.08225588235294118,
+      "net_profit_per_fixture": -0.07599728260869565,
+      "max_drawdown_units": 38.94499999999998
+    },
+    "old_raw_frozen_2024": {
+      "fixtures": 368,
+      "bets": 297,
+      "wins": 85,
+      "losses": 212,
+      "stake_units": 297,
+      "gross_profit_units": -33.701,
+      "cost_units": 5.94,
+      "net_profit_units": -39.641,
+      "net_roi": -0.13347138047138046,
+      "net_profit_per_fixture": -0.10772010869565217,
+      "max_drawdown_units": 42.261000000000095
+    },
+    "market_proportional_devig": {
+      "fixtures": 368,
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "stake_units": 0,
+      "gross_profit_units": 0.0,
+      "cost_units": 0.0,
+      "net_profit_units": 0.0,
+      "net_roi": null,
+      "net_profit_per_fixture": 0.0,
+      "max_drawdown_units": 0.0
+    }
+  },
+  "paired_weekly_bootstrap_reconciled": true,
+  "source_reconciliation": "outcomes, odds, identities and old raw probabilities match hash-fixed inputs",
+  "selection_settlement_imports_used": false,
+  "model_refit_or_forecast_reexecution": false,
+  "limits": [
+    "Forecast algorithm and assumed 48-hour availability are not independently validated by arithmetic.",
+    "Matching file hashes does not authenticate provider publication times or executable prices.",
+    "Explored 2025 and descriptive confidence intervals cannot establish a confirmatory economic edge."
+  ],
+  "checks_completed": 113864
+}

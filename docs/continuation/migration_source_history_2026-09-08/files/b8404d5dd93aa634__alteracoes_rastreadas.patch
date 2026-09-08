@@ -1,0 +1,614 @@
+diff --git a/HANDOFF.md b/HANDOFF.md
+index 50c2f08..8881034 100644
+--- a/HANDOFF.md
++++ b/HANDOFF.md
+@@ -1,5 +1,255 @@
+ # HANDOFF.md — brasileirao-predictor
+ 
++> ## CHECKPOINT — REVISÃO INTEGRAL E REEXECUÇÃO FINAL (2026-09-07)
++>
++> Pedido do operador: revisar o que foi feito, corrigir o necessário, executar
++> e validar novamente, concluindo sobre qualidade e lucro. Quatro falhas reais
++> reproduzidas e corrigidas: ingest_sofascore OU confundia mercados/períodos e
++> aceitava conflitos; wrapper deixava descendentes vivos no timeout; EXP001
++> podia expor apiKey na exceção de transporte; dez paths legados do manifesto
++> eram inexistentes. Testes específicos adicionados. As colunas flat e o parser
++> normalizado OU usam agora a mesma validação. Nenhum reparo retroativo de
++> preços sem payload foi inventado. Modelos/configurações protegidos intactos.
++>
++> Validação em worktree isolado com mudanças atuais, schema de banco vazio,
++> sem credenciais ou dados operacionais, rede Python externa bloqueada:
++> 1.082 testes passaram,1 integraçãoRedis deselecionada; lint,344 arquivos
++> formatados,Pyright0erros/0warnings,buildwheel ebuild.NET10 sem warnings.
++> 18 testes.NET semRedis passaram;13 testesWorkerRuntime e integraçãoPython
++> Redis/Compose não executados porqueDocker não respondeu e oWindows negou
++> abrir com.docker.service para iniciá-lo. Não declarar integração completa.
++> Cobertura global combinada de linhas/branches50.59%, acima do gate45%;
++> não representa100% de cobertura. Mais103 testes do replay/diagnóstico passaram.
++> Ajuste adicional do verificadorCI: H14 foi classificado no caminho exato
++> como serving prospectivo, pois exige cacheanterioranow e now<kickoff. Quatro
++> regressões mantêm pesquisas/backtestsnovos bloqueados;10 módulosreadonly e
++> 16 arquivos de contençãoElo passaram. H14 e protocolo permaneceram intactos.
++>
++> Reexecutei o ajuste e replay novo:760 previsões,760 decisões e todos saldos
++> idênticos. Fingerprint científico estável adicionado separado do hash antigo
++> de execução, que inclui duração de otimização. Reexecutei13.680 decisões das
++> 12 políticas2023–2025 e conferi3.214 relações da extensão51: mesmos resultados.
++> Não houve nova busca de parâmetros nem promoção baseada em2026.
++>
++> Principal2T:9 apostas,4acertos/5erros,−1.23u líquido(−R$61.50 aR$50/u),
++> ROI−13.6667%,DD3.06u. Raw2T:46apostas,−19.495u. Teste1T principal−14.511u.
++> Calibrado1X2/OU equivale ao mercado por peso0; BTTS calibrado tem Brier e
++> logloss piores que o mercado nos dois turnos. IC por rodada é descritivo.
++> Conclusão: implementação melhorada, vantagem econômica NÃO DEMONSTRADA.
++>
++> Limites relevantes: preços agregados sem casa/horário de execução;58/190
++> partidas2T disponíveis; Elo congelado2024 por desenho,não replay do cron;
++> turnos oficiais se sobrepõem no calendário (rodada4 Flamengo–Mirassol em02/09,
++> após início2T25/07). T1 não treinou/selecionou o candidato, portanto esse
++> adiamento não alterou as previsões, mas impede narrativa de testeT1todo
++> encerrado antes do início2T. Fonte originalPROMPT_VALIDACAO_BRASILEIRAO.md
++> não encontrada no caminhoDownloads atual; revisão usou pedido e artefatos.
++>
++> Sete agendas passivas seguem ativas. H14/H15 terminaram com código0 usando
++> SHA novo do wrapper800822ef8420ad10c0dec7600337b9d488107d66dfce4db92b83fda89198a7e0.
++> Sem abrir ledgers/coortes, ativar capital, alterar agendas ou apostar.
++> Entrega final: Documents/Codex/2026-09-07/le/outputs/REVISAO_FINAL/RESULTADO.md.
++
++> ## CHECKPOINT — NOVO BACKTEST POR TURNOS EXECUTADO (2026-09-07)
++>
++> Pedido explícito posterior do operador: "executa o novo". Executado replay
++> separado com treino 2021–2024 (1.520), calibração 2025 (380;374 preços válidos),
++> teste rodadas1–19 e simulação rodadas20–38. Modelo ServingStack ajustado uma vez,
++> estado/Elo congelados depois. Brierblend por mercado aprendido só em2025:
++> 1X2=0, OU2.5=0, BTTS=0.8952001252556239. Comparador raw definido antes do resultado.
++>
++> Plano SHA256 5561ed31a36945d40e5ffe258dea5f07d890a8f677f57e463ccdb875e3d45f20.
++> Corte2026-09-07T22:43:02Z, buffer48h: 1T190 concluídos;2T58 concluídos,
++> 129 fora da janela e3 sem placar. Todos380 IDs oficiais preservados. Extração
++> somente leitura de matches/sofascore_matches por allowlist oficial, sem ler
++> ledgers/coortes H14/H15/H9/A1. Candidato e previsões novos em namespace separado.
++>
++> Principal calibrado2T:9 apostas,4 acertos/5 erros,−1.05u bruto,−1.23u líquido
++> após custo2%, ROI−13.6667%, DD3.06u. R$50/aposta=>−R$61.50; banca ilustrativa
++> R$5000=>R$4938.50. Raw2T:46 apostas,10 acertos,−19.495u líquido. Principal1T:
++> 46 apostas,−14.511u;raw1T153 apostas,+0.71u. Sem retuning nos resultados2026.
++>
++> 89 testes aprovados; auditoria independente das760 decisões sem divergências;
++> calibração2025 recalculada independentemente com diferenças zero. Fontes,
++> estado do modelo e14 hashes protegidos intactos. Nenhuma aposta real/promoção.
++> Odds retrospectivas agregadas não comprovam preço executável pré-jogo; estudo
++> exploratório com histórico já visto. Não extrapolar58 jogos para o turno inteiro.
++> O antigo+5u é outra regra/amostra e não representa este novo cálculo.
++>
++> Entrega: Documents/Codex/2026-09-07/le/outputs/BACKTEST_NOVO_2026/RESULTADO.md.
++> Scripts/dados intermediários: Documents/Codex/2026-09-07/le/work/new_split_backtest.
++
++> ## CHECKPOINT — DIVISÃO POR TURNOS DE 2026 APLICADA (2026-09-07)
++>
++> Pedido do operador: primeiro turno de2026 como teste e segundo turno inteiro como
++> universo para apostar; execução interpretada e comunicada como simulação/paper.
++> Escolha restante:2021–2024treino(1520jogos),2025calibração(380), usando snapshot
++> histórico previamente verificado por hash. Rodadas1–19testeexploratório(190) e
++> 20–38paper(190), via tabela oficial CBF, nunca semestre ou cronologia de confrontos.
++>
++> Contrato contracts/season-2026-turn-split-paper.json; manifesto/fonte histórica
++> em data/research/season_2026_turn_split; módulo research/season_2026_split.py.
++> 380confrontos/380IDs canônicos;6cadastros extras não duplicamjogos. Botafogo×Grêmio
++> reconciliado por data oficial CBF16/09 às19h30(rodada21), semeditarobanco.
++>
++> No congelamento,69decisõesT−1hdo2Tjápassaram e121eramfuturas pelosmetadados.
++> Passado sóreplayexploratório, futuro sópapersignalcomgatesPIT. Universo190nãoé
++> obrigação190apostas. Nenhumcandidato promovido, capitalfalse, apostaszero.
++> 110testes eRuff aprovados;14hashesprotegidos iguais. Nenhumresultado2026oucoorte
++> protegidaavaliado. Nenhumagendador/runnerlegadoredirecionado. Esta divisão é
++> para novasavaliações, preserva estudos anteriores e dívida exploratória.
++> Entregas: Documents/Codex/2026-09-07/le/outputs/DIVISAO_2026/DIVISAO.md.
++
++> ## CHECKPOINT — EXTENSÃO HISTÓRICA 51 CONCLUÍDA (2026-09-07)
++>
++> Após o usuário perguntar se precisava esperar o próximo fim de semana, executamos
++> uma extensão exploratória separada usando o histórico adicional já identificado.
++> O estudo anterior permaneceu encerrado. Plano e 51 IDs foram congelados antes
++> dos novos preços; código e recibo de 90 testes foram fixados antes da avaliação.
++> Decisão: docs/decisions/2026-09-07-price-extension-51.md.
++>
++> 51/51 históricos Pinnacle foram coletados sem falhas nem retries, com intervalo
++> de 7s após cada resposta. Quota da conta permaneceu 62/250; nenhum gasto. Todos os
++> 30 IDs anteriores ficaram excluídos, incluindo as falhas. A regra temporal exige
++> T−1h posterior ao último alvo do treino de 13 eventos. Não houve refit: beta
++> permaneceu −0,31988646513691255. Os novos jogos intercalam o período de teste
++> anterior; isto NÃO é holdout virgem nem replicação em um novo período futuro.
++>
++> Resultado em 50 eventos válidos: MSE persistência 0,0003203463381416489 versus
++> candidato 0,0003250714434251413, piora de 1,475%; 23 jogos melhores e 27 piores.
++> Um evento tinha mercado suspenso em T−1h/T−10min e permaneceu no denominador51.
++> Nenhum sinal superou o prêmio implícito previsto de2% no diagnóstico secundário.
++> Conclusão: a melhora anterior de3,35% não se repetiu; não há suporte econômico
++> para promover este candidato. A diferença é descritiva, não prova estatística
++> de impossibilidade de qualquer oportunidade. Não alterar parâmetros, incluir
++> novos jogos ou somar amostras retrospectivamente para forçar resultado positivo.
++>
++> A extensão terminou após a única coleta e avaliação previstas. Nenhum resultado
++> de partida, coorte protegida, registro de trial, agenda ou regra de aposta foi
++> alterado/avaliado. Os 14 hashes de arquivos protegidos foram novamente conferidos.
++> Entregas: Documents/Codex/2026-09-07/le/outputs/EXTENSAO_51/RESULTADO.md e pacote
++> com plano, seleção, código, testes e resumos. Históricos brutos permanecem privados.
++
++> ## CHECKPOINT — REANÁLISE HISTÓRICA E CORREÇÃO EXP001 (2026-09-07)
++>
++> O operador pediu nova análise e execução de alternativas para seleção/confiança.
++> Foram geradas 1.697 previsões de 1.900 jogos de 2021–2025 já observados; 12
++> políticas previamente fixadas foram avaliadas em 1.140 eventos de 2023–2025.
++> Com custo adicional simulado de 2% por unidade, confiança ≥60% teve 239 apostas
++> virtuais e ROI −7,34%; ≥70% teve somente 20 e ROI +4,82%, revertido no estresse.
++> Nenhuma política demonstrou vantagem robusta. Odds agregadas e disponibilidade
++> histórica de placares/xG limitam a interpretação; não são execução real.
++>
++> Correção operacional aplicada em brasileirao_scripts/exp001_data_pilot.py:
++> selecionar o último estado antes de verificar atividade; rejeitar suspensão,
++> atividade não confirmada e conflitos simultâneos. Evita ressuscitar uma odd
++> antiga. A cobertura nominal anterior de 245/245 não comprova disponibilidade;
++> seu impacto histórico não pode ser quantificado sem as timelines originais.
++>
++> Pesquisa B/C independente, no primeiro semestre de 2026 já observado e anterior
++> às coortes protegidas: 30 históricos selecionados antes dos preços, 22 respostas
++> válidas e 8 HTTP 429, sem repetição/substituição. Quota gratuita 61→62 devido ao
++> catálogo; gasto zero. Plano original exigindo as duas casas: 4 treino/3 teste,
++> INSUFFICIENT_DATA, nenhum ajuste executado. C não teve candidato no teste.
++>
++> Após conhecer a cobertura, uma segunda decisão explicitamente adaptativa foi
++> registrada antes dos ajustes: mesmos IDs e critérios, somente Pinnacle. Com
++> 13 eventos de treino e 9 de teste, ridge de movimento reduziu MSE em 3,35% contra
++> persistência, mas retirar um evento pode inverter a vantagem. WATCH: sinal
++> pequeno e frágil para eventual replicação, sem prova de EV, execução ou lucro.
++> Esta análise não substitui o resultado insuficiente do protocolo original.
++> As duas decisões estão em docs/decisions/2026-09-07-price-discovery-*.md.
++>
++> Verificação: 97 testes aprovados; 11 verificações sintéticas independentes dos
++> analisadores de preço; reconciliação independente de 13.680 decisões. Os 14
++> hashes de arquivos protegidos permanecem iguais. Não foram abertos resultados
++> das coortes H14/H15/H9/A1, nem alterados seus protocolos, registro de trials,
++> agendamentos ou habilitação de capital. Não houve apostas, compra ou nova conta.
++>
++> Experimentos desta reanálise encerrados conforme os planos; não continuar
++> ajustando parâmetros ou ampliando a amostra para forçar um resultado positivo.
++> Entregas: Documents/Codex/2026-09-07/le/outputs/REANALISE/RESULTADOS.md e
++> PRICE_DISCOVERY.md, dados derivados, planos, testes e pacotes de reprodução.
++> Os históricos brutos do provedor permanecem privados na pasta work da sessão.
++> Este checkpoint acrescenta o diagnóstico atual e preserva os anteriores.
++
++> ## CHECKPOINT — RETOMADA PASSIVA CONCLUIDA (2026-09-07, 18:34 UTC)
++>
++> O operador executou o script administrativo em 18:33 UTC. **Supersede o
++> bloqueio ACL e o estado de retomada parcial do checkpoint abaixo.** H14/H15
++> estao habilitadas, triggers de 15min preservados, e ambas concluiram a
++> primeira execucao em 18:33:32 UTC com heartbeat finished/exit_code=0 e
++> LastTaskResult=0. As sete tarefas do escopo estao habilitadas; todas tiveram
++> execucao concluida com codigo zero, inclusive insumos/cache/A1.
++>
++> Verificados 14 hashes de fontes/configuracoes protegidas e os prefixos dos
++> cinco JSONL do backup. Nenhuma incoerencia; nenhuma avaliacao cientifica,
++> leitura de resultado parcial para pesquisa ou alteracao de protocolo.
++> O codigo zero comprova termino do processo, nao cobertura ou edge.
++>
++> Horizonte (b) em vigor: H14/H15 em coleta passiva; pesquisa ativa voltada a
++> B/C/D, sem abrir labels protegidos. A1 segue REHEARSAL_ONLY no modo gratuito.
++> Os demais grupos permanecem desativados. A operacao depende da maquina
++> ligada/sessao Windows ativa. Recibo e evidencias atualizados em
++> Documents/Codex/2026-09-07/le/outputs/RETOMADA_PASSIVA.md.
++
++> ## CHECKPOINT — RETOMADA PASSIVA PARCIAL; ACL H14/H15 (2026-09-07)
++>
++> Estado em 2026-09-07T18:32:36+00:00. **Supersede "retomada em preparacao"**
++> abaixo somente no estado operacional. Horizonte (b) confirmado pelo operador.
++> Cinco tarefas habilitadas: fixture-refresh, model-update e A1
++> collect/discover/metrics. A1 discovery/coleta/metricas tiveram exit_code=0
++> nas primeiras execucoes; permanecem REHEARSAL_ONLY, sem veredito economico.
++> A atualizacao inicial dos insumos concluiu com exit_code=0.
++>
++> H14/H15 continuam Disabled: Windows retornou "Acesso negado" tanto no
++> Set-ScheduledTask quanto no Enable-ScheduledTask. Nao foram criadas tarefas
++> alternativas para substituir as protegidas. Finalizacao exige executar
++> RETOMAR_H14_H15.ps1 como Administrador, preparado nas entregas da sessao
++> Documents/Codex/2026-09-07/le/outputs. O script espera insumos atualizados,
++> confere hashes, pre-valida as duas tarefas e mantem seus triggers de 15min.
++>
++> Launcher silencioso instalado: pythonw + CREATE_NO_WINDOW, allowlist de
++> sete jobs, sem shell, heartbeat e logs locais data/runtime/passive/<job>/.
++> A1 falha antes da API se inicializacao/fingerprint/rotacao/chave falharem.
++> Manifesto de fixture-refresh corrigido para brasileirao_scripts/; tarefa
++> tem limite de 95min (job 5400s), modelo 35min. Cadencias preservadas. A mudanca
++> nao altera metricas, refits cientificos, modelos, thresholds ou coortes.
++>
++> Verificacao: 66 testes no ambiente operacional Python 3.14.6/core 3.1/ops 4.0;
++> Ruff check/format OK. Um warning de cache do pytest; testes passaram.
++> Os 14 arquivos protegidos conferem com o backup; os tres prefixes JSONL
++> protegidos existentes foram preservados byte a byte. Nenhum upgrade,
++> avaliacao de coorte, nova trial, aposta/gasto, commit ou push.
++> Pesquisa ativa A PAUSE; B/C/D continuam DISCOVERY de viabilidade sem
++> labels protegidos. Uma nova decisao sera necessaria antes de abrir
++> fechamento/resultado para pesquisa; escolher (b) nao liberou esses dados.
++
++> ## CHECKPOINT — HORIZONTE (b) ACEITO PELO OPERADOR (2026-09-07)
++>
++> O operador respondeu "faz essa" à recomendação (b). Decisão: preservar
++> H14/H15, retomar coleta passiva e direcionar pesquisa ativa a B/C/D
++> (preço/execução/estrutural); não dedicar pesquisa ativa a outcomes.
++> **Supersede o status de horizonte pendente** do checkpoint anterior e das
++> entregas da auditoria de 07/09. Não supersede protocolos/resultados.
++>
++> Preparação: backup consistente do SQLite via API de backup, cópia dos
++> ledgers/estados protegidos e exportação XML das sete tarefas envolvidas.
++> Ambiente operacional conservado em 7b5f833, core3.1.0/ops4.0.0; não subir
++> versões nem aplicar alterações de avaliação da auditoria anterior aqui.
++> Fontes/modelos/configuração/contratos protegidos preservados por SHA-256.
++>
++> Escopo autorizado: H14/H15 (15min), infraestrutura de atualização de
++> fixtures/cache (6h) e A1 econômico (15min, quatro janelas por evento),
++> discovery semanal e métricas operacionais diárias. Sem avaliações
++> intermediárias, alteração de hipóteses, capital, gasto ou dados pagos.
++> A1: chave rotacionada atestada; fingerprint inicializado confere; conta
++> consultada sem consumo tarifado: 58/250, reserva20, margem172 em 18:17Z.
++> Não é promessa de cobertura ou homologação; permanece REHEARSAL_ONLY.
++>
++> Retomada em preparação: conferir checkpoint de conclusão operacional
++> acima deste antes de afirmar que tarefas voltaram a operar.
++
+ > **Estado técnico corrente — 2026-09-01:** pacotes
+ > `brasileirao_predictor`/`brasileirao_scripts`, Core 3.0.x e Ops 4.0.x por
+ > wheels. Caminhos `src/*`/`scripts/*`, Core 2.x, Ops 3.x e contagens de teste
+diff --git a/README.md b/README.md
+index f819b1f..5de96d0 100644
+--- a/README.md
++++ b/README.md
+@@ -1,5 +1,20 @@
+ # brasileirao-predictor
+ 
++> **Revisão final local — 2026-09-07.** Correções de escopo das odds de gols,
++> encerramento da árvore de processos no timeout, sanitização de erros de rede
++> e caminhos do manifesto foram aplicadas. A suíte final isolada passou com
++> 1.082 testes Python; tipos, lint, formatação, wheel e build .NET passaram.
++> Integração Docker/Redis ainda não revalidada nesta sessão: o serviço Docker
++> não respondeu e o Windows negou a abertura do serviço para iniciá-lo.
++>
++> A qualidade econômica continua **NÃO DEMONSTRADA / CAPITAL BLOQUEADO**.
++> O replay fixo com treino 2021–2024 e calibração 2025 foi reproduzido: no
++> segundo turno disponível, 9 apostas e saldo líquido −1,23 unidade em 58
++> jogos avaliáveis de 190 oficiais. Odds retrospectivas não comprovam
++> execução; o candidato estático não reproduz a atualização contínua do
++> serving. O teste de probabilidades também não mostrou vantagem sobre o
++> mercado. Veja o checkpoint atual em `HANDOFF.md`.
++
+ > **Atualização econômica — 2026-09-01.** O candidato residual de totais avalia
+ > Over e Under com odds realmente observadas, pares temporalmente compatíveis e
+ > EV/Kelly/P&L líquidos de fricção. A avaliação permanece `SHADOW`, sem promoção
+@@ -27,8 +42,9 @@ está em [`docs/RELATORIO_FINAL_CONSOLIDADO_2026-08-26.md`](docs/RELATORIO_FINAL
+ A coleta prospectiva atual preserva contratos completos e capital bloqueado;
+ operação e monitoramento: `docs/SHADOW_PROSPECTIVE_RUNBOOK.md`. H3/H5 são
+ históricas/substituídas; H9 é a replicação econômica inconclusiva; H13 foi
+-substituída. H14 e H15 têm desenhos pré-registrados, mas a coleta prospectiva
+-dos braços ainda não foi ativada.
++substituída. H14 e H15 têm desenhos pré-registrados e sua coleta passiva foi
++retomada em 07/09/2026. Heartbeats operacionais confirmam execução; isso não
++equivale a conclusão da coleta, avaliação científica ou lucro.
+ 
+ A calibração operacional do próximo caminho econômico está definida em
+ [`docs/A1_OU25_PHASE0_RUNBOOK.md`](docs/A1_OU25_PHASE0_RUNBOOK.md): somente
+diff --git a/brasileirao_predictor/ingest_sofascore.py b/brasileirao_predictor/ingest_sofascore.py
+index ff7963a..40ecda8 100644
+--- a/brasileirao_predictor/ingest_sofascore.py
++++ b/brasileirao_predictor/ingest_sofascore.py
+@@ -5,6 +5,7 @@ Competições e season_id ficam em config.yaml (sofascore.competitions). Para
+ descobrir o season_id de uma competição: `python -m brasileirao_predictor.ingest_sofascore --seasons UT_ID`.
+ """
+ 
++import math
+ import re
+ import sys
+ import time
+@@ -191,8 +192,38 @@ def parse_odds(odds: dict | None, initial: bool = False):
+     return None, None, None
+ 
+ 
+-# handicap no fim do nome do choice ('Over 2.5' → '2.5')
+-_HANDICAP = re.compile(r"(\d+(?:\.\d+)?)\s*$")
++_OU_CHOICE = re.compile(r"(over|under)(?:\s+(\d+(?:\.\d+)?))?", re.IGNORECASE)
++_FULL_TIME_GOALS_NAMES = frozenset(
++    {"match goals", "total goals", "goals", "over/under", "over/under goals", "goals over/under"}
++)
++_FULL_TIME_PERIODS = frozenset(
++    {"full time", "fulltime", "ft", "match", "all", "regular time", "regulation", "90 minutes"}
++)
++
++
++def _full_time_goals_market(market: dict) -> bool:
++    """Recognize match-goal totals, retaining the legacy name-only payload.
++
++    A total for corners, cards, one team or one half must never enter the goal
++    columns. An explicit unknown identity/period fails closed; missing period
++    metadata keeps the provider's documented marketId 9/default-match meaning.
++    """
++    mid = market.get("marketId")
++    if mid is not None and (type(mid) is not int or mid != 9):
++        return False
++    name = market.get("marketName")
++    if name is None or name == "":
++        if mid != 9:
++            return False
++    elif not isinstance(name, str) or " ".join(name.lower().split()) not in _FULL_TIME_GOALS_NAMES:
++        return False
++    for field in ("period", "periodName", "marketPeriod", "periodId"):
++        value = market.get(field)
++        if value is not None and (
++            not isinstance(value, str) or " ".join(value.lower().split()) not in _FULL_TIME_PERIODS
++        ):
++            return False
++    return True
+ 
+ 
+ def parse_ou(odds: dict | None, line: float = 2.5, initial: bool = False):
+@@ -201,30 +232,55 @@ def parse_ou(odds: dict | None, line: float = 2.5, initial: bool = False):
+     ('Over 2.5') ou no `market.choiceGroup`. A comparação é NUMÉRICA: matching
+     por substring deixava a linha 12.5 sobrescrever a 2.5 sem exceção e a odd
+     errada entrava no banco calada. Retorna (over, under).
++    Só aceita totais de gols do jogo inteiro. Identidades, linhas ou preços
++    conflitantes devolvem ausência, nunca a primeira cotação por acaso.
+     initial=True lê a ABERTURA (initialFractionalValue)."""
++    if type(line) not in (int, float) or not math.isfinite(line) or line < 0:
++        return None, None
+     key = "initialFractionalValue" if initial else "fractionalValue"
+-    for market in (odds or {}).get("markets", []):
+-        name = market.get("marketName", "").lower()
+-        if "total" not in name and "over/under" not in name and "goals" not in name:
++    pairs = set()
++    for market in (odds or {}).get("markets", []) or []:
++        if not isinstance(market, dict) or not _full_time_goals_market(market):
+             continue
+         group = market.get("choiceGroup")
+-        over = under = None
+-        for choice in market.get("choices", []):
+-            cname = (choice.get("name") or "").lower()
+-            m = _HANDICAP.search(cname)
+-            handicap = m.group(1) if m else group
++        try:
++            group_line = float(group) if group is not None else None
++        except (TypeError, ValueError):
++            continue
++        if group_line is not None and not math.isfinite(group_line):
++            continue
++        sides = {}
++        for choice in market.get("choices", []) or []:
++            if not isinstance(choice, dict) or not isinstance(choice.get("name"), str):
++                continue
++            match = _OU_CHOICE.fullmatch(choice["name"].strip())
++            if match is None:
++                continue
++            side, choice_line = match.groups()
++            choice_line = float(choice_line) if choice_line is not None else None
++            if choice_line is not None and group_line is not None and choice_line != group_line:
++                if line in (choice_line, group_line):
++                    return None, None
++                continue
++            handicap = choice_line if choice_line is not None else group_line
++            if handicap != line:
++                continue
++            price = frac_to_decimal(choice, key)
++            if price is None:
++                continue
+             try:
+-                if handicap is None or float(handicap) != line:
+-                    continue
++                valid_price = math.isfinite(price) and price > 1
+             except (TypeError, ValueError):
+-                continue
+-            if "over" in cname:
+-                over = frac_to_decimal(choice, key)
+-            elif "under" in cname:
+-                under = frac_to_decimal(choice, key)
+-        if over and under:
+-            return over, under
+-    return None, None
++                valid_price = False
++            if not valid_price:
++                return None, None
++            side = side.lower()
++            if side in sides and sides[side] != price:
++                return None, None
++            sides[side] = price
++        if "over" in sides and "under" in sides:
++            pairs.add((sides["over"], sides["under"]))
++    return next(iter(pairs)) if len(pairs) == 1 else (None, None)
+ 
+ 
+ # Linha do handicap asiático embutida no nome do choice: "(-0.75) Croatia".
+@@ -288,16 +344,13 @@ def parse_all_odds(
+                 out["btts"][c.get("name")] = frac_to_decimal(c, key)
+         elif mid == 9:
+             line = _line_value(market)
+-            if line is None:
++            if line is None or not _full_time_goals_market(market):
+                 continue
+-            over = under = None
+-            for c in choices:
+-                nm = (c.get("name") or "").strip().lower()
+-                if nm == "over":
+-                    over = frac_to_decimal(c, key)
+-                elif nm == "under":
+-                    under = frac_to_decimal(c, key)
+-            out["ou"][line] = {"Over": over, "Under": under}
++            # The normalized line table and legacy goal columns must use the
++            # same scope/conflict rules, including when duplicate markets exist.
++            over, under = parse_ou(odds, line, initial=initial)
++            if over is not None and under is not None:
++                out["ou"][line] = {"Over": over, "Under": under}
+         elif mid == 17:
+             home_line = None
+             entry = {}
+diff --git a/brasileirao_scripts/ci_check.py b/brasileirao_scripts/ci_check.py
+index bbf4771..f812f16 100644
+--- a/brasileirao_scripts/ci_check.py
++++ b/brasileirao_scripts/ci_check.py
+@@ -77,6 +77,8 @@ SERVING_ALLOWLIST = {
+     "brasileirao_scripts/emit_h9_shadow.py",  # serving pre-jogo da H9: mesmo motivo do
+     # sombra.py — jogos FUTUROS, Elo corrente; so' a/b/alpha/rho vem
+     # congelados da trial, nao do cache (ver docstring do modulo)
++    "brasileirao_scripts/persist_h14_prospective.py",  # captura de serving prospectiva:
++    # exige cache calculado <= now e now < kickoff; nao e replay retrospectivo
+     "brasileirao_scripts/prever.py",  # CLI de serving (previsao completa / live)
+     "brasileirao_scripts/ci_check.py",  # este arquivo (regex da propria barreira)
+ }
+diff --git a/brasileirao_scripts/exp001_data_pilot.py b/brasileirao_scripts/exp001_data_pilot.py
+index 749a9ef..e708dff 100644
+--- a/brasileirao_scripts/exp001_data_pilot.py
++++ b/brasileirao_scripts/exp001_data_pilot.py
+@@ -21,7 +21,12 @@ OUTCOMES = {"101": "home_odds", "102": "draw_odds", "103": "away_odds"}
+ 
+ 
+ def _get(path: str, key: str, **params: object) -> Any:
+-    response = requests.get(f"{BASE}/{path}", params={**params, "apiKey": key}, timeout=60)
++    try:
++        response = requests.get(f"{BASE}/{path}", params={**params, "apiKey": key}, timeout=60)
++    except requests.RequestException:
++        # Transport exceptions may contain the prepared URL, including apiKey.
++        # Suppress their traceback context as well as their message.
++        raise RuntimeError("provider transport request failed") from None
+     if response.status_code != 200:
+         detail = response.text[:200].replace(key, "[REDACTED]")
+         raise RuntimeError(f"provider HTTP {response.status_code}: {detail}")
+@@ -33,17 +38,29 @@ def _at(value: str) -> datetime:
+ 
+ 
+ def _latest_at_cutoff(book: dict[str, Any], cutoff: datetime) -> dict[str, Any] | None:
++    """Return last known states, rejecting suspended or ambiguous selections.
++
++    Filtering inactive rows before selecting the last state resurrects old quotes.
++    Equal-time rows have no documented ordering; conflicting active/price states
++    therefore fail closed instead of depending on the provider's array order.
++    """
+     outcomes = book.get("markets", {}).get("101", {}).get("outcomes", {})
+     selected: dict[str, Any] = {}
+     timestamps: list[datetime] = []
+     for outcome_id, label in OUTCOMES.items():
+         timeline = outcomes.get(outcome_id, {}).get("players", {}).get("0", [])
+-        eligible = [row for row in timeline if _at(row["createdAt"]) <= cutoff and row.get("active", True)]
++        eligible = [row for row in timeline if _at(row["createdAt"]) <= cutoff]
+         if not eligible:
+             return None
+-        latest = max(eligible, key=lambda row: _at(row["createdAt"]))
++        latest_at = max(_at(row["createdAt"]) for row in eligible)
++        latest_rows = [row for row in eligible if _at(row["createdAt"]) == latest_at]
++        if any(row.get("active") is not True for row in latest_rows):
++            return None
++        latest = latest_rows[0]
++        if any(row["price"] != latest["price"] for row in latest_rows[1:]):
++            return None
+         selected[label] = latest["price"]
+-        timestamps.append(_at(latest["createdAt"]))
++        timestamps.append(latest_at)
+     returned = min(timestamps)
+     return {
+         **selected,
+diff --git a/jobs.market-research.example.json b/jobs.market-research.example.json
+index f477013..ae3c934 100644
+--- a/jobs.market-research.example.json
++++ b/jobs.market-research.example.json
+@@ -3,7 +3,7 @@
+   "jobs": [
+     {
+       "id": "brasileirao-h9-fixture-refresh",
+-      "command": [".venv/Scripts/python.exe", "scripts/update_h9_fixtures.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/update_h9_fixtures.py"],
+       "timeout_seconds": 5400,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -11,7 +11,7 @@
+     },
+     {
+       "id": "brasileirao-market-research-featured",
+-      "command": [".venv/Scripts/python.exe", "scripts/collect_market_research.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/collect_market_research.py"],
+       "timeout_seconds": 180,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -19,7 +19,7 @@
+     },
+     {
+       "id": "brasileirao-prospective-readiness",
+-      "command": [".venv/Scripts/python.exe", "scripts/prospective_readiness.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/prospective_readiness.py"],
+       "timeout_seconds": 120,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -27,7 +27,7 @@
+     },
+     {
+       "id": "brasileirao-market-research-first-half",
+-      "command": [".venv/Scripts/python.exe", "scripts/collect_market_research.py", "--first-half"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/collect_market_research.py", "--first-half"],
+       "timeout_seconds": 300,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -35,7 +35,7 @@
+     },
+     {
+       "id": "brasileirao-closing-snapshots",
+-      "command": [".venv/Scripts/python.exe", "scripts/record_closing_snapshots.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/record_closing_snapshots.py"],
+       "timeout_seconds": 180,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -43,7 +43,7 @@
+     },
+     {
+       "id": "brasileirao-h8-gate-monitor",
+-      "command": [".venv/Scripts/python.exe", "scripts/monitor_h8_gate.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/monitor_h8_gate.py"],
+       "timeout_seconds": 120,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -51,7 +51,7 @@
+     },
+     {
+       "id": "brasileirao-h9-emit-shadow",
+-      "command": [".venv/Scripts/python.exe", "scripts/emit_h9_shadow.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/emit_h9_shadow.py"],
+       "timeout_seconds": 120,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -59,7 +59,7 @@
+     },
+     {
+       "id": "brasileirao-h9-closing-snapshots",
+-      "command": [".venv/Scripts/python.exe", "scripts/record_h9_closing_snapshots.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/record_h9_closing_snapshots.py"],
+       "timeout_seconds": 180,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -67,7 +67,7 @@
+     },
+     {
+       "id": "brasileirao-h9-settle-shadow",
+-      "command": [".venv/Scripts/python.exe", "scripts/settle_h9_shadow.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/settle_h9_shadow.py"],
+       "timeout_seconds": 120,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -75,7 +75,7 @@
+     },
+     {
+       "id": "brasileirao-h9-quality-report",
+-      "command": [".venv/Scripts/python.exe", "scripts/report_h9_execution_quality.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/report_h9_execution_quality.py"],
+       "timeout_seconds": 120,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+@@ -83,7 +83,7 @@
+     },
+     {
+       "id": "brasileirao-h9-runtime-backup",
+-      "command": [".venv/Scripts/python.exe", "scripts/backup_h9_runtime.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/backup_h9_runtime.py"],
+       "timeout_seconds": 900,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},

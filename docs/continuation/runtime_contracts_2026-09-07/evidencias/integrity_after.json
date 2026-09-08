@@ -1,0 +1,20 @@
+{
+  "checked_at_utc": "2026-09-08T00:52:00.206119+00:00",
+  "protected_matches": {
+    "config.yaml": true,
+    "pyproject.toml": true,
+    "uv.lock": true,
+    "data/trials.json": true,
+    "contracts/a1-ou25-phase0-policy.json": true,
+    "brasileirao_scripts/persist_h14_prospective.py": true,
+    "brasileirao_scripts/persist_h15_prospective.py": true,
+    "brasileirao_predictor/model.py": true,
+    "brasileirao_predictor/ratings.py": true,
+    "brasileirao_predictor/cron_update_models.py": true,
+    "brasileirao_scripts/collect_odds_a1.py": true,
+    "brasileirao_predictor/collector_a1.py": true,
+    "schemas/odds_snapshot_v1.json": true,
+    "data/team_aliases.json": true
+  },
+  "passed": true
+}

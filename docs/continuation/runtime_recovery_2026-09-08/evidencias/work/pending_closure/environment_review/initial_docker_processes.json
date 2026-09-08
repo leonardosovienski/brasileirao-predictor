@@ -1,0 +1,16 @@
+{
+  "started_at_utc": "2026-09-08T04:03:47.673988+00:00",
+  "command": [
+    "powershell.exe",
+    "-NoLogo",
+    "-NoProfile",
+    "-NonInteractive",
+    "-Command",
+    "Get-Process -Name 'Docker Desktop','com.docker.backend','com.docker.build' -ErrorAction SilentlyContinue | Select-Object ProcessName,Id | ConvertTo-Json -Compress"
+  ],
+  "environment_allowlist": true,
+  "read_only": true,
+  "external_credentials_removed": true,
+  "exit_code": 1,
+  "seconds": 0.14528379999683239
+}

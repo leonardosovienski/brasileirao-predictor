@@ -1,0 +1,16 @@
+{
+  "started_at_utc": "2026-09-08T04:03:45.830067+00:00",
+  "command": [
+    "powershell.exe",
+    "-NoLogo",
+    "-NoProfile",
+    "-NonInteractive",
+    "-Command",
+    "Get-CimInstance Win32_Processor | Select-Object VirtualizationFirmwareEnabled,SecondLevelAddressTranslationExtensions,VMMonitorModeExtensions | ConvertTo-Json -Compress"
+  ],
+  "environment_allowlist": true,
+  "read_only": true,
+  "external_credentials_removed": true,
+  "exit_code": 0,
+  "seconds": 1.2137198999989778
+}

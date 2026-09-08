@@ -1,0 +1,16 @@
+{
+  "name": "pending_inbox_pyright",
+  "started_at_utc": "2026-09-08T04:15:53.565467+00:00",
+  "command": [
+    "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/pyright.exe",
+    "--project",
+    "C:/Users/Superleo13/Documents/Codex/2026-09-07/leia-e-execute-c-users-superleo13/work/pending_closure/root_pyright.json",
+    "--stats"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 0.8455796000052942
+}

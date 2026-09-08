@@ -1,0 +1,19 @@
+{
+  "name": "research_review_lint_final",
+  "started_at_utc": "2026-09-08T03:02:05.513022+00:00",
+  "command": [
+    "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/python.exe",
+    "-m",
+    "ruff",
+    "check",
+    "brasileirao_predictor/research/price_strength",
+    "tests/test_price_strength_review_regressions.py",
+    "brasileirao_predictor/research/price_strength_reliability.py"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 0.06977440000628121
+}

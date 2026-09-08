@@ -1,15 +1,17 @@
 FROM python:3.14.7-slim-bookworm AS builder
 RUN pip install --no-cache-dir uv==0.12.1
 WORKDIR /build
-COPY pyproject.toml README.md ./
+COPY pyproject.toml uv.lock README.md ./
 COPY constraints/shared-wheels.sha256 constraints/shared-wheels.sha256
 COPY brasileirao_predictor brasileirao_predictor
 COPY brasileirao_scripts brasileirao_scripts
 RUN python -c "import urllib.request; urllib.request.urlretrieve('https://github.com/leonardosovienski/core-predictor/releases/download/v3.1.0/predictor_core-3.1.0-py3-none-any.whl', 'predictor_core-3.1.0-py3-none-any.whl'); urllib.request.urlretrieve('https://github.com/leonardosovienski/predictor-ops/releases/download/v4.0.0/predictor_ops-4.0.0-py3-none-any.whl', 'predictor_ops-4.0.0-py3-none-any.whl')" \
     && sha256sum -c constraints/shared-wheels.sha256 \
-    && uv build && uv venv /opt/venv && uv pip install --python /opt/venv/bin/python \
-    predictor_core-3.1.0-py3-none-any.whl predictor_ops-4.0.0-py3-none-any.whl \
-    dist/*.whl
+    && uv export --locked --no-dev --no-emit-project \
+        --format requirements.txt --output-file requirements.lock \
+    && uv build --wheel && uv venv /opt/venv \
+    && uv pip sync --python /opt/venv/bin/python --require-hashes requirements.lock \
+    && uv pip install --python /opt/venv/bin/python --no-deps dist/*.whl
 
 FROM python:3.14.7-slim-bookworm
 RUN useradd --system --uid 10001 --create-home app

@@ -1,0 +1,39 @@
+{
+  "checked_at_utc": "2026-09-08T00:45:46.994568+00:00",
+  "probes": [
+    {
+      "context": "default",
+      "command": [
+        "docker",
+        "--context",
+        "default",
+        "info",
+        "--format",
+        "{{json .ServerVersion}}"
+      ],
+      "exit_code": 0,
+      "server_version": "",
+      "available": false,
+      "stderr": "error during connect: this error may indicate that the docker daemon is not running: Get \"http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.45/info\": open //./pipe/docker_engine: O sistema n\u00c3\u00a3o pode encontrar o arquivo especificado."
+    },
+    {
+      "context": "desktop-linux",
+      "command": [
+        "docker",
+        "--context",
+        "desktop-linux",
+        "info",
+        "--format",
+        "{{json .ServerVersion}}"
+      ],
+      "exit_code": 0,
+      "server_version": "",
+      "available": false,
+      "stderr": "error during connect: Get \"http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.45/info\": open //./pipe/dockerDesktopLinuxEngine: O sistema n\u00c3\u00a3o pode encontrar o arquivo especificado."
+    }
+  ],
+  "service_start_attempt": "Windows denied opening com.docker.service; no elevation attempted",
+  "isolated_redis_created": false,
+  "redis_integration_executed": false,
+  "compose_e2e_executed": false
+}

@@ -1,0 +1,21 @@
+{
+  "name": "kernel_protocol_before",
+  "started_at_utc": "2026-09-08T00:40:58.214567+00:00",
+  "command": [
+    "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/python.exe",
+    "-m",
+    "pytest",
+    "tests/test_kernel_protocol.py",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "-k",
+    "each_required_field or invalid_message_does_not_poison_valid_retry or additional_properties"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 1,
+  "seconds": 3.3213266000093427
+}

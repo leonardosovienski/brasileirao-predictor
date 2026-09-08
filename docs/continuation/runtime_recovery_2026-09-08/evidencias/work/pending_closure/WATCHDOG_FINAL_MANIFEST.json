@@ -1,0 +1,37 @@
+[
+  {
+    "path": "dotnet/LineupWorker/Worker.cs",
+    "sha256": "95fa9889847640573ff891f3e5b5db0d4b46ec871bd9a92e28755dd8624a1191",
+    "isolated_sha256": "95fa9889847640573ff891f3e5b5db0d4b46ec871bd9a92e28755dd8624a1191"
+  },
+  {
+    "path": "dotnet/LineupWorker/Models/LineupEvent.cs",
+    "sha256": "d650b401db759403007cb72b331a712c419f99484026d5eee22735c18ff2c23f",
+    "isolated_sha256": "d650b401db759403007cb72b331a712c419f99484026d5eee22735c18ff2c23f"
+  },
+  {
+    "path": "dotnet/LineupWorker/Services/MarketStateEngine.cs",
+    "sha256": "3fe190ed1b9d89a61241eee9ec8a6388e2ef2ba7a8c5efbb7a8901113d08ba56",
+    "isolated_sha256": "3fe190ed1b9d89a61241eee9ec8a6388e2ef2ba7a8c5efbb7a8901113d08ba56"
+  },
+  {
+    "path": "dotnet/LineupWorker/Services/KernelRedisProtocolV2.cs",
+    "sha256": "ce1ff57f0411305a983d89dc80e2b867a2c7f952d48ea5adb0278d78ab1679ea",
+    "isolated_sha256": "ce1ff57f0411305a983d89dc80e2b867a2c7f952d48ea5adb0278d78ab1679ea"
+  },
+  {
+    "path": "dotnet/LineupWorker/Services/WatchdogStateStore.cs",
+    "sha256": "217a895d369850f677055228bfcbec9ea22c6fce62bdfcbd2914406e9d0941de",
+    "isolated_sha256": "217a895d369850f677055228bfcbec9ea22c6fce62bdfcbd2914406e9d0941de"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WorkerRuntimeFencingTests.cs",
+    "sha256": "5a623a61ec1a4fbd7dcebc7805108156ddd28a7e29cfbf3cf05eeccc0b04ff4a",
+    "isolated_sha256": "5a623a61ec1a4fbd7dcebc7805108156ddd28a7e29cfbf3cf05eeccc0b04ff4a"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WatchdogRecoveryTests.cs",
+    "sha256": "1716fed9cd6613dbc4db907570d2a44e261d5be2262e0948c99a09f80c997ceb",
+    "isolated_sha256": "1716fed9cd6613dbc4db907570d2a44e261d5be2262e0948c99a09f80c997ceb"
+  }
+]

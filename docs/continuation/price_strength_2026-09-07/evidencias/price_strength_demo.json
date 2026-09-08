@@ -1,0 +1,18 @@
+{
+  "name": "price_strength_demo",
+  "started_at_utc": "2026-09-08T01:30:22.101233+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "-m",
+    "brasileirao_predictor.research.price_strength",
+    "demo",
+    "--output-dir",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\outputs\\IMPLEMENTACAO_PRECOS_XG\\demo"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 1.083753600003547
+}

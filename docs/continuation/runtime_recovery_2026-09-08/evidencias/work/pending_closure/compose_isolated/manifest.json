@@ -1,0 +1,43 @@
+{
+  "at_utc": "2026-09-08T04:20:18.413953+00:00",
+  "project_name": "brasileirao-pending-20260908-0418",
+  "command_prefix": [
+    "docker.exe",
+    "compose",
+    "--project-name",
+    "brasileirao-pending-20260908-0418",
+    "--project-directory",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\pending_closure\\compose_isolated",
+    "--env-file",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\pending_closure\\compose_isolated\\empty.env",
+    "--file",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\pending_closure\\compose_isolated\\compose.yaml"
+  ],
+  "synthetic_fixtures_only": true,
+  "external_runtime_network": false,
+  "existing_volumes_or_services_used": false,
+  "config_validated": true,
+  "locked_exports_validated": true,
+  "lock_unchanged_sha256": "5031afe4ae912cf43e29f01e2bf276adc1534400baf9ddd8305be00a970cebd1",
+  "compose_build_run_executed": false,
+  "hashes": {
+    "Dockerfile.worker": "facc3700eb83b4b8fcc6919b5423a4fde93682b452662869c7dbfa8e1cd673e5",
+    "Dockerfile.kernel": "cdf8a83940ced0448c810fc4b4f73b08541a3c3851a5cafd7cbd6f062177061c",
+    "Dockerfile.cli": "12b775d106883279659bfad33efac560e862b8ca7adf286d87934c60ccac8f40",
+    ".dockerignore": "9767f488ee04aeece94a53835dfe1d3e1a65ec40e1e969370af333bfb567a65c",
+    ".github/workflows/ci.yml": "a1ef033f67f46ecce9e1325b0cc03f976460e14bd7cb6aa61ed88b9187228978",
+    "cli.requirements.lock": "fe748a700773579c8e8fd2f21dd7a2fb1dfa7a4b3fd7518e76098cc7316f4ee1",
+    "compose.yaml": "ae3f5f12ce8cc83d980573c9d696245e30905af25b5026a17ad918fc49d6926f",
+    "compose_config.json": "3db0a94269b0d7d592a713686622578a4339e3b2a0298b086e73ef9bb8b59334",
+    "compose_config.log": "720b571cb6fe9a2a754274655c7e24650814b395836554766b296ab62b35551e",
+    "empty.env": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kernel.requirements.lock": "6442e7a3f889141e47ec7555352c0c64526dd6a0f2a7f0d866c15613b712925d",
+    "uv_export_cli.json": "d84b0b3047b177cc036cd4f82ad707c7020e5d0ce73ecf331a860e8236cc3935",
+    "uv_export_cli.log": "89ec8ef038b96077cedcc73826546496fd8079b4c6c8f9c30e1b8174c4cf05cd",
+    "uv_export_kernel.json": "d2b1122106c181c3546fc8e594162b565b5fcbf82fd8cdc464afb2f274508764",
+    "uv_export_kernel.log": "a1634313f81f6ee9baa85250e14a9ba7ce5a9edd4e97d781c9ae6063fcdc88c0",
+    "fixtures\\config.yaml": "17d9345480593974683f80f228ed60f0080514dcdf63db70f21445fbc40f070d",
+    "fixtures\\titularidade.json": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f",
+    "fixtures\\vorp.json": "61a053afc68ef2a5f08eb9b747b8bca94ca0903ca75dc308fdedaf047d942e85"
+  }
+}

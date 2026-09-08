@@ -1,0 +1,8 @@
+{
+  "connection_closed_after_shutdown": true,
+  "reply": [
+    null
+  ],
+  "run_id_verified_before_shutdown": "97c7a9cc8a5fa8deb9387dd63a0505f8b66e9196",
+  "command": "SHUTDOWN NOSAVE"
+}

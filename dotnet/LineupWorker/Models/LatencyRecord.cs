@@ -55,4 +55,10 @@ public record BetSignal(
     double         DeltaVorpAway,
     DateTimeOffset IssuedAt,
     double         PipelineLatencyMs
-);
+)
+{
+    public string ProtocolVersion { get; init; } = RedisProtocol.Version;
+    public string? JobId { get; init; }
+    public string? RunId { get; init; }
+    public string? StateVersion { get; init; }
+}

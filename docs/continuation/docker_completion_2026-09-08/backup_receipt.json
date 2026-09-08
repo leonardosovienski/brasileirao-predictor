@@ -1,0 +1,9 @@
+{
+  "verified_at_utc": "2026-09-08T12:35:32.158280+00:00",
+  "backup": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\docker_completion_2026-09-08",
+  "files": 39,
+  "total_bytes": 520790,
+  "manifest_sha256": "5f5d9e72ed9dd1aa5f9f5bbcd3225c49b6445b2cb7f077484eab489ad0299b69",
+  "all_copies_verified": true,
+  "receipt_location_note": "Outside manifest to avoid circular dependency."
+}

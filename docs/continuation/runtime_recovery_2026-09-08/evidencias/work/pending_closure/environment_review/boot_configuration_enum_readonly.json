@@ -1,0 +1,12 @@
+{
+  "started_at_utc": "2026-09-08T04:07:49.040324+00:00",
+  "command": [
+    "bcdedit.exe",
+    "/enum"
+  ],
+  "environment_allowlist": true,
+  "read_only": true,
+  "external_credentials_removed": true,
+  "exit_code": 1,
+  "seconds": 0.017830800003139302
+}

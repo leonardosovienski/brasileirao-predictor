@@ -1,0 +1,9 @@
+elo:
+  home_advantage: 0
+  initial_rating: 1500
+  k: 20
+ensemble_xg:
+  enabled: false
+model:
+  calibration_window_years: 3
+  goal_half_life_days: 365

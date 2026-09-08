@@ -1,5 +1,245 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — CONTINUAÇÃO DO DOCKER (08/09/2026, 12h UTC)
+>
+> Evidências: docs/continuation/docker_completion_2026-09-08/RESULTADO.md.
+> Corrigida somente a fixture VORP do harness sintético: replacement_levels.
+> O VORP real e o Compose/CI já tinham a chave correta. Parser, contrato da
+> fixture e init/load de dois bancos sintéticos passaram. 36 fontes conferidas.
+> Nenhum produtor interno real ficou sem migrar: publicações legadas são testes.
+>
+> Compose/CI remoto continuam pendentes. Firmware/SLAT habilitados, hipervisor
+> ausente, dois pipes Docker indisponíveis. Uma tentativa normal de UAC para
+> diagnóstico somente leitura foi cancelada pelo Windows; não houve repetição,
+> execução elevada, alteração de boot/BIOS/componentes ou reinicialização.
+> A próxima etapa depende de acesso administrativo ao diagnóstico do host.
+> Ler RESULTADO.md e o harness novo antes de executar containers.
+> 14 protegidos, 1273 arquivos arquivados e estudos fechados reconferidos.
+> Sem mudança do runtime, banco operacional, fit, capital, commit ou push.
+
+
+> ## CHECKPOINT — RECUPERAÇÃO E PENDÊNCIAS DE SOFTWARE (08/09/2026 UTC)
+>
+> Evidências: docs/continuation/runtime_recovery_2026-09-08/RESULTADO.md e estado.json.
+> Inbox Redis com ACK/reclaim, índice ready e outbox corrigem perdas de entrada,
+> aviso e saída. Watchdog tem deadline/índice persistidos, sem depender de RAM.
+> Health exige os dois loops ativos por sessão/instância; lineup exige 11 titulares.
+> Cliente respeita usuário ACL e recusa DB inválido. Dockerfiles usam locks,
+> contexto exclui dados/segredos e CI isola o projeto de teste.
+>
+> Python: 154 unitários e 30 integrações Redis passaram. .NET:
+> 109 testes na suíte e 1 E2E separado passaram; limites de 80% preservados.
+> Host .NET real e kernel Python: inicialização, smoke por stream e health após
+> parada abrupta passaram.
+> Redis descartável encerrado e distro própria removida. Verificação interna.
+>
+> Compose build/up e CI remoto NÃO executados: engine ausente, hipervisor não
+> ativo nesta inicialização, WSL2 HCS_E_HYPERV_NOT_INSTALLED. Diagnóstico de boot
+> exige sessão elevada; nenhuma mudança de boot/BIOS/reboot foi feita.
+> Inbox deve substituir produtores Pub/Sub legados para recuperação. Validade
+> econômica não foi estendida; outbox não é executor nem promessa de lucro.
+> 14 arquivos protegidos, 998 arquivos arquivados e estudos fechados conferidos.
+> Sem fit/backtest, banco operacional, capital, coortes/agenda, commit ou push.
+> Backup: brasileirao-predictor-sessoes/2026-09-07/runtime_recovery_2026-09-08/.
+> Checkpoints abaixo são históricos. Ler limites e migração antes de implantar.
+
+
+> ## CHECKPOINT — FALHAS DO RUNTIME CORRIGIDAS (08/09/2026 UTC)
+>
+> Evidências: docs/continuation/runtime_v2_2026-09-08/RESULTADO.md e estado.json.
+> As pendências de resposta antiga e reserva consumida descritas abaixo foram
+> corrigidas nesta etapa: protocolo v2, snapshot/registro atômicos, versão atual,
+> lease com dono, retry, recuperação de pendências e publicação final condicionada.
+> Fila trata o item realmente descartado; saúde tem TTL e token de sessão.
+> Smoke, schemas e workflow atualizados; produtor e consumidor devem migrar juntos.
+>
+> 151 unitários Python (139 kernel + 12 smoke), 18 integrações Redis reais,
+> 81 testes .NET e 1 entre processos passaram. O caso entre processos pulado
+> na suíte comum foi executado separadamente. Cobertura .NET: 86,12% linhas,
+> 80,34% ramos; gates existentes de 80% passaram. Build Release sem warnings.
+> Redis 8.2.1 próprio em WSL1 foi encerrado e a distro temporária removida.
+> Docker/Compose e CI remoto NÃO executados. Validação e revisão são internas.
+>
+> Pub/Sub segue sem ACK; perda de fair-ready pode resultar em abstenção. Retry
+> antes do registro é limitado; pending não é fila permanente. Standalone somente.
+> Não houve implantação, banco operacional, novo fit/backtest ou ação financeira.
+> 14 hashes protegidos, 812 arquivos de backups e os estudos fechados conferidos.
+> Fórmulas, configuração, coortes, agendas e resultados econômicos preservados.
+> Nova cópia: brasileirao-predictor-sessoes/2026-09-07/runtime_v2_2026-09-08/.
+> Os checkpoints abaixo são históricos; rentabilidade continua não demonstrada.
+
+
+> ## CHECKPOINT — REVISÃO DO CHAT COMPLETO (08/09/2026 UTC)
+>
+> As cinco etapas anteriores foram relidas; julgamento e evidências em
+> docs/continuation/whole_chat_review_2026-09-08/RESULTADO.md e estado.json.
+> Manter reparos de integridade e resultados negativos. Refazer a sequência
+> com qualidade/proveniência dos dados antes do modelo; os zeros de 2021
+> deveriam ter sido investigados antes do primeiro replay. 2025 continua
+> exploratório/adaptativo. “Auditoria independente” anterior significa
+> verificação interna por implementação separada da mesma equipe.
+>
+> Quatro bugs adicionais de pesquisa corrigidos: duplicação de identidade
+> do provedor, elegibilidade truthy indevida, kickoff de quote futura
+> interferindo no passado e erro CLI ecoando entrada. 16 regressões novas;
+> 230 testes passaram/1 symlink pulado; após ajuste de tipagem, 30 afetados
+> passaram novamente. Ruff/formato e Pyright com 8 fontes passaram.
+> Fórmulas, configuração, runner condicional e saldos fechados preservados.
+>
+> Dois testes sintéticos reproduziram limitações NÃO corrigidas do runtime:
+> resposta antiga pode sobrescrever nova; falha após claim suprime retry
+> imediato por até 60s. Correlação de IDs não garante versão atual.
+> Redis/Compose continua pendente; não declarar prontidão de operação.
+>
+> Gap documental: evaluate.py importado pela correção não constou do lock
+> transitivo. Hash atual igual ao backup anterior, conciliação retrospectiva;
+> não reescrever o plano/lock para aparentar congelamento prévio completo.
+> 764 arquivos antigos, 14 protegidos e estudos fechados reconferidos.
+> Nova cópia: brasileirao-predictor-sessoes/2026-09-07/
+> whole_chat_review_2026-09-08/. Último saldo continua −23,373u/170 apostas,
+> ROI −13,75%; ganho vs raw vem de custos menores, com ROI pior.
+> Sem novo backtest/fit, coleta, banco operacional, capital, coorte/agenda,
+> commit ou push. Revisão encerrada; rentabilidade não demonstrada.
+
+
+> ## CHECKPOINT — ERROS/ACERTOS xG: CORREÇÕES E REDUÇÃO PARCIAL DE PERDAS (08/09/2026 UTC)
+>
+> Pedido: investigar motivos dos erros e acertos e tentar corrigir. Diagnóstico
+> dos exports encerrados: 125 apostas em visitante / 13 acertos, p média 23,54%
+> contra frequência 10,4%, saldo −59,35u. A calibração de taxas melhora a média
+> de gols, mas cal−raw perde 40,733u por entradas/saídas/trocas. Pequenos grupos
+> positivos foram publicados sem virar novos filtros; acertos em odds altas
+> não compensam as derrotas agregadas.
+>
+> Correções factuais: parser xG rejeita xGOT, conflitos e valores inválidos;
+> auditoria separa presença/numericidade/proveniência de pares zero; validação
+> de revisões xG deixa de depender da ordem. Zero legítimo não vira null.
+> 380 pares zero em 2021 têm origem não atestada, afetando somente 10 previsões
+> de 2025 e nenhuma janela da calibração de 2024. Dados antigos preservados.
+>
+> UMA receita posterior congelada: quarentena uniforme de pares zero no histórico
+> de características + blend xG RAW temporal/mercado, Brier aprendido só em 2024.
+> Plano 2c9a6615f77c2568ecc70868ce8283f6bb6a5796c622df898bc3858927e11a92.
+> Pesos xG: 1X2=0, OU=.5913381541, BTTS=.8178670376. Não é novo holdout.
+> Painel comum 362/380 (368 anterior, 6 novas abstenções): novo 170 apostas,
+> −23,373u / ROI −13,75%; xG calibrado 307 apostas, −65,850u / −21,45%;
+> xG bruto 334 apostas, −26,597u / −7,96%. A quarentena sozinha não muda apostas
+> no comum. Contra raw, ganho líquido de 3,224u vem de 3,280u menos custos:
+> pagamento bruto piora 0,056u. Contra calibrado, evita 94 derrotas mas remove
+> 43 vencedoras; todas transições reconciliadas. 1X2 novo copia o mercado,
+> OU melhora contra calibrado, BTTS piora levemente.
+> Mercado continua melhor nos binários; lucro/edge NÃO demonstrados.
+>
+> 318 testes de código passaram, 1 symlink pulado no Windows; mais 6 do runner,
+> 4 estruturais e 6 do auditor passaram. Ruff/formato, Pyright em 5 módulos e
+> barreiras estáticas passaram. Auditoria independente conferiu ajuste de 2024,
+> janelas, seleção, pagamento e
+> métricas; bootstrap semanal possui recibo independente separado.
+> Hipótese de 48h e odds agregadas retrospectivas permanecem; multicasas não
+> avaliado. 14 hashes protegidos preservados, estudos arquivados intactos.
+> Sem fit em 2026, promoção, capital, banco operacional, agenda/coorte, commit
+> ou push.
+>
+> Relatório, fontes, estado e recibos:
+> docs/continuation/price_strength_diagnosis_2026-09-07/.
+> Backup fora do chat: brasileirao-predictor-sessoes/2026-09-07/
+> price_strength_diagnosis_2026-09-07/, mantendo work/outputs e inputs privados.
+> Estudo encerrado com melhora parcial/negativa, sem retune. T2 anterior −1,23u
+> preservado; Redis/Compose continua pendente. Não promover pelo novo saldo.
+
+> ## CHECKPOINT — TESTE xG HISTÓRICO: SEM MELHORA GERAL (2026-09-07, 08/09 UTC)
+>
+> Pedido: testar se melhorou. Um único diagnóstico condicional 2025, plano
+> 507c69fc01aaabd9d78734b1153f740c3c347f601f5b1609cd54839a1698aaaa fixado antes
+> das novas métricas. Defaults xG congelados; calibração em 368 alvos de 2024;
+> 368/380 jogos de 2025 no painel comum. Hipótese explícita de uso do xG após
+> 48h, sem fabricar available_at nem relaxar CLI PIT. Odds agregadas históricas.
+>
+> Anterior raw congelado em 2024: 297 apostas, −39,641u, ROI −13,35%.
+> Novo xG raw: 340 apostas, −27,967u, ROI −8,23%.
+> Novo xG calibrado (principal): 312 apostas, −68,700u, ROI −22,02%.
+> Calibrado melhora Brier vs anterior só em 1X2; piora OU/BTTS e fica pior que
+> o mercado nos três. Resultados contrafactuais, não dinheiro real; não se comparam
+> diretamente ao saldo T2 de 2026. Multicasas PIT NÃO AVALIADO por falta de insumos.
+>
+> 26 testes sintéticos do adaptador/aritmética passaram. Auditoria independente:
+> 113.864 verificações de fonte, seleção, pagamentos, métricas e bootstrap semanal.
+> 14 hashes protegidos e 477 arquivos do backup original preservados. Nenhum
+> modelo operacional, coorte, agenda, trial ou estudo encerrado foi alterado.
+> Esta investigação termina NEGATIVA/MISTA, sem retune para resgatar resultado.
+>
+> Relatório/estado/fontes: docs/continuation/price_strength_evaluation_2026-09-07/.
+> Inputs privados e evidências completas no backup independente
+> brasileirao-predictor-sessoes/2026-09-07/price_strength_evaluation_2026-09-07/.
+> Lucro realizável segue não demonstrado. Código local sem commit/push.
+
+> ## CHECKPOINT — COMPARAÇÃO DE PREÇOS E CANDIDATO xG IMPLEMENTADOS (2026-09-07, 08/09 UTC)
+>
+> Pedido do operador: implementar as duas prioridades da pesquisa. Novo pacote
+> independente brasileirao_predictor/research/price_strength, CLI por python -m
+> com scan/study/demo. Comparação entre casas com referência independente,
+> snapshots completos e horários explícitos; rejeita estados inválidos/suspensos
+> sem recuperar preço antigo. Candidato rolling xG por mando, calibração temporal
+> de intensidades e comparação pareada contra mercado/baseline externo congelado.
+>
+> 141 testes passaram, 1 symlink pulado por restrição Windows. Ruff/formato e
+> Pyright dirigido aos 7 arquivos Python passaram; gates P12/P3 passaram. Demo
+> completa com dados fabricados: 24 partidas, 8 alvos de calibração, 4 avaliações.
+> Execução isolada sem dados/credenciais operacionais e com rede Python externa
+> bloqueada. 14 hashes protegidos preservados. Sem novo backtest real ou coleta.
+>
+> Relatório, guia, estado e recibos: docs/continuation/price_strength_2026-09-07/.
+> Backup independente: brasileirao-predictor-sessoes/2026-09-07/price_strength_2026-09-07/.
+> Código local sem commit/push. Não modifica o replay, H12, coortes, agendas ou
+> o bloqueio do scaffold PIT anterior. Resultados sintéticos não demonstram lucro;
+> principal T2 preservado em −1,23u. Redis/Compose do runtime continua pendente.
+> Snapshots legados incompletos não devem receber status/horários inventados.
+
+> ## CHECKPOINT — PESQUISA DE MODELOS E MECANISMOS DE LUCRO (2026-09-07, 08/09 UTC)
+>
+> Pedido: pesquisar ideias e modelos semelhantes, explicando por que e como
+> apresentam lucro. Artigos, documentação oficial e código público examinados;
+> resultados externos não reproduzidos. Relatório e fontes em
+> docs/continuation/model_research_2026-09-07/PESQUISA.md.
+>
+> Pistas: preços simultâneos entre casas contra uma referência independente;
+> forças dinâmicas com xG/GAP e calibração cronológica. A maioria dos resultados
+> positivos é simulada; execução, custos e disponibilidade limitam sua leitura.
+> Foram registrados também resultados negativos e problemas nos projetos abertos.
+> As ideias não são candidatos validados nem autorização para retunar estudos
+> encerrados. Nenhum modelo, coleta, agenda, trial ou coorte foi alterado.
+>
+> Conferência por hash: os 14 arquivos protegidos permanecem idênticos.
+> Sem nova suíte de testes nesta etapa documental; pendências Redis/Compose e
+> resultado econômico anterior preservados. Lucro realizável não demonstrado.
+> Backup independente em brasileirao-predictor-sessoes/2026-09-07/model_research_2026-09-07/.
+> Correções de runtime do checkpoint abaixo continuam locais, sem commit/push.
+
+> ## CHECKPOINT — CONTRATOS DO RUNTIME CORRIGIDOS (2026-09-07, 08/09 UTC)
+>
+> Executado o prompt de melhoria. Cinco correções mecânicas: idempotência do
+> kernel por evento+inputs; correlação de match/job/run entre canal, notificação
+> e chave; validação Python completa antes de reservar a chave; odds null
+> preservadas no .NET; variáveis do Compose mapeadas ao provider LINEUP_.
+> Código aplicado em main, sem commit/push. Base 4dfdec6.
+>
+> Worktree isolado sem banco/credenciais: 119 testes Python e 46 .NET passaram;
+> Ruff/formato, tipagem do kernel, restore locked, build Release e configuração
+> Compose passaram. Asserções Redis do Worker foram corrigidas e compiladas,
+> mas 1 teste Python Redis, 13 WorkerRuntime e Compose E2E continuam pendentes.
+> Docker Desktop iniciado; engines indisponíveis e Windows negou iniciar o serviço.
+> O novo preflight rejeita também docker info com exit zero e versão vazia.
+>
+> Conferidos 477 arquivos do backup; 14 hashes protegidos preservados antes/depois.
+> Sem mudança de agenda, coorte, trial, atestado, dependências ou parâmetros.
+> Sem nova busca econômica: principal 2T preservado em −1,23 u / 9 apostas / 58
+> jogos avaliáveis de 190. Lucro realizável continua não demonstrado.
+>
+> Contexto, comandos, recibos e fontes: docs/continuation/runtime_contracts_2026-09-07/.
+> Backup independente: brasileirao-predictor-sessoes/2026-09-07/runtime_contracts_2026-09-07/.
+> Ler RESULTADO.md, estado.json e REPRODUZIR.md dessa etapa antes das pendências
+> históricas. As 1.082 passagens gerais anteriores não foram reexecutadas agora.
+
 > ## CHECKPOINT — RETOMADA PRESERVADA FORA DO CHAT (2026-09-07)
 >
 > Pedido final: commitar as mudanças, conferir o prompt e permitir continuar

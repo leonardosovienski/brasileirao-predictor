@@ -1,0 +1,13 @@
+{
+  "started_at_utc": "2026-09-08T03:49:26.419155+00:00",
+  "command": [
+    "wsl.exe",
+    "--list",
+    "--verbose"
+  ],
+  "environment_allowlist": true,
+  "distro": null,
+  "existing_services_modified": false,
+  "exit_code": 0,
+  "seconds": 0.032862699998077005
+}

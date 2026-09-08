@@ -1,0 +1,9 @@
+{
+  "created_at_utc": "2026-09-08T04:48:25.169223+00:00",
+  "backup": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\runtime_recovery_2026-09-08",
+  "files": 275,
+  "total_bytes": 1212922,
+  "manifest_sha256": "c4fe4f97bdfadc8340ca92eb6962cbf985bc0c8f4204edb52bb95c5e9cd0e9be",
+  "all_copies_verified": true,
+  "receipt_location_note": "Outside manifest to avoid circular dependency."
+}

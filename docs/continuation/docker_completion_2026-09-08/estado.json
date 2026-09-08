@@ -1,0 +1,274 @@
+{
+  "verified_at_utc": "2026-09-08T12:35:31.986368+00:00",
+  "status": "OFFLINE_HARNESS_FIXED_AND_VALIDATED; COMPOSE_BLOCKED_BY_WINDOWS_ELEVATION",
+  "new_runtime_code_changes": false,
+  "previous_sources_sha256_verified": {
+    ".dockerignore": "a0bc3c1efe72b3bfbb4695571fe8df95d47567bfd5259009500b0b6e6f32d14c",
+    ".github/workflows/ci.yml": "a1ef033f67f46ecce9e1325b0cc03f976460e14bd7cb6aa61ed88b9187228978",
+    "Dockerfile.cli": "12b775d106883279659bfad33efac560e862b8ca7adf286d87934c60ccac8f40",
+    "Dockerfile.kernel": "cdf8a83940ced0448c810fc4b4f73b08541a3c3851a5cafd7cbd6f062177061c",
+    "Dockerfile.worker": "facc3700eb83b4b8fcc6919b5423a4fde93682b452662869c7dbfa8e1cd673e5",
+    "brasileirao_predictor/kernel_daemon.py": "b6cf54ed667a37c3a2bfc4335a8d3546858297af3e38a193aac8593f33a58c4a",
+    "brasileirao_predictor/kernel_redis_v2.py": "94cdf57f41aabad4558ad011e3197bcb4a5affd0e9c7a8c32d17c337c94af691",
+    "brasileirao_scripts/hotpath_smoke.py": "35567811a77cfea138bf4cdc64d66c9215781db30b8d59cf232ac1f069fb44ed",
+    "brasileirao_scripts/lineup_inbox.py": "227236e2ee1f3254462d236b077dae1a4880be18bc0da83b9ae518cb081a705c",
+    "compose.yaml": "a042e9b514ea8b5617827914d36ff570640e61d74d6d78a3790e89079372849b",
+    "contracts/redis-protocol-v2.md": "f57147e3276b8b3712acd97cbeb4a806b0dc87129713768edb9023079c7ba006",
+    "dotnet/LineupWorker.Tests/FairOddsRecoveryTests.cs": "866a88455302b405c4fc551b87e7f8bd4fb04ab32332e2cdc4c31385eb52cb5c",
+    "dotnet/LineupWorker.Tests/KernelCrossProcessTests.cs": "7d0e52a33c4b05fb238cc66b3151bc3d1adfc62c857d4464744e27d5e7983cc2",
+    "dotnet/LineupWorker.Tests/LineupStreamTests.cs": "d57f9bfdc702f4df6a3062030414616f0f6bb9a4c3a7c34209b1cef430dc9450",
+    "dotnet/LineupWorker.Tests/RedisEndpointTests.cs": "ad5b9b8834b82e928d8d2babc70aeb490ccbce73e6d9698e949ce3c21b1758e2",
+    "dotnet/LineupWorker.Tests/WatchdogRecoveryTests.cs": "1716fed9cd6613dbc4db907570d2a44e261d5be2262e0948c99a09f80c997ceb",
+    "dotnet/LineupWorker.Tests/WorkerHealthTests.cs": "f4b2d944db9f2755748c3e5c384c9b1603ce02b1836a6b1e85389a31212e520b",
+    "dotnet/LineupWorker.Tests/WorkerRuntimeFencingTests.cs": "5a623a61ec1a4fbd7dcebc7805108156ddd28a7e29cfbf3cf05eeccc0b04ff4a",
+    "dotnet/LineupWorker.Tests/WorkerRuntimeTests.cs": "20237d9463962b39a519d9d79e6079140d3d03ffc53731db43aa39776bc2818a",
+    "dotnet/LineupWorker/Models/LineupEvent.cs": "d650b401db759403007cb72b331a712c419f99484026d5eee22735c18ff2c23f",
+    "dotnet/LineupWorker/OperationalSettings.cs": "c3b19869a1befecfe9237dc647e8f4d6ec9ca9158627f1156a7eaac35010f824",
+    "dotnet/LineupWorker/Program.cs": "d1d34f51a95b3c112ee6b95202f49be2ec3b6401fa64f078216b3188715542b7",
+    "dotnet/LineupWorker/Services/KernelRedisProtocolV2.cs": "ce1ff57f0411305a983d89dc80e2b867a2c7f952d48ea5adb0278d78ab1679ea",
+    "dotnet/LineupWorker/Services/LineupStreamConsumer.cs": "57ab669819e0d2247058c72529a8846887fae309bb8aa3c0d4d8cba40888fabe",
+    "dotnet/LineupWorker/Services/MarketStateEngine.cs": "3fe190ed1b9d89a61241eee9ec8a6388e2ef2ba7a8c5efbb7a8901113d08ba56",
+    "dotnet/LineupWorker/Services/WatchdogStateStore.cs": "217a895d369850f677055228bfcbec9ea22c6fce62bdfcbd2914406e9d0941de",
+    "dotnet/LineupWorker/Services/WorkerHealth.cs": "b3231e9f861326cc8c04354b068313762c9ea195f25eee276b83dcaba6c33d40",
+    "dotnet/LineupWorker/Worker.cs": "95fa9889847640573ff891f3e5b5db0d4b46ec871bd9a92e28755dd8624a1191",
+    "tests/test_hotpath_smoke.py": "a7fa0b957db56029041180edcebba79bd85aa0e656aeaaf0acfe644b3f0c457e",
+    "tests/test_kernel_cli_redis.py": "b069bf5c10fe045e570437e907e74a569520d413f56486d629c5e19df40d49d5",
+    "tests/test_kernel_protocol.py": "93816017c8be005643c038b4cf97864623201b8431e86d096040f752bc155c31",
+    "tests/test_kernel_runtime.py": "bf315b577df06340ad3c69a8ebffcada8394bf67367df189cea084b4f4b54954",
+    "tests/test_kernel_v2_runtime.py": "7451491eff38814550d63d3de889dba6f8ff7aec4970a491c80a9de7af553a56",
+    "tests/test_lineup_inbox.py": "1121762f1821a29df450947e1099798dd0af02e558839760d2e6bed9d3e06d9a",
+    "tests/test_lineup_inbox_redis.py": "cd8c49ea3d6ad38c337315aabb3b2cbb2c20a3b5d152d4056544d82d537f1dc7",
+    "tests/test_redis_integration.py": "407b6cfffd9776edd60f08fcb43726428bd0043c87db2de4ec4559ff2288d584"
+  },
+  "protected_sha256_verified": {
+    "config.yaml": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009",
+    "pyproject.toml": "aecdb32ed59d5e78369c51f7383656e546b99e1f3ec3498360b7236568d369aa",
+    "uv.lock": "5031afe4ae912cf43e29f01e2bf276adc1534400baf9ddd8305be00a970cebd1",
+    "data/trials.json": "215e7579ca7f0619ab17caa4210e27e6356b1fd6ad290b3f1b57e9efffaf19bc",
+    "contracts/a1-ou25-phase0-policy.json": "ae45680d9cae103e3eb97d7577674934da8029cc97c197ac43fb33953a7feb35",
+    "brasileirao_scripts/persist_h14_prospective.py": "43be3f19977e2bee70ce137308cecee4bde18e3b6f72a6ee0d23ef4e3b2b187d",
+    "brasileirao_scripts/persist_h15_prospective.py": "0bbb9b4d89f4d34995c9b79c85ee293b3b4a55d2c1a6cfb62a3d24d157f0118e",
+    "brasileirao_predictor/model.py": "5b974eab0027275b829c3adfe41125fbad6ff4e0055578d7191167d5d65c4f2e",
+    "brasileirao_predictor/ratings.py": "de5594965ccef95903a75c7896126edbee039886a4044a4a8ef4dd7deb664041",
+    "brasileirao_predictor/cron_update_models.py": "4d637bdfbf0c99fa2a41abfd836c95e1791324fd9666700b843a88d6456d2337",
+    "brasileirao_scripts/collect_odds_a1.py": "a5f797949fd86801574ce8e2e0158af09c49d40c719d23e1041deed3db4b8653",
+    "brasileirao_predictor/collector_a1.py": "44b1f5b7f7417386f21a05c13ff7780617ea81b913347d6ad4d8a6cefe3bd647",
+    "schemas/odds_snapshot_v1.json": "2f6788b6269b8ee16f99e8c179046250526d94a2c82d81c52eefaafe0befe44a",
+    "data/team_aliases.json": "f5394bf22dfc0cfe962d7f02bbe67a1411501312a463eaed09c5fa855a49ef2a"
+  },
+  "previous_backup_manifests": [
+    {
+      "archive": "initial_477",
+      "files": 477,
+      "passed": 477,
+      "manifest_sha256": "0f5f0e529e9af4dc3e86d3ea8db660b948298bc02d98b6412245b5b0c1bc81cf",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true,
+      "verified_after_recovery": true
+    },
+    {
+      "archive": "runtime_contracts_2026-09-07",
+      "files": 51,
+      "passed": 51,
+      "manifest_sha256": "4489dce231a5696131f46e478fe3583e2f1320e21e589b6fce15b3f522ef2844",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true,
+      "verified_after_recovery": true
+    },
+    {
+      "archive": "model_research_2026-09-07",
+      "files": 5,
+      "passed": 5,
+      "manifest_sha256": "eceefe315431d0b464931ba5417c7c1ca3efbd87d7adcc9be7dbfacdf274cbc4",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true,
+      "verified_after_recovery": true
+    },
+    {
+      "archive": "price_strength_2026-09-07",
+      "files": 55,
+      "passed": 55,
+      "manifest_sha256": "92cf6af9e409b5fec77f556ed4c89ca4669987ca2232ddd1d996fabff2fee1ad",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true,
+      "verified_after_recovery": true
+    },
+    {
+      "archive": "price_strength_evaluation_2026-09-07",
+      "files": 44,
+      "passed": 44,
+      "manifest_sha256": "0a8857ca439bf506b33eb2bc9905c5b82def9bfaf0ddf28c1e330cf0e86be878",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true,
+      "verified_after_recovery": true
+    },
+    {
+      "archive": "price_strength_diagnosis_2026-09-07",
+      "files": 132,
+      "passed": 132,
+      "manifest_sha256": "2739f5350edfde979544380d9f9118a522bb6e89012ada8af2ae06eec5f59333",
+      "verified_after_patch": true,
+      "verified_after_runtime_v2": true,
+      "verified_after_recovery": true
+    },
+    {
+      "archive": "whole_chat_review_2026-09-08",
+      "files": 48,
+      "manifest_sha256": "cdc4e47ca96d3601b0e704ba80cfb28e492a9835d6d3d16ff43130fe49c50dca",
+      "verified_after_runtime_v2": true,
+      "verified_after_recovery": true
+    },
+    {
+      "archive": "runtime_v2_2026-09-08",
+      "files": 186,
+      "manifest_sha256": "7c7fa8971acce6aa32a64c820dc7c090b61102f776d7ca891f978a3412aacbcd",
+      "verified_after_recovery": true
+    },
+    {
+      "archive": "runtime_recovery_2026-09-08",
+      "files": 275,
+      "manifest_sha256": "c4fe4f97bdfadc8340ca92eb6962cbf985bc0c8f4204edb52bb95c5e9cd0e9be"
+    }
+  ],
+  "previous_backup_files_reverified": 1273,
+  "closed_studies_reverified": true,
+  "harness_manifest_sha256": "6eb4d60d70ad2e7810e94fbd45c4abc3250f1e8e5ef6abfe146f341966da70cd",
+  "compose_config_parser_exit_code": 0,
+  "synthetic_vorp_contract_passed": true,
+  "synthetic_database_init_and_load_passed": true,
+  "synthetic_database_count": 2,
+  "future_runner_validation": {
+    "at_utc": "2026-09-08T12:34:56.883979+00:00",
+    "command": [
+      "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\run_compose.py",
+      "plan"
+    ],
+    "exit_code": 0,
+    "syntax_checked": [
+      "prepare_harness.py",
+      "finalize_harness.py",
+      "run_compose.py"
+    ],
+    "script_sha256": {
+      "prepare_harness.py": "a9d07cf3845d34f154d1972375bd97204c629704b4aee6a590629deba0001151",
+      "finalize_harness.py": "c15414f2b71a2da88b9cb2eb6ea4b8f058ed73339574a3b1cf94808d98318c44",
+      "run_compose.py": "fb69dedd77d32b2f942f45a2f647aff50a9936c8eba1df14e8ca2f9c8cfdc785"
+    },
+    "plan_only": true,
+    "docker_commands_executed_by_runner": false,
+    "runtime_timeout_behavior_exercised": false,
+    "server_os_guard_exercised": false,
+    "runtime_source_edited": false,
+    "external_credentials_removed": true,
+    "commands_described": 21
+  },
+  "compose_build_up_e2e_executed": false,
+  "remote_ci_executed": false,
+  "new_application_test_suite_runs": 0,
+  "host_preflight": {
+    "captured_at_utc": "2026-09-08T12:26:00.0004859Z",
+    "scope": "Read-only host checks after cancelled UAC; no retry of elevation",
+    "elevated": false,
+    "computer": {
+      "HypervisorPresent": false
+    },
+    "cpu": {
+      "VirtualizationFirmwareEnabled": true,
+      "SecondLevelAddressTranslationExtensions": true
+    },
+    "os": {
+      "Version": "10.0.19045",
+      "BuildNumber": "19045",
+      "LastBootUpTime": "2026-09-06T17:01:24.5-03:00"
+    },
+    "changes_performed": [],
+    "restart_performed": false,
+    "services": [
+      {
+        "name": "com.docker.service",
+        "status": "Stopped",
+        "start_type": "Manual"
+      },
+      {
+        "name": "vmcompute",
+        "status": "Running",
+        "start_type": "Manual"
+      },
+      {
+        "name": "WslService",
+        "status": "Running",
+        "start_type": "Automatic"
+      }
+    ],
+    "elevation_attempt": {
+      "started_at_utc": "2026-09-08T12:21:57.9275422Z",
+      "action": "Normal Windows UAC elevation for read-only Docker/WSL diagnosis",
+      "script": "work/host_completion/diagnose_admin.ps1",
+      "changes_requested": false,
+      "status": "FAILED",
+      "error": "This command cannot be run due to the error: An error occurred trying to start process 'C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe' with working directory 'C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13'. A operação foi cancelada pelo usuário."
+    }
+  },
+  "docker_local_probes": [
+    {
+      "started_at_utc": "2026-09-08T12:28:41.942051+00:00",
+      "command": [
+        "C:/Program Files/Docker/Docker/resources/bin/docker.exe",
+        "--config",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\harness\\docker_config",
+        "--host",
+        "npipe:////./pipe/docker_engine",
+        "version",
+        "--format",
+        "json"
+      ],
+      "read_only": true,
+      "daemon_started": false,
+      "local_endpoint_only": true,
+      "timed_out": false,
+      "exit_code": 1,
+      "stdout": "{\"Client\":{\"CloudIntegration\":\"v1.0.35+desktop.13\",\"Version\":\"26.0.0\",\"ApiVersion\":\"1.45\",\"DefaultAPIVersion\":\"1.45\",\"GitCommit\":\"2ae903e\",\"GoVersion\":\"go1.21.8\",\"Os\":\"windows\",\"Arch\":\"amd64\",\"BuildTime\":\"Wed Mar 20 15:18:56 2024\",\"Context\":\"default\"},\"Server\":null}\n",
+      "stderr": "error during connect: this error may indicate that the docker daemon is not running: Get \"http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.45/version\": open //./pipe/docker_engine: O sistema não pode encontrar o arquivo especificado.\n",
+      "finished_at_utc": "2026-09-08T12:28:42.023687+00:00"
+    },
+    {
+      "started_at_utc": "2026-09-08T12:28:42.023701+00:00",
+      "command": [
+        "C:/Program Files/Docker/Docker/resources/bin/docker.exe",
+        "--config",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\harness\\docker_config",
+        "--host",
+        "npipe:////./pipe/dockerDesktopLinuxEngine",
+        "version",
+        "--format",
+        "json"
+      ],
+      "read_only": true,
+      "daemon_started": false,
+      "local_endpoint_only": true,
+      "timed_out": false,
+      "exit_code": 1,
+      "stdout": "{\"Client\":{\"CloudIntegration\":\"v1.0.35+desktop.13\",\"Version\":\"26.0.0\",\"ApiVersion\":\"1.45\",\"DefaultAPIVersion\":\"1.45\",\"GitCommit\":\"2ae903e\",\"GoVersion\":\"go1.21.8\",\"Os\":\"windows\",\"Arch\":\"amd64\",\"BuildTime\":\"Wed Mar 20 15:18:56 2024\",\"Context\":\"default\"},\"Server\":null}\n",
+      "stderr": "error during connect: Get \"http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/v1.45/version\": open //./pipe/dockerDesktopLinuxEngine: O sistema não pode encontrar o arquivo especificado.\n",
+      "finished_at_utc": "2026-09-08T12:28:42.115625+00:00"
+    }
+  ],
+  "uac_requests": 1,
+  "elevated_helper_executed": false,
+  "boot_bios_features_restart_changes": false,
+  "internal_producer_migration_missing": false,
+  "operational_database_access": false,
+  "fit_backtest_or_financial_actions": false,
+  "commit_push_or_deployment": false,
+  "remaining": [
+    "Administrative read of the active boot entry and Windows virtualization components.",
+    "Conditional host repair supported by the elevated diagnosis; reboot if that repair requires it.",
+    "Docker Linux engine and actual Compose build/up/recovery/health tests.",
+    "Remote CI for the final source state has not been executed."
+  ],
+  "persistent_docs": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\docs\\continuation\\docker_completion_2026-09-08",
+  "persistent_backup": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\docker_completion_2026-09-08"
+}

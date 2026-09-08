@@ -1,0 +1,18 @@
+{
+  "name": "dotnet_nullable_odds_green",
+  "started_at_utc": "2026-09-08T00:42:02.115303+00:00",
+  "command": [
+    "dotnet",
+    "test",
+    "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+    "--no-restore",
+    "--filter",
+    "FullyQualifiedName~RedisProtocolTests"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 1.974845099990489
+}

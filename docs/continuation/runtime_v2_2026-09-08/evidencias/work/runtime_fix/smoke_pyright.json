@@ -1,0 +1,9 @@
+{
+  "include": ["../integration-repo/brasileirao_scripts/hotpath_smoke.py"],
+  "exclude": [],
+  "extraPaths": ["../integration-repo"],
+  "pythonVersion": "3.14",
+  "typeCheckingMode": "basic",
+  "venvPath": "C:/Users/Superleo13/projetos/brasileirao-predictor",
+  "venv": ".venv"
+}

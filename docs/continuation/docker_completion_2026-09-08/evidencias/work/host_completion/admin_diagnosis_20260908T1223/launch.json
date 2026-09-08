@@ -1,0 +1,8 @@
+{
+  "started_at_utc": "2026-09-08T12:21:57.9275422Z",
+  "action": "Normal Windows UAC elevation for read-only Docker/WSL diagnosis",
+  "script": "work/host_completion/diagnose_admin.ps1",
+  "changes_requested": false,
+  "status": "FAILED",
+  "error": "This command cannot be run due to the error: An error occurred trying to start process 'C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe' with working directory 'C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13'. A operação foi cancelada pelo usuário."
+}

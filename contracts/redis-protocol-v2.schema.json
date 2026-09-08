@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://brasileirao-predictor.local/contracts/redis-protocol-v2.schema.json",
+  "title": "Brasileirao Redis registered kernel invocation v2",
+  "description": "Only invocations registered atomically with their lineup snapshot and current run are admissible. Schema validity alone does not grant execution.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "job_id", "run_id", "match_id", "idempotency_key", "state_version", "elo_a", "elo_b", "dvorp_a", "dvorp_b", "timestamp_t3"],
+  "properties": {
+    "protocol_version": {"const": "brasileirao.redis/2"},
+    "job_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "match_id": {"type": "string", "minLength": 1},
+    "idempotency_key": {"type": "string", "minLength": 1},
+    "state_version": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]{0,18}$",
+      "description": "Exact positive Redis INCR decimal string, at most Int64.MaxValue. Runtime also checks the signed 64-bit upper bound. Never order by a client clock or convert this field through a floating-point number."
+    },
+    "elo_a": {"type": "number"},
+    "elo_b": {"type": "number"},
+    "dvorp_a": {"type": "number"},
+    "dvorp_b": {"type": "number"},
+    "timestamp_t3": {"type": "integer", "minimum": 0}
+  }
+}

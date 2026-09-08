@@ -1,0 +1,14 @@
+{
+  "started_at_utc": "2026-09-08T03:14:16.284339+00:00",
+  "command": [
+    "docker.exe",
+    "version",
+    "--format",
+    "json"
+  ],
+  "environment_allowlist": true,
+  "distro": null,
+  "existing_services_modified": false,
+  "exit_code": 1,
+  "seconds": 0.13846400000329595
+}

@@ -1,0 +1,17 @@
+{
+  "captured_at_utc": "2026-09-08T04:40:25.3698883Z",
+  "purpose": "Propagate actual module CLI exit code; one runtime line changed after python_after.json",
+  "kernel_before_sha256": "601611566436c93f8cc86d546ca5e9d7989858db3dee31236ce38909689f9112",
+  "files": [
+    {
+      "path": "brasileirao_predictor/kernel_daemon.py",
+      "sha256": "b6cf54ed667a37c3a2bfc4335a8d3546858297af3e38a193aac8593f33a58c4a",
+      "isolated_matches": true
+    },
+    {
+      "path": "tests/test_kernel_cli_redis.py",
+      "sha256": "b069bf5c10fe045e570437e907e74a569520d413f56486d629c5e19df40d49d5",
+      "isolated_matches": true
+    }
+  ]
+}

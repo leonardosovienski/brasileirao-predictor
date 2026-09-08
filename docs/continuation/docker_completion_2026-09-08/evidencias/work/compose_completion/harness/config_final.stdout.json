@@ -1,0 +1,227 @@
+{
+  "name": "brasileirao-compose-final-0ff21c335d",
+  "networks": {
+    "default": {
+      "name": "brasileirao-compose-final-0ff21c335d_default",
+      "ipam": {},
+      "internal": true
+    }
+  },
+  "services": {
+    "init-data": {
+      "build": {
+        "context": "C:/Users/Superleo13/Documents/Codex/2026-09-07/leia-e-execute-c-users-superleo13/work/integration-repo",
+        "dockerfile": "Dockerfile.cli"
+      },
+      "command": null,
+      "entrypoint": [
+        "python",
+        "-m",
+        "brasileirao_scripts.init_compose_data"
+      ],
+      "environment": {
+        "BRASILEIRAO_CONFIG_PATH": "/app/config.yaml",
+        "KERNEL_MAX_GOALS": "12",
+        "KERNEL_VORP_THETA": "0.0",
+        "MARKET_DB_PATH": "/app/data/market.db",
+        "REDIS_URL": "redis://redis:6379/0",
+        "RUNTIME_DIR": "/app/runtime",
+        "SPORTS_DB_PATH": "/app/data/sports.db",
+        "TITULARIDADE_PATH": "/app/config/titularidade.json",
+        "VORP_ARTIFACT_PATH": "/app/config/vorp.json"
+      },
+      "networks": {
+        "default": null
+      },
+      "restart": "no",
+      "user": "0:0",
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "app-data",
+          "target": "/app/data"
+        },
+        {
+          "type": "bind",
+          "source": "C:/Users/Superleo13/Documents/Codex/2026-09-07/leia-e-execute-c-users-superleo13/work/compose_completion/harness/fixtures/config.yaml",
+          "target": "/app/config.yaml",
+          "read_only": true,
+          "bind": {}
+        }
+      ]
+    },
+    "kernel": {
+      "build": {
+        "context": "C:/Users/Superleo13/Documents/Codex/2026-09-07/leia-e-execute-c-users-superleo13/work/integration-repo",
+        "dockerfile": "Dockerfile.kernel"
+      },
+      "command": null,
+      "depends_on": {
+        "init-data": {
+          "condition": "service_completed_successfully",
+          "required": true
+        },
+        "redis": {
+          "condition": "service_healthy",
+          "required": true
+        }
+      },
+      "entrypoint": null,
+      "environment": {
+        "BRASILEIRAO_CONFIG_PATH": "/app/config.yaml",
+        "KERNEL_MAX_GOALS": "12",
+        "KERNEL_VORP_THETA": "0.0",
+        "MARKET_DB_PATH": "/app/data/market.db",
+        "REDIS_URL": "redis://redis:6379/0",
+        "RUNTIME_DIR": "/app/runtime",
+        "SPORTS_DB_PATH": "/app/data/sports.db",
+        "TITULARIDADE_PATH": "/app/config/titularidade.json",
+        "VORP_ARTIFACT_PATH": "/app/config/vorp.json"
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "brasileirao-kernel",
+          "--healthcheck"
+        ],
+        "timeout": "3s",
+        "interval": "5s",
+        "retries": 20
+      },
+      "networks": {
+        "default": null
+      },
+      "read_only": true,
+      "tmpfs": [
+        "/tmp"
+      ],
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "app-data",
+          "target": "/app/data",
+          "read_only": true
+        },
+        {
+          "type": "bind",
+          "source": "C:/Users/Superleo13/Documents/Codex/2026-09-07/leia-e-execute-c-users-superleo13/work/compose_completion/harness/fixtures/config.yaml",
+          "target": "/app/config.yaml",
+          "read_only": true,
+          "bind": {}
+        }
+      ]
+    },
+    "redis": {
+      "command": [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--appendfsync",
+        "everysec"
+      ],
+      "entrypoint": null,
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "redis-cli",
+          "ping"
+        ],
+        "timeout": "3s",
+        "interval": "5s",
+        "retries": 10
+      },
+      "image": "redis:8.2.1-alpine3.22",
+      "networks": {
+        "default": null
+      },
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "redis-data",
+          "target": "/data",
+          "volume": {}
+        }
+      ]
+    },
+    "worker": {
+      "build": {
+        "context": "C:/Users/Superleo13/Documents/Codex/2026-09-07/leia-e-execute-c-users-superleo13/work/integration-repo",
+        "dockerfile": "Dockerfile.worker"
+      },
+      "command": null,
+      "depends_on": {
+        "kernel": {
+          "condition": "service_healthy",
+          "required": true
+        },
+        "redis": {
+          "condition": "service_healthy",
+          "required": true
+        }
+      },
+      "entrypoint": null,
+      "environment": {
+        "BRASILEIRAO_CONFIG_PATH": "/app/config.yaml",
+        "KERNEL_MAX_GOALS": "12",
+        "KERNEL_VORP_THETA": "0.0",
+        "LINEUP_Exchange__ApiKey": "",
+        "LINEUP_Exchange__WebSocketUrl": "ws://127.0.0.1:9",
+        "MARKET_DB_PATH": "/app/data/market.db",
+        "REDIS_URL": "redis://redis:6379/0",
+        "RUNTIME_DIR": "/app/runtime",
+        "SPORTS_DB_PATH": "/app/data/sports.db",
+        "TITULARIDADE_PATH": "/app/config/titularidade.json",
+        "VORP_ARTIFACT_PATH": "/app/config/vorp.json"
+      },
+      "hostname": "brasileirao-compose-final-0ff21c335d-worker",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "dotnet",
+          "LineupWorker.dll",
+          "--healthcheck"
+        ],
+        "timeout": "5s",
+        "interval": "5s",
+        "retries": 10
+      },
+      "networks": {
+        "default": null
+      },
+      "read_only": true,
+      "tmpfs": [
+        "/tmp"
+      ],
+      "volumes": [
+        {
+          "type": "volume",
+          "source": "app-data",
+          "target": "/app/data",
+          "read_only": true
+        },
+        {
+          "type": "bind",
+          "source": "C:/Users/Superleo13/Documents/Codex/2026-09-07/leia-e-execute-c-users-superleo13/work/compose_completion/harness/fixtures/config.yaml",
+          "target": "/app/config.yaml",
+          "read_only": true,
+          "bind": {}
+        },
+        {
+          "type": "bind",
+          "source": "C:/Users/Superleo13/Documents/Codex/2026-09-07/leia-e-execute-c-users-superleo13/work/compose_completion/harness/fixtures",
+          "target": "/app/config",
+          "read_only": true,
+          "bind": {}
+        }
+      ]
+    }
+  },
+  "volumes": {
+    "app-data": {
+      "name": "brasileirao-compose-final-0ff21c335d_app-data"
+    },
+    "redis-data": {
+      "name": "brasileirao-compose-final-0ff21c335d_redis-data"
+    }
+  }
+}

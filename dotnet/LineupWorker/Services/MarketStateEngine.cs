@@ -1,6 +1,8 @@
+using System.Security.Cryptography;
 using System.Text.Json;
 using LineupWorker.Models;
 using StackExchange.Redis;
+using RedisProtocol = LineupWorker.Models.RedisProtocol;
 
 namespace LineupWorker.Services;
 
@@ -28,7 +30,6 @@ public sealed class MarketStateEngine : BackgroundService
     private const string FAIR_ODDS_KEY_PREFIX    = "fair_odds:";
     private const string STATE_KEY_PREFIX        = "lineup_state:";
     private const string BET_SIGNAL_CHANNEL      = "bet_signals";
-    private const string KERNEL_INVOKE_CHANNEL   = "system:invoke_kernel";
 
     private readonly IConnectionMultiplexer _redis;
     private readonly MarketOddsCache        _marketCache;
@@ -38,31 +39,47 @@ public sealed class MarketStateEngine : BackgroundService
     private readonly double _maxEdge;
     private readonly double _kellyFrac;
     private readonly double _budgetMs;
+    private readonly WorkerHealth? _health;
 
     public MarketStateEngine(
         IConnectionMultiplexer redis,
         MarketOddsCache marketCache,
         LatencyAuditService audit,
         ILogger<MarketStateEngine> log,
-        IConfiguration cfg)
+        IConfiguration cfg,
+        WorkerHealth? health = null)
     {
         _redis       = redis;
         _marketCache = marketCache;
         _audit       = audit;
         _log         = log;
+        _health      = health;
         _minEdge  = cfg.GetValue<double>("MarketStateEngine:MinEdgePct",    0.02);
         _maxEdge  = cfg.GetValue<double>("MarketStateEngine:MaxEdgePct",    0.15);
         _kellyFrac = cfg.GetValue<double>("MarketStateEngine:KellyFraction", 0.25);
         _budgetMs = cfg.GetValue<double>("MarketStateEngine:LatencyBudgetMs", 300);
     }
 
-    protected override async Task ExecuteAsync(CancellationToken ct)
+    protected override Task ExecuteAsync(CancellationToken ct)
+        => Task.WhenAll(ListenForReadyAsync(ct), PollReadyAsync(ct));
+
+    private async Task ListenForReadyAsync(CancellationToken ct)
     {
         var sub = _redis.GetSubscriber();
 
         // Subscreve ao canal de notificação publicado pelo Kernel Python.
         // ChannelMessageQueue.OnMessage: API não-ambígua e robusta entre versões.
-        var queue = await sub.SubscribeAsync(RedisChannel.Pattern(FAIR_ODDS_READY_PATTERN));
+        ChannelMessageQueue? queue = null;
+        while (queue is null)
+        {
+            ct.ThrowIfCancellationRequested();
+            try { queue = await sub.SubscribeAsync(RedisChannel.Pattern(FAIR_ODDS_READY_PATTERN)); }
+            catch (RedisException ex)
+            {
+                _log.LogWarning(ex, "[MSE] notificação indisponível; recuperação por índice continua ativa");
+                await Task.Delay(100, ct);
+            }
+        }
         queue.OnMessage(async channelMessage =>
         {
             var message = channelMessage.Message;
@@ -86,6 +103,61 @@ public sealed class MarketStateEngine : BackgroundService
         await Task.Delay(Timeout.Infinite, ct);
     }
 
+    private async Task PollReadyAsync(CancellationToken ct)
+    {
+        var cursor = "0";
+        var unavailable = false;
+        try
+        {
+            while (!ct.IsCancellationRequested)
+            {
+                try
+                {
+                    var db = _redis.GetDatabase();
+                    var scanned = (RedisResult[]?)await db.ScriptEvaluateAsync(
+                        KernelRedisProtocolV2.ReadReady, [KernelRedisProtocolV2.ReadyKey], [cursor])
+                        ?? throw new InvalidOperationException("Invalid ready scan reply");
+                    cursor = scanned[0].ToString();
+                    foreach (var item in scanned.Skip(1))
+                    {
+                        ct.ThrowIfCancellationRequested();
+                        var runId = item.ToString();
+                        var fair = await db.HashGetAsync(KernelRedisProtocolV2.RequestPrefix + runId, "result");
+                        if (!fair.HasValue) continue;
+                        try
+                        {
+                            using var document = JsonDocument.Parse(fair.ToString());
+                            var identity = FairOddsIdentity.Read(document.RootElement);
+                            if (identity.RunId != runId) continue;
+                            await ProcessFairOddsAsync(identity.MatchId, fair.ToString(), ct);
+                        }
+                        catch (Exception ex) when (ex is JsonException or InvalidOperationException)
+                        {
+                            _log.LogWarning(ex, "[MSE] resultado inválido no índice ready; nenhuma emissão autorizada");
+                        }
+                    }
+                    if (_health is not null) await _health.RenewAsync("mse");
+                    unavailable = false;
+                }
+                catch (RedisException ex)
+                {
+                    if (!unavailable) _log.LogWarning(ex, "[MSE] recuperação ready temporariamente indisponível");
+                    unavailable = true;
+                    cursor = "0"; // A reconnect starts another complete scan; final dedup is authoritative.
+                }
+                await Task.Delay(100, ct);
+            }
+        }
+        finally
+        {
+            if (_health is not null)
+            {
+                try { await _health.ReleaseAsync("mse"); }
+                catch (RedisException ex) { _log.LogWarning(ex, "[MSE] cleanup de heartbeat indisponível; TTL permanece limitado"); }
+            }
+        }
+    }
+
     // ---------------------------------------------------------------------------
     // Hot path T3.5 → T4
     // ---------------------------------------------------------------------------
@@ -93,23 +165,37 @@ public sealed class MarketStateEngine : BackgroundService
     private async Task ProcessFairOddsAsync(string matchId, string fairOddsJson,
                                             CancellationToken ct)
     {
-        // Fair Odds chegam inline na notificação (Python publica o payload junto)
-        // MAS verificamos a chave efêmera no Redis para confirmar TTL ainda válido
+        // The final Redis script repeats every fence after all awaited reads.
+        // A matching notification at this first read alone does not authorize a signal.
         var db      = _redis.GetDatabase();
         var rawKey  = await db.StringGetAsync(FAIR_ODDS_KEY_PREFIX + matchId);
-        if (!rawKey.HasValue)
+        var currentRaw = await db.StringGetAsync(KernelRedisProtocolV2.CurrentPrefix + matchId);
+        if (!rawKey.HasValue || !currentRaw.HasValue || rawKey.ToString() != fairOddsJson)
         {
-            _log.LogWarning("[MSE] ABORT {Match} — fair_odds expiradas (TTL esgotado)", matchId);
+            _log.LogWarning("[MSE] ABORT {Match} — fair odds ausentes ou notificação sem correspondência exata", matchId);
             return;
         }
 
         FairOddsPayload fair;
+        FairOddsIdentity identity;
+        KernelInvokePayload invocation;
         try
         {
             using var doc = JsonDocument.Parse(rawKey.ToString());
             fair = FairOddsPayload.FromDict(doc.RootElement);
+            identity = FairOddsIdentity.Read(doc.RootElement);
+            invocation = JsonSerializer.Deserialize<KernelInvokePayload>(currentRaw.ToString())
+                ?? throw new JsonException("Current invocation is missing");
+            if (identity.MatchId != matchId || invocation.match_id != matchId ||
+                invocation.protocol_version != RedisProtocol.Version ||
+                identity.JobId != invocation.job_id || identity.RunId != invocation.run_id ||
+                identity.StateVersion != invocation.state_version || identity.IdempotencyKey != invocation.idempotency_key)
+            {
+                _log.LogWarning("[MSE] ABORT {Match} — notificação não corresponde à invocação na chave", matchId);
+                return;
+            }
         }
-        catch (JsonException ex)
+        catch (Exception ex) when (ex is JsonException or InvalidOperationException)
         {
             _log.LogError(ex, "[MSE] JSON inválido em fair_odds:{Match}", matchId);
             return;
@@ -123,18 +209,29 @@ public sealed class MarketStateEngine : BackgroundService
             return;
         }
 
-        // Lê o estado de VORP para incluir no BetSignal (auditoria)
-        var stateRaw   = await db.StringGetAsync(STATE_KEY_PREFIX + matchId);
-        var state      = stateRaw.HasValue
-            ? JsonSerializer.Deserialize<LineupState>(stateRaw.ToString())
-            : null;
+        // Use the exact lineup snapshot registered with these model inputs.
+        var requestKey = KernelRedisProtocolV2.RequestPrefix + identity.RunId;
+        var stateRaw = await db.HashGetAsync(requestKey, "lineup_state");
+        if (!stateRaw.HasValue) return;
+        var state = JsonSerializer.Deserialize<LineupState>(stateRaw.ToString());
+        if (state is null || state.MatchId != matchId ||
+            state.DeltaVorpHome != invocation.dvorp_a || state.DeltaVorpAway != invocation.dvorp_b)
+            return;
 
         // T4: clock tick estrito ANTES da aritmética de edge (não depois)
         var t4 = DateTimeOffset.UtcNow;
 
-        var signals = ComputeEdge(matchId, fair, market, state, t4).ToList();
+        var signals = ComputeEdge(matchId, fair, market, state, t4)
+            .Select(signal => signal with
+            {
+                JobId = identity.JobId, RunId = identity.RunId, StateVersion = identity.StateVersion
+            }).ToList();
 
-        await _audit.MarkMarketReadAsync(matchId, "combined", t4);
+        try { await _audit.MarkMarketReadAsync(matchId, "combined", t4); }
+        catch (Exception ex) when (ex is RedisException or JsonException)
+        {
+            _log.LogWarning(ex, "[MSE] auditoria de latência indisponível; fences econômicos continuam obrigatórios");
+        }
 
         if (!signals.Any())
         {
@@ -143,13 +240,23 @@ public sealed class MarketStateEngine : BackgroundService
             return;
         }
 
-        var pub = _redis.GetSubscriber();
+        ct.ThrowIfCancellationRequested();
+        var arguments = new List<RedisValue> { currentRaw, rawKey, stateRaw, BET_SIGNAL_CHANNEL };
+        arguments.AddRange(signals.Select(signal => (RedisValue)JsonSerializer.Serialize(signal)));
+        var emitted = (long)await db.ScriptEvaluateAsync(KernelRedisProtocolV2.PublishSignals,
+            [KernelRedisProtocolV2.CurrentPrefix + matchId, FAIR_ODDS_KEY_PREFIX + matchId,
+             requestKey, STATE_KEY_PREFIX + matchId, KernelRedisProtocolV2.SignalsPrefix + identity.RunId,
+             KernelRedisProtocolV2.ReadyKey, KernelRedisProtocolV2.SignalOutboxKey],
+            arguments.ToArray());
+        if (emitted <= 0)
+        {
+            _log.LogInformation("[MSE] ABORT {Match} — execução obsoleta, expirada ou batch já emitido ({Fence})", matchId, emitted);
+            return;
+        }
         foreach (var sig in signals)
         {
-            var json = JsonSerializer.Serialize(sig);
-            await pub.PublishAsync(RedisChannel.Literal(BET_SIGNAL_CHANNEL), json);
             _log.LogInformation(
-                "[MSE] BetSignal {Match} {Mkt}/{Sel}: edge={E:+0.00%} kelly={K:P2} " +
+                "[MSE] BetSignal retido na outbox {Match} {Mkt}/{Sel}: edge={E:+0.00%} kelly={K:P2} " +
                 "fair={F:F3} market={M:F3} E2E={L:F1}ms {SLA}",
                 sig.MatchId, sig.Market, sig.Selection,
                 sig.EdgeVsPrice, sig.KellyStake,
@@ -216,24 +323,51 @@ public sealed class MarketStateEngine : BackgroundService
     // Invocação do Kernel (C# → Redis → Python) — chamada pelo Worker após T2
     // ---------------------------------------------------------------------------
 
-    public async Task InvokeKernelAsync(
-        string matchId, double eloA, double eloB,
-        double dvorpA, double dvorpB)
+    public async Task<KernelRegistrationResult> InvokeKernelAsync(
+        string matchId, double eloA, double eloB, LineupState updatedState,
+        string? expectedStateJson, string sourceEventId, TimeSpan stateTtl,
+        CancellationToken ct = default)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(matchId);
+        ArgumentException.ThrowIfNullOrWhiteSpace(sourceEventId);
+        if (updatedState.MatchId != matchId || !double.IsFinite(eloA) || !double.IsFinite(eloB) ||
+            !double.IsFinite(updatedState.DeltaVorpHome) || !double.IsFinite(updatedState.DeltaVorpAway))
+            throw new ArgumentException("Kernel registration requires matching finite inputs");
+        var stateTtlMs = checked((long)stateTtl.TotalMilliseconds);
+        if (stateTtlMs <= 0) throw new ArgumentOutOfRangeException(nameof(stateTtl));
+        if (updatedState.WatchdogDeadlineUnixMs is <= 0 or > 9_007_199_254_740_991)
+            throw new ArgumentException("Invalid watchdog deadline");
+        ct.ThrowIfCancellationRequested();
+        // Replays of the same event and inputs share a claim. A new lineup or
+        // correction has its own identity, even when inputs return to an earlier value.
+        var invocationIdentity = JsonSerializer.SerializeToUtf8Bytes(
+            new { sourceEventId, matchId, eloA, eloB, dvorpA = updatedState.DeltaVorpHome, dvorpB = updatedState.DeltaVorpAway });
+        var identityHash = Convert.ToHexString(SHA256.HashData(invocationIdentity));
         var payload = new KernelInvokePayload(
             protocol_version: LineupWorker.Models.RedisProtocol.Version,
             job_id:       matchId,
             run_id:       Guid.NewGuid().ToString("N"),
-            idempotency_key: $"kernel:{matchId}",
+            idempotency_key: $"kernel:{matchId}:{identityHash}",
             match_id:    matchId,
             elo_a:       eloA,
             elo_b:       eloB,
-            dvorp_a:     dvorpA,
-            dvorp_b:     dvorpB,
-            timestamp_t3: DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+            dvorp_a:     updatedState.DeltaVorpHome,
+            dvorp_b:     updatedState.DeltaVorpAway,
+            timestamp_t3: DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
+            state_version: KernelRedisProtocolV2.VersionPlaceholder
         );
-        var json = JsonSerializer.Serialize(payload);
-        await _redis.GetSubscriber().PublishAsync(
-            RedisChannel.Literal(KERNEL_INVOKE_CHANNEL), json);
+        var complete = updatedState.HomeLineupComplete && updatedState.AwayLineupComplete
+            ? JsonSerializer.Serialize(new { MatchId = matchId, CompleteAt = updatedState.ComputedAt }) : "";
+        var result = await _redis.GetDatabase().ScriptEvaluateAsync(KernelRedisProtocolV2.Register,
+            [STATE_KEY_PREFIX + matchId, KernelRedisProtocolV2.CurrentPrefix + matchId,
+             KernelRedisProtocolV2.SequencePrefix + matchId, KernelRedisProtocolV2.RequestPrefix + payload.run_id,
+             KernelRedisProtocolV2.IdentityPrefix + payload.idempotency_key, FAIR_ODDS_KEY_PREFIX + matchId,
+             KernelRedisProtocolV2.PendingKey, KernelRedisProtocolV2.ReadyKey, KernelRedisProtocolV2.WatchdogKey],
+            [expectedStateJson is null ? "0" : "1", expectedStateJson ?? "", JsonSerializer.Serialize(updatedState),
+             JsonSerializer.Serialize(payload), stateTtlMs, KernelRedisProtocolV2.RequestLifetimeMs,
+             KernelRedisProtocolV2.InvokeChannel, KernelRedisProtocolV2.RequestPrefix, KernelRedisProtocolV2.LeasePrefix,
+             complete, "lineup_complete"]);
+        var values = (RedisResult[]?)result ?? throw new InvalidOperationException("Invalid Redis registration reply");
+        return new(values[0].ToString(), values[1].ToString());
     }
 }

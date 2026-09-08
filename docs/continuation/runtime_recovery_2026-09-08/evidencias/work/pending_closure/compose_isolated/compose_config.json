@@ -1,0 +1,24 @@
+{
+  "at_utc": "2026-09-08T04:20:18.379395+00:00",
+  "command": [
+    "docker.exe",
+    "compose",
+    "--project-name",
+    "brasileirao-pending-20260908-0418",
+    "--project-directory",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\pending_closure\\compose_isolated",
+    "--env-file",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\pending_closure\\compose_isolated\\empty.env",
+    "--file",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\pending_closure\\compose_isolated\\compose.yaml",
+    "config",
+    "--format",
+    "json"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "environment_allowlist": true,
+  "exit_code": 0,
+  "seconds": 0.5226561000017682,
+  "operational_data_used": false,
+  "docker_build_or_run": false
+}

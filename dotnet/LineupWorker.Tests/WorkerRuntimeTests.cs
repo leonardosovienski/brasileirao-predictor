@@ -10,36 +10,145 @@ using Xunit;
 
 namespace LineupWorker.Tests;
 
-public sealed class WorkerRuntimeTests : IAsyncLifetime
+[CollectionDefinition("IsolatedRedisRuntime", DisableParallelization = true)]
+public sealed class IsolatedRedisRuntimeCollection { }
+
+public sealed class RedisRuntimeFactAttribute : FactAttribute
 {
+    public RedisRuntimeFactAttribute()
+    {
+        if (string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("LINEUP_TEST_REDIS_URL")) ||
+            string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("LINEUP_TEST_REDIS_RUN_ID")))
+            Skip = "Requires an explicitly configured disposable loopback Redis DB15 and expected server run_id.";
+    }
+}
+
+[Collection("IsolatedRedisRuntime")]
+public sealed partial class WorkerRuntimeTests : IAsyncLifetime
+{
+    private static readonly SemaphoreSlim FixtureLock = new(1, 1);
     private ConnectionMultiplexer _redis = null!;
     private readonly string _root = Path.Combine(Path.GetTempPath(), $"lineup-worker-{Guid.NewGuid():N}");
+    private readonly HashSet<RedisKey> _preexistingKeys = new();
+    private string _redisUrl = "";
+    private string _expectedRedisRunId = "";
+    private bool _lockAcquired;
+    private bool _verifiedRedis;
 
     public async Task InitializeAsync()
     {
-        Directory.CreateDirectory(_root);
-        _redis = await ConnectionMultiplexer.ConnectAsync("127.0.0.1:6380,abortConnect=false,allowAdmin=true");
-        await _redis.GetDatabase().ExecuteAsync("FLUSHDB");
+        _redisUrl = Environment.GetEnvironmentVariable("LINEUP_TEST_REDIS_URL") ?? "";
+        _expectedRedisRunId = Environment.GetEnvironmentVariable("LINEUP_TEST_REDIS_RUN_ID") ?? "";
+        if (!Uri.TryCreate(_redisUrl, UriKind.Absolute, out var uri) || uri.Scheme != "redis" ||
+            uri.Host is not ("127.0.0.1" or "localhost" or "[::1]" or "::1") ||
+            uri.Port <= 0 || uri.Port == 6379 || uri.AbsolutePath != "/15" ||
+            uri.UserInfo != "" || uri.Query != "" || uri.Fragment != "" ||
+            _expectedRedisRunId.Length != 40 || !_expectedRedisRunId.All(Uri.IsHexDigit))
+            throw new InvalidOperationException("Explicit isolated Redis URL (loopback, nondefault port, DB15) and run_id are required.");
+
+        await FixtureLock.WaitAsync();
+        _lockAcquired = true;
+        try
+        {
+            var options = new ConfigurationOptions { AbortOnConnectFail = true, DefaultDatabase = 15, AllowAdmin = true };
+            options.EndPoints.Add(uri.Host.Trim('[', ']'), uri.Port);
+            _redis = await ConnectionMultiplexer.ConnectAsync(options);
+            await VerifyRedisIdentityAsync();
+            var server = _redis.GetServer(_redis.GetEndPoints().Single());
+            foreach (var key in server.Keys(database: 15)) _preexistingKeys.Add(key);
+            if (_preexistingKeys.Count != 0)
+                throw new InvalidOperationException("Redis DB15 must be empty before a fixture with fixed synthetic names; existing keys are preserved.");
+            _verifiedRedis = true;
+            Directory.CreateDirectory(_root);
+        }
+        catch
+        {
+            // xUnit may omit DisposeAsync after failed initialization. Release
+            // resources here without mutating any keys from the rejected server.
+            try
+            {
+                if (_redis is not null)
+                {
+                    try { await _redis.CloseAsync(); }
+                    catch { /* Preserve the initialization failure. */ }
+                    _redis.Dispose();
+                    _redis = null!;
+                }
+            }
+            finally
+            {
+                _verifiedRedis = false;
+                if (_lockAcquired) FixtureLock.Release();
+                _lockAcquired = false;
+            }
+            throw;
+        }
     }
 
     public async Task DisposeAsync()
     {
-        await _redis.CloseAsync();
-        _redis.Dispose();
-        Directory.Delete(_root, recursive: true);
+        try
+        {
+            if (_redis is not null)
+            {
+                try
+                {
+                    await _redis.GetSubscriber().UnsubscribeAllAsync();
+                    if (_verifiedRedis)
+                    {
+                        await VerifyRedisIdentityAsync();
+                        var server = _redis.GetServer(_redis.GetEndPoints().Single());
+                        var owned = server.Keys(database: 15).Where(key => !_preexistingKeys.Contains(key)).ToArray();
+                        if (owned.Length != 0) await _redis.GetDatabase().KeyDeleteAsync(owned);
+                    }
+                }
+                finally
+                {
+                    await _redis.CloseAsync();
+                    _redis.Dispose();
+                }
+            }
+        }
+        finally
+        {
+            try
+            {
+                if (Directory.Exists(_root))
+                {
+                    var expectedParent = Path.TrimEndingDirectorySeparator(Path.GetFullPath(Path.GetTempPath()));
+                    var actualParent = Path.GetDirectoryName(Path.GetFullPath(_root));
+                    if (!string.Equals(expectedParent, actualParent, OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal) ||
+                        !Path.GetFileName(_root).StartsWith("lineup-worker-", StringComparison.Ordinal))
+                        throw new InvalidOperationException("Refusing cleanup outside this fixture's temporary directory.");
+                    Directory.Delete(_root, recursive: true);
+                }
+            }
+            finally
+            {
+                if (_lockAcquired) FixtureLock.Release();
+                _lockAcquired = false;
+            }
+        }
+    }
+
+    private async Task VerifyRedisIdentityAsync()
+    {
+        var info = (string?)await _redis.GetDatabase().ExecuteAsync("INFO", "server") ?? "";
+        if (!info.Split('\n').Any(line => line.TrimEnd('\r') == "run_id:" + _expectedRedisRunId))
+            throw new InvalidOperationException("Redis endpoint is not the explicitly identified disposable instance.");
     }
 
     private IConfiguration Config(params (string Key, string Value)[] values) =>
         new ConfigurationBuilder().AddInMemoryCollection(values.ToDictionary(v => v.Key, v => (string?)v.Value)).Build();
 
     private OperationalSettings CreateSettings(string vorp, string titularidade) => new(
-        "redis://127.0.0.1:6380/0",
+        _redisUrl,
         vorp,
         titularidade,
         Path.Combine(_root, "sports.db"),
         Path.Combine(_root, "market.db"));
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task VorpWarmupLoadsPlayersFallbacksAndTitularidade()
     {
         var vorp = Path.Combine(_root, "vorp.json");
@@ -60,7 +169,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         await service.StopAsync(default);
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public void MarketCacheParsesValidPayloadRejectsInvalidAndExpiresStaleOdds()
     {
         var cache = new MarketOddsCache(NullLogger<MarketOddsCache>.Instance, Config());
@@ -79,7 +188,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         Assert.Null(cache.TryGet("stale"));
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task LatencyAuditPersistsUpdatesAndComputesPercentiles()
     {
         var audit = new LatencyAuditService(
@@ -104,7 +213,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         Assert.Contains("T4_MarketEngineRead", stored.ToString());
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task LatencyAuditReturnsZerosWhenNoRecordsExist()
     {
         var audit = new LatencyAuditService(_redis, NullLogger<LatencyAuditService>.Instance, Config());
@@ -112,7 +221,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         Assert.Equal((0, 0, 0, 0, 0), stats);
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task MarketCacheRetriesInvalidEndpointAndStopsGracefully()
     {
         var cache = new MarketOddsCache(
@@ -123,7 +232,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         await cache.StopAsync(default);
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task MarketStateInvokesVersionedKernelAndProcessesFairOdds()
     {
         var cache = new MarketOddsCache(NullLogger<MarketOddsCache>.Instance, Config());
@@ -138,14 +247,26 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         var subscriber = _redis.GetSubscriber();
         var invoke = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
         var signal = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
-        await subscriber.SubscribeAsync(RedisChannel.Literal("system:invoke_kernel"), (_, value) => invoke.TrySetResult(value!));
+        await subscriber.SubscribeAsync(RedisChannel.Literal(KernelRedisProtocolV2.InvokeChannel), (_, value) => invoke.TrySetResult(value!));
         await subscriber.SubscribeAsync(RedisChannel.Literal("bet_signals"), (_, value) => signal.TrySetResult(value!));
 
-        await mse.InvokeKernelAsync("m-edge", 1600, 1500, 0.1, -0.1);
+        var state = new LineupState("m-edge", 0.1, -0.1, true, true,
+            DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "none");
+        await mse.InvokeKernelAsync("m-edge", 1600, 1500, state, null,
+            "synthetic-lineup-event", TimeSpan.FromHours(1));
         var invocation = await invoke.Task.WaitAsync(TimeSpan.FromSeconds(2));
-        Assert.Contains("brasileirao.redis/1", invocation);
+        Assert.Contains("brasileirao.redis/2", invocation);
 
-        var fair = """{"protocol_version":"brasileirao.redis/1","job_id":"j","run_id":"r","match_id":"m-edge","1":2.0,"X":3.0,"2":4.0,"o25":1.9,"u25":2.1}""";
+        var request = JsonSerializer.Deserialize<KernelInvokePayload>(invocation)!;
+        var fair = JsonSerializer.Serialize(new Dictionary<string, object>
+        {
+            ["protocol_version"] = request.protocol_version, ["job_id"] = request.job_id,
+            ["run_id"] = request.run_id, ["match_id"] = request.match_id,
+            ["state_version"] = request.state_version, ["idempotency_key"] = request.idempotency_key,
+            ["1"] = 2.0, ["X"] = 3.0, ["2"] = 4.0, ["o25"] = 1.9, ["u25"] = 2.1
+        });
+        await _redis.GetDatabase().HashSetAsync(KernelRedisProtocolV2.RequestPrefix + request.run_id,
+            [new HashEntry("status", "completed"), new HashEntry("result", fair)]);
         await _redis.GetDatabase().StringSetAsync("fair_odds:m-edge", fair, TimeSpan.FromSeconds(5));
         var process = typeof(MarketStateEngine).GetMethod("ProcessFairOddsAsync", BindingFlags.Instance | BindingFlags.NonPublic)!;
         await (Task)process.Invoke(mse, ["m-edge", fair, CancellationToken.None])!;
@@ -154,7 +275,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         Assert.Contains("m-edge", bet);
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task MarketStateFailsClosedForExpiredInvalidAndMissingMarketOdds()
     {
         var cache = new MarketOddsCache(NullLogger<MarketOddsCache>.Instance, Config());
@@ -170,7 +291,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         await (Task)process.Invoke(mse, ["no-market", fair, CancellationToken.None])!;
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public void MarketStateComputesOnlyEligibleEdgesAndCapsKelly()
     {
         var cache = new MarketOddsCache(NullLogger<MarketOddsCache>.Instance, Config());
@@ -194,7 +315,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         Assert.All(signals, item => Assert.True(item.PipelineLatencyMs >= 0));
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task MarketStateSubscriptionHandlesNotificationsAndStopsGracefully()
     {
         var cache = new MarketOddsCache(NullLogger<MarketOddsCache>.Instance, Config());
@@ -210,11 +331,11 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         await mse.StopAsync(default);
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task WorkerConsumesBothLineupsPersistsStateAndInvokesKernel()
     {
         var vorpPath = Path.Combine(_root, "vorp-runtime.json");
-        await File.WriteAllTextAsync(vorpPath, """{"beta_players":{"p1":1.0,"p2":2.0},"replacement_levels":{"UNKNOWN":-0.1}}""");
+        await File.WriteAllTextAsync(vorpPath, """{"beta_players":{"p1":1.0,"p2":2.0},"replacement_levels":{"UNKNOWN":0}}""");
         var vorp = new VorpStateService(
             NullLogger<VorpStateService>.Instance,
             CreateSettings(vorpPath, Path.Combine(_root, "absent.json")));
@@ -233,9 +354,15 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         await Task.Delay(200);
 
         var captured = DateTimeOffset.UtcNow;
-        var home = new LineupEvent("home_away", "home", "away", "home", ["p1"], [], captured);
-        var away = home with { Side = "away", Starters = ["p2"] };
+        var home = new LineupEvent("home_away", "home", "away", "home", LineupFixtures.Starters("p1"), [], captured);
+        var away = home with { Side = "away", Starters = LineupFixtures.Starters("p2") };
         var sub = _redis.GetSubscriber();
+        var invocations = System.Threading.Channels.Channel.CreateUnbounded<KernelInvokePayload>();
+        await sub.SubscribeAsync(RedisChannel.Literal(KernelRedisProtocolV2.InvokeChannel), (_, value) =>
+        {
+            var payload = JsonSerializer.Deserialize<KernelInvokePayload>(value.ToString())!;
+            if (payload.match_id == home.MatchId) invocations.Writer.TryWrite(payload);
+        });
         await sub.PublishAsync(RedisChannel.Literal("lineups:home_away"), RedisValue.EmptyString);
         await sub.PublishAsync(RedisChannel.Literal("lineups:home_away"), "null");
         await sub.PublishAsync(RedisChannel.Literal("lineups:home_away"), "{");
@@ -248,12 +375,21 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         Assert.True(state.HomeLineupComplete && state.AwayLineupComplete);
         Assert.Equal(1.0, state.DeltaVorpHome);
         Assert.Equal(2.0, state.DeltaVorpAway);
-        Assert.True(await _redis.GetDatabase().KeyExistsAsync("idempotency:kernel:home_away") || raw.HasValue);
+        var first = await invocations.Reader.ReadAsync().AsTask().WaitAsync(TimeSpan.FromSeconds(2));
+        var second = await invocations.Reader.ReadAsync().AsTask().WaitAsync(TimeSpan.FromSeconds(2));
+        Assert.Equal("home_away", first.match_id);
+        Assert.Equal(first.match_id, second.match_id);
+        Assert.Equal(1.0, first.dvorp_a);
+        Assert.Equal(0.0, first.dvorp_b);
+        Assert.Equal(1.0, second.dvorp_a);
+        Assert.Equal(2.0, second.dvorp_b);
+        Assert.NotEqual(first.idempotency_key, second.idempotency_key);
 
         await worker.StopAsync(default);
+        await sub.UnsubscribeAsync(RedisChannel.Literal(KernelRedisProtocolV2.InvokeChannel));
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task WorkerCancellationWhileWaitingForVorpIsGraceful()
     {
         var vorpPath = Path.Combine(_root, "vorp-not-started.json");
@@ -273,7 +409,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         await worker.StopAsync(default);
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task WorkerWatchdogPublishesFallbackForMissingAwayLineup()
     {
         var vorpPath = Path.Combine(_root, "vorp-timeout.json");
@@ -299,7 +435,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         await worker.StartAsync(default);
         await Task.Delay(200);
         var home = new LineupEvent(
-            "home_away", "home", "away", "home", ["unknown"], [], DateTimeOffset.UtcNow.AddMinutes(-2));
+            "home_away", "home", "away", "home", LineupFixtures.Starters("unknown"), [], DateTimeOffset.UtcNow.AddMinutes(-2));
         await _redis.GetSubscriber().PublishAsync(
             RedisChannel.Literal("lineups:home_away"), JsonSerializer.Serialize(home));
 
@@ -311,7 +447,7 @@ public sealed class WorkerRuntimeTests : IAsyncLifetime
         await worker.StopAsync(default);
     }
 
-    [Fact]
+    [RedisRuntimeFact]
     public async Task WorkerImmediateFallbackPublishesSignalAndAudit()
     {
         var vorpPath = Path.Combine(_root, "vorp-immediate.json");

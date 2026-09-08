@@ -1,0 +1,18 @@
+{
+  "started_at_utc": "2026-09-08T04:08:29.676214+00:00",
+  "command": [
+    "wsl.exe",
+    "-d",
+    "codex-brasileirao-pending-20260908",
+    "--exec",
+    "/bin/busybox",
+    "tee",
+    "/opt/redis-test/redis.conf"
+  ],
+  "environment_allowlist": true,
+  "distro": "codex-brasileirao-pending-20260908",
+  "existing_services_modified": false,
+  "exit_code": 0,
+  "seconds": 0.06795540000894107,
+  "stdin_sha256": "63ff20921ed76c542a3c665099f7bd7d1ff3f1b0db28e7dd8a660d06a6f2133e"
+}

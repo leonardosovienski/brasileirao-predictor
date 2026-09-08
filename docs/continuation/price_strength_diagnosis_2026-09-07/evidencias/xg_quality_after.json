@@ -1,0 +1,21 @@
+{
+  "name": "xg_quality_after",
+  "started_at_utc": "2026-09-08T02:20:20.223735+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests/test_xg_input_quality.py",
+    "tests/test_missingness_audit.py",
+    "tests/test_statistics_parser.py",
+    "-q",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 1.1135578999965219
+}

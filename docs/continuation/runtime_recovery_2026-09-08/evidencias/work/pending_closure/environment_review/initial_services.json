@@ -1,0 +1,16 @@
+{
+  "started_at_utc": "2026-09-08T04:03:47.521215+00:00",
+  "command": [
+    "powershell.exe",
+    "-NoLogo",
+    "-NoProfile",
+    "-NonInteractive",
+    "-Command",
+    "Get-Service -Name com.docker.service,LxssManager,vmcompute -ErrorAction SilentlyContinue | Select-Object Name,Status,StartType | ConvertTo-Json -Compress"
+  ],
+  "environment_allowlist": true,
+  "read_only": true,
+  "external_credentials_removed": true,
+  "exit_code": 0,
+  "seconds": 0.15182240000285674
+}

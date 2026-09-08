@@ -1,0 +1,9 @@
+{
+  "distro": "codex-brasileirao-redis-20260908",
+  "installation": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\runtime_fix\\redis_env_review_runtime\\distro",
+  "source_sha256": "4b4daa9fe2fc696c4919c4412a4c3d3e770d8fb70292a004a2c72f5096175282",
+  "configured_tar_sha256": "fd17363050d79cff8664c58ad67dc392dc94047815507fc57db4d0021927a8a9",
+  "host_drive_automount": false,
+  "windows_interop": false,
+  "cleanup_only_this_created_distro": true
+}

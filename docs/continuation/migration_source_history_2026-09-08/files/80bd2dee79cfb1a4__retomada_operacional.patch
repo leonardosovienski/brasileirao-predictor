@@ -1,0 +1,402 @@
+diff --git a/HANDOFF.md b/HANDOFF.md
+--- a/HANDOFF.md
++++ b/HANDOFF.md
+@@ -1,4 +1,81 @@
+ # HANDOFF.md — brasileirao-predictor
++
++> ## CHECKPOINT — RETOMADA PASSIVA CONCLUIDA (2026-09-07, 18:34 UTC)
++>
++> O operador executou o script administrativo em 18:33 UTC. **Supersede o
++> bloqueio ACL e o estado de retomada parcial do checkpoint abaixo.** H14/H15
++> estao habilitadas, triggers de 15min preservados, e ambas concluiram a
++> primeira execucao em 18:33:32 UTC com heartbeat finished/exit_code=0 e
++> LastTaskResult=0. As sete tarefas do escopo estao habilitadas; todas tiveram
++> execucao concluida com codigo zero, inclusive insumos/cache/A1.
++>
++> Verificados 14 hashes de fontes/configuracoes protegidas e os prefixos dos
++> cinco JSONL do backup. Nenhuma incoerencia; nenhuma avaliacao cientifica,
++> leitura de resultado parcial para pesquisa ou alteracao de protocolo.
++> O codigo zero comprova termino do processo, nao cobertura ou edge.
++>
++> Horizonte (b) em vigor: H14/H15 em coleta passiva; pesquisa ativa voltada a
++> B/C/D, sem abrir labels protegidos. A1 segue REHEARSAL_ONLY no modo gratuito.
++> Os demais grupos permanecem desativados. A operacao depende da maquina
++> ligada/sessao Windows ativa. Recibo e evidencias atualizados em
++> Documents/Codex/2026-09-07/le/outputs/RETOMADA_PASSIVA.md.
++
++> ## CHECKPOINT — RETOMADA PASSIVA PARCIAL; ACL H14/H15 (2026-09-07)
++>
++> Estado em 2026-09-07T18:32:36+00:00. **Supersede "retomada em preparacao"**
++> abaixo somente no estado operacional. Horizonte (b) confirmado pelo operador.
++> Cinco tarefas habilitadas: fixture-refresh, model-update e A1
++> collect/discover/metrics. A1 discovery/coleta/metricas tiveram exit_code=0
++> nas primeiras execucoes; permanecem REHEARSAL_ONLY, sem veredito economico.
++> A atualizacao inicial dos insumos concluiu com exit_code=0.
++>
++> H14/H15 continuam Disabled: Windows retornou "Acesso negado" tanto no
++> Set-ScheduledTask quanto no Enable-ScheduledTask. Nao foram criadas tarefas
++> alternativas para substituir as protegidas. Finalizacao exige executar
++> RETOMAR_H14_H15.ps1 como Administrador, preparado nas entregas da sessao
++> Documents/Codex/2026-09-07/le/outputs. O script espera insumos atualizados,
++> confere hashes, pre-valida as duas tarefas e mantem seus triggers de 15min.
++>
++> Launcher silencioso instalado: pythonw + CREATE_NO_WINDOW, allowlist de
++> sete jobs, sem shell, heartbeat e logs locais data/runtime/passive/<job>/.
++> A1 falha antes da API se inicializacao/fingerprint/rotacao/chave falharem.
++> Manifesto de fixture-refresh corrigido para brasileirao_scripts/; tarefa
++> tem limite de 95min (job 5400s), modelo 35min. Cadencias preservadas. A mudanca
++> nao altera metricas, refits cientificos, modelos, thresholds ou coortes.
++>
++> Verificacao: 66 testes no ambiente operacional Python 3.14.6/core 3.1/ops 4.0;
++> Ruff check/format OK. Um warning de cache do pytest; testes passaram.
++> Os 14 arquivos protegidos conferem com o backup; os tres prefixes JSONL
++> protegidos existentes foram preservados byte a byte. Nenhum upgrade,
++> avaliacao de coorte, nova trial, aposta/gasto, commit ou push.
++> Pesquisa ativa A PAUSE; B/C/D continuam DISCOVERY de viabilidade sem
++> labels protegidos. Uma nova decisao sera necessaria antes de abrir
++> fechamento/resultado para pesquisa; escolher (b) nao liberou esses dados.
++
++> ## CHECKPOINT — HORIZONTE (b) ACEITO PELO OPERADOR (2026-09-07)
++>
++> O operador respondeu "faz essa" à recomendação (b). Decisão: preservar
++> H14/H15, retomar coleta passiva e direcionar pesquisa ativa a B/C/D
++> (preço/execução/estrutural); não dedicar pesquisa ativa a outcomes.
++> **Supersede o status de horizonte pendente** do checkpoint anterior e das
++> entregas da auditoria de 07/09. Não supersede protocolos/resultados.
++>
++> Preparação: backup consistente do SQLite via API de backup, cópia dos
++> ledgers/estados protegidos e exportação XML das sete tarefas envolvidas.
++> Ambiente operacional conservado em 7b5f833, core3.1.0/ops4.0.0; não subir
++> versões nem aplicar alterações de avaliação da auditoria anterior aqui.
++> Fontes/modelos/configuração/contratos protegidos preservados por SHA-256.
++>
++> Escopo autorizado: H14/H15 (15min), infraestrutura de atualização de
++> fixtures/cache (6h) e A1 econômico (15min, quatro janelas por evento),
++> discovery semanal e métricas operacionais diárias. Sem avaliações
++> intermediárias, alteração de hipóteses, capital, gasto ou dados pagos.
++> A1: chave rotacionada atestada; fingerprint inicializado confere; conta
++> consultada sem consumo tarifado: 58/250, reserva20, margem172 em 18:17Z.
++> Não é promessa de cobertura ou homologação; permanece REHEARSAL_ONLY.
++>
++> Retomada em preparação: conferir checkpoint de conclusão operacional
++> acima deste antes de afirmar que tarefas voltaram a operar.
+ 
+ > **Estado técnico corrente — 2026-09-01:** pacotes
+ > `brasileirao_predictor`/`brasileirao_scripts`, Core 3.0.x e Ops 4.0.x por
+diff --git a/jobs.market-research.example.json b/jobs.market-research.example.json
+--- a/jobs.market-research.example.json
++++ b/jobs.market-research.example.json
+@@ -3,7 +3,7 @@
+   "jobs": [
+     {
+       "id": "brasileirao-h9-fixture-refresh",
+-      "command": [".venv/Scripts/python.exe", "scripts/update_h9_fixtures.py"],
++      "command": [".venv/Scripts/python.exe", "brasileirao_scripts/update_h9_fixtures.py"],
+       "timeout_seconds": 5400,
+       "heartbeat_interval_seconds": 10,
+       "runtime": {"backend": "local", "root": "data/runtime"},
+diff --git a/brasileirao_scripts/run_passive_task.py b/brasileirao_scripts/run_passive_task.py
+new file mode 100644
+--- /dev/null
++++ b/brasileirao_scripts/run_passive_task.py
+@@ -0,0 +1,142 @@
++"""Silent, allowlisted scheduled-job launcher; heartbeat contains operational data only.
++
++Invoke through pythonw.exe on Windows. Task Scheduler must use IgnoreNew for
++each job: this wrapper deliberately does not implement a second locking system.
++Child output stays in local logs and is never parsed or printed by the wrapper.
++"""
++
++from __future__ import annotations
++
++import argparse
++import hashlib
++import json
++import os
++import subprocess
++import sys
++from datetime import UTC, datetime
++from pathlib import Path
++from uuid import uuid4
++
++ROOT = Path(__file__).resolve().parent.parent
++sys.path.insert(0, str(ROOT))
++JOBS = {
++    "h14-persist": ("brasileirao_scripts.persist_h14_prospective", (), 900),
++    "h15-persist": ("brasileirao_scripts.persist_h15_prospective", (), 900),
++    "fixture-refresh": ("brasileirao_scripts.update_h9_fixtures", (), 5400),
++    "model-update": ("brasileirao_predictor.cron_update_models", (), 1800),
++    "a1-collect": ("brasileirao_scripts.collect_odds_a1", ("--collect",), 300),
++    "a1-discover": ("brasileirao_scripts.collect_odds_a1", ("--discover",), 300),
++    "a1-metrics": ("brasileirao_scripts.collector_daily_metrics", (), 300),
++}
++
++
++def _now() -> str:
++    return datetime.now(UTC).isoformat(timespec="microseconds")
++
++
++def _write_heartbeat(path: Path, state: dict) -> None:
++    temporary = path.with_name(f".{path.name}.{uuid4().hex}.tmp")
++    try:
++        temporary.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
++        os.replace(temporary, path)
++    finally:
++        temporary.unlink(missing_ok=True)
++
++
++def _a1_ready() -> bool:
++    """Read only initialization/rotation evidence; never collect or evaluate."""
++    try:
++        from brasileirao_scripts.a1_phase0 import _fingerprint
++
++        initialized = json.loads((ROOT / "data/a1_phase0/fingerprint.json").read_text(encoding="utf-8"))
++        rotation = json.loads(
++            (ROOT / "data/collector_metrics/key_rotation_attestation.json").read_text(encoding="utf-8")
++        )
++        current = _fingerprint()["fingerprint"]
++        return (
++            isinstance(current, str)
++            and bool(current)
++            and initialized["fingerprint"] == current
++            and rotation["rotated"] is True
++            and bool(os.environ.get("ODDSPAPI_KEY", "").strip())
++        )
++    except (OSError, ValueError, KeyError, TypeError, ImportError):
++        return False
++
++
++def run_job(job: str) -> int:
++    """Run a fixed command, retain its exit status, and update local heartbeat."""
++    if job not in JOBS:
++        raise ValueError("Unknown passive job")
++    module, arguments, timeout = JOBS[job]
++    executable = Path(sys.executable)
++    if executable.name.lower() == "pythonw.exe":
++        executable = executable.with_name("python.exe")
++    command = [str(executable), "-X", "utf8", "-m", module, *arguments]
++    directory = ROOT / "data" / "runtime" / "passive" / job
++    directory.mkdir(parents=True, exist_ok=True)
++    heartbeat = directory / "heartbeat.json"
++    last_success = None
++    try:
++        previous = json.loads(heartbeat.read_text(encoding="utf-8"))
++        if isinstance(previous, dict) and isinstance(previous.get("last_success_at"), str):
++            last_success = previous["last_success_at"]
++    except (OSError, ValueError):
++        pass
++    started = _now()
++    run_id = datetime.now(UTC).strftime("%Y%m%dT%H%M%S.%fZ") + "-" + uuid4().hex[:8]
++    log_path = directory / f"{run_id}.log"
++    state = {
++        "job": job,
++        "run_id": run_id,
++        "status": "started",
++        "started_at": started,
++        "finished_at": None,
++        "exit_code": None,
++        "last_success_at": last_success,
++        "command": command,
++        "cwd": str(ROOT),
++        "timeout_seconds": timeout,
++        "log_path": str(log_path),
++        "wrapper_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
++    }
++    _write_heartbeat(heartbeat, state)
++    error = None
++    if job.startswith("a1-") and not _a1_ready():
++        exit_code, error = 78, "a1_preflight_failed"
++    else:
++        try:
++            with log_path.open("xb") as log:
++                result = subprocess.run(
++                    command,
++                    cwd=ROOT,
++                    stdin=subprocess.DEVNULL,
++                    stdout=log,
++                    stderr=subprocess.STDOUT,
++                    shell=False,
++                    close_fds=True,
++                    creationflags=subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0,
++                    timeout=timeout,
++                    check=False,
++                )
++            exit_code = result.returncode
++        except subprocess.TimeoutExpired:
++            exit_code, error = 124, "timeout"
++        except OSError:
++            exit_code, error = 127, "launch_or_log_error"
++    finished = _now()
++    state.update(status="finished", finished_at=finished, exit_code=exit_code, error=error)
++    if exit_code == 0:
++        state["last_success_at"] = finished
++    _write_heartbeat(heartbeat, state)
++    return exit_code
++
++
++def main(argv: list[str] | None = None) -> int:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("job", choices=JOBS)
++    return run_job(parser.parse_args(argv).job)
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/tests/test_run_passive_task.py b/tests/test_run_passive_task.py
+new file mode 100644
+--- /dev/null
++++ b/tests/test_run_passive_task.py
+@@ -0,0 +1,153 @@
++"""Operational launcher tests: no real jobs or network requests are executed."""
++
++import json
++import subprocess
++from types import SimpleNamespace
++
++import pytest
++
++from brasileirao_scripts import run_passive_task as launcher
++
++
++@pytest.fixture
++def isolated(tmp_path, monkeypatch):
++    monkeypatch.setattr(launcher, "ROOT", tmp_path)
++    monkeypatch.setattr(launcher.sys, "executable", str(tmp_path / "venv" / "pythonw.exe"))
++    monkeypatch.setattr(launcher.sys, "platform", "win32")
++    monkeypatch.setattr(subprocess, "CREATE_NO_WINDOW", 0x08000000, raising=False)
++    return tmp_path
++
++
++def heartbeat(root, job="h14-persist"):
++    path = root / "data" / "runtime" / "passive" / job / "heartbeat.json"
++    return json.loads(path.read_text(encoding="utf-8"))
++
++
++@pytest.mark.parametrize(
++    "job,module,arguments,timeout",
++    [
++        ("h14-persist", "brasileirao_scripts.persist_h14_prospective", [], 900),
++        ("h15-persist", "brasileirao_scripts.persist_h15_prospective", [], 900),
++        ("fixture-refresh", "brasileirao_scripts.update_h9_fixtures", [], 5400),
++        ("model-update", "brasileirao_predictor.cron_update_models", [], 1800),
++        ("a1-collect", "brasileirao_scripts.collect_odds_a1", ["--collect"], 300),
++        ("a1-discover", "brasileirao_scripts.collect_odds_a1", ["--discover"], 300),
++        ("a1-metrics", "brasileirao_scripts.collector_daily_metrics", [], 300),
++    ],
++)
++def test_allowlist_silent_windows_launch(isolated, monkeypatch, capsys, job, module, arguments, timeout):
++    monkeypatch.setattr(launcher, "_a1_ready", lambda: True)
++
++    def run(command, **options):
++        assert command == [str(isolated / "venv" / "python.exe"), "-X", "utf8", "-m", module, *arguments]
++        assert options["cwd"] == isolated
++        assert options["shell"] is False
++        assert options["creationflags"] == 0x08000000
++        assert options["stdin"] == subprocess.DEVNULL
++        assert options["stderr"] == subprocess.STDOUT
++        assert options["timeout"] == timeout
++        assert options["check"] is False
++        assert options["close_fds"] is True
++        assert heartbeat(isolated, job)["status"] == "started"
++        options["stdout"].write(b"synthetic child output")
++        return SimpleNamespace(returncode=0)
++
++    monkeypatch.setattr(subprocess, "run", run)
++    assert launcher.main([job]) == 0
++    state = heartbeat(isolated, job)
++    assert state["status"] == "finished"
++    assert state["exit_code"] == 0
++    assert state["last_success_at"] == state["finished_at"]
++    assert state["error"] is None
++    assert "synthetic child output" not in json.dumps(state)
++    assert len(state["wrapper_sha256"]) == 64
++    logs = list((isolated / "data" / "runtime" / "passive" / job).glob("*.log"))
++    assert len(logs) == 1 and logs[0].read_bytes() == b"synthetic child output"
++    assert capsys.readouterr() == ("", "")
++
++
++@pytest.mark.parametrize(
++    "failure,expected,error",
++    [
++        (17, 17, None),
++        (subprocess.TimeoutExpired("hidden detail", 900), 124, "timeout"),
++        (OSError("hidden detail"), 127, "launch_or_log_error"),
++    ],
++)
++def test_failure_exit_and_heartbeat_preserve_success(isolated, monkeypatch, capsys, failure, expected, error):
++    monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: SimpleNamespace(returncode=0))
++    assert launcher.run_job("h14-persist") == 0
++    previous_success = heartbeat(isolated)["last_success_at"]
++
++    def run(*args, **kwargs):
++        if isinstance(failure, Exception):
++            raise failure
++        return SimpleNamespace(returncode=failure)
++
++    monkeypatch.setattr(subprocess, "run", run)
++    assert launcher.run_job("h14-persist") == expected
++    state = heartbeat(isolated)
++    assert state["status"] == "finished" and state["finished_at"] is not None
++    assert state["exit_code"] == expected and state["error"] == error
++    assert state["last_success_at"] == previous_success
++    assert "hidden detail" not in json.dumps(state)
++    assert len(list((isolated / "data" / "runtime" / "passive" / "h14-persist").glob("*.log"))) == 2
++    assert capsys.readouterr() == ("", "")
++
++
++def test_reject_unknown_job_before_launch(isolated, monkeypatch):
++    def unexpected(*args, **kwargs):
++        pytest.fail("An unknown job must never start a process")
++
++    monkeypatch.setattr(subprocess, "run", unexpected)
++    with pytest.raises(ValueError, match="Unknown passive job"):
++        launcher.run_job("evaluate_h14_prospective")
++    assert not (isolated / "data").exists()
++
++
++def test_python_executable_is_preserved(isolated, monkeypatch):
++    executable = str(isolated / "venv" / "python.exe")
++    monkeypatch.setattr(launcher.sys, "executable", executable)
++
++    def run(command, **kwargs):
++        assert command[0] == executable
++        return SimpleNamespace(returncode=0)
++
++    monkeypatch.setattr(subprocess, "run", run)
++    assert launcher.run_job("h14-persist") == 0
++
++
++@pytest.mark.parametrize("case", ["ok", "missing", "mismatch", "rotation_missing", "rotation_false", "key_missing"])
++def test_a1_preflight_fails_closed(isolated, monkeypatch, capsys, case):
++    phase = isolated / "data" / "a1_phase0"
++    metrics = isolated / "data" / "collector_metrics"
++    phase.mkdir(parents=True)
++    metrics.mkdir(parents=True)
++    if case != "missing":
++        (phase / "fingerprint.json").write_text(
++            json.dumps({"fingerprint": "other" if case == "mismatch" else "synthetic-hash"}), encoding="utf-8"
++        )
++    if case != "rotation_missing":
++        (metrics / "key_rotation_attestation.json").write_text(
++            json.dumps({"rotated": case != "rotation_false"}), encoding="utf-8"
++        )
++    monkeypatch.setenv("ODDSPAPI_KEY", "" if case == "key_missing" else "synthetic-secret")
++    monkeypatch.setitem(
++        launcher.sys.modules,
++        "brasileirao_scripts.a1_phase0",
++        SimpleNamespace(_fingerprint=lambda: {"fingerprint": "synthetic-hash"}),
++    )
++    calls = []
++
++    def run(*args, **kwargs):
++        calls.append(args)
++        return SimpleNamespace(returncode=0)
++
++    monkeypatch.setattr(subprocess, "run", run)
++    assert launcher.run_job("a1-collect") == (0 if case == "ok" else 78)
++    assert len(calls) == (1 if case == "ok" else 0)
++    state = heartbeat(isolated, "a1-collect")
++    assert state["status"] == "finished"
++    assert state["error"] == (None if case == "ok" else "a1_preflight_failed")
++    assert "synthetic-secret" not in json.dumps(state)
++    assert capsys.readouterr() == ("", "")

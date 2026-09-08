@@ -1,0 +1,28 @@
+{
+  "at_utc": "2026-09-08T12:34:56.883979+00:00",
+  "command": [
+    "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/python.exe",
+    "-X",
+    "utf8",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\run_compose.py",
+    "plan"
+  ],
+  "exit_code": 0,
+  "syntax_checked": [
+    "prepare_harness.py",
+    "finalize_harness.py",
+    "run_compose.py"
+  ],
+  "script_sha256": {
+    "prepare_harness.py": "a9d07cf3845d34f154d1972375bd97204c629704b4aee6a590629deba0001151",
+    "finalize_harness.py": "c15414f2b71a2da88b9cb2eb6ea4b8f058ed73339574a3b1cf94808d98318c44",
+    "run_compose.py": "fb69dedd77d32b2f942f45a2f647aff50a9936c8eba1df14e8ca2f9c8cfdc785"
+  },
+  "plan_only": true,
+  "docker_commands_executed_by_runner": false,
+  "runtime_timeout_behavior_exercised": false,
+  "server_os_guard_exercised": false,
+  "runtime_source_edited": false,
+  "external_credentials_removed": true,
+  "commands_described": 21
+}

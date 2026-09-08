@@ -1,0 +1,128 @@
+--- a/brasileirao_scripts/exp001_data_pilot.py
++++ b/brasileirao_scripts/exp001_data_pilot.py
+@@ -33,17 +33,29 @@
+ 
+ 
+ def _latest_at_cutoff(book: dict[str, Any], cutoff: datetime) -> dict[str, Any] | None:
++    """Return last known states, rejecting suspended or ambiguous selections.
++
++    Filtering inactive rows before selecting the last state resurrects old quotes.
++    Equal-time rows have no documented ordering; conflicting active/price states
++    therefore fail closed instead of depending on the provider's array order.
++    """
+     outcomes = book.get("markets", {}).get("101", {}).get("outcomes", {})
+     selected: dict[str, Any] = {}
+     timestamps: list[datetime] = []
+     for outcome_id, label in OUTCOMES.items():
+         timeline = outcomes.get(outcome_id, {}).get("players", {}).get("0", [])
+-        eligible = [row for row in timeline if _at(row["createdAt"]) <= cutoff and row.get("active", True)]
++        eligible = [row for row in timeline if _at(row["createdAt"]) <= cutoff]
+         if not eligible:
+             return None
+-        latest = max(eligible, key=lambda row: _at(row["createdAt"]))
++        latest_at = max(_at(row["createdAt"]) for row in eligible)
++        latest_rows = [row for row in eligible if _at(row["createdAt"]) == latest_at]
++        if any(row.get("active") is not True for row in latest_rows):
++            return None
++        latest = latest_rows[0]
++        if any(row["price"] != latest["price"] for row in latest_rows[1:]):
++            return None
+         selected[label] = latest["price"]
+-        timestamps.append(_at(latest["createdAt"]))
++        timestamps.append(latest_at)
+     returned = min(timestamps)
+     return {
+         **selected,
+--- /dev/null
++++ b/tests/test_exp001_cutoff_state_regression.py
+@@ -0,0 +1,90 @@
++"""Synthetic-only regressions; no provider calls or project datasets are read."""
++
++from copy import deepcopy
++from datetime import UTC, datetime
++
++import pytest
++
++from brasileirao_scripts.exp001_data_pilot import _latest_at_cutoff
++
++CUTOFF = datetime(2020, 1, 1, 12, tzinfo=UTC)
++
++
++def _row(at, *, price=2.0, active=True):
++    return {"createdAt": f"2020-01-01T{at}Z", "price": price, "active": active}
++
++
++def _book(timeline):
++    return {
++        "markets": {"101": {"outcomes": {oid: {"players": {"0": deepcopy(timeline)}} for oid in ("101", "102", "103")}}}
++    }
++
++
++@pytest.mark.parametrize("reverse", [False, True])
++def test_latest_inactive_state_does_not_resurrect_older_quote(reverse):
++    rows = [_row("11:00:00"), _row("11:59:00", active=False)]
++    book = _book(list(reversed(rows)) if reverse else rows)
++    assert _latest_at_cutoff(book, CUTOFF) is None
++
++
++def test_future_reactivation_cannot_undo_suspension_at_cutoff():
++    rows = [_row("11:00:00"), _row("11:59:00", active=False), _row("12:01:00")]
++    assert _latest_at_cutoff(_book(rows), CUTOFF) is None
++
++
++def test_future_suspension_does_not_erase_current_quote():
++    rows = [_row("11:59:00"), _row("12:01:00", active=False)]
++    result = _latest_at_cutoff(_book(rows), CUTOFF)
++    assert result is not None
++    assert result["home_odds"] == 2.0
++    assert result["snapshot_age_minutes"] == 1.0
++
++
++def test_future_price_is_never_selected():
++    rows = [_row("11:59:00"), _row("12:01:00", price=99)]
++    result = _latest_at_cutoff(_book(rows), CUTOFF)
++    assert result is not None
++    assert [result[name] for name in ("home_odds", "draw_odds", "away_odds")] == [2.0] * 3
++
++
++def test_future_only_has_no_eligible_quote():
++    assert _latest_at_cutoff(_book([_row("12:01:00")]), CUTOFF) is None
++
++
++@pytest.mark.parametrize("reverse", [False, True])
++@pytest.mark.parametrize("conflict", ["active", "price"])
++def test_equal_timestamp_conflict_fails_closed_independent_of_order(reverse, conflict):
++    rows = [_row("11:59:00"), _row("11:59:00", active=False) if conflict == "active" else _row("11:59:00", price=3.0)]
++    assert _latest_at_cutoff(_book(list(reversed(rows)) if reverse else rows), CUTOFF) is None
++
++
++def test_equal_timestamp_identical_states_are_accepted():
++    result = _latest_at_cutoff(_book([_row("11:59:00"), _row("11:59:00")]), CUTOFF)
++    assert result is not None
++    assert result["home_odds"] == 2.0
++
++
++def test_missing_active_flag_is_not_proof_of_an_active_state():
++    rows = [_row("11:00:00"), _row("11:59:00")]
++    del rows[-1]["active"]
++    assert _latest_at_cutoff(_book(rows), CUTOFF) is None
++
++
++def test_suspension_of_one_leg_rejects_whole_1x2_quote():
++    book = _book([_row("11:59:00")])
++    book["markets"]["101"]["outcomes"]["102"]["players"]["0"].append(_row("12:00:00", active=False))
++    assert _latest_at_cutoff(book, CUTOFF) is None
++
++
++def test_missing_leg_fails_closed():
++    book = _book([_row("11:59:00")])
++    del book["markets"]["101"]["outcomes"]["102"]
++    assert _latest_at_cutoff(book, CUTOFF) is None
++
++
++def test_reactivation_before_cutoff_is_accepted():
++    rows = [_row("11:00:00"), _row("11:30:00", active=False), _row("12:00:00", price=2.5)]
++    result = _latest_at_cutoff(_book(rows), CUTOFF)
++    assert result is not None
++    assert result["home_odds"] == 2.5
++    assert result["snapshot_age_minutes"] == 0.0

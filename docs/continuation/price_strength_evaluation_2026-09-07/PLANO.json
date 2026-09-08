@@ -1,0 +1,2415 @@
+{
+  "study_id": "rolling-xg-2025-conditional48h-v1",
+  "created_at_utc": "2026-09-08T01:46:30.470626+00:00",
+  "status": "EXPLORATORY_CONDITIONAL_48H",
+  "question": "Does the frozen rolling-xG candidate improve paired forecast losses and hypothetical net payout in explored 2025?",
+  "reason_for_year": "2025 has historical xG and an existing raw comparator fitted only through 2024; selected before new scores.",
+  "hypothesis": "Recent chance creation/concession and chronological rate calibration may add information to the old static model and market.",
+  "candidate_config": {
+    "window_matches": 5,
+    "min_team_matches": 3,
+    "half_life_days": 90.0,
+    "prior_weight": 2.0,
+    "prior_home_xg": 1.5,
+    "prior_away_xg": 1.2,
+    "min_calibration_matches": 20,
+    "calibration_prior_exposure": 5.0,
+    "calibration_lead_minutes": 60
+  },
+  "candidate_module_sha256": "8376b9ba40ba944f106a38b79e9e5eaaa2115f84b5969a91899a7d5fe87a344b",
+  "source_files": {
+    "history.json": {
+      "source_path": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\work\\selection_reanalysis\\historical_input.json",
+      "sha256": "14153f7cbb348e9eef22a8e1c438757b1ef482951e2576d4a8381d7928e8e142"
+    },
+    "baseline_2025.json": {
+      "source_path": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\work\\new_split_backtest\\run\\forecasts_2025.json",
+      "sha256": "8500e1621dd1cf9c58aeedc0e645251db395bb50617f1df24ecfd4177c4ec11d"
+    },
+    "baseline_plan.json": {
+      "source_path": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\work\\new_split_backtest\\plan.json",
+      "sha256": "5561ed31a36945d40e5ffe258dea5f07d890a8f677f57e463ccdb875e3d45f20"
+    },
+    "baseline_candidate.json": {
+      "source_path": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\work\\new_split_backtest\\run\\candidate.json",
+      "sha256": "a0eae58a59496fc43371b7267f4d616a5c297c6952a4a89d9ca90a59071e15fc"
+    }
+  },
+  "frozen_accounting_sha256": "03466723e4a1f0a77e7daf7b36db6e8d575c4ff474bd74fe4accd89780ff0851",
+  "warmup_years": [
+    2021,
+    2022,
+    2023
+  ],
+  "calibration_target_year": 2024,
+  "calibration_cutoff": "2025-01-01T00:00:00+00:00",
+  "evaluation_year": 2025,
+  "evaluation_fixtures": [
+    {
+      "event_id": "13473341",
+      "home": "São Paulo",
+      "away": "Sport Recife",
+      "kickoff": "2025-03-29T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473343",
+      "home": "Cruzeiro",
+      "away": "Mirassol",
+      "kickoff": "2025-03-29T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473344",
+      "home": "Grêmio",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-03-29T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473346",
+      "home": "Fortaleza",
+      "away": "Fluminense",
+      "kickoff": "2025-03-29T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473347",
+      "home": "Juventude",
+      "away": "Vitória",
+      "kickoff": "2025-03-29T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473338",
+      "home": "Flamengo",
+      "away": "Internacional",
+      "kickoff": "2025-03-30T00:00:00+00:00"
+    },
+    {
+      "event_id": "13473340",
+      "home": "Palmeiras",
+      "away": "Botafogo",
+      "kickoff": "2025-03-30T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473339",
+      "home": "Vasco da Gama",
+      "away": "Santos",
+      "kickoff": "2025-03-30T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473345",
+      "home": "Bahia",
+      "away": "Corinthians",
+      "kickoff": "2025-03-30T23:00:00+00:00"
+    },
+    {
+      "event_id": "13473342",
+      "home": "Red Bull Bragantino",
+      "away": "Ceará",
+      "kickoff": "2025-03-31T23:00:00+00:00"
+    },
+    {
+      "event_id": "13473350",
+      "home": "Corinthians",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-04-05T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473356",
+      "home": "Ceará",
+      "away": "Grêmio",
+      "kickoff": "2025-04-05T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473349",
+      "home": "Botafogo",
+      "away": "Juventude",
+      "kickoff": "2025-04-06T00:00:00+00:00"
+    },
+    {
+      "event_id": "13473348",
+      "home": "Fluminense",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-04-06T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473353",
+      "home": "Atlético Mineiro",
+      "away": "São Paulo",
+      "kickoff": "2025-04-06T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473352",
+      "home": "Mirassol",
+      "away": "Fortaleza",
+      "kickoff": "2025-04-06T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473354",
+      "home": "Internacional",
+      "away": "Cruzeiro",
+      "kickoff": "2025-04-06T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473355",
+      "home": "Vitória",
+      "away": "Flamengo",
+      "kickoff": "2025-04-06T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473357",
+      "home": "Sport Recife",
+      "away": "Palmeiras",
+      "kickoff": "2025-04-06T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473351",
+      "home": "Santos",
+      "away": "Bahia",
+      "kickoff": "2025-04-06T23:30:00+00:00"
+    },
+    {
+      "event_id": "13473362",
+      "home": "Red Bull Bragantino",
+      "away": "Botafogo",
+      "kickoff": "2025-04-12T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473367",
+      "home": "Juventude",
+      "away": "Ceará",
+      "kickoff": "2025-04-12T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473360",
+      "home": "Palmeiras",
+      "away": "Corinthians",
+      "kickoff": "2025-04-12T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473359",
+      "home": "Vasco da Gama",
+      "away": "Sport Recife",
+      "kickoff": "2025-04-13T00:00:00+00:00"
+    },
+    {
+      "event_id": "13473365",
+      "home": "Bahia",
+      "away": "Mirassol",
+      "kickoff": "2025-04-13T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473361",
+      "home": "São Paulo",
+      "away": "Cruzeiro",
+      "kickoff": "2025-04-13T20:30:00+00:00"
+    },
+    {
+      "event_id": "13473364",
+      "home": "Grêmio",
+      "away": "Flamengo",
+      "kickoff": "2025-04-13T20:30:00+00:00"
+    },
+    {
+      "event_id": "13473358",
+      "home": "Fluminense",
+      "away": "Santos",
+      "kickoff": "2025-04-13T22:30:00+00:00"
+    },
+    {
+      "event_id": "13473366",
+      "home": "Fortaleza",
+      "away": "Internacional",
+      "kickoff": "2025-04-13T23:00:00+00:00"
+    },
+    {
+      "event_id": "13473363",
+      "home": "Atlético Mineiro",
+      "away": "Vitória",
+      "kickoff": "2025-04-13T23:30:00+00:00"
+    },
+    {
+      "event_id": "13473376",
+      "home": "Ceará",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-04-16T00:30:00+00:00"
+    },
+    {
+      "event_id": "13473369",
+      "home": "Botafogo",
+      "away": "São Paulo",
+      "kickoff": "2025-04-16T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473372",
+      "home": "Mirassol",
+      "away": "Grêmio",
+      "kickoff": "2025-04-16T22:00:00+00:00"
+    },
+    {
+      "event_id": "13473377",
+      "home": "Sport Recife",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-04-16T22:00:00+00:00"
+    },
+    {
+      "event_id": "13473370",
+      "home": "Corinthians",
+      "away": "Fluminense",
+      "kickoff": "2025-04-16T22:30:00+00:00"
+    },
+    {
+      "event_id": "13473374",
+      "home": "Internacional",
+      "away": "Palmeiras",
+      "kickoff": "2025-04-16T22:30:00+00:00"
+    },
+    {
+      "event_id": "13473368",
+      "home": "Flamengo",
+      "away": "Juventude",
+      "kickoff": "2025-04-17T00:30:00+00:00"
+    },
+    {
+      "event_id": "13473371",
+      "home": "Santos",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-04-17T00:30:00+00:00"
+    },
+    {
+      "event_id": "13473375",
+      "home": "Vitória",
+      "away": "Fortaleza",
+      "kickoff": "2025-04-17T00:30:00+00:00"
+    },
+    {
+      "event_id": "13473373",
+      "home": "Cruzeiro",
+      "away": "Bahia",
+      "kickoff": "2025-04-18T00:30:00+00:00"
+    },
+    {
+      "event_id": "13473380",
+      "home": "Corinthians",
+      "away": "Sport Recife",
+      "kickoff": "2025-04-19T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473379",
+      "home": "Vasco da Gama",
+      "away": "Flamengo",
+      "kickoff": "2025-04-19T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473384",
+      "home": "Grêmio",
+      "away": "Internacional",
+      "kickoff": "2025-04-20T00:00:00+00:00"
+    },
+    {
+      "event_id": "13473387",
+      "home": "Juventude",
+      "away": "Mirassol",
+      "kickoff": "2025-04-20T14:00:00+00:00"
+    },
+    {
+      "event_id": "13473381",
+      "home": "São Paulo",
+      "away": "Santos",
+      "kickoff": "2025-04-20T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473383",
+      "home": "Atlético Mineiro",
+      "away": "Botafogo",
+      "kickoff": "2025-04-20T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473378",
+      "home": "Fluminense",
+      "away": "Vitória",
+      "kickoff": "2025-04-20T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473386",
+      "home": "Fortaleza",
+      "away": "Palmeiras",
+      "kickoff": "2025-04-20T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473382",
+      "home": "Red Bull Bragantino",
+      "away": "Cruzeiro",
+      "kickoff": "2025-04-20T23:30:00+00:00"
+    },
+    {
+      "event_id": "13473385",
+      "home": "Bahia",
+      "away": "Ceará",
+      "kickoff": "2025-04-21T23:00:00+00:00"
+    },
+    {
+      "event_id": "13473394",
+      "home": "Internacional",
+      "away": "Juventude",
+      "kickoff": "2025-04-26T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473392",
+      "home": "Mirassol",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-04-26T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473396",
+      "home": "Ceará",
+      "away": "São Paulo",
+      "kickoff": "2025-04-26T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473397",
+      "home": "Sport Recife",
+      "away": "Fortaleza",
+      "kickoff": "2025-04-26T23:00:00+00:00"
+    },
+    {
+      "event_id": "13473389",
+      "home": "Botafogo",
+      "away": "Fluminense",
+      "kickoff": "2025-04-27T00:00:00+00:00"
+    },
+    {
+      "event_id": "13473388",
+      "home": "Flamengo",
+      "away": "Corinthians",
+      "kickoff": "2025-04-27T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473390",
+      "home": "Palmeiras",
+      "away": "Bahia",
+      "kickoff": "2025-04-27T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473393",
+      "home": "Cruzeiro",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-04-27T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473395",
+      "home": "Vitória",
+      "away": "Grêmio",
+      "kickoff": "2025-04-27T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473391",
+      "home": "Santos",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-04-27T23:30:00+00:00"
+    },
+    {
+      "event_id": "13473401",
+      "home": "São Paulo",
+      "away": "Fortaleza",
+      "kickoff": "2025-05-03T00:30:00+00:00"
+    },
+    {
+      "event_id": "13473398",
+      "home": "Fluminense",
+      "away": "Sport Recife",
+      "kickoff": "2025-05-03T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473400",
+      "home": "Corinthians",
+      "away": "Internacional",
+      "kickoff": "2025-05-03T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473406",
+      "home": "Ceará",
+      "away": "Vitória",
+      "kickoff": "2025-05-03T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473405",
+      "home": "Bahia",
+      "away": "Botafogo",
+      "kickoff": "2025-05-04T00:00:00+00:00"
+    },
+    {
+      "event_id": "13473399",
+      "home": "Vasco da Gama",
+      "away": "Palmeiras",
+      "kickoff": "2025-05-04T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473404",
+      "home": "Grêmio",
+      "away": "Santos",
+      "kickoff": "2025-05-04T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473403",
+      "home": "Cruzeiro",
+      "away": "Flamengo",
+      "kickoff": "2025-05-04T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473402",
+      "home": "Red Bull Bragantino",
+      "away": "Mirassol",
+      "kickoff": "2025-05-05T22:00:00+00:00"
+    },
+    {
+      "event_id": "13473407",
+      "home": "Juventude",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-05-05T23:00:00+00:00"
+    },
+    {
+      "event_id": "13473416",
+      "home": "Fortaleza",
+      "away": "Juventude",
+      "kickoff": "2025-05-10T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473412",
+      "home": "Mirassol",
+      "away": "Corinthians",
+      "kickoff": "2025-05-10T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473414",
+      "home": "Grêmio",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-05-10T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473415",
+      "home": "Vitória",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-05-10T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473408",
+      "home": "Flamengo",
+      "away": "Bahia",
+      "kickoff": "2025-05-11T00:00:00+00:00"
+    },
+    {
+      "event_id": "13473417",
+      "home": "Sport Recife",
+      "away": "Cruzeiro",
+      "kickoff": "2025-05-11T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473410",
+      "home": "Palmeiras",
+      "away": "São Paulo",
+      "kickoff": "2025-05-11T20:30:00+00:00"
+    },
+    {
+      "event_id": "13473413",
+      "home": "Atlético Mineiro",
+      "away": "Fluminense",
+      "kickoff": "2025-05-11T20:30:00+00:00"
+    },
+    {
+      "event_id": "13473409",
+      "home": "Botafogo",
+      "away": "Internacional",
+      "kickoff": "2025-05-11T23:00:00+00:00"
+    },
+    {
+      "event_id": "13473411",
+      "home": "Santos",
+      "away": "Ceará",
+      "kickoff": "2025-05-12T23:00:00+00:00"
+    },
+    {
+      "event_id": "13473426",
+      "home": "Ceará",
+      "away": "Sport Recife",
+      "kickoff": "2025-05-17T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473419",
+      "home": "Vasco da Gama",
+      "away": "Fortaleza",
+      "kickoff": "2025-05-17T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473421",
+      "home": "São Paulo",
+      "away": "Grêmio",
+      "kickoff": "2025-05-18T00:00:00+00:00"
+    },
+    {
+      "event_id": "13473420",
+      "home": "Corinthians",
+      "away": "Santos",
+      "kickoff": "2025-05-18T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473425",
+      "home": "Bahia",
+      "away": "Vitória",
+      "kickoff": "2025-05-18T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473427",
+      "home": "Juventude",
+      "away": "Fluminense",
+      "kickoff": "2025-05-18T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473418",
+      "home": "Flamengo",
+      "away": "Botafogo",
+      "kickoff": "2025-05-18T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473422",
+      "home": "Red Bull Bragantino",
+      "away": "Palmeiras",
+      "kickoff": "2025-05-18T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473423",
+      "home": "Cruzeiro",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-05-18T23:30:00+00:00"
+    },
+    {
+      "event_id": "13473424",
+      "home": "Internacional",
+      "away": "Mirassol",
+      "kickoff": "2025-05-18T23:30:00+00:00"
+    },
+    {
+      "event_id": "13473428",
+      "home": "Fluminense",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-05-24T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473431",
+      "home": "São Paulo",
+      "away": "Mirassol",
+      "kickoff": "2025-05-24T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473434",
+      "home": "Atlético Mineiro",
+      "away": "Corinthians",
+      "kickoff": "2025-05-25T00:00:00+00:00"
+    },
+    {
+      "event_id": "13473435",
+      "home": "Grêmio",
+      "away": "Bahia",
+      "kickoff": "2025-05-25T14:00:00+00:00"
+    },
+    {
+      "event_id": "13473430",
+      "home": "Palmeiras",
+      "away": "Flamengo",
+      "kickoff": "2025-05-25T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473438",
+      "home": "Sport Recife",
+      "away": "Internacional",
+      "kickoff": "2025-05-25T19:00:00+00:00"
+    },
+    {
+      "event_id": "13473436",
+      "home": "Vitória",
+      "away": "Santos",
+      "kickoff": "2025-05-25T21:30:00+00:00"
+    },
+    {
+      "event_id": "13473437",
+      "home": "Fortaleza",
+      "away": "Cruzeiro",
+      "kickoff": "2025-05-25T23:30:00+00:00"
+    },
+    {
+      "event_id": "13473432",
+      "home": "Red Bull Bragantino",
+      "away": "Juventude",
+      "kickoff": "2025-05-26T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472704",
+      "home": "Bahia",
+      "away": "São Paulo",
+      "kickoff": "2025-05-31T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472680",
+      "home": "Vasco da Gama",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-06-01T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472692",
+      "home": "Mirassol",
+      "away": "Sport Recife",
+      "kickoff": "2025-06-01T14:00:00+00:00"
+    },
+    {
+      "event_id": "13472688",
+      "home": "Santos",
+      "away": "Botafogo",
+      "kickoff": "2025-06-01T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472712",
+      "home": "Juventude",
+      "away": "Grêmio",
+      "kickoff": "2025-06-01T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472675",
+      "home": "Flamengo",
+      "away": "Fortaleza",
+      "kickoff": "2025-06-01T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472684",
+      "home": "Corinthians",
+      "away": "Vitória",
+      "kickoff": "2025-06-01T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472708",
+      "home": "Ceará",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-06-01T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472696",
+      "home": "Cruzeiro",
+      "away": "Palmeiras",
+      "kickoff": "2025-06-01T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472700",
+      "home": "Internacional",
+      "away": "Fluminense",
+      "kickoff": "2025-06-01T23:30:00+00:00"
+    },
+    {
+      "event_id": "13788130",
+      "home": "Botafogo",
+      "away": "Ceará",
+      "kickoff": "2025-06-04T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472733",
+      "home": "Red Bull Bragantino",
+      "away": "Bahia",
+      "kickoff": "2025-06-12T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472746",
+      "home": "Vitória",
+      "away": "Cruzeiro",
+      "kickoff": "2025-06-12T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472750",
+      "home": "Fortaleza",
+      "away": "Santos",
+      "kickoff": "2025-06-12T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472741",
+      "home": "Grêmio",
+      "away": "Corinthians",
+      "kickoff": "2025-06-12T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472729",
+      "home": "São Paulo",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-06-13T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472737",
+      "home": "Atlético Mineiro",
+      "away": "Internacional",
+      "kickoff": "2025-06-13T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472758",
+      "home": "Flamengo",
+      "away": "São Paulo",
+      "kickoff": "2025-07-12T19:30:00+00:00"
+    },
+    {
+      "event_id": "13472782",
+      "home": "Internacional",
+      "away": "Vitória",
+      "kickoff": "2025-07-12T19:30:00+00:00"
+    },
+    {
+      "event_id": "13472762",
+      "home": "Vasco da Gama",
+      "away": "Botafogo",
+      "kickoff": "2025-07-12T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472786",
+      "home": "Bahia",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-07-13T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472766",
+      "home": "Corinthians",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-07-13T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472778",
+      "home": "Cruzeiro",
+      "away": "Grêmio",
+      "kickoff": "2025-07-13T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472790",
+      "home": "Fortaleza",
+      "away": "Ceará",
+      "kickoff": "2025-07-13T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472794",
+      "home": "Juventude",
+      "away": "Sport Recife",
+      "kickoff": "2025-07-14T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472807",
+      "home": "Palmeiras",
+      "away": "Mirassol",
+      "kickoff": "2025-07-16T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472829",
+      "home": "Ceará",
+      "away": "Corinthians",
+      "kickoff": "2025-07-16T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472811",
+      "home": "Santos",
+      "away": "Flamengo",
+      "kickoff": "2025-07-16T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472803",
+      "home": "Botafogo",
+      "away": "Vitória",
+      "kickoff": "2025-07-17T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472815",
+      "home": "Red Bull Bragantino",
+      "away": "São Paulo",
+      "kickoff": "2025-07-17T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472798",
+      "home": "Fluminense",
+      "away": "Cruzeiro",
+      "kickoff": "2025-07-17T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472853",
+      "home": "Fortaleza",
+      "away": "Bahia",
+      "kickoff": "2025-07-19T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472839",
+      "home": "Vasco da Gama",
+      "away": "Grêmio",
+      "kickoff": "2025-07-19T20:30:00+00:00"
+    },
+    {
+      "event_id": "13472848",
+      "home": "Mirassol",
+      "away": "Santos",
+      "kickoff": "2025-07-19T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472845",
+      "home": "São Paulo",
+      "away": "Corinthians",
+      "kickoff": "2025-07-20T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472851",
+      "home": "Internacional",
+      "away": "Ceará",
+      "kickoff": "2025-07-20T14:00:00+00:00"
+    },
+    {
+      "event_id": "13472850",
+      "home": "Cruzeiro",
+      "away": "Juventude",
+      "kickoff": "2025-07-20T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472852",
+      "home": "Vitória",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-07-20T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472842",
+      "home": "Palmeiras",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-07-20T20:30:00+00:00"
+    },
+    {
+      "event_id": "13472854",
+      "home": "Sport Recife",
+      "away": "Botafogo",
+      "kickoff": "2025-07-20T20:30:00+00:00"
+    },
+    {
+      "event_id": "13472836",
+      "home": "Flamengo",
+      "away": "Fluminense",
+      "kickoff": "2025-07-20T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472855",
+      "home": "Fluminense",
+      "away": "Palmeiras",
+      "kickoff": "2025-07-23T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472863",
+      "home": "Ceará",
+      "away": "Mirassol",
+      "kickoff": "2025-07-23T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472857",
+      "home": "Corinthians",
+      "away": "Cruzeiro",
+      "kickoff": "2025-07-23T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472858",
+      "home": "Santos",
+      "away": "Internacional",
+      "kickoff": "2025-07-24T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472859",
+      "home": "Red Bull Bragantino",
+      "away": "Flamengo",
+      "kickoff": "2025-07-24T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472862",
+      "home": "Vitória",
+      "away": "Sport Recife",
+      "kickoff": "2025-07-24T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472864",
+      "home": "Juventude",
+      "away": "São Paulo",
+      "kickoff": "2025-07-24T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472866",
+      "home": "Botafogo",
+      "away": "Corinthians",
+      "kickoff": "2025-07-26T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472869",
+      "home": "Mirassol",
+      "away": "Vitória",
+      "kickoff": "2025-07-26T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472873",
+      "home": "Fortaleza",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-07-26T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472874",
+      "home": "Sport Recife",
+      "away": "Santos",
+      "kickoff": "2025-07-26T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472867",
+      "home": "Palmeiras",
+      "away": "Grêmio",
+      "kickoff": "2025-07-27T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472868",
+      "home": "São Paulo",
+      "away": "Fluminense",
+      "kickoff": "2025-07-27T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472870",
+      "home": "Cruzeiro",
+      "away": "Ceará",
+      "kickoff": "2025-07-27T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472871",
+      "home": "Internacional",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-07-27T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472872",
+      "home": "Bahia",
+      "away": "Juventude",
+      "kickoff": "2025-07-27T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472865",
+      "home": "Flamengo",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-07-27T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472823",
+      "home": "Grêmio",
+      "away": "Fortaleza",
+      "kickoff": "2025-07-29T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472884",
+      "home": "Sport Recife",
+      "away": "Bahia",
+      "kickoff": "2025-08-02T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472879",
+      "home": "Mirassol",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-08-02T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472875",
+      "home": "Fluminense",
+      "away": "Grêmio",
+      "kickoff": "2025-08-03T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472876",
+      "home": "Botafogo",
+      "away": "Cruzeiro",
+      "kickoff": "2025-08-03T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472877",
+      "home": "Corinthians",
+      "away": "Fortaleza",
+      "kickoff": "2025-08-03T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472880",
+      "home": "Atlético Mineiro",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-08-03T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472883",
+      "home": "Ceará",
+      "away": "Flamengo",
+      "kickoff": "2025-08-03T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472882",
+      "home": "Vitória",
+      "away": "Palmeiras",
+      "kickoff": "2025-08-03T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472881",
+      "home": "Internacional",
+      "away": "São Paulo",
+      "kickoff": "2025-08-03T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472878",
+      "home": "Santos",
+      "away": "Juventude",
+      "kickoff": "2025-08-04T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472886",
+      "home": "Flamengo",
+      "away": "Mirassol",
+      "kickoff": "2025-08-09T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472889",
+      "home": "São Paulo",
+      "away": "Vitória",
+      "kickoff": "2025-08-09T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472890",
+      "home": "Red Bull Bragantino",
+      "away": "Internacional",
+      "kickoff": "2025-08-09T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472894",
+      "home": "Fortaleza",
+      "away": "Botafogo",
+      "kickoff": "2025-08-09T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472893",
+      "home": "Bahia",
+      "away": "Fluminense",
+      "kickoff": "2025-08-10T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472887",
+      "home": "Vasco da Gama",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-08-10T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472888",
+      "home": "Palmeiras",
+      "away": "Ceará",
+      "kickoff": "2025-08-10T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472891",
+      "home": "Cruzeiro",
+      "away": "Santos",
+      "kickoff": "2025-08-10T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472892",
+      "home": "Grêmio",
+      "away": "Sport Recife",
+      "kickoff": "2025-08-10T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472895",
+      "home": "Juventude",
+      "away": "Corinthians",
+      "kickoff": "2025-08-11T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472896",
+      "home": "Fluminense",
+      "away": "Fortaleza",
+      "kickoff": "2025-08-16T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472905",
+      "home": "Ceará",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-08-16T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472904",
+      "home": "Vitória",
+      "away": "Juventude",
+      "kickoff": "2025-08-16T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472906",
+      "home": "Sport Recife",
+      "away": "São Paulo",
+      "kickoff": "2025-08-16T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472899",
+      "home": "Corinthians",
+      "away": "Bahia",
+      "kickoff": "2025-08-17T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472900",
+      "home": "Santos",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-08-17T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472902",
+      "home": "Atlético Mineiro",
+      "away": "Grêmio",
+      "kickoff": "2025-08-17T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472903",
+      "home": "Internacional",
+      "away": "Flamengo",
+      "kickoff": "2025-08-17T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472898",
+      "home": "Botafogo",
+      "away": "Palmeiras",
+      "kickoff": "2025-08-17T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472901",
+      "home": "Mirassol",
+      "away": "Cruzeiro",
+      "kickoff": "2025-08-18T23:00:00+00:00"
+    },
+    {
+      "event_id": "14333880",
+      "home": "Juventude",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-08-20T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472674",
+      "home": "Red Bull Bragantino",
+      "away": "Fluminense",
+      "kickoff": "2025-08-23T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472676",
+      "home": "Cruzeiro",
+      "away": "Internacional",
+      "kickoff": "2025-08-23T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472678",
+      "home": "Grêmio",
+      "away": "Ceará",
+      "kickoff": "2025-08-24T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472670",
+      "home": "Vasco da Gama",
+      "away": "Corinthians",
+      "kickoff": "2025-08-24T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472679",
+      "home": "Bahia",
+      "away": "Santos",
+      "kickoff": "2025-08-24T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472682",
+      "home": "Fortaleza",
+      "away": "Mirassol",
+      "kickoff": "2025-08-24T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472683",
+      "home": "Juventude",
+      "away": "Botafogo",
+      "kickoff": "2025-08-24T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472673",
+      "home": "São Paulo",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-08-24T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472671",
+      "home": "Palmeiras",
+      "away": "Sport Recife",
+      "kickoff": "2025-08-25T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472668",
+      "home": "Flamengo",
+      "away": "Vitória",
+      "kickoff": "2025-08-26T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472701",
+      "home": "Ceará",
+      "away": "Juventude",
+      "kickoff": "2025-08-30T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472687",
+      "home": "Botafogo",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-08-30T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472695",
+      "home": "Cruzeiro",
+      "away": "São Paulo",
+      "kickoff": "2025-08-31T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472686",
+      "home": "Flamengo",
+      "away": "Grêmio",
+      "kickoff": "2025-08-31T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472691",
+      "home": "Santos",
+      "away": "Fluminense",
+      "kickoff": "2025-08-31T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472689",
+      "home": "Corinthians",
+      "away": "Palmeiras",
+      "kickoff": "2025-08-31T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472693",
+      "home": "Mirassol",
+      "away": "Bahia",
+      "kickoff": "2025-08-31T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472699",
+      "home": "Vitória",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-08-31T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472697",
+      "home": "Internacional",
+      "away": "Fortaleza",
+      "kickoff": "2025-08-31T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472703",
+      "home": "Sport Recife",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-08-31T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472717",
+      "home": "Grêmio",
+      "away": "Mirassol",
+      "kickoff": "2025-09-13T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472721",
+      "home": "Fortaleza",
+      "away": "Vitória",
+      "kickoff": "2025-09-13T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472709",
+      "home": "Palmeiras",
+      "away": "Internacional",
+      "kickoff": "2025-09-13T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472705",
+      "home": "Fluminense",
+      "away": "Corinthians",
+      "kickoff": "2025-09-14T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472713",
+      "home": "Red Bull Bragantino",
+      "away": "Sport Recife",
+      "kickoff": "2025-09-14T14:00:00+00:00"
+    },
+    {
+      "event_id": "13472714",
+      "home": "Atlético Mineiro",
+      "away": "Santos",
+      "kickoff": "2025-09-14T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472722",
+      "home": "Juventude",
+      "away": "Flamengo",
+      "kickoff": "2025-09-14T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472711",
+      "home": "São Paulo",
+      "away": "Botafogo",
+      "kickoff": "2025-09-14T20:30:00+00:00"
+    },
+    {
+      "event_id": "13472707",
+      "home": "Vasco da Gama",
+      "away": "Ceará",
+      "kickoff": "2025-09-14T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472718",
+      "home": "Bahia",
+      "away": "Cruzeiro",
+      "kickoff": "2025-09-15T23:00:00+00:00"
+    },
+    {
+      "event_id": "14550035",
+      "home": "Botafogo",
+      "away": "Mirassol",
+      "kickoff": "2025-09-17T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472738",
+      "home": "Vitória",
+      "away": "Fluminense",
+      "kickoff": "2025-09-20T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472726",
+      "home": "Botafogo",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-09-20T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472739",
+      "home": "Ceará",
+      "away": "Bahia",
+      "kickoff": "2025-09-20T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472728",
+      "home": "Palmeiras",
+      "away": "Fortaleza",
+      "kickoff": "2025-09-21T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472732",
+      "home": "Mirassol",
+      "away": "Juventude",
+      "kickoff": "2025-09-21T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472724",
+      "home": "Flamengo",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-09-21T20:30:00+00:00"
+    },
+    {
+      "event_id": "13472735",
+      "home": "Internacional",
+      "away": "Grêmio",
+      "kickoff": "2025-09-21T20:30:00+00:00"
+    },
+    {
+      "event_id": "13472742",
+      "home": "Sport Recife",
+      "away": "Corinthians",
+      "kickoff": "2025-09-21T20:30:00+00:00"
+    },
+    {
+      "event_id": "13472730",
+      "home": "Santos",
+      "away": "São Paulo",
+      "kickoff": "2025-09-21T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472734",
+      "home": "Cruzeiro",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-09-21T23:30:00+00:00"
+    },
+    {
+      "event_id": "14543946",
+      "home": "Vasco da Gama",
+      "away": "Bahia",
+      "kickoff": "2025-09-24T22:30:00+00:00"
+    },
+    {
+      "event_id": "14549632",
+      "home": "Grêmio",
+      "away": "Botafogo",
+      "kickoff": "2025-09-24T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472759",
+      "home": "Fortaleza",
+      "away": "Sport Recife",
+      "kickoff": "2025-09-27T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472745",
+      "home": "Vasco da Gama",
+      "away": "Cruzeiro",
+      "kickoff": "2025-09-27T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472760",
+      "home": "Juventude",
+      "away": "Internacional",
+      "kickoff": "2025-09-27T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472753",
+      "home": "Atlético Mineiro",
+      "away": "Mirassol",
+      "kickoff": "2025-09-28T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472755",
+      "home": "Grêmio",
+      "away": "Vitória",
+      "kickoff": "2025-09-28T14:00:00+00:00"
+    },
+    {
+      "event_id": "13472743",
+      "home": "Fluminense",
+      "away": "Botafogo",
+      "kickoff": "2025-09-28T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472756",
+      "home": "Bahia",
+      "away": "Palmeiras",
+      "kickoff": "2025-09-28T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472751",
+      "home": "Red Bull Bragantino",
+      "away": "Santos",
+      "kickoff": "2025-09-28T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472747",
+      "home": "Corinthians",
+      "away": "Flamengo",
+      "kickoff": "2025-09-28T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472749",
+      "home": "São Paulo",
+      "away": "Ceará",
+      "kickoff": "2025-09-29T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472772",
+      "home": "Atlético Mineiro",
+      "away": "Juventude",
+      "kickoff": "2025-10-01T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472767",
+      "home": "Palmeiras",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-10-01T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472770",
+      "home": "Mirassol",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-10-01T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472780",
+      "home": "Sport Recife",
+      "away": "Fluminense",
+      "kickoff": "2025-10-01T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472773",
+      "home": "Internacional",
+      "away": "Corinthians",
+      "kickoff": "2025-10-01T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472764",
+      "home": "Botafogo",
+      "away": "Bahia",
+      "kickoff": "2025-10-02T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472768",
+      "home": "Santos",
+      "away": "Grêmio",
+      "kickoff": "2025-10-02T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472776",
+      "home": "Vitória",
+      "away": "Ceará",
+      "kickoff": "2025-10-02T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472777",
+      "home": "Fortaleza",
+      "away": "São Paulo",
+      "kickoff": "2025-10-02T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472763",
+      "home": "Flamengo",
+      "away": "Cruzeiro",
+      "kickoff": "2025-10-02T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472781",
+      "home": "Fluminense",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-10-04T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472789",
+      "home": "Red Bull Bragantino",
+      "away": "Grêmio",
+      "kickoff": "2025-10-04T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472793",
+      "home": "Internacional",
+      "away": "Botafogo",
+      "kickoff": "2025-10-04T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472785",
+      "home": "Corinthians",
+      "away": "Mirassol",
+      "kickoff": "2025-10-05T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472784",
+      "home": "Vasco da Gama",
+      "away": "Vitória",
+      "kickoff": "2025-10-05T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472788",
+      "home": "São Paulo",
+      "away": "Palmeiras",
+      "kickoff": "2025-10-05T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472796",
+      "home": "Bahia",
+      "away": "Flamengo",
+      "kickoff": "2025-10-05T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472799",
+      "home": "Juventude",
+      "away": "Fortaleza",
+      "kickoff": "2025-10-05T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472792",
+      "home": "Cruzeiro",
+      "away": "Sport Recife",
+      "kickoff": "2025-10-05T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472797",
+      "home": "Ceará",
+      "away": "Santos",
+      "kickoff": "2025-10-05T23:30:00+00:00"
+    },
+    {
+      "event_id": "14689178",
+      "home": "Atlético Mineiro",
+      "away": "Sport Recife",
+      "kickoff": "2025-10-08T22:00:00+00:00"
+    },
+    {
+      "event_id": "14689171",
+      "home": "Mirassol",
+      "away": "Fluminense",
+      "kickoff": "2025-10-09T00:00:00+00:00"
+    },
+    {
+      "event_id": "14693875",
+      "home": "Palmeiras",
+      "away": "Juventude",
+      "kickoff": "2025-10-11T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472805",
+      "home": "Palmeiras",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-10-15T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472802",
+      "home": "Botafogo",
+      "away": "Flamengo",
+      "kickoff": "2025-10-15T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472809",
+      "home": "Mirassol",
+      "away": "Internacional",
+      "kickoff": "2025-10-15T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472818",
+      "home": "Sport Recife",
+      "away": "Ceará",
+      "kickoff": "2025-10-15T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472806",
+      "home": "Santos",
+      "away": "Corinthians",
+      "kickoff": "2025-10-16T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472810",
+      "home": "Atlético Mineiro",
+      "away": "Cruzeiro",
+      "kickoff": "2025-10-16T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472816",
+      "home": "Fortaleza",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-10-16T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472812",
+      "home": "Grêmio",
+      "away": "São Paulo",
+      "kickoff": "2025-10-16T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472801",
+      "home": "Fluminense",
+      "away": "Juventude",
+      "kickoff": "2025-10-17T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472814",
+      "home": "Vitória",
+      "away": "Bahia",
+      "kickoff": "2025-10-17T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472824",
+      "home": "Corinthians",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-10-18T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472828",
+      "home": "Cruzeiro",
+      "away": "Fortaleza",
+      "kickoff": "2025-10-19T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472820",
+      "home": "Flamengo",
+      "away": "Palmeiras",
+      "kickoff": "2025-10-19T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472827",
+      "home": "Mirassol",
+      "away": "São Paulo",
+      "kickoff": "2025-10-19T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472830",
+      "home": "Internacional",
+      "away": "Sport Recife",
+      "kickoff": "2025-10-19T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472832",
+      "home": "Ceará",
+      "away": "Botafogo",
+      "kickoff": "2025-10-19T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472831",
+      "home": "Bahia",
+      "away": "Grêmio",
+      "kickoff": "2025-10-19T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472834",
+      "home": "Juventude",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-10-20T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472822",
+      "home": "Vasco da Gama",
+      "away": "Fluminense",
+      "kickoff": "2025-10-20T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472825",
+      "home": "Santos",
+      "away": "Vitória",
+      "kickoff": "2025-10-21T00:30:00+00:00"
+    },
+    {
+      "event_id": "14689179",
+      "home": "Bahia",
+      "away": "Internacional",
+      "kickoff": "2025-10-22T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472843",
+      "home": "Atlético Mineiro",
+      "away": "Ceará",
+      "kickoff": "2025-10-25T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472846",
+      "home": "Vitória",
+      "away": "Corinthians",
+      "kickoff": "2025-10-25T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472835",
+      "home": "Fluminense",
+      "away": "Internacional",
+      "kickoff": "2025-10-25T20:30:00+00:00"
+    },
+    {
+      "event_id": "13472849",
+      "home": "Sport Recife",
+      "away": "Mirassol",
+      "kickoff": "2025-10-25T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472847",
+      "home": "Fortaleza",
+      "away": "Flamengo",
+      "kickoff": "2025-10-25T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472840",
+      "home": "São Paulo",
+      "away": "Bahia",
+      "kickoff": "2025-10-26T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472837",
+      "home": "Botafogo",
+      "away": "Santos",
+      "kickoff": "2025-10-26T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472844",
+      "home": "Grêmio",
+      "away": "Juventude",
+      "kickoff": "2025-10-26T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472841",
+      "home": "Red Bull Bragantino",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-10-26T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472838",
+      "home": "Palmeiras",
+      "away": "Cruzeiro",
+      "kickoff": "2025-10-26T23:30:00+00:00"
+    },
+    {
+      "event_id": "14824794",
+      "home": "Fluminense",
+      "away": "Ceará",
+      "kickoff": "2025-10-29T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472669",
+      "home": "Santos",
+      "away": "Fortaleza",
+      "kickoff": "2025-11-01T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472677",
+      "home": "Cruzeiro",
+      "away": "Vitória",
+      "kickoff": "2025-11-01T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472672",
+      "home": "Mirassol",
+      "away": "Botafogo",
+      "kickoff": "2025-11-01T21:00:00+00:00"
+    },
+    {
+      "event_id": "13472665",
+      "home": "Flamengo",
+      "away": "Sport Recife",
+      "kickoff": "2025-11-02T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472667",
+      "home": "Corinthians",
+      "away": "Grêmio",
+      "kickoff": "2025-11-02T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472685",
+      "home": "Bahia",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-11-02T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472690",
+      "home": "Ceará",
+      "away": "Fluminense",
+      "kickoff": "2025-11-02T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472681",
+      "home": "Internacional",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-11-02T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472694",
+      "home": "Juventude",
+      "away": "Palmeiras",
+      "kickoff": "2025-11-02T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472666",
+      "home": "Vasco da Gama",
+      "away": "São Paulo",
+      "kickoff": "2025-11-02T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472715",
+      "home": "Red Bull Bragantino",
+      "away": "Corinthians",
+      "kickoff": "2025-11-05T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472727",
+      "home": "Vitória",
+      "away": "Internacional",
+      "kickoff": "2025-11-05T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472736",
+      "home": "Sport Recife",
+      "away": "Juventude",
+      "kickoff": "2025-11-05T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472702",
+      "home": "Botafogo",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-11-05T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472719",
+      "home": "Atlético Mineiro",
+      "away": "Bahia",
+      "kickoff": "2025-11-05T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472723",
+      "home": "Grêmio",
+      "away": "Cruzeiro",
+      "kickoff": "2025-11-05T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472710",
+      "home": "São Paulo",
+      "away": "Flamengo",
+      "kickoff": "2025-11-06T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472698",
+      "home": "Fluminense",
+      "away": "Mirassol",
+      "kickoff": "2025-11-06T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472731",
+      "home": "Ceará",
+      "away": "Fortaleza",
+      "kickoff": "2025-11-06T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472706",
+      "home": "Palmeiras",
+      "away": "Santos",
+      "kickoff": "2025-11-07T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472779",
+      "home": "Sport Recife",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-11-08T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472744",
+      "home": "Vasco da Gama",
+      "away": "Juventude",
+      "kickoff": "2025-11-08T21:00:00+00:00"
+    },
+    {
+      "event_id": "13472765",
+      "home": "Internacional",
+      "away": "Bahia",
+      "kickoff": "2025-11-08T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472752",
+      "home": "São Paulo",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-11-09T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472748",
+      "home": "Corinthians",
+      "away": "Ceará",
+      "kickoff": "2025-11-09T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472761",
+      "home": "Cruzeiro",
+      "away": "Fluminense",
+      "kickoff": "2025-11-09T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472769",
+      "home": "Vitória",
+      "away": "Botafogo",
+      "kickoff": "2025-11-09T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472740",
+      "home": "Flamengo",
+      "away": "Santos",
+      "kickoff": "2025-11-09T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472757",
+      "home": "Mirassol",
+      "away": "Palmeiras",
+      "kickoff": "2025-11-09T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472774",
+      "home": "Fortaleza",
+      "away": "Grêmio",
+      "kickoff": "2025-11-09T23:30:00+00:00"
+    },
+    {
+      "event_id": "15011357",
+      "home": "Atlético Mineiro",
+      "away": "Fortaleza",
+      "kickoff": "2025-11-12T23:30:00+00:00"
+    },
+    {
+      "event_id": "14933649",
+      "home": "Sport Recife",
+      "away": "Flamengo",
+      "kickoff": "2025-11-15T21:30:00+00:00"
+    },
+    {
+      "event_id": "14863346",
+      "home": "Santos",
+      "away": "Palmeiras",
+      "kickoff": "2025-11-16T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472632",
+      "home": "Red Bull Bragantino",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-11-16T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472787",
+      "home": "Botafogo",
+      "away": "Sport Recife",
+      "kickoff": "2025-11-18T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472623",
+      "home": "Palmeiras",
+      "away": "Vitória",
+      "kickoff": "2025-11-19T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472783",
+      "home": "Fluminense",
+      "away": "Flamengo",
+      "kickoff": "2025-11-20T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472795",
+      "home": "Santos",
+      "away": "Mirassol",
+      "kickoff": "2025-11-20T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472808",
+      "home": "Grêmio",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-11-20T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472821",
+      "home": "Juventude",
+      "away": "Cruzeiro",
+      "kickoff": "2025-11-20T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472813",
+      "home": "Bahia",
+      "away": "Fortaleza",
+      "kickoff": "2025-11-20T21:00:00+00:00"
+    },
+    {
+      "event_id": "13472791",
+      "home": "Corinthians",
+      "away": "São Paulo",
+      "kickoff": "2025-11-20T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472817",
+      "home": "Ceará",
+      "away": "Internacional",
+      "kickoff": "2025-11-21T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472603",
+      "home": "Botafogo",
+      "away": "Grêmio",
+      "kickoff": "2025-11-22T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472588",
+      "home": "Flamengo",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-11-23T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472597",
+      "home": "Palmeiras",
+      "away": "Fluminense",
+      "kickoff": "2025-11-23T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472589",
+      "home": "São Paulo",
+      "away": "Juventude",
+      "kickoff": "2025-11-23T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472595",
+      "home": "Bahia",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-11-23T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472609",
+      "home": "Sport Recife",
+      "away": "Vitória",
+      "kickoff": "2025-11-23T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472594",
+      "home": "Cruzeiro",
+      "away": "Corinthians",
+      "kickoff": "2025-11-23T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472612",
+      "home": "Mirassol",
+      "away": "Ceará",
+      "kickoff": "2025-11-24T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472601",
+      "home": "Internacional",
+      "away": "Santos",
+      "kickoff": "2025-11-25T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472615",
+      "home": "Atlético Mineiro",
+      "away": "Flamengo",
+      "kickoff": "2025-11-26T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472616",
+      "home": "Grêmio",
+      "away": "Palmeiras",
+      "kickoff": "2025-11-26T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472614",
+      "home": "Red Bull Bragantino",
+      "away": "Fortaleza",
+      "kickoff": "2025-11-26T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472605",
+      "home": "Fluminense",
+      "away": "São Paulo",
+      "kickoff": "2025-11-27T23:30:00+00:00"
+    },
+    {
+      "event_id": "13472619",
+      "home": "Juventude",
+      "away": "Bahia",
+      "kickoff": "2025-11-28T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472606",
+      "home": "Vasco da Gama",
+      "away": "Internacional",
+      "kickoff": "2025-11-28T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472613",
+      "home": "Santos",
+      "away": "Sport Recife",
+      "kickoff": "2025-11-29T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472617",
+      "home": "Vitória",
+      "away": "Mirassol",
+      "kickoff": "2025-11-29T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472618",
+      "home": "Ceará",
+      "away": "Cruzeiro",
+      "kickoff": "2025-11-30T00:00:00+00:00"
+    },
+    {
+      "event_id": "13472611",
+      "home": "Corinthians",
+      "away": "Botafogo",
+      "kickoff": "2025-11-30T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472608",
+      "home": "Fortaleza",
+      "away": "Atlético Mineiro",
+      "kickoff": "2025-11-30T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472621",
+      "home": "Vasco da Gama",
+      "away": "Mirassol",
+      "kickoff": "2025-12-02T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472604",
+      "home": "Grêmio",
+      "away": "Fluminense",
+      "kickoff": "2025-12-03T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472590",
+      "home": "Fortaleza",
+      "away": "Corinthians",
+      "kickoff": "2025-12-03T22:00:00+00:00"
+    },
+    {
+      "event_id": "15121159",
+      "home": "Red Bull Bragantino",
+      "away": "Vitória",
+      "kickoff": "2025-12-03T22:00:00+00:00"
+    },
+    {
+      "event_id": "13472584",
+      "home": "Juventude",
+      "away": "Santos",
+      "kickoff": "2025-12-03T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472598",
+      "home": "Bahia",
+      "away": "Sport Recife",
+      "kickoff": "2025-12-03T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472599",
+      "home": "São Paulo",
+      "away": "Internacional",
+      "kickoff": "2025-12-03T23:00:00+00:00"
+    },
+    {
+      "event_id": "13472620",
+      "home": "Flamengo",
+      "away": "Ceará",
+      "kickoff": "2025-12-04T00:30:00+00:00"
+    },
+    {
+      "event_id": "15121158",
+      "home": "Atlético Mineiro",
+      "away": "Palmeiras",
+      "kickoff": "2025-12-04T00:30:00+00:00"
+    },
+    {
+      "event_id": "13472634",
+      "home": "Cruzeiro",
+      "away": "Botafogo",
+      "kickoff": "2025-12-04T22:30:00+00:00"
+    },
+    {
+      "event_id": "13472593",
+      "home": "Mirassol",
+      "away": "Flamengo",
+      "kickoff": "2025-12-06T21:30:00+00:00"
+    },
+    {
+      "event_id": "13472591",
+      "home": "Ceará",
+      "away": "Palmeiras",
+      "kickoff": "2025-12-07T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472592",
+      "home": "Internacional",
+      "away": "Red Bull Bragantino",
+      "kickoff": "2025-12-07T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472596",
+      "home": "Atlético Mineiro",
+      "away": "Vasco da Gama",
+      "kickoff": "2025-12-07T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472600",
+      "home": "Corinthians",
+      "away": "Juventude",
+      "kickoff": "2025-12-07T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472602",
+      "home": "Fluminense",
+      "away": "Bahia",
+      "kickoff": "2025-12-07T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472607",
+      "home": "Sport Recife",
+      "away": "Grêmio",
+      "kickoff": "2025-12-07T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472610",
+      "home": "Botafogo",
+      "away": "Fortaleza",
+      "kickoff": "2025-12-07T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472633",
+      "home": "Santos",
+      "away": "Cruzeiro",
+      "kickoff": "2025-12-07T19:00:00+00:00"
+    },
+    {
+      "event_id": "13472635",
+      "home": "Vitória",
+      "away": "São Paulo",
+      "kickoff": "2025-12-07T19:00:00+00:00"
+    }
+  ],
+  "availability_policy": "ASSUMED_48H_NOT_OBSERVED",
+  "availability_rule": "Only prior kickoff + 48 hours < decision; decision = target kickoff - 60 minutes. No observed availability timestamps are created.",
+  "assumed_stats_lag_hours": 48,
+  "updates": "Rolling strengths update from eligible prior matches during calibration/evaluation; two rate scales fit once on eligible 2024 labels only.",
+  "arms": [
+    "xg_calibrated_primary",
+    "xg_raw_diagnostic",
+    "old_raw_frozen_2024",
+    "market_proportional_devig"
+  ],
+  "baseline": "Existing raw forecasts_2025 from model fitted once on 2021-2024. Retrospectively generated; do not use its 2025-trained blend.",
+  "panel": "One common intersection of eligible new raw/calibrated forecasts, old raw and all three complete valid quote markets; retain all 380 with exclusion reasons.",
+  "primary_metrics": [
+    "Brier per market",
+    "log_loss per market"
+  ],
+  "improvement_definition": "Report each paired mean delta. Uniform predictive improvement requires lower mean Brier in all three markets; otherwise report mixed/no improvement. No promotion.",
+  "economic_policy": {
+    "markets": [
+      "1x2",
+      "ou25",
+      "btts"
+    ],
+    "side_order": {
+      "1x2": [
+        "home",
+        "draw",
+        "away"
+      ],
+      "ou25": [
+        "over",
+        "under"
+      ],
+      "btts": [
+        "yes",
+        "no"
+      ]
+    },
+    "probability_edge": "p - 1/decimal_odd",
+    "min_edge_exclusive": 0.02,
+    "max_edge_inclusive": 0.15,
+    "net_ev_must_be_positive": true,
+    "max_bets_per_event": 1,
+    "rank": "maximum p*odd-1-0.02, then market order, then side order",
+    "odds_bounds_inclusive": {
+      "1x2": [
+        1.05,
+        20
+      ],
+      "ou25": [
+        1.2,
+        5
+      ],
+      "btts": [
+        1.2,
+        5
+      ]
+    },
+    "complete_market_required": true,
+    "overround_inclusive": [
+      1.0,
+      1.3
+    ],
+    "missing_price_or_forecast": "no bet on affected market",
+    "price_source": "existing retrospective flat aggregate columns in verified historical input (2025) and sofascore_matches (2026); no attested historical bookmaker or quote timestamp"
+  },
+  "accounting": {
+    "stake_units": 1,
+    "cost_units_every_bet": 0.02,
+    "max_bets_per_event": 1,
+    "compound": false,
+    "meaning": "Hypothetical payments at retrospective aggregate odds, not executable or realized profit."
+  },
+  "bootstrap": {
+    "unit": "ISO calendar week of kickoff",
+    "paired_complete_fixtures": true,
+    "replicates": 2000,
+    "seed": 20260907,
+    "confidence": 0.95,
+    "interpretation": "Descriptive; no correction for prior searches or estimation uncertainty."
+  },
+  "cross_book_comparison": "NOT_EVALUATED: no admissible full-market simultaneous captured snapshots; closed price studies remain closed.",
+  "previous_exploration": "Historical years already explored, including 2025 calibration of the earlier replay; not untouched holdout. Twelve-policy and 51-ID studies are not rerun.",
+  "stop": "Run these frozen arms once, audit arithmetic and publish all outcomes including negative. No changes to year, lag, priors, windows, filters or calibration after scoring.",
+  "execution_proven": false,
+  "real_capital_enabled": false
+}

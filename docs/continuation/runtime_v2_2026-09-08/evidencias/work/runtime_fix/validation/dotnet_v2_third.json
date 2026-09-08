@@ -1,0 +1,26 @@
+{
+  "name": "dotnet_v2_third",
+  "started_at_utc": "2026-09-08T03:43:44.510797+00:00",
+  "command": [
+    "dotnet",
+    "test",
+    "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+    "--configuration",
+    "Release",
+    "--no-restore",
+    "--collect:XPlat Code Coverage",
+    "--results-directory",
+    "artifacts/dotnet-runtime-v2-third"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "redis_url": "redis://127.0.0.1:26380/15",
+  "redis_run_id": "97c7a9cc8a5fa8deb9387dd63a0505f8b66e9196",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "redis_ownership_verified_before": true,
+  "exit_code": 1,
+  "seconds": 103.63502979998884,
+  "redis_ownership_verified_after": true,
+  "redis_dbsize_after": 0
+}

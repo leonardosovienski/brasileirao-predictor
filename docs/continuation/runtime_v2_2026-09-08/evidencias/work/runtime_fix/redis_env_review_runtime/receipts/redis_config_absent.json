@@ -1,0 +1,18 @@
+{
+  "started_at_utc": "2026-09-08T03:22:02.008189+00:00",
+  "command": [
+    "wsl.exe",
+    "-d",
+    "codex-brasileirao-redis-20260908",
+    "--exec",
+    "/bin/test",
+    "!",
+    "-e",
+    "/opt/redis-test/redis.conf"
+  ],
+  "environment_allowlist": true,
+  "distro": "codex-brasileirao-redis-20260908",
+  "existing_services_modified": false,
+  "exit_code": 1,
+  "seconds": 0.1156431999988854
+}

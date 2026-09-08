@@ -1,0 +1,17 @@
+{
+  "name": "dotnet_restore",
+  "started_at_utc": "2026-09-08T00:39:58.709871+00:00",
+  "command": [
+    "dotnet",
+    "restore",
+    "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+    "--locked-mode",
+    "--ignore-failed-sources"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 5.609322099990095
+}

@@ -1,0 +1,1121 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-08T20:36:16.817672+00:00",
+  "purpose": "Historical source preservation for reproduction; not active application code and not instructions to execute closed studies.",
+  "source_archive_sha256": "452799b108aeb9bc4b1f671a59ed3247ab2c285e586f9605f8c919a7e4cb9928",
+  "main_compared_commit": "4dfdec6804b1c5716e3663b4ffcf9bd3aab411ab",
+  "comparison_receipt_sha256": "4c3a880fc2b52709da6130430c049bf59b9e3434111ce435fefdb7a4645aa430",
+  "method": "Exact original bytes, SHA256 and size. Missing variants deduplicated by SHA256. No semantic analysis or line-ending normalization.",
+  "historical_source_occurrences_audited": 1090,
+  "historical_source_unique_sha256": 590,
+  "already_present_current_source_unique_sha256": 558,
+  "initial_missing_from_current_unique_sha256": 32,
+  "initial_missing_occurrences": 43,
+  "already_reachable_main_unique_sha256": 4,
+  "preserved_unique_files": 28,
+  "preserved_source_bytes": 171748,
+  "variants": [
+    {
+      "sha256": "b8404d5dd93aa634cd52c78e5b09875565a8d853264fee8b97103d6750e2fbf5",
+      "bytes": 34146,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REVISAO_FINAL/alteracoes_rastreadas.patch"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b8404d5dd93aa634__alteracoes_rastreadas.patch",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REVISAO_FINAL/alteracoes_rastreadas.patch"
+    },
+    {
+      "sha256": "97fa733041c381a3e8f8b97058f1696a11de9e2e3a8da1562bac38ec46a8998b",
+      "bytes": 21639,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 2,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/alteracoes.patch",
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!alteracoes.patch"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/97fa733041c381a3__alteracoes.patch",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/alteracoes.patch"
+    },
+    {
+      "sha256": "80bd2dee79cfb1a45ecc56f189eac19eb2977a99a01cf2ace751709c65340e6f",
+      "bytes": 17958,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 2,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_operacional.patch",
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!retomada_operacional.patch"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/80bd2dee79cfb1a4__retomada_operacional.patch",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_operacional.patch"
+    },
+    {
+      "sha256": "a335d0bf4f2dfd928a64983218c127c93f30c3e0a41eb012bdc57ea5ed617c23",
+      "bytes": 10876,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/work/final_project_review/parser_scope_fix.patch"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/a335d0bf4f2dfd92__parser_scope_fix.patch",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/work/final_project_review/parser_scope_fix.patch"
+    },
+    {
+      "sha256": "80b64f29d5f02110fc40cdbc8e2617fe851b8a7b14cf6c2856e245223c3d8f75",
+      "bytes": 8047,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/brasileirao_scripts/evaluate_h14_prospective.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/80b64f29d5f02110__evaluate_h14_prospective.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/brasileirao_scripts/evaluate_h14_prospective.py"
+    },
+    {
+      "sha256": "1bddd7b3895bde85b2c6504bbd776a60f1aeba5074922b0b094f43a95903a41b",
+      "bytes": 7181,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "tarefa/work/finalize_stage.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/1bddd7b3895bde85__finalize_stage.py",
+      "selected_source_location": "tarefa/work/finalize_stage.py"
+    },
+    {
+      "sha256": "ee5195f95316bb84b28d2d326b0ed82f8d3d9290e420042c8cba493b25ee59e3",
+      "bytes": 7155,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/brasileirao_scripts/evaluate_h15_prospective.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/ee5195f95316bb84__evaluate_h15_prospective.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/brasileirao_scripts/evaluate_h15_prospective.py"
+    },
+    {
+      "sha256": "0f1a53f9204e33f681f38ae69f264133b88579a54f93300ce6b23e3bf9c5cf4d",
+      "bytes": 6457,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!arquivos/tests/test_run_passive_task.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/0f1a53f9204e33f6__test_run_passive_task.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!arquivos/tests/test_run_passive_task.py"
+    },
+    {
+      "sha256": "300e193442964725326130f1604409360d665eb312ea573cb9261a128b3b4b16",
+      "bytes": 5274,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!arquivos/brasileirao_scripts/run_passive_task.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/300e193442964725__run_passive_task.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!arquivos/brasileirao_scripts/run_passive_task.py"
+    },
+    {
+      "sha256": "b34625ceb86fb31785270921c9abf806f118356732707fc61922fe6f41d5f8ab",
+      "bytes": 5204,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 3,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REANALISE/price_history_parser_fix.patch",
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/work/selection_reanalysis/price_history/price_history_parser_fix.patch",
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REANALISE/reanalise_reproduzivel.zip!price_history_parser_fix.patch"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b34625ceb86fb317__price_history_parser_fix.patch",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REANALISE/price_history_parser_fix.patch"
+    },
+    {
+      "sha256": "e6c0908e16685685ace66c6be40fc254d40e32bdf8ebd17ad532919dbbeb5c83",
+      "bytes": 5131,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 2,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/RETOMAR_H14_H15.ps1",
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!RETOMAR_H14_H15.ps1"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/e6c0908e16685685__RETOMAR_H14_H15.ps1",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/RETOMAR_H14_H15.ps1"
+    },
+    {
+      "sha256": "b5c7b2e3f03ab39eb8fd6a7b3b70e9cb9c65159ea84083ea5404f76bc0626e90",
+      "bytes": 5048,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/brasileirao_scripts/price_discovery_preflight.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b5c7b2e3f03ab39e__price_discovery_preflight.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/brasileirao_scripts/price_discovery_preflight.py"
+    },
+    {
+      "sha256": "b3eccd1ef9361ec17003d064272127c5fd96a546175fb8bb09d74cf03e816faa",
+      "bytes": 4468,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/CONTINUACAO/close_git_handoff.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b3eccd1ef9361ec1__close_git_handoff.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/CONTINUACAO/close_git_handoff.py"
+    },
+    {
+      "sha256": "379163bdaaadc49f72a0587bb7247c3d0c244f5e8d63b9a4f490da7a38f12ee9",
+      "bytes": 4173,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/CONTINUACAO/verify_git_handoff.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/379163bdaaadc49f__verify_git_handoff.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/CONTINUACAO/verify_git_handoff.py"
+    },
+    {
+      "sha256": "ab84ad8e0690652b8ec9e04f5866cb90aecad98f83a26f6fafb00bdc658e89b5",
+      "bytes": 3656,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 2,
+      "historical_paths": [
+        "tarefa/work/pending_closure/before/dotnet/LineupWorker/Program.cs",
+        "tarefa/work/pending_closure/dotnet_before/dotnet/LineupWorker/Program.cs"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/ab84ad8e0690652b__Program.cs",
+      "selected_source_location": "tarefa/work/pending_closure/before/dotnet/LineupWorker/Program.cs"
+    },
+    {
+      "sha256": "5971772a04aaef57d813103469ffe85569a074d73cb068467a8973e187f430d8",
+      "bytes": 3456,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/tests/test_price_discovery_preflight.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/5971772a04aaef57__test_price_discovery_preflight.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/tests/test_price_discovery_preflight.py"
+    },
+    {
+      "sha256": "460de277a9b72ad4a2cd9af8dfff80032755341297f0a66ff858226890902b1e",
+      "bytes": 3329,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 2,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/model_research_2026-09-07/persist_model_research.py",
+        "tarefa/work/persist_model_research.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/460de277a9b72ad4__persist_model_research.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/model_research_2026-09-07/persist_model_research.py"
+    },
+    {
+      "sha256": "e81693b7868153861691e594f02979498dd7a918df53c08e3db06e46fd5d3c7f",
+      "bytes": 3328,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "tarefa/work/runtime_fencing/dotnet_before/dotnet/LineupWorker.Tests/ModelBranchTests.cs"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/e81693b786815386__ModelBranchTests.cs",
+      "selected_source_location": "tarefa/work/runtime_fencing/dotnet_before/dotnet/LineupWorker.Tests/ModelBranchTests.cs"
+    },
+    {
+      "sha256": "77d058cd7aaef4673ed6741c4cda961d40266214269ea8dbc04372d09c6cefe9",
+      "bytes": 2675,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "tarefa/work/runtime_fencing/dotnet_before/dotnet/LineupWorker/Models/LatencyRecord.cs"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/77d058cd7aaef467__LatencyRecord.cs",
+      "selected_source_location": "tarefa/work/runtime_fencing/dotnet_before/dotnet/LineupWorker/Models/LatencyRecord.cs"
+    },
+    {
+      "sha256": "c1696fa483d05b0e701fbfbef0d03ab4ab0bf97e22ed298d1390f24ab6ff269e",
+      "bytes": 2250,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "tarefa/work/pending_closure/before/dotnet/LineupWorker/OperationalSettings.cs"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/c1696fa483d05b0e__OperationalSettings.cs",
+      "selected_source_location": "tarefa/work/pending_closure/before/dotnet/LineupWorker/OperationalSettings.cs"
+    },
+    {
+      "sha256": "aa6748b9a4df899543c02d78a523e66c92004892c336aede243b5cd4bfc3c0ac",
+      "bytes": 1954,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "tarefa/work/check_integrity.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/aa6748b9a4df8995__check_integrity.py",
+      "selected_source_location": "tarefa/work/check_integrity.py"
+    },
+    {
+      "sha256": "9cc046d91e5ab016ef2b944f0d2197e38798c2600090b225861f7f8f3c1974b9",
+      "bytes": 1821,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/tests/test_prospective_evaluation_guard.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/9cc046d91e5ab016__test_prospective_evaluation_guard.py",
+      "selected_source_location": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/tests/test_prospective_evaluation_guard.py"
+    },
+    {
+      "sha256": "72112b5ef93bba8395ec2a4c68c76635f4f8f146df565b411590c688a19acda7",
+      "bytes": 1426,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "tarefa/work/probe_docker.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/72112b5ef93bba83__probe_docker.py",
+      "selected_source_location": "tarefa/work/probe_docker.py"
+    },
+    {
+      "sha256": "0a15296b0b5770be2967b3bacc1d8a0c1e926657a9b9b037ce2d2290a944f389",
+      "bytes": 1275,
+      "kind": "build_definition",
+      "historical_occurrences": 2,
+      "historical_paths": [
+        "tarefa/work/pending_closure/before/Dockerfile.kernel",
+        "tarefa/work/pending_closure/environment_before/Dockerfile.kernel"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/0a15296b0b5770be__Dockerfile.kernel",
+      "selected_source_location": "tarefa/work/pending_closure/before/Dockerfile.kernel"
+    },
+    {
+      "sha256": "174720ee78be1f89a1ec2b124afc8ccd161251af9d3979c3f1aee6edf0287044",
+      "bytes": 1268,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 2,
+      "historical_paths": [
+        "tarefa/work/runtime_fencing/dotnet_before/dotnet/LineupWorker/Models/LineupEvent.cs",
+        "tarefa/work/runtime_fix/before/dotnet/LineupWorker/Models/LineupEvent.cs"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/174720ee78be1f89__LineupEvent.cs",
+      "selected_source_location": "tarefa/work/runtime_fencing/dotnet_before/dotnet/LineupWorker/Models/LineupEvent.cs"
+    },
+    {
+      "sha256": "d7f31486bb5b273a63ecf0c0452bcdf4cb5ea612d718f82f47d21ba5c5565346",
+      "bytes": 1200,
+      "kind": "build_definition",
+      "historical_occurrences": 2,
+      "historical_paths": [
+        "tarefa/work/pending_closure/before/Dockerfile.cli",
+        "tarefa/work/pending_closure/environment_before/Dockerfile.cli"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/d7f31486bb5b273a__Dockerfile.cli",
+      "selected_source_location": "tarefa/work/pending_closure/before/Dockerfile.cli"
+    },
+    {
+      "sha256": "7d9e289df76c753c462c8e2e84233658b72571104b9039294e76694503066d39",
+      "bytes": 870,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "tarefa/work/check_nullable_odds.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/7d9e289df76c753c__check_nullable_odds.py",
+      "selected_source_location": "tarefa/work/check_nullable_odds.py"
+    },
+    {
+      "sha256": "6fc40fdb8aa0e76d59b198ba1fea378359537390a50e6bbc49e5b9f5151ddaea",
+      "bytes": 483,
+      "kind": "build_definition",
+      "historical_occurrences": 2,
+      "historical_paths": [
+        "tarefa/work/pending_closure/before/Dockerfile.worker",
+        "tarefa/work/pending_closure/environment_before/Dockerfile.worker"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [],
+      "missing_from_working_tree_and_main": true,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/6fc40fdb8aa0e76d__Dockerfile.worker",
+      "selected_source_location": "tarefa/work/pending_closure/before/Dockerfile.worker"
+    },
+    {
+      "sha256": "09af26ec9ee193cbca3181f6726a81dc83eebddf29c3a3eb5a451deef97daf34",
+      "bytes": 22542,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REVISAO_FINAL/codigo/brasileirao_predictor/ingest_sofascore.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [
+        {
+          "git_blob_oid": "40ecda852de5888a03bae71d9c1b4f0a361ae5d5",
+          "path_example": "brasileirao_predictor/ingest_sofascore.py"
+        }
+      ],
+      "missing_from_working_tree_and_main": false,
+      "preservation": "reachable_main_blob"
+    },
+    {
+      "sha256": "b134d7861fb70be8ddade293f90eee740a23c21ff1ab48b03387330ed79f2db9",
+      "bytes": 19998,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "projetos/brasileirao-predictor-sessoes/2026-09-07/work/final_project_review/ingest_sofascore_before.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [
+        {
+          "git_blob_oid": "ff7963a3abf3360b9de2c9628aa2950669840298",
+          "path_example": "brasileirao_predictor/ingest_sofascore.py"
+        }
+      ],
+      "missing_from_working_tree_and_main": false,
+      "preservation": "reachable_main_blob"
+    },
+    {
+      "sha256": "3d515af6ed970ba71bc0eb80ccfb2c74b72695c2e70122b8bf5d2196690f430d",
+      "bytes": 7614,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "tarefa/work/runtime_fix/before/tests/test_kernel_runtime.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [
+        {
+          "git_blob_oid": "0b689d5a621b998e1de85722c63076737e32e8eb",
+          "path_example": "tests/test_kernel_runtime.py"
+        }
+      ],
+      "missing_from_working_tree_and_main": false,
+      "preservation": "reachable_main_blob"
+    },
+    {
+      "sha256": "e27db849277716e2a6922c2dd292d40fe90e6bd05031c5f59beba9bf9d35603b",
+      "bytes": 4998,
+      "kind": "source_or_source_backup",
+      "historical_occurrences": 1,
+      "historical_paths": [
+        "tarefa/work/integration-repo/tests/test_season_2026_split.py"
+      ],
+      "current_matches": [],
+      "missing_from_current_source_candidates": true,
+      "additional_current_matches": [],
+      "main_history_matches": [
+        {
+          "git_blob_oid": "e62becdee307b1e292240a930a23c0a265ff7c9e",
+          "path_example": "tests/test_season_2026_split.py"
+        }
+      ],
+      "missing_from_working_tree_and_main": false,
+      "preservation": "reachable_main_blob"
+    }
+  ],
+  "occurrences": [
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REVISAO_FINAL/alteracoes_rastreadas.patch",
+      "sha256": "b8404d5dd93aa634cd52c78e5b09875565a8d853264fee8b97103d6750e2fbf5",
+      "bytes": 34146,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b8404d5dd93aa634__alteracoes_rastreadas.patch",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/alteracoes.patch",
+      "sha256": "97fa733041c381a3e8f8b97058f1696a11de9e2e3a8da1562bac38ec46a8998b",
+      "bytes": 21639,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/97fa733041c381a3__alteracoes.patch",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!alteracoes.patch",
+      "sha256": "97fa733041c381a3e8f8b97058f1696a11de9e2e3a8da1562bac38ec46a8998b",
+      "bytes": 21639,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/97fa733041c381a3__alteracoes.patch",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_operacional.patch",
+      "sha256": "80bd2dee79cfb1a45ecc56f189eac19eb2977a99a01cf2ace751709c65340e6f",
+      "bytes": 17958,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/80bd2dee79cfb1a4__retomada_operacional.patch",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!retomada_operacional.patch",
+      "sha256": "80bd2dee79cfb1a45ecc56f189eac19eb2977a99a01cf2ace751709c65340e6f",
+      "bytes": 17958,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/80bd2dee79cfb1a4__retomada_operacional.patch",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/work/final_project_review/parser_scope_fix.patch",
+      "sha256": "a335d0bf4f2dfd928a64983218c127c93f30c3e0a41eb012bdc57ea5ed617c23",
+      "bytes": 10876,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/a335d0bf4f2dfd92__parser_scope_fix.patch",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/brasileirao_scripts/evaluate_h14_prospective.py",
+      "sha256": "80b64f29d5f02110fc40cdbc8e2617fe851b8a7b14cf6c2856e245223c3d8f75",
+      "bytes": 8047,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/80b64f29d5f02110__evaluate_h14_prospective.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/finalize_stage.py",
+      "sha256": "1bddd7b3895bde85b2c6504bbd776a60f1aeba5074922b0b094f43a95903a41b",
+      "bytes": 7181,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/1bddd7b3895bde85__finalize_stage.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/brasileirao_scripts/evaluate_h15_prospective.py",
+      "sha256": "ee5195f95316bb84b28d2d326b0ed82f8d3d9290e420042c8cba493b25ee59e3",
+      "bytes": 7155,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/ee5195f95316bb84__evaluate_h15_prospective.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!arquivos/tests/test_run_passive_task.py",
+      "sha256": "0f1a53f9204e33f681f38ae69f264133b88579a54f93300ce6b23e3bf9c5cf4d",
+      "bytes": 6457,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/0f1a53f9204e33f6__test_run_passive_task.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!arquivos/brasileirao_scripts/run_passive_task.py",
+      "sha256": "300e193442964725326130f1604409360d665eb312ea573cb9261a128b3b4b16",
+      "bytes": 5274,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/300e193442964725__run_passive_task.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REANALISE/price_history_parser_fix.patch",
+      "sha256": "b34625ceb86fb31785270921c9abf806f118356732707fc61922fe6f41d5f8ab",
+      "bytes": 5204,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b34625ceb86fb317__price_history_parser_fix.patch",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/work/selection_reanalysis/price_history/price_history_parser_fix.patch",
+      "sha256": "b34625ceb86fb31785270921c9abf806f118356732707fc61922fe6f41d5f8ab",
+      "bytes": 5204,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b34625ceb86fb317__price_history_parser_fix.patch",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REANALISE/reanalise_reproduzivel.zip!price_history_parser_fix.patch",
+      "sha256": "b34625ceb86fb31785270921c9abf806f118356732707fc61922fe6f41d5f8ab",
+      "bytes": 5204,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b34625ceb86fb317__price_history_parser_fix.patch",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/RETOMAR_H14_H15.ps1",
+      "sha256": "e6c0908e16685685ace66c6be40fc254d40e32bdf8ebd17ad532919dbbeb5c83",
+      "bytes": 5131,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/e6c0908e16685685__RETOMAR_H14_H15.ps1",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/retomada_passiva.zip!RETOMAR_H14_H15.ps1",
+      "sha256": "e6c0908e16685685ace66c6be40fc254d40e32bdf8ebd17ad532919dbbeb5c83",
+      "bytes": 5131,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/e6c0908e16685685__RETOMAR_H14_H15.ps1",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/brasileirao_scripts/price_discovery_preflight.py",
+      "sha256": "b5c7b2e3f03ab39eb8fd6a7b3b70e9cb9c65159ea84083ea5404f76bc0626e90",
+      "bytes": 5048,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b5c7b2e3f03ab39e__price_discovery_preflight.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/CONTINUACAO/close_git_handoff.py",
+      "sha256": "b3eccd1ef9361ec17003d064272127c5fd96a546175fb8bb09d74cf03e816faa",
+      "bytes": 4468,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/b3eccd1ef9361ec1__close_git_handoff.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/CONTINUACAO/verify_git_handoff.py",
+      "sha256": "379163bdaaadc49f72a0587bb7247c3d0c244f5e8d63b9a4f490da7a38f12ee9",
+      "bytes": 4173,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/379163bdaaadc49f__verify_git_handoff.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/pending_closure/before/dotnet/LineupWorker/Program.cs",
+      "sha256": "ab84ad8e0690652b8ec9e04f5866cb90aecad98f83a26f6fafb00bdc658e89b5",
+      "bytes": 3656,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/ab84ad8e0690652b__Program.cs",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/pending_closure/dotnet_before/dotnet/LineupWorker/Program.cs",
+      "sha256": "ab84ad8e0690652b8ec9e04f5866cb90aecad98f83a26f6fafb00bdc658e89b5",
+      "bytes": 3656,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/ab84ad8e0690652b__Program.cs",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/tests/test_price_discovery_preflight.py",
+      "sha256": "5971772a04aaef57d813103469ffe85569a074d73cb068467a8973e187f430d8",
+      "bytes": 3456,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/5971772a04aaef57__test_price_discovery_preflight.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/model_research_2026-09-07/persist_model_research.py",
+      "sha256": "460de277a9b72ad4a2cd9af8dfff80032755341297f0a66ff858226890902b1e",
+      "bytes": 3329,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/460de277a9b72ad4__persist_model_research.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/persist_model_research.py",
+      "sha256": "460de277a9b72ad4a2cd9af8dfff80032755341297f0a66ff858226890902b1e",
+      "bytes": 3329,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/460de277a9b72ad4__persist_model_research.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/runtime_fencing/dotnet_before/dotnet/LineupWorker.Tests/ModelBranchTests.cs",
+      "sha256": "e81693b7868153861691e594f02979498dd7a918df53c08e3db06e46fd5d3c7f",
+      "bytes": 3328,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/e81693b786815386__ModelBranchTests.cs",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/runtime_fencing/dotnet_before/dotnet/LineupWorker/Models/LatencyRecord.cs",
+      "sha256": "77d058cd7aaef4673ed6741c4cda961d40266214269ea8dbc04372d09c6cefe9",
+      "bytes": 2675,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/77d058cd7aaef467__LatencyRecord.cs",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/pending_closure/before/dotnet/LineupWorker/OperationalSettings.cs",
+      "sha256": "c1696fa483d05b0e701fbfbef0d03ab4ab0bf97e22ed298d1390f24ab6ff269e",
+      "bytes": 2250,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/c1696fa483d05b0e__OperationalSettings.cs",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/check_integrity.py",
+      "sha256": "aa6748b9a4df899543c02d78a523e66c92004892c336aede243b5cd4bfc3c0ac",
+      "bytes": 1954,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/aa6748b9a4df8995__check_integrity.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/validacao_brasileirao.zip!arquivos/tests/test_prospective_evaluation_guard.py",
+      "sha256": "9cc046d91e5ab016ef2b944f0d2197e38798c2600090b225861f7f8f3c1974b9",
+      "bytes": 1821,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/9cc046d91e5ab016__test_prospective_evaluation_guard.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/probe_docker.py",
+      "sha256": "72112b5ef93bba8395ec2a4c68c76635f4f8f146df565b411590c688a19acda7",
+      "bytes": 1426,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/72112b5ef93bba83__probe_docker.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/pending_closure/before/Dockerfile.kernel",
+      "sha256": "0a15296b0b5770be2967b3bacc1d8a0c1e926657a9b9b037ce2d2290a944f389",
+      "bytes": 1275,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/0a15296b0b5770be__Dockerfile.kernel",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/pending_closure/environment_before/Dockerfile.kernel",
+      "sha256": "0a15296b0b5770be2967b3bacc1d8a0c1e926657a9b9b037ce2d2290a944f389",
+      "bytes": 1275,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/0a15296b0b5770be__Dockerfile.kernel",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/runtime_fencing/dotnet_before/dotnet/LineupWorker/Models/LineupEvent.cs",
+      "sha256": "174720ee78be1f89a1ec2b124afc8ccd161251af9d3979c3f1aee6edf0287044",
+      "bytes": 1268,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/174720ee78be1f89__LineupEvent.cs",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/runtime_fix/before/dotnet/LineupWorker/Models/LineupEvent.cs",
+      "sha256": "174720ee78be1f89a1ec2b124afc8ccd161251af9d3979c3f1aee6edf0287044",
+      "bytes": 1268,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/174720ee78be1f89__LineupEvent.cs",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/pending_closure/before/Dockerfile.cli",
+      "sha256": "d7f31486bb5b273a63ecf0c0452bcdf4cb5ea612d718f82f47d21ba5c5565346",
+      "bytes": 1200,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/d7f31486bb5b273a__Dockerfile.cli",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/pending_closure/environment_before/Dockerfile.cli",
+      "sha256": "d7f31486bb5b273a63ecf0c0452bcdf4cb5ea612d718f82f47d21ba5c5565346",
+      "bytes": 1200,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/d7f31486bb5b273a__Dockerfile.cli",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/check_nullable_odds.py",
+      "sha256": "7d9e289df76c753c462c8e2e84233658b72571104b9039294e76694503066d39",
+      "bytes": 870,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/7d9e289df76c753c__check_nullable_odds.py",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/pending_closure/before/Dockerfile.worker",
+      "sha256": "6fc40fdb8aa0e76d59b198ba1fea378359537390a50e6bbc49e5b9f5151ddaea",
+      "bytes": 483,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/6fc40fdb8aa0e76d__Dockerfile.worker",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/pending_closure/environment_before/Dockerfile.worker",
+      "sha256": "6fc40fdb8aa0e76d59b198ba1fea378359537390a50e6bbc49e5b9f5151ddaea",
+      "bytes": 483,
+      "preservation": "archived_variant",
+      "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/6fc40fdb8aa0e76d__Dockerfile.worker",
+      "main_history_matches": [],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/outputs/REVISAO_FINAL/codigo/brasileirao_predictor/ingest_sofascore.py",
+      "sha256": "09af26ec9ee193cbca3181f6726a81dc83eebddf29c3a3eb5a451deef97daf34",
+      "bytes": 22542,
+      "preservation": "reachable_main_blob",
+      "preserved_repo_path": null,
+      "main_history_matches": [
+        {
+          "git_blob_oid": "40ecda852de5888a03bae71d9c1b4f0a361ae5d5",
+          "path_example": "brasileirao_predictor/ingest_sofascore.py"
+        }
+      ],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "projetos/brasileirao-predictor-sessoes/2026-09-07/work/final_project_review/ingest_sofascore_before.py",
+      "sha256": "b134d7861fb70be8ddade293f90eee740a23c21ff1ab48b03387330ed79f2db9",
+      "bytes": 19998,
+      "preservation": "reachable_main_blob",
+      "preserved_repo_path": null,
+      "main_history_matches": [
+        {
+          "git_blob_oid": "ff7963a3abf3360b9de2c9628aa2950669840298",
+          "path_example": "brasileirao_predictor/ingest_sofascore.py"
+        }
+      ],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/runtime_fix/before/tests/test_kernel_runtime.py",
+      "sha256": "3d515af6ed970ba71bc0eb80ccfb2c74b72695c2e70122b8bf5d2196690f430d",
+      "bytes": 7614,
+      "preservation": "reachable_main_blob",
+      "preserved_repo_path": null,
+      "main_history_matches": [
+        {
+          "git_blob_oid": "0b689d5a621b998e1de85722c63076737e32e8eb",
+          "path_example": "tests/test_kernel_runtime.py"
+        }
+      ],
+      "working_tree_matches": []
+    },
+    {
+      "historical_path": "tarefa/work/integration-repo/tests/test_season_2026_split.py",
+      "sha256": "e27db849277716e2a6922c2dd292d40fe90e6bd05031c5f59beba9bf9d35603b",
+      "bytes": 4998,
+      "preservation": "reachable_main_blob",
+      "preserved_repo_path": null,
+      "main_history_matches": [
+        {
+          "git_blob_oid": "e62becdee307b1e292240a930a23c0a265ff7c9e",
+          "path_example": "tests/test_season_2026_split.py"
+        }
+      ],
+      "working_tree_matches": []
+    }
+  ],
+  "no_execution_stage_commit_or_task_change": true,
+  "migration_root_supplement": {
+    "created_at_utc": "2026-09-08T20:38:47.028333+00:00",
+    "scope": "Own source files originally captured under migracao/ in the first full ZIP; no post-snapshot scratch scripts included",
+    "main_compared_commit": "4dfdec6804b1c5716e3663b4ffcf9bd3aab411ab",
+    "source_occurrences": 9,
+    "unique_sha256": 9,
+    "already_present_current_unique_sha256": 1,
+    "already_reachable_main_unique_sha256": 0,
+    "matching_size_main_blobs_hashed": 0,
+    "preserved_additional_unique_files": 8,
+    "preserved_additional_bytes": 43988,
+    "variants": [
+      {
+        "sha256": "01f5f141e55c27108e0790073de21512a19d9802f3bdda926f74375ce8395e23",
+        "bytes": 5524,
+        "historical_paths": [
+          "migracao/verificar_zip.py"
+        ],
+        "current_matches": [
+          "scripts/migration/verify_archive.py"
+        ],
+        "main_history_matches": [],
+        "preservation": "working_tree_candidate"
+      },
+      {
+        "sha256": "110907e60b9d8b4c8c0c86d9c2a8048daecaa894dd86e860865ccfc9c90f1e04",
+        "bytes": 1301,
+        "historical_paths": [
+          "migracao/probe_readonly_wal.py"
+        ],
+        "current_matches": [],
+        "main_history_matches": [],
+        "preservation": "archived_variant",
+        "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/110907e60b9d8b4c__probe_readonly_wal.py",
+        "selected_source_location": "migracao/probe_readonly_wal.py"
+      },
+      {
+        "sha256": "4c8a8798b4ea2601dc04e84e8d1f919c256801c00ce30ca86627acc149d658e6",
+        "bytes": 6886,
+        "historical_paths": [
+          "migracao/test_verificar_zip.py"
+        ],
+        "current_matches": [],
+        "main_history_matches": [],
+        "preservation": "archived_variant",
+        "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/4c8a8798b4ea2601__test_verificar_zip.py",
+        "selected_source_location": "migracao/test_verificar_zip.py"
+      },
+      {
+        "sha256": "637a9718711dc99b19f39c2ca04ced4305da87d04f91862f85a9db95b0770cd6",
+        "bytes": 6572,
+        "historical_paths": [
+          "migracao/test_snapshot_sqlite.py"
+        ],
+        "current_matches": [],
+        "main_history_matches": [],
+        "preservation": "archived_variant",
+        "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/637a9718711dc99b__test_snapshot_sqlite.py",
+        "selected_source_location": "migracao/test_snapshot_sqlite.py"
+      },
+      {
+        "sha256": "6e0cc34905b03e100e3129da5d2714afc75f5e2de5a788f175325af64c6ead0a",
+        "bytes": 1532,
+        "historical_paths": [
+          "migracao/capture_authorized_sqlite.py"
+        ],
+        "current_matches": [],
+        "main_history_matches": [],
+        "preservation": "archived_variant",
+        "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/6e0cc34905b03e10__capture_authorized_sqlite.py",
+        "selected_source_location": "migracao/capture_authorized_sqlite.py"
+      },
+      {
+        "sha256": "bda8f315da572f54404a0b9d39007d3815a96e10caca9d7724cee41db976a728",
+        "bytes": 10748,
+        "historical_paths": [
+          "migracao/build_migration.py"
+        ],
+        "current_matches": [],
+        "main_history_matches": [],
+        "preservation": "archived_variant",
+        "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/bda8f315da572f54__build_migration.py",
+        "selected_source_location": "migracao/build_migration.py"
+      },
+      {
+        "sha256": "bef63a2a8eed6efc8a51ad0d0bcbac01f3d0b0fa1b5b3ad1beadd1195e9c91e8",
+        "bytes": 3963,
+        "historical_paths": [
+          "migracao/finalize_sqlite_receipts.py"
+        ],
+        "current_matches": [],
+        "main_history_matches": [],
+        "preservation": "archived_variant",
+        "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/bef63a2a8eed6efc__finalize_sqlite_receipts.py",
+        "selected_source_location": "migracao/finalize_sqlite_receipts.py"
+      },
+      {
+        "sha256": "de67c6a757c50643c42b781d8175f6d036c379c3b41e1c1ee9950b059ff02975",
+        "bytes": 10081,
+        "historical_paths": [
+          "migracao/snapshot_sqlite.py"
+        ],
+        "current_matches": [],
+        "main_history_matches": [],
+        "preservation": "archived_variant",
+        "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/de67c6a757c50643__snapshot_sqlite.py",
+        "selected_source_location": "migracao/snapshot_sqlite.py"
+      },
+      {
+        "sha256": "e3a26b25502fa2ae879c8645e1250f44b0f6d0375c518d185a38f87c7bf222ff",
+        "bytes": 2905,
+        "historical_paths": [
+          "migracao/inventory.py"
+        ],
+        "current_matches": [],
+        "main_history_matches": [],
+        "preservation": "archived_variant",
+        "preserved_repo_path": "docs/continuation/migration_source_history_2026-09-08/files/e3a26b25502fa2ae__inventory.py",
+        "selected_source_location": "migracao/inventory.py"
+      }
+    ],
+    "no_archived_code_execution_or_git_stage": true
+  },
+  "total_preserved_unique_files_after_migration_root": 36,
+  "total_preserved_source_bytes_after_migration_root": 215736
+}

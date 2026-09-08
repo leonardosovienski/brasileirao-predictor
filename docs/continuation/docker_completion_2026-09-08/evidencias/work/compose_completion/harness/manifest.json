@@ -1,0 +1,267 @@
+{
+  "at_utc": "2026-09-08T12:27:17.692361+00:00",
+  "project_name": "brasileirao-compose-final-0ff21c335d",
+  "command_prefix": [
+    "docker.exe",
+    "--config",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\harness\\docker_config",
+    "compose",
+    "--project-name",
+    "brasileirao-compose-final-0ff21c335d",
+    "--project-directory",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\harness",
+    "--env-file",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\harness\\empty.env",
+    "--file",
+    "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\compose_completion\\harness\\compose.yaml"
+  ],
+  "state_path": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\outputs\\PENDENCIAS_CORRIGIDAS\\estado.json",
+  "state_sha256": "e7a8ead8a7b224725f5c645d8132a3f4c8133aac384c9c635611e2de5f6940b3",
+  "live_repo": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor",
+  "isolated_repo": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "source_comparison": {
+    ".dockerignore": {
+      "expected": "a0bc3c1efe72b3bfbb4695571fe8df95d47567bfd5259009500b0b6e6f32d14c",
+      "live": "a0bc3c1efe72b3bfbb4695571fe8df95d47567bfd5259009500b0b6e6f32d14c",
+      "isolated": "a0bc3c1efe72b3bfbb4695571fe8df95d47567bfd5259009500b0b6e6f32d14c",
+      "documentation_only": false
+    },
+    ".github/workflows/ci.yml": {
+      "expected": "a1ef033f67f46ecce9e1325b0cc03f976460e14bd7cb6aa61ed88b9187228978",
+      "live": "a1ef033f67f46ecce9e1325b0cc03f976460e14bd7cb6aa61ed88b9187228978",
+      "isolated": "a1ef033f67f46ecce9e1325b0cc03f976460e14bd7cb6aa61ed88b9187228978",
+      "documentation_only": false
+    },
+    "Dockerfile.cli": {
+      "expected": "12b775d106883279659bfad33efac560e862b8ca7adf286d87934c60ccac8f40",
+      "live": "12b775d106883279659bfad33efac560e862b8ca7adf286d87934c60ccac8f40",
+      "isolated": "12b775d106883279659bfad33efac560e862b8ca7adf286d87934c60ccac8f40",
+      "documentation_only": false
+    },
+    "Dockerfile.kernel": {
+      "expected": "cdf8a83940ced0448c810fc4b4f73b08541a3c3851a5cafd7cbd6f062177061c",
+      "live": "cdf8a83940ced0448c810fc4b4f73b08541a3c3851a5cafd7cbd6f062177061c",
+      "isolated": "cdf8a83940ced0448c810fc4b4f73b08541a3c3851a5cafd7cbd6f062177061c",
+      "documentation_only": false
+    },
+    "Dockerfile.worker": {
+      "expected": "facc3700eb83b4b8fcc6919b5423a4fde93682b452662869c7dbfa8e1cd673e5",
+      "live": "facc3700eb83b4b8fcc6919b5423a4fde93682b452662869c7dbfa8e1cd673e5",
+      "isolated": "facc3700eb83b4b8fcc6919b5423a4fde93682b452662869c7dbfa8e1cd673e5",
+      "documentation_only": false
+    },
+    "brasileirao_predictor/kernel_daemon.py": {
+      "expected": "b6cf54ed667a37c3a2bfc4335a8d3546858297af3e38a193aac8593f33a58c4a",
+      "live": "b6cf54ed667a37c3a2bfc4335a8d3546858297af3e38a193aac8593f33a58c4a",
+      "isolated": "b6cf54ed667a37c3a2bfc4335a8d3546858297af3e38a193aac8593f33a58c4a",
+      "documentation_only": false
+    },
+    "brasileirao_predictor/kernel_redis_v2.py": {
+      "expected": "94cdf57f41aabad4558ad011e3197bcb4a5affd0e9c7a8c32d17c337c94af691",
+      "live": "94cdf57f41aabad4558ad011e3197bcb4a5affd0e9c7a8c32d17c337c94af691",
+      "isolated": "94cdf57f41aabad4558ad011e3197bcb4a5affd0e9c7a8c32d17c337c94af691",
+      "documentation_only": false
+    },
+    "brasileirao_scripts/hotpath_smoke.py": {
+      "expected": "35567811a77cfea138bf4cdc64d66c9215781db30b8d59cf232ac1f069fb44ed",
+      "live": "35567811a77cfea138bf4cdc64d66c9215781db30b8d59cf232ac1f069fb44ed",
+      "isolated": "35567811a77cfea138bf4cdc64d66c9215781db30b8d59cf232ac1f069fb44ed",
+      "documentation_only": false
+    },
+    "brasileirao_scripts/lineup_inbox.py": {
+      "expected": "227236e2ee1f3254462d236b077dae1a4880be18bc0da83b9ae518cb081a705c",
+      "live": "227236e2ee1f3254462d236b077dae1a4880be18bc0da83b9ae518cb081a705c",
+      "isolated": "227236e2ee1f3254462d236b077dae1a4880be18bc0da83b9ae518cb081a705c",
+      "documentation_only": false
+    },
+    "compose.yaml": {
+      "expected": "a042e9b514ea8b5617827914d36ff570640e61d74d6d78a3790e89079372849b",
+      "live": "a042e9b514ea8b5617827914d36ff570640e61d74d6d78a3790e89079372849b",
+      "isolated": "a042e9b514ea8b5617827914d36ff570640e61d74d6d78a3790e89079372849b",
+      "documentation_only": false
+    },
+    "contracts/redis-protocol-v2.md": {
+      "expected": "f57147e3276b8b3712acd97cbeb4a806b0dc87129713768edb9023079c7ba006",
+      "live": "f57147e3276b8b3712acd97cbeb4a806b0dc87129713768edb9023079c7ba006",
+      "isolated": null,
+      "documentation_only": true
+    },
+    "dotnet/LineupWorker.Tests/FairOddsRecoveryTests.cs": {
+      "expected": "866a88455302b405c4fc551b87e7f8bd4fb04ab32332e2cdc4c31385eb52cb5c",
+      "live": "866a88455302b405c4fc551b87e7f8bd4fb04ab32332e2cdc4c31385eb52cb5c",
+      "isolated": "866a88455302b405c4fc551b87e7f8bd4fb04ab32332e2cdc4c31385eb52cb5c",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker.Tests/KernelCrossProcessTests.cs": {
+      "expected": "7d0e52a33c4b05fb238cc66b3151bc3d1adfc62c857d4464744e27d5e7983cc2",
+      "live": "7d0e52a33c4b05fb238cc66b3151bc3d1adfc62c857d4464744e27d5e7983cc2",
+      "isolated": "7d0e52a33c4b05fb238cc66b3151bc3d1adfc62c857d4464744e27d5e7983cc2",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker.Tests/LineupStreamTests.cs": {
+      "expected": "d57f9bfdc702f4df6a3062030414616f0f6bb9a4c3a7c34209b1cef430dc9450",
+      "live": "d57f9bfdc702f4df6a3062030414616f0f6bb9a4c3a7c34209b1cef430dc9450",
+      "isolated": "d57f9bfdc702f4df6a3062030414616f0f6bb9a4c3a7c34209b1cef430dc9450",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker.Tests/RedisEndpointTests.cs": {
+      "expected": "ad5b9b8834b82e928d8d2babc70aeb490ccbce73e6d9698e949ce3c21b1758e2",
+      "live": "ad5b9b8834b82e928d8d2babc70aeb490ccbce73e6d9698e949ce3c21b1758e2",
+      "isolated": "ad5b9b8834b82e928d8d2babc70aeb490ccbce73e6d9698e949ce3c21b1758e2",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker.Tests/WatchdogRecoveryTests.cs": {
+      "expected": "1716fed9cd6613dbc4db907570d2a44e261d5be2262e0948c99a09f80c997ceb",
+      "live": "1716fed9cd6613dbc4db907570d2a44e261d5be2262e0948c99a09f80c997ceb",
+      "isolated": "1716fed9cd6613dbc4db907570d2a44e261d5be2262e0948c99a09f80c997ceb",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker.Tests/WorkerHealthTests.cs": {
+      "expected": "f4b2d944db9f2755748c3e5c384c9b1603ce02b1836a6b1e85389a31212e520b",
+      "live": "f4b2d944db9f2755748c3e5c384c9b1603ce02b1836a6b1e85389a31212e520b",
+      "isolated": "f4b2d944db9f2755748c3e5c384c9b1603ce02b1836a6b1e85389a31212e520b",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker.Tests/WorkerRuntimeFencingTests.cs": {
+      "expected": "5a623a61ec1a4fbd7dcebc7805108156ddd28a7e29cfbf3cf05eeccc0b04ff4a",
+      "live": "5a623a61ec1a4fbd7dcebc7805108156ddd28a7e29cfbf3cf05eeccc0b04ff4a",
+      "isolated": "5a623a61ec1a4fbd7dcebc7805108156ddd28a7e29cfbf3cf05eeccc0b04ff4a",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker.Tests/WorkerRuntimeTests.cs": {
+      "expected": "20237d9463962b39a519d9d79e6079140d3d03ffc53731db43aa39776bc2818a",
+      "live": "20237d9463962b39a519d9d79e6079140d3d03ffc53731db43aa39776bc2818a",
+      "isolated": "20237d9463962b39a519d9d79e6079140d3d03ffc53731db43aa39776bc2818a",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker/Models/LineupEvent.cs": {
+      "expected": "d650b401db759403007cb72b331a712c419f99484026d5eee22735c18ff2c23f",
+      "live": "d650b401db759403007cb72b331a712c419f99484026d5eee22735c18ff2c23f",
+      "isolated": "d650b401db759403007cb72b331a712c419f99484026d5eee22735c18ff2c23f",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker/OperationalSettings.cs": {
+      "expected": "c3b19869a1befecfe9237dc647e8f4d6ec9ca9158627f1156a7eaac35010f824",
+      "live": "c3b19869a1befecfe9237dc647e8f4d6ec9ca9158627f1156a7eaac35010f824",
+      "isolated": "c3b19869a1befecfe9237dc647e8f4d6ec9ca9158627f1156a7eaac35010f824",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker/Program.cs": {
+      "expected": "d1d34f51a95b3c112ee6b95202f49be2ec3b6401fa64f078216b3188715542b7",
+      "live": "d1d34f51a95b3c112ee6b95202f49be2ec3b6401fa64f078216b3188715542b7",
+      "isolated": "d1d34f51a95b3c112ee6b95202f49be2ec3b6401fa64f078216b3188715542b7",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker/Services/KernelRedisProtocolV2.cs": {
+      "expected": "ce1ff57f0411305a983d89dc80e2b867a2c7f952d48ea5adb0278d78ab1679ea",
+      "live": "ce1ff57f0411305a983d89dc80e2b867a2c7f952d48ea5adb0278d78ab1679ea",
+      "isolated": "ce1ff57f0411305a983d89dc80e2b867a2c7f952d48ea5adb0278d78ab1679ea",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker/Services/LineupStreamConsumer.cs": {
+      "expected": "57ab669819e0d2247058c72529a8846887fae309bb8aa3c0d4d8cba40888fabe",
+      "live": "57ab669819e0d2247058c72529a8846887fae309bb8aa3c0d4d8cba40888fabe",
+      "isolated": "57ab669819e0d2247058c72529a8846887fae309bb8aa3c0d4d8cba40888fabe",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker/Services/MarketStateEngine.cs": {
+      "expected": "3fe190ed1b9d89a61241eee9ec8a6388e2ef2ba7a8c5efbb7a8901113d08ba56",
+      "live": "3fe190ed1b9d89a61241eee9ec8a6388e2ef2ba7a8c5efbb7a8901113d08ba56",
+      "isolated": "3fe190ed1b9d89a61241eee9ec8a6388e2ef2ba7a8c5efbb7a8901113d08ba56",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker/Services/WatchdogStateStore.cs": {
+      "expected": "217a895d369850f677055228bfcbec9ea22c6fce62bdfcbd2914406e9d0941de",
+      "live": "217a895d369850f677055228bfcbec9ea22c6fce62bdfcbd2914406e9d0941de",
+      "isolated": "217a895d369850f677055228bfcbec9ea22c6fce62bdfcbd2914406e9d0941de",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker/Services/WorkerHealth.cs": {
+      "expected": "b3231e9f861326cc8c04354b068313762c9ea195f25eee276b83dcaba6c33d40",
+      "live": "b3231e9f861326cc8c04354b068313762c9ea195f25eee276b83dcaba6c33d40",
+      "isolated": "b3231e9f861326cc8c04354b068313762c9ea195f25eee276b83dcaba6c33d40",
+      "documentation_only": false
+    },
+    "dotnet/LineupWorker/Worker.cs": {
+      "expected": "95fa9889847640573ff891f3e5b5db0d4b46ec871bd9a92e28755dd8624a1191",
+      "live": "95fa9889847640573ff891f3e5b5db0d4b46ec871bd9a92e28755dd8624a1191",
+      "isolated": "95fa9889847640573ff891f3e5b5db0d4b46ec871bd9a92e28755dd8624a1191",
+      "documentation_only": false
+    },
+    "tests/test_hotpath_smoke.py": {
+      "expected": "a7fa0b957db56029041180edcebba79bd85aa0e656aeaaf0acfe644b3f0c457e",
+      "live": "a7fa0b957db56029041180edcebba79bd85aa0e656aeaaf0acfe644b3f0c457e",
+      "isolated": "a7fa0b957db56029041180edcebba79bd85aa0e656aeaaf0acfe644b3f0c457e",
+      "documentation_only": false
+    },
+    "tests/test_kernel_cli_redis.py": {
+      "expected": "b069bf5c10fe045e570437e907e74a569520d413f56486d629c5e19df40d49d5",
+      "live": "b069bf5c10fe045e570437e907e74a569520d413f56486d629c5e19df40d49d5",
+      "isolated": "b069bf5c10fe045e570437e907e74a569520d413f56486d629c5e19df40d49d5",
+      "documentation_only": false
+    },
+    "tests/test_kernel_protocol.py": {
+      "expected": "93816017c8be005643c038b4cf97864623201b8431e86d096040f752bc155c31",
+      "live": "93816017c8be005643c038b4cf97864623201b8431e86d096040f752bc155c31",
+      "isolated": "93816017c8be005643c038b4cf97864623201b8431e86d096040f752bc155c31",
+      "documentation_only": false
+    },
+    "tests/test_kernel_runtime.py": {
+      "expected": "bf315b577df06340ad3c69a8ebffcada8394bf67367df189cea084b4f4b54954",
+      "live": "bf315b577df06340ad3c69a8ebffcada8394bf67367df189cea084b4f4b54954",
+      "isolated": "bf315b577df06340ad3c69a8ebffcada8394bf67367df189cea084b4f4b54954",
+      "documentation_only": false
+    },
+    "tests/test_kernel_v2_runtime.py": {
+      "expected": "7451491eff38814550d63d3de889dba6f8ff7aec4970a491c80a9de7af553a56",
+      "live": "7451491eff38814550d63d3de889dba6f8ff7aec4970a491c80a9de7af553a56",
+      "isolated": "7451491eff38814550d63d3de889dba6f8ff7aec4970a491c80a9de7af553a56",
+      "documentation_only": false
+    },
+    "tests/test_lineup_inbox.py": {
+      "expected": "1121762f1821a29df450947e1099798dd0af02e558839760d2e6bed9d3e06d9a",
+      "live": "1121762f1821a29df450947e1099798dd0af02e558839760d2e6bed9d3e06d9a",
+      "isolated": "1121762f1821a29df450947e1099798dd0af02e558839760d2e6bed9d3e06d9a",
+      "documentation_only": false
+    },
+    "tests/test_lineup_inbox_redis.py": {
+      "expected": "cd8c49ea3d6ad38c337315aabb3b2cbb2c20a3b5d152d4056544d82d537f1dc7",
+      "live": "cd8c49ea3d6ad38c337315aabb3b2cbb2c20a3b5d152d4056544d82d537f1dc7",
+      "isolated": "cd8c49ea3d6ad38c337315aabb3b2cbb2c20a3b5d152d4056544d82d537f1dc7",
+      "documentation_only": false
+    },
+    "tests/test_redis_integration.py": {
+      "expected": "407b6cfffd9776edd60f08fcb43726428bd0043c87db2de4ec4559ff2288d584",
+      "live": "407b6cfffd9776edd60f08fcb43726428bd0043c87db2de4ec4559ff2288d584",
+      "isolated": "407b6cfffd9776edd60f08fcb43726428bd0043c87db2de4ec4559ff2288d584",
+      "documentation_only": false
+    }
+  },
+  "declared_source_count": 36,
+  "runtime_and_test_sources_equal": true,
+  "configuration_parser_exit_code": 0,
+  "synthetic_fixture_contract_passed": true,
+  "synthetic_init_and_cache_read_passed": true,
+  "synthetic_vorp_fix": "replacement -> replacement_levels required by VorpStateService.StartAsync",
+  "initial_harness_check": "Parser exited 0; post-check incorrectly required explicit false in normalized bind object. Fixed default handling; prior files retained.",
+  "old_harness_preserved": true,
+  "daemon_or_container_started": false,
+  "hashes": {
+    "compose.yaml": "33d030055990e685cc76267a490d8539e2914ae1f70e938a2dd6e6776eb669c0",
+    "config.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "config.stdout.json": "ebcd02561d726a47f758059c15fa2e03324d783f1a2696354206e9e2a903cee5",
+    "config_final.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "config_final.stdout.json": "ebcd02561d726a47f758059c15fa2e03324d783f1a2696354206e9e2a903cee5",
+    "empty.env": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docker_config/config.json": "84ffa2835783e4dc770caf8f430f0b0a9937f3377eada3117e927f6083e982a9",
+    "fixtures/config.yaml": "17d9345480593974683f80f228ed60f0080514dcdf63db70f21445fbc40f070d",
+    "fixtures/titularidade.json": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f",
+    "fixtures/vorp.json": "ce8087bec27f86ec1fb616a264b4d0754187cabb65cb5a5cd248a0eadb65f042",
+    "synthetic_db_check/check.stderr.log": "7da2e6f7009831d63b84d20b09981f375600968ea2dc35446cab27ddd5f2f272",
+    "synthetic_db_check/check.stdout.log": "2a879d7dea005a24e9e8086d3e45880b3ee21055d46bccceb2637606f0fc3df4",
+    "synthetic_db_check/market.db": "ba969cfd02b7e66b7280b67638f14d6b7dc74cd6b7a475b261e057f5e2416935",
+    "synthetic_db_check/receipt.json": "d8be54c339e3332fca96c226b229e15f6d32a8b308354b4cf2ecf46fed71bb7b",
+    "synthetic_db_check/sports.db": "0876ad0557b6d7fceade48740a68ab907fb47d45de06ff762bf02b46b43f12e5"
+  },
+  "handoff_sha256": "5b934f12af7b47dd013c2a4ac4cc1e0975a93cc0ca8547f11da04d703b25c1ac"
+}

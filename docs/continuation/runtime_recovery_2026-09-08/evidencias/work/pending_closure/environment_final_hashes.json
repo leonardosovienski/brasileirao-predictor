@@ -1,0 +1,22 @@
+{
+  "at_utc": "2026-09-08T04:25:39.355969+00:00",
+  "before": {
+    "Dockerfile.worker": "6fc40fdb8aa0e76d59b198ba1fea378359537390a50e6bbc49e5b9f5151ddaea",
+    "Dockerfile.kernel": "0a15296b0b5770be2967b3bacc1d8a0c1e926657a9b9b037ce2d2290a944f389",
+    "Dockerfile.cli": "d7f31486bb5b273a63ecf0c0452bcdf4cb5ea612d718f82f47d21ba5c5565346",
+    "compose.yaml": "a042e9b514ea8b5617827914d36ff570640e61d74d6d78a3790e89079372849b",
+    ".github/workflows/ci.yml": "272c987a67ffb326e2cb9304d07ef5a1c0829d12e321d7ab3f35192eda7d9e90",
+    ".dockerignore": "1aa8503e754790a81036894e7891331e4af5e65a7eddb826ed9b320c422ea276"
+  },
+  "after": {
+    "Dockerfile.worker": "facc3700eb83b4b8fcc6919b5423a4fde93682b452662869c7dbfa8e1cd673e5",
+    "Dockerfile.kernel": "cdf8a83940ced0448c810fc4b4f73b08541a3c3851a5cafd7cbd6f062177061c",
+    "Dockerfile.cli": "12b775d106883279659bfad33efac560e862b8ca7adf286d87934c60ccac8f40",
+    "compose.yaml": "a042e9b514ea8b5617827914d36ff570640e61d74d6d78a3790e89079372849b",
+    ".github/workflows/ci.yml": "a1ef033f67f46ecce9e1325b0cc03f976460e14bd7cb6aa61ed88b9187228978",
+    ".dockerignore": "a0bc3c1efe72b3bfbb4695571fe8df95d47567bfd5259009500b0b6e6f32d14c"
+  },
+  "compose_build_run_executed": false,
+  "final_policy_receipt": "build_input_policy_review.json",
+  "review_sha256": "cfd365e6a67f6358d276955c1af02d2817a682d336ab09a0fc7eb0a721a6322a"
+}

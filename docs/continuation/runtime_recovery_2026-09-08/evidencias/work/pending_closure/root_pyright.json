@@ -1,0 +1,12 @@
+{
+  "include": [
+    "../integration-repo/brasileirao_scripts/hotpath_smoke.py",
+    "../integration-repo/brasileirao_scripts/lineup_inbox.py"
+  ],
+  "exclude": [],
+  "pythonVersion": "3.14",
+  "pythonPlatform": "Windows",
+  "venvPath": "C:/Users/Superleo13/projetos/brasileirao-predictor",
+  "venv": ".venv",
+  "typeCheckingMode": "basic"
+}

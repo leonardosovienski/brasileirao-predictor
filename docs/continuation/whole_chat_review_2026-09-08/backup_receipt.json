@@ -1,0 +1,9 @@
+{
+  "created_at_utc": "2026-09-08T03:07:04.046841+00:00",
+  "backup": "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\whole_chat_review_2026-09-08",
+  "files": 48,
+  "total_bytes": 393292,
+  "manifest_sha256": "cdc4e47ca96d3601b0e704ba80cfb28e492a9835d6d3d16ff43130fe49c50dca",
+  "all_copies_verified": true,
+  "receipt_location_note": "Receipt is outside the manifest to avoid a circular hash dependency."
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "path": "dotnet/LineupWorker/Worker.cs",
+    "sha256": "eefbca053a9415fad1207d305b6dbf391eef7ea299b6bbdf55d3181d3c833cd6"
+  },
+  {
+    "path": "dotnet/LineupWorker/Models/LineupEvent.cs",
+    "sha256": "be807e4c8c6b6a183383a7404f3afba524d1d31765836a2f703ab59cf7b15eb6"
+  },
+  {
+    "path": "dotnet/LineupWorker/Services/MarketStateEngine.cs",
+    "sha256": "6ac1e83af3d1d66c11b17db58764c44f1e07be1c3be06c6cb9b5362e4063d65e"
+  },
+  {
+    "path": "dotnet/LineupWorker/Services/KernelRedisProtocolV2.cs",
+    "sha256": "1ad2128c9d82d26bed3e36d984fadd8464ad883e4f1915d60a28a5136f7a8f3f"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WorkerRuntimeFencingTests.cs",
+    "sha256": "bb0d12a8e4b78273dae68b94e5406dc605c656f101d05c27587da63ca5aefb80"
+  }
+]

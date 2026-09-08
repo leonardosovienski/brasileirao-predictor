@@ -1,0 +1,18 @@
+{
+  "name": "price_strength_revision_lint",
+  "started_at_utc": "2026-09-08T02:14:21.357949+00:00",
+  "command": [
+    "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/python.exe",
+    "-m",
+    "ruff",
+    "check",
+    "brasileirao_predictor/research/price_strength/dynamic_xg.py",
+    "tests/test_price_strength_dynamic_xg.py"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 0.07869480000226758
+}

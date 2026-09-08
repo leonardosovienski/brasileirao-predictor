@@ -1,0 +1,20 @@
+{
+  "started_at_utc": "2026-09-08T03:19:45.343477+00:00",
+  "command": [
+    "wsl.exe",
+    "-d",
+    "codex-brasileirao-redis-20260908",
+    "--exec",
+    "/usr/bin/make",
+    "-C",
+    "/opt/redis-8.2.1",
+    "-j2",
+    "MALLOC=libc",
+    "BUILD_TLS=no"
+  ],
+  "environment_allowlist": true,
+  "distro": "codex-brasileirao-redis-20260908",
+  "existing_services_modified": false,
+  "exit_code": 0,
+  "seconds": 51.9207854999986
+}

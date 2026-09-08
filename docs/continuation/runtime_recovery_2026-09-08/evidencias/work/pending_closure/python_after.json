@@ -1,0 +1,36 @@
+{
+  "captured_at_utc": "2026-09-08T04:19:48.4376357Z",
+  "purpose": "After ready-result recovery; operational and isolated sources match",
+  "files": [
+    {
+      "path": "brasileirao_predictor/kernel_daemon.py",
+      "sha256": "601611566436c93f8cc86d546ca5e9d7989858db3dee31236ce38909689f9112",
+      "isolated_matches": true
+    },
+    {
+      "path": "brasileirao_predictor/kernel_redis_v2.py",
+      "sha256": "94cdf57f41aabad4558ad011e3197bcb4a5affd0e9c7a8c32d17c337c94af691",
+      "isolated_matches": true
+    },
+    {
+      "path": "tests/test_kernel_protocol.py",
+      "sha256": "93816017c8be005643c038b4cf97864623201b8431e86d096040f752bc155c31",
+      "isolated_matches": true
+    },
+    {
+      "path": "tests/test_kernel_runtime.py",
+      "sha256": "bf315b577df06340ad3c69a8ebffcada8394bf67367df189cea084b4f4b54954",
+      "isolated_matches": true
+    },
+    {
+      "path": "tests/test_kernel_v2_runtime.py",
+      "sha256": "7451491eff38814550d63d3de889dba6f8ff7aec4970a491c80a9de7af553a56",
+      "isolated_matches": true
+    },
+    {
+      "path": "tests/test_redis_integration.py",
+      "sha256": "407b6cfffd9776edd60f08fcb43726428bd0043c87db2de4ec4559ff2288d584",
+      "isolated_matches": true
+    }
+  ]
+}

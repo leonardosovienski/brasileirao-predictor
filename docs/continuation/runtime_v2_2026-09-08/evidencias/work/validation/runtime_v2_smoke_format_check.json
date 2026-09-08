@@ -1,0 +1,19 @@
+{
+  "name": "runtime_v2_smoke_format_check",
+  "started_at_utc": "2026-09-08T03:48:35.307616+00:00",
+  "command": [
+    "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+    "-m",
+    "ruff",
+    "format",
+    "--check",
+    "brasileirao_scripts/hotpath_smoke.py",
+    "tests/test_hotpath_smoke.py"
+  ],
+  "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+  "live_data_used": false,
+  "environment_allowlist": true,
+  "python_external_network_blocked": true,
+  "exit_code": 0,
+  "seconds": 0.07834779999393504
+}

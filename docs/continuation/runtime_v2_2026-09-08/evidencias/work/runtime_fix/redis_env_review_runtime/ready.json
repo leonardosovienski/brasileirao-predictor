@@ -1,0 +1,21 @@
+{
+  "ready_at_utc": "2026-09-08T03:22:14.554752+00:00",
+  "distro": "codex-brasileirao-redis-20260908",
+  "redis_version": "8.2.1",
+  "run_id": "97c7a9cc8a5fa8deb9387dd63a0505f8b66e9196",
+  "process_id": "12",
+  "python_url": "redis://127.0.0.1:26380/14",
+  "dotnet_url": "redis://127.0.0.1:26380/15",
+  "verified_from_windows": true,
+  "config": {
+    "port": "26380",
+    "bind": "127.0.0.1",
+    "save": "",
+    "databases": "16",
+    "appendonly": "no",
+    "dir": "/opt/redis-test"
+  },
+  "db14_initial_size": 0,
+  "db15_initial_size": 0,
+  "ownership": "new instance; not an existing endpoint"
+}

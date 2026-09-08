@@ -1,0 +1,9 @@
+{
+  "port": 26380,
+  "exclusive_windows_bind_succeeded": true,
+  "bind": "127.0.0.1",
+  "databases": 16,
+  "persistence": false,
+  "distro": "codex-brasileirao-redis-20260908",
+  "directory": "/opt/redis-test"
+}

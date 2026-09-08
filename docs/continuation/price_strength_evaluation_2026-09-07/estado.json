@@ -1,0 +1,161 @@
+{
+  "completed_at_utc": "2026-09-08T01:59:24.232261+00:00",
+  "study_status": "CLOSED_NEGATIVE_OR_MIXED_NO_GENERAL_IMPROVEMENT",
+  "plan_sha256": "507c69fc01aaabd9d78734b1153f740c3c347f601f5b1609cd54839a1698aaaa",
+  "results_sha256": "c356d4eaafc6a1d9301191b376a8e06b9c267b0d0aad9763a32be88375efee6a",
+  "audit_sha256": "bfbebd9bcf01d7805eedea6aa265a1c7e9d1ba40a3c2779679c68479df76623c",
+  "audit_status": "PASS",
+  "config_fingerprint": "fd63b94d185887476940340fccd211cb424e033f4058ee3aaf4a4db2a7cfb322",
+  "coverage": {
+    "universe": 380,
+    "common_panel": 368,
+    "excluded": 12,
+    "exclusion_reason_counts_nonexclusive": {
+      "raw:INSUFFICIENT_HISTORY": 6,
+      "calibrated:INSUFFICIENT_HISTORY": 6,
+      "incomplete_or_invalid_prices": 6
+    }
+  },
+  "economic_results": {
+    "xg_calibrated_primary": {
+      "fixtures": 368,
+      "bets": 312,
+      "wins": 83,
+      "losses": 229,
+      "stake_units": 312,
+      "gross_profit_units": -62.46,
+      "cost_units": 6.24,
+      "net_profit_units": -68.7,
+      "net_roi": -0.22019230769230771,
+      "net_profit_per_fixture": -0.18668478260869567,
+      "max_drawdown_units": 74.79500000000016
+    },
+    "xg_raw_diagnostic": {
+      "fixtures": 368,
+      "bets": 340,
+      "wins": 102,
+      "losses": 238,
+      "stake_units": 340,
+      "gross_profit_units": -21.166999999999998,
+      "cost_units": 6.8,
+      "net_profit_units": -27.967000000000002,
+      "net_roi": -0.08225588235294118,
+      "net_profit_per_fixture": -0.07599728260869566,
+      "max_drawdown_units": 38.94499999999998
+    },
+    "old_raw_frozen_2024": {
+      "fixtures": 368,
+      "bets": 297,
+      "wins": 85,
+      "losses": 212,
+      "stake_units": 297,
+      "gross_profit_units": -33.701,
+      "cost_units": 5.94,
+      "net_profit_units": -39.641,
+      "net_roi": -0.13347138047138046,
+      "net_profit_per_fixture": -0.10772010869565217,
+      "max_drawdown_units": 42.261000000000095
+    },
+    "market_proportional_devig": {
+      "fixtures": 368,
+      "bets": 0,
+      "wins": 0,
+      "losses": 0,
+      "stake_units": 0,
+      "gross_profit_units": 0.0,
+      "cost_units": 0.0,
+      "net_profit_units": 0.0,
+      "net_roi": null,
+      "net_profit_per_fixture": 0.0,
+      "max_drawdown_units": 0.0
+    }
+  },
+  "availability_policy": "ASSUMED_48H_NOT_OBSERVED",
+  "historical_real_data_used": true,
+  "operational_database_opened": false,
+  "candidate_and_tests_unchanged_since_implementation": {
+    "brasileirao_predictor/research/price_strength/__init__.py": true,
+    "brasileirao_predictor/research/price_strength/__main__.py": true,
+    "brasileirao_predictor/research/price_strength/artifacts.py": true,
+    "brasileirao_predictor/research/price_strength/demo.py": true,
+    "brasileirao_predictor/research/price_strength/dynamic_xg.py": true,
+    "brasileirao_predictor/research/price_strength/quotes.py": true,
+    "brasileirao_predictor/research/price_strength/study.py": true,
+    "tests/test_price_strength_artifacts.py": true,
+    "tests/test_price_strength_dynamic_xg.py": true,
+    "tests/test_price_strength_quotes.py": true,
+    "tests/test_price_strength_study.py": true
+  },
+  "protected_hash_checks": {
+    "config.yaml": true,
+    "pyproject.toml": true,
+    "uv.lock": true,
+    "data/trials.json": true,
+    "contracts/a1-ou25-phase0-policy.json": true,
+    "brasileirao_scripts/persist_h14_prospective.py": true,
+    "brasileirao_scripts/persist_h15_prospective.py": true,
+    "brasileirao_predictor/model.py": true,
+    "brasileirao_predictor/ratings.py": true,
+    "brasileirao_predictor/cron_update_models.py": true,
+    "brasileirao_scripts/collect_odds_a1.py": true,
+    "brasileirao_predictor/collector_a1.py": true,
+    "schemas/odds_snapshot_v1.json": true,
+    "data/team_aliases.json": true
+  },
+  "validation_receipts": {
+    "price_strength_conditional_tests": {
+      "name": "price_strength_conditional_tests",
+      "started_at_utc": "2026-09-08T01:51:24.767525+00:00",
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\price_strength_evaluation\\test_conditional_model.py",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\price_strength_evaluation\\test_evaluate.py",
+        "-q"
+      ],
+      "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+      "live_data_used": false,
+      "environment_allowlist": true,
+      "python_external_network_blocked": true,
+      "exit_code": 0,
+      "seconds": 1.5308174999954645
+    },
+    "price_strength_conditional_real": {
+      "name": "price_strength_conditional_real",
+      "started_at_utc": "2026-09-08T01:52:30.486115+00:00",
+      "command": [
+        "C:\\Users\\Superleo13\\projetos\\brasileirao-predictor\\.venv\\Scripts\\python.exe",
+        "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\price_strength_evaluation\\evaluate.py"
+      ],
+      "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+      "live_data_used": false,
+      "environment_allowlist": true,
+      "python_external_network_blocked": true,
+      "exit_code": 0,
+      "seconds": 6.2412898000038695
+    },
+    "price_strength_conditional_audit": {
+      "name": "price_strength_conditional_audit",
+      "started_at_utc": "2026-09-08T01:55:02.346608+00:00",
+      "command": [
+        "C:/Users/Superleo13/projetos/brasileirao-predictor/.venv/Scripts/python.exe",
+        "C:/Users/Superleo13/Documents/Codex/2026-09-07/leia-e-execute-c-users-superleo13/work/price_strength_evaluation/audit.py"
+      ],
+      "cwd": "C:\\Users\\Superleo13\\Documents\\Codex\\2026-09-07\\leia-e-execute-c-users-superleo13\\work\\integration-repo",
+      "live_data_used": false,
+      "environment_allowlist": true,
+      "python_external_network_blocked": true,
+      "exit_code": 0,
+      "seconds": 0.4692888999998104
+    }
+  },
+  "synthetic_tests_passed": 26,
+  "cross_book_comparison_evaluated": false,
+  "new_hyperparameter_search": false,
+  "live_execution_proven": false,
+  "candidate_promoted": false,
+  "operational_schedules_changed": false,
+  "previous_2026_T2_net_units_preserved": -1.23,
+  "conclusion": "Calibrated xG worsened hypothetical return; raw reduced loss but remained negative. Predictive improvement against old raw only in 1x2; market stronger than new candidates across all three."
+}

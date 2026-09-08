@@ -1,0 +1,175 @@
+namespace LineupWorker.Services;
+
+/// <summary>Redis standalone atomic boundaries; no model or betting formulas.</summary>
+public static class KernelRedisProtocolV2
+{
+    public const string InvokeChannel = "system:invoke_kernel:v2";
+    public const string CurrentPrefix = "kernel:v2:current:";
+    public const string SequencePrefix = "kernel:v2:sequence:";
+    public const string RequestPrefix = "kernel:v2:request:";
+    public const string IdentityPrefix = "kernel:v2:identity:";
+    public const string LeasePrefix = "kernel:v2:lease:";
+    public const string SignalsPrefix = "kernel:v2:signals:";
+    public const string PendingKey = "kernel:v2:pending";
+    public const string VersionPlaceholder = "__REDIS_STATE_VERSION__";
+    public const int RequestLifetimeMs = 60_000;
+
+    private const string Checks = """
+        local function kind(key, expected)
+            local actual = redis.call('TYPE', key).ok
+            if actual ~= 'none' and actual ~= expected then error('invalid protocol key type') end
+        end
+        local function allow(...)
+            if not redis.acl_check_cmd or not redis.acl_check_cmd(...) then
+                error('protocol command permission unavailable')
+            end
+        end
+        local function ttl(value)
+            if not string.match(value, '^%d+$') or tonumber(value) <= 0 or tonumber(value) > 9007199254740991 then
+                error('invalid protocol TTL')
+            end
+        end
+        local function run(payload)
+            local parsed = cjson.decode(payload)
+            if type(parsed) ~= 'table' or type(parsed.run_id) ~= 'string' or parsed.run_id == '' then
+                error('invalid current invocation')
+            end
+            return parsed.run_id
+        end
+        """;
+
+    // KEYS: lineup, current, sequence, new request, identity, fair, pending.
+    // ARGV: expectedExists, expectedLineup, updatedLineup, invokeTemplate,
+    //       stateTtlMs, requestTtlMs, invokeChannel, requestPrefix, leasePrefix,
+    //       optionalCompleteNotification, completeChannel.
+    // Never cjson.encode the invocation: Redis Lua's JSON number formatting can
+    // round the model inputs. Substitute only the known string version field.
+    public const string Register = Checks + "\n" + """
+        kind(KEYS[1], 'string'); kind(KEYS[2], 'string'); kind(KEYS[3], 'string')
+        kind(KEYS[4], 'hash'); kind(KEYS[5], 'string'); kind(KEYS[6], 'string'); kind(KEYS[7], 'zset')
+        ttl(ARGV[5]); ttl(ARGV[6])
+        if ARGV[6] ~= '60000' then error('invalid request lifetime') end
+        local updated = cjson.decode(ARGV[3])
+        local request = cjson.decode(ARGV[4])
+        if type(updated) ~= 'table' or type(request) ~= 'table' or
+           request.protocol_version ~= 'brasileirao.redis/2' or
+           request.state_version ~= '__REDIS_STATE_VERSION__' or
+           updated.MatchId ~= request.match_id or updated.DeltaVorpHome ~= request.dvorp_a or
+           updated.DeltaVorpAway ~= request.dvorp_b then error('invalid registration snapshot') end
+        local newRun = run(ARGV[4])
+        local identity = redis.call('GET', KEYS[5])
+        if identity then
+            kind(ARGV[8] .. identity, 'hash')
+            local original = redis.call('HGET', ARGV[8] .. identity, 'payload')
+            if original and redis.call('GET', KEYS[2]) == original then
+                return {'duplicate', original}
+            end
+            return {'superseded', original or ''}
+        end
+        local state = redis.call('GET', KEYS[1])
+        if (ARGV[1] == '0' and state) or (ARGV[1] == '1' and state ~= ARGV[2]) then
+            return {'conflict', ''}
+        end
+        local marker = '"state_version":"__REDIS_STATE_VERSION__"'
+        if not string.find(ARGV[4], marker, 1, true) then
+            return redis.error_reply('invalid invocation version placeholder')
+        end
+        if KEYS[4] ~= ARGV[8] .. newRun then
+            return redis.error_reply('request key does not match invocation')
+        end
+        if redis.call('EXISTS', KEYS[4]) ~= 0 then
+            return redis.error_reply('run identity already exists')
+        end
+        local old = redis.call('GET', KEYS[2])
+        local oldRun = old and run(old) or nil
+        local sequence = redis.call('GET', KEYS[3])
+        if sequence and (not string.match(sequence, '^%d+$') or #sequence > 19 or
+            (#sequence == 19 and sequence >= '9223372036854775807')) then error('invalid sequence') end
+        allow('INCR', KEYS[3])
+        allow('SET', KEYS[1], ARGV[3], 'PX', ARGV[5])
+        allow('SET', KEYS[2], ARGV[4], 'PX', ARGV[5])
+        allow('HSET', KEYS[4], 'payload', ARGV[4], 'lineup_state', ARGV[3], 'status', 'pending')
+        allow('PEXPIRE', KEYS[4], ARGV[6])
+        allow('SET', KEYS[5], newRun, 'PX', ARGV[6])
+        allow('DEL', KEYS[6])
+        allow('ZADD', KEYS[7], '0', newRun)
+        if oldRun then
+            allow('ZREM', KEYS[7], oldRun)
+            allow('DEL', ARGV[9] .. oldRun)
+        end
+        redis.call('INCR', KEYS[3])
+        local version = redis.call('GET', KEYS[3])
+        local payload = string.gsub(ARGV[4], marker, '"state_version":"' .. version .. '"', 1)
+        local now = redis.call('TIME')
+        local nowMs = now[1] * 1000 + math.floor(now[2] / 1000)
+        redis.call('SET', KEYS[1], ARGV[3], 'PX', ARGV[5])
+        redis.call('SET', KEYS[2], payload, 'PX', ARGV[5])
+        redis.call('HSET', KEYS[4], 'payload', payload, 'lineup_state', ARGV[3], 'status', 'pending')
+        redis.call('PEXPIRE', KEYS[4], ARGV[6])
+        redis.call('SET', KEYS[5], newRun, 'PX', ARGV[6])
+        redis.call('DEL', KEYS[6])
+        if oldRun then
+            redis.call('ZREM', KEYS[7], oldRun)
+            redis.call('DEL', ARGV[9] .. oldRun)
+        end
+        redis.call('ZADD', KEYS[7], nowMs, newRun)
+        if ARGV[10] ~= '' then redis.pcall('PUBLISH', ARGV[11], ARGV[10]) end
+        redis.pcall('PUBLISH', ARGV[7], payload)
+        return {'registered', payload}
+        """;
+
+    // KEYS: current, fair, request, lineup, emitted marker.
+    // ARGV: exact current payload, exact fair payload, exact lineup snapshot,
+    //       signal channel, individual immutable signal JSON strings...
+    // All publishes and deduplication share the final fence; a newer producer
+    // cannot register between validation and any signal in this batch.
+    public const string PublishSignals = Checks + "\n" + """
+        kind(KEYS[1], 'string'); kind(KEYS[2], 'string'); kind(KEYS[3], 'hash')
+        kind(KEYS[4], 'string'); kind(KEYS[5], 'string')
+        if redis.call('GET', KEYS[1]) ~= ARGV[1] then return -1 end
+        if redis.call('GET', KEYS[2]) ~= ARGV[2] or redis.call('PTTL', KEYS[2]) <= 0 then return -2 end
+        local ttl = redis.call('PTTL', KEYS[3])
+        if ttl <= 0 or redis.call('HGET', KEYS[3], 'payload') ~= ARGV[1] then return -3 end
+        if redis.call('HGET', KEYS[3], 'status') ~= 'completed' then return -3 end
+        if redis.call('HGET', KEYS[3], 'result') ~= ARGV[2] then return -3 end
+        if redis.call('HGET', KEYS[3], 'lineup_state') ~= ARGV[3] then return -4 end
+        if redis.call('GET', KEYS[4]) ~= ARGV[3] then return -4 end
+        if redis.call('EXISTS', KEYS[5]) ~= 0 then return 0 end
+        if #ARGV <= 4 then return 0 end
+        allow('SET', KEYS[5], ARGV[1], 'PX', ttl)
+        for i = 5, #ARGV do allow('PUBLISH', ARGV[4], ARGV[i]) end
+        redis.call('SET', KEYS[5], ARGV[1], 'PX', ttl)
+        for i = 5, #ARGV do redis.call('PUBLISH', ARGV[4], ARGV[i]) end
+        return #ARGV - 4
+        """;
+
+    // KEYS: lineup, current, fair, pending.
+    // ARGV: expectedLineup, expectedCurrentExists, expectedCurrent, fallback,
+    //       stateTtlMs, leasePrefix, wideningChannel, widening JSON strings...
+    public const string ApplyWatchdog = Checks + "\n" + """
+        kind(KEYS[1], 'string'); kind(KEYS[2], 'string'); kind(KEYS[3], 'string'); kind(KEYS[4], 'zset')
+        ttl(ARGV[5])
+        cjson.decode(ARGV[4])
+        if redis.call('GET', KEYS[1]) ~= ARGV[1] then return 0 end
+        local current = redis.call('GET', KEYS[2])
+        if (ARGV[2] == '0' and current) or (ARGV[2] == '1' and current ~= ARGV[3]) then return 0 end
+        local oldRun = current and run(current) or nil
+        allow('SET', KEYS[1], ARGV[4], 'PX', ARGV[5])
+        allow('DEL', KEYS[2], KEYS[3])
+        if oldRun then
+            allow('ZREM', KEYS[4], oldRun)
+            allow('DEL', ARGV[6] .. oldRun)
+        end
+        for i = 8, #ARGV do allow('PUBLISH', ARGV[7], ARGV[i]) end
+        redis.call('SET', KEYS[1], ARGV[4], 'PX', ARGV[5])
+        redis.call('DEL', KEYS[2], KEYS[3])
+        if oldRun then
+            redis.call('ZREM', KEYS[4], oldRun)
+            redis.call('DEL', ARGV[6] .. oldRun)
+        end
+        for i = 8, #ARGV do redis.call('PUBLISH', ARGV[7], ARGV[i]) end
+        return 1
+        """;
+}
+
+public sealed record KernelRegistrationResult(string Status, string? PayloadJson);
