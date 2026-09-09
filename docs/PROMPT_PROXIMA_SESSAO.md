@@ -1,11 +1,12 @@
-# Prompt para a próxima sessão
+# Próxima sessão
 
-O prompt atual, completo e independente do histórico da conversa está em:
+Trabalhe em `C:/BRASILEIRAO/brasileirao-predictor`.
 
-[PROMPT_MELHORIA_LUCRO.md](continuation/PROMPT_MELHORIA_LUCRO.md)
+Leia o [estado atual](ESTADO_ATUAL.md), a [retomada](continuation/RETOMADA.md),
+o [mandato vigente](continuation/MANDATO_LUCRO_2026-09-09.md) e o início do
+[HANDOFF](../HANDOFF.md). O [índice](INDICE_DOCUMENTACAO.md) identifica os
+documentos ativos, os contratos protegidos e os arquivos históricos.
 
-Leia também o checkpoint mais recente de [HANDOFF.md](../HANDOFF.md) e as evidências versionadas em `docs/continuation/review_2026-09-07/`.
-
-O prompt anterior descrevia o estado de agosto de 2026 e foi substituído. Suas contagens, comandos, afirmação de 2025 intocado e fila operacional não devem ser executados como instruções atuais; o conteúdo histórico continua disponível no Git.
-
-O backup persistente da sessão está em `C:/Users/Superleo13/projetos/brasileirao-predictor-sessoes/2026-09-07`, fora da pasta da conversa, preservando `outputs/` e `work/` com hashes. Use o novo prompt para os caminhos, resultados, limites e próximos passos corretos.
+O projeto e os dados recebidos estão sob `C:/BRASILEIRAO`; consulte
+[DATA_MAP.md](DATA_MAP.md). Não dependa da antiga pasta da conversa ou do
+usuário `Superleo13`. Não confunda preservação dos dados com operação ativa.

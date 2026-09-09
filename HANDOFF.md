@@ -1,5 +1,18 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — ARQUIVOS E DOCUMENTAÇÃO CONSOLIDADOS (09/09/2026)
+>
+> Raiz: `C:/BRASILEIRAO`; [estado atual](docs/ESTADO_ATUAL.md),
+> [retomada](docs/continuation/RETOMADA.md) e [índice de Markdown](docs/INDICE_DOCUMENTACAO.md).
+> Migração extraída e conferida integralmente: 12.423 entradas mais o manifesto,
+> com CRC/SHA-256, preservadas em `DADOS_PRESERVADOS`. As 21 entregas externas
+> da pesquisa foram copiadas com igualdade de hash para `ENTREGAS`.
+> Guias de entrada agora usam a pasta nova e o mandato recebido em 09/09;
+> versões anteriores, protocolos e estudos mantêm seu significado histórico.
+> Nenhuma coleta, avaliação de coorte, banco ou serviço foi iniciado.
+> A completude cobre o pacote recebido e estas sessões; não atesta arquivos
+> produzidos depois da captura no computador antigo. Recibos em `AUDITORIA`.
+
 > ## CHECKPOINT — PREÇO EXECUTÁVEL (09/09/2026)
 >
 > [Resultado da rodada](docs/continuation/price_feasibility_2026-09-09/RESULTADO.md).

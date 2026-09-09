@@ -1,5 +1,10 @@
 # Estado local e operação — o que não está neste repositório
 
+> **Documento histórico de 06/09/2026.** Para a instalação em `C:/BRASILEIRAO`,
+> leia [ESTADO_ATUAL.md](ESTADO_ATUAL.md) e [DATA_MAP.md](DATA_MAP.md).
+> Os procedimentos de renovação/agenda abaixo descrevem a origem e não são
+> instruções para executar durante a preservação ou pesquisa desta máquina.
+
 Criado em 2026-09-06, ao fim da auditoria adversarial.
 
 Esta é a referência histórica daquela auditoria. A consolidação de 08/09 reuniu

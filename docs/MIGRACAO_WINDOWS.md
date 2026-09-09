@@ -1,106 +1,57 @@
-# Migrar para outro Windows: código no Git, dados no ZIP
+# Migração e preservação — situação em C:/BRASILEIRAO
 
-O código, testes, contratos e documentação ficam no Git. O pacote
-`brasileirao-predictor-dados.zip` guarda os dados locais, backups de dados,
-configurações privadas, definições do Agendador e cópias consistentes dos bancos.
-Ele deriva da captura anterior verificada; não é uma nova coleta de dados nem
-uma imagem do Windows. Consulte as inclusões e exclusões no manifesto do pacote.
+## O que já foi concluído
 
-## Recuperar o código
+O código foi recuperado do bundle e atualizado por avanço direto para a main
+remota f003045; a pesquisa posterior foi registrada localmente em f33f92b.
+O histórico Git e os commits desta organização ficam no checkout
+`C:/BRASILEIRAO/brasileirao-predictor`. Consulte [ESTADO_ATUAL](ESTADO_ATUAL.md)
+e o recibo final em `C:/BRASILEIRAO/AUDITORIA` para o SHA consolidado.
 
-O arquivo separado `brasileirao-predictor-codigo.bundle` transporta o histórico
-Git da branch `main`, incluindo o commit da migração. É útil mesmo sem acesso
-ao GitHub. Copie esse arquivo e os arquivos do pacote de dados para
-`C:\Transferencia`. Com Git instalado, crie uma pasta de projeto nova:
+O pacote em `C:/BRASILEIRAO/MIGRACAO_DADOS/MIGRACAO_DADOS` foi preservado.
+A extração integral foi verificada em `C:/BRASILEIRAO/DADOS_PRESERVADOS`:
+12.423 entradas do manifesto mais o manifesto, conferidas por CRC e SHA-256.
+Recibo: `C:/BRASILEIRAO/AUDITORIA/verificacao_migracao_2026-09-09.json`.
 
-```powershell
-git clone --branch main 'C:\Transferencia\brasileirao-predictor-codigo.bundle' 'C:\projetos\brasileirao-predictor'
-if ($LASTEXITCODE -ne 0) { throw 'Falha ao recuperar o Git.' }
-git -C 'C:\projetos\brasileirao-predictor' remote set-url origin https://github.com/leonardosovienski/brasileirao-predictor.git
-git -C 'C:\projetos\brasileirao-predictor' rev-parse HEAD
-```
+Código, dados recebidos, entregas e documentação estão na raiz solicitada.
+A operação completa ainda não foi instalada/ativada; o ambiente Python existente
+é o de pesquisa isolada. Não houve importação de tarefas, abertura de bancos,
+renovação de atestados ou alteração de coortes.
 
-Compare o commit com `code.commit` no manifesto dos dados. O bundle é um
-backup Git local; sua criação não significa que o commit foi enviado ao GitHub.
-Se o commit já estiver publicado no repositório remoto, também é possível
-clonar por lá e selecionar esse mesmo commit.
-
-Uma consolidação posterior da `main` não altera a captura de dados já entregue.
-O ZIP anterior referencia `d42a3e0`; esse commit permanece no histórico. Para
-reproduzir exatamente aquela captura, selecione o commit do manifesto em
-checkout destacado. Para adotar a `main` posterior, mantenha os registros
-versionados de governança da versão escolhida: não os sobrescreva com versões
-mais antigas do ZIP. Preserve as duas versões como histórico. O código
-consolidado usa Core 3.2.0 / Ops 4.1.0, enquanto a instalação operacional da
-captura anterior usava Core 3.1.0 / Ops 4.0.0; a migração não atualiza essa
-instalação automaticamente.
-
-Se houver tentativas H14/H15 após a captura, transporte a pasta oculta
-`.prospective_evaluation_claims` junto do ledger correspondente. Essa pasta
-conserva o bloqueio de avaliação única ao mudar a raiz do projeto. Copiar somente
-o ledger ou renomeá-lo não é uma migração completa desse estado; relatórios e
-travas de tentativas anteriores também precisam acompanhar os dados.
-
-## Verificar e extrair os dados
-
-Mantenha o ZIP e seu arquivo `.zip.sha256` juntos. O verificador está no código
-recuperado, em `scripts/migration/verify_archive.py`. Com Python instalado:
+## Repetir a conferência do pacote sem extrair novamente
 
 ```powershell
-python 'C:\projetos\brasileirao-predictor\scripts\migration\verify_archive.py' 'C:\Transferencia\brasileirao-predictor-dados.zip' --extrair 'C:\Migracao-Dados' --recibo 'C:\Transferencia\verificacao-dados.json'
+$migrationPython = 'C:/BRASILEIRAO/work/price-feasibility-2026-09-09/venv/Scripts/python.exe'
+& $migrationPython -I 'C:/BRASILEIRAO/brasileirao-predictor/scripts/migration/verify_archive.py' 'C:/BRASILEIRAO/MIGRACAO_DADOS/MIGRACAO_DADOS/brasileirao-predictor-dados.zip' --recibo 'C:/BRASILEIRAO/AUDITORIA/verificacao_repetida.json'
+if ($LASTEXITCODE -ne 0) { throw 'Falha na verificação' }
 ```
 
-A pasta de extração precisa ser nova ou vazia; o recibo também precisa ser novo.
-Somente prossiga após `PASS`. O verificador confere SHA-256, CRC e os nomes dos
-arquivos. Se falhar, não use a extração parcial. Preserve a extração verificada
-e faça os ajustes de execução em uma cópia de trabalho.
+O recibo deve ser novo. Essa ferramenta lê bytes e metadados; não importa a
+aplicação nem consulta bancos. Não reextrair por cima de `DADOS_PRESERVADOS`.
+Para uma extração adicional, usar uma pasta nova e manter a original intacta.
 
-O layout conserva os caminhos do pacote original:
+Alguns arquivos históricos têm caminhos com mais de 260 caracteres. A extração
+e a conferência no disco usam a forma estendida de caminhos do Windows. Um erro
+da API comum nesses caminhos não comprova ausência do arquivo. Não renomear
+evidências ou modificar o registro do Windows para contornar essa limitação.
 
-- `projetos/brasileirao-predictor/data` e `reports`: dados e relatórios do projeto.
-- `projetos/brasileirao-predictor-sessoes`: dados e evidências dos backups de sessões.
-- `externos/predictor-data`: dados anteriormente em `C:\predictor\data`, incluindo
-  os dados compartilhados de Binance, preservados sem análise.
-- `externos/localappdata-brasileirao-backups`: backups locais históricos.
-- `externos/predictor-ops-default-state`: estado legado arquivado como referência.
-- `tarefa`: dados e evidências locais selecionados; os fontes ficam fora do ZIP.
-- `migracao/private` e `migracao/tasks`: variáveis privadas e definições do Agendador.
-- `snapshots_sqlite`: as cinco cópias consistentes dos bancos.
+## Preparar outra instalação no futuro
 
-Copie os dados para os locais correspondentes da instalação de trabalho.
-Para os cinco bancos em `snapshot_restore_map`, use o arquivo indicado em
-`snapshot_archive_path` no destino indicado por `source_archive_path`.
-Não junte um snapshot com os arquivos WAL/SHM da cópia bruta antiga. Preserve os
-originais extraídos como histórico. Não altere ledgers, coortes, planos congelados
-ou resultados para acomodar a migração. A consistência é por banco, não uma
-captura simultânea de todo o computador.
+O [mapa de dados](DATA_MAP.md) e `snapshot_restore_map` indicam os destinos
+corretos. A captura dos dados está vinculada a d42a3e0 e não deve sobrescrever
+governança versionada mais nova. Preservar as duas versões, inclusive claims
+e bloqueios de avaliação única eventualmente recebidos depois da captura.
 
-## Recriar o ambiente e preparar a mudança
+O lock do código atual fixa Core 3.2.0 / Ops 4.1.0 e requer Python >=3.13,<3.15.
+Uma instalação completa deve usar esse lock em ambiente novo; copiar um venv
+não torna seus caminhos portáveis. Não iniciar coleta/serving como teste de
+instalação. Dependências externas e serviços precisam de validação própria.
 
-Na origem foram observados Python 3.14.6, uv 0.12.1 e SDK .NET 10.0.302.
-As dependências estão fixadas no repositório. Na pasta do projeto novo:
+As 27 definições de tarefas foram apenas preservadas. A ativação depende de
+definir qual máquina será responsável por cada rotina e de conservar os contratos
+protegidos, evitando duplicação. Agendas não serão adaptadas automaticamente.
 
-```powershell
-Set-Location -LiteralPath 'C:\projetos\brasileirao-predictor'
-uv sync --python 3.14.6 --all-extras --locked
-if ($LASTEXITCODE -ne 0) { throw 'Falha ao recriar o ambiente.' }
-```
-
-Não copie `.venv` nem artefatos compilados da máquina antiga. Adapte os caminhos
-das configurações privadas e revise as chaves localmente, sem expô-las em logs.
-O arquivo privado exporta cinco variáveis selecionadas do projeto; não todo o
-ambiente do Windows. A configuração e os dados privados nunca devem entrar no Git.
-
-As 27 tarefas XML são definições exportadas: sete estavam prontas e vinte
-desabilitadas. Não foram importadas ou ativadas. Antes de ativá-las no destino,
-adapte usuário/caminhos e defina qual computador fica responsável por cada
-rotina, evitando execução duplicada. Dados produzidos depois da captura precisam
-ser sincronizados na mudança definitiva.
-
-Consulte `HANDOFF.md` antes de operar. A validação Docker/Compose permanecia
-pendente na origem por indisponibilidade do hipervisor; isso não diagnostica o
-computador novo. Instalação de serviços e teste de execução no destino são etapas
-posteriores à transferência. Os testes da origem não comprovam compatibilidade
-do computador novo.
-
-**O ZIP contém chaves de API e dados privados. Guarde-o em local privado.**
+Arquivos gerados no computador antigo depois de 08/09 não estão comprovados
+por esta captura. O pacote contém dados privados e chaves; mantê-lo privado.
+As [instruções originais de migração](history/antes_consolidacao_2026-09-09/docs/MIGRACAO_WINDOWS.md)
+continuam arquivadas com seus caminhos e contexto históricos.

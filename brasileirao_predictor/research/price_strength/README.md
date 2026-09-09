@@ -1,5 +1,12 @@
 # Pesquisa offline de preços e forças xG
 
+Estado local e caminhos: [ESTADO_ATUAL.md](../../../docs/ESTADO_ATUAL.md).
+O diagnóstico puro `price_hurdle.py` foi acrescentado em 09/09/2026: calcula
+o preço necessário para empatar sob custos explícitos e recusa transformar
+odds agregadas sem proveniência em ofertas executáveis. A [rodada encerrada](../../../docs/continuation/price_feasibility_2026-09-09/RESULTADO.md)
+e sua [reprodução](../../../docs/continuation/price_feasibility_2026-09-09/REPRODUZIR.md)
+preservam os limites. O scanner, estudo xG e exemplos abaixo mantêm seus contratos.
+
 Este pacote implementa uma linhagem independente de pesquisa: compara preços entre casas e produz previsões com médias móveis de xG por time e mando. Toda saída tem escopo `RESEARCH_ONLY`. Não coleta dados, envia apostas, dimensiona capital, altera o modelo operacional, promove candidatos, modifica coortes ou libera os gates do scaffold PIT legado.
 
 A demonstração usa partidas, casas, preços e resultados **fabricados em 2030**. Serve para exercitar contratos e cronologia; seus números não são resultados financeiros nem evidência estatística de vantagem. Um replay exploratório também não constitui um novo holdout intocado.
