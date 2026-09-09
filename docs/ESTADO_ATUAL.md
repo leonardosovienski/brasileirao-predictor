@@ -4,6 +4,10 @@ Referência vigente para a raiz **`C:/BRASILEIRAO`**. O
 [mandato](continuation/MANDATO_LUCRO_2026-09-09.md) define objetivo e restrições.
 **Dados adicionais obtidos; lucro executável não demonstrado; capital bloqueado.**
 
+Próximo trabalho solicitado: [revisão integral e resolução](continuation/REVISAO_INTEGRAL_2026-09-09.md),
+começando pela conferência do existente e das premissas. O handoff foi preparado;
+a revisão integral ainda não foi executada. As verificações abaixo mantêm seu escopo original.
+
 ## Código e ambiente
 
 Checkout `C:/BRASILEIRAO/brasileirao-predictor`, branch `main`. A base da

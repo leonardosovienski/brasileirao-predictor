@@ -1,5 +1,9 @@
 # Retomada — C:/BRASILEIRAO, ER-20260909
 
+Para o novo chat, siga primeiro o [mandato de revisão integral](REVISAO_INTEGRAL_2026-09-09.md).
+O usuário pediu reexaminar o existente e o caminho escolhido, depois resolver as lacunas.
+Essa revisão ainda não foi executada; a rotina independente abaixo continua com seu protocolo.
+
 Leia [estado atual](../ESTADO_ATUAL.md), [mandato](MANDATO_LUCRO_2026-09-09.md),
 [resultado ER](execution_readiness_2026-09-09/RESULTADO.md) e
 [continuidade](data_completion_2026-09-09/CONTINUIDADE.md).
@@ -24,7 +28,7 @@ falhas na captura/auditoria, com 15 testes novos. A regra pública não fornece
 limite pessoal. O flag de coleta não prova suspensão da aposta na casa.
 As versões novas já estão nos caminhos ativos; conservar a captura congelada.
 
-## Próxima ação concreta
+## Acompanhamento independente já configurado na tarefa anterior
 
 O acompanhamento diário às 19:57 de São Paulo executa a rotina delimitada
 `C:/BRASILEIRAO/work/data-completion-2026-09-09/followup_capture.py`.

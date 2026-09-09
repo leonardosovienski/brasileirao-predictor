@@ -6,6 +6,10 @@ capital bloqueado.**
 
 ## Comece aqui
 
+Próxima sessão: [revisão integral do projeto e resolução das lacunas](docs/continuation/REVISAO_INTEGRAL_2026-09-09.md).
+Conferir primeiro o existente, suas alegações e premissas; depois corrigir e completar.
+O roteiro está preparado; a revisão integral ainda não foi executada.
+
 1. [Estado atual verificado](docs/ESTADO_ATUAL.md): código, ambiente, dados e operação.
 2. [Retomada](docs/continuation/RETOMADA.md): sequência para a próxima sessão.
 3. [Mandato vigente](docs/continuation/MANDATO_LUCRO_2026-09-09.md): objetivo e restrições.
