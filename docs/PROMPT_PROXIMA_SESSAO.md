@@ -1,6 +1,6 @@
 # Próxima sessão — revisão integral e resolução
 
-Leia e execute o [mandato complementar de revisão integral](continuation/REVISAO_INTEGRAL_2026-09-09.md),
+Leia e execute o [prompt final consolidado de revisão integral](continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md),
 junto do mandato original em `C:/BRASILEIRAO/INSTRUCOES/MANDATO_RECEBIDO_2026-09-09.txt`.
 Trabalhe sozinho em `C:/BRASILEIRAO/brasileirao-predictor`, mantendo o projeto em `C:/BRASILEIRAO`.
 
@@ -10,7 +10,7 @@ validando o que já existe e se o caminho escolhido continua justificado.
 Depois corrija, obtenha dados recuperáveis, implemente e teste o que faltar.
 Não se limite às pendências anteriores nem presuma que seus relatórios estão corretos.
 
-O mandato complementar contém sequência, critérios de fechamento, caminhos e
+O prompt final contém sequência, critérios de fechamento, caminhos e
 checkpoint datado. **Esta revisão integral ainda não foi executada.** As verificações
 anteriores continuam restritas aos escopos registrados.
 

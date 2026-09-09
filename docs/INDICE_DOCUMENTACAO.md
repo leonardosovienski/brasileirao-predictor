@@ -13,18 +13,19 @@ coortes protegidas não foi examinado para produzir este inventário.
 
 ## Navegação
 
-- [Revisão integral solicitada para a próxima sessão](continuation/REVISAO_INTEGRAL_2026-09-09.md)
+- [Prompt final de revisão integral para a próxima sessão](continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md)
 - [Retomada](continuation/RETOMADA.md)
 - [Mandato vigente](continuation/MANDATO_LUCRO_2026-09-09.md)
 - [Mapa de dados e prefixos antigos](DATA_MAP.md)
 - [Migração verificada](MIGRACAO_WINDOWS.md)
 - [Último resultado econômico](continuation/execution_readiness_2026-09-09/RESULTADO.md)
 
-## Inventário completo: 160 documentos
+## Inventário completo: 161 documentos
 
 | Documento | Categoria |
 | --- | --- |
-| [docs/continuation/REVISAO_INTEGRAL_2026-09-09.md](continuation/REVISAO_INTEGRAL_2026-09-09.md) | Mandato complementar — revisão solicitada, ainda não executada |
+| [docs/continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md](continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md) | Prompt final consolidado — revisão ainda não executada |
+| [docs/continuation/REVISAO_INTEGRAL_2026-09-09.md](continuation/REVISAO_INTEGRAL_2026-09-09.md) | Versão anterior do mandato de revisão — preservada como contexto |
 | [brasileirao_predictor/research/price_strength/README.md](../brasileirao_predictor/research/price_strength/README.md) | Referência técnica — não atesta operação local |
 | [contracts/redis-protocol-v2.md](../contracts/redis-protocol-v2.md) | Contrato ou referência protegida — preservar |
 | [docs/A1_OU25_PHASE0_RUNBOOK.md](A1_OU25_PHASE0_RUNBOOK.md) | Contrato ou referência protegida — preservar |

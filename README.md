@@ -6,7 +6,7 @@ capital bloqueado.**
 
 ## Comece aqui
 
-Próxima sessão: [revisão integral do projeto e resolução das lacunas](docs/continuation/REVISAO_INTEGRAL_2026-09-09.md).
+Próxima sessão: [prompt final de revisão integral e resolução das lacunas](docs/continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md).
 Conferir primeiro o existente, suas alegações e premissas; depois corrigir e completar.
 O roteiro está preparado; a revisão integral ainda não foi executada.
 

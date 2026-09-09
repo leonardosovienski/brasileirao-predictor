@@ -1,6 +1,6 @@
 # Retomada — C:/BRASILEIRAO, ER-20260909
 
-Para o novo chat, siga primeiro o [mandato de revisão integral](REVISAO_INTEGRAL_2026-09-09.md).
+Para o novo chat, siga primeiro o [prompt final de revisão integral](PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md).
 O usuário pediu reexaminar o existente e o caminho escolhido, depois resolver as lacunas.
 Essa revisão ainda não foi executada; a rotina independente abaixo continua com seu protocolo.
 
