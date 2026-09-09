@@ -1,0 +1,67 @@
+[
+  {
+    "source": "oddspapi_limit_semantics",
+    "url": "https://oddspapi.io/blog/betting-limits-api-stake-sizing/",
+    "requested_at": "2026-09-09T21:24:13.933328+00:00",
+    "http_status": 200,
+    "received_at": "2026-09-09T21:24:14.995181+00:00",
+    "final_url": "https://oddspapi.io/blog/betting-limits-api-stake-sizing/",
+    "date_header": "Wed, 09 Sep 2026 21:24:15 GMT",
+    "status": "SAVED",
+    "file": "oddspapi_limit_semantics.html",
+    "bytes": 78139,
+    "sha256": "b33fb4101367aee42225ab58f5390ad479dff0951f470b39e77f3594de81ad8f"
+  },
+  {
+    "source": "bet365_br_stake_limits",
+    "url": "https://help.bet365.bet.br/s/pt-br/sports/min-max-stake",
+    "requested_at": "2026-09-09T21:24:14.997484+00:00",
+    "http_status": 200,
+    "received_at": "2026-09-09T21:24:15.655294+00:00",
+    "final_url": "https://help.bet365.bet.br/s/pt-br/sports/min-max-stake",
+    "date_header": "Wed, 09 Sep 2026 21:24:16 GMT",
+    "status": "SAVED",
+    "file": "bet365_br_stake_limits.html",
+    "bytes": 98868,
+    "sha256": "478cb583afdb30d243658d751a1746209edebaada9cf194e929592c7249b8ea5"
+  },
+  {
+    "source": "oddspapi_current_odds_contract",
+    "url": "https://oddspapi.io/us/docs/get-odds",
+    "requested_at": "2026-09-09T21:24:15.657451+00:00",
+    "http_status": 200,
+    "received_at": "2026-09-09T21:24:16.423142+00:00",
+    "final_url": "https://oddspapi.io/us/docs/get-odds",
+    "date_header": "Wed, 09 Sep 2026 21:24:17 GMT",
+    "status": "SAVED",
+    "file": "oddspapi_current_odds_contract.html",
+    "bytes": 160786,
+    "sha256": "d11589cdf07183b54db1ce6866add614219c5f0519751132a0568ac89057dc73"
+  },
+  {
+    "source": "receita_current_service",
+    "url": "https://www.gov.br/pt-br/servicos/apurar-imposto-sobre-premios-de-apostas-na-loteria-de-quota-fixa-e-em-fantasy-sport",
+    "requested_at": "2026-09-09T21:24:16.424527+00:00",
+    "http_status": 200,
+    "received_at": "2026-09-09T21:24:17.370230+00:00",
+    "final_url": "https://www.gov.br/pt-br/servicos/apurar-imposto-sobre-premios-de-apostas-na-loteria-de-quota-fixa-e-em-fantasy-sport",
+    "date_header": "Wed, 09 Sep 2026 21:24:18 GMT",
+    "status": "SAVED",
+    "file": "receita_current_service.html",
+    "bytes": 118515,
+    "sha256": "8be53f3124f1438b071ce8c692e02c6e540d9a0d8f42d17564d7f3c8cc0f3f29"
+  },
+  {
+    "source": "receita_2026_tables",
+    "url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2026",
+    "requested_at": "2026-09-09T21:24:17.372233+00:00",
+    "http_status": 200,
+    "received_at": "2026-09-09T21:24:17.900963+00:00",
+    "final_url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2026",
+    "date_header": "Wed, 09 Sep 2026 20:57:19 GMT",
+    "status": "SAVED",
+    "file": "receita_2026_tables.html",
+    "bytes": 191255,
+    "sha256": "07aaba23bcf86452376da4a1343da359631fd3ec5964a7279d45acdf9d8e2ea4"
+  }
+]

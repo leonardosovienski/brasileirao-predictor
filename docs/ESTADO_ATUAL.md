@@ -1,4 +1,4 @@
-# Estado atual — 09/09/2026, rodada DC-20260909
+# Estado atual — 09/09/2026, continuação ER-20260909
 
 Referência vigente para a raiz **`C:/BRASILEIRAO`**. O
 [mandato](continuation/MANDATO_LUCRO_2026-09-09.md) define objetivo e restrições.
@@ -6,10 +6,10 @@ Referência vigente para a raiz **`C:/BRASILEIRAO`**. O
 
 ## Código e ambiente
 
-Checkout `C:/BRASILEIRAO/brasileirao-predictor`, branch `main`. A base desta
-rodada foi `5dec2521bab581d5dda104d954f4cc6274b74702`, posterior à pesquisa PF
-e à consolidação documental. O SHA final, diff e backup constam do recibo
-`C:/BRASILEIRAO/AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.json`.
+Checkout `C:/BRASILEIRAO/brasileirao-predictor`, branch `main`. A base da
+continuação ER foi `7f18d543891cb3e68bb82c0a0d9fb58f9a8f12c0`, posterior
+à rodada DC e à consolidação dos dados. O SHA final, diff e backup constam do recibo
+`C:/BRASILEIRAO/AUDITORIA/EXECUTION_READINESS_2026-09-09.json`.
 Nenhum push desta rodada foi realizado. O pacote original permanece associado
 a d42a3e0; não houve reset ou recriação de branches antigas.
 
@@ -37,7 +37,7 @@ Os novos insumos ficam em `C:/BRASILEIRAO/work/data-completion-2026-09-09`:
 | OddsPapi Jan–Jun/2026 | 177/177 timelines verificadas; 623.271.596 bytes; 22 reutilizadas e 155 novas |
 | Football-Data oficial | CSV recuperado; 380 jogos de 2025, 158 pares closing numericamente completos |
 | Catálogos atuais | Identidades de bookmaker e 21 fixtures elegíveis; evento escolhido antes das odds |
-| Capturas prospectivas iniciais | Três capturas de um evento com recibos reais; Bet365 Brasil inativa nas três |
+| Capturas prospectivas iniciais | Três capturas de um evento com recibos reais; coleta Bet365 Brasil sinalizada como inativa nas três |
 | Acesso/custo de dados | Plano gratuito existente verificado; contador 62 → 67/250; reserva 20 preservada |
 
 Os 177 arquivos estão completos para o universo declarado. Isso não equivale
@@ -74,11 +74,26 @@ escolhas antes dos labels e apurou −9,24u no cenário de fricção 2%, banca 1
 Todas as seleções ocorreram no período em que a fonte avisa desatualização da
 referência Pinnacle; o saldo é aritmético condicional, não validação econômica.
 
-**138 testes passaram**: 80 existentes e 58 novos. Ruff e Pyright dos três
-novos módulos passaram; uma conferência com Fraction confirmou a conta sem
-importar esses módulos. Seis fronteiras UTC e execução fora da janela
-verificaram a espera sem consumo de API. Checks são delimitados à pesquisa,
+**153 testes passaram**: os 138 da rodada DC mais 15 ensaios novos da rotina
+futura. Cinco regressões falharam antes das correções. Ruff e Pyright dos dois
+executores alterados passaram. A tipagem dos três módulos puros e a conferência
+Fraction anteriores permanecem válidas para o código inalterado. A rotina
+corrigida preserva respostas inválidas e produz rejeições rastreáveis. Checks são delimitados à pesquisa,
 não evidência de CI remoto atualizado ou instalação operacional completa.
+
+## Correções e condições ER
+
+[Resultado ER](continuation/execution_readiness_2026-09-09/RESULTADO.md): cinco
+fontes públicas HTTP 200, sem consulta autenticada ou uso de quota de odds.
+O campo bookmakerIsActive descreve principalmente coleta do agregador; false
+não prova suspensão na casa. Regras públicas de limite e imposto foram
+documentadas sem preencher capacidade, moeda ou custo pessoais desconhecidos.
+
+As duas rotinas corrigidas foram copiadas para seus caminhos ativos em
+`C:/BRASILEIRAO/work/data-completion-2026-09-09`; versões anteriores, fontes e
+recibos novos estão em `C:/BRASILEIRAO/work/execution-readiness-2026-09-09`.
+Fixture, horário, quota e agenda não mudaram. Falha HTTP não autoriza retry;
+corpo de captura inválido pode e deve receber auditoria de rejeição.
 
 ## Limite da garantia da pasta
 

@@ -1,0 +1,17 @@
+{
+  "activated_at": "2026-09-09T21:38:46.243477+00:00",
+  "scripts": [
+    {
+      "active_path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\followup_capture.py",
+      "old_sha256": "4a3af660d040c3f7ddc76aa1f3203d45199740d169e6641c0c25d1dab6cd9d98",
+      "new_sha256": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88"
+    },
+    {
+      "active_path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\audit_followup.py",
+      "old_sha256": "0a720918a5253ba5cc5394597d1c4806f90195b478682761387bc4605ba14bcc",
+      "new_sha256": "9b721572618a4cb9a37365cc613ea6cab8b36befb74b54bf702284a93859d080"
+    }
+  ],
+  "protected_collectors_or_agendas_changed": false,
+  "fixture_cutoff_quota_and_bookmakers_unchanged": true
+}

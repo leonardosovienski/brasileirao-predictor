@@ -1,5 +1,13 @@
 # Registro de fontes históricas
 
+## Esclarecimento ER-20260909
+
+O flag bookmakerIsActive indica principalmente coleta ativa no agregador,
+não prova de suspensão da oferta na casa. Fontes públicas de limite/moeda e
+tributação foram recuperadas sem completar condições pessoais de execução.
+[Resultado ER e fontes](continuation/execution_readiness_2026-09-09/RESULTADO.md).
+Os registros DC abaixo preservam a classificação de sua rodada.
+
 ## Verificação DC-20260909 — 09/09/2026
 
 Aceitação de uma fonte para um uso técnico não significa aceitação econômica

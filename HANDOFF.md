@@ -1,5 +1,27 @@
 # HANDOFF.md — brasileirao-predictor
 
+## 2026-09-09 — ER-20260909: cinco falhas corrigidas na rotina futura
+
+Base `7f18d543891cb3e68bb82c0a0d9fb58f9a8f12c0`.
+[Resultado ER](docs/continuation/execution_readiness_2026-09-09/RESULTADO.md),
+[reprodução](docs/continuation/execution_readiness_2026-09-09/REPRODUZIR.md).
+Cinco fontes públicas recuperadas; significado de coleta/limite/custos
+esclarecido. O flag bookmakerIsActive=false não prova suspensão pela casa.
+
+Corrigidas preservação de resposta inválida, recibo de falha de configuração,
+rejeição de schema incompleto, recuperação de pasta parcial e contrato de origem
+do recibo. Cinco regressões falharam antes; 153 testes passaram ao final,
+incluindo 15 novos. Ruff e tipagem explícita dos dois executores aprovados.
+Rotinas corrigidas nos caminhos ativos da coleta independente. Corte, fixture,
+quota, agenda e resultados DC intactos. Zero consulta autenticada nesta etapa.
+
+Evidências em `C:/BRASILEIRAO/work/execution-readiness-2026-09-09`; recibo final
+em `C:/BRASILEIRAO/AUDITORIA/EXECUTION_READINESS_2026-09-09.json`. Capacidade,
+custo total e validação futura pendentes; capital bloqueado. Nenhuma alteração
+de H14/H15/H9/A1 ou instalação operacional.
+
+---
+
 ## 2026-09-09 — DC-20260909: aquisição concluída, admissibilidade pendente
 
 Base `5dec2521bab581d5dda104d954f4cc6274b74702`, main consolidada em

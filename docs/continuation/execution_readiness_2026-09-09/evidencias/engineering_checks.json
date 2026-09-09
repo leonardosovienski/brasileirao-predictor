@@ -1,0 +1,72 @@
+{
+  "completed_at": "2026-09-09T21:32:36.452417+00:00",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "pytest",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:32:29.048224+00:00",
+      "finished_at": "2026-09-09T21:32:33.355381+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\checks\\pytest.txt"
+    },
+    {
+      "name": "ruff",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:32:33.355459+00:00",
+      "finished_at": "2026-09-09T21:32:33.444746+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\checks\\ruff.txt"
+    },
+    {
+      "name": "format",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:32:33.444813+00:00",
+      "finished_at": "2026-09-09T21:32:33.508801+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\checks\\format.txt"
+    },
+    {
+      "name": "pyright",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:32:33.508838+00:00",
+      "finished_at": "2026-09-09T21:32:35.900683+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\checks\\pyright.txt"
+    },
+    {
+      "name": "real_pilot_guard",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:32:35.910114+00:00",
+      "finished_at": "2026-09-09T21:32:36.228869+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\checks\\real_pilot_guard.txt"
+    },
+    {
+      "name": "audit_idempotent",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:32:36.245347+00:00",
+      "finished_at": "2026-09-09T21:32:36.423198+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\checks\\audit_idempotent.txt"
+    }
+  ],
+  "pytest": {
+    "tests": 153,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_rehearsal_tests": 15,
+  "regressions_failed_before_fix": 5,
+  "real_api_calls": 0,
+  "real_credentials_read": false,
+  "research_guard": "network_sqlite_subprocess_private_and_operational_inputs_denied",
+  "synthetic_rehearsal_is_market_evidence": false,
+  "existing_pilot_guard": {
+    "source_file": "capture_01.json",
+    "clocks_preserved": true,
+    "body_sha256": "7cb65d22fd3af658da0b923a5f95a4036db9375ad5136ac4cc7b6a5d09781564",
+    "new_observation": false,
+    "T60_admitted": false
+  },
+  "source_hashes": {
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\continuation\\data_completion_2026-09-09\\reproducao\\followup_capture.py": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\continuation\\data_completion_2026-09-09\\reproducao\\audit_followup.py": "9b721572618a4cb9a37365cc613ea6cab8b36befb74b54bf702284a93859d080",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\tests\\test_followup_capture_contract.py": "659c088ff66208d93f377223f30766f7df6e473cdef4d94ee9fea76037c20e90"
+  }
+}

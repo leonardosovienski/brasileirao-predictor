@@ -7,7 +7,7 @@ protocolo, resultados e bytes; atualizar o índice não reabre estudos.
 
 Os Markdown da migração e das entregas foram inventariados por caminho
 e hash em `C:/BRASILEIRAO/AUDITORIA/markdown_fora_do_git.json`.
-Os novos guias DC e seus hashes constam também do recibo de dados em AUDITORIA.
+Os guias DC/ER e seus hashes constam também do recibo de dados em AUDITORIA.
 Essas cópias históricas não são editadas ou executadas. Conteúdo de
 coortes protegidas não foi examinado para produzir este inventário.
 
@@ -17,9 +17,9 @@ coortes protegidas não foi examinado para produzir este inventário.
 - [Mandato vigente](continuation/MANDATO_LUCRO_2026-09-09.md)
 - [Mapa de dados e prefixos antigos](DATA_MAP.md)
 - [Migração verificada](MIGRACAO_WINDOWS.md)
-- [Último resultado econômico](continuation/data_completion_2026-09-09/RESULTADO.md)
+- [Último resultado econômico](continuation/execution_readiness_2026-09-09/RESULTADO.md)
 
-## Inventário completo: 156 documentos
+## Inventário completo: 159 documentos
 
 | Documento | Categoria |
 | --- | --- |
@@ -37,16 +37,19 @@ coortes protegidas não foi examinado para produzir este inventário.
 | [docs/COMPARACAO_HIPOTESES_VS_ERROS_ATUAIS_2026-08-26.md](COMPARACAO_HIPOTESES_VS_ERROS_ATUAIS_2026-08-26.md) | Relatório histórico — não é estado atual |
 | [docs/CONCLUSOES.md](CONCLUSOES.md) | Referência técnica — não atesta operação local |
 | [docs/continuation/data_completion_2026-09-09/ACQUISITION_ADDENDUM.md](continuation/data_completion_2026-09-09/ACQUISITION_ADDENDUM.md) | Protocolo congelado — preservar |
-| [docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md](continuation/data_completion_2026-09-09/CONTINUIDADE.md) | Rodada atual DC — resultados, evidências e continuidade |
-| [docs/continuation/data_completion_2026-09-09/PENDENCIAS.md](continuation/data_completion_2026-09-09/PENDENCIAS.md) | Rodada atual DC — resultados, evidências e continuidade |
+| [docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md](continuation/data_completion_2026-09-09/CONTINUIDADE.md) | Rodada DC — evidências e continuidade delimitada |
+| [docs/continuation/data_completion_2026-09-09/PENDENCIAS.md](continuation/data_completion_2026-09-09/PENDENCIAS.md) | Rodada DC — evidências e continuidade delimitada |
 | [docs/continuation/data_completion_2026-09-09/PROTOCOL.md](continuation/data_completion_2026-09-09/PROTOCOL.md) | Protocolo congelado — preservar |
 | [docs/continuation/data_completion_2026-09-09/REPARO_TRANSPORTE.md](continuation/data_completion_2026-09-09/REPARO_TRANSPORTE.md) | Protocolo congelado — preservar |
-| [docs/continuation/data_completion_2026-09-09/REPRODUZIR.md](continuation/data_completion_2026-09-09/REPRODUZIR.md) | Rodada atual DC — resultados, evidências e continuidade |
-| [docs/continuation/data_completion_2026-09-09/RESULTADO.md](continuation/data_completion_2026-09-09/RESULTADO.md) | Rodada atual DC — resultados, evidências e continuidade |
+| [docs/continuation/data_completion_2026-09-09/REPRODUZIR.md](continuation/data_completion_2026-09-09/REPRODUZIR.md) | Rodada DC — evidências e continuidade delimitada |
+| [docs/continuation/data_completion_2026-09-09/RESULTADO.md](continuation/data_completion_2026-09-09/RESULTADO.md) | Rodada DC — evidências e continuidade delimitada |
 | [docs/continuation/docker_completion_2026-09-08/evidencias/work/compose_completion/FINAL_DOCUMENT_REVIEW.md](continuation/docker_completion_2026-09-08/evidencias/work/compose_completion/FINAL_DOCUMENT_REVIEW.md) | Histórico de pesquisa/implementação — preservar |
 | [docs/continuation/docker_completion_2026-09-08/evidencias/work/compose_completion/HARNESS_REVIEW.md](continuation/docker_completion_2026-09-08/evidencias/work/compose_completion/HARNESS_REVIEW.md) | Histórico de pesquisa/implementação — preservar |
 | [docs/continuation/docker_completion_2026-09-08/evidencias/work/host_completion/PRODUCER_AUDIT.md](continuation/docker_completion_2026-09-08/evidencias/work/host_completion/PRODUCER_AUDIT.md) | Histórico de pesquisa/implementação — preservar |
 | [docs/continuation/docker_completion_2026-09-08/RESULTADO.md](continuation/docker_completion_2026-09-08/RESULTADO.md) | Histórico de pesquisa/implementação — preservar |
+| [docs/continuation/execution_readiness_2026-09-09/PROTOCOL.md](continuation/execution_readiness_2026-09-09/PROTOCOL.md) | Protocolo congelado — preservar |
+| [docs/continuation/execution_readiness_2026-09-09/REPRODUZIR.md](continuation/execution_readiness_2026-09-09/REPRODUZIR.md) | Continuação ER — resultado, reprodução e protocolo |
+| [docs/continuation/execution_readiness_2026-09-09/RESULTADO.md](continuation/execution_readiness_2026-09-09/RESULTADO.md) | Continuação ER — resultado, reprodução e protocolo |
 | [docs/continuation/main_consolidation_2026-09-08/RESULTADO.md](continuation/main_consolidation_2026-09-08/RESULTADO.md) | Histórico de pesquisa/implementação — preservar |
 | [docs/continuation/MANDATO_LUCRO_2026-09-09.md](continuation/MANDATO_LUCRO_2026-09-09.md) | Entrada e estado vigentes |
 | [docs/continuation/migration_source_history_2026-09-08/README.md](continuation/migration_source_history_2026-09-08/README.md) | Histórico de pesquisa/implementação — preservar |

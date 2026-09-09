@@ -15,7 +15,9 @@ entre 22:55 e 22:59:15 UTC. Chegada tardia vira janela perdida, não dado PIT.
 Somente o par Pinnacle / bet365.bet.br, 1X2 FT. Não trocar bookmaker por preço,
 ausência ou recusa. Preservar parent bookmakerIsActive, suspended, marketActive
 e active de cada seleção. O piloto encontrou bookmakerIsActive=false na oferta
-apesar de preços ativos nas seleções; não homologar esses preços.
+apesar de preços ativos nas seleções; não homologar esses preços. O flag
+indica principalmente coleta no agregador, não suspensão provada na casa.
+[Esclarecimento e correções ER](../execution_readiness_2026-09-09/RESULTADO.md).
 
 Uma chamada nova de odds, duas consultas de conta não tarifadas, no máximo.
 Preservar reserva20 do contrato e exigir saldo antes da chamada >=21; assinatura
@@ -43,7 +45,9 @@ oficiais públicas por rodada diária quando isso puder resolver uma lacuna;
 conservar recibos e alterar apenas documentos atuais. Não repetir download de
 dados já verificados, não executar testes sem mudança ou falha material.
 
-Após a captura, auditar em processo separado e sem credenciais:
+As duas rotinas foram corrigidas e ensaiadas na etapa ER. Quando existir
+`followup/capture.json`, inclusive um corpo inválido preservado, auditar em
+processo separado e sem credenciais:
 
 ```powershell
 & 'C:/BRASILEIRAO/work/price-feasibility-2026-09-09/venv/Scripts/python.exe' -I 'C:/BRASILEIRAO/work/data-completion-2026-09-09/audit_followup.py'

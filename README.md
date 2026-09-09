@@ -14,23 +14,22 @@ capital bloqueado.**
 
 ## Resultado mais recente
 
-A [rodada DC-20260909](docs/continuation/data_completion_2026-09-09/RESULTADO.md)
-recuperou e verificou timelines de 177/177 partidas de Jan–Jun/2026, o CSV
-oficial de 380 jogos de 2025 e três capturas atuais de um evento. Os históricos
-não demonstram recebimento e disponibilidade na época; no piloto, a Bet365
-Brasil estava inativa no estado do bookmaker. Nenhum par foi admitido para execução.
+A [continuação ER-20260909](docs/continuation/execution_readiness_2026-09-09/RESULTADO.md)
+corrigiu cinco falhas da rotina futura e confirmou contratos públicos de
+limite, moeda, coleta e tributação. Passaram **153 testes**, Ruff e tipagem
+explícita dos dois executores alterados. As versões testadas foram colocadas
+nos caminhos da captura já agendada para 11/09 antes das 20:00 de São Paulo.
 
-O replay closing estritamente condicional perdeu 9,24u sobre banca de 100u e
-custo hipotético de 2%. A própria fonte avisa desatualização da referência
-Pinnacle no período de todas as 32 seleções. Esse saldo preservado não é
-validação econômica. Custos reais, capacidade e validação futura continuam pendentes.
+`bookmakerIsActive=false` indica principalmente falta de coleta ativa pelo
+agregador para a casa/jogo. Rejeitar esse feed continua correto, mas o campo
+não prova suspensão da oferta pela própria Bet365. Capacidade pessoal, custo
+total e validação futura permanecem pendentes; lucro executável não demonstrado.
 
-Passaram 138 testes delimitados, Ruff, tipagem dos três novos módulos e uma
-conferência aritmética separada. O acompanhamento diário às 19:57 de São Paulo
-prepara uma [captura antes de T−60 em 11/09](docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md).
-Isso não ativa a aplicação operacional nem as coortes protegidas. A
-[rodada PF anterior](docs/continuation/price_feasibility_2026-09-09/RESULTADO.md)
-permanece preservada. Novos ajustes de xG continuam sem prioridade.
+A [rodada DC anterior](docs/continuation/data_completion_2026-09-09/RESULTADO.md)
+preserva 177 históricos, CSV de 380 jogos de 2025 e três capturas de um evento.
+O closing condicional perdeu 9,24u com referência comprometida; não é ROI
+executável. [Continuidade](docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md)
+diária às 19:57, sem ativar coortes ou aplicação operacional completa.
 
 ## O que está instalado e preservado
 
@@ -39,7 +38,8 @@ permanece preservada. Novos ajustes de xG continuam sem prioridade.
 | Código e histórico Git | `C:/BRASILEIRAO/brasileirao-predictor`, branch `main` |
 | Dados migrados | Extração verificada em `C:/BRASILEIRAO/DADOS_PRESERVADOS` |
 | Pacotes originais | Preservados em `C:/BRASILEIRAO/MIGRACAO_DADOS/MIGRACAO_DADOS` |
-| Entregas da pesquisa | `C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_DC_20260909` e rodada PF anterior |
+| Entregas da pesquisa | `C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_ER_20260909`, DC e PF anteriores |
+| Correções e contratos ER | `C:/BRASILEIRAO/work/execution-readiness-2026-09-09` |
 | Novos dados e recibos | `C:/BRASILEIRAO/work/data-completion-2026-09-09` |
 | Ambiente de pesquisa | Python 3.13.12, isolado em `C:/BRASILEIRAO/work/price-feasibility-2026-09-09` |
 | Aplicação operacional | Não instalada/ativada nesta máquina pelas sessões atuais |
@@ -50,7 +50,7 @@ instalado e operação efetiva são estados diferentes.
 
 ## Usar e desenvolver
 
-A [reprodução offline da pesquisa atual](docs/continuation/data_completion_2026-09-09/REPRODUZIR.md)
+A [reprodução offline da pesquisa atual](docs/continuation/execution_readiness_2026-09-09/REPRODUZIR.md)
 usa entradas explícitas e diretórios novos. Para uma futura instalação completa,
 consulte [migração e instalação](docs/MIGRACAO_WINDOWS.md) e os contratos do
 runtime em [MODERNIZATION.md](docs/MODERNIZATION.md). Essa instalação exige

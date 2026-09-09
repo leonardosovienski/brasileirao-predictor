@@ -42,9 +42,6 @@ def main():
     out.mkdir(exist_ok=True)
     with (out / "attempt.json").open("x", encoding="utf-8") as stream:
         json.dump({"started_at": now.isoformat(), "fixture_id": FIXTURE, "max_metered_calls": 1}, stream)
-    spec = importlib.util.spec_from_file_location("pilot_helpers", ROOT / "capture_pilot.py")
-    helper = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(helper)
     state = {
         "status": "IN_PROGRESS",
         "requests": [],
@@ -54,10 +51,28 @@ def main():
         "protected_cohorts_used": False,
         "max_metered_calls": 1,
     }
-    key = json.loads(helper.PRIVATE.read_text(encoding="utf-8-sig"))["values"]["ODDSPAPI_KEY"]
-    opener = urllib.request.build_opener(
-        helper.NoRedirect(), urllib.request.HTTPSHandler(context=ssl.create_default_context())
-    )
+    try:
+        spec = importlib.util.spec_from_file_location("pilot_helpers", ROOT / "capture_pilot.py")
+        if spec is None or spec.loader is None:
+            raise ImportError("capture_helper_missing")
+        helper = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(helper)
+        key = json.loads(helper.PRIVATE.read_text(encoding="utf-8-sig"))["values"]["ODDSPAPI_KEY"]
+        if not isinstance(key, str) or not key.strip():
+            raise ValueError("invalid_data_api_key")
+        opener = urllib.request.build_opener(
+            helper.NoRedirect(), urllib.request.HTTPSHandler(context=ssl.create_default_context())
+        )
+    except Exception as exc:
+        state.update(
+            status="STOPPED",
+            reason="ACQUISITION_SETUP_FAILED",
+            error_type=type(exc).__name__,
+            finished_at=datetime.now(UTC).isoformat(),
+        )
+        (out / "receipt.json").write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+        print(json.dumps({k: v for k, v in state.items() if k != "requests"}))
+        return
 
     def get(endpoint, params, label):
         record = {
@@ -82,13 +97,14 @@ def main():
                 )
             if len(raw) > 30_000_000:
                 raise ValueError("oversize")
+            if endpoint != "account":
+                # Preserve even malformed public price bodies before attempting to parse them.
+                (out / (label + ".json")).write_bytes(raw)
+                record.update(file=label + ".json", sha256=hashlib.sha256(raw).hexdigest())
             value = json.loads(raw)
             if endpoint == "account":
                 value = helper.sanitize_account(value)
                 helper.save(out / (label + ".json"), value)
-            else:
-                (out / (label + ".json")).write_bytes(raw)
-                record.update(file=label + ".json", sha256=hashlib.sha256(raw).hexdigest())
             record["status"] = "SAVED"
             helper.save(out / "receipt.json", state)
             return value, record

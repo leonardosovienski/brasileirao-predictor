@@ -1,23 +1,28 @@
-# Retomada — C:/BRASILEIRAO, DC-20260909
+# Retomada — C:/BRASILEIRAO, ER-20260909
 
 Leia [estado atual](../ESTADO_ATUAL.md), [mandato](MANDATO_LUCRO_2026-09-09.md),
-[resultado DC](data_completion_2026-09-09/RESULTADO.md) e
+[resultado ER](execution_readiness_2026-09-09/RESULTADO.md) e
 [continuidade](data_completion_2026-09-09/CONTINUIDADE.md).
 Trabalhe sozinho. Lucro executável não está demonstrado; capital bloqueado.
 
 ## Checkpoint
 
-Base da rodada `main` em `5dec2521bab581d5dda104d954f4cc6274b74702`; commit
-de integração no recibo `C:/BRASILEIRAO/AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.json`.
+Base da continuação `main` em `7f18d543891cb3e68bb82c0a0d9fb58f9a8f12c0`; commit
+de integração no recibo `C:/BRASILEIRAO/AUDITORIA/EXECUTION_READINESS_2026-09-09.json`.
 177/177 históricos verificados, CSV de 380 jogos de 2025 recuperado e três
 capturas atuais de um único evento. Não repetir downloads completos.
 O fechamento tem aviso de referência Pinnacle desatualizada; no piloto a
-oferta Bet365 Brasil tinha `bookmakerIsActive=false`. Seleções ativas nos
-filhos não anulam o estado inativo do bookmaker. Zero admissões para execução.
+coleta Bet365 Brasil tinha `bookmakerIsActive=false`. Seleções ativas nos
+filhos não anulam o estado de coleta inativo do agregador. Zero admissões para execução.
 
 O replay closing condicional perdeu 9,24u; não ajustar filtros após esse saldo
-nem chamar a fonte comprometida de validação. Os 138 testes da pesquisa
-passaram. Nenhuma coorte protegida ou resultado de 2026 foi avaliado.
+nem chamar a fonte comprometida de validação. Os 153 testes da pesquisa
+passaram após as correções ER. Nenhuma coorte protegida ou resultado de 2026 foi avaliado.
+
+A [continuação ER](execution_readiness_2026-09-09/RESULTADO.md) corrigiu cinco
+falhas na captura/auditoria, com 15 testes novos. A regra pública não fornece
+limite pessoal. O flag de coleta não prova suspensão da aposta na casa.
+As versões novas já estão nos caminhos ativos; conservar a captura congelada.
 
 ## Próxima ação concreta
 

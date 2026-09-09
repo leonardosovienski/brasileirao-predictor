@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="12" time="1.182" timestamp="2026-09-09T18:27:13.677971-03:00" hostname=""><testcase classname="tests.test_followup_capture_contract" name="test_whole_capture_keeps_one_metered_call_and_is_idempotent" time="0.256" /><testcase classname="tests.test_followup_capture_contract" name="test_outside_window_does_not_read_credentials_or_call_api[-301]" time="0.018" /><testcase classname="tests.test_followup_capture_contract" name="test_outside_window_does_not_read_credentials_or_call_api[-45]" time="0.017" /><testcase classname="tests.test_followup_capture_contract" name="test_quota_reserve_and_paid_plan_block_before_odds[20-None-0]" time="0.051" /><testcase classname="tests.test_followup_capture_contract" name="test_quota_reserve_and_paid_plan_block_before_odds[21-None-1]" time="0.053" /><testcase classname="tests.test_followup_capture_contract" name="test_quota_reserve_and_paid_plan_block_before_odds[183-10-0]" time="0.050" /><testcase classname="tests.test_followup_capture_contract" name="test_http_failure_is_not_retried_and_does_not_expose_key" time="0.063" /><testcase classname="tests.test_followup_capture_contract" name="test_invalid_json_response_is_preserved_and_audited_as_rejected" time="0.052"><failure message="FileNotFoundError: [Errno 2] No such file or directory: 'C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\tests-01-before-fix\\tmp\\test_invalid_json_response_is_0\\followup\\capture.json'">rig = namespace(collector=&lt;module 'contract_test_followup_capture' from 'C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\conti...dowsPath('C:/BRASILEIRAO/work/execution-readiness-2026-09-09/tests-01-before-fix/tmp/test_invalid_json_response_is_0'))
+
+    def test_invalid_json_response_is_preserved_and_audited_as_rejected(rig):
+        rig.state.odds = b'{"fixtureId":'
+        rig.collector.main()
+&gt;       assert (rig.root / "followup/capture.json").read_bytes() == rig.state.odds
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_followup_capture_contract.py:153:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\work\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\pathlib\_abc.py:625: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/BRASILEIRAO/work/execution-readiness-2026-09-09/tests-01-before-fix/tmp/test_invalid_json_response_is_0/followup/capture.json')
+mode = 'rb', buffering = -1, encoding = None, errors = None, newline = None
+
+    def open(self, mode='r', buffering=-1, encoding=None,
+             errors=None, newline=None):
+        """
+        Open the file pointed to by this path and return a file object, as
+        the built-in open() function does.
+        """
+        if "b" not in mode:
+            encoding = io.text_encoding(encoding)
+&gt;       return io.open(self, mode, buffering, encoding, errors, newline)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       FileNotFoundError: [Errno 2] No such file or directory: 'C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\tests-01-before-fix\\tmp\\test_invalid_json_response_is_0\\followup\\capture.json'
+
+..\work\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\pathlib\_local.py:537: FileNotFoundError</failure></testcase><testcase classname="tests.test_followup_capture_contract" name="test_credential_failure_still_leaves_sanitized_receipt" time="0.032"><failure message="KeyError: 'ODDSPAPI_KEY'">rig = namespace(collector=&lt;module 'contract_test_followup_capture' from 'C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\conti...dowsPath('C:/BRASILEIRAO/work/execution-readiness-2026-09-09/tests-01-before-fix/tmp/test_credential_failure_still_0'))
+
+    def test_credential_failure_still_leaves_sanitized_receipt(rig):
+        rig.helper.PRIVATE.write_text('{"values": {}}', encoding="utf-8")
+&gt;       rig.collector.main()
+
+tests\test_followup_capture_contract.py:161:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def main():
+        now = datetime.now(UTC)
+        status = window_status(now)
+        if (ROOT / "followup/attempt.json").exists():
+            print(json.dumps({"status": "ALREADY_ATTEMPTED", "directory": str(ROOT / "followup")}))
+            return
+        if status != "DUE":
+            print(json.dumps({"status": status, "decision_at": DECISION.isoformat(), "target_at": TARGET.isoformat()}))
+            return
+        out = ROOT / "followup"
+        out.mkdir(exist_ok=True)
+        with (out / "attempt.json").open("x", encoding="utf-8") as stream:
+            json.dump({"started_at": now.isoformat(), "fixture_id": FIXTURE, "max_metered_calls": 1}, stream)
+        spec = importlib.util.spec_from_file_location("pilot_helpers", ROOT / "capture_pilot.py")
+        helper = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(helper)
+        state = {
+            "status": "IN_PROGRESS",
+            "requests": [],
+            "fixture_id": FIXTURE,
+            "decision_at": DECISION.isoformat(),
+            "picks": False,
+            "protected_cohorts_used": False,
+            "max_metered_calls": 1,
+        }
+&gt;       key = json.loads(helper.PRIVATE.read_text(encoding="utf-8-sig"))["values"]["ODDSPAPI_KEY"]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'ODDSPAPI_KEY'
+
+docs\continuation\data_completion_2026-09-09\reproducao\followup_capture.py:57: KeyError</failure></testcase><testcase classname="tests.test_followup_capture_contract" name="test_missing_kickoff_produces_rejection_instead_of_crashing" time="0.086"><failure message="ValueError: timestamp_not_string">rig = namespace(collector=&lt;module 'contract_test_followup_capture' from 'C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\conti...dowsPath('C:/BRASILEIRAO/work/execution-readiness-2026-09-09/tests-01-before-fix/tmp/test_missing_kickoff_produces_0'))
+
+    def test_missing_kickoff_produces_rejection_instead_of_crashing(rig):
+        rig.state.odds = {"fixtureId": FIXTURE}
+        rig.collector.main()
+&gt;       rig.auditor.main()
+
+tests\test_followup_capture_contract.py:170:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+docs\continuation\data_completion_2026-09-09\reproducao\audit_followup.py:56: in main
+    audit = audit_capture(payload, receipts[0], "id1000032566887012")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+brasileirao_predictor\research\price_strength\live_capture_admission.py:31: in audit_capture
+    kickoff = timestamp(payload.get("startTime"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+value = None
+
+    def timestamp(value: Any) -&gt; datetime:
+        if not isinstance(value, str):
+&gt;           raise ValueError("timestamp_not_string")
+E           ValueError: timestamp_not_string
+
+brasileirao_predictor\research\price_strength\historical_admission.py:26: ValueError</failure></testcase><testcase classname="tests.test_followup_capture_contract" name="test_partial_audit_directory_does_not_prevent_recovery" time="0.057"><failure message="FileExistsError: [WinError 183] Não é possível criar um arquivo já existente: 'C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\tests-01-before-fix\\tmp\\test_partial_audit_directory_d0\\followup_audit'">rig = namespace(collector=&lt;module 'contract_test_followup_capture' from 'C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\conti...dowsPath('C:/BRASILEIRAO/work/execution-readiness-2026-09-09/tests-01-before-fix/tmp/test_partial_audit_directory_d0'))
+
+    def test_partial_audit_directory_does_not_prevent_recovery(rig):
+        rig.collector.main()
+        rig.auditor.OUTPUT.mkdir()
+&gt;       rig.auditor.main()
+
+tests\test_followup_capture_contract.py:178:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+docs\continuation\data_completion_2026-09-09\reproducao\audit_followup.py:23: in main
+    OUTPUT.mkdir(exist_ok=False)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/BRASILEIRAO/work/execution-readiness-2026-09-09/tests-01-before-fix/tmp/test_partial_audit_directory_d0/followup_audit')
+mode = 511, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+&gt;           os.mkdir(self, mode)
+E           FileExistsError: [WinError 183] Não é possível criar um arquivo já existente: 'C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\tests-01-before-fix\\tmp\\test_partial_audit_directory_d0\\followup_audit'
+
+..\work\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\pathlib\_local.py:722: FileExistsError</failure></testcase><testcase classname="tests.test_followup_capture_contract" name="test_relabelled_provider_endpoint_cannot_be_admitted" time="0.098"><failure message="KeyError: 'status'">rig = namespace(collector=&lt;module 'contract_test_followup_capture' from 'C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\conti...dowsPath('C:/BRASILEIRAO/work/execution-readiness-2026-09-09/tests-01-before-fix/tmp/test_relabelled_provider_endpo0'))
+
+    def test_relabelled_provider_endpoint_cannot_be_admitted(rig):
+        rig.collector.main()
+        state = receipt(rig)
+        state["requests"][1]["endpoint"] = "https://unverified.example/v4/odds"
+        (rig.root / "followup/receipt.json").write_text(json.dumps(state), encoding="utf-8")
+        rig.auditor.main()
+&gt;       assert audit_result(rig)["status"] == "REJECTED_INVALID_INPUT"
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'status'
+
+tests\test_followup_capture_contract.py:188: KeyError</failure></testcase></testsuite></testsuites>

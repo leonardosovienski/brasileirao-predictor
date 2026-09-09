@@ -30,6 +30,15 @@ A presença de arquivos versionados em `data/` não significa existência de
 serving ou de banco populado no checkout. Credenciais e dados privados não
 devem ser copiados para o Git, para a área executável de pesquisa ou para logs.
 
+## Continuação ER-20260909
+
+`C:/BRASILEIRAO/work/execution-readiness-2026-09-09` contém cinco novas fontes
+públicas, contrato de condições, ensaios isolados, hashes de ativação e versões
+anteriores das duas rotinas futuras. Os 177 históricos e payloads DC não foram
+reescritos. Ensaios sintéticos não são novas observações de mercado.
+[Resultado ER](continuation/execution_readiness_2026-09-09/RESULTADO.md) e
+[reprodução](continuation/execution_readiness_2026-09-09/REPRODUZIR.md).
+
 ## Aquisição DC-20260909
 
 Área canônica `C:/BRASILEIRAO/work/data-completion-2026-09-09`:

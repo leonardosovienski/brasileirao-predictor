@@ -4,14 +4,15 @@ Trabalhe sozinho em `C:/BRASILEIRAO/brasileirao-predictor`, mantendo os dados
 e entregas em `C:/BRASILEIRAO`. Leia [ESTADO_ATUAL](ESTADO_ATUAL.md),
 [RETOMADA](continuation/RETOMADA.md),
 [mandato](continuation/MANDATO_LUCRO_2026-09-09.md),
-[resultado DC](continuation/data_completion_2026-09-09/RESULTADO.md) e
+[resultado ER](continuation/execution_readiness_2026-09-09/RESULTADO.md) e
 [CONTINUIDADE](continuation/data_completion_2026-09-09/CONTINUIDADE.md).
 
 Continue resolvendo as pendências concretas de preços, procedência temporal,
 capacidade, custos e validação. Os 177 históricos já foram adquiridos e
 verificados; não repetir o lote nem alterar filtros com base no saldo closing.
 A fonte pública avisa referência Pinnacle desatualizada. No piloto, a Bet365
-Brasil estava inativa no estado do bookmaker. Nada disso demonstra lucro.
+Brasil estava sinalizada sem coleta ativa no agregador; isso não prova
+suspensão da oferta na casa. Nada disso demonstra lucro.
 
 O acompanhamento já está configurado na tarefa atual, diariamente às 19:57
 de São Paulo. Use a rotina e a janela UTC congeladas para a captura de 11/09,
@@ -24,6 +25,6 @@ materiais precisam de protocolo anterior ao desempenho. Atualize apenas os
 guias atuais e novos checkpoints; conserve os documentos históricos.
 
 Verifique HEAD e diff antes de editar; o recibo final está em
-`C:/BRASILEIRAO/AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.json`.
+`C:/BRASILEIRAO/AUDITORIA/EXECUTION_READINESS_2026-09-09.json`.
 [HANDOFF](../HANDOFF.md) e [índice documental](INDICE_DOCUMENTACAO.md) mantêm
 o histórico. Não usar caminhos do computador antigo como destinos de escrita.

@@ -1,0 +1,77 @@
+{
+  "verified_at": "2026-09-09T21:38:46.277487+00:00",
+  "scope": "public_documented_conditions_not_personal_execution_approval",
+  "bookmakerIsActive": {
+    "source": "oddspapi_current_odds_contract",
+    "meaning": "primarily_provider_collecting_this_bookmaker_for_this_fixture",
+    "false_proves_bookmaker_stopped_offering_bet": false,
+    "inactive_feed_remains_rejected": true
+  },
+  "reported_limit": {
+    "source": "oddspapi_limit_semantics",
+    "sportsbook_semantics": "maximum_stake_reported_for_selection",
+    "currency_rule": "source_account_currency",
+    "fixture_limit_currency": null,
+    "API_billing_currency_is_not_proof_of_bet_currency": true,
+    "personal_offer_capacity": null
+  },
+  "bet365_br_minimum": {
+    "source": "bet365_br_stake_limits",
+    "reference_table_amount": "0.50",
+    "currency": "BRL",
+    "actual_minimum_can_vary_with_odds": true,
+    "personal_maximum": null,
+    "betslip_or_account_access_performed": false
+  },
+  "tax_general_rule": {
+    "sources": [
+      "receita_current_service",
+      "receita_2026_tables"
+    ],
+    "reference_rate": "0.15",
+    "assessment": "annual_net_prize_exceeding_applicable_exemption",
+    "flat_stake_tax": "not_supported",
+    "personal_annual_tax_base": null,
+    "actual_tax_amount": null,
+    "applied_to_prior_replay": false
+  },
+  "unknown_actual_costs": [
+    "tax_amount",
+    "commission",
+    "slippage",
+    "rejections",
+    "fill",
+    "data_at_production_scale",
+    "infrastructure",
+    "maintenance"
+  ],
+  "sources": {
+    "oddspapi_limit_semantics": {
+      "url": "https://oddspapi.io/blog/betting-limits-api-stake-sizing/",
+      "http_status": 200,
+      "sha256": "b33fb4101367aee42225ab58f5390ad479dff0951f470b39e77f3594de81ad8f"
+    },
+    "bet365_br_stake_limits": {
+      "url": "https://help.bet365.bet.br/s/pt-br/sports/min-max-stake",
+      "http_status": 200,
+      "sha256": "478cb583afdb30d243658d751a1746209edebaada9cf194e929592c7249b8ea5"
+    },
+    "oddspapi_current_odds_contract": {
+      "url": "https://oddspapi.io/us/docs/get-odds",
+      "http_status": 200,
+      "sha256": "d11589cdf07183b54db1ce6866add614219c5f0519751132a0568ac89057dc73"
+    },
+    "receita_current_service": {
+      "url": "https://www.gov.br/pt-br/servicos/apurar-imposto-sobre-premios-de-apostas-na-loteria-de-quota-fixa-e-em-fantasy-sport",
+      "http_status": 200,
+      "sha256": "8be53f3124f1438b071ce8c692e02c6e540d9a0d8f42d17564d7f3c8cc0f3f29"
+    },
+    "receita_2026_tables": {
+      "url": "https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/tabelas/2026",
+      "http_status": 200,
+      "sha256": "07aaba23bcf86452376da4a1343da359631fd3ec5964a7279d45acdf9d8e2ea4"
+    }
+  },
+  "profitability_established": false,
+  "execution_enabled": false
+}

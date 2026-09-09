@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-09-09T21:38:46.437112+00:00",
+  "files": {
+    "activation.json": "a9851a3d65c62ab9526ab8c83a42aaf89646b364ae8d1b6ad520e23d33736f34",
+    "engineering_checks.json": "e81e0005a9cff73031a4164fb1cd0036b462fdfe4c273dffd7e844f7f110db02",
+    "execution_contract.json": "e50c442ea0fc71ba26a00ca1e7b00f7666fb87eee572d719ba182e41f22617ed",
+    "previous_reproduction_manifest.json": "2e2d3126325f60b1e050c344b7e5c36a0cde6a85868966e0399cdcdbcd5acdcc",
+    "public_sources_manifest.json": "fbe66cbaae6e93625b4427184a10eb950f7bcd8bc5776d3f851a0a0bc74d47ec",
+    "tests_before_fix.xml": "125ab64aa7e7c40d46ec6e58738952c45e22f79d1aecf5bd9d508b55bceffd38",
+    "tests_final.xml": "4650a025ac70f6ababf22a1672ed441c28f9c051fdfe5128a50d6e4bc60af5ec"
+  },
+  "copied_junit_format": "trailing whitespace normalized; original unchanged in canonical work"
+}

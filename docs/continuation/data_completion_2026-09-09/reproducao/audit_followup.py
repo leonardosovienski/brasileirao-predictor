@@ -20,7 +20,7 @@ def main():
     if (OUTPUT / "audit.json").exists():
         print("ALREADY_AUDITED")
         return
-    OUTPUT.mkdir(exist_ok=False)
+    OUTPUT.mkdir(exist_ok=True)
     sys.dont_write_bytecode = True
     sys.path.insert(0, str(REPO))
     for name in list(os.environ):
@@ -48,26 +48,59 @@ def main():
     from brasileirao_predictor.research.price_strength.live_capture_admission import audit_capture
 
     raw = (INPUT / "capture.json").read_bytes()
-    state = json.loads((INPUT / "receipt.json").read_text(encoding="utf-8"))
-    receipts = [r for r in state["requests"] if r["endpoint"].endswith("/odds") and r["status"] == "SAVED"]
-    if len(receipts) != 1 or hashlib.sha256(raw).hexdigest() != receipts[0]["sha256"]:
-        raise ValueError("receipt_or_hash_mismatch")
-    payload = json.loads(raw)
-    audit = audit_capture(payload, receipts[0], "id1000032566887012")
-    received = datetime.fromisoformat(receipts[0]["received_at"])
-    decision = datetime(2026, 9, 11, 23, tzinfo=UTC)
-    audit["frozen_decision_clock_admitted"] = 0 <= (decision - received).total_seconds() <= 120
-    audit["frozen_kickoff_unchanged"] = datetime.fromisoformat(payload["startTime"].replace("Z", "+00:00")) == datetime(
-        2026, 9, 12, tzinfo=UTC
-    )
-    audit["prospective_price_observation_admitted"] = bool(
-        audit.get("pair_api_state_admitted", False)
-        and audit["frozen_decision_clock_admitted"]
-        and audit["frozen_kickoff_unchanged"]
-    )
+    reason = "invalid_receipt_json_or_schema"
+    try:
+        state = json.loads((INPUT / "receipt.json").read_text(encoding="utf-8"))
+        receipts = [r for r in state["requests"] if r.get("file") == "capture.json"]
+        reason = "receipt_contract_mismatch"
+        if len(receipts) != 1:
+            raise ValueError(reason)
+        receipt = receipts[0]
+        expected_parameters = {
+            "fixtureId": "id1000032566887012",
+            "bookmakers": "pinnacle,bet365.bet.br",
+            "oddsFormat": "decimal",
+        }
+        if (
+            receipt.get("endpoint") != "https://api.oddspapi.io/v4/odds"
+            or receipt.get("parameters") != expected_parameters
+            or type(receipt.get("http_status")) is not int
+            or receipt["http_status"] != 200
+            or receipt.get("status") != "SAVED"
+        ):
+            raise ValueError(reason)
+        reason = "receipt_or_hash_mismatch"
+        if hashlib.sha256(raw).hexdigest() != receipt.get("sha256"):
+            raise ValueError(reason)
+        reason = "invalid_payload_or_clock"
+        payload = json.loads(raw)
+        audit = audit_capture(payload, receipt, "id1000032566887012")
+        received = datetime.fromisoformat(receipt["received_at"])
+        decision = datetime(2026, 9, 11, 23, tzinfo=UTC)
+        audit["frozen_decision_clock_admitted"] = 0 <= (decision - received).total_seconds() <= 120
+        audit["frozen_kickoff_unchanged"] = datetime.fromisoformat(
+            payload["startTime"].replace("Z", "+00:00")
+        ) == datetime(2026, 9, 12, tzinfo=UTC)
+        audit["prospective_price_observation_admitted"] = bool(
+            audit.get("pair_api_state_admitted", False)
+            and audit["frozen_decision_clock_admitted"]
+            and audit["frozen_kickoff_unchanged"]
+        )
+        audit["status"] = "OBSERVATION_AUDITED"
+    except (ValueError, TypeError, KeyError, AttributeError, OverflowError, OSError) as exc:
+        audit = {
+            "fixture_id": "id1000032566887012",
+            "status": "REJECTED_INVALID_INPUT",
+            "reason": reason,
+            "error_type": type(exc).__name__,
+            "execution_admitted": False,
+            "prospective_price_observation_admitted": False,
+        }
     audit["source_hash"] = hashlib.sha256(raw).hexdigest()
     audit["completed_at"] = datetime.now(UTC).isoformat()
-    (OUTPUT / "audit.json").write_text(json.dumps(audit, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    temporary = OUTPUT / "audit.json.tmp"
+    temporary.write_text(json.dumps(audit, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    temporary.replace(OUTPUT / "audit.json")
     print(json.dumps(audit, ensure_ascii=False))
 
 
