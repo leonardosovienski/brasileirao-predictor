@@ -1,0 +1,23 @@
+{
+  "universe_n": 177,
+  "history_files_verified": 177,
+  "raw_bytes_verified": 623271596,
+  "execution_admitted": 0,
+  "conditional_selections": 0,
+  "reasons": {
+    "last_change_age_over_120s_not_network_freshness": 154,
+    "incomplete_active_pair": 23
+  },
+  "per_book": {
+    "pinnacle": {
+      "complete_active_T60": 176,
+      "latest_changes_within_120s": 15
+    },
+    "bet365": {
+      "complete_active_T60": 155,
+      "latest_changes_within_120s": 0
+    }
+  },
+  "no_results_or_protected_cohorts_used": true,
+  "profitability_established": false
+}

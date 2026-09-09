@@ -1,0 +1,10 @@
+{
+  "source": "https://football-data.co.uk/data",
+  "warning_start": "2025-07-23",
+  "found_after_conditional_result": true,
+  "frozen_selections_unchanged": true,
+  "selected_n": 32,
+  "selected_after_warning_start": 32,
+  "interpretation": "ARITHMETIC_SCENARIO_WITH_COMPROMISED_REFERENCE_NOT_ECONOMIC_VALIDATION",
+  "reestimate_on_retrospectively_filtered_subset": false
+}

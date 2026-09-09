@@ -1,0 +1,17 @@
+{
+  "captures": 3,
+  "independent_fixtures": 1,
+  "pair_api_state_admitted": 0,
+  "execution_admitted": 0,
+  "reasons": {
+    "INACTIVE_OR_UNVERIFIED_PAIR": 3
+  },
+  "quota_requests": 5,
+  "quota_count_after": 67,
+  "round_trip_seconds": [
+    1.242972,
+    1.078871,
+    1.819256
+  ],
+  "kickoff_at": "2026-09-12T00:00:00+00:00"
+}

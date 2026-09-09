@@ -1,86 +1,91 @@
-# Estado atual — 09/09/2026
+# Estado atual — 09/09/2026, rodada DC-20260909
 
-Esta é a referência de estado local. O [mandato](continuation/MANDATO_LUCRO_2026-09-09.md)
-define o objetivo e as restrições; documentos datados preservam seu significado
-histórico. A raiz solicitada pelo usuário é **`C:/BRASILEIRAO`**.
+Referência vigente para a raiz **`C:/BRASILEIRAO`**. O
+[mandato](continuation/MANDATO_LUCRO_2026-09-09.md) define objetivo e restrições.
+**Dados adicionais obtidos; lucro executável não demonstrado; capital bloqueado.**
 
-## Código
+## Código e ambiente
 
-O checkout fica em `C:/BRASILEIRAO/brasileirao-predictor`, na branch `main`.
-A base remota verificada é `f00304574044ab9d18aa3603abc538fbb3102c64`; a rodada
-de pesquisa está no commit local `f33f92b37bd2c56cf0db978e7f5ad58d9cbae3ec`.
-A consolidação documental desta etapa fica no commit posterior, identificado
-no recibo em `C:/BRASILEIRAO/AUDITORIA`. Nenhum push dessa pesquisa ou desta
-organização foi realizado. O Git local contém o histórico recuperado; o bundle
-original de migração permanece associado a d42a3e0.
+Checkout `C:/BRASILEIRAO/brasileirao-predictor`, branch `main`. A base desta
+rodada foi `5dec2521bab581d5dda104d954f4cc6274b74702`, posterior à pesquisa PF
+e à consolidação documental. O SHA final, diff e backup constam do recibo
+`C:/BRASILEIRAO/AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.json`.
+Nenhum push desta rodada foi realizado. O pacote original permanece associado
+a d42a3e0; não houve reset ou recriação de branches antigas.
 
-`git fsck --full` não encontrou corrupção. Objetos soltos de preparações do
-índice não são arquivos perdidos da árvore; não foi feita limpeza destrutiva.
-Uma cópia Git completa da main consolidada acompanha o recibo final de backup.
-
-## Ambiente
-
-O projeto requer Python 3.13 ou 3.14. A pesquisa executada usa Python 3.13.12,
-pytest 8.4.2, Ruff 0.12.12 e Pyright 1.1.405 em
+Python 3.13.12, pytest 8.4.2, Ruff 0.12.12 e Pyright 1.1.405 em
 `C:/BRASILEIRAO/work/price-feasibility-2026-09-09/venv`.
-Seu Python gerenciado também fica sob `C:/BRASILEIRAO`.
-
-Core 3.2.0 / Ops 4.1.0 estão fixados no lock do código. Eles não foram
-instalados neste ambiente mínimo; a aplicação operacional e o ambiente completo
-não foram montados. Ferramentas de sistema, .NET, Git, o aplicativo Codex e suas
-bibliotecas não passam a ser portáveis apenas porque os arquivos do projeto
-foram reunidos. Recriar um ambiente em outro caminho pode exigir reinstalação.
+Core 3.2.0 / Ops 4.1.0 continuam fixados no lock, mas não foram instalados no
+ambiente mínimo. Aplicação operacional completa, .NET/Redis/Compose não foram
+instalados ou validados por esta rodada. Ferramentas de sistema e o aplicativo
+Codex continuam sendo dependências externas à pasta; mover um venv pode exigir
+reinstalação. Não confundir código versionado, ambiente instalado e serviço ativo.
 
 ## Dados e integridade
 
-O ZIP foi integralmente conferido por SHA-256, CRC e hashes dos arquivos:
-**12.423 entradas do manifesto**, mais o próprio manifesto, totalizando
-**9.477.623.208 bytes descompactados**. A extração fica em
-`C:/BRASILEIRAO/DADOS_PRESERVADOS`. O [mapa de dados](DATA_MAP.md) identifica
-os arquivos brutos, as cinco cópias SQLite consistentes e os caminhos antigos.
+A migração foi conferida por SHA-256 e CRC: **12.423 entradas mais o manifesto**,
+9.477.623.208 bytes descompactados, em `C:/BRASILEIRAO/DADOS_PRESERVADOS`.
+Recibo original: `C:/BRASILEIRAO/AUDITORIA/verificacao_migracao_2026-09-09.json`.
+ZIP, bundle, cinco snapshots SQLite e configurações recebidas foram preservados.
+As 21 entregas PF foram copiadas com igualdade de hash para `ENTREGAS`;
+o mandato original está em `INSTRUCOES`.
 
-Recibo: `C:/BRASILEIRAO/AUDITORIA/verificacao_migracao_2026-09-09.json`.
-O ZIP original e seu bundle foram mantidos. Configurações privadas, tarefas
-exportadas e coortes foram preservadas como arquivos; não foram ativadas,
-avaliadas ou usadas como dados novos de pesquisa. Não abrir conteúdo protegido
-para verificar completude: usar manifesto, tamanhos e hashes.
+Os novos insumos ficam em `C:/BRASILEIRAO/work/data-completion-2026-09-09`:
 
-As 21 entregas da pesquisa que estavam na pasta desta conversa foram copiadas
-com igualdade de SHA-256 para `C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_PF_20260909`.
-O mandato recebido também está em `C:/BRASILEIRAO/INSTRUCOES`.
-Os originais externos foram conservados; a continuidade do projeto não depende
-de consultá-los. O Git guarda agregados e código, não o ZIP nem dados privados.
+| Insumo | Resultado e interpretação |
+| --- | --- |
+| OddsPapi Jan–Jun/2026 | 177/177 timelines verificadas; 623.271.596 bytes; 22 reutilizadas e 155 novas |
+| Football-Data oficial | CSV recuperado; 380 jogos de 2025, 158 pares closing numericamente completos |
+| Catálogos atuais | Identidades de bookmaker e 21 fixtures elegíveis; evento escolhido antes das odds |
+| Capturas prospectivas iniciais | Três capturas de um evento com recibos reais; Bet365 Brasil inativa nas três |
+| Acesso/custo de dados | Plano gratuito existente verificado; contador 62 → 67/250; reserva 20 preservada |
 
-## Operação
+Os 177 arquivos estão completos para o universo declarado. Isso não equivale
+à completude dos campos exigidos: faltam procedência temporal histórica,
+capacidade, condições reais de custo e validação futura. O
+[resultado atual](continuation/data_completion_2026-09-09/RESULTADO.md) e a
+[matriz de pendências](continuation/data_completion_2026-09-09/PENDENCIAS.md)
+detalham a diferença. Nenhum resultado de 2026 ou de coorte protegida foi usado.
 
-A consulta local de tarefas/processos não encontrou operação do projeto.
-Nenhum serviço, banco, Redis, tarefa Windows ou coletor foi iniciado pelas
-sessões atuais. O estado do computador antigo não foi consultado remotamente.
-As sete tarefas historicamente habilitadas na origem não comprovam execução
-neste Windows. Copiar seus XMLs não equivale a importar ou ativar tarefas.
+## Operação e continuidade
 
-H14/H15/H9/A1, artefatos, claims, regras e calendários permanecem protegidos.
-Não restaurar bancos por cima de dados ativos, não combinar snapshots com WAL
-antigo, não renovar atestados nem executar avaliadores para organizar arquivos.
+Nenhum banco operacional, Redis, serviço ou tarefa Windows do projeto foi
+iniciado. As coletas pontuais DC foram processos de aquisição independentes,
+encerrados após gravar seus recibos. A chave existente de API de dados foi lida
+somente por esses processos; os testes e a pesquisa offline ficaram sem credenciais.
 
-## Evidência econômica
+Está ativo um acompanhamento **nesta tarefa do Codex**, diário às **19:57 de
+São Paulo**, para a captura fixa de 11/09 antes das 20:00. Sua janela, quota,
+idempotência e encerramento estão em
+[CONTINUIDADE.md](continuation/data_completion_2026-09-09/CONTINUIDADE.md).
+A definição ativa reside no armazenamento do aplicativo; uma cópia documental
+fica em `C:/BRASILEIRAO/AUDITORIA/automacao_dados_2026-09-09.toml`.
+O computador precisa estar ligado e o aplicativo em execução para acessar os
+arquivos locais. Agendamento não garante chegada na janela nem disponibilidade da API.
 
-Lucro líquido executável continua **não demonstrado**. A última rodada teve
-374/380 vetores 1X2 numéricos, mas zero pares de preços com proveniência
-suficiente. O requisito mediano de 7,83% de melhoria de cotação sob o cenário
-de custo 2% é diagnóstico, não oferta encontrada. 80 testes e 1.870 relações
-aritméticas foram validados nessa rodada. Nenhum label/coorte foi avaliado.
+H14/H15/H9/A1, resultados, observadores, contratos, claims e agendas permanecem
+intactos. As tarefas exportadas da migração não foram importadas. Não restaurar
+bancos por cima de dados ativos nem executar avaliadores para organizar arquivos.
 
-O próximo insumo decisivo é uma amostra independente e autorizada de oferta
-e referência com clocks, estados, custos e capacidade de execução verificáveis.
-A organização documental não abre nova rodada de modelagem ou aquisição.
+## Evidência e checks
 
-## Limite da garantia de completude
+Zero pares admitidos para execução. O replay closing de 2025 congelou 32
+escolhas antes dos labels e apurou −9,24u no cenário de fricção 2%, banca 100u.
+Todas as seleções ocorreram no período em que a fonte avisa desatualização da
+referência Pinnacle; o saldo é aritmético condicional, não validação econômica.
 
-Todos os arquivos **recebidos no pacote verificado**, o código Git recuperado
-e as entregas conhecidas destas sessões estão sob `C:/BRASILEIRAO`.
-O pacote é uma captura de 08/09/2026, não uma imagem integral do computador
-antigo. Seu manifesto registra a omissão do cache `.pytest_cache` por acesso
-negado na origem. Dados produzidos depois da captura ou nunca entregues não
-podem ser atestados daqui. O inventário final distingue esses limites de
-qualquer falha de cópia encontrada nesta máquina.
+**138 testes passaram**: 80 existentes e 58 novos. Ruff e Pyright dos três
+novos módulos passaram; uma conferência com Fraction confirmou a conta sem
+importar esses módulos. Seis fronteiras UTC e execução fora da janela
+verificaram a espera sem consumo de API. Checks são delimitados à pesquisa,
+não evidência de CI remoto atualizado ou instalação operacional completa.
+
+## Limite da garantia da pasta
+
+Todos os arquivos recebidos no pacote verificado, o Git recuperado e as
+entregas e dados conhecidos destas sessões estão sob `C:/BRASILEIRAO`.
+A captura de 08/09 não é imagem integral do computador antigo: o manifesto
+registra omissão do cache `.pytest_cache` por acesso negado na origem.
+Arquivos nunca enviados ou criados depois da captura não podem ser atestados.
+Os documentos históricos e contratos congelados são indexados e preservados;
+os guias atuais foram reconciliados com a rodada DC.

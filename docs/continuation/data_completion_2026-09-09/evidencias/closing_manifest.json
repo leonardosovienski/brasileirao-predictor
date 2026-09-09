@@ -1,0 +1,17 @@
+{
+  "frozen_at": "2026-09-09T20:23:32.898376+00:00",
+  "input_sha256": "ba3e9ea79ab4091b117a901f3914940cea07f1fe06de0deb57af5076f664ccb6",
+  "choices_sha256": "31c7be0624570ef005f3b7520027028af1ac42dc07a91b441bcd33d9042ba106",
+  "labels_interpreted_before_freeze": false,
+  "python": "3.13.12 (main, Mar  3 2026, 15:00:12) [MSC v.1944 64 bit (AMD64)]",
+  "protocol_sha256": "f69d6aa1fbca0b64adabe0dd61cfddef409e3f47061c4baaedf9e203f46702e5",
+  "addendum_sha256": "c684190305fbf8dae6375c1790641e8cf98eb2d2224af5aa0512d4c555393132",
+  "completed_at": "2026-09-09T20:23:32.988171+00:00",
+  "outputs": {
+    "events.json": "331f9e47dfdfc4e9b9f258013cbc70aa246a5ca12a453486e6552dba71c6e851",
+    "freeze_receipt.json": "6d1a4ae7ca26432d98dcff354f05cc88fe3d53acd89c6ba0cecfa03d0a4b564f",
+    "frozen_choices.json": "31c7be0624570ef005f3b7520027028af1ac42dc07a91b441bcd33d9042ba106",
+    "summary.json": "82d9d0c0fd1f71e60954a2ca4dbdbfe0d555e5fe14190ca007907f72deff04be"
+  },
+  "isolation": "network_sqlite_subprocess_private_protected_denied"
+}

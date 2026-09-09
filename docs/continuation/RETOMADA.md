@@ -1,53 +1,57 @@
-# Retomada — C:/BRASILEIRAO
+# Retomada — C:/BRASILEIRAO, DC-20260909
 
-Atualizado em 09/09/2026 após consolidação dos arquivos e da documentação.
-O estado canônico é [ESTADO_ATUAL.md](../ESTADO_ATUAL.md). O mandato vigente
-é [MANDATO_LUCRO_2026-09-09.md](MANDATO_LUCRO_2026-09-09.md).
+Leia [estado atual](../ESTADO_ATUAL.md), [mandato](MANDATO_LUCRO_2026-09-09.md),
+[resultado DC](data_completion_2026-09-09/RESULTADO.md) e
+[continuidade](data_completion_2026-09-09/CONTINUIDADE.md).
+Trabalhe sozinho. Lucro executável não está demonstrado; capital bloqueado.
 
-## Sequência de leitura e trabalho
+## Checkpoint
 
-1. Leia estado atual, mandato, [DATA_MAP](../DATA_MAP.md) e o início do
-   [HANDOFF](../../HANDOFF.md).
-2. Confira `git status --short --branch`, `git rev-parse HEAD` e remotes no
-   checkout `C:/BRASILEIRAO/brasileirao-predictor`. Não faça reset para SHA histórico.
-3. Identifique se precisa de fonte técnica, contrato ou resultado arquivado no
-   [índice de documentação](../INDICE_DOCUMENTACAO.md). Data antiga não é ordem atual.
-4. Para pesquisa, escolha a pergunta e congele protocolo antes de novos valores.
-   Confirme disponibilidade, execução, custo e isolamento antes de modelos.
-5. Use somente dados explicitamente admissíveis em área de pesquisa; a extração
-   de migração é preservação, não autorização para consultar coortes protegidas.
+Base da rodada `main` em `5dec2521bab581d5dda104d954f4cc6274b74702`; commit
+de integração no recibo `C:/BRASILEIRAO/AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.json`.
+177/177 históricos verificados, CSV de 380 jogos de 2025 recuperado e três
+capturas atuais de um único evento. Não repetir downloads completos.
+O fechamento tem aviso de referência Pinnacle desatualizada; no piloto a
+oferta Bet365 Brasil tinha `bookmakerIsActive=false`. Seleções ativas nos
+filhos não anulam o estado inativo do bookmaker. Zero admissões para execução.
 
-## Onde continuar
+O replay closing condicional perdeu 9,24u; não ajustar filtros após esse saldo
+nem chamar a fonte comprometida de validação. Os 138 testes da pesquisa
+passaram. Nenhuma coorte protegida ou resultado de 2026 foi avaliado.
 
-| Conteúdo | Caminho |
-| --- | --- |
-| Código, Git e documentos atuais | `C:/BRASILEIRAO/brasileirao-predictor` |
-| Pacotes originais | `C:/BRASILEIRAO/MIGRACAO_DADOS/MIGRACAO_DADOS` |
-| Extração completa verificada | `C:/BRASILEIRAO/DADOS_PRESERVADOS` |
-| Sessões antigas | `C:/BRASILEIRAO/DADOS_PRESERVADOS/projetos/brasileirao-predictor-sessoes/2026-09-07` |
-| Pesquisa de preços atual | `C:/BRASILEIRAO/work/price-feasibility-2026-09-09` |
-| Entrega da pesquisa atual | `C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_PF_20260909` |
-| Auditorias de cópia e backup | `C:/BRASILEIRAO/AUDITORIA` |
+## Próxima ação concreta
 
-Scripts congelados podem mencionar `Superleo13` ou a antiga pasta da conversa.
-O [mapa de caminhos](../DATA_MAP.md) resolve os prefixos sem modificar hashes
-ou conteúdo desses scripts. Não execute arquivos históricos em lote.
+O acompanhamento diário às 19:57 de São Paulo executa a rotina delimitada
+`C:/BRASILEIRAO/work/data-completion-2026-09-09/followup_capture.py`.
+Antes de 11/09 19:55, retorna WAITING sem API. Na janela, no máximo uma
+consulta de odds para o fixture congelado `id1000032566887012`, par
+Pinnacle / bet365.bet.br, antes da decisão de 11/09 20:00.
+Conta gratuita e reserva mínima são novamente verificadas. Chegada tardia
+não autoriza redefinir o corte ou fabricar disponibilidade.
 
-## Última decisão econômica
+Depois da captura, executar `audit_followup.py` em processo separado e sem
+credenciais. Exigir clocks, calendário congelado e todos os estados ativos
+antes de admitir a observação; aceite, capacidade e custos continuam separados.
+Até duas consultas públicas oficiais úteis por rodada diária são permitidas.
+Não repetir testes sem mudança ou falha que justifique. Em 12/09, ou ao
+terminar a captura auditada, reavaliar o próximo passo dentro do mandato e
+pausar o acompanhamento se nenhuma ação útil autorizada restar.
 
-A [rodada de 09/09](price_feasibility_2026-09-09/RESULTADO.md) terminou com
-bloqueio de preço: 380 jogos, 374 vetores 1X2 numéricos, nenhum par admissível
-de casa/clocks. Não houve apostas ou labels avaliados. O aumento mediano de
-cotação de 7,83% no cenário de custo 2% não é uma oferta observada nem lucro.
-Os 80 testes e a conferência Decimal são específicos dessa medição.
+## Caminhos e reprodução
 
-Novos ajustes de xG não resolvem esse bloqueio. O próximo passo depende de
-oferta/referência independentes e simultâneas, com custos e capacidade. Nenhuma
-coleta recorrente foi criada. O mandato proíbe ações financeiras e preserva
-H14/H15/H9/A1, inclusive avaliadores, estados, agendas e dependências.
+Código: `C:/BRASILEIRAO/brasileirao-predictor`. Novos dados, recibos e scripts:
+`C:/BRASILEIRAO/work/data-completion-2026-09-09`. Entrega atual:
+`C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_DC_20260909`.
+[Reprodução offline](data_completion_2026-09-09/REPRODUZIR.md),
+[pendências](data_completion_2026-09-09/PENDENCIAS.md) e [mapa de dados](../DATA_MAP.md).
 
-## Histórico preservado
+Preservar H14/H15/H9/A1, artefatos, contratos, observadores, quotas reservadas,
+claims, agendas e avaliadores. Não importar tarefas antigas nem ligar runtime
+para reproduzir essa pesquisa. Nenhuma aposta, conta de apostas, compra ou
+alteração financeira está autorizada. O ambiente mínimo Python não é uma
+instalação operacional completa.
 
-O texto anterior desta retomada está [arquivado integralmente](../history/antes_consolidacao_2026-09-09/docs/continuation/RETOMADA.md)
-e no commit f33f92b. Estudos de 2025/2026 já explorados não são holdouts novos.
-Os resultados negativos, hipóteses descartadas e protocolos não foram reescritos.
+A [rodada PF anterior](price_feasibility_2026-09-09/RESULTADO.md) e os
+[guias anteriores à consolidação](../history/antes_consolidacao_2026-09-09/README.md)
+preservam seu contexto histórico. Não atualizar resultados congelados para
+fazê-los parecer vigentes; atualizar os guias de entrada e acrescentar novo checkpoint.

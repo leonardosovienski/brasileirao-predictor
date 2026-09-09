@@ -1,0 +1,24 @@
+{
+  "packaged_at": "2026-09-09T21:11:16.252610+00:00",
+  "source_directory": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09",
+  "files": {
+    "account_final_recheck.json": "00608664891c58a379f373a6cc6cf25fcc9ab5ec0af4ead5868aa8633361527a",
+    "admission_manifest.json": "ba699bc1ceba47dc8ee5e2aea8bb14cd3f135bc70869a0f22b1317475598e0ad",
+    "closing_independent_check.json": "cd8539983e4223d1b4b91d96bdfc45621c5b1ad49025e157827d7265106122e5",
+    "closing_manifest.json": "4bc2c4aabda79a62988f5f0330ffe1e269224ca4be4b412e6d02aaa2e3159654",
+    "closing_source_quality.json": "d77442433168f195846687f7d68e90041f702731daa3c7921aa6cb6054228de4",
+    "closing_summary.json": "adef203258b9333a56ef6cfde9797593ec31606eb896871f0d3b9d59b26a2a2b",
+    "completude.json": "3f09b73b576838ca9ee9665e21bd49e1fc6e2cab26687c358d18e9ba995ec0c0",
+    "engineering_checks.json": "5845a029d5368b5e53fff1cb9881879a9c97a1e103ef5428d28df4ca268153e2",
+    "extra_sources_manifest.json": "36f7c14e7d7243aadc71562a76089b629585b5b398300c21542258439a643743",
+    "freeze_receipt.json": "215b8fd0ee71077c62d5c69b8f53a4088cb1dff993c69e0c14bfcc15d1c650b8",
+    "historical_summary.json": "1b9777ac73382a9f53b5ab104aae064b49b231269e7a3fb76ec9be355078f033",
+    "pilot_hardening_check.json": "1af4627b8d8e51b81240205a298cebfe4606eb6973d32cbd6ecae4bf25223639",
+    "pilot_summary.json": "96a266225b3d888b5c1e4f285c24e4ff14d55c70c58474a0878dfa81f1f72d74",
+    "public_sources_manifest.json": "93fbd31e3117bc66d9cb973ef993b005806edca60b7bdf6cada6c6c4d2fe1c74",
+    "pyright_final.txt": "3529633385e088495d7a2c9b3060b82ba761e3ee87dbfbc376a04a40065ac2ff",
+    "tests_final.xml": "94734e5a07b7ae14dbc893192d8e885e7ed5577e91028d957474a067038921b5",
+    "transport_repair.json": "66ba58d671bd41f2805291decbba338ab3ce25af74dcc4bef6d773d166ca53c7"
+  },
+  "versioned_text_encoding": "UTF-8 LF; original acquisition/output byte hashes refer to canonical work files"
+}

@@ -1,0 +1,43 @@
+Loading configuration file at c:\BRASILEIRAO\work\data-completion-2026-09-09\pyrightconfig.json
+Auto-excluding **/node_modules
+Auto-excluding **/__pycache__
+Auto-excluding **/.*
+Execution environment: python
+  Extra paths:
+    C:\BRASILEIRAO\brasileirao-predictor
+  Python version: 3.13
+  Python platform: Windows
+  Search paths:
+    c:\BRASILEIRAO\work\price-feasibility-2026-09-09\venv\Lib\site-packages\pyright\dist\dist\typeshed-fallback\stdlib
+    c:\BRASILEIRAO\work\data-completion-2026-09-09
+    C:\BRASILEIRAO\brasileirao-predictor
+    c:\BRASILEIRAO\work\data-completion-2026-09-09\typings
+    c:\BRASILEIRAO\work\price-feasibility-2026-09-09\venv\Lib\site-packages\pyright\dist\dist\typeshed-fallback\stubs\...
+    c:\BRASILEIRAO\work\price-feasibility-2026-09-09\venv\Lib\site-packages
+Found 3 source files
+Could not import 'annotationlib' in file 'c:\BRASILEIRAO\work\price-feasibility-2026-09-09\venv\Lib\site-packages\pyright\dist\dist\typeshed-fallback\stdlib\typing.pyi'
+Could not import 'annotationlib' in file 'c:\BRASILEIRAO\work\price-feasibility-2026-09-09\venv\Lib\site-packages\pyright\dist\dist\typeshed-fallback\stdlib\typing.pyi'
+Could not import 'annotationlib' in file 'c:\BRASILEIRAO\work\price-feasibility-2026-09-09\venv\Lib\site-packages\pyright\dist\dist\typeshed-fallback\stdlib\_typeshed\__init__.pyi'
+Could not import 'annotationlib' in file 'c:\BRASILEIRAO\work\price-feasibility-2026-09-09\venv\Lib\site-packages\pyright\dist\dist\typeshed-fallback\stdlib\typing_extensions.pyi'
+pyright 1.1.405
+0 errors, 0 warnings, 0 informations
+Completed in 1.088sec
+
+Analysis stats
+Total files parsed and bound: 32
+Total files checked: 3
+
+Timing stats
+Find Source Files:    0sec
+Read Source Files:    0.01sec
+Tokenize:             0.07sec
+Parse:                0.07sec
+Resolve Imports:      0.02sec
+Bind:                 0.11sec
+Check:                0.46sec
+Detect Cycles:        0sec
+
+Analysis time by file
+341ms: file:///c%3A/BRASILEIRAO/brasileirao-predictor/brasileirao_predictor/research/price_strength/historical_admission.py
+223ms: file:///c%3A/BRASILEIRAO/brasileirao-predictor/brasileirao_predictor/research/price_strength/closing_scenario.py
+26ms: file:///c%3A/BRASILEIRAO/brasileirao-predictor/brasileirao_predictor/research/price_strength/live_capture_admission.py

@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "fixture_id": "id1000032566886550",
+      "parameters": {
+        "fixtureId": "id1000032566886550",
+        "bookmakers": "pinnacle,bet365"
+      },
+      "status": "DOWNLOADED",
+      "requested_at": "2026-09-09T20:36:44.382422+00:00",
+      "original_failure_retained": true,
+      "http_status": 200,
+      "received_at": "2026-09-09T20:36:46.701509+00:00",
+      "file": "raw/id1000032566886550.json",
+      "bytes": 3486357,
+      "sha256": "fb22a934b8fa1c27fa3d9313a5909d45fae53f82d33bdd0313a169e66b550e83",
+      "finished_at": "2026-09-09T20:36:46.757666+00:00"
+    }
+  ],
+  "max_requests": 1,
+  "quota_cost_documented": 0
+}

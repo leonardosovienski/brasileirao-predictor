@@ -30,6 +30,41 @@ A presença de arquivos versionados em `data/` não significa existência de
 serving ou de banco populado no checkout. Credenciais e dados privados não
 devem ser copiados para o Git, para a área executável de pesquisa ou para logs.
 
+## Aquisição DC-20260909
+
+Área canônica `C:/BRASILEIRAO/work/data-completion-2026-09-09`:
+
+| Subárea | Conteúdo e limite |
+| --- | --- |
+| `raw` | 177 timelines OddsPapi Jan–Jun/2026, 623.271.596 bytes; exploração sem recibo PIT da época |
+| `universe.json`, `acquisition.json`, `transport_repair.json` | Universo congelado, tentativas, reaproveitamento verificado, hashes e um reparo de conexão |
+| `public_sources`, `extra_docs/public_sources` | CSV Football-Data, páginas oficiais e recibos HTTP; não versionar os corpos das páginas |
+| `prospective_pilot` | Catálogos, fixture escolhido antes das odds, três capturas reais e recibos sanitizados |
+| `closing-01` | Escolhas congeladas antes dos labels 2025 e liquidação exclusivamente condicional |
+| `admission-01` | Auditoria de identidade/estado/clocks, qualidade closing e manifestos |
+| `tests-05` | JUnit e log da execução de 138 testes isolados |
+| `followup`, `followup_audit` | Saídas futuras, criadas somente quando houver tentativa/captura na janela |
+
+Os 22 históricos reutilizados vieram de entradas antigas explicitamente
+permitidas de Jan–Jun/2026; os demais 155 foram adquiridos. O universo de 177
+fixtures tem SHA-256 `6264b2a1b795928fdf0dc6476e311535a42fbc96c12caf5cf881777b7779caba`.
+O CSV bruto tem SHA-256 `ba3e9ea79ab4091b117a901f3914940cea07f1fe06de0deb57af5076f664ccb6`.
+Somente linhas de 2025 foram usadas no replay de preços e labels; nenhum
+resultado de 2026 ou de coorte protegida foi avaliado.
+
+A configuração privada preservada foi consultada apenas pelos processos de
+aquisição da API existente. Não há cópia de credenciais no checkout, nos
+scripts, nos recibos públicos ou no processo de pesquisa offline. O fato de
+um arquivo ter hash válido não comprova disponibilidade passada, autenticidade
+da oferta, capacidade ou aceite.
+
+Código, protocolos, resumos e recibos sanitizados ficam em
+`docs/continuation/data_completion_2026-09-09`; entrega em
+`C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_DC_20260909`. A automação do aplicativo
+tem cópia de sua definição em `C:/BRASILEIRAO/AUDITORIA`.
+[Resultado e lacunas](continuation/data_completion_2026-09-09/RESULTADO.md),
+[reprodução](continuation/data_completion_2026-09-09/REPRODUZIR.md).
+
 ## Como resolver caminhos antigos
 
 | Prefixo histórico | Local preservado nesta máquina |

@@ -1,0 +1,42 @@
+{
+  "as_of": "2026-09-09T21:11:16.250889+00:00",
+  "round": "DC-20260909",
+  "all_economic_data_complete": false,
+  "historical_files": {
+    "required": 177,
+    "verified": 177,
+    "missing": 0,
+    "bytes": 623271596
+  },
+  "public_2025": {
+    "fixtures": 380,
+    "numerical_pairs": 158,
+    "reference_quality": "COMPROMISED_ALL_32_SELECTIONS"
+  },
+  "prospective_pilot": {
+    "captures": 3,
+    "independent_fixtures": 1,
+    "active_offer_pairs": 0
+  },
+  "execution_admitted": 0,
+  "profitability_established": false,
+  "real_capital_enabled": false,
+  "missing": [
+    "historical_point_in_time_receipts_and_schedule",
+    "active_contemporaneous_offer",
+    "offer_capacity_and_currency",
+    "applicable_total_costs",
+    "acceptance_slippage_and_fill",
+    "independent_prospective_validation"
+  ],
+  "next_action": "fixed_single_capture_2026-09-11_before_23:00_UTC_then_offline_audit",
+  "quota": {
+    "before": 62,
+    "after": 67,
+    "monthly_limit": 250,
+    "protected_reserve": 20,
+    "next_max_metered_calls": 1
+  },
+  "additional_cash_spend": 0,
+  "full_runtime_installed": false
+}

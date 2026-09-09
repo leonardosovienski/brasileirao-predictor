@@ -1,0 +1,136 @@
+{
+  "completed_at": "2026-09-09T21:09:26.363166+00:00",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "pytest",
+      "returncode": 0,
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-01\\pytest.txt",
+      "reused_pass_from_initial_attempt": true
+    },
+    {
+      "name": "ruff_check",
+      "returncode": 0,
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-01\\ruff_check.txt",
+      "reused_pass_from_initial_attempt": true
+    },
+    {
+      "name": "ruff_format",
+      "returncode": 0,
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-01\\ruff_format.txt",
+      "reused_pass_from_initial_attempt": true
+    },
+    {
+      "name": "pyright",
+      "started_at": "2026-09-09T21:05:53.295150+00:00",
+      "finished_at": "2026-09-09T21:05:54.478259+00:00",
+      "returncode": 0,
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-02\\pyright.txt"
+    },
+    {
+      "name": "followup_outside_window",
+      "started_at": "2026-09-09T21:05:54.478322+00:00",
+      "finished_at": "2026-09-09T21:05:54.728967+00:00",
+      "returncode": 0,
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-02\\followup_outside_window.txt"
+    },
+    {
+      "name": "audit_without_capture",
+      "started_at": "2026-09-09T21:05:54.729358+00:00",
+      "finished_at": "2026-09-09T21:05:54.863337+00:00",
+      "returncode": 0,
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-02\\audit_without_capture.txt"
+    },
+    {
+      "name": "pyright_explicit_three_modules",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:08:17.010598+00:00",
+      "finished_at": "2026-09-09T21:08:18.333129+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-02\\pyright_explicit_config.txt",
+      "configuration": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\pyrightconfig.json",
+      "files_checked": 3
+    },
+    {
+      "name": "pytest_final",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:09:23.792974+00:00",
+      "finished_at": "2026-09-09T21:09:25.987869+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-03\\pytest_final.txt"
+    },
+    {
+      "name": "ruff_changed",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:09:25.987895+00:00",
+      "finished_at": "2026-09-09T21:09:26.048016+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-03\\ruff_changed.txt"
+    },
+    {
+      "name": "format_changed",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:09:26.048045+00:00",
+      "finished_at": "2026-09-09T21:09:26.095462+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-03\\format_changed.txt"
+    },
+    {
+      "name": "pilot_unchanged",
+      "returncode": 0,
+      "started_at": "2026-09-09T21:09:26.095491+00:00",
+      "finished_at": "2026-09-09T21:09:26.322560+00:00",
+      "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-03\\pilot_unchanged.txt"
+    }
+  ],
+  "pytest": {
+    "tests": 138,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "clock_boundaries_passed": 6,
+  "naive_clock_rejected": true,
+  "source_hashes": {
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\research\\price_strength\\historical_admission.py": "fc68028218a303bcfb78978fd4c07fa04219ef20405814c4ca9c10f5f073fa5c",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\research\\price_strength\\closing_scenario.py": "f2a223528262fb48dea39b440ec32bbe399b000e056a96e1986c4a25cc735a8a",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\research\\price_strength\\live_capture_admission.py": "e7a8a5f97431dc8208a972343dc409588ff4ca49695aad3a0462d6138f4e6e84",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\tests\\test_historical_admission.py": "c4fb0052e72678cb387174c17f44b4f70a94e4bc7d3c549c6d95f54ff9a69337",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\tests\\test_historical_numeric_boundary.py": "c9ed13a176a155c4910ccb136bcaf710f50daad1317071966ed24679b27dd2a4",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\tests\\test_live_capture_admission.py": "34947c08db8f5096d773f664e8a310c68293d1e2ddecb0e7ad1cdac0e4e592d3",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\tests\\test_closing_scenario.py": "f0c87febcf1a4469df655fcd5e589597f08c5c0d31cb4e5781323dffbaf94767",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\account_recheck.py": "5f2628e014913263666d3385ed196583440c4da4bca19fcf8cac49d12e2db0a5",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\acquire_history.py": "9320337f9509e2c94a7a171b1d03a4c816bf29347970f0417599f3a964ab47cd",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\audit_followup.py": "0a720918a5253ba5cc5394597d1c4806f90195b478682761387bc4605ba14bcc",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\audit_results.py": "0d13151d4889e39134cc9914e55867dc3fccf9bf56fe072ec4c2f733b2c14e46",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\capture_pilot.py": "355d6925c8a58c3b748949f7814743224d4186644d38ee2153bc2d44d9289c80",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\check_account.py": "d82114c0ba383d080c91e8af664f49101eadcbf516ae2e7a909555e7a73590dc",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\fetch_public.py": "18712bf4c13d3e1b9a119edbf858156ba0b3cca353742f135371b06add67d4cf",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\fetch_public_extra.py": "5c161c6bdf7bf5b0883372e0e354a1e75b17959c36311361b084d09a9ae28619",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\followup_capture.py": "4a3af660d040c3f7ddc76aa1f3203d45199740d169e6641c0c25d1dab6cd9d98",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\repair_transport.py": "6365316bedee0162460ba24a17910a1929bc1fa941a5f2eebde774dc769ddd8f",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\run_closing.py": "6419b17af714242beec00c9f66e9699e597d2720b6c950c6b1347f1178a355aa",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\validate_offline.py": "ea488b771b6c2c7e562b98511d7c461eae15e01e99a76c78d16d9b09c60c0bb7",
+    "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\verify_closing_independently.py": "6eee560d83b49f307e1b133386bf4bbcf3a879b46b503d24781ceaaab2efe2f4"
+  },
+  "scope": "isolated_research_only_no_full_runtime_build_or_remote_CI",
+  "network_calls_by_research_or_followup_in_checks": 0,
+  "initial_pyright_launcher_failure": {
+    "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-01\\pyright.txt",
+    "reason": "sanitized_environment_without_home_directory",
+    "resolution": "invoke_installed_javascript_directly_no_install_or_update"
+  },
+  "formatting_precheck_repaired": {
+    "line_length_findings": 21,
+    "unused_import_findings": 1
+  },
+  "typecheck_configuration_note": "Explicit research includes and existing venv; runtime project excludes research.",
+  "pytest_final_junit": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\tests-05\\junit.xml",
+  "regression_before_fix": {
+    "passed": 137,
+    "failed": 1,
+    "junit": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\tests-04-regression-before-fix\\junit.xml"
+  },
+  "new_tests": 58,
+  "typecheck_initial_error": {
+    "log": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\engineering-02\\pyright_explicit_config_initial_failure.txt",
+    "reason": "optional_limit_operand",
+    "resolved": true
+  }
+}

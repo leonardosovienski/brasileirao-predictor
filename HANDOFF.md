@@ -1,5 +1,29 @@
 # HANDOFF.md — brasileirao-predictor
 
+## 2026-09-09 — DC-20260909: aquisição concluída, admissibilidade pendente
+
+Base `5dec2521bab581d5dda104d954f4cc6274b74702`, main consolidada em
+`C:/BRASILEIRAO/brasileirao-predictor`. [Estado atual](docs/ESTADO_ATUAL.md),
+[resultado](docs/continuation/data_completion_2026-09-09/RESULTADO.md) e
+[continuidade](docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md).
+
+Obtidos 177/177 históricos OddsPapi verificados (623.271.596 bytes), CSV oficial
+de 380 jogos de 2025, catálogos atuais e três capturas de um evento. Cinco
+requisições de quota gratuita; conta 67/250 ao término e reserva 20 intacta.
+Zero pares admitidos para execução. Oferta Bet365 Brasil inativa no piloto.
+Replay closing condicional: 32 seleções, −9,24u com fricção 2%; todas no período
+do aviso de referência Pinnacle desatualizada. Não constitui validação econômica.
+
+138 testes passaram, Ruff e Pyright dos três novos módulos, conta independente
+com Fraction. Coletas pontuais encerradas; acompanhamento diário às 19:57 de
+São Paulo ativo nesta tarefa para uma captura antes de T−60 em 11/09. Sem
+apostas, compra, ativação operacional ou alteração de H14/H15/H9/A1.
+Dados brutos e scripts em `C:/BRASILEIRAO/work/data-completion-2026-09-09`;
+entrega em `C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_DC_20260909`.
+Commit final e backup constam de `C:/BRASILEIRAO/AUDITORIA`.
+
+---
+
 > ## CHECKPOINT — ARQUIVOS E DOCUMENTAÇÃO CONSOLIDADOS (09/09/2026)
 >
 > Raiz: `C:/BRASILEIRAO`; [estado atual](docs/ESTADO_ATUAL.md),

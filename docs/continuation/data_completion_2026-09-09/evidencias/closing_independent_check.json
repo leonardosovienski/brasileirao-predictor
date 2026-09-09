@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "implementation": "independent_Fraction_no_production_import",
+  "independent_reviewer": false,
+  "same_researcher": true,
+  "universe": 380,
+  "same_choices": 32,
+  "missing_pairs": 222,
+  "net_pnl_rational": "-231/25",
+  "prizes_rational": "117/5",
+  "source_sha256": "ba3e9ea79ab4091b117a901f3914940cea07f1fe06de0deb57af5076f664ccb6",
+  "completed_at": "2026-09-09T20:39:57.178840+00:00",
+  "economic_validation": false
+}

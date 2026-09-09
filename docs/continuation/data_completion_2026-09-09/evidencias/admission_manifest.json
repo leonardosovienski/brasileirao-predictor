@@ -1,0 +1,16 @@
+{
+  "completed_at": "2026-09-09T20:38:13.296938+00:00",
+  "acquisition_sha256": "7bc1780f193aec7d6cb7a1d0cae0605388367c436c4842d35674e001a53ef1e2",
+  "outputs": {
+    "closing_source_quality.json": "1c1855133156c93473e0938bc96251a1948369daf247de83a6f59825a86e5fac",
+    "historical_events.json": "94434b8041234667386b39b2b4fbbc112669bd380f62105a117a184d93f44b96",
+    "historical_summary.json": "c364d56e6ec13dc2b491b8a40294df1da121a4d9ad258bc42a93d48c60e4a18f",
+    "pilot_events.json": "43b5580ec3636e35edf8f68eb14313a14678aa113f4039deb79d5d3245307714",
+    "pilot_summary.json": "0ca7363ceb2412e73852d7506c99fc24f735a7e73a34766a951a11a44dc03002"
+  },
+  "source_modules": {
+    "historical_admission.py": "fc68028218a303bcfb78978fd4c07fa04219ef20405814c4ca9c10f5f073fa5c",
+    "live_capture_admission.py": "6d987e3b1ce3dd2fda5502cf1e9c91a4da712fef47e66f943225e254ba2b6ab2"
+  },
+  "isolation": "network_sqlite_subprocess_private_protected_denied"
+}

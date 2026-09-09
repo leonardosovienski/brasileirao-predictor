@@ -1,0 +1,13 @@
+{
+  "pythonVersion": "3.13",
+  "pythonPlatform": "Windows",
+  "typeCheckingMode": "basic",
+  "venvPath": "C:/BRASILEIRAO/work/price-feasibility-2026-09-09",
+  "venv": "venv",
+  "extraPaths": ["C:/BRASILEIRAO/brasileirao-predictor"],
+  "include": [
+    "../../brasileirao-predictor/brasileirao_predictor/research/price_strength/historical_admission.py",
+    "../../brasileirao-predictor/brasileirao_predictor/research/price_strength/closing_scenario.py",
+    "../../brasileirao-predictor/brasileirao_predictor/research/price_strength/live_capture_admission.py"
+  ]
+}

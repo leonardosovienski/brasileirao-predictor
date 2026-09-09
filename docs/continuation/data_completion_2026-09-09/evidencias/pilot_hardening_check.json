@@ -1,0 +1,9 @@
+{
+  "completed_at": "2026-09-09T21:09:26.289321+00:00",
+  "status": "PASS",
+  "captures": 3,
+  "original_pilot_audits_unchanged": true,
+  "new_source_sha256": "e7a8a5f97431dc8208a972343dc409588ff4ca49695aad3a0462d6138f4e6e84",
+  "old_source_preserved": "executed_modules/live_capture_admission.py",
+  "old_source_sha256": "6d987e3b1ce3dd2fda5502cf1e9c91a4da712fef47e66f943225e254ba2b6ab2"
+}

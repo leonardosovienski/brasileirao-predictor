@@ -1,0 +1,155 @@
+{
+  "status": "CONDITIONAL_NON_EXECUTABLE",
+  "universe_n": 380,
+  "conditional_price_candidates": 32,
+  "conditional_bets": 32,
+  "settled": 32,
+  "unsettled": 0,
+  "abstentions": 348,
+  "initial_bankroll": "100",
+  "contributions": "0",
+  "total_stakes": "32",
+  "prizes_including_principal": "23.4",
+  "scenario_costs": "0.64",
+  "final_cash": "90.76",
+  "locked_principal": "0",
+  "final_equity_at_cost": "90.76",
+  "net_realized_pnl": "-9.24",
+  "roi_on_stakes": "-0.28875",
+  "return_on_bankroll": "-0.0924",
+  "maximum_simultaneous_exposure_daily_scenario": "3",
+  "execution_proven": false,
+  "actual_costs_known": false,
+  "price_abstention_reasons": {
+    "missing_or_invalid_individual_closing_prices": 222,
+    "no_price_difference_inside_frozen_threshold": 126
+  },
+  "monthly_bets_pnl": {
+    "2025-08": [
+      8,
+      -4.659999999999998
+    ],
+    "2025-09": [
+      10,
+      -10.199999999999998
+    ],
+    "2025-10": [
+      13,
+      6.640000000000001
+    ],
+    "2025-12": [
+      1,
+      -1.02
+    ]
+  },
+  "weekly_bootstrap": {
+    "seed": 20260909,
+    "replicates": 2000,
+    "defined": 2000,
+    "weeks": 34,
+    "unit": "ISO_week_all_universe_including_abstentions",
+    "percentile_95_roi": [
+      -0.8993103448275863,
+      0.525
+    ]
+  },
+  "selected_calibration": {
+    "n": 32,
+    "mean_q": 0.2780972129223667,
+    "win_rate": 0.21875,
+    "binary_brier": 0.16291498373993019,
+    "bins": [
+      {
+        "decile": 0,
+        "n": 2,
+        "mean_q": 0.06977967030113474,
+        "win_rate": 0.0
+      },
+      {
+        "decile": 1,
+        "n": 3,
+        "mean_q": 0.1556777978512256,
+        "win_rate": 0.0
+      },
+      {
+        "decile": 2,
+        "n": 13,
+        "mean_q": 0.2528630998881232,
+        "win_rate": 0.15384615384615385
+      },
+      {
+        "decile": 3,
+        "n": 11,
+        "mean_q": 0.3355431176407897,
+        "win_rate": 0.45454545454545453
+      },
+      {
+        "decile": 4,
+        "n": 3,
+        "mean_q": 0.43810782892183325,
+        "win_rate": 0.0
+      }
+    ]
+  },
+  "concentration": {
+    "wins": 7,
+    "top_five_winning_net": [
+      2.98,
+      2.48,
+      2.48,
+      2.28,
+      2.18
+    ],
+    "net_without_largest_win": -12.22
+  },
+  "fixed_selection_cost_sensitivity": [
+    {
+      "cost_per_stake": "0",
+      "conditional_net_pnl": "-8.6",
+      "same_selections": true
+    },
+    {
+      "cost_per_stake": "0.01",
+      "conditional_net_pnl": "-8.92",
+      "same_selections": true
+    },
+    {
+      "cost_per_stake": "0.02",
+      "conditional_net_pnl": "-9.24",
+      "same_selections": true
+    },
+    {
+      "cost_per_stake": "0.03",
+      "conditional_net_pnl": "-9.56",
+      "same_selections": true
+    },
+    {
+      "cost_per_stake": "0.05",
+      "conditional_net_pnl": "-10.20",
+      "same_selections": true
+    }
+  ],
+  "comparator": {
+    "policy": "abstention",
+    "stakes": 0,
+    "variable_pnl": 0,
+    "fixed_costs": null
+  },
+  "unknown_actual_costs": [
+    "tax",
+    "commission",
+    "slippage",
+    "rejections",
+    "data",
+    "infrastructure",
+    "maintenance"
+  ],
+  "limitations": [
+    "closing_not_T_minus_60",
+    "no_per_quote_clocks",
+    "no_accepted_fills",
+    "generic_bookmaker_region_unverified",
+    "2025_previously_exploratory",
+    "2_percent_hypothetical_cost"
+  ]
+}

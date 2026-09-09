@@ -1,5 +1,22 @@
 # Pesquisa offline de preços e forças xG
 
+## Complemento DC-20260909: admissibilidade e contabilidade
+
+Três módulos puros e aditivos, sem chamadas de API ou banco:
+
+- `historical_admission.py`: último estado antes de T−60, rejeição de estados
+  conflitantes/inativos e validação dos clocks; timeline não ganha receipt histórico inventado.
+- `live_capture_admission.py`: identidade e estados de bookmaker, mercado e
+  seleção; receipt local não vira publicação do bookmaker ou fill garantido.
+- `closing_scenario.py`: congela escolhas usando somente preços, depois
+  liquida labels; reserva exposição diária e reconcilia principal, retornos e custos.
+
+São usados pelos scripts isolados da
+[rodada DC](../../../docs/continuation/data_completion_2026-09-09/REPRODUZIR.md).
+Não ativam scanner operacional, capital ou coortes. O cenário closing não é
+validação econômica e a fonte teve problema documentado na referência.
+Os resultados anteriores abaixo mantêm seu escopo.
+
 Estado local e caminhos: [ESTADO_ATUAL.md](../../../docs/ESTADO_ATUAL.md).
 O diagnóstico puro `price_hurdle.py` foi acrescentado em 09/09/2026: calcula
 o preço necessário para empatar sob custos explícitos e recusa transformar
