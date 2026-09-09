@@ -1,0 +1,172 @@
+{
+  "schema_version": "price-hurdle-audit/1",
+  "status": "BLOCKED_MISSING_PRICE_PROVENANCE",
+  "evaluation_year": 2025,
+  "market": "1x2",
+  "labels_accessed": false,
+  "profitability_established": false,
+  "execution_proven": false,
+  "real_capital_enabled": false,
+  "summary": {
+    "universe_matches": 380,
+    "numeric_complete_vectors": 374,
+    "matches_without_numeric_price": 6,
+    "executable_price_pairs": 0,
+    "opportunities": null,
+    "opportunities_reason": "NOT_MEASURABLE_WITHOUT_ADMISSIBLE_PRICE_PAIRS",
+    "abstentions": 380,
+    "bets": 0,
+    "stake_units": 0.0,
+    "price_rejections": {
+      "invalid_number:odds": 6
+    },
+    "margin_sign_counts": {
+      "positive": 374
+    },
+    "overround_sum": {
+      "n": 374,
+      "min": 1.0350806451612904,
+      "median": 1.0571706159941454,
+      "p90": 1.0696428571428571,
+      "max": 1.129206839660878
+    },
+    "own_price_gross_ev": {
+      "n": 374,
+      "min": -0.11442265059223455,
+      "median": -0.054078891750994396,
+      "p90": -0.04770418529053233,
+      "max": -0.03389170237631478
+    },
+    "relative_price_uplift_scenarios": {
+      "0.0": {
+        "n": 374,
+        "min": 0.03508064516129039,
+        "median": 0.05717061599414541,
+        "p90": 0.06964285714285712,
+        "max": 0.1292068396608781
+      },
+      "0.01": {
+        "n": 374,
+        "min": 0.045431451612903295,
+        "median": 0.06774232215408693,
+        "p90": 0.08033928571428572,
+        "max": 0.140498908057487
+      },
+      "0.02": {
+        "n": 374,
+        "min": 0.0557822580645162,
+        "median": 0.07831402831402834,
+        "p90": 0.09103571428571433,
+        "max": 0.15179097645409567
+      },
+      "0.03": {
+        "n": 374,
+        "min": 0.0661330645161291,
+        "median": 0.08888573447396986,
+        "p90": 0.10173214285714294,
+        "max": 0.16308304485070457
+      },
+      "0.05": {
+        "n": 374,
+        "min": 0.08683467741935491,
+        "median": 0.11002914679385278,
+        "p90": 0.12312499999999993,
+        "max": 0.18566718164392215
+      }
+    },
+    "monthly_relative_uplift_at_2pct_cost": {
+      "2025-03": {
+        "n": 5,
+        "min": 0.07150308079493195,
+        "median": 0.08228028126117293,
+        "p90": 0.0888960750232426,
+        "max": 0.0888960750232426
+      },
+      "2025-04": {
+        "n": 50,
+        "min": 0.0557822580645162,
+        "median": 0.07727272727272727,
+        "p90": 0.08663097022917121,
+        "max": 0.09069081153588199
+      },
+      "2025-05": {
+        "n": 40,
+        "min": 0.06509146341463423,
+        "median": 0.07684150619495456,
+        "p90": 0.08438360941586742,
+        "max": 0.09149797570850216
+      },
+      "2025-06": {
+        "n": 16,
+        "min": 0.06410878867676106,
+        "median": 0.07712917412045328,
+        "p90": 0.08710892710892693,
+        "max": 0.09123745819397988
+      },
+      "2025-07": {
+        "n": 42,
+        "min": 0.061152219873150226,
+        "median": 0.0782062588904694,
+        "p90": 0.08816974746159856,
+        "max": 0.10904761904761906
+      },
+      "2025-08": {
+        "n": 51,
+        "min": 0.0664784926056603,
+        "median": 0.07631690465223406,
+        "p90": 0.08698338870431876,
+        "max": 0.12453806356245378
+      },
+      "2025-09": {
+        "n": 32,
+        "min": 0.06350877192982463,
+        "median": 0.07919160554564231,
+        "p90": 0.08685714285714297,
+        "max": 0.09040930724484397
+      },
+      "2025-10": {
+        "n": 55,
+        "min": 0.06188346228239827,
+        "median": 0.07784943714821768,
+        "p90": 0.09057029177718845,
+        "max": 0.0942084942084942
+      },
+      "2025-11": {
+        "n": 63,
+        "min": 0.0685053053053053,
+        "median": 0.08238636363636354,
+        "p90": 0.09869909673512645,
+        "max": 0.15179097645409567
+      },
+      "2025-12": {
+        "n": 20,
+        "min": 0.07505376344086012,
+        "median": 0.09232868144861239,
+        "p90": 0.09879284649776454,
+        "max": 0.11076865391826018
+      }
+    },
+    "actual_execution_costs": null,
+    "fixed_operating_costs": null
+  },
+  "abstention_portfolio": {
+    "initial_bankroll_scenario_units": 100.0,
+    "final_bankroll_before_unknown_fixed_costs_units": 100.0,
+    "contributions": 0.0,
+    "stakes": 0.0,
+    "liability": 0.0,
+    "locked_capital": 0.0,
+    "returned_principal": 0.0,
+    "winning_profit": 0.0,
+    "variable_execution_costs": 0.0,
+    "net_betting_result": 0.0,
+    "roi_on_stakes": null,
+    "return_on_bankroll_before_fixed_costs": 0.0,
+    "simultaneous_exposure": 0.0,
+    "total_business_net_result": null
+  },
+  "existing_scanner_check": {
+    "events_tested": 380,
+    "all_blocked": true
+  }
+}

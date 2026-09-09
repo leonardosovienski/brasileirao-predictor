@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "python": "3.13.12",
+  "pytest": "8.4.2",
+  "ruff": "0.12.12",
+  "pyright": "1.1.405",
+  "tests": {
+    "total": 80,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "new_tests": 30,
+    "existing_scanner_tests": 50,
+    "junit_sha256": "6dc1b61549d945cc91c4aa2392f472a8857f2f9bdb80f64e3e249d60800fb0da"
+  },
+  "lint_exit": 0,
+  "format_exit": 0,
+  "pyright_exit": 0,
+  "pyright_files_checked": 4,
+  "pyright_config_sha256": "5a67361e35fa1fa215168fccb08d69a60eadc25a1b125a8fb4c893470c2130f4",
+  "decimal": {
+    "status": "PASS",
+    "independence": "SEPARATE_IMPLEMENTATION_SAME_RESEARCHER",
+    "arithmetic": "decimal_45_digits",
+    "event_count": 380,
+    "valid_vectors": 374,
+    "equations_checked": 1870,
+    "labels_used": false,
+    "input_sha256": "14153f7cbb348e9eef22a8e1c438757b1ef482951e2576d4a8381d7928e8e142",
+    "verifier_sha256": "5e192465ac8caa061e060be74d32d9335cc8f04b565582722cf161d42b5f7cd6"
+  },
+  "failed_attempts": [
+    "Initial Ruff checks identified formatting/UP038 issues; fixed without changing economic parameters",
+    "Pytest logging was blocked outside test work; log target corrected, isolation preserved",
+    "Pyright absolute include paths were ignored; only the study analyzer was stopped; relative config checked all four files"
+  ],
+  "not_run": [
+    "Official cohort evaluators",
+    "Full project Python suite",
+    "Core/Ops installation",
+    "Build wheel",
+    ".NET",
+    "Redis",
+    "Compose",
+    "Remote CI"
+  ],
+  "reason_for_scope": "Pure additive offline Python research; protected and runtime code unchanged"
+}

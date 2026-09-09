@@ -1,5 +1,14 @@
 # Retomada independente do chat — 7 de setembro de 2026
 
+> Continuação em **09/09/2026**, pasta `C:/BRASILEIRAO/brasileirao-predictor`:
+> [preço executável e fronteira econômica](price_feasibility_2026-09-09/RESULTADO.md).
+> Main remota f003045 recuperada, ambiente de pesquisa Python 3.13.12 isolado.
+> 374/380 vetores 1X2 válidos, zero pares de preços admissíveis por falta de
+> casa/clocks. Mediana de melhoria necessária 7,83% no cenário de custo 2%,
+> sem oferta independente observada. Rodada encerrada com bloqueio demonstrado;
+> sem uso de labels/coortes protegidas, coleta nova, promoção ou capital.
+> O pacote de migração original foi preservado; a operação não foi instalada.
+
 > Etapa mais recente: [continuação Docker](docker_completion_2026-09-08/RESULTADO.md).
 > Fixture de teste corrigida; validações offline passaram. Acesso administrativo
 > não foi concedido pelo Windows; Compose continua sem execução em containers.

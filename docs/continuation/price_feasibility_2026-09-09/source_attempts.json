@@ -1,0 +1,43 @@
+{
+  "requests": [
+    {
+      "url": "https://www.football-data.co.uk/brazil.php",
+      "started_at": "2026-09-09T15:09:18.535886-03:00",
+      "authenticated": false,
+      "paid_api_calls": 0,
+      "error": "HTTPError",
+      "status": 503,
+      "received_at": "2026-09-09T15:09:19.988388-03:00"
+    },
+    {
+      "url": "https://www.football-data.co.uk/notes.txt",
+      "started_at": "2026-09-09T15:09:19.989812-03:00",
+      "authenticated": false,
+      "paid_api_calls": 0,
+      "error": "HTTPError",
+      "status": 503,
+      "received_at": "2026-09-09T15:09:20.890692-03:00"
+    },
+    {
+      "url": "https://www.football-data.co.uk/new/BRA.csv",
+      "started_at": "2026-09-09T15:10:06.660818-03:00",
+      "authenticated": false,
+      "paid_api_calls": 0,
+      "error": "HTTPError",
+      "status": 503,
+      "received_at": "2026-09-09T15:10:07.616469-03:00"
+    }
+  ],
+  "documentation": {
+    "url": "https://the-odds-api.com/historical-odds-data/",
+    "consulted_on": "2026-09-09",
+    "paid_plans_only": true,
+    "credits_per_region_per_market": 10,
+    "brazil_coverage_declared": true,
+    "authenticated_requests_made": 0,
+    "user_plan_verified": false,
+    "free_quota_reservation_verified": false
+  },
+  "browser_football_data_attempts": "Brazil page and notes also returned HTTP 503 via web tool",
+  "conclusion": "SOURCE_ACCESS_FAILURE_IS_NOT_ABSENCE_OF_OPPORTUNITY"
+}

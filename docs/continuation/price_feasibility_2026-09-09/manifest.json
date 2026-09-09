@@ -1,0 +1,32 @@
+{
+  "status": "COMPLETE",
+  "generated_at": "2026-09-09T18:17:13.528140+00:00",
+  "python": "3.13.12 (main, Mar  3 2026, 15:00:12) [MSC v.1944 64 bit (AMD64)]",
+  "base_git_sha": "f00304574044ab9d18aa3603abc538fbb3102c64",
+  "input_sha256": "14153f7cbb348e9eef22a8e1c438757b1ef482951e2576d4a8381d7928e8e142",
+  "protocol_sha256": "f69d6aa1fbca0b64adabe0dd61cfddef409e3f47061c4baaedf9e203f46702e5",
+  "addendum_sha256": "6ead15aaac9462f089469aaa80ac612ceefba6a06a9e4ed3d7599382ae6cb8ed",
+  "source_hashes": {
+    "brasileirao_predictor\\research\\price_strength\\price_hurdle.py": "6ab8bbe3b634fea83a19fe6aba28bd0a38b3fe7482bb2bd854e9dff2e2e55387",
+    "brasileirao_predictor\\research\\price_strength\\quotes.py": "31e04a5b5739e1f13aa8c3339a0bb527dc3616decb2697aa9995ce69e0ee8889",
+    "docs\\continuation\\price_feasibility_2026-09-09\\run_offline.py": "f3593315b302bfe7ffa99fd902d972e54382651859ebf5e3bc6bf04b0e32e736"
+  },
+  "artifacts": {
+    "summary.json": "67d5eb3ae6f73801e247f59d9f29a1ce3e2eaa2aaf14d961ceb767a47ec93da3",
+    "events.json": "51ed364768eb1f0b108e759f8eb031e1f494b9b3e5f1238bd15ec88e2ec60e86",
+    "scanner_rejections.json": "7ec5240a69829597e74f249696a2e08075bce99d940004d4980b685bfa531c19"
+  },
+  "isolation": {
+    "network": "DENIED",
+    "subprocess": "DENIED",
+    "sqlite": "DENIED",
+    "repository_data": "DENIED",
+    "writes": "NEW_OUTPUT_ONLY",
+    "environment": "SYSTEM_ALLOWLIST"
+  },
+  "claims": {
+    "profitability_established": false,
+    "execution_proven": false,
+    "protected_cohorts_used": false
+  }
+}

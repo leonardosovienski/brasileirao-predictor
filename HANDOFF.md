@@ -1,5 +1,18 @@
 # HANDOFF.md — brasileirao-predictor
 
+> ## CHECKPOINT — PREÇO EXECUTÁVEL (09/09/2026)
+>
+> [Resultado da rodada](docs/continuation/price_feasibility_2026-09-09/RESULTADO.md).
+> Pesquisa offline no novo Windows, a partir de main f003045. Dos 380 jogos
+> de 2025, 374 têm odds 1X2 numéricas; nenhum tem contrato de preço suficiente
+> para replay executável. Três acessos públicos Football-Data retornaram 503.
+> Aumento necessário de cotação: mediana 7,83% sob referência proporcional
+> do próprio vetor e custo hipotético de 2%; não é oferta encontrada nem lucro.
+> 380 abstenções, nenhum label avaliado. 80 testes sintéticos e 1.870 relações
+> em conferência Decimal passaram. Lucro não demonstrado; fonte/execução são
+> o próximo gargalo. Coortes, dependências e operação protegidas preservadas.
+> Não restaurar credenciais/bancos/agendas automaticamente a partir do ZIP.
+
 > ## CHECKPOINT — CONSOLIDAÇÃO DA MAIN (08/09/2026)
 >
 > Evidências e limites: docs/continuation/main_consolidation_2026-09-08/RESULTADO.md.

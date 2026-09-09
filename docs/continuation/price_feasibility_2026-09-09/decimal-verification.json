@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "independence": "SEPARATE_IMPLEMENTATION_SAME_RESEARCHER",
+  "arithmetic": "decimal_45_digits",
+  "event_count": 380,
+  "valid_vectors": 374,
+  "equations_checked": 1870,
+  "labels_used": false,
+  "input_sha256": "14153f7cbb348e9eef22a8e1c438757b1ef482951e2576d4a8381d7928e8e142",
+  "verifier_sha256": "5e192465ac8caa061e060be74d32d9335cc8f04b565582722cf161d42b5f7cd6"
+}
