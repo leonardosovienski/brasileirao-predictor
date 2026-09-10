@@ -1,3 +1,5 @@
+**Atualização CLO-20260910:** oito grupos adicionais de falhas corrigidos;275 testes Python,27 Redis e127.NET aprovados. Mandato integral permanece aberto; dados comerciais insuficientes e lucro executável não demonstrado. [Resultado atual](closeout_2026-09-10/RESULTADO.md), [registro central](closeout_2026-09-10/REGISTROS.md), [continuação](closeout_2026-09-10/PROXIMO_PROMPT.md).
+
 # Estado vigente — CPL-20260910
 
 Correções verificadas em previsão, temporalidade, preços, contabilidade e infraestrutura.196 testes Python aprovados;27 com Redis real;119 casos.NET aprovados entre execuções separadas, com falha intermitente de inicialização preservada. Prontidão técnica delimitada; dados comerciais insuficientes; lucro executável não demonstrado. Mandato integral ainda em andamento:78 leituras semânticas registradas de450 arquivos inventariados,58 protegidos por contrato.

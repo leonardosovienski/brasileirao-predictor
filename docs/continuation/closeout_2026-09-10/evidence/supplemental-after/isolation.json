@@ -1,0 +1,17 @@
+{
+  "tests": [
+    "test_closeout_coverage.py",
+    "test_closeout_status.py",
+    "test_closeout_research_inputs.py",
+    "test_market_residual.py",
+    "test_pit_contextual_features.py",
+    "test_pit_features_scaffold.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

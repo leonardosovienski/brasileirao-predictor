@@ -1,0 +1,13 @@
+Leia integralmente o mandato original e PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md em C:/BRASILEIRAO/INSTRUCOES. Continue sozinho, sem agentes e mantendo tudo em C:/BRASILEIRAO. Esta entrega não encerra o mandato.
+
+Confira HEAD/status e AUDITORIA/VERIFICACAO_ADICIONAL_2026-09-10.json, RESULTADO.md, REGISTROS.json, mapas e inventário de docs/continuation/closeout_2026-09-10.275 testes Python,27 Redis e127.NET passaram nas últimas execuções; preserve as51 falhas Python/6.NET anteriores. A falha antiga de bootstrap não se repetiu, mas a causa continua desconhecida. Não repetir sucessos sem motivo concreto.
+
+Continue a cobertura semântica necessária por impacto, sem igualar inventário a leitura integral. Respeite a retirada de modelos/avaliações legadas da decisão econômica; não retune pesquisas negativas. Sucessores de schema latest-state/lineups/cache só se necessários ao caminho econômico e comprovadamente independentes de coletas protegidas. A revisão dos modelos residuais/artifacts ainda não equivale a homologação. O journal é manual e não certifica concorrência/custos/moeda histórica. Worker/feed comercial permanece exemplo sem dados e contrato admissíveis.
+
+Preserve H14/H15/H9/A1, resultados, avaliadores, claims, travas, agendas e dependências. Não altere db/ratings/model/xg/cron/identity/math_utils/A1, TheOddsApi/bookmaker_stability nem serving_evaluator misto. Não consulte resultados/coortes, não liquide nem execute avaliadores. Toda execução financeira é simulada, capital desabilitado.
+
+BE congelado:226 carteiras anônimas hipotéticas; modelo de gols reprovado. Próxima informação decisiva é oferta nominal/simultânea e condições verificáveis de preenchimento/custos. Nenhum novo experimento ou coleta sem protocolo prévio, plano/quota/custos/reservas. Não repetir lotes íntegros ou inferir recebimento histórico a partir de captura atual.
+
+Leia CONTINUIDADE DC antes de qualquer captura. Fixtureid1000032566887012, Pinnacle/bet365.bet.br, decisão11/09/2026 23UTC, kickoff12/09 00UTC. Janela22:58:30..<23UTC, helperinicial22:55..22:59:15, uma chamada limitada/reserva20/marcador anterior. Não antecipar, mudar horários/casas, duplicar automação completar-dados-do-brasileir-o nem capturar desfechos. A automação pertence à tarefa01a08756-2962-7c43-9773-c790cc81329d; o retorno da consulta foi só um cartão, sem prova textual de ACTIVE. Helpers preservados.
+
+Atualize registros/guias e produza backups verificáveis em cada integração. Não declare revisão integral, fonte admissível ou lucro sem prova no escopo correspondente. Continue o trabalho necessário, viável e autorizado.

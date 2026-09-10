@@ -1,17 +1,17 @@
-"""Fail-closed readiness checks for official football predictions."""
+"""Validate caller-declared chronology; do not authenticate prediction evidence."""
 
 from __future__ import annotations
 
 from datetime import UTC, datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, model_validator
 
 
 class PredictionReadinessInput(BaseModel):
     """Point-in-time evidence required before an official prediction is emitted."""
 
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
     prediction_kind: Literal["PRE_MATCH", "LIVE", "RETROSPECTIVE_SIMULATION"]
     event_id: str = Field(min_length=1)
@@ -25,16 +25,16 @@ class PredictionReadinessInput(BaseModel):
     historical_data_cutoff: datetime
     latest_training_match_kickoff: datetime
     latest_training_result_available_at: datetime
-    current_season_matches_included: int = Field(ge=0)
-    current_season_matches_available: int = Field(ge=0)
+    current_season_matches_included: StrictInt = Field(ge=0)
+    current_season_matches_available: StrictInt = Field(ge=0)
     lineup_captured_at: datetime | None = None
-    lineup_confirmed: bool | None = None
+    lineup_confirmed: StrictBool | None = None
     odds_captured_at: datetime | None = None
     live_observed_at: datetime | None = None
-    observed_minute: int | None = Field(default=None, ge=0, le=130)
-    current_score: tuple[int, int] | None = None
-    unvalidated_live_features_injected: bool = False
-    capital_enabled: bool = False
+    observed_minute: StrictInt | None = Field(default=None, ge=0, le=130)
+    current_score: tuple[StrictInt, StrictInt] | None = None
+    unvalidated_live_features_injected: StrictBool = False
+    capital_enabled: StrictBool = False
 
     @model_validator(mode="after")
     def validate_aware_datetimes(self) -> PredictionReadinessInput:
@@ -64,9 +64,11 @@ class ReadinessFinding(BaseModel):
 
 
 class PredictionReadinessReport(BaseModel):
-    protocol_version: Literal["prediction-readiness/1"] = "prediction-readiness/1"
+    protocol_version: Literal["prediction-readiness/2"] = "prediction-readiness/2"
     ready: bool
-    designation: Literal["OFFICIAL_PRE_MATCH", "OFFICIAL_LIVE", "RETROSPECTIVE_ONLY", "BLOCKED"]
+    designation: Literal["CONTRACT_PRE_MATCH", "CONTRACT_LIVE", "RETROSPECTIVE_ONLY", "BLOCKED"]
+    evidence_scope: Literal["CALLER_DECLARATIONS_ONLY"] = "CALLER_DECLARATIONS_ONLY"
+    provenance_verified: Literal[False] = False
     blockers: list[ReadinessFinding]
     warnings: list[ReadinessFinding]
     pre_match_evidence_eligible: bool
@@ -103,6 +105,14 @@ def assess_prediction_readiness(candidate: PredictionReadinessInput | dict[str, 
         block("TRAINING_MATCH_NOT_PRIOR", "every training match kickoff must be earlier than predicted_at")
     if _utc(item.latest_training_result_available_at) > predicted:
         block("RESULT_NOT_AVAILABLE", "a training result was not available at predicted_at")
+    if _utc(item.latest_training_result_available_at) > _utc(item.historical_data_cutoff):
+        block("RESULT_AFTER_DATA_CUTOFF", "a training result is later than the declared data cutoff")
+    if _utc(item.latest_training_result_available_at) < _utc(item.latest_training_match_kickoff):
+        block(
+            "RESULT_BEFORE_TRAINING_MATCH", "latest training result availability precedes the latest training kickoff"
+        )
+    if item.lineup_confirmed is True and item.lineup_captured_at is None:
+        block("CONFIRMED_LINEUP_WITHOUT_RECEIPT", "a confirmed lineup requires a capture timestamp")
     if item.current_season_matches_included != item.current_season_matches_available:
         block(
             "INCOMPLETE_CURRENT_HISTORY",
@@ -113,13 +123,13 @@ def assess_prediction_readiness(candidate: PredictionReadinessInput | dict[str, 
     if item.odds_captured_at and _utc(item.odds_captured_at) > predicted:
         block("FUTURE_ODDS", "odds capture is later than predicted_at")
 
-    designation: Literal["OFFICIAL_PRE_MATCH", "OFFICIAL_LIVE", "RETROSPECTIVE_ONLY", "BLOCKED"]
+    designation: Literal["CONTRACT_PRE_MATCH", "CONTRACT_LIVE", "RETROSPECTIVE_ONLY", "BLOCKED"]
     if item.prediction_kind == "PRE_MATCH":
         if predicted >= kickoff:
             block("POST_KICKOFF_PRE_MATCH", "a pre-match prediction must be frozen before kickoff")
         if item.lineup_confirmed is None:
             block("LINEUP_STATUS_UNKNOWN", "lineup_confirmed must be explicitly true or false")
-        designation = "OFFICIAL_PRE_MATCH"
+        designation = "CONTRACT_PRE_MATCH"
     elif item.prediction_kind == "LIVE":
         if predicted < kickoff:
             block("LIVE_BEFORE_KICKOFF", "a live prediction cannot precede kickoff")
@@ -127,9 +137,11 @@ def assess_prediction_readiness(candidate: PredictionReadinessInput | dict[str, 
             block("LIVE_STATE_MISSING", "live observed_at, minute and score are mandatory")
         elif _utc(item.live_observed_at) > predicted:
             block("FUTURE_LIVE_STATE", "live state is later than predicted_at")
+        elif _utc(item.live_observed_at) < kickoff:
+            block("LIVE_STATE_BEFORE_KICKOFF", "a live observation cannot precede kickoff")
         if item.unvalidated_live_features_injected:
             block("UNVALIDATED_LIVE_FEATURES", "live features without validated weights cannot enter the model")
-        designation = "OFFICIAL_LIVE"
+        designation = "CONTRACT_LIVE"
     else:
         designation = "RETROSPECTIVE_ONLY"
         warn("NOT_PROSPECTIVE", "simulation must never be reported as an official prospective prediction")
@@ -138,6 +150,10 @@ def assess_prediction_readiness(candidate: PredictionReadinessInput | dict[str, 
         warn("LINEUP_UNAVAILABLE", "prediction may run, but must declare that no point-in-time lineup was available")
     if item.odds_captured_at is None:
         warn("MARKET_UNAVAILABLE", "prediction may run, but no point-in-time market comparison is possible")
+    warn(
+        "PROVENANCE_UNVERIFIED",
+        "only caller declarations were checked; artifacts and source receipts were not authenticated",
+    )
     if blockers:
         designation = "BLOCKED"
     return PredictionReadinessReport(
@@ -145,6 +161,6 @@ def assess_prediction_readiness(candidate: PredictionReadinessInput | dict[str, 
         designation=designation,
         blockers=blockers,
         warnings=warnings,
-        pre_match_evidence_eligible=not blockers and designation == "OFFICIAL_PRE_MATCH",
+        pre_match_evidence_eligible=False,
         economic_evidence_eligible=False,
     )

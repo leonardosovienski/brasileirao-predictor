@@ -7,33 +7,53 @@ from brasileirao_predictor import db
 from brasileirao_predictor.ingest import ROOT, load_config
 
 
+def _percentage(count, total):
+    return f"{100 * count / total:.1f}%" if total else "N/A: universo vazio"
+
+
 def main():
     cfg = load_config()
     db_path = ROOT / cfg["database"]
     conn = db.connect(str(db_path), read_only=True)
+    try:
+        _render(conn)
+    finally:
+        conn.close()
+
+
+def _render(conn):
     cursor = conn.cursor()
 
     # Total de jogos do Sofascore (que já foram processados)
-    cursor.execute("SELECT COUNT(*) FROM sofascore_matches")
+    cursor.execute("SELECT COUNT(DISTINCT event_id) FROM sofascore_matches")
     total_sofascore = cursor.fetchone()[0]
 
     # Jogos com estatísticas (match_statistics)
-    cursor.execute("SELECT COUNT(DISTINCT event_id) FROM match_statistics")
+    cursor.execute(
+        "SELECT COUNT(DISTINCT event_id) FROM match_statistics "
+        "WHERE event_id IN (SELECT event_id FROM sofascore_matches)"
+    )
     stats_matches = cursor.fetchone()[0]
 
     # Jogos com odds 1X2 (em sofascore_matches)
     cursor.execute("""
-        SELECT COUNT(*) FROM sofascore_matches 
+        SELECT COUNT(DISTINCT event_id) FROM sofascore_matches
         WHERE odds_home IS NOT NULL AND odds_draw IS NOT NULL AND odds_away IS NOT NULL
     """)
     odds_1x2 = cursor.fetchone()[0]
 
     # Jogos com odds de cards (em odds_lines)
-    cursor.execute("SELECT COUNT(DISTINCT event_id) FROM odds_lines WHERE market='cards'")
+    cursor.execute(
+        "SELECT COUNT(DISTINCT event_id) FROM odds_lines WHERE market='cards' "
+        "AND event_id IN (SELECT event_id FROM sofascore_matches)"
+    )
     odds_cards = cursor.fetchone()[0]
 
     # Jogos com odds de corners (em odds_lines)
-    cursor.execute("SELECT COUNT(DISTINCT event_id) FROM odds_lines WHERE market='corners'")
+    cursor.execute(
+        "SELECT COUNT(DISTINCT event_id) FROM odds_lines WHERE market='corners' "
+        "AND event_id IN (SELECT event_id FROM sofascore_matches)"
+    )
     odds_corners = cursor.fetchone()[0]
 
     # Cobertura conjunta: jogos que têm estatísticas E odds de cards
@@ -41,7 +61,7 @@ def main():
         SELECT COUNT(DISTINCT ms.event_id)
         FROM match_statistics ms
         JOIN odds_lines ol ON ms.event_id = ol.event_id
-        WHERE ol.market = 'cards'
+        WHERE ol.market = 'cards' AND ms.event_id IN (SELECT event_id FROM sofascore_matches)
     """)
     stats_and_cards = cursor.fetchone()[0]
 
@@ -49,16 +69,16 @@ def main():
         SELECT COUNT(DISTINCT ms.event_id)
         FROM match_statistics ms
         JOIN odds_lines ol ON ms.event_id = ol.event_id
-        WHERE ol.market = 'corners'
+        WHERE ol.market = 'corners' AND ms.event_id IN (SELECT event_id FROM sofascore_matches)
     """)
     stats_and_corners = cursor.fetchone()[0]
 
     print("\n=== COBERTURA DE DADOS (apenas Sofascore) ===\n")
     print(f"Total de jogos no Sofascore:              {total_sofascore}")
-    print(f"Jogos com estatísticas (match_stats):     {stats_matches} ({stats_matches / total_sofascore * 100:.1f}%)")
-    print(f"Jogos com odds 1X2 (em sofascore_matches):{odds_1x2} ({odds_1x2 / total_sofascore * 100:.1f}%)")
-    print(f"Jogos com odds de CARDS (em odds_lines):  {odds_cards} ({odds_cards / total_sofascore * 100:.1f}%)")
-    print(f"Jogos com odds de CORNERS (em odds_lines):{odds_corners} ({odds_corners / total_sofascore * 100:.1f}%)")
+    print(f"Jogos com estatísticas (match_stats):     {stats_matches} ({_percentage(stats_matches, total_sofascore)})")
+    print(f"Jogos com odds 1X2 (em sofascore_matches):{odds_1x2} ({_percentage(odds_1x2, total_sofascore)})")
+    print(f"Jogos com odds de CARDS (em odds_lines):  {odds_cards} ({_percentage(odds_cards, total_sofascore)})")
+    print(f"Jogos com odds de CORNERS (em odds_lines):{odds_corners} ({_percentage(odds_corners, total_sofascore)})")
     print()
     print(
         f"Jogos com stats + odds cards:             {stats_and_cards} "
@@ -91,8 +111,6 @@ def main():
     """)
     for row in cursor.fetchall():
         print(f"{row[0]}: total={row[1]}, stats={row[2]}, cards_odds={row[3]}, corners_odds={row[4]}")
-
-    conn.close()
 
 
 if __name__ == "__main__":

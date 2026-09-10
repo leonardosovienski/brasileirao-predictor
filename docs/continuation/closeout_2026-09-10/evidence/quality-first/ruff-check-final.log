@@ -1,0 +1,45 @@
+E501 Line too long (122 > 120)
+  --> brasileirao_predictor\check_coverage.py:33:121
+   |
+31 |     # Jogos com estatísticas (match_statistics)
+32 |     cursor.execute(
+33 |         "SELECT COUNT(DISTINCT event_id) FROM match_statistics WHERE event_id IN (SELECT event_id FROM sofascore_matches)"
+   |                                                                                                                         ^^
+34 |     )
+35 |     stats_matches = cursor.fetchone()[0]
+   |
+
+E501 Line too long (135 > 120)
+  --> brasileirao_predictor\check_coverage.py:46:121
+   |
+44 |     # Jogos com odds de cards (em odds_lines)
+45 |     cursor.execute(
+46 |         "SELECT COUNT(DISTINCT event_id) FROM odds_lines WHERE market='cards' AND event_id IN (SELECT event_id FROM sofascore_matches)"
+   |                                                                                                                         ^^^^^^^^^^^^^^^
+47 |     )
+48 |     odds_cards = cursor.fetchone()[0]
+   |
+
+E501 Line too long (137 > 120)
+  --> brasileirao_predictor\check_coverage.py:52:121
+   |
+50 | …
+51 | …
+52 | … market='corners' AND event_id IN (SELECT event_id FROM sofascore_matches)"
+   |                                                            ^^^^^^^^^^^^^^^^^
+53 | …
+54 | …
+   |
+
+E501 Line too long (123 > 120)
+  --> tests\test_closeout_coverage.py:15:121
+   |
+13 |     conn = sqlite3.connect(path)
+14 |     conn.executescript("""
+15 |         CREATE TABLE sofascore_matches(event_id INTEGER, competition TEXT, odds_home REAL, odds_draw REAL, odds_away REAL);
+   |                                                                                                                         ^^^
+16 |         CREATE TABLE match_statistics(event_id INTEGER);
+17 |         CREATE TABLE odds_lines(event_id INTEGER, market TEXT);
+   |
+
+Found 4 errors.

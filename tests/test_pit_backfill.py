@@ -120,7 +120,9 @@ def test_closing_requires_valid_pre_kickoff_quote_and_versions_definition():
             "captured_at": "2024-05-01T21:00:00Z",
         },
     ]
+    rows = [{**row, "source": "fixture", "source_match_id": "m1", "period": "FT", "status": "ACTIVE"} for row in rows]
     close = choose_closing(rows, kickoff_at="2024-05-01T20:00:00Z", bookmaker="A", market="ou2.5", selection="over")
+    assert close is not None
     assert close["raw_odds"] == 2.1
     assert close["closing_definition_version"] == CLOSING_DEFINITION_VERSION
 

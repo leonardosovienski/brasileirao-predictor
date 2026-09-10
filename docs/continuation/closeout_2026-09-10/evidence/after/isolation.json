@@ -1,0 +1,20 @@
+{
+  "tests": [
+    "test_closeout_integrity.py",
+    "test_bet_log.py",
+    "test_bet_id.py",
+    "test_completion_ledger.py",
+    "test_info_stake_cap.py",
+    "test_pit_backfill.py",
+    "test_completion_pit_contracts.py",
+    "test_prediction_protocol.py",
+    "test_completion_math_consumer.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

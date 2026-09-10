@@ -1,0 +1,8 @@
+Execução de teste para C:\BRASILEIRAO\work\closeout-2026-09-10\runtime\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+Arquivo de resultados: C:\BRASILEIRAO\work\closeout-2026-09-10\runtime\dotnet-results\_LEO_2026-09-10_13_41_49_net10.0.trx
+
+Aprovado!  – Com falha:     0, Aprovado:   119, Ignorado:     0, Total:   119, Duração: 52 s - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\closeout-2026-09-10\runtime\dotnet-results\4f0af080-09b7-4156-a609-47f2fc668207\coverage.cobertura.xml

@@ -38,8 +38,10 @@ def candidate(**overrides):
 def test_pre_match_ready_with_explicit_probable_lineup():
     report = assess_prediction_readiness(candidate())
     assert report.ready
-    assert report.designation == "OFFICIAL_PRE_MATCH"
-    assert [warning.code for warning in report.warnings] == ["MARKET_UNAVAILABLE"]
+    assert report.designation == "CONTRACT_PRE_MATCH"
+    assert [warning.code for warning in report.warnings] == ["MARKET_UNAVAILABLE", "PROVENANCE_UNVERIFIED"]
+    assert not report.pre_match_evidence_eligible
+    assert not report.provenance_verified
 
 
 @pytest.mark.parametrize(
@@ -88,7 +90,7 @@ def test_live_ready_with_point_in_time_state():
         )
     )
     assert report.ready
-    assert report.designation == "OFFICIAL_LIVE"
+    assert report.designation == "CONTRACT_LIVE"
 
 
 def test_retrospective_is_never_designated_official():

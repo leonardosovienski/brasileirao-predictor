@@ -19,9 +19,14 @@ def _count(conn, sql, params=()):
 
 def run():
     cfg = load_config()
-    # db.connect, não sqlite3 cru: cria data/ se faltar (checkout limpo não
-    # quebra) e roda a migração de schema antes das queries de colunas novas.
-    conn = db.connect(str(ROOT / cfg["database"]))
+    conn = db.connect(str(ROOT / cfg["database"]), read_only=True)
+    try:
+        _render(conn, cfg)
+    finally:
+        conn.close()
+
+
+def _render(conn, cfg):
     line = "=" * 58
 
     print(line)
@@ -54,12 +59,14 @@ def run():
 
     elo = db.load_elo(conn)
     prow = db.load_params(conn)
+    cache_status = "empty"
     print("\n[cache do modelo]  -> serve a CLI e o simulador")
     if not elo or not prow:
         print("  vazio — rode `python -m brasileirao_predictor.cron_update_models`")
     else:
         a, b, alpha, rho, n_cached, cfg_hash, computed_at = prow
         fresh = cache_is_current(cfg, conn, prow)
+        cache_status = "fresh" if fresh else "stale"
         print(f"  {len(elo)} times | a={a:.3f} b={b:.3f} alpha={alpha:.4f} rho={rho:.4f}")
         print(f"  calculado em {computed_at} sobre {n_cached} jogos")
         print(f"  estado: {'atualizado' if fresh else 'DESATUALIZADO — rode o cron'}")
@@ -67,8 +74,9 @@ def run():
     bt = _count(conn, "SELECT COUNT(*) FROM backtest_bets")
     if bt:
         pnl = conn.execute("SELECT SUM(pnl), SUM(stake) FROM backtest_bets").fetchone()
-        print("\n[backtest]  -> Quality Gate do modelo")
-        print(f"  {bt} apostas liquidadas | P&L {pnl[0]:+.2f}u | ROI {pnl[0] / pnl[1]:+.1%}")
+        print("\n[backtest]  -> relato bruto; procedência e custos não certificados")
+        roi = f"{pnl[0] / pnl[1]:+.1%}" if pnl[0] is not None and pnl[1] is not None and pnl[1] > 0 else "N/A"
+        print(f"  {bt} apostas liquidadas | P&L {pnl[0]}u | ROI {roi}")
 
     emit_event(
         _DOMAIN,
@@ -80,7 +88,7 @@ def run():
             "backtest_bets": float(bt or 0),
         },
         metadata={
-            "model_cache": "fresh" if (elo and prow) else "empty",
+            "model_cache": cache_status,
             "db_path": str(ROOT / cfg["database"]),
         },
     )

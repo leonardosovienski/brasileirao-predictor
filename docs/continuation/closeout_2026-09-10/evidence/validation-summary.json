@@ -1,0 +1,40 @@
+{
+  "base": "9b8cde83f40565278375d343b658afaa385e235e",
+  "python_passed": 275,
+  "python_failures": 0,
+  "redis_python_passed": 27,
+  "dotnet_passed": 127,
+  "dotnet_failed": 0,
+  "dotnet_skipped": 0,
+  "dotnet_coverage": {
+    "line-rate": "0.8637",
+    "branch-rate": "0.8184999999999999"
+  },
+  "regressions_python_before": {
+    "failed": 51,
+    "passed": 1
+  },
+  "regressions_dotnet_before": {
+    "failed": 6,
+    "passed": 119
+  },
+  "prior_bootstrap_failure_cause": "undetermined; repeated full suites now passed; no production stability guarantee",
+  "quality_scope": [
+    "brasileirao_predictor/bet_log.py",
+    "brasileirao_predictor/check_coverage.py",
+    "brasileirao_predictor/data/pit_backfill.py",
+    "brasileirao_predictor/prediction_protocol.py",
+    "brasileirao_predictor/research/economic_decision.py",
+    "brasileirao_predictor/research/pit_features/contextual.py",
+    "brasileirao_predictor/research/pit_features/contracts.py",
+    "brasileirao_predictor/status.py",
+    "tests/test_closeout_coverage.py",
+    "tests/test_closeout_integrity.py",
+    "tests/test_closeout_research_inputs.py",
+    "tests/test_closeout_status.py",
+    "tests/test_pit_backfill.py",
+    "tests/test_prediction_protocol.py"
+  ],
+  "full_semantic_review": false,
+  "profitability_established": false
+}

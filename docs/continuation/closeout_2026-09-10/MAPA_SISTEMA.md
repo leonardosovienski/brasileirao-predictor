@@ -1,0 +1,38 @@
+# Mapa real e decisões CPL
+
+| Subsistema/caminhos | Entradas → saídas / consumidores | Estado e decisão | Evidência/limite |
+| --- | --- | --- | --- |
+| ingest, Sofascore/FBref, db, ratings, cron_update_models, model/xg | Resultados/estatísticas → DB/Elo/parâmetros → serving e pesquisa | Legado compartilhado preservado; fora da validação econômica | Revisões podem herdar relógio; cache por contagem não prova conteúdo; restauração operacional vedada |
+| predict, display, prever, prediction_log | Modelo+consulta agregada → diagnóstico e log | Corrigidos RO, cálculo único, data, parâmetros/log obrigatório; uso exploratório |196 testes Python delimitados; prontidão declarada não é procedência autenticada |
+| event_models, dixon_coles, market_pricer, simulator | Contagens/grade → probabilidades/settlement sintético | Convolução NB e contratos de massa/linha corrigidos; sem retuning | Histórico de eventos sem features PIT completas não admite evidência econômica |
+| data/api_football_provider, sportmonks_provider | Resposta opt-in → linhas shadow | Publicação desconhecida, UTC e paginação corrigidos | Adaptadores de cobertura; sem coleta autenticada/recibo real novo |
+| data/the_odds_api_provider | API → observações usadas também pelo H9 | Preservado; sucessor separado necessário | Legado aceita pós-kickoff como elegível no teste; não promovido |
+| data/odds_api_snapshot | Raw explícito+SHA+recibo → envelope completo/vazio/inválido, ABSTAIN | Novo consumidor puro e CLI | Sem rede, DB, credenciais ou execução; pacote/CLI verificados |
+| bitemporal_store, pit_backfill | Observações com clocks → consulta por corte/charter | Conflitos/PK, UTC, bootstrap/HHI e raw exclusivo corrigidos | Banco antigo não é migrado automaticamente; curated latest-state não conserva todas as revisões |
+| bookmaker_odds, market_anchor, lineup_archive/residual_features | Snapshots/linhas → diagnóstico/feature | Referência independente opcional e vintages de escalação corrigidos | Arquivo plano de escalações não preserva envelope vazio; imputações legadas não certificadas. Fora do caminho econômico escolhido |
+| bet_log, settle | Relato manual → liquidação/lista/banca brutas | ID e valores corrigidos; manter manual/experimental | Não reconcilia custos reais, câmbio, unidade histórica ou concorrência de journal; não é ledger de apostas aceitas |
+| research/price_strength, economic_search | Arquivos explícitos e protocolos → pesquisa/abstenção/artefatos | Caminho econômico independente mantido; BE congelado | Não usa model/DB operacional; nova pesquisa exige protocolo prévio; não rodar study com coortes |
+| Demais research e brasileirao_scripts de experimentos | Bases/folds/config históricos → relatórios | Exploratórios/congelados; manter histórico fora da decisão ativa | Inventário/estática e leitura pontual, sem afirmar revisão semântica de cada script nem reabrir seus resultados |
+| Worker/.NET/VORP/MarketOddsCache | Inbox Redis+artefatos+feed exemplo → estado/kernel/sinal | Protocolo testado; feed/modelo comerciais não homologados | Elo1500 fixo, posição UNKNOWN, fallback VORP/default; não fornecem validade econômica |
+| MarketStateEngine/KernelContracts/LatencyRecord | Odds modelo/mercado → sinal simulado | Domínio Kelly/finitude/futuro e rotulagem corrigidos; unsubscribe na parada |119 casos únicos em execuções separadas; instabilidade de inicialização permanece |
+| kernel_daemon/kernel_message/kernel_redis_v2 | Request com identidade/fence → fair odds/ready | IE preservado, integração exercitada |27 Redis;1 cross-process final passou; bootstrap instrumentado |
+| Dockerfiles/compose/init_compose_data | Build+config+volumes → demo kernel/worker | Init recusa volumes; imagem Redis alinhada à CI por digest | Sem Docker/Podman instalado; Compose não executado; Windows Redis comunitário não homologa imagem Linux |
+| packaging/CI/.NET csproj/uv.lock | Fontes/deps fixadas → wheel/sdist/binários | Build local e instalação específica; CI histórica separada | SDK/Python/deps C:/BRASILEIRAO; Git, PowerShell, Windows e Codex são dependências externas inevitáveis |
+| backup_restore e migração | SQLite/arquivos → backup/restauração | Implementação inspecionada; operação protegida não executada | Entrega Git/ZIP é verificada separadamente; não confundir com restauração dos5 snapshots operacionais |
+| ecosystem_plugin | Metadados → registro de domínio | Adapter parcial; health WAITING/sem promoção | Capabilities descritivas não provam execução de jobs |
+| H14/H15/H9/A1, governança, operacional_readiness, serving_evaluator misto | Contratos/metadados protegidos | Preservados; sem execução/renovação/settlement |58 arquivos delimitados; funções _canon/_market_probs/persist_market_observations inalteradas por AST |
+| Automação DC e helpers externos ao Git | Janela congelada → tentativa/recibo futuro | Preservados e não duplicados | UI view sem estado legível; SHA helpers conferido; sucesso futuro depende de recibo |
+
+O inventário por arquivo registra SHA, tamanho, profundidade efetiva e import contracts iniciais. Não há frontend web de aplicação encontrado no inventário; a interface existente é CLI/JSON. A decisão de manter módulos antigos fora do caminho econômico não apaga seus defeitos ou equivale a validá-los. A cobertura semântica adicional permanece trabalho de continuação.
+
+Benefício das correções: rejeitar dados/estados inválidos antes da decisão e impedir apresentação de diagnóstico como prontidão financeira. Alternativa rejeitada: alterar coletores compartilhados ou reavaliar coortes para fechar a revisão, porque violaria o mandato. Sucessor puro e testes sintéticos fornecem a correção utilizável sem mudar a coleta protegida.
+
+## Atualização CLO
+
+O mapa CPL acima é contexto datado; os registros CLO são o estado atual. Status/coverage passam a ser consumidores RO com fechamento garantido, denominadores no mesmo universo e saída N/A para vazio. Livro reconcilia IDs/valores e não consulta automaticamente fechamento. Readiness/v2 verifica declarações, sem selo oficial. Gate shadow valida domínio finito e features contextuais recusam coerções/recibos tardios. Auditoria.NET tem retenção, percentis de universo atômico e atualização condicionada ao recibo lido.
+
+Inspeções adicionais: kernel_message é parser puro sem I/O no import; WorkerHealth verifica duas funções/mesma sessão e TTL; WatchdogStateStore usa CAS e tempo do Redis. LatencyAuditService alocava strings/JSON apesar do comentário contrário; comentário corrigido. O protocolo não autentica a fonte comercial.
+
+evaluator/backtest/bootstrap legados: cortes por kickoff não comprovam publicação/recepção de labels; predicted_at derivado do último jogo não é horário real de treino. Shin é uma estimativa de margem, não probabilidade verdadeira, e é dependência A1 preservada. Não reavaliados nem admitidos para lucro. calibration_gate/residual_gate e modelos residuais continuam exploração; GO declaratório/intervalos de modelo não autenticam artefatos/custos nem valem como holdout novo. Features absences/lineup/xG/home-advantage são declarações, não modelos implantados.
+
+Decisões: manter caminho BE congelado para investigação de preço; corrigir consumidores/contratos; manter coletas compartilhadas intocadas; não investir em outro tuning antes de resolver a procedência comercial. Pendências preservadas: schema latest-state/cache compartilhado, envelope vazio de escalações, feed exemplo, Elo1500/UNKNOWN no Worker, custos/fills desconhecidos e cobertura semântica global parcial. Essas áreas não estão homologadas.

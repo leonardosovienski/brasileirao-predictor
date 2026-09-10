@@ -1,0 +1,21 @@
+{
+  "base": "9b8cde83f40565278375d343b658afaa385e235e",
+  "protected_files_modified": [],
+  "preserved_shared_or_frozen_files": [
+    "brasileirao_predictor/db.py",
+    "brasileirao_predictor/ratings.py",
+    "brasileirao_predictor/model.py",
+    "brasileirao_predictor/xg_model.py",
+    "brasileirao_predictor/cron_update_models.py",
+    "brasileirao_predictor/identity.py",
+    "brasileirao_predictor/data/the_odds_api_provider.py",
+    "brasileirao_predictor/data/bookmaker_stability.py",
+    "brasileirao_predictor/research/price_strength/economic_search.py"
+  ],
+  "protected_files": 59,
+  "cohort_evaluators_executed": false,
+  "operational_data_read": false,
+  "metered_or_authenticated_calls": 0,
+  "new_market_prices": 0,
+  "new_market_performance": false
+}

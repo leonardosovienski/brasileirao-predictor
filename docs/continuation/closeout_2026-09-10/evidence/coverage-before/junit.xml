@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="9.950" timestamp="2026-09-10T13:38:05.050026-03:00" hostname="Leo"><testcase classname="tests.test_closeout_coverage" name="test_coverage_uses_event_intersections_and_handles_empty_universe[True]" time="0.077"><failure message="ZeroDivisionError: division by zero">..\..\..\brasileirao-predictor\tests\test_closeout_coverage.py:27: in test_coverage_uses_event_intersections_and_handles_empty_universe
+    check_coverage.main()
+..\..\..\brasileirao-predictor\brasileirao_predictor\check_coverage.py:58: in main
+    print(f"Jogos com estatísticas (match_stats):     {stats_matches} ({stats_matches / total_sofascore * 100:.1f}%)")
+                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ZeroDivisionError: division by zero</failure></testcase><testcase classname="tests.test_closeout_coverage" name="test_coverage_uses_event_intersections_and_handles_empty_universe[False]" time="0.061"><failure message="AssertionError: assert '300.0%' not in '\n=== COBER...ers_odds=0\n'&#10;  &#10;  '300.0%' is contained here:&#10;    ):     3 (300.0%)&#10;  ?           ++++++&#10;    Jogos com odds 1X2 (em sofascore_matches):1 (100.0%)&#10;    Jogos com odds de CARDS (em odds_lines):  3 (300.0%)&#10;    Jogos com odds de CORNERS (em odds_lines):0 (0.0%)...&#10;  &#10;  ...Full output truncated (6 lines hidden), use '-vv' to show">..\..\..\brasileirao-predictor\tests\test_closeout_coverage.py:33: in test_coverage_uses_event_intersections_and_handles_empty_universe
+    assert "300.0%" not in output
+E   AssertionError: assert '300.0%' not in '\n=== COBER...ers_odds=0\n'
+E     
+E     '300.0%' is contained here:
+E       ):     3 (300.0%)
+E     ?           ++++++
+E       Jogos com odds 1X2 (em sofascore_matches):1 (100.0%)
+E       Jogos com odds de CARDS (em odds_lines):  3 (300.0%)
+E       Jogos com odds de CORNERS (em odds_lines):0 (0.0%)...
+E     
+E     ...Full output truncated (6 lines hidden), use '-vv' to show</failure></testcase></testsuite></testsuites>

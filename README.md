@@ -1,5 +1,7 @@
 # brasileirao-predictor
 
+**Atualização CLO-20260910:** oito grupos adicionais de falhas corrigidos;275 testes Python,27 Redis e127.NET aprovados. Mandato integral permanece aberto; dados comerciais insuficientes e lucro executável não demonstrado. [Resultado atual](docs/continuation/closeout_2026-09-10/RESULTADO.md), [registro central](docs/continuation/closeout_2026-09-10/REGISTROS.md), [continuação](docs/continuation/closeout_2026-09-10/PROXIMO_PROMPT.md).
+
 Pesquisa quantitativa e software para o Brasileirão Série A, em C:/BRASILEIRAO.
 
 **Continuação CPL-20260910:** contratos de dados/previsão, contabilidade e .NET corrigidos. A revisão integral permanece em andamento; lucro executável não demonstrado. [Resultado atual](docs/continuation/completion_2026-09-10/RESULTADO.md), [correções/limites](docs/continuation/completion_2026-09-10/REGISTROS.md) e [continuação](docs/continuation/completion_2026-09-10/PROXIMO_PROMPT.md).

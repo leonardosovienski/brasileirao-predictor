@@ -5,7 +5,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any, Literal, Protocol, runtime_checkable
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, model_validator
 
 FeatureFamily = Literal[
     "absences",
@@ -63,6 +63,8 @@ class PITFeatureEvidence(BaseModel):
             raise ValueError("ingested_at cannot precede available_at")
         if self.available_at >= self.kickoff_at:
             raise ValueError("feature information must be available strictly before kickoff")
+        if self.ingested_at >= self.kickoff_at:
+            raise ValueError("pre-match feature receipt must be strictly before kickoff")
         return self
 
     def assert_matches(self, declaration: FeatureDeclaration) -> None:
@@ -87,14 +89,14 @@ class PITFeatureExtractor(Protocol):
 class ExternalResearchGate(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
-    phase0b_go: bool = False
-    live_viability_go: bool = False
+    phase0b_go: StrictBool = False
+    live_viability_go: StrictBool = False
     evidence_reference: str | None = None
 
 
 def assert_training_unlocked(gate: ExternalResearchGate) -> None:
-    """Training remains impossible until one external workstream produces GO."""
+    """Check a declared GO and reference; this does not authenticate the referenced evidence."""
     if not (gate.phase0b_go or gate.live_viability_go):
         raise RuntimeError("PIT feature training blocked until Phase 0B or live viability produces GO")
-    if not gate.evidence_reference:
+    if not gate.evidence_reference or not gate.evidence_reference.strip():
         raise RuntimeError("training GO requires an immutable evidence reference")

@@ -1,0 +1,62 @@
+[
+  {
+    "path": "pyproject.toml",
+    "bytes": 2043,
+    "sha256": "f97489402fb979acad93cfeca7c71d07885e6a11402d260dfc7540f1fdc42427",
+    "review": "semantic_contract_review_no_deployment"
+  },
+  {
+    "path": "compose.yaml",
+    "bytes": 2191,
+    "sha256": "f244416c0e27bbfd7c45246c1bc50a16f40390b1c0aa3557c22d0e3fd365e05c",
+    "review": "semantic_contract_review_no_deployment"
+  },
+  {
+    "path": "Dockerfile.cli",
+    "bytes": 1356,
+    "sha256": "5b21edb5fd5208b90b7df9352f7ab78ab860b84f1c56ac3bf097ad3c25caa0e0",
+    "review": "semantic_contract_review_no_deployment"
+  },
+  {
+    "path": "Dockerfile.kernel",
+    "bytes": 1397,
+    "sha256": "7cf4e81086b7e0e3645133bd22c7054ea4331c92d6735d51b75ffb08303e63b7",
+    "review": "semantic_contract_review_no_deployment"
+  },
+  {
+    "path": "Dockerfile.worker",
+    "bytes": 563,
+    "sha256": "c0d96bd8d52d64b9937eb14feeaaeeaf598386221abd5c901762d6aed698f6ba",
+    "review": "semantic_contract_review_no_deployment"
+  },
+  {
+    "path": ".dockerignore",
+    "bytes": 824,
+    "sha256": "72538a3d8b3b274c2d086e4acd4177ce9a0be5c1061d2977c5bd6c94784c32fe",
+    "review": "semantic_contract_review_no_deployment"
+  },
+  {
+    "path": ".github/workflows/ci.yml",
+    "bytes": 8695,
+    "sha256": "1d9468d829cc1c95c05507c7d29047e0f5a1d86f4915bab823d160abcc392486",
+    "review": "semantic_contract_review_no_deployment"
+  },
+  {
+    "path": ".github/dependabot.yml",
+    "bytes": 873,
+    "sha256": "88097fc9f02a24b4d28e7748bb6e648b16a95c2cc12ee7bb724b03c563dd768d",
+    "review": "semantic_contract_review_no_deployment"
+  },
+  {
+    "path": "contracts/redis-protocol-v2.schema.json",
+    "bytes": 1421,
+    "sha256": "fc5d99aee7d2db44880505a0e0558e2fd0668f68d67d1f4d9ac19bd93a61dbe9",
+    "review": "semantic_contract_review_no_deployment"
+  },
+  {
+    "path": "contracts/redis-fair-odds-v2.schema.json",
+    "bytes": 1054,
+    "sha256": "52e8db828a455a707b32fed96d93d9f598926e6b082ff8c443ccd139263d6654",
+    "review": "semantic_contract_review_no_deployment"
+  }
+]

@@ -1,0 +1,4 @@
+c:\BRASILEIRAO\brasileirao-predictor\tests\test_pit_backfill.py
+  c:\BRASILEIRAO\brasileirao-predictor\tests\test_pit_backfill.py:125:12 - error: Object of type "None" is not subscriptable (reportOptionalSubscript)
+  c:\BRASILEIRAO\brasileirao-predictor\tests\test_pit_backfill.py:126:12 - error: Object of type "None" is not subscriptable (reportOptionalSubscript)
+2 errors, 0 warnings, 0 informations

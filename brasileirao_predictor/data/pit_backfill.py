@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import sqlite3
 import uuid
 from collections.abc import Iterable
@@ -22,11 +23,11 @@ from predictor_core.data.contracts import DataUnavailableError
 
 RAW_SCHEMA_VERSION = "pit-raw/1.0"
 CURATED_SCHEMA_VERSION = "pit-curated/1.0"
-CLOSING_DEFINITION_VERSION = "closing-v1:last-valid-pre-kickoff-by-bookmaker"
+CLOSING_DEFINITION_VERSION = "closing-v2:last-observed-state-single-contract"
 MAPPING_VERSION = "brasileirao-club-aliases/1.0"
 
 SOURCE_REGISTER = {
-    "sofascore": {"status": "SOURCE_ACCEPTED", "economic": True},
+    "sofascore": {"status": "SOURCE_REQUIRES_TEMPORAL_ADMISSION", "economic": False},
     "api_football": {"status": "SOURCE_QUARANTINED", "economic": False},
     "sportmonks": {"status": "SOURCE_PENDING_REVIEW", "economic": False},
 }
@@ -354,8 +355,13 @@ def curate_odds(
         raise ValueError("raw_odds inválida")
     if available > captured or captured >= kickoff:
         raise ValueError("odd não é pré-evento ou available_at posterior à captura")
+    if observed > captured:
+        raise ValueError("observed_at posterior à captura")
+    published = None
     if row.get("published_at") is not None:
-        _utc(row["published_at"], "published_at")
+        published = _utc(row["published_at"], "published_at")
+        if published > captured:
+            raise ValueError("published_at posterior à captura")
     payload = {
         **row,
         "canonical_match_id": canonical_match_id,
@@ -370,7 +376,7 @@ def curate_odds(
             canonical_match_id,
             kickoff.isoformat(),
             observed.isoformat(),
-            row.get("published_at"),
+            published.isoformat() if published is not None else None,
             available.isoformat(),
             captured.isoformat(),
             row["bookmaker"],
@@ -399,25 +405,58 @@ def choose_closing(
     selection: str,
     max_window_hours: float = 72.0,
 ) -> dict[str, Any] | None:
-    """Última cotação válida antes do kickoff, com janela explícita."""
+    """Último estado observado de um único contrato; nunca prova execução.
+
+    O chamador deve separar fonte, evento, período e linha. Identidade ausente
+    ou misturada é erro. Estado final inválido, desconhecido ou conflitante
+    implica abstenção, sem procurar uma cotação ativa anterior.
+    """
+    if (
+        isinstance(max_window_hours, bool)
+        or not isinstance(max_window_hours, (int, float))
+        or not math.isfinite(max_window_hours)
+        or max_window_hours <= 0
+    ):
+        raise ValueError("janela deve ser positiva e finita")
     kickoff = _utc(kickoff_at, "kickoff_at")
     candidates = []
+    identities = set()
     for row in rows:
-        if (
-            row.get("bookmaker") != bookmaker
-            or row.get("market") != market
-            or row.get("selection") != selection
-            or not valid_price(row.get("raw_odds"))
-        ):
+        if row.get("bookmaker") != bookmaker or row.get("market") != market or row.get("selection") != selection:
             continue
         captured = _utc(row.get("captured_at"), "captured_at")
         if captured >= kickoff or (kickoff - captured).total_seconds() > max_window_hours * 3600:
             continue
+        required = ("source", "source_match_id", "period")
+        if any(not isinstance(row.get(field), str) or not row[field].strip() for field in required):
+            raise ValueError("closing requer identidade, fonte e período explícitos")
+        identities.add(
+            tuple(row.get(field) for field in ("source", "source_match_id", "canonical_match_id", "line", "period"))
+        )
         candidates.append((captured, row))
+    if len(identities) > 1:
+        raise ValueError("closing mistura eventos, fontes ou contratos")
     if not candidates:
         return None
-    _, chosen = max(candidates, key=lambda item: item[0])
-    return {**chosen, "is_closing": 1, "closing_definition_version": CLOSING_DEFINITION_VERSION}
+    latest = max(captured for captured, _ in candidates)
+    states = [row for captured, row in candidates if captured == latest]
+    signatures = {(row.get("raw_odds"), row.get("status"), row.get("data_quality_status", "OK")) for row in states}
+    if len(signatures) != 1:
+        return None
+    chosen = states[0]
+    if (
+        not valid_price(chosen.get("raw_odds"))
+        or chosen.get("status") != "ACTIVE"
+        or chosen.get("data_quality_status", "OK") != "OK"
+    ):
+        return None
+    return {
+        **chosen,
+        "is_closing": 1,
+        "closing_definition_version": CLOSING_DEFINITION_VERSION,
+        "closing_scope": "last_observed_state_not_commercial_closing",
+        "economic_evidence_eligible": False,
+    }
 
 
 def pit_eligible(*, available_at: str, predicted_at: str, kickoff_at: str) -> bool:

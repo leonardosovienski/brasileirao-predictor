@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import asdict, dataclass
+from numbers import Real
 
 from brasileirao_predictor.research.market_residual import ResidualPrediction
 
@@ -18,6 +20,8 @@ class ShadowDecision:
     stake_units: float
     scientific_state: str = "SHADOW"
     capital_enabled: bool = False
+    stake_basis: str = "fraction_of_reference_bankroll"
+    economic_evidence_eligible: bool = False
 
     def to_dict(self):
         return asdict(self)
@@ -33,6 +37,24 @@ def decide_shadow(
     friction_rate: float = 0.0,
     selection: str = "over",
 ) -> ShadowDecision:
+    values = (
+        best_odds,
+        minimum_conservative_edge,
+        kelly_fraction,
+        maximum_stake_units,
+        friction_rate,
+        prediction.probability,
+        prediction.lower_probability,
+        prediction.upper_probability,
+        prediction.market_probability,
+        prediction.residual_log_odds,
+    )
+    if any(isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value) for value in values):
+        raise ValueError("economic inputs must be finite numbers")
+    if not 0 <= prediction.lower_probability <= prediction.probability <= prediction.upper_probability <= 1:
+        raise ValueError("invalid probability bounds")
+    if not 0 < prediction.market_probability < 1 or not 0 <= kelly_fraction <= 1 or maximum_stake_units < 0:
+        raise ValueError("invalid probability or stake policy")
     if best_odds <= 1 or not 0 <= minimum_conservative_edge < 1 or not 0 <= friction_rate < 1:
         raise ValueError("invalid economic policy")
     if selection not in {"over", "under"}:
@@ -57,7 +79,9 @@ def decide_shadow(
     full_kelly = max(0.0, conservative_ev / (win_payoff * loss_amount))
     stake = min(maximum_stake_units, kelly_fraction * full_kelly)
     # Candidate remains shadow-only even when it would have selected a quote.
-    return ShadowDecision("SHADOW_BET", selection, ev, conservative_ev, best_odds, friction_rate, stake)
+    return ShadowDecision(
+        "SHADOW_BET" if stake > 0 else "NO_BET", selection, ev, conservative_ev, best_odds, friction_rate, stake
+    )
 
 
 def choose_shadow_side(

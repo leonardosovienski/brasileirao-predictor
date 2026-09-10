@@ -1,0 +1,8 @@
+{
+  "verified_at": "2026-09-10T17:32:18.262265+00:00",
+  "inspected": "C:/Users/leona/.codex/automations/completar-dados-do-brasileir-o/automation.toml",
+  "exists": false,
+  "interpretation": "Expected local TOML absent; does not prove absence of the app heartbeat. Prior view only rendered a card.",
+  "automation_modified": false,
+  "active_execution_verified": false
+}

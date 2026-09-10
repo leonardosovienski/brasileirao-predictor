@@ -1,0 +1,122 @@
+{
+  "files": [
+    "brasileirao_predictor/bet_log.py",
+    "brasileirao_predictor/check_coverage.py",
+    "brasileirao_predictor/data/pit_backfill.py",
+    "brasileirao_predictor/prediction_protocol.py",
+    "brasileirao_predictor/research/economic_decision.py",
+    "brasileirao_predictor/research/pit_features/contextual.py",
+    "brasileirao_predictor/research/pit_features/contracts.py",
+    "brasileirao_predictor/status.py",
+    "tests/test_closeout_coverage.py",
+    "tests/test_closeout_integrity.py",
+    "tests/test_closeout_research_inputs.py",
+    "tests/test_closeout_status.py",
+    "tests/test_pit_backfill.py",
+    "tests/test_prediction_protocol.py"
+  ],
+  "commands": [
+    {
+      "name": "ruff-fix",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "check",
+        "--fix",
+        "brasileirao_predictor/bet_log.py",
+        "brasileirao_predictor/check_coverage.py",
+        "brasileirao_predictor/data/pit_backfill.py",
+        "brasileirao_predictor/prediction_protocol.py",
+        "brasileirao_predictor/research/economic_decision.py",
+        "brasileirao_predictor/research/pit_features/contextual.py",
+        "brasileirao_predictor/research/pit_features/contracts.py",
+        "brasileirao_predictor/status.py",
+        "tests/test_closeout_coverage.py",
+        "tests/test_closeout_integrity.py",
+        "tests/test_closeout_research_inputs.py",
+        "tests/test_closeout_status.py",
+        "tests/test_pit_backfill.py",
+        "tests/test_prediction_protocol.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "ruff-format",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "format",
+        "brasileirao_predictor/bet_log.py",
+        "brasileirao_predictor/check_coverage.py",
+        "brasileirao_predictor/data/pit_backfill.py",
+        "brasileirao_predictor/prediction_protocol.py",
+        "brasileirao_predictor/research/economic_decision.py",
+        "brasileirao_predictor/research/pit_features/contextual.py",
+        "brasileirao_predictor/research/pit_features/contracts.py",
+        "brasileirao_predictor/status.py",
+        "tests/test_closeout_coverage.py",
+        "tests/test_closeout_integrity.py",
+        "tests/test_closeout_research_inputs.py",
+        "tests/test_closeout_status.py",
+        "tests/test_pit_backfill.py",
+        "tests/test_prediction_protocol.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "ruff-check",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "check",
+        "brasileirao_predictor/bet_log.py",
+        "brasileirao_predictor/check_coverage.py",
+        "brasileirao_predictor/data/pit_backfill.py",
+        "brasileirao_predictor/prediction_protocol.py",
+        "brasileirao_predictor/research/economic_decision.py",
+        "brasileirao_predictor/research/pit_features/contextual.py",
+        "brasileirao_predictor/research/pit_features/contracts.py",
+        "brasileirao_predictor/status.py",
+        "tests/test_closeout_coverage.py",
+        "tests/test_closeout_integrity.py",
+        "tests/test_closeout_research_inputs.py",
+        "tests/test_closeout_status.py",
+        "tests/test_pit_backfill.py",
+        "tests/test_prediction_protocol.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "ruff-format-check",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "format",
+        "--check",
+        "brasileirao_predictor/bet_log.py",
+        "brasileirao_predictor/check_coverage.py",
+        "brasileirao_predictor/data/pit_backfill.py",
+        "brasileirao_predictor/prediction_protocol.py",
+        "brasileirao_predictor/research/economic_decision.py",
+        "brasileirao_predictor/research/pit_features/contextual.py",
+        "brasileirao_predictor/research/pit_features/contracts.py",
+        "brasileirao_predictor/status.py",
+        "tests/test_closeout_coverage.py",
+        "tests/test_closeout_integrity.py",
+        "tests/test_closeout_research_inputs.py",
+        "tests/test_closeout_status.py",
+        "tests/test_pit_backfill.py",
+        "tests/test_prediction_protocol.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "pyright",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\tools\\node.exe",
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Lib\\site-packages\\pyright\\dist\\index.js",
+        "--pythonpath",
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "--project",
+        "C:\\BRASILEIRAO\\work\\closeout-2026-09-10\\pyright.json"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+Execução de teste para C:\BRASILEIRAO\work\closeout-2026-09-10\latency-before\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:01.47]     LineupWorker.Tests.WorkerRuntimeTests.AuditRejectsInvalidBudget(value: "NaN") [FAIL]
+[xUnit.net 00:00:01.48]     LineupWorker.Tests.WorkerRuntimeTests.AuditRejectsInvalidBudget(value: "-1") [FAIL]
+[xUnit.net 00:00:01.49]     LineupWorker.Tests.WorkerRuntimeTests.AuditRejectsInvalidBudget(value: "0") [FAIL]
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.AuditRejectsInvalidBudget(value: "NaN") [8 ms]
+  Mensagem de erro:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.ArgumentOutOfRangeException)
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.AuditRejectsInvalidBudget(String value) in C:\BRASILEIRAO\work\closeout-2026-09-10\latency-before\source\dotnet\LineupWorker.Tests\LatencyAuditIntegrityTests.cs:line 64
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.AuditRejectsInvalidBudget(value: "-1") [< 1 ms]
+  Mensagem de erro:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.ArgumentOutOfRangeException)
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.AuditRejectsInvalidBudget(String value) in C:\BRASILEIRAO\work\closeout-2026-09-10\latency-before\source\dotnet\LineupWorker.Tests\LatencyAuditIntegrityTests.cs:line 64
+   at InvokeStub_WorkerRuntimeTests.AuditRejectsInvalidBudget(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.AuditRejectsInvalidBudget(value: "0") [< 1 ms]
+  Mensagem de erro:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.ArgumentOutOfRangeException)
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.AuditRejectsInvalidBudget(String value) in C:\BRASILEIRAO\work\closeout-2026-09-10\latency-before\source\dotnet\LineupWorker.Tests\LatencyAuditIntegrityTests.cs:line 64
+   at InvokeStub_WorkerRuntimeTests.AuditRejectsInvalidBudget(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:14.29]     LineupWorker.Tests.WorkerRuntimeTests.AuditRetainsNewestRecordsInsteadOfAllHistory [FAIL]
+[xUnit.net 00:00:14.36]     LineupWorker.Tests.WorkerRuntimeTests.MarketReadBeforeTheWriteCannotEnterAudit [FAIL]
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.AuditRetainsNewestRecordsInsteadOfAllHistory [76 ms]
+  Mensagem de erro:
+   Assert.Equal() Failure: Values are not within 3 decimal places
+Expected: 20 (rounded from 20)
+Actual:   2 (rounded from 2)
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.AuditRetainsNewestRecordsInsteadOfAllHistory() in C:\BRASILEIRAO\work\closeout-2026-09-10\latency-before\source\dotnet\LineupWorker.Tests\LatencyAuditIntegrityTests.cs:line 29
+--- End of stack trace from previous location ---
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.MarketReadBeforeTheWriteCannotEnterAudit [21 ms]
+  Mensagem de erro:
+   Assert.Null() Failure: Value of type 'Nullable<DateTimeOffset>' has a value
+Expected: null
+Actual:   2026-09-10T16:52:39.9691926+00:00
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.MarketReadBeforeTheWriteCannotEnterAudit() in C:\BRASILEIRAO\work\closeout-2026-09-10\latency-before\source\dotnet\LineupWorker.Tests\LatencyAuditIntegrityTests.cs:line 53
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:27.85]     LineupWorker.Tests.WorkerRuntimeTests.AuditExpiresItsWindowEvenWithoutNewRecords [FAIL]
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.AuditExpiresItsWindowEvenWithoutNewRecords [1 s]
+  Mensagem de erro:
+   Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   10
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.AuditExpiresItsWindowEvenWithoutNewRecords() in C:\BRASILEIRAO\work\closeout-2026-09-10\latency-before\source\dotnet\LineupWorker.Tests\LatencyAuditIntegrityTests.cs:line 41
+--- End of stack trace from previous location ---
+Arquivo de resultados: C:\BRASILEIRAO\work\closeout-2026-09-10\latency-before\dotnet-results\_LEO_2026-09-10_13_52_27_net10.0.trx
+
+Com falha! – Com falha:     6, Aprovado:   119, Ignorado:     0, Total:   125, Duração: 47 s - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\closeout-2026-09-10\latency-before\dotnet-results\728e1432-00b8-4aed-9c0c-196222d162f6\coverage.cobertura.xml

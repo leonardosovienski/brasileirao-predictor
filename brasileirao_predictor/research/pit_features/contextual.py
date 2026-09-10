@@ -2,6 +2,7 @@
 
 import math
 from datetime import datetime
+from numbers import Integral, Real
 
 from brasileirao_predictor.research.pit_features.contracts import FeatureDeclaration, PITFeatureEvidence
 
@@ -61,24 +62,37 @@ def materialize_context(evidence: PITFeatureEvidence) -> dict[str, float | int |
         return {"home_rest_days": home, "away_rest_days": away, "rest_days_delta": home - away}
     if evidence.feature_family == "travel":
         evidence.assert_matches(TRAVEL)
+        if any(
+            isinstance(payload[name], bool) or not isinstance(payload[name], Real)
+            for name in TRAVEL.required_source_fields
+        ):
+            raise ValueError("travel coordinates must be numbers")
         lat1, lon1, lat2, lon2 = (float(payload[name]) for name in TRAVEL.required_source_fields)
         if not all(math.isfinite(value) for value in (lat1, lon1, lat2, lon2)):
             raise ValueError("travel coordinates must be finite")
+        if not (-90 <= lat1 <= 90 and -90 <= lat2 <= 90 and -180 <= lon1 <= 180 and -180 <= lon2 <= 180):
+            raise ValueError("travel coordinates are outside latitude/longitude bounds")
         phi1, phi2 = math.radians(lat1), math.radians(lat2)
         dphi, dlambda = math.radians(lat2 - lat1), math.radians(lon2 - lon1)
         a = math.sin(dphi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2) ** 2
+        a = min(1.0, max(0.0, a))  # Only floating-point roundoff after validating physical bounds.
         return {"away_travel_km": 6371.0088 * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))}
     if evidence.feature_family == "surface":
         evidence.assert_matches(SURFACE)
         surface = str(payload["surface"]).casefold()
         if surface not in {"natural", "synthetic"}:
             raise ValueError("surface must be natural or synthetic")
-        home, away = bool(payload["home_accustomed"]), bool(payload["away_accustomed"])
+        home, away = payload["home_accustomed"], payload["away_accustomed"]
+        if not isinstance(home, bool) or not isinstance(away, bool):
+            raise ValueError("surface familiarity must be boolean")
         return {"synthetic_surface": surface == "synthetic", "surface_familiarity_delta": int(home) - int(away)}
     if evidence.feature_family == "coach_tenure":
         evidence.assert_matches(COACH)
-        home, away = int(payload["home_matches"]), int(payload["away_matches"])
-        if min(home, away) < 0 or _dt(payload["announced_at"]) >= evidence.kickoff_at:
+        home, away = payload["home_matches"], payload["away_matches"]
+        if any(isinstance(value, bool) or not isinstance(value, Integral) for value in (home, away)):
+            raise ValueError("coach tenure must use integer counts")
+        home, away = int(home), int(away)
+        if min(home, away) < 0 or _dt(payload["announced_at"]) > evidence.available_at:
             raise ValueError("coach tenure inputs violate point-in-time constraints")
         return {"home_coach_matches": home, "away_coach_matches": away, "coach_tenure_delta": home - away}
     raise ValueError(f"unsupported contextual feature family: {evidence.feature_family}")

@@ -10,9 +10,10 @@ Fluxo:
     python -m brasileirao_predictor.bet_log settle Norway England 0 1  # depois do placar final
     python -m brasileirao_predictor.bet_log summary                    # ROI acumulado por mercado
 
-CLV real no settle: odd tomada × prob Shin do FECHAMENTO (sofascore_matches)
-− 1. É a mesma régua do backtest — positivo consistente = você está batendo
-o preço de fechamento, o único preditor confiável de lucro no longo prazo.
+Os valores são relatos manuais brutos, sem comprovação de aceitação ou custos.
+O campo legado validated identifica o funil histórico, não validação econômica.
+CLV depende de fechamento identificado, independente e temporalmente admissível;
+não prova lucro futuro. O banco latest-state não fornece esse contrato.
 """
 
 import json
@@ -20,7 +21,7 @@ import math
 import os
 import uuid
 from datetime import UTC, datetime
-from numbers import Real
+from numbers import Integral, Real
 from pathlib import Path
 
 ENV_PATH = "BETS_LOG_PATH"
@@ -93,7 +94,31 @@ def _read(path=None) -> list[dict]:
     p = _resolve(path)
     if not p.exists():
         return []
-    return [json.loads(line) for line in p.read_text(encoding="utf-8").splitlines() if line]
+
+    def unique_object(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("chave JSON duplicada no livro")
+            result[key] = value
+        return result
+
+    def finite_float(value):
+        number = float(value)
+        _finite_number(number, "valor JSON")
+        return number
+
+    def invalid_constant(value):
+        raise ValueError("constante JSON não finita no livro")
+
+    rows = [
+        json.loads(line, object_pairs_hook=unique_object, parse_float=finite_float, parse_constant=invalid_constant)
+        for line in p.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    if any(not isinstance(row, dict) or row.get("kind") not in {"bet", "settlement"} for row in rows):
+        raise ValueError("registro desconhecido no livro")
+    return rows
 
 
 def _append(rec: dict, path=None) -> None:
@@ -110,6 +135,19 @@ def _finite_number(value, name):
 
 
 def _settlement_index(rows):
+    bets = {}
+    for row in rows:
+        if row["kind"] != "bet":
+            continue
+        for field in ("stake", "odds"):
+            _finite_number(row.get(field), field)
+        if row["stake"] <= 0 or row["odds"] <= 1:
+            raise ValueError("stake ou odd inválida no livro")
+        if row.get("bet_id") is not None:
+            identity = row["bet_id"]
+            if not isinstance(identity, str) or not identity.strip() or identity in bets:
+                raise ValueError("bet_id inválido ou duplicado no livro")
+            bets[identity] = row
     by_id, by_line = {}, {}
     for row in rows:
         if row["kind"] != "settlement":
@@ -118,11 +156,40 @@ def _settlement_index(rows):
             if row["bet_id"] in by_id:
                 raise ValueError("bet_id possui liquidações duplicadas; reconciliação necessária")
             by_id[row["bet_id"]] = row
+            bet = bets.get(row["bet_id"])
         else:
-            if row["bet_line_no"] in by_line:
+            index = row.get("bet_line_no")
+            if isinstance(index, bool) or not isinstance(index, int) or not 0 <= index < len(rows):
+                raise ValueError("linha legada inválida")
+            if index in by_line:
                 raise ValueError("linha legada possui liquidações duplicadas")
-            by_line[row["bet_line_no"]] = row
+            by_line[index] = row
+            bet = rows[index]
+            if bet.get("bet_id"):
+                raise ValueError("liquidação legada não pode substituir bet_id")
+        if bet is None or bet.get("kind") != "bet":
+            raise ValueError("liquidação sem aposta correspondente")
+        if any(row.get(field) != bet.get(field) for field in ("home", "away", "market", "selection", "odds", "stake")):
+            raise ValueError("liquidação diverge da aposta correspondente")
+        for field in ("stake", "odds", "profit"):
+            _finite_number(row.get(field), field)
+        if row.get("clv_close") is not None:
+            _finite_number(row["clv_close"], "clv_close")
+        won = row.get("won")
+        if "won" not in row or (won is not None and not isinstance(won, bool)):
+            raise ValueError("resultado da liquidação inválido")
+        expected = 0.0 if won is None else bet["stake"] * (bet["odds"] - 1) if won else -bet["stake"]
+        if not math.isclose(row["profit"], expected, rel_tol=0, abs_tol=0.000050001):
+            raise ValueError("lucro bruto não reconcilia com stake, odd e resultado")
     return by_id, by_line
+
+
+def _goal_count(value):
+    if isinstance(value, str) and value.isascii() and value.isdecimal():
+        value = int(value)
+    if isinstance(value, bool) or not isinstance(value, Integral) or value < 0:
+        raise ValueError("placar inválido: exige contagem inteira não negativa")
+    return int(value)
 
 
 def add_bet(
@@ -240,29 +307,6 @@ def add_bet(
     return rec
 
 
-def _close_shin_prob(home, away, selection, match_date=None):
-    """Prob Shin de FECHAMENTO da seleção (sofascore_matches) — None se não há
-    odds do confronto no banco. Reusa _market_probs (aliases inclusos).
-    `match_date` desambigua confrontos repetidos na base (W1: Argentina x
-    Canada tem edição 2024 E 2026 — sem a data o CLV podia usar o jogo errado)."""
-    import sqlite3
-    import sys
-
-    from .predict import _market_probs
-
-    try:
-        conn = sqlite3.connect(f"file:{ROOT / 'data' / 'matches.db'}?mode=ro", uri=True)
-        mk = _market_probs(conn, home, away, match_date=match_date)
-        conn.close()
-    except Exception as e:
-        # W7: engolir a causa escondia "banco corrompido" atrás de "sem odds"
-        print(f"[AVISO: CLV indisponível — falha ao ler matches.db: {e}]", file=sys.stderr)
-        return None
-    if not mk or mk.get("p_over") is None:
-        return None
-    return mk["p_over"] if selection == "over" else mk["p_under"]
-
-
 def settle_bet(
     home, away, home_score, away_score, *, ht=None, path=None, recorded_at=None, match_date=None
 ) -> list[dict]:
@@ -283,14 +327,13 @@ def settle_bet(
     adivinhar."""
     from .predict import _canon
 
+    home_score, away_score = _goal_count(home_score), _goal_count(away_score)
     if isinstance(ht, str):
-        ht = tuple(int(x) for x in ht.split("-", 1))
-    try:
-        home_score, away_score = int(home_score), int(away_score)
-    except (TypeError, ValueError) as exc:
-        raise ValueError(f"placar inválido: home={home_score!r} away={away_score!r} — {exc}") from exc
-    if home_score < 0 or away_score < 0 or (ht is not None and (int(ht[0]) < 0 or int(ht[1]) < 0)):
-        raise ValueError("placar negativo não existe — erro de digitação")
+        ht = ht.split("-")
+    if ht is not None:
+        if not isinstance(ht, (tuple, list)) or len(ht) != 2:
+            raise ValueError("placar inválido: intervalo exige dois valores")
+        ht = tuple(_goal_count(value) for value in ht)
     if ht is not None and (int(ht[0]) > home_score or int(ht[1]) > away_score):
         raise ValueError("placar do intervalo por time não pode exceder o placar final")
     total_ft = home_score + away_score
@@ -303,7 +346,9 @@ def settle_bet(
         )
     target = frozenset((_canon(home), _canon(away)))
     open_ids, settled_ids, settled_bet_ids = {}, set(), set()
-    for i, r in enumerate(_read(path)):
+    rows = _read(path)
+    _settlement_index(rows)
+    for i, r in enumerate(rows):
         key = frozenset((_canon(r["home"]), _canon(r["away"])))
         if r["kind"] == "bet" and key == target:
             open_ids[i] = r
@@ -351,13 +396,10 @@ def settle_bet(
             (bet["selection"] == "over") == (total > bet["line"]) if total != bet["line"] else None
         )  # push só em linha inteira
         profit = 0.0 if won is None else round(bet["stake"] * (bet["odds"] - 1.0), 4) if won else -bet["stake"]
-        # CLV de fechamento: só o ou25 tem odd de close no banco (linha 2.5)
+        # Não inferir um fechamento de estado latest-state e aliases aproximados.
+        # Relatos antigos ficam intactos; novas liquidações exigiriam um contrato
+        # de preço independente e temporalmente admissível para calcular CLV.
         clv = None
-        if bet["market"] == "ou25":
-            # data da aposta (ou do kickoff) desambigua confronto repetido (W1)
-            bet_date = bet.get("match_date") or (bet.get("kickoff") or "")[:10] or None
-            p_close = _close_shin_prob(bet["home"], bet["away"], bet["selection"], match_date=bet_date)
-            clv = None if p_close is None else round(bet["odds"] * p_close - 1.0, 4)
         rec = {
             "recorded_at": recorded_at or datetime.now(UTC).isoformat(timespec="seconds"),
             "kind": "settlement",
@@ -377,6 +419,9 @@ def settle_bet(
             "won": won,
             "profit": profit,
             "clv_close": clv,
+            "clv_status": "UNAVAILABLE_NO_ADMISSIBLE_CLOSING",
+            "economic_evidence_eligible": False,
+            "costs_reconciled": False,
             "validated": bet.get("validated", bet["market"] in VALIDATED),
         }
         _append(rec, path)
@@ -535,7 +580,9 @@ def summary(path=None) -> dict:
     o grupo: mercado validado (ou25) separado dos informativos — misturar os
     dois esconderia um ROI negativo atrás do outro."""
     tally: dict = {}
-    for r in _read(path):
+    rows = _read(path)
+    _settlement_index(rows)
+    for r in rows:
         if r["kind"] != "settlement":
             continue
         t = tally.setdefault(
@@ -547,6 +594,10 @@ def summary(path=None) -> dict:
                 "clv_sum": 0.0,
                 "clv_n": 0,
                 "validated": r.get("validated", False),
+                "accounting_scope": "gross_manual_reports",
+                "economic_evidence_eligible": False,
+                "costs_reconciled": False,
+                "clv_scope": "legacy_unverified_reports",
             },
         )
         t["n"] += 1
