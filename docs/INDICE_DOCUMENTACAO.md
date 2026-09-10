@@ -1,3 +1,9 @@
+# Índice vigente — BE-20260910
+
+[Resultado econômico](continuation/economic_search_2026-09-10/RESULTADO.md), [protocolo](continuation/economic_search_2026-09-10/PROTOCOL.md), [registros](continuation/economic_search_2026-09-10/REGISTROS.json), [reprodução](continuation/economic_search_2026-09-10/REPRODUZIR.md) e [próximo prompt](continuation/economic_search_2026-09-10/PROXIMO_PROMPT.md). Índices e evidências históricos abaixo preservados.
+
+---
+
 # Índice atual IE-20260910
 
 [Resultado](continuation/implementation_2026-09-10/RESULTADO.md), [registros](continuation/implementation_2026-09-10/REGISTROS.json), [reprodução](continuation/implementation_2026-09-10/REPRODUZIR.md), [próximo prompt](continuation/implementation_2026-09-10/PROXIMO_PROMPT.md), [errata UTF8](continuation/implementation_2026-09-10/ERRATA_UTF8.json) e [registros RI com texto corrigido](continuation/implementation_2026-09-10/REGISTROS_RI_UTF8.json). Últimos preservam datas/conclusões RI; não são novas avaliações. Índice anterior abaixo preservado.

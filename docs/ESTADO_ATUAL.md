@@ -1,3 +1,9 @@
+# Estado vigente — BE-20260910
+
+Busca econômica executada: 226 carteiras condicionais em 4.940 jogos, +4,6376u após custo2% e deterioração1% do prêmio. Máximos anônimos não provam execução. Modelo independente de gols reprovado: −99,60u/632 fills. Prioridade é obter ofertas identificadas simultâneas e condições de preenchimento. [Resultado e três estados](continuation/economic_search_2026-09-10/RESULTADO.md), [registros](continuation/economic_search_2026-09-10/REGISTROS.json). Dez testes e auditoria Decimal aprovados. Projeto globalmente não pronto e lucro executável não mensurável. O estado IE abaixo é histórico e conserva seu escopo técnico.
+
+---
+
 # Estado atual — IE-20260910
 
 **Implementação e integração local corrigidas no escopo testado; projeto globalmente não pronto; lucro líquido executável não demonstrado.** Trabalho solo em C:/BRASILEIRAO. [Resultado IE e14 itens econômicos](continuation/implementation_2026-09-10/RESULTADO.md), [registros atuais](continuation/implementation_2026-09-10/REGISTROS.json), [reprodução](continuation/implementation_2026-09-10/REPRODUZIR.md) e [próximo prompt](continuation/implementation_2026-09-10/PROXIMO_PROMPT.md).

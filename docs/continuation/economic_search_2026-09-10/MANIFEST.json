@@ -1,0 +1,27 @@
+{
+  "files": {
+    "evidence/build-final.stderr.txt": "58d0931fe7707366523a4878f7a877af78e3ff376596b054b2f93bc483d92fbc",
+    "evidence/build-final.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "evidence/build-initial.stderr.txt": "39d5284ea29fe43322915748bc42e56be57f9167c96588f3b581dc159490fe54",
+    "evidence/checks.json": "a708c56ca44f29f843cf0273cd3298482ae9294a55c4944fff0e742a895fe36d",
+    "evidence/coverage.json": "aa926674f742ae171aad39fb7934b54db6439717729a99e2ee0a4a7d45612be1",
+    "evidence/freeze-receipt.json": "42bf6edcb0cf98a5a5d4878c810cef0b25b98e8898db4fd83eb88170cee69fc5",
+    "evidence/gate-receipt.json": "076acce5fdf60a8c9df864e7a24665748c5bdae25b17e83c17c9af2f72a98328",
+    "evidence/independent-audit.json": "02b37b3efec1727c5156d76bc502cef0bfba92fc85e1b2cafd0a4eea00f163f3",
+    "evidence/manifest.json": "91641d7e81154f75c6572d83e44a1210913feef25b062d703bef1c8f1d732c07",
+    "evidence/package-verification.json": "a2c6b9cb0a5ac4eeb33f51f03bfdb3a94db5a38863702a12f6141ee1df6589f1",
+    "evidence/recovery-receipts.json": "576e1b4e2ed94067127790caa400dfb808b71c88bec401ecafbd6172259f5992",
+    "evidence/redirect-receipts.json": "2ddb82c2df524f44a1bd9d088d2277fea52a855f41e4d7478aa5368517ef1d57",
+    "evidence/run-isolation.json": "c5060d27deec1517b267f229de60589afc9d534f2762903ef28944ecdd4b794a",
+    "evidence/source-receipts.json": "effab2be42e89f1372203c7021e20b5c965e5676d087bcb063a36fb341a6b48b",
+    "evidence/summary.json": "5640cb2faea137bdffdcdc7b06a95aefb4cda16ede4bc64710934fad395257a0",
+    "evidence/tests-before-results.xml": "e205f121df4adc98716472d4071859f9189790078ae046d9a846bda96badd390",
+    "evidence/tests-final.xml": "75b8a3192d5a1e225f0d84ce41d99be1d88ccecf5dc64621eb79faf3a3824c1d",
+    "evidence/tests-isolation.json": "fb10673cf7b120ce631e83d96f829082a7bfc22302a865ccccba502b9e132ce7",
+    "PROTOCOL.md": "8a6f89c216d5d29c2719f3144b3221e60eaf50ce27a794108ffb5e23b64d4d43",
+    "PROXIMO_PROMPT.md": "83fa3ba881e839c3d4eb359b17a08cd01a483b2b952078bcf02637446f182940",
+    "REGISTROS.json": "747309d049feb4ae30b75ff32f60efadb7f441b2fc139b9a0a18cf826466a6b4",
+    "REPRODUZIR.md": "5c8bf751aa242e8e6f35a74118acafe79f524bc9659b6f9be171fc32c101f546",
+    "RESULTADO.md": "07759292e532aeae044cbb0da360d67bb9a7dcd254e9e899205bebb9950d2e64"
+  }
+}

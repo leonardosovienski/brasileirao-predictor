@@ -1,0 +1,123 @@
+{
+  "rows": 4940,
+  "excluded_before_field_interpretation": 636,
+  "by_season": {
+    "2012": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2013": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2014": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2015": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2016": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 1,
+      "missing_maximum": 0,
+      "label_issues": 1
+    },
+    "2017": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2018": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2019": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 1,
+      "label_issues": 0
+    },
+    "2020": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2021": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2022": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2023": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    },
+    "2024": {
+      "matches": 380,
+      "teams": 20,
+      "team_matches_min": 38,
+      "team_matches_max": 38,
+      "missing_pinnacle": 0,
+      "missing_maximum": 0,
+      "label_issues": 0
+    }
+  }
+}

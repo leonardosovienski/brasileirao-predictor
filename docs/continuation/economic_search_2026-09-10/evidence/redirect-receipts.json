@@ -1,0 +1,22 @@
+[
+  {
+    "url": "https://www.oddsagora.com.br/football/brazil/serie-a-2024/results/",
+    "requested_at": "2026-09-10T13:47:16.375322+00:00",
+    "status": 307,
+    "error": "HTTPError",
+    "redirect": "https://www.oddsagora.com.br/brazil.html?return=/football/brazil/serie-a-2024/results/",
+    "received_at": "2026-09-10T13:47:17.206649+00:00"
+  },
+  {
+    "url": "https://historicdata.betfair.bet.br/apidocs",
+    "requested_at": "2026-09-10T13:47:17.206685+00:00",
+    "error": "URLError",
+    "received_at": "2026-09-10T13:47:17.275344+00:00"
+  },
+  {
+    "url": "https://historicdata.betfair.bet.br/Betfair-Historical-Data-Feed-Specification.pdf",
+    "requested_at": "2026-09-10T13:47:17.275386+00:00",
+    "error": "URLError",
+    "received_at": "2026-09-10T13:47:17.276298+00:00"
+  }
+]

@@ -1,3 +1,9 @@
+# Dados vigentes — BE-20260910
+
+CSV público congelado DC reinterpretado apenas para temporadas2012–2024: 4.940 jogos, 4.939 trios Pinnacle, 4.939 trios máximos, 1 label inválido preservado. Temporadas2025/2026 excluídas antes dos demais campos. Base não é holdout independente. Output completo em C:/BRASILEIRAO/work/economic-search-2026-09-10/run-01; hashes e limites em [resultado BE](continuation/economic_search_2026-09-10/RESULTADO.md) e evidence/manifest.json na mesma pasta documental. Documentos Football-Data recuperados; tentativas OddsPortal/Betfair não recuperaram casas/clocks. Nenhuma API autenticada ou nova captura operacional. Mapas anteriores abaixo preservados.
+
+---
+
 # Atualização de dados IE-20260910
 
 Novo consumidor em brasileirao_predictor/research/price_strength/capture_decision.py. Diagnóstico controlado dos3 payloads DC/1 fixture no último recibo: par API rejeitado,1 abstenção,zero apostas/exposição; PnL total desconhecido. Inputs/hash e saída em continuation/implementation_2026-09-10/evidence/capture-manifest.json e decision.json. Sem novos labels, coleta autenticada ou reutilização do CSV como holdout. Mapa histórico RI abaixo preservado.

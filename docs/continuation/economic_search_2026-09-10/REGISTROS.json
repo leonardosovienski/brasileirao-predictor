@@ -1,0 +1,85 @@
+{
+  "round": "BE-20260910",
+  "base": "b95dabaf05800918ee46f4a40f1cfa74688ce4a8",
+  "claims": [
+    {
+      "id": "BE01",
+      "claim": "Mais infraestrutura garante lucro",
+      "finding": "Não demonstrada; candidato de preço requer simultaneidade e execução; modelo perdeu mesmo no cenário",
+      "conclusion": "refutada como garantia",
+      "issue": "BE-P01"
+    },
+    {
+      "id": "BE02",
+      "claim": "Há diferenças que suportam cobertura de três desfechos após fricções",
+      "finding": "226/4940 envelopes, +4.637604517669509u, hipóteses explícitas",
+      "conclusion": "confirmada somente no cenário",
+      "issue": "BE-P02"
+    },
+    {
+      "id": "BE03",
+      "claim": "Máximos do CSV representam ofertas executáveis simultâneas",
+      "finding": "Sem casas/clocks/fills; tentativas de recuperação não forneceram preços",
+      "conclusion": "não verificável com dados atuais",
+      "issue": "BE-P02"
+    },
+    {
+      "id": "BE04",
+      "claim": "Previsão fixa de gols supera Pinnacle após custos",
+      "finding": "632 fills, -99.60u; 2496 abstenções por capital",
+      "conclusion": "sem suporte no cenário fixo",
+      "issue": "BE-P03"
+    },
+    {
+      "id": "BE05",
+      "claim": "Conta fecha sem antecipar capital ou usar resultado futuro",
+      "finding": "10 testes e auditoria Decimal independente; fonte/protocolo/output SHA verificados",
+      "conclusion": "confirmada no escopo testado",
+      "issue": "BE-P04"
+    }
+  ],
+  "issues": [
+    {
+      "id": "BE-P01",
+      "type": "priorização",
+      "problem": "Repetir infraestrutura e piloto único não responde a busca ampla",
+      "action": "Executados dois testes econômicos fixos em período distinto",
+      "status": "validado no escopo BE"
+    },
+    {
+      "id": "BE-P02",
+      "type": "dados e execução",
+      "problem": "Casas, simultaneidade e capacidade desconhecidas nos máximos",
+      "action": "10 GETs públicos, documentos recuperados, preços identificados não recuperados",
+      "status": "bloqueado para lucro executável",
+      "next": "Observação independente de ofertas identificadas com preenchimento e custos"
+    },
+    {
+      "id": "BE-P03",
+      "type": "hipótese econômica",
+      "problem": "Modelo sinaliza EV sem vantagem observada suficiente",
+      "action": "Regra fixa testada e reprovada; sem tuning",
+      "status": "encerrado no cenário"
+    },
+    {
+      "id": "BE-P04",
+      "type": "medição",
+      "problem": "Ausência de experimento amplo reconciliado nesta rodada",
+      "action": "Novo executor isolado, reservas por data, labels faltantes sem void inventado, Decimal",
+      "status": "validado no escopo BE"
+    }
+  ],
+  "states": {
+    "technical": "pronto no escopo offline testado",
+    "data": "admissíveis para cenários; insuficientes para execução",
+    "economic": "candidato para investigar simultaneidade; modelo reprovado; lucro executável não mensurável"
+  },
+  "evidence": [
+    "PROTOCOL.md",
+    "RESULTADO.md",
+    "evidence/summary.json",
+    "evidence/coverage.json",
+    "evidence/independent-audit.json",
+    "evidence/manifest.json"
+  ]
+}

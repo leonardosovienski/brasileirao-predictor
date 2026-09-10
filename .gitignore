@@ -57,3 +57,5 @@ logs/
 
 # Frozen implementation receipts referenced by the review manifest.
 !docs/continuation/implementation_2026-09-10/evidence/*.log
+
+!docs/continuation/economic_search_2026-09-10/evidence/coverage.json

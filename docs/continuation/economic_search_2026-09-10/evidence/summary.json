@@ -1,0 +1,407 @@
+{
+  "status": "retrospective_conditional_scenarios_only",
+  "execution_admitted": false,
+  "arbitrage": {
+    "events": 4940,
+    "missing_prices": 1,
+    "candidates": 226,
+    "hypothetical_legs": 678,
+    "real_bets": 0,
+    "stake_envelope": 226,
+    "net_envelope": 4.637604517669509,
+    "cost_envelope": 4.5200000000000005,
+    "roi_envelope": 0.020520373971988977,
+    "final_bankroll_envelope": 104.6376045176695,
+    "max_same_date_stake": 4,
+    "worst_partial_fill_net_per_event": -0.9635262542287663,
+    "by_season": {
+      "2012": {
+        "events": 380,
+        "candidates": 31,
+        "net_envelope": 0.4726638093226823
+      },
+      "2013": {
+        "events": 380,
+        "candidates": 18,
+        "net_envelope": 0.27710740707610687
+      },
+      "2014": {
+        "events": 380,
+        "candidates": 41,
+        "net_envelope": 0.730599616748425
+      },
+      "2015": {
+        "events": 380,
+        "candidates": 23,
+        "net_envelope": 0.3731878888275126
+      },
+      "2016": {
+        "events": 380,
+        "candidates": 16,
+        "net_envelope": 0.2595380381364037
+      },
+      "2017": {
+        "events": 380,
+        "candidates": 9,
+        "net_envelope": 0.09257232074071269
+      },
+      "2018": {
+        "events": 380,
+        "candidates": 7,
+        "net_envelope": 0.2079590340228602
+      },
+      "2019": {
+        "events": 380,
+        "candidates": 9,
+        "net_envelope": 0.5424420703062925
+      },
+      "2020": {
+        "events": 380,
+        "candidates": 9,
+        "net_envelope": 0.33544631171887457
+      },
+      "2021": {
+        "events": 380,
+        "candidates": 8,
+        "net_envelope": 0.14717800449963417
+      },
+      "2022": {
+        "events": 380,
+        "candidates": 14,
+        "net_envelope": 0.4033603602523861
+      },
+      "2023": {
+        "events": 380,
+        "candidates": 33,
+        "net_envelope": 0.56396535613377
+      },
+      "2024": {
+        "events": 380,
+        "candidates": 8,
+        "net_envelope": 0.23158429988384813
+      }
+    },
+    "minimum_net": 0.005045567375805211,
+    "maximum_net": 0.23736573481838777,
+    "minimum_break_even_prize_deterioration": 0.01750077527120958,
+    "fixed_candidate_cost_sensitivity": {
+      "0": 9.157604517669508,
+      "0.01": 6.897604517669508,
+      "0.02": 4.637604517669509,
+      "0.03": 2.3776045176695093,
+      "0.05": -2.1423954823304916
+    },
+    "advance_to_simultaneity_investigation": true,
+    "net_total_after_unknown_personal_costs": null
+  },
+  "forecast": {
+    "model": {
+      "events": 3800,
+      "opportunities": 3128,
+      "hypothetical_fills": 632,
+      "real_bets": 0,
+      "abstentions": 3168,
+      "abstention_reasons": {
+        "no_edge_after_cost": 671,
+        "missing_pinnacle": 1,
+        "insufficient_unreserved_bankroll": 2496
+      },
+      "initial_bankroll": 100,
+      "final_cash": 0.4000000000003445,
+      "unsettled_stakes": 0.0,
+      "stake": 632.0,
+      "cost": 12.64,
+      "return_including_principal": 545.04,
+      "net_scenario": -99.60000000000001,
+      "net_total_after_unknown_personal_costs": null,
+      "roi_stakes": -0.15759493670886077,
+      "bankroll_return": -0.9960000000000001,
+      "max_daily_exposure": 9.0,
+      "max_cash_drawdown_units": 107.15999999999977,
+      "by_season": {
+        "2015": {
+          "events": 380,
+          "fills": 307,
+          "stake": 307.0,
+          "net": -38.5,
+          "roi": -0.1254071661237785
+        },
+        "2016": {
+          "events": 380,
+          "fills": 307,
+          "stake": 307.0,
+          "net": -50.63,
+          "roi": -0.1649185667752443
+        },
+        "2017": {
+          "events": 380,
+          "fills": 18,
+          "stake": 18.0,
+          "net": -10.47,
+          "roi": -0.5816666666666667
+        },
+        "2018": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2019": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2020": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2021": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2022": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2023": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2024": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        }
+      },
+      "fixed_fill_cost_sensitivity_net": {
+        "0": -86.96000000000001,
+        "0.01": -93.28,
+        "0.02": -99.60000000000001,
+        "0.03": -105.92000000000003,
+        "0.05": -118.56000000000003
+      },
+      "fixed_fill_1pct_prize_deterioration_net": -103.3104,
+      "selected_mean_probability": 0.3720455787949757,
+      "selected_win_fraction": 0.27531645569620256,
+      "top_five_win_net": 41.1,
+      "net_excluding_top_five_win_events": -140.70000000000002,
+      "largest_team_involvement": [
+        [
+          "Flamengo RJ",
+          75
+        ],
+        [
+          "Palmeiras",
+          72
+        ],
+        [
+          "Atletico-MG",
+          66
+        ],
+        [
+          "Chapecoense-SC",
+          65
+        ],
+        [
+          "Sport Recife",
+          65
+        ]
+      ],
+      "bootstrap": {
+        "block_days": 28,
+        "blocks_including_empty": 126,
+        "resamples": 2000,
+        "seed": 20260910,
+        "roi_ci95": [
+          -0.2731730718247461,
+          -0.03525699969537321
+        ],
+        "roi_lower95_one_sided": -0.2543324324965032,
+        "selection_history_adjusted": false
+      }
+    },
+    "league": {
+      "events": 3800,
+      "opportunities": 3473,
+      "hypothetical_fills": 1458,
+      "real_bets": 0,
+      "abstentions": 2342,
+      "abstention_reasons": {
+        "no_edge_after_cost": 326,
+        "missing_pinnacle": 1,
+        "insufficient_unreserved_bankroll": 2015
+      },
+      "initial_bankroll": 100,
+      "final_cash": 1.0100000000015936,
+      "unsettled_stakes": 0.0,
+      "stake": 1458.0,
+      "cost": 29.16,
+      "return_including_principal": 1388.17,
+      "net_scenario": -98.99,
+      "net_total_after_unknown_personal_costs": null,
+      "roi_stakes": -0.06789437585733882,
+      "bankroll_return": -0.9899,
+      "max_daily_exposure": 10.0,
+      "max_cash_drawdown_units": 135.7099999999997,
+      "by_season": {
+        "2015": {
+          "events": 380,
+          "fills": 335,
+          "stake": 335.0,
+          "net": -21.199999999999996,
+          "roi": -0.06328358208955223
+        },
+        "2016": {
+          "events": 380,
+          "fills": 337,
+          "stake": 337.0,
+          "net": -42.83,
+          "roi": -0.1270919881305638
+        },
+        "2017": {
+          "events": 380,
+          "fills": 341,
+          "stake": 341.0,
+          "net": 94.45,
+          "roi": 0.27697947214076246
+        },
+        "2018": {
+          "events": 380,
+          "fills": 353,
+          "stake": 353.0,
+          "net": -114.62,
+          "roi": -0.32470254957507083
+        },
+        "2019": {
+          "events": 380,
+          "fills": 92,
+          "stake": 92.0,
+          "net": -14.790000000000003,
+          "roi": -0.16076086956521743
+        },
+        "2020": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2021": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2022": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2023": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        },
+        "2024": {
+          "events": 380,
+          "fills": 0,
+          "stake": 0.0,
+          "net": 0.0,
+          "roi": null
+        }
+      },
+      "fixed_fill_cost_sensitivity_net": {
+        "0": -69.83,
+        "0.01": -84.41,
+        "0.02": -98.99000000000001,
+        "0.03": -113.57000000000005,
+        "0.05": -142.73000000000005
+      },
+      "fixed_fill_1pct_prize_deterioration_net": -109.16170000000001,
+      "selected_mean_probability": 0.3627788465334536,
+      "selected_win_fraction": 0.2544581618655693,
+      "top_five_win_net": 61.36,
+      "net_excluding_top_five_win_events": -160.35,
+      "largest_team_involvement": [
+        [
+          "Santos",
+          151
+        ],
+        [
+          "Gremio",
+          151
+        ],
+        [
+          "Athletico-PR",
+          150
+        ],
+        [
+          "Corinthians",
+          148
+        ],
+        [
+          "Palmeiras",
+          147
+        ]
+      ],
+      "bootstrap": {
+        "block_days": 28,
+        "blocks_including_empty": 126,
+        "resamples": 2000,
+        "seed": 20260910,
+        "roi_ci95": [
+          -0.17141620377551875,
+          0.04852388315553177
+        ],
+        "roi_lower95_one_sided": -0.15386908786398093,
+        "selection_history_adjusted": false
+      }
+    }
+  },
+  "advance_model_to_new_validation": false,
+  "common_panel": {
+    "events": 3799,
+    "scores": {
+      "model": {
+        "logloss": 1.022667537193785,
+        "brier": 0.6131474549849595
+      },
+      "league": {
+        "logloss": 1.0522117436567766,
+        "brier": 0.6339462076204484
+      },
+      "pinnacle_normalized": {
+        "logloss": 0.9972419464264464,
+        "brier": 0.5960668187550088
+      }
+    }
+  },
+  "start_date": "2012-05-19",
+  "end_date": "2024-12-08",
+  "paired_model_minus_league_net_ci95": [
+    -150.4142500000002,
+    126.5277499999995
+  ]
+}

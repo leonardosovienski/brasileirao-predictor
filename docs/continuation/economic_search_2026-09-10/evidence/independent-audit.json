@@ -1,0 +1,33 @@
+{
+  "verified_at": "2026-09-10T13:46:05.850009+00:00",
+  "all_checks_passed": true,
+  "decimal_precision": 40,
+  "events": 4940,
+  "arbitrage_candidates": 226,
+  "arbitrage_net": "4.6376045176695089234",
+  "ledger_checks": {
+    "model": {
+      "stake": "632",
+      "cost": "12.64",
+      "return": "545.04",
+      "net": "-99.60",
+      "final_cash": "0.40",
+      "first_capital_abstention_date": "2017-05-21"
+    },
+    "league": {
+      "stake": "1458",
+      "cost": "29.16",
+      "return": "1388.17",
+      "net": "-98.99",
+      "final_cash": "1.01",
+      "first_capital_abstention_date": "2019-07-14"
+    }
+  },
+  "arbitrage_top_five_event_net": 0.617348930490247,
+  "arbitrage_dates": 183,
+  "break_even_uniform_partial_fill_failure_probability_worst_case": 0.024675911795539626,
+  "failure_probability_interpretation": "Scenario: each basket independently suffers its worst incomplete subset with uniform probability; not measured refusal frequency.",
+  "no_failure_cumulative_cost_budget_units": 4.637604517669509,
+  "forecast_bootstrap_limitation": "Resampling realized fills conditions on capital exhaustion; it is not a policy rerun or a future-income confidence interval.",
+  "sensitivities_limitation": "Frozen fills; higher costs can exceed initial bank and are arithmetic stresses, not feasible alternative bankroll paths."
+}

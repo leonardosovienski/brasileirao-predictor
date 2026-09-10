@@ -1,0 +1,32 @@
+[
+  {
+    "url": "https://football-data.co.uk/brazil.php",
+    "requested_at": "2026-09-10T13:43:25.456933+00:00",
+    "status": 200,
+    "final_url": "https://football-data.co.uk/brazil.php",
+    "bytes": 32684,
+    "sha256": "aa264eef5636366f7066147d7852872416c550a1c8143bbf12d0386ac8f22cfc",
+    "file": "brazil.raw",
+    "received_at": "2026-09-10T13:43:27.460244+00:00"
+  },
+  {
+    "url": "https://football-data.co.uk/notes.txt",
+    "requested_at": "2026-09-10T13:43:27.460294+00:00",
+    "status": 200,
+    "final_url": "https://football-data.co.uk/notes.txt",
+    "bytes": 7686,
+    "sha256": "6ecd41a98ad2751372817e7e6f1709bfeb433c53dd9aeda330fd926a5471452d",
+    "file": "notes.raw",
+    "received_at": "2026-09-10T13:43:28.373293+00:00"
+  },
+  {
+    "url": "https://football-data.co.uk/data.php",
+    "requested_at": "2026-09-10T13:43:28.373344+00:00",
+    "status": 200,
+    "final_url": "https://football-data.co.uk/data.php",
+    "bytes": 45957,
+    "sha256": "1fa2e0e146c5a506829ae708e78dbe0ed91baf9b4447e4538e2617fe8fecf8dc",
+    "file": "data.raw",
+    "received_at": "2026-09-10T13:43:30.399714+00:00"
+  }
+]

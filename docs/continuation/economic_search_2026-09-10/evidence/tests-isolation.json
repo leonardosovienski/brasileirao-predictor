@@ -1,0 +1,12 @@
+{
+  "tests": [
+    "test_economic_search.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

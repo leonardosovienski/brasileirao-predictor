@@ -1,3 +1,9 @@
+# Retomada vigente — BE-20260910
+
+Leia [próximo prompt BE](economic_search_2026-09-10/PROXIMO_PROMPT.md), [resultado](economic_search_2026-09-10/RESULTADO.md) e o mandato original. A prioridade econômica passou à procedência e simultaneidade do candidato de arbitragem. Não refazer o modelo reprovado ou a infraestrutura já testada sem causa concreta. Preserve H14/H15/H9/A1 e a captura DC congelada. Recibo final C:/BRASILEIRAO/AUDITORIA/BUSCA_ECONOMICA_2026-09-10.json. As orientações IE abaixo são históricas.
+
+---
+
 # Retomada após IE-20260910
 
 Leia [próximo prompt](implementation_2026-09-10/PROXIMO_PROMPT.md), [estado](../ESTADO_ATUAL.md), [resultado](implementation_2026-09-10/RESULTADO.md), [registros](implementation_2026-09-10/REGISTROS.json) e o mandato original C:/BRASILEIRAO/INSTRUCOES/MANDATO_RECEBIDO_2026-09-09.txt. Trabalhe sozinho; toda escrita em C:/BRASILEIRAO.

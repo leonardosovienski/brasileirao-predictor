@@ -1,0 +1,13 @@
+{
+  "tests_unique": 10,
+  "before_results_passed": 10,
+  "final_passed": 10,
+  "skipped": 0,
+  "ruff": "passed",
+  "format": "passed",
+  "pyright_errors": 0,
+  "initial_pyright_failure": "tuple size inference in test, corrected without economic code change",
+  "calculation_runs": 1,
+  "code_sha256": "09cad84593e0cfd676fa002c98f4631533bf8518f4af722bbb73e48c3d098bec",
+  "source": "Current tool results, pytest XML and independent-audit.json; not a new full-suite certification"
+}

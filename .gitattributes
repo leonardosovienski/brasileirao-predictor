@@ -20,3 +20,8 @@ docs/continuation/migration_source_history_2026-09-08/** -text whitespace=cr-at-
 docs/continuation/migration_source_history_2026-09-08/files/*.patch whitespace=cr-at-eol,-blank-at-eol
 docs/continuation/implementation_2026-09-10/** -text whitespace=cr-at-eol
 docs/continuation/implementation_2026-09-10/evidence/before-receipt-universe.xml whitespace=cr-at-eol,-blank-at-eol
+
+# Preserve frozen BE protocol and evidence bytes.
+docs/continuation/economic_search_2026-09-10/** -text whitespace=cr-at-eol
+brasileirao_predictor/research/price_strength/economic_search.py text eol=lf
+tests/test_economic_search.py text eol=lf

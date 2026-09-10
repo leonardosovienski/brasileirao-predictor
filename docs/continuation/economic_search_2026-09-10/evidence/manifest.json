@@ -1,0 +1,15 @@
+{
+  "started_at": "2026-09-10T13:42:56.108178+00:00",
+  "finished_at": "2026-09-10T13:43:24.979662+00:00",
+  "source_sha256": "ba3e9ea79ab4091b117a901f3914940cea07f1fe06de0deb57af5076f664ccb6",
+  "protocol_sha256": "8a6f89c216d5d29c2719f3144b3221e60eaf50ce27a794108ffb5e23b64d4d43",
+  "code_sha256": "09cad84593e0cfd676fa002c98f4631533bf8518f4af722bbb73e48c3d098bec",
+  "outputs": {
+    "coverage.json": "aa926674f742ae171aad39fb7934b54db6439717729a99e2ee0a4a7d45612be1",
+    "envelopes.json": "803dd14a93ae103c0e99e8b15fdf9e07509e4f8092d10b0217cee77ccc4e5927",
+    "ledgers.json": "2200c6672501ed5458c4a02aef05ccd7b5145a5aedf3cd96a8bd3963a608834d",
+    "matches.json": "e42e00ab47f66802d26f77fea3e3d0697789d0b800791fbc276ec48b8590a969",
+    "predictions.json": "a000f7804dac1c3453d96aef49ba0f9ee0a675e2d779cd126245405d68391210",
+    "summary.json": "5640cb2faea137bdffdcdc7b06a95aefb4cda16ede4bc64710934fad395257a0"
+  }
+}

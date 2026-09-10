@@ -1,0 +1,29 @@
+[
+  {
+    "url": "https://www.oddsportal.com/football/brazil/serie-a-2024/results/",
+    "requested_at": "2026-09-10T13:46:47.923975+00:00",
+    "purpose": "Recover named simultaneous historical prices without account or paid API",
+    "status": 301,
+    "error": "HTTPError",
+    "redirect": "https://www.oddsagora.com.br/football/brazil/serie-a-2024/results/",
+    "received_at": "2026-09-10T13:46:48.791341+00:00"
+  },
+  {
+    "url": "https://historicdata.betfair.com/apidocs",
+    "requested_at": "2026-09-10T13:46:48.791377+00:00",
+    "purpose": "Recover named simultaneous historical prices without account or paid API",
+    "status": 302,
+    "error": "HTTPError",
+    "redirect": "https://historicdata.betfair.bet.br/apidocs",
+    "received_at": "2026-09-10T13:46:48.967857+00:00"
+  },
+  {
+    "url": "https://historicdata.betfair.com/Betfair-Historical-Data-Feed-Specification.pdf",
+    "requested_at": "2026-09-10T13:46:48.967952+00:00",
+    "purpose": "Recover named simultaneous historical prices without account or paid API",
+    "status": 302,
+    "error": "HTTPError",
+    "redirect": "https://historicdata.betfair.bet.br/Betfair-Historical-Data-Feed-Specification.pdf",
+    "received_at": "2026-09-10T13:46:49.073006+00:00"
+  }
+]

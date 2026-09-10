@@ -1,0 +1,9 @@
+{
+  "blocked_attempts": [
+    "open"
+  ],
+  "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\public_sources\\football_data_bra_origin_csv.csv",
+  "output": "C:\\BRASILEIRAO\\work\\economic-search-2026-09-10\\run-01",
+  "credentials_removed": true,
+  "protected_content_read": false
+}

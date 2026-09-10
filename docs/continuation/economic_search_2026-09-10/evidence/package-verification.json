@@ -1,0 +1,17 @@
+{
+  "brasileirao_predictor-0.1.0-py3-none-any.whl": {
+    "bytes": 613713,
+    "sha256": "00af26e15b25a3e1a99f95046ac0b323e7790ce02583e67d2a61c5e14f870c3f",
+    "module_bytes_match": true
+  },
+  "brasileirao_predictor-0.1.0.tar.gz": {
+    "bytes": 8875736,
+    "sha256": "d72b87eaf709deaa440ba06fc80e74ce86cfc793b00094c7d16f23d236b22801",
+    "module_bytes_match": true
+  },
+  "smoke": {
+    "cli_help_passed": true,
+    "synthetic_arbitrage_passed": true,
+    "heavy_modules_imported": []
+  }
+}
