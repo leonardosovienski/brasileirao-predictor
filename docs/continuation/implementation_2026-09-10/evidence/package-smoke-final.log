@@ -1,0 +1,24 @@
+usage: package_smoke_final.py [-h] --contract CONTRACT --receipt RECEIPT
+                              --capture CAPTURE --output-dir OUTPUT_DIR
+
+Auditar capturas expl�citas sem API, desfechos ou ordens
+
+options:
+  -h, --help            show this help message and exit
+  --contract CONTRACT
+  --receipt RECEIPT
+  --capture CAPTURE
+  --output-dir OUTPUT_DIR
+usage: package_smoke_final.py [-h] (--match-id MATCH_ID | --synthetic-lineup)
+                              [--n N] [--redis REDIS]
+
+Verify an already registered v2 kernel request
+
+options:
+  -h, --help           show this help message and exit
+  --match-id MATCH_ID
+  --synthetic-lineup   exercise the Worker using fabricated lineups in a
+                       disposable environment
+  --n N                verification count; does not create new invocations
+  --redis REDIS
+PACKAGE_SMOKE_PASS

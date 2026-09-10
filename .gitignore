@@ -54,3 +54,6 @@ logs/
 # Provider-derived price rows are retained locally/offsite but not redistributed.
 /reports/exp001_data_pilot_2026-09-02.json
 /reports/exp001_coverage_audit_2026-09-02.json
+
+# Frozen implementation receipts referenced by the review manifest.
+!docs/continuation/implementation_2026-09-10/evidence/*.log

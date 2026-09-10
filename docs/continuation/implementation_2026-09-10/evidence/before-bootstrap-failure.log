@@ -1,0 +1,25 @@
+Execução de teste para C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-03-fixed\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:43.81]     LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch [FAIL]
+  Com falha LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch [41 s]
+  Mensagem de erro:
+   Assert.Single() Failure: The collection was empty
+  Rastreamento de pilha:
+     at LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch() in C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-03-fixed\source\dotnet\LineupWorker.Tests\KernelCrossProcessTests.cs:line 97
+   at LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch() in C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-03-fixed\source\dotnet\LineupWorker.Tests\KernelCrossProcessTests.cs:line 185
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:40.76]     LineupWorker.Tests.WorkerRuntimeTests.CliHealthFailsWhenRedisRespondsButWorkerIsAbsent [FAIL]
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.CliHealthFailsWhenRedisRespondsButWorkerIsAbsent [20 s]
+  Mensagem de erro:
+   Assert.Equal() Failure: Values differ
+Expected: 0
+Actual:   1
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.CliHealthFailsWhenRedisRespondsButWorkerIsAbsent() in C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-03-fixed\source\dotnet\LineupWorker.Tests\WorkerHealthTests.cs:line 21
+--- End of stack trace from previous location ---
+Arquivo de resultados: C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-03-fixed\dotnet-results\_LEO_2026-09-09_22_51_00_net10.0.trx
+
+Com falha! – Com falha:     2, Aprovado:   108, Ignorado:     0, Total:   110, Duração: 1 m 48 s - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-03-fixed\dotnet-results\b1ca255b-4b08-4e05-8cff-ee9c42e47d38\coverage.cobertura.xml

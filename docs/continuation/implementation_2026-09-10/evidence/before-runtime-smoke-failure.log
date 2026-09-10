@@ -1,0 +1,18 @@
+Execução de teste para C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-01\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:19.26]     LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch [FAIL]
+  Com falha LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch [18 s]
+  Mensagem de erro:
+   [smoke] FAIL: v2 registration, Redis or current result could not be verified.
+2026-09-09 22:34:08,511 [INFO] kernel_daemon ÔÇö [kernel] Numba dispon├¡vel ÔÇö grade ser├í compilada JIT no boot.
+
+  Rastreamento de pilha:
+     at LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch() in C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-01\source\dotnet\LineupWorker.Tests\KernelCrossProcessTests.cs:line 152
+   at LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch() in C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-01\source\dotnet\LineupWorker.Tests\KernelCrossProcessTests.cs:line 185
+--- End of stack trace from previous location ---
+Arquivo de resultados: C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-01\dotnet-results\_LEO_2026-09-09_22_33_50_net10.0.trx
+
+Com falha! – Com falha:     1, Aprovado:   109, Ignorado:     0, Total:   110, Duração: 39 s - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\implementacao-2026-09-10\runtime-01\dotnet-results\63452c2a-1ad5-483c-8d94-827dae1c0ac3\coverage.cobertura.xml
