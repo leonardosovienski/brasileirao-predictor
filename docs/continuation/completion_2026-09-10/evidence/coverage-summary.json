@@ -1,0 +1,8 @@
+{
+  "files": 450,
+  "by_depth": {
+    "inventory_static_or_targeted_review_only": 314,
+    "protected_contract_only_no_execution": 58,
+    "semantic_read_with_recorded_findings": 78
+  }
+}

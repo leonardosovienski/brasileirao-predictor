@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS observations (
   entity_type TEXT NOT NULL, entity_id TEXT NOT NULL, source TEXT NOT NULL,
   event_at TEXT NOT NULL, published_at TEXT NOT NULL, ingested_at TEXT NOT NULL,
   payload_json TEXT NOT NULL, content_hash TEXT NOT NULL, charter_id TEXT NOT NULL,
-  PRIMARY KEY(entity_type, entity_id, source, published_at, ingested_at, content_hash)
+  PRIMARY KEY(charter_id, entity_type, entity_id, source, event_at, published_at, ingested_at, content_hash)
 );
 CREATE INDEX IF NOT EXISTS observations_asof
 ON observations(entity_type, entity_id, published_at, ingested_at);
@@ -61,6 +61,19 @@ def connect(path: str | Path) -> sqlite3.Connection:
     target.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(target)
     connection.row_factory = sqlite3.Row
+    existing = connection.execute("PRAGMA table_info(observations)").fetchall()
+    if existing and {row["name"] for row in existing if row["pk"]} != {
+        "charter_id",
+        "entity_type",
+        "entity_id",
+        "source",
+        "event_at",
+        "published_at",
+        "ingested_at",
+        "content_hash",
+    }:
+        connection.close()
+        raise ValueError("legacy observation schema: explicit isolated migration required; original left unchanged")
     connection.executescript(SCHEMA)
     return connection
 
@@ -85,24 +98,43 @@ def append(connection: sqlite3.Connection, observation: BitemporalObservation) -
     return cursor.rowcount == 1
 
 
-def as_known_at(connection: sqlite3.Connection, entity_type: str, at: datetime) -> list[dict[str, Any]]:
+def as_known_at(
+    connection: sqlite3.Connection, entity_type: str, at: datetime, *, charter_id: str | None = None
+) -> list[dict[str, Any]]:
     """Latest eligible version per entity/source, using both knowledge clocks."""
     instant = _utc(at, "at").isoformat()
+    if charter_id is None:
+        charters = connection.execute(
+            "SELECT DISTINCT charter_id FROM observations WHERE entity_type = ?", (entity_type,)
+        ).fetchall()
+        if len(charters) > 1:
+            raise ValueError("charter_id required for a store containing multiple charters")
+        if not charters:
+            return []
+        charter_id = charters[0][0]
     rows = connection.execute(
         """SELECT * FROM (
-          SELECT *, ROW_NUMBER() OVER (
-            PARTITION BY entity_type, entity_id, source
-            ORDER BY published_at DESC, ingested_at DESC, content_hash DESC
+          SELECT *, DENSE_RANK() OVER (
+            PARTITION BY charter_id, entity_type, entity_id, source
+            ORDER BY published_at DESC, ingested_at DESC
           ) AS rank
           FROM observations
-          WHERE entity_type = ? AND published_at <= ? AND ingested_at <= ?
+          WHERE entity_type = ? AND published_at <= ? AND ingested_at <= ? AND charter_id = ?
         ) WHERE rank = 1 ORDER BY entity_id, source""",
-        (entity_type, instant, instant),
+        (entity_type, instant, instant, charter_id),
     ).fetchall()
+    seen = set()
+    for row in rows:
+        key = (row["entity_type"], row["entity_id"], row["source"])
+        if key in seen:
+            raise ValueError("conflicting observation versions at the same knowledge clocks")
+        seen.add(key)
     return [{**dict(row), "payload": json.loads(row["payload_json"])} for row in rows]
 
 
-def feature_rows_as_known_at(connection: sqlite3.Connection, at: datetime) -> list[dict[str, Any]]:
+def feature_rows_as_known_at(
+    connection: sqlite3.Connection, at: datetime, *, charter_id: str | None = None
+) -> list[dict[str, Any]]:
     """Materialization input; callers receive no observation learned after ``at``."""
     kinds = ("match_observation", "match_result", "odds_snapshot", "lineup")
-    return [row for kind in kinds for row in as_known_at(connection, kind, at)]
+    return [row for kind in kinds for row in as_known_at(connection, kind, at, charter_id=charter_id)]

@@ -33,13 +33,19 @@ def lineup_state_asof(rows: list[dict[str, Any]], *, event_id: str, asof: str) -
     for row in rows:
         if str(row.get("source_event_id")) != str(event_id):
             continue
-        published = _utc(str(row["published_at"]))
-        if published <= cutoff:
+        try:
+            received = _utc(str(row["ingested_at"]))
+            published = _utc(str(row["published_at"])) if row.get("published_at") else None
+        except (KeyError, TypeError, ValueError):
+            continue
+        if received <= cutoff and (published is None or published <= received):
             grouped[(str(row.get("team_id")), str(row.get("content_hash")))].append(row)
     for (team_id, content_hash), items in grouped.items():
-        published = max(_utc(str(item["published_at"])) for item in items)
-        if team_id not in vintages or published > vintages[team_id][0]:
-            vintages[team_id] = (published, content_hash, items)
+        received = max(_utc(str(item["ingested_at"])) for item in items)
+        if team_id in vintages and received == vintages[team_id][0] and content_hash != vintages[team_id][1]:
+            raise ValueError("conflicting lineup vintages at the same receipt time")
+        if team_id not in vintages or received > vintages[team_id][0]:
+            vintages[team_id] = (received, content_hash, items)
     return {
         team_id: {str(item["player_id"]) for item in items if item.get("role") == "starter"}
         for team_id, (_, _, items) in vintages.items()

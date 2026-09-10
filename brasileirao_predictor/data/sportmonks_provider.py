@@ -12,6 +12,7 @@ import urllib.request
 from collections.abc import Callable
 from datetime import UTC, date, datetime
 from typing import Any
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from predictor_core.data.contracts import DataUnavailableError
 
@@ -25,10 +26,14 @@ class SportmonksProvider:
         token: str | None = None,
         timeout: float = 30.0,
         get_json: Callable[[str, dict[str, str]], Any] | None = None,
+        max_pages: int = 1,
     ):
         self.token = token or os.environ.get("SPORTMONKS_API_TOKEN")
         self.timeout = timeout
         self._get_json = get_json or self._http_get_json
+        if type(max_pages) is not int or max_pages < 1:
+            raise ValueError("max_pages must be a positive request budget")
+        self.max_pages = max_pages
 
     def _headers(self) -> dict[str, str]:
         if not self.token:
@@ -41,14 +46,49 @@ class SportmonksProvider:
             request = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(request, timeout=self.timeout) as response:
                 return json.loads(response.read())
-        except (OSError, ValueError) as exc:
-            raise DataUnavailableError(f"Sportmonks indisponível: {exc}") from exc
+        except (OSError, ValueError):
+            raise DataUnavailableError("Sportmonks indisponível; transporte ou JSON inválido") from None
+
+    def _pages(self, url: str) -> list[dict[str, Any]]:
+        """Honor an explicit request budget and never call a partial list complete."""
+        rows = []
+        parts = urlsplit(url)
+        original_query = dict(parse_qsl(parts.query))
+        cursor = None
+        seen_cursors = set()
+        for page in range(1, self.max_pages + 1):
+            query = dict(original_query)
+            if cursor is not None:
+                query.pop("per_page", None)
+                query["cursor"] = cursor
+            else:
+                query["page"] = str(page)
+            request_url = urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(query), ""))
+            payload = self._get_json(request_url, self._headers())
+            data = payload.get("data") if isinstance(payload, dict) else None
+            if not isinstance(data, list) or any(not isinstance(row, dict) for row in data):
+                raise DataUnavailableError("Sportmonks retornou dados inválidos")
+            rows.extend(data)
+            pagination = payload.get("pagination")
+            if pagination is None:
+                raise DataUnavailableError("Sportmonks: paginação ausente; completude desconhecida")
+            if (
+                not isinstance(pagination, dict)
+                or type(pagination.get("has_more")) is not bool
+                or pagination.get("current_page") != (1 if cursor is not None else page)
+            ):
+                raise DataUnavailableError("Sportmonks retornou paginação inválida")
+            if not pagination["has_more"]:
+                return rows
+            if "next_cursor" in pagination:
+                cursor = pagination["next_cursor"]
+                if not isinstance(cursor, str) or not cursor or cursor in seen_cursors:
+                    raise DataUnavailableError("Sportmonks retornou cursor inválido ou repetido")
+                seen_cursors.add(cursor)
+        raise DataUnavailableError("Sportmonks: cobertura incompleta; orçamento de paginação atingido")
 
     def accessible_leagues(self) -> list[dict[str, Any]]:
-        payload = self._get_json(f"{BASE}/leagues?include=country&per_page=100", self._headers())
-        rows = payload.get("data") if isinstance(payload, dict) else None
-        if not isinstance(rows, list):
-            raise DataUnavailableError("Sportmonks retornou ligas inválidas")
+        rows = self._pages(f"{BASE}/leagues?include=country&per_page=50")
         return [
             {
                 "source_league_id": int(row["id"]),
@@ -74,12 +114,10 @@ class SportmonksProvider:
         observed = observed.astimezone(UTC)
         url = (
             f"{BASE}/fixtures/between/{from_date.isoformat()}/{to_date.isoformat()}"
-            f"?filters=fixtureLeagues:{int(league_id)}&include=participants"
+            f"?filters=fixtureLeagues:{int(league_id)}&include=participants&timezone=UTC"
         )
-        payload = self._get_json(url, self._headers())
-        raw_rows = payload.get("data") if isinstance(payload, dict) else None
-        if not isinstance(raw_rows, list):
-            raise DataUnavailableError("Sportmonks retornou fixtures inválidos")
+        raw_rows = self._pages(url)
+        observed = (observed_at or datetime.now(UTC)).astimezone(UTC)
         rows = []
         for fixture in raw_rows:
             participants = fixture.get("participants") or []
@@ -87,7 +125,17 @@ class SportmonksProvider:
             away = next((p for p in participants if (p.get("meta") or {}).get("location") == "away"), None)
             try:
                 scheduled = datetime.fromisoformat(str(fixture["starting_at"]).replace("Z", "+00:00"))
-                if scheduled.tzinfo is None or home is None or away is None:
+                if scheduled.tzinfo is None:
+                    # The request explicitly fixes UTC; this is source contract,
+                    # not a timezone guessed from the machine's local settings.
+                    scheduled = scheduled.replace(tzinfo=UTC)
+                if (
+                    home is None
+                    or away is None
+                    or not home.get("name")
+                    or not away.get("name")
+                    or fixture.get("league_id", league_id) != league_id
+                ):
                     raise ValueError
             except (KeyError, TypeError, ValueError):
                 continue

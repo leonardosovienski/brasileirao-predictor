@@ -1,0 +1,69 @@
+{
+  "tests": [
+    "test_completion_ledger.py",
+    "test_bet_log.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    }
+  ],
+  "exit_code": 0
+}

@@ -52,7 +52,7 @@ def test_api_football_surfaces_provider_errors():
         api_key="synthetic",
         get_json=lambda *_: {"errors": {"plan": "season not available"}, "response": []},
     )
-    with pytest.raises(DataUnavailableError, match="plan: season not available"):
+    with pytest.raises(DataUnavailableError, match="recusou a consulta"):
         provider.brasileirao_seasons()
 
 
@@ -114,5 +114,5 @@ def test_api_football_normalizes_lineup_vintage():
         ("Reserva", "substitute"),
     ]
     assert rows[0]["scientific_state"] == "COLLECTION_ONLY"
-    assert rows[0]["quality_flags"] == ["published_at_untrusted"]
+    assert rows[0]["quality_flags"] == ["published_at_unknown"]
     assert len(rows[0]["content_hash"]) == 64

@@ -24,20 +24,11 @@ Read-only no banco. CLV histórico exibido vem do cache gravado por
 
 import argparse
 import json as _json
-import sqlite3
 import sys
-from pathlib import Path
 
-from brasileirao_predictor import display, model
+from brasileirao_predictor import display
 from brasileirao_predictor.ingest import load_config
-
-ROOT = Path(__file__).resolve().parent.parent
-
-
-def _conn_ro():
-    c = sqlite3.connect(f"file:{ROOT / 'data' / 'matches.db'}?mode=ro", uri=True)
-    c.execute("PRAGMA query_only=ON")
-    return c
+from brasileirao_predictor.predict import build
 
 
 def main():
@@ -71,21 +62,7 @@ def main():
         sys.exit("--primeiro-tempo e --segundo-tempo sao mutuamente exclusivos")
 
     cfg = load_config()
-    conn = _conn_ro()
-    elo = {t: e for t, e in conn.execute("SELECT team, elo FROM current_elo")}
-    prow = conn.execute("SELECT param_a, param_b, param_alpha, param_rho FROM model_parameters WHERE id=1").fetchone()
-    if not elo or not prow:
-        # Paridade com brasileirao_predictor.predict: um checkout com dados válidos não deve
-        # quebrar só porque o cache derivado ainda não foi materializado.
-        # compute() é puro; esta conexão permanece query_only.
-        from brasileirao_predictor.cron_update_models import compute
-
-        computed = compute(cfg, conn)
-        if not computed:
-            sys.exit("banco vazio — rode `python -m brasileirao_predictor.ingest` primeiro")
-        elo, params, _ = computed
-    else:
-        params = tuple(prow)
+    conn, elo, params = build(cfg)
 
     ta, tb = args.time_a, args.time_b
     for t in (ta, tb):
@@ -157,7 +134,8 @@ def main():
                 match_date=row[0] if row else None,
             )
         except Exception as e:
-            print(f"[AVISO: predição de período NÃO registrada no log ({e})]", file=sys.stderr)
+            conn.close()
+            raise RuntimeError("period prediction audit log could not be persisted") from e
         # telemetria do core — predict.py emite pra todo jogo cheio; período
         # ficava invisível pro observability (achado da análise do core)
         try:
@@ -181,7 +159,7 @@ def main():
         except Exception:
             pass  # telemetria nunca derruba o serving
         if args.json:
-            print(_json.dumps(live, ensure_ascii=False, indent=2))
+            print(_json.dumps(live, ensure_ascii=False, indent=2, allow_nan=False))
         else:
             display.render_live(live, kickoff=kickoff, calib=calib)
         conn.close()
@@ -192,41 +170,16 @@ def main():
     # aqui e' o que so o prever.py tem: mata-mata, escanteios/cartoes
     # (precisam de historico via conn, que predict.py nao consulta).
     adv = cfg["elo"]["home_advantage"] if args.mando else 0.0
-    data = display.compute(ta, tb, elo, params, cfg, neutral=not args.mando, conn=conn)
+    from brasileirao_predictor.predict import show
 
-    # OBRIGATÓRIO: mesmo registro append-only que src/predict.py grava — sem
-    # isto os palpites deste script não entram na avaliação vs. resultado real.
-    # match_date vem do fixture em aberto na base (qualquer ordem casa/fora);
-    # sem ele o settle.py só casa por nome e o filtro por data fica inútil
-    # (auditoria 2026-07-07: 46 de 110 linhas do log estavam com data nula).
-    try:
-        from brasileirao_predictor.prediction_log import log_prediction
-
-        row = conn.execute(
-            "SELECT date FROM matches WHERE home_score IS NULL AND "
-            "((home_team=? AND away_team=?) OR (home_team=? AND away_team=?)) "
-            "ORDER BY date LIMIT 1",
-            (ta, tb, tb, ta),
-        ).fetchone()
-        match_date = row[0] if row else None
-        r = model.predict_match(elo[ta], elo[tb], params, adv, max_goals=cfg["model"]["max_goals"])
-        # mesmo blend do display.compute — o log tem que congelar o que foi EXIBIDO
-        from brasileirao_predictor.xg_model import maybe_blend
-
-        r = maybe_blend(r, conn, cfg, ta, tb, not args.mando)
-        log_prediction(
-            ta,
-            tb,
-            not args.mando,
-            elo[ta],
-            elo[tb],
-            params,
-            r,
-            match_date=match_date,
-            market=data["core"]["market"],
-        )
-    except Exception as e:
-        print(f"[AVISO: predição NÃO registrada no log ({e})]", file=sys.stderr)
+    row = conn.execute(
+        "SELECT date FROM matches WHERE home_score IS NULL AND "
+        "((home_team=? AND away_team=?) OR (home_team=? AND away_team=?)) "
+        "ORDER BY date LIMIT 1",
+        (ta, tb, tb, ta),
+    ).fetchone()
+    match_date = row[0] if row else None
+    data = show(ta, tb, elo, params, cfg, not args.mando, conn=conn, match_date=match_date, quiet=True)
 
     display.render(data, level=3, as_json=args.json)
     if args.json:

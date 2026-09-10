@@ -1,0 +1,12 @@
+{
+  "tests": [
+    "test_completion_regressions.py::test_display_does_not_certify_economic_confidence_from_config_only"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 1
+}

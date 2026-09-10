@@ -158,7 +158,8 @@ def preserve_raw(
         data = raw.encode("utf-8")
     else:
         data = bytes(raw)
-    destination.write_bytes(data)
+    with destination.open("xb") as output:
+        output.write(data)
     return {
         "schema_version": RAW_SCHEMA_VERSION,
         "batch_id": batch_id or uuid.uuid4().hex,
@@ -428,7 +429,7 @@ def pit_eligible(*, available_at: str, predicted_at: str, kickoff_at: str) -> bo
 
 def evaluation_view(conn: sqlite3.Connection, *, predicted_at: str) -> list[sqlite3.Row]:
     """View somente de partidas curadas disponíveis antes da decisão."""
-    _utc(predicted_at, "predicted_at")
+    predicted_at = _utc(predicted_at, "predicted_at").isoformat()
     conn.row_factory = sqlite3.Row
     return conn.execute(
         """SELECT * FROM curated_matches
@@ -467,13 +468,21 @@ def walk_forward_splits(
 def cluster_bootstrap_mean(
     rows: Iterable[dict[str, Any]], field: str, *, iterations: int = 2000, seed: int = 13
 ) -> dict[str, float] | None:
-    """IC95 agrupado por rodada/clube; nunca trata partidas do mesmo cluster como independentes."""
+    """IC95 por reamostragem dos clusters fornecidos; não é bootstrap multiway."""
+    import math
     import random
+
+    if isinstance(iterations, bool) or not isinstance(iterations, int) or iterations <= 0:
+        raise ValueError("iterations deve ser inteiro positivo")
 
     grouped: dict[Any, list[float]] = {}
     for row in rows:
         value, cluster = row.get(field), row.get("cluster")
-        if isinstance(value, (int, float)) and value == value and cluster is not None:
+        if value is not None and (
+            isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value)
+        ):
+            raise ValueError("resultado de bootstrap deve ser numérico finito ou ausente")
+        if value is not None and cluster is not None:
             grouped.setdefault(cluster, []).append(float(value))
     if not grouped:
         return None
@@ -505,8 +514,8 @@ def quality_gate(observations: Iterable[dict[str, Any]], *, min_matured: int = 1
         for club in row.get("clubs", ()):
             club_counts[club] = club_counts.get(club, 0) + 1
     total = len(eligible)
-    n = max(total, 1)
-    hhi = sum((count / n) ** 2 for count in club_counts.values()) if total else None
+    n = sum(club_counts.values())
+    hhi = sum((count / n) ** 2 for count in club_counts.values()) if n else None
     return {
         "status": "GATE_PASSED_FOR_PROSPECTIVE_SHADOW" if total >= min_matured else "INSUFFICIENT_SAMPLE",
         "eligible_matches": total,

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "sportmonks_timezone",
+    "url": "https://docs.sportmonks.com/v3/tutorials-and-guides/tutorials/introduction/set-your-time-zone.md",
+    "requested_at": "2026-09-10T15:35:21.676270+00:00",
+    "authenticated": false,
+    "status": 200,
+    "final_url": "https://docs.sportmonks.com/v3/tutorials-and-guides/tutorials/introduction/set-your-time-zone.md",
+    "bytes": 3731,
+    "sha256": "d0e7dc228de208a555ff3d89e173dafac415d760d6e2fb6aa1d5b07b81cf51ba",
+    "received_at": "2026-09-10T15:35:23.122129+00:00"
+  },
+  {
+    "id": "api_football_guide",
+    "url": "https://www.api-football.com/news/post/how-to-get-started-with-api-football-the-complete-beginners-guide",
+    "requested_at": "2026-09-10T15:35:23.123337+00:00",
+    "authenticated": false,
+    "error_type": "HTTPError",
+    "status": 403,
+    "received_at": "2026-09-10T15:35:23.304759+00:00"
+  }
+]

@@ -1,3 +1,13 @@
+# Estado vigente — CPL-20260910
+
+Correções verificadas em previsão, temporalidade, preços, contabilidade e infraestrutura.196 testes Python aprovados;27 com Redis real;119 casos.NET aprovados entre execuções separadas, com falha intermitente de inicialização preservada. Prontidão técnica delimitada; dados comerciais insuficientes; lucro executável não demonstrado. Mandato integral ainda em andamento:78 leituras semânticas registradas de450 arquivos inventariados,58 protegidos por contrato.
+
+[Mapa de campos/fontes e lacunas](continuation/completion_2026-09-10/MAPA_DADOS.md).
+
+Os estados datados anteriores abaixo permanecem como histórico, com seus escopos próprios.
+
+---
+
 # Dados vigentes — BE-20260910
 
 CSV público congelado DC reinterpretado apenas para temporadas2012–2024: 4.940 jogos, 4.939 trios Pinnacle, 4.939 trios máximos, 1 label inválido preservado. Temporadas2025/2026 excluídas antes dos demais campos. Base não é holdout independente. Output completo em C:/BRASILEIRAO/work/economic-search-2026-09-10/run-01; hashes e limites em [resultado BE](continuation/economic_search_2026-09-10/RESULTADO.md) e evidence/manifest.json na mesma pasta documental. Documentos Football-Data recuperados; tentativas OddsPortal/Betfair não recuperaram casas/clocks. Nenhuma API autenticada ou nova captura operacional. Mapas anteriores abaixo preservados.

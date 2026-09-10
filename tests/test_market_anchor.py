@@ -15,7 +15,7 @@ def test_remove_overround_rejects_incomplete_or_invalid_market():
         remove_overround({"over": 1.0, "under": 2.0})
 
 
-def test_consensus_uses_complete_books_and_best_executable_price():
+def test_consensus_uses_complete_books_and_best_observed_price():
     rows = [
         {
             "market": "ou2.5",
@@ -58,11 +58,15 @@ def test_consensus_uses_complete_books_and_best_executable_price():
             "decimal_odds": 9.0,
         },
     ]
+    rows = [
+        {**row, "source": "synthetic", "source_event_id": "e", "odds_captured_at": "2020-01-01T00:00:00Z"}
+        for row in rows
+    ]
     anchor = consensus_anchor(rows, market="ou2.5")
     assert anchor["books"] == ["a", "b"]
     assert anchor["best_odds"] == {"over": 2.05, "under": 1.90}
     assert sum(anchor["fair_probabilities"].values()) == pytest.approx(1.0)
-    assert anchor["method"] == "median-proportional-devig/v1"
+    assert anchor["method"] == "median-proportional-devig/v2"
 
 
 def test_research_persistence_marks_collection_only(tmp_path):

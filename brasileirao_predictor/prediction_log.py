@@ -46,7 +46,14 @@ def log_prediction(
     gera para o confronto. `pred` é o dict de model.predict_match. `market` (opcional)
     = dict de predict._market_probs (odds cruas + Shin de 1X2 e O/U) quando há odds.
     `logged_at`/`path` injetáveis para teste. Retorna o registro gravado."""
-    a, b, alpha, rho = params
+    if isinstance(params, dict):
+        parameter_record = {key: float(params[key]) for key in ("a", "b", "alpha", "rho")}
+        if "theta" in params:
+            parameter_record["theta"] = float(params["theta"])
+    else:
+        if len(params) not in {4, 5}:
+            raise ValueError("model parameters require four or five values")
+        parameter_record = dict(zip(("a", "b", "alpha", "rho", "theta"), map(float, params)))
     over = {str(k): round(v, 4) for k, v in pred["over"].items()}
     record = {
         "logged_at": logged_at or datetime.now(UTC).isoformat(timespec="seconds"),
@@ -68,12 +75,7 @@ def log_prediction(
         "btts_no": round(1.0 - pred["btts"], 4),
         # placares vêm como numpy.int64 (np.arange no motor) — coage a int nativo
         "top_scores": [[[int(sc[0]), int(sc[1])], round(p, 4)] for sc, p in pred["top_scores"]],
-        "params": {
-            "a": round(a, 4),
-            "b": round(b, 4),
-            "alpha": round(alpha, 4),
-            "rho": round(rho, 4),
-        },
+        "params": parameter_record,
     }
     if pred.get("draw_diagnostics") is not None:
         record["draw_diagnostics"] = pred["draw_diagnostics"]
@@ -111,10 +113,11 @@ def log_prediction(
                     "edge_under_vs_price": round((1.0 - p_over) - (1.0 / market["odds_under"]), 4),
                 }
             )
+    encoded = json.dumps(record, ensure_ascii=False, allow_nan=False)
     dest = _resolve(path)
     dest.parent.mkdir(parents=True, exist_ok=True)
     with open(dest, "a", encoding="utf-8") as f:
-        f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        f.write(encoded + "\n")
     return record
 
 
@@ -171,8 +174,9 @@ def log_period_prediction(
             "top_scores": [[[int(sc[0]), int(sc[1])], round(p, 4)] for sc, p in fin["top_scores"]],
         },
     }
+    encoded = json.dumps(record, ensure_ascii=False, allow_nan=False)
     dest = _resolve_period(path)
     dest.parent.mkdir(parents=True, exist_ok=True)
     with open(dest, "a", encoding="utf-8") as f:
-        f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        f.write(encoded + "\n")
     return record

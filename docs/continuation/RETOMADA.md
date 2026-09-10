@@ -1,3 +1,13 @@
+# Estado vigente — CPL-20260910
+
+Correções verificadas em previsão, temporalidade, preços, contabilidade e infraestrutura.196 testes Python aprovados;27 com Redis real;119 casos.NET aprovados entre execuções separadas, com falha intermitente de inicialização preservada. Prontidão técnica delimitada; dados comerciais insuficientes; lucro executável não demonstrado. Mandato integral ainda em andamento:78 leituras semânticas registradas de450 arquivos inventariados,58 protegidos por contrato.
+
+[Próximo prompt CPL](completion_2026-09-10/PROXIMO_PROMPT.md) · [Registros](completion_2026-09-10/REGISTROS.json).
+
+Os estados datados anteriores abaixo permanecem como histórico, com seus escopos próprios.
+
+---
+
 # Retomada vigente — BE-20260910
 
 Leia [próximo prompt BE](economic_search_2026-09-10/PROXIMO_PROMPT.md), [resultado](economic_search_2026-09-10/RESULTADO.md) e o mandato original. A prioridade econômica passou à procedência e simultaneidade do candidato de arbitragem. Não refazer o modelo reprovado ou a infraestrutura já testada sem causa concreta. Preserve H14/H15/H9/A1 e a captura DC congelada. Recibo final C:/BRASILEIRAO/AUDITORIA/BUSCA_ECONOMICA_2026-09-10.json. As orientações IE abaixo são históricas.

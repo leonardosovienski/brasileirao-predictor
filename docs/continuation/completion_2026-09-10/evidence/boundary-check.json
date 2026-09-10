@@ -1,0 +1,37 @@
+{
+  "base": "456b9025cfa3a596e754088ec3001fbeb5fcc7de",
+  "protected_files_modified": [],
+  "function_checks": [
+    {
+      "path": "brasileirao_predictor/predict.py",
+      "function": "_canon",
+      "unchanged": true,
+      "ast_sha256": "2f218b6a0c62fa1583aa4b103b6d94f57bfc2d421933fe3be0a8ca3b5196be95"
+    },
+    {
+      "path": "brasileirao_predictor/predict.py",
+      "function": "_market_probs",
+      "unchanged": true,
+      "ast_sha256": "bfc858cb2205160765f294dddbbb40879b29ae7c668b76cf837dfaa49f1072d5"
+    },
+    {
+      "path": "brasileirao_predictor/data/market_anchor.py",
+      "function": "persist_market_observations",
+      "unchanged": true,
+      "ast_sha256": "6a12c5c2bdd60c391778ff947b36120e6bfe0f00f4f1fbd3426d39dcdc705cea"
+    }
+  ],
+  "no_operational_results_or_cohort_metrics_read": true,
+  "scope_note": "Files with mixed protected functionality preserved. This inventory does not assert a full semantic reading of every file.",
+  "shared_or_frozen_files_unchanged": [
+    "brasileirao_predictor/db.py",
+    "brasileirao_predictor/ratings.py",
+    "brasileirao_predictor/model.py",
+    "brasileirao_predictor/xg_model.py",
+    "brasileirao_predictor/cron_update_models.py",
+    "brasileirao_predictor/identity.py",
+    "brasileirao_predictor/data/the_odds_api_provider.py",
+    "brasileirao_predictor/data/bookmaker_stability.py",
+    "brasileirao_predictor/research/price_strength/economic_search.py"
+  ]
+}

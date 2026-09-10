@@ -24,7 +24,15 @@ namespace LineupWorker.Services;
 public sealed class MarketStateEngine : BackgroundService
 {
     public static double FractionalKelly(double probability, double odds, double fraction, double cap = 0.05)
-        => Math.Min(fraction * (probability * odds - 1.0) / (odds - 1.0), cap);
+    {
+        if (!double.IsFinite(probability) || probability < 0 || probability > 1)
+            throw new ArgumentOutOfRangeException(nameof(probability));
+        if (!double.IsFinite(odds) || odds <= 1) throw new ArgumentOutOfRangeException(nameof(odds));
+        if (!double.IsFinite(fraction) || fraction < 0 || fraction > 1)
+            throw new ArgumentOutOfRangeException(nameof(fraction));
+        if (!double.IsFinite(cap) || cap < 0 || cap > 1) throw new ArgumentOutOfRangeException(nameof(cap));
+        return Math.Clamp(fraction * (probability * odds - 1.0) / (odds - 1.0), 0, cap);
+    }
 
     private const string FAIR_ODDS_READY_PATTERN = "fair_odds_ready:*";
     private const string FAIR_ODDS_KEY_PREFIX    = "fair_odds:";
@@ -58,6 +66,11 @@ public sealed class MarketStateEngine : BackgroundService
         _maxEdge  = cfg.GetValue<double>("MarketStateEngine:MaxEdgePct",    0.15);
         _kellyFrac = cfg.GetValue<double>("MarketStateEngine:KellyFraction", 0.25);
         _budgetMs = cfg.GetValue<double>("MarketStateEngine:LatencyBudgetMs", 300);
+        if (!double.IsFinite(_minEdge) || !double.IsFinite(_maxEdge) ||
+            _minEdge < 0 || _maxEdge < _minEdge || _maxEdge > 1 ||
+            !double.IsFinite(_kellyFrac) || _kellyFrac < 0 || _kellyFrac > 1 ||
+            !double.IsFinite(_budgetMs) || _budgetMs <= 0)
+            throw new ArgumentException("Invalid MarketStateEngine configuration");
     }
 
     protected override Task ExecuteAsync(CancellationToken ct)
@@ -100,7 +113,12 @@ public sealed class MarketStateEngine : BackgroundService
         });
 
         _log.LogInformation("[MSE] aguardando fair_odds_ready:* do Kernel Python…");
-        await Task.Delay(Timeout.Infinite, ct);
+        try { await Task.Delay(Timeout.Infinite, ct); }
+        finally
+        {
+            try { await queue.UnsubscribeAsync(); }
+            catch (RedisException ex) { _log.LogWarning(ex, "[MSE] falha ao remover assinatura durante parada"); }
+        }
     }
 
     private async Task PollReadyAsync(CancellationToken ct)
@@ -292,7 +310,8 @@ public sealed class MarketStateEngine : BackgroundService
 
         foreach (var (mkt, sel, fairOdd, marketOdd) in candidates)
         {
-            if (fairOdd is null || fairOdd <= 1.0 || marketOdd <= 1.0) continue;
+            if (fairOdd is null || !double.IsFinite(fairOdd.Value) || !double.IsFinite(marketOdd) ||
+                fairOdd < 1.0 || marketOdd <= 1.0) continue;
 
             // p_model = 1 / fair_odd (justa, sem overround)
             var pModel  = 1.0 / fairOdd.Value;

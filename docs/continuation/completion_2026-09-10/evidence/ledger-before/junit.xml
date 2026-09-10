@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="9" skipped="0" tests="9" time="17.601" timestamp="2026-09-10T11:48:03.072266-03:00" hostname="Leo"><testcase classname="tests.test_completion_ledger" name="test_invalid_bet_cannot_enter_journal[changes0]" time="14.919"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_ledger.py:13: in test_invalid_bet_cannot_enter_journal
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_ledger" name="test_invalid_bet_cannot_enter_journal[changes1]" time="0.029"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_ledger.py:13: in test_invalid_bet_cannot_enter_journal
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_ledger" name="test_invalid_bet_cannot_enter_journal[changes2]" time="0.017"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_ledger.py:13: in test_invalid_bet_cannot_enter_journal
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_ledger" name="test_invalid_bet_cannot_enter_journal[changes3]" time="0.012"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_ledger.py:13: in test_invalid_bet_cannot_enter_journal
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_ledger" name="test_invalid_bet_cannot_enter_journal[changes4]" time="0.021"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_ledger.py:13: in test_invalid_bet_cannot_enter_journal
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_ledger" name="test_invalid_bet_cannot_enter_journal[changes5]" time="0.016"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_ledger.py:13: in test_invalid_bet_cannot_enter_journal
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_ledger" name="test_stable_bet_id_survives_line_reordering_in_list_and_bank" time="0.089"><failure message="assert None is not None">..\..\..\brasileirao-predictor\tests\test_completion_ledger.py:28: in test_stable_bet_id_survives_line_reordering_in_list_and_bank
+    assert by_id["settled"]["result"] is not None
+E   assert None is not None</failure></testcase><testcase classname="tests.test_completion_ledger" name="test_duplicate_bet_id_is_rejected_before_append" time="0.034"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_ledger.py:36: in test_duplicate_bet_id_is_rejected_before_append
+    with pytest.raises(ValueError, match="bet_id"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_ledger" name="test_invalid_half_time_each_side_rejected_before_any_settlement" time="0.045"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_ledger.py:44: in test_invalid_half_time_each_side_rejected_before_any_settlement
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,13 @@
+{
+  "tests": [
+    "test_completion_anchor.py",
+    "test_completion_math_consumer.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 1
+}

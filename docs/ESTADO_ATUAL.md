@@ -1,3 +1,13 @@
+# Estado vigente — CPL-20260910
+
+Correções verificadas em previsão, temporalidade, preços, contabilidade e infraestrutura.196 testes Python aprovados;27 com Redis real;119 casos.NET aprovados entre execuções separadas, com falha intermitente de inicialização preservada. Prontidão técnica delimitada; dados comerciais insuficientes; lucro executável não demonstrado. Mandato integral ainda em andamento:78 leituras semânticas registradas de450 arquivos inventariados,58 protegidos por contrato.
+
+[Resultado](continuation/completion_2026-09-10/RESULTADO.md) · [Registros atuais](continuation/completion_2026-09-10/REGISTROS.md).
+
+Os estados datados anteriores abaixo permanecem como histórico, com seus escopos próprios.
+
+---
+
 # Estado vigente — BE-20260910
 
 Busca econômica executada: 226 carteiras condicionais em 4.940 jogos, +4,6376u após custo2% e deterioração1% do prêmio. Máximos anônimos não provam execução. Modelo independente de gols reprovado: −99,60u/632 fills. Prioridade é obter ofertas identificadas simultâneas e condições de preenchimento. [Resultado e três estados](continuation/economic_search_2026-09-10/RESULTADO.md), [registros](continuation/economic_search_2026-09-10/REGISTROS.json). Dez testes e auditoria Decimal aprovados. Projeto globalmente não pronto e lucro executável não mensurável. O estado IE abaixo é histórico e conserva seu escopo técnico.

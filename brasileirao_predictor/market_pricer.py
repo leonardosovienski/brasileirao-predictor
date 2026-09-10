@@ -18,6 +18,9 @@ Funções que podem dar push retornam as TRÊS probabilidades (win/push/lose) pa
 o settlement liquidar corretamente.
 """
 
+import math
+from numbers import Integral, Real
+
 import numpy as np
 
 # Margem de tolerância para somatórios de probabilidade.
@@ -28,6 +31,8 @@ def _grid(grid) -> np.ndarray:
     g = np.asarray(grid, dtype=float)
     if g.ndim != 2 or g.shape[0] != g.shape[1]:
         raise ValueError("grid deve ser uma matriz quadrada NxN")
+    if not g.size or not np.isfinite(g).all() or np.any(g < 0) or not math.isclose(float(g.sum()), 1.0, abs_tol=1e-10):
+        raise ValueError("grid deve conter probabilidades finitas não negativas com soma 1")
     return g
 
 
@@ -70,6 +75,8 @@ def over_under(grid, line: float) -> dict:
     """Over/Under do total de gols numa linha. Retorna Over/Under/Push.
     Em linhas .5 (padrão de gols) o Push é 0. Em linha inteira (ex.: cartões)
     o total pode igualar a linha → Push > 0."""
+    if isinstance(line, bool) or not isinstance(line, Real) or not math.isfinite(line) or line < 0 or line % 0.5:
+        raise ValueError("total exige linha não negativa inteira ou meia; quartos não implementados")
     g = _grid(grid)
     i, j = _margin_indices(g.shape[0])
     total = i + j
@@ -81,6 +88,8 @@ def over_under(grid, line: float) -> dict:
 
 def exact_score(grid, home_goals: int, away_goals: int) -> float:
     """P(placar exato). Fora do alcance da grade → 0.0."""
+    if any(isinstance(value, bool) or not isinstance(value, Integral) for value in (home_goals, away_goals)):
+        raise ValueError("placar exige contagens inteiras")
     g = _grid(grid)
     n = g.shape[0]
     if not (0 <= home_goals < n and 0 <= away_goals < n):
@@ -124,8 +133,16 @@ def asian_handicap(grid, home_line: float) -> dict:
 
     Linha de quarto (ex.: -0.75) divide o stake em duas meias-apostas nas linhas
     inteira/meia adjacentes (-0.5 e -1.0); win/push/lose são a média das duas.
-    Para o lado de FORA, chame com -home_line e troque win↔lose.
+    Para o lado de FORA do mesmo contrato, troque win↔lose mantendo push.
+    Outra opção é transpor a grade e usar o handicap do visitante (-home_line).
     """
+    if (
+        isinstance(home_line, bool)
+        or not isinstance(home_line, Real)
+        or not math.isfinite(home_line)
+        or home_line % 0.25 != 0
+    ):
+        raise ValueError("handicap exige uma linha finita em quartos de gol")
     # quarto de linha se a parte fracionária é .25 ou .75
     frac = abs(home_line) % 1.0
     if abs(frac - 0.25) < 1e-9 or abs(frac - 0.75) < 1e-9:

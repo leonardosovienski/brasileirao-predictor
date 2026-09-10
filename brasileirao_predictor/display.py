@@ -9,7 +9,7 @@ e `render()` no nível de verbosidade que quiserem; `--json` é `json.dumps` do
 mesmo dict que os outros níveis leem.
 
 Níveis de verbosidade (progressive disclosure):
-  0 (padrão) — O/U 2.5 (manchete, único mercado com CLV comprovado), 1X2
+  0 (padrão) — O/U 2.5 (diagnóstico exploratório), 1X2
       completo (as 3 pernas SEMPRE aparecem — colapsar pra só o favorito
       quebraria `scripts/ci_check.py`, que faz regex por 3 percentuais, e
       esconderia incerteza real em jogos equilibrados), BTTS.
@@ -57,7 +57,7 @@ def _clv_line(cache, market):
     return f"CLV histórico ({label}): {m['mean']:+.2%} [{m['ci_low']:+.2%}, {m['ci_high']:+.2%}]  {sig}  (n={m['n']})"
 
 
-def compute(name_a, name_b, elo, params, cfg, neutral, conn=None):
+def compute(name_a, name_b, elo, params, cfg, neutral, conn=None, *, match_date=None):
     """Todo o cálculo de uma predição, sem nenhum print(). Retorna um dict
     plano — cada nível de `render()` lê um subconjunto dele; `--json` é
     `json.dumps(compute(...))` direto (por isso os valores já saem como
@@ -74,8 +74,13 @@ def compute(name_a, name_b, elo, params, cfg, neutral, conn=None):
     from .xg_model import maybe_blend
 
     r = maybe_blend(r, conn, cfg, name_a, name_b, neutral)
+    mk = _market_probs(conn, name_a, name_b, match_date=match_date) if conn is not None else None
+    return from_prediction(name_a, name_b, elo, params, cfg, neutral, r, mk, match_date=match_date)
+
+
+def from_prediction(name_a, name_b, elo, params, cfg, neutral, r, mk, *, match_date=None):
+    """Present the exact model/quote snapshot already used by the audit logger."""
     g = r["grid"]
-    mk = _market_probs(conn, name_a, name_b) if conn is not None else None
 
     top = sorted(
         ((i, j, float(g[i, j])) for i in range(g.shape[0]) for j in range(g.shape[1])),
@@ -87,6 +92,10 @@ def compute(name_a, name_b, elo, params, cfg, neutral, conn=None):
         "meta": {
             "team_a": name_a,
             "team_b": name_b,
+            "match_date": match_date,
+            "prediction_scope": "EXPLORATORY_LEGACY_MODEL",
+            "market_admissibility": "DIAGNOSTIC_AGGREGATE_ONLY" if mk else "UNAVAILABLE",
+            "capital_authorized": False,
             "elo_a": elo[name_a],
             "elo_b": elo[name_b],
             "venue": "campo neutro" if neutral else f"mando de {name_a}",
@@ -164,13 +173,10 @@ def compute(name_a, name_b, elo, params, cfg, neutral, conn=None):
 
 
 def _confidence(core, expand, cfg):
-    """Indicador ALTA/MÉDIA/BAIXA — não é vibe, são 2 réguas que o próprio
-    projeto já validou: (a) edge no O/U 2.5 dentro da faixa historicamente
-    lucrativa (min_edge/max_edge do config, a mesma usada no backtest); (b)
-    divergência ≥10pp modelo-vs-mercado no 1X2, que o README documenta como
-    viés de achatamento estrutural — NÃO valor, mesmo quando parece um edge
-    grande. BAIXA nesse segundo caso é intencional: o modelo "mais confiante"
-    no 1X2 é historicamente o menos confiável."""
+    """Diagnóstico de divergência e de faixa configurada; sem validação econômica.
+
+    Parâmetros de configuração e CLV legado não certificam lucro executável.
+    """
     if not core["market"]:
         return {"level": "BAIXA", "reason": "sem odds de mercado para cross-check"}
 
@@ -182,9 +188,9 @@ def _confidence(core, expand, cfg):
         best_lado, best_edge = max(edge_ou.items(), key=lambda kv: kv[1])
         if min_edge < best_edge <= max_edge:
             return {
-                "level": "ALTA",
+                "level": "NÃO VALIDADA",
                 "reason": f"edge de {best_edge:+.1%} em {best_lado} (O/U 2.5) dentro da "
-                "faixa historicamente validada no backtest",
+                "faixa configurada; isso não comprova vantagem executável",
             }
 
     div = core.get("favorite_divergence")
@@ -194,7 +200,7 @@ def _confidence(core, expand, cfg):
             "reason": f"divergência de {div:+.1%} no 1X2 é o viés de achatamento conhecido (README) — não é valor",
         }
 
-    return {"level": "MÉDIA", "reason": "sem edge validado nem viés conhecido detectado"}
+    return {"level": "NÃO VALIDADA", "reason": "probabilidade exploratória; vantagem econômica não validada"}
 
 
 def _narrative(core):
@@ -218,7 +224,7 @@ def render(data, level=0, as_json=False):
     ignora `level` e imprime o dict inteiro (menos a chave 'clv_cache', que
     não faz parte do cálculo da partida)."""
     if as_json:
-        print(_json.dumps(data, ensure_ascii=False, indent=2))
+        print(_json.dumps(data, ensure_ascii=False, indent=2, allow_nan=False))
         return
 
     meta, core = data["meta"], data["core"]
@@ -226,6 +232,7 @@ def render(data, level=0, as_json=False):
     cache = get_clv_summary()
 
     print(f"\n{ta} (Elo {meta['elo_a']:.0f}) vs {tb} (Elo {meta['elo_b']:.0f}) — {meta['venue']}")
+    print("  Projeção exploratória. Odds agregadas sem comprovação de disponibilidade ou execução.")
 
     # ---- Nível 0: manchete O/U 2.5, depois 1X2 completo, depois BTTS ----
     print(f"  Over/Under 2.5: over {_fmt_pct(core['over_25'])} | under {_fmt_pct(core['under_25'])}")

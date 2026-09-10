@@ -1,0 +1,16 @@
+{
+  "tests": [
+    "test_completion_regressions.py",
+    "test_market_probs_date.py",
+    "test_draw_diagnostics.py",
+    "test_bitemporal_store.py",
+    "test_sportmonks_provider.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

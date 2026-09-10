@@ -1,0 +1,91 @@
+{
+  "tests": [
+    "test_completion_event_inputs.py",
+    "test_completion_source_budget.py",
+    "test_completion_anchor.py",
+    "test_completion_pit_contracts.py",
+    "test_completion_math_consumer.py",
+    "test_completion_ledger.py",
+    "test_completion_serving_storage.py",
+    "test_completion_regressions.py",
+    "test_odds_api_snapshot.py",
+    "test_source_temporal_regressions.py",
+    "test_api_football_provider.py",
+    "test_sportmonks_provider.py",
+    "test_market_anchor.py",
+    "test_bitemporal_store.py",
+    "test_pit_backfill.py",
+    "test_market_pricer.py",
+    "test_bet_log.py",
+    "test_prediction_log.py",
+    "test_prediction_protocol.py",
+    "test_predict_cache_freshness.py",
+    "test_residual_features.py",
+    "test_integral_review_event_backtest.py",
+    "test_market_probs_date.py",
+    "test_draw_diagnostics.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    }
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,12 @@
+# Reprodução delimitada
+
+Raiz de trabalho: C:/BRASILEIRAO/brasileirao-predictor. Python isolado: C:/BRASILEIRAO/work/revisao-integral-2026-09-09/venv/Scripts/python.exe. SDK: .../dotnet-sdk/dotnet.exe. Dependências previamente instaladas e fixadas em RI; não usar o venv mínimo PF da captura para desenvolvimento.
+
+1. Conferir arquivos/hash/base pelo recibo AUDITORIA/CONTINUACAO_INTEGRAL_2026-09-10.json e pelo manifesto. Ler efeitos dos comandos antes de executá-los. Não executar pytest por glob de todo o repositório, pois inclui avaliadores protegidos.
+2. O runner work/completion-2026-09-10/run_isolated.py exige nova saída e lista explícita de testes, guardando JUnit e isolation.json. A lista integrada exata está em evidence/integrated-python-03/isolation.json. Sem rede/subprocessos e sem DB fora do diretório sintético.3 casos do init e1 adicional de schema legado em storage-final. Não remover barreiras para fazer testes passarem.
+3. tools/runtime_lab/run.py cria apenas seu Redis descartável por PID/run_id em127.0.0.1:26380, DB14/15/13, sem persistência; exige --output novo, --repo, --server, --server-sha256, --dotnet e --nuget-cache. Os argumentos completos estão nos recibos runtime-*/receipt.json. Não substituir endpoint por servidor existente. --cross-only repete apenas a falha entre processos.
+4. check_changed.py conserva logs Ruff/Pyright; build_package.py constrói offline wheel/sdist, instala a wheel em destino explícito e executa CLI com entradas sintéticas. Consultar package-receipt-final.json. Nenhuma CLI de coleta/settlement operacional participa desse smoke.
+5. Novo decoder: python -m brasileirao_predictor.data.odds_api_snapshot RAW --sha256 SHA --received-at ISO_COM_FUSO --output NOVO_JSON [--event-id ID]. RAW deve ser resposta completa do endpoint correto. Saída inválida retorna2; vazio válido retorna0 com execução ABSTAIN. Arquivo já existente é recusado. Isso não captura odds ou prova execução.
+6. Bitemporal mudou identidade da PK. Banco legado não é migrado implicitamente; a leitura abre erro explícito e preserva o original. Uma futura migração deve usar cópia isolada, preservar raw/clocks/charters e demonstrar equivalência antes de qualquer integração permitida.
+
+Banco/Redis operacional, .env, privados e conteúdo de coortes não são inputs desta reprodução. Fonte de documentação pode mudar; os recibos datados preservam o que foi recebido. Artefatos de investigação ficam em work; versões anteriores e falhas não são apagadas.

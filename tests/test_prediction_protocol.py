@@ -1,5 +1,4 @@
 import json
-import subprocess
 import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
@@ -105,17 +104,15 @@ def test_naive_datetime_is_rejected():
 
 
 @pytest.mark.parametrize(("changes", "expected_code"), [({}, 0), ({"capital_enabled": True}, 2)])
-def test_readiness_cli_exit_code(tmp_path: Path, changes, expected_code):
+def test_readiness_cli_exit_code(tmp_path: Path, changes, expected_code, monkeypatch, capsys):
+    from brasileirao_scripts.check_prediction_readiness import main
+
     input_path = tmp_path / "readiness.json"
     payload = candidate(**changes)
     input_path.write_text(json.dumps(payload, default=lambda value: value.isoformat()), encoding="utf-8")
-    completed = subprocess.run(
-        [sys.executable, "-m", "brasileirao_scripts.check_prediction_readiness", str(input_path)],
-        cwd=Path(__file__).parents[1],
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    report = json.loads(completed.stdout)
-    assert completed.returncode == expected_code
+    monkeypatch.setattr(sys, "argv", ["check_prediction_readiness", str(input_path)])
+    with pytest.raises(SystemExit) as exc:
+        main()
+    report = json.loads(capsys.readouterr().out)
+    assert exc.value.code == expected_code
     assert report["ready"] is (expected_code == 0)

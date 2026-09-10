@@ -1,0 +1,61 @@
+{
+  "server_path": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\software\\redis-8.2.9\\Redis-8.2.9-Windows-x64-msys2\\redis-server.exe",
+  "server_sha256": "f9bf66f93438ec461b6e32453e6c9a8dde2f8c93c1018d1b75aa38b113ba3f14",
+  "runtime_scope": "disposable_community_Windows_build_not_production_homologation",
+  "commands": [
+    {
+      "name": "python-integration",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "C:\\BRASILEIRAO\\brasileirao-predictor\\tools\\runtime_lab\\python_tests.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "dotnet-restore",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\dotnet-sdk\\dotnet.exe",
+        "restore",
+        "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+        "--locked-mode"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "dotnet-build",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\dotnet-sdk\\dotnet.exe",
+        "build",
+        "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--warnaserror"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "dotnet-test",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\dotnet-sdk\\dotnet.exe",
+        "test",
+        "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--no-build",
+        "--logger",
+        "trx",
+        "--collect:XPlat Code Coverage",
+        "--results-directory",
+        "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\runtime-after\\dotnet-results"
+      ],
+      "exit_code": 1
+    }
+  ],
+  "pid": 9680,
+  "run_id": "7d097ae4725c13b1b4f904e70807717ba67d98af",
+  "redis_version": "8.2.9",
+  "redis_process_id": 1464,
+  "server_stopped": true
+}

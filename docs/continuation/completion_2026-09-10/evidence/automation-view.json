@@ -1,0 +1,16 @@
+{
+  "round": "CPL-20260910",
+  "mode": "view",
+  "id": "completar-dados-do-brasileir-o",
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Rendered automation card in the app."
+      }
+    ],
+    "isError": false
+  },
+  "verified_active": false,
+  "reason": "Tool rendered UI card without model-readable status or schedule; no mutation."
+}

@@ -91,7 +91,12 @@ public record FairOddsPayload(
             value.ValueKind == System.Text.Json.JsonValueKind.Null)
             return null;
 
-        return value.GetDouble();
+        if (value.ValueKind != System.Text.Json.JsonValueKind.Number)
+            throw new InvalidOperationException("Fair odd must be a JSON number or null");
+        if (!value.TryGetDouble(out var odd) ||
+            !double.IsFinite(odd) || odd < 1.0)
+            throw new System.Text.Json.JsonException("Fair odd must be finite and at least one, or null");
+        return odd;
     }
 }
 
@@ -102,8 +107,8 @@ public record FairOddsPayload(
 // ---------------------------------------------------------------------------
 
 /// <summary>
-/// True Odds do mercado (com overround removido pelo exchange ou pela nossa Shin inline).
-/// Atualizado via WebSocket a cada tick do livro de ordens.
+/// Preços decimais declarados por um adaptador de demonstração.
+/// O recibo local não prova publicação, disponibilidade comercial ou execução.
 /// </summary>
 public record MarketOdds(
     string         MatchId,
@@ -123,5 +128,9 @@ public record MarketOdds(
       + (OddsAway > 0 ? 1.0 / OddsAway : 0);
 
     /// <summary>True se as odds estão frescas (dentro da janela de staleness).</summary>
-    public bool IsFresh(TimeSpan maxAge) => DateTimeOffset.UtcNow - LastUpdated <= maxAge;
+    public bool IsFresh(TimeSpan maxAge)
+    {
+        var age = DateTimeOffset.UtcNow - LastUpdated;
+        return maxAge >= TimeSpan.Zero && age >= TimeSpan.Zero && age <= maxAge;
+    }
 }

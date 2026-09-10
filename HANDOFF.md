@@ -1,3 +1,13 @@
+# Estado vigente — CPL-20260910
+
+Correções verificadas em previsão, temporalidade, preços, contabilidade e infraestrutura.196 testes Python aprovados;27 com Redis real;119 casos.NET aprovados entre execuções separadas, com falha intermitente de inicialização preservada. Prontidão técnica delimitada; dados comerciais insuficientes; lucro executável não demonstrado. Mandato integral ainda em andamento:78 leituras semânticas registradas de450 arquivos inventariados,58 protegidos por contrato.
+
+[Resultado CPL](docs/continuation/completion_2026-09-10/RESULTADO.md) · [Continuação](docs/continuation/completion_2026-09-10/PROXIMO_PROMPT.md).
+
+Os estados datados anteriores abaixo permanecem como histórico, com seus escopos próprios.
+
+---
+
 # Handoff vigente BE-20260910
 
 Rodada econômica encerrada: envelope de arbitragem +4,6376u/226 carteiras em4.940 jogos; execução não comprovada. Modelo de gols −99,60u/632 fills, reprovado. Protocolo anterior aos resultados,10 testes e conta Decimal independente. Leia docs/continuation/economic_search_2026-09-10/RESULTADO.md e PROXIMO_PROMPT.md. Toda escrita em C:/BRASILEIRAO, trabalho solo, coortes/captura DC preservadas. Histórico abaixo.

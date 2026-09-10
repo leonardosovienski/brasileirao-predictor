@@ -1,3 +1,13 @@
+# Estado vigente — CPL-20260910
+
+Correções verificadas em previsão, temporalidade, preços, contabilidade e infraestrutura.196 testes Python aprovados;27 com Redis real;119 casos.NET aprovados entre execuções separadas, com falha intermitente de inicialização preservada. Prontidão técnica delimitada; dados comerciais insuficientes; lucro executável não demonstrado. Mandato integral ainda em andamento:78 leituras semânticas registradas de450 arquivos inventariados,58 protegidos por contrato.
+
+[Entrega CPL](continuation/completion_2026-09-10/RESULTADO.md) · [Sistema](continuation/completion_2026-09-10/MAPA_SISTEMA.md) · [Reprodução](continuation/completion_2026-09-10/REPRODUZIR.md).
+
+Os estados datados anteriores abaixo permanecem como histórico, com seus escopos próprios.
+
+---
+
 # Índice vigente — BE-20260910
 
 [Resultado econômico](continuation/economic_search_2026-09-10/RESULTADO.md), [protocolo](continuation/economic_search_2026-09-10/PROTOCOL.md), [registros](continuation/economic_search_2026-09-10/REGISTROS.json), [reprodução](continuation/economic_search_2026-09-10/REPRODUZIR.md) e [próximo prompt](continuation/economic_search_2026-09-10/PROXIMO_PROMPT.md). Índices e evidências históricos abaixo preservados.

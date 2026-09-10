@@ -16,9 +16,11 @@ o preço de fechamento, o único preditor confiável de lucro no longo prazo.
 """
 
 import json
+import math
 import os
 import uuid
 from datetime import UTC, datetime
+from numbers import Real
 from pathlib import Path
 
 ENV_PATH = "BETS_LOG_PATH"
@@ -95,10 +97,32 @@ def _read(path=None) -> list[dict]:
 
 
 def _append(rec: dict, path=None) -> None:
+    encoded = json.dumps(rec, ensure_ascii=False, allow_nan=False)
     dest = _resolve(path)
     dest.parent.mkdir(parents=True, exist_ok=True)
     with open(dest, "a", encoding="utf-8") as f:
-        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        f.write(encoded + "\n")
+
+
+def _finite_number(value, name):
+    if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value):
+        raise ValueError(f"{name} deve ser um número finito")
+
+
+def _settlement_index(rows):
+    by_id, by_line = {}, {}
+    for row in rows:
+        if row["kind"] != "settlement":
+            continue
+        if row.get("bet_id"):
+            if row["bet_id"] in by_id:
+                raise ValueError("bet_id possui liquidações duplicadas; reconciliação necessária")
+            by_id[row["bet_id"]] = row
+        else:
+            if row["bet_line_no"] in by_line:
+                raise ValueError("linha legada possui liquidações duplicadas")
+            by_line[row["bet_line_no"]] = row
+    return by_id, by_line
 
 
 def add_bet(
@@ -127,6 +151,16 @@ def add_bet(
     edge 'pré-jogo' dela não vale e o CLV vira mentira)."""
     if market not in MARKETS:
         raise ValueError(f"mercado desconhecido: {market!r} — use um de {sorted(MARKETS)}")
+    _finite_number(odds, "odd")
+    _finite_number(stake, "stake")
+    if not isinstance(selection, str) or selection.lower() not in {"over", "under"}:
+        raise ValueError("selection deve ser over ou under")
+    if model_prob is not None:
+        _finite_number(model_prob, "model_prob")
+        if not 0 <= model_prob <= 1:
+            raise ValueError("model_prob deve estar entre 0 e 1")
+    if edge is not None:
+        _finite_number(edge, "edge")
     if odds <= 1.0:
         raise ValueError(f"odd decimal inválida: {odds}")
     if stake <= 0:
@@ -160,10 +194,14 @@ def add_bet(
 
     target = frozenset((_canon(home), _canon(away)))
     rows = _read(path)
-    settled = {r["bet_line_no"] for r in rows if r["kind"] == "settlement"}
+    if bet_id is not None and (
+        not isinstance(bet_id, str) or not bet_id.strip() or any(r.get("bet_id") == bet_id for r in rows)
+    ):
+        raise ValueError("bet_id inválido ou já registrado")
+    settled_ids, settled_lines = _settlement_index(rows)
     dup = any(
         r["kind"] == "bet"
-        and i not in settled
+        and (r.get("bet_id") not in settled_ids if r.get("bet_id") else i not in settled_lines)
         and frozenset((_canon(r["home"]), _canon(r["away"]))) == target
         and r["market"] == market
         and r["selection"] == selection.lower()
@@ -253,6 +291,8 @@ def settle_bet(
         raise ValueError(f"placar inválido: home={home_score!r} away={away_score!r} — {exc}") from exc
     if home_score < 0 or away_score < 0 or (ht is not None and (int(ht[0]) < 0 or int(ht[1]) < 0)):
         raise ValueError("placar negativo não existe — erro de digitação")
+    if ht is not None and (int(ht[0]) > home_score or int(ht[1]) > away_score):
+        raise ValueError("placar do intervalo por time não pode exceder o placar final")
     total_ft = home_score + away_score
     total_ht = None if ht is None else int(ht[0]) + int(ht[1])
     if total_ht is not None and total_ht > total_ft:
@@ -352,6 +392,8 @@ def bank_init(amount, unit, *, currency="BRL", path=None, at=None) -> dict:
     """Abre (ou reabre) a banca: valor total e valor da UNIDADE em dinheiro.
     Append-only — um novo init reinicia a contagem a partir dele (o histórico
     anterior fica no arquivo, auditável)."""
+    _finite_number(amount, "banca")
+    _finite_number(unit, "unidade")
     if amount <= 0 or unit <= 0:
         raise ValueError("banca e unidade devem ser positivas")
     rec = {
@@ -372,6 +414,7 @@ def bank_flow(kind, amount, *, path=None, at=None) -> dict:
     """Depósito ou saque (kind='deposit'|'withdraw')."""
     if kind not in ("deposit", "withdraw"):
         raise ValueError(f"kind inválido: {kind}")
+    _finite_number(amount, "valor")
     if amount <= 0:
         raise ValueError("valor deve ser positivo")
     rec = {
@@ -427,8 +470,12 @@ def bank_state(bank_path=None, bets_path=None) -> dict | None:
     # exposição = TODA aposta ainda aberta no livro (mesmo registrada antes do
     # init — aposta viva é dinheiro em jogo desta banca), casada por linha
     all_rows = _read(bets_path)
-    settled_lines = {r["bet_line_no"] for r in all_rows if r["kind"] == "settlement"}
-    open_units = sum(r["stake"] for i, r in enumerate(all_rows) if r["kind"] == "bet" and i not in settled_lines)
+    settled_ids, settled_lines = _settlement_index(all_rows)
+    open_units = sum(
+        r["stake"]
+        for i, r in enumerate(all_rows)
+        if r["kind"] == "bet" and (r.get("bet_id") not in settled_ids if r.get("bet_id") else i not in settled_lines)
+    )
     balance = init["amount"] + flows + profit_units * unit
     return {
         "currency": init.get("currency", "BRL"),
@@ -437,6 +484,9 @@ def bank_state(bank_path=None, bets_path=None) -> dict | None:
         "unit_pct": unit / init["amount"],
         "flows": flows,
         "balance": round(balance, 2),
+        "available_money": round(balance - open_units * unit, 2),
+        "accounting_scope": "gross_reported_units_at_current_unit_value",
+        "costs_reconciled": False,
         "profit_units": round(profit_units, 4),
         "profit_money": round(profit_units * unit, 2),
         "n_settled": len(settles),
@@ -451,12 +501,13 @@ def list_bets(path=None) -> list[dict]:
     """Todas as apostas com status resolvido por linha: cada bet ganha
     'result' (settlement casado por bet_line_no) ou None se aberta."""
     rows = _read(path)
-    settles = {r["bet_line_no"]: r for r in rows if r["kind"] == "settlement"}
+    settled_ids, settled_lines = _settlement_index(rows)
     out = []
     for i, r in enumerate(rows):
         if r["kind"] != "bet":
             continue
-        out.append({**r, "result": settles.get(i)})
+        result = settled_ids.get(r["bet_id"]) if r.get("bet_id") else settled_lines.get(i)
+        out.append({**r, "result": result})
     return out
 
 
@@ -466,6 +517,8 @@ def _countdown(kickoff: str | None) -> str:
         return ""
     try:
         ko = datetime.fromisoformat(kickoff.replace("Z", "+00:00"))
+        if ko.tzinfo is None or ko.utcoffset() is None:
+            return ""
     except ValueError:
         return ""
     delta = (ko - datetime.now(UTC)).total_seconds()

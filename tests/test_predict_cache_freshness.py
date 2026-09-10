@@ -19,7 +19,7 @@ def _cfg():
 
 def test_build_recomputes_in_memory_when_cache_hash_is_stale(monkeypatch, capsys):
     conn = _Conn()
-    monkeypatch.setattr(predict.db, "connect", lambda _path: conn)
+    monkeypatch.setattr(predict.db, "connect", lambda _path, **_kwargs: conn)
     monkeypatch.setattr(predict.db, "load_elo", lambda _conn: {"stale": 1.0})
     monkeypatch.setattr(
         predict.db,
@@ -42,7 +42,7 @@ def test_build_recomputes_in_memory_when_cache_hash_is_stale(monkeypatch, capsys
 
 def test_build_uses_cache_only_when_hash_and_match_count_are_current(monkeypatch):
     conn = _Conn()
-    monkeypatch.setattr(predict.db, "connect", lambda _path: conn)
+    monkeypatch.setattr(predict.db, "connect", lambda _path, **_kwargs: conn)
     monkeypatch.setattr(predict.db, "load_elo", lambda _conn: {"cached": 1.0})
     monkeypatch.setattr(
         predict.db,

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="58.235" timestamp="2026-09-10T12:21:07.382991-03:00" hostname="Leo"><testcase classname="tests.test_completion_serving_storage" name="test_prediction_database_is_physically_read_only" time="0.185"><failure message="Failed: DID NOT RAISE OperationalError">..\..\..\brasileirao-predictor\tests\test_completion_serving_storage.py:16: in test_prediction_database_is_physically_read_only
+    with pytest.raises(sqlite3.OperationalError, match="readonly"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE OperationalError</failure></testcase><testcase classname="tests.test_completion_serving_storage" name="test_extended_model_parameters_can_be_audited_without_loss[params0]" time="0.031"><failure message="ValueError: too many values to unpack (expected 4)">..\..\..\brasileirao-predictor\tests\test_completion_serving_storage.py:25: in test_extended_model_parameters_can_be_audited_without_loss
+    row = prediction_log.log_prediction("A", "B", True, 1500, 1500, params, prediction,
+..\..\..\brasileirao-predictor\brasileirao_predictor\prediction_log.py:49: in log_prediction
+    a, b, alpha, rho = params
+    ^^^^^^^^^^^^^^^^
+E   ValueError: too many values to unpack (expected 4)</failure></testcase><testcase classname="tests.test_completion_serving_storage" name="test_extended_model_parameters_can_be_audited_without_loss[params1]" time="0.020"><failure message="ValueError: too many values to unpack (expected 4)">..\..\..\brasileirao-predictor\tests\test_completion_serving_storage.py:25: in test_extended_model_parameters_can_be_audited_without_loss
+    row = prediction_log.log_prediction("A", "B", True, 1500, 1500, params, prediction,
+..\..\..\brasileirao-predictor\brasileirao_predictor\prediction_log.py:49: in log_prediction
+    a, b, alpha, rho = params
+    ^^^^^^^^^^^^^^^^
+E   ValueError: too many values to unpack (expected 4)</failure></testcase></testsuite></testsuites>

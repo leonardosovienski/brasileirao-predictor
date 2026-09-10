@@ -1,0 +1,54 @@
+[
+  {
+    "id": "the_odds_api_v4",
+    "url": "https://the-odds-api.com/liveapi/guides/v4/",
+    "requested_at": "2026-09-10T14:21:38.069066+00:00",
+    "authenticated": false,
+    "status": 200,
+    "final_url": "https://the-odds-api.com/liveapi/guides/v4/",
+    "received_at": "2026-09-10T14:21:38.887774+00:00",
+    "bytes": 319543,
+    "sha256": "12ebe75c149f83b0a87e2e8be786fd452a5d2858523892ce4f7de476229bd41f"
+  },
+  {
+    "id": "sportmonks_pagination",
+    "url": "https://docs.sportmonks.com/v3/tutorials-and-guides/tutorials/introduction/pagination.md",
+    "requested_at": "2026-09-10T14:21:38.893659+00:00",
+    "authenticated": false,
+    "status": 200,
+    "final_url": "https://docs.sportmonks.com/v3/tutorials-and-guides/tutorials/introduction/pagination.md",
+    "received_at": "2026-09-10T14:21:39.346530+00:00",
+    "bytes": 10193,
+    "sha256": "273df30a653a3042d971450dc8820ac7af480d2c784db7a794f6c266222a2e24"
+  },
+  {
+    "id": "sportmonks_request",
+    "url": "https://docs.sportmonks.com/v3/welcome/making-your-first-request.md",
+    "requested_at": "2026-09-10T14:21:39.351060+00:00",
+    "authenticated": false,
+    "status": 200,
+    "final_url": "https://docs.sportmonks.com/v3/welcome/making-your-first-request.md",
+    "received_at": "2026-09-10T14:21:39.934082+00:00",
+    "bytes": 25338,
+    "sha256": "9f14098b29c0600c553472c508123a53bd0f7df25b663bee46d97d219e269d66"
+  },
+  {
+    "id": "sportmonks_timezones",
+    "url": "https://docs.sportmonks.com/v3/tutorials-and-guides/tutorials/introduction/timezones.md",
+    "requested_at": "2026-09-10T14:21:39.938981+00:00",
+    "authenticated": false,
+    "status": 200,
+    "final_url": "https://docs.sportmonks.com/v3/tutorials-and-guides/tutorials/introduction/timezones.md",
+    "received_at": "2026-09-10T14:21:40.715618+00:00",
+    "bytes": 2326,
+    "sha256": "582bc74abf4bfca8170247b1feaaad35bcc023b04f1c4edd44a6bc047d9ede02"
+  },
+  {
+    "id": "api_football_v3",
+    "url": "https://www.api-football.com/documentation-v3",
+    "requested_at": "2026-09-10T14:21:40.720157+00:00",
+    "authenticated": false,
+    "error_type": "HTTPError",
+    "received_at": "2026-09-10T14:21:41.109814+00:00"
+  }
+]

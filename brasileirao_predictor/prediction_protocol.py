@@ -38,6 +38,10 @@ class PredictionReadinessInput(BaseModel):
 
     @model_validator(mode="after")
     def validate_aware_datetimes(self) -> PredictionReadinessInput:
+        if self.current_score is not None and any(value < 0 for value in self.current_score):
+            raise ValueError("current_score must contain non-negative goal counts")
+        if self.home.strip() == self.away.strip():
+            raise ValueError("home and away must be distinct")
         for name in (
             "predicted_at",
             "kickoff_at",

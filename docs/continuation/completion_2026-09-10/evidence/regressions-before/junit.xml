@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="4" time="51.649" timestamp="2026-09-10T11:17:48.699302-03:00" hostname="Leo"><testcase classname="tests.test_completion_regressions" name="test_show_logs_and_displays_one_calculation_and_one_dated_quote" time="0.027"><failure message="assert 2 == 1&#10; +  where 2 = len([1, 1])">..\..\..\brasileirao-predictor\tests\test_completion_regressions.py:33: in test_show_logs_and_displays_one_calculation_and_one_dated_quote
+    assert len(calls) == 1
+E   assert 2 == 1
+E    +  where 2 = len([1, 1])</failure></testcase><testcase classname="tests.test_completion_regressions" name="test_bitemporal_conflicting_versions_have_no_arbitrary_hash_winner" time="0.074"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_regressions.py:44: in test_bitemporal_conflicting_versions_have_no_arbitrary_hash_winner
+    with pytest.raises(ValueError, match="conflict"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_regressions" name="test_sportmonks_partial_page_cannot_claim_absent_league" time="0.002"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'pag|incomplet'&#10;  Actual message: 'liga não coberta pelo plano Sportmonks: Serie A (Brazil)'">..\..\..\brasileirao-predictor\tests\test_completion_regressions.py:60: in test_sportmonks_partial_page_cannot_claim_absent_league
+    with pytest.raises(DataUnavailableError, match="pag|incomplet"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'pag|incomplet'
+E     Actual message: 'liga não coberta pelo plano Sportmonks: Serie A (Brazil)'</failure></testcase><testcase classname="tests.test_completion_regressions" name="test_display_does_not_certify_economic_confidence_from_config_only" time="0.002"><failure message="KeyError: 'market'">..\..\..\brasileirao-predictor\tests\test_completion_regressions.py:66: in test_display_does_not_certify_economic_confidence_from_config_only
+    confidence = display._confidence({"market": {"source": "synthetic"}},
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\display.py:174: in _confidence
+    if not core["market"]:
+           ^^^^^^^^^^^^^^
+E   KeyError: 'market'</failure></testcase></testsuite></testsuites>

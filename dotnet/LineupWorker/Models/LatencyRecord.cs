@@ -4,7 +4,7 @@ namespace LineupWorker.Models;
 /// Registro imutável de latência para auditoria pós-fato.
 ///
 /// Grafo de timestamps (todos em UTC, alta resolução):
-///   T0_SourcePublished   → quando a fonte publicou a escalação
+///   T0_SourcePublished   → nome legado: captura declarada pelo produtor, não publicação comprovada
 ///   T1_Received          → quando nosso subscriber recebeu a mensagem Redis
 ///   T2_VorpComputed      → quando o Delta VORP foi calculado em memória
 ///   T3_RedisWritten      → quando o LineupState foi persistido no Redis
@@ -39,10 +39,12 @@ public record LatencyRecord(
         : null;
 
     /// <summary>True se o pipeline bateu o budget de latência configurado.</summary>
-    public bool IsWithinBudget(double budgetMs) => E2EMs <= budgetMs;
+    public bool IsWithinBudget(double budgetMs) => double.IsFinite(budgetMs) && budgetMs > 0 && E2EMs >= 0 && E2EMs <= budgetMs;
+    public DateTimeOffset? SourcePublishedAt => null;
+    public string T0Semantics => "DECLARED_CAPTURE_NOT_VERIFIED_PUBLICATION";
 }
 
-/// <summary>Sinal de aposta emitido pelo MarketStateEngine.</summary>
+/// <summary>Sinal de simulação; preços/modelo sem homologação econômica e sem capital autorizado.</summary>
 public record BetSignal(
     string         MatchId,
     string         Market,        // "1x2" | "ou25"
@@ -61,4 +63,7 @@ public record BetSignal(
     public string? JobId { get; init; }
     public string? RunId { get; init; }
     public string? StateVersion { get; init; }
+    public string ExecutionMode => "SIMULATION_ONLY";
+    public bool CapitalEnabled => false;
+    public string EconomicEvidence => "UNVERIFIED";
 }

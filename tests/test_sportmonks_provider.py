@@ -24,7 +24,7 @@ def test_sportmonks_uses_raw_authorization_and_hides_token():
 
     def fake(_url, headers):
         seen.update(headers)
-        return payload
+        return {**payload, "pagination": {"current_page": 1, "has_more": False}}
 
     provider = SportmonksProvider(token="synthetic-test-token", get_json=fake)
     rows = provider.list_fixtures(
@@ -40,7 +40,9 @@ def test_sportmonks_uses_raw_authorization_and_hides_token():
 
 def test_sportmonks_reports_league_outside_subscription():
     payload = {"data": [{"id": 271, "name": "Superliga", "country": {"name": "Denmark"}}]}
-    provider = SportmonksProvider(token="synthetic", get_json=lambda *_: payload)
+    provider = SportmonksProvider(
+        token="synthetic", get_json=lambda *_: {**payload, "pagination": {"current_page": 1, "has_more": False}}
+    )
     with pytest.raises(DataUnavailableError, match="não coberta"):
         provider.require_league("Serie A", "Brazil")
 
@@ -58,11 +60,15 @@ def test_sportmonks_resolves_unique_league_and_filters_invalid_rows():
             {"id": None, "name": "invalid"},
         ]
     }
-    provider = SportmonksProvider(token="synthetic", get_json=lambda *_: leagues)
+    provider = SportmonksProvider(
+        token="synthetic", get_json=lambda *_: {**leagues, "pagination": {"current_page": 1, "has_more": False}}
+    )
     assert provider.require_league("Serie A", "Brazil") == 71
 
     fixtures = {"data": [{"id": 1, "starting_at": "bad", "participants": []}, {}]}
-    provider = SportmonksProvider(token="synthetic", get_json=lambda *_: fixtures)
+    provider = SportmonksProvider(
+        token="synthetic", get_json=lambda *_: {**fixtures, "pagination": {"current_page": 1, "has_more": False}}
+    )
     assert (
         provider.list_fixtures(
             league_id=71,

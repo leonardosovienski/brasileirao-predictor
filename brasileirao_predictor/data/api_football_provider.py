@@ -50,8 +50,8 @@ class ApiFootballProvider:
             request = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(request, timeout=self.timeout) as response:
                 return json.loads(response.read())
-        except (OSError, ValueError) as exc:
-            raise DataUnavailableError(f"API-Football indisponível: {exc}") from exc
+        except (OSError, ValueError):
+            raise DataUnavailableError("API-Football indisponível; transporte ou JSON inválido") from None
 
     def _request(self, path: str, params: dict[str, Any]) -> list[dict[str, Any]]:
         url = f"{BASE}/{path}?{urlencode(params)}"
@@ -60,15 +60,14 @@ class ApiFootballProvider:
             raise DataUnavailableError("API-Football retornou payload inválido")
         errors = payload.get("errors")
         if errors:
-            detail = (
-                "; ".join(f"{key}: {value}" for key, value in errors.items())
-                if isinstance(errors, dict)
-                else str(errors)
+            raise DataUnavailableError(
+                "API-Football recusou a consulta; resposta de erro omitida para proteger credenciais"
             )
-            raise DataUnavailableError(f"API-Football recusou a consulta: {detail}")
         rows = payload.get("response")
         if not isinstance(rows, list):
             raise DataUnavailableError("API-Football retornou resposta inválida")
+        if any(not isinstance(row, dict) for row in rows):
+            raise DataUnavailableError("API-Football retornou registros inválidos")
         return rows
 
     def brasileirao_seasons(self) -> list[int]:
@@ -95,6 +94,7 @@ class ApiFootballProvider:
                 "season": season,
             },
         )
+        observed = (observed_at or datetime.now(UTC)).astimezone(UTC)
         rows = []
         for item in raw_rows:
             fixture = item.get("fixture") or {}
@@ -133,6 +133,7 @@ class ApiFootballProvider:
         if observed.tzinfo is None or observed.utcoffset() is None:
             raise ValueError("observed_at deve conter timezone")
         raw_rows = self._request("fixtures/lineups", {"fixture": fixture_id})
+        observed = (observed_at or datetime.now(UTC)).astimezone(UTC)
         payload_hash = hashlib.sha256(
             json.dumps(raw_rows, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
         ).hexdigest()
@@ -153,7 +154,7 @@ class ApiFootballProvider:
                         continue
                     output.append(
                         {
-                            "schema_version": "lineup-observation/1",
+                            "schema_version": "lineup-observation/2",
                             "source": "api_football",
                             "source_event_id": str(fixture_id),
                             "team_id": str(team_id),
@@ -166,11 +167,12 @@ class ApiFootballProvider:
                             "formation": side.get("formation"),
                             "coach_id": str(coach["id"]) if coach.get("id") is not None else None,
                             "coach_name": coach.get("name"),
-                            "published_at": observed.astimezone(UTC).isoformat(timespec="seconds"),
+                            "published_at": None,
+                            "observed_at": observed.isoformat(timespec="seconds"),
                             "ingested_at": observed.astimezone(UTC).isoformat(timespec="seconds"),
                             "content_hash": payload_hash,
-                            "collector_version": "api-football-lineups/1",
-                            "quality_flags": ["published_at_untrusted"],
+                            "collector_version": "api-football-lineups/2",
+                            "quality_flags": ["published_at_unknown"],
                             "scientific_state": "COLLECTION_ONLY",
                         }
                     )

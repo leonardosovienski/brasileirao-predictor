@@ -13,7 +13,7 @@ _DOMAIN = "brasileirao"
 def build(cfg):
     """Serving instantâneo: lê Elo e parâmetros do cache. Sem cache, calcula
     on-the-fly uma vez e avisa. Detecta cache velho (config ou dados mudaram)."""
-    conn = db.connect(str(ROOT / cfg["database"]))
+    conn = db.connect(str(ROOT / cfg["database"]), read_only=True)
     elo = db.load_elo(conn)
     prow = db.load_params(conn)
 
@@ -251,7 +251,7 @@ def show(
 
     from . import display
 
-    data = display.compute(name_a, name_b, elo, params, cfg, neutral, conn)
+    data = display.from_prediction(name_a, name_b, elo, params, cfg, neutral, r, mk, match_date=match_date)
     if not quiet:
         display.render(data, level=level, as_json=as_json)
         if not as_json and conn is not None:

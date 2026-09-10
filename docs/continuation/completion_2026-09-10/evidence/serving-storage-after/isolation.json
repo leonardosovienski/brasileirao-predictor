@@ -1,0 +1,14 @@
+{
+  "tests": [
+    "test_completion_serving_storage.py",
+    "test_prediction_log.py",
+    "test_predict_cache_freshness.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

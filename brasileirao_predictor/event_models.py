@@ -3,7 +3,9 @@
 API genérica com suporte a Poisson e Binomial Negativa.
 """
 
+import math
 import warnings
+from numbers import Real
 
 import numpy as np
 from scipy.optimize import minimize
@@ -34,6 +36,22 @@ def fit_event_model(history, event_name, distribution="poisson", overdispersion=
     """
     # 1. Montar arrays
     n = len(history)
+    if not n or distribution not in {"poisson", "nbinom"}:
+        raise ValueError("histórico não vazio e distribuição Poisson/NB reconhecida são obrigatórios")
+    if not overdispersion:
+        distribution = "poisson"
+    for row in history:
+        for key in ("home_event", "away_event", "home_elo", "away_elo"):
+            value = row.get(key)
+            if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value):
+                raise ValueError(f"{key} exige número finito")
+            if key.endswith("event") and (value < 0 or value % 1 != 0):
+                raise ValueError("target de contagem exige inteiro não negativo")
+        for feature in features or []:
+            for side in ("home", "away"):
+                value = row.get(f"{side}_{feature}")
+                if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value):
+                    raise ValueError("feature ausente ou inválida; imputação não foi definida")
     home_events = np.array([h["home_event"] for h in history], dtype=float)
     away_events = np.array([h["away_event"] for h in history], dtype=float)
     # diff em unidades de 400 pontos de Elo (mesma escala do model.py):
@@ -47,8 +65,8 @@ def fit_event_model(history, event_name, distribution="poisson", overdispersion=
         # Vamos assumir que history já contém as features sob chaves como 'home_ball_possession', etc.
         feat_matrix = []
         for f in features:
-            home_vals = np.array([h.get(f"home_{f}", 0.0) for h in history], dtype=float)
-            away_vals = np.array([h.get(f"away_{f}", 0.0) for h in history], dtype=float)
+            home_vals = np.array([h[f"home_{f}"] for h in history], dtype=float)
+            away_vals = np.array([h[f"away_{f}"] for h in history], dtype=float)
             # Diferença (home - away) – pode ser ajustado
             feat_matrix.append(home_vals - away_vals)
         X = np.column_stack([np.ones(n), elo_diff] + feat_matrix)
@@ -131,6 +149,7 @@ def fit_event_model(history, event_name, distribution="poisson", overdispersion=
                     stacklevel=3,
                 )
 
+    fit_status = "CONVERGED"
     try:
         if distribution == "nbinom" and overdispersion:
             # fix: inicializar a NB direto de beta0=zeros deixa o L-BFGS-B travar
@@ -152,21 +171,27 @@ def fit_event_model(history, event_name, distribution="poisson", overdispersion=
                 alpha = res.x[-1]
             else:
                 # fallback para Poisson (com os mesmos bounds no intercepto/coefs)
+                fit_status = "NB_FAILED_POISSON_FALLBACK"
                 distribution = "poisson"
                 res = minimize(neg_log_lik_poisson, beta0, method="L-BFGS-B", bounds=beta_bounds)
                 beta = res.x if res.success else beta0
                 alpha = None
+                if not res.success:
+                    fit_status = "MEAN_ONLY_FALLBACK"
         else:
             res = minimize(neg_log_lik_poisson, beta0, method="L-BFGS-B", bounds=beta_bounds)
             _check_bounds_and_warn(res, beta_bounds, [f"beta{i}" for i in range(n_params)])
             beta = res.x if res.success else beta0
             alpha = None
+            if not res.success:
+                fit_status = "MEAN_ONLY_FALLBACK"
     except Exception:
         # dado mal-formado ou otimizador instável: fallback conservador —
         # intercepto na média observada, sem efeito de Elo/feature, sem overdispersão.
         beta = beta0
         alpha = None
         distribution = "poisson"
+        fit_status = "MEAN_ONLY_FALLBACK"
 
     # 6. Montar resultado
     params = {
@@ -175,6 +200,8 @@ def fit_event_model(history, event_name, distribution="poisson", overdispersion=
         "alpha": alpha,
         "distribution": distribution,
         "n_matches": n,
+        "fit_status": fit_status,
+        "economic_evidence_eligible": False,
         "features": features or [],
         "theta_feature": {f: coef for f, coef in zip(features or [], beta[2:])} if features else {},
     }
@@ -194,16 +221,31 @@ def predict_event(elo_a, elo_b, params, features=None):
     b = params["b"]
     theta = params.get("theta_feature", {})
     dist = params["distribution"]
+    if dist not in {"poisson", "nbinom"}:
+        raise ValueError("distribuição desconhecida")
+    for value in (elo_a, elo_b, a, b, *theta.values()):
+        if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value):
+            raise ValueError("entrada de previsão exige números finitos")
+    for feature in theta:
+        value = (features or {}).get(feature)
+        if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value):
+            raise ValueError("feature de previsão ausente ou inválida")
+    if dist == "nbinom":
+        alpha = params.get("alpha")
+        if isinstance(alpha, bool) or not isinstance(alpha, Real) or not math.isfinite(alpha) or alpha <= 0:
+            raise ValueError("NB exige dispersão finita positiva")
 
     # Calcular lambda — link assimétrico (auditoria P8): espelha o fit.
     # diff na MESMA escala do fit (unidades de 400 pontos de Elo).
     drift = b * (elo_a - elo_b) / 400.0
     if features:
         for f, coef in theta.items():
-            drift += coef * features.get(f, 0.0)
+            drift += coef * features[f]
 
     lambda_home = np.exp(a + drift)
     lambda_away = np.exp(a - drift)
+    if not np.isfinite([lambda_home, lambda_away]).all() or min(lambda_home, lambda_away) <= 0:
+        raise ValueError("intensidade prevista fora do domínio numérico")
 
     # Probabilidades Over/Under para linhas 0.5 a 9.5
     probs = {}
@@ -218,12 +260,15 @@ def predict_event(elo_a, elo_b, params, features=None):
             if alpha < 1e-6:
                 alpha = 1e-6
             n_val = 1.0 / alpha
-            mu = lambda_home + lambda_away
-            # A NB é definida para número de falhas antes de r sucessos.
-            # Usamos a parametrização mean = r*(1-p)/p. Precisamos de p.
-            # p = r / (r + mu)  (derivado de mean = r*(1-p)/p)
-            p = n_val / (n_val + mu)
-            cdf = nbinom.cdf(line, n_val, p)
+            # The fit models two independent team counts. Their sum does not
+            # retain the team's alpha: even at equal means, dispersion halves.
+            # Convolve only terms <= floor(line); no tail truncation enters CDF.
+            counts = np.arange(int(np.floor(line)) + 1)
+            p_home = n_val / (n_val + lambda_home)
+            p_away = n_val / (n_val + lambda_away)
+            cdf = float(
+                np.dot(nbinom.pmf(counts, n_val, p_home), nbinom.cdf(int(np.floor(line)) - counts, n_val, p_away))
+            )
         probs[f"over_{line}"] = 1 - cdf
         probs[f"under_{line}"] = cdf
 

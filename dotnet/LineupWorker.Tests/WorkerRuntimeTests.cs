@@ -243,7 +243,7 @@ public sealed partial class WorkerRuntimeTests : IAsyncLifetime
         var audit = new LatencyAuditService(_redis, NullLogger<LatencyAuditService>.Instance, Config());
         var mse = new MarketStateEngine(
             _redis, cache, audit, NullLogger<MarketStateEngine>.Instance,
-            Config(("MarketStateEngine:MinEdgePct", "-1"), ("MarketStateEngine:MaxEdgePct", "1")));
+            Config(("MarketStateEngine:MinEdgePct", "0"), ("MarketStateEngine:MaxEdgePct", "1")));
         var subscriber = _redis.GetSubscriber();
         var invoke = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
         var signal = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -273,6 +273,8 @@ public sealed partial class WorkerRuntimeTests : IAsyncLifetime
 
         var bet = await signal.Task.WaitAsync(TimeSpan.FromSeconds(2));
         Assert.Contains("m-edge", bet);
+        Assert.Contains("\"ExecutionMode\":\"SIMULATION_ONLY\"", bet);
+        Assert.Contains("\"CapitalEnabled\":false", bet);
     }
 
     [RedisRuntimeFact]

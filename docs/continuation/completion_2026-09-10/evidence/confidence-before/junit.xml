@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="20.358" timestamp="2026-09-10T11:19:52.815964-03:00" hostname="Leo"><testcase classname="tests.test_completion_regressions" name="test_display_does_not_certify_economic_confidence_from_config_only" time="0.004"><failure message="AssertionError: assert 'ALTA' != 'ALTA'">..\..\..\brasileirao-predictor\tests\test_completion_regressions.py:69: in test_display_does_not_certify_economic_confidence_from_config_only
+    assert confidence["level"] != "ALTA"
+E   AssertionError: assert 'ALTA' != 'ALTA'</failure></testcase></testsuite></testsuites>

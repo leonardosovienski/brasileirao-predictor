@@ -2,6 +2,8 @@
 
 Pesquisa quantitativa e software para o Brasileirão Série A, em C:/BRASILEIRAO.
 
+**Continuação CPL-20260910:** contratos de dados/previsão, contabilidade e .NET corrigidos. A revisão integral permanece em andamento; lucro executável não demonstrado. [Resultado atual](docs/continuation/completion_2026-09-10/RESULTADO.md), [correções/limites](docs/continuation/completion_2026-09-10/REGISTROS.md) e [continuação](docs/continuation/completion_2026-09-10/PROXIMO_PROMPT.md).
+
 **Candidato econômico encontrado em cenário histórico; lucro executável ainda não demonstrado.** A busca BE avaliou 4.940 jogos de 2012–2024. Encontrou 226 carteiras de máximos anônimos com sobra condicional de 2,052% após as fricções fixadas. Faltam as casas, simultaneidade e possibilidade de preencher os três lados. O modelo de gols perdeu 99,60 das 100 unidades simuladas e foi reprovado.
 
 [Resultado e limites](docs/continuation/economic_search_2026-09-10/RESULTADO.md) · [Protocolo anterior ao desempenho](docs/continuation/economic_search_2026-09-10/PROTOCOL.md) · [Reproduzir](docs/continuation/economic_search_2026-09-10/REPRODUZIR.md) · [Próxima investigação](docs/continuation/economic_search_2026-09-10/PROXIMO_PROMPT.md).

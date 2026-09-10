@@ -12,6 +12,7 @@ def test_lineup_state_uses_latest_vintage_available_asof():
             "role": "starter",
             "content_hash": "v1",
             "published_at": "2026-08-10T10:00:00+00:00",
+            "ingested_at": "2026-08-10T10:00:01+00:00",
         },
         {
             "source_event_id": "1",
@@ -20,6 +21,7 @@ def test_lineup_state_uses_latest_vintage_available_asof():
             "role": "starter",
             "content_hash": "v2",
             "published_at": "2026-08-10T11:00:00+00:00",
+            "ingested_at": "2026-08-10T11:00:01+00:00",
         },
     ]
     assert lineup_state_asof(rows, event_id="1", asof="2026-08-10T10:30:00+00:00") == {"a": {"old"}}

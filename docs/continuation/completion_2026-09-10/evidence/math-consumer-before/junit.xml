@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="11" skipped="0" tests="11" time="24.911" timestamp="2026-09-10T11:33:10.626817-03:00" hostname="Leo"><testcase classname="tests.test_completion_math_consumer" name="test_total_negative_binomial_is_sum_of_two_team_distributions" time="0.017"><failure message="assert np.float64(0....2500917181166) == 0.12818377356774469 ± 1.0e-12&#10;  &#10;  comparison failed&#10;  Obtained: 0.15462500917181166&#10;  Expected: 0.12818377356774469 ± 1.0e-12">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:18: in test_total_negative_binomial_is_sum_of_two_team_distributions
+    assert probs["under_0.5"] == pytest.approx(expected_zero, abs=1e-12)
+E   assert np.float64(0....2500917181166) == 0.12818377356774469 ± 1.0e-12
+E     
+E     comparison failed
+E     Obtained: 0.15462500917181166
+E     Expected: 0.12818377356774469 ± 1.0e-12</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_market_pricer_rejects_invalid_probability_measures[grid0]" time="0.005"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:24: in test_market_pricer_rejects_invalid_probability_measures
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_market_pricer_rejects_invalid_probability_measures[grid1]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:24: in test_market_pricer_rejects_invalid_probability_measures
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_market_pricer_rejects_invalid_probability_measures[grid2]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:24: in test_market_pricer_rejects_invalid_probability_measures
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_market_pricer_rejects_invalid_probability_measures[grid3]" time="0.014"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:24: in test_market_pricer_rejects_invalid_probability_measures
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_handicap_rejects_unsupported_or_invalid_lines[nan]" time="0.004"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:30: in test_handicap_rejects_unsupported_or_invalid_lines
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_handicap_rejects_unsupported_or_invalid_lines[inf]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:30: in test_handicap_rejects_unsupported_or_invalid_lines
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_handicap_rejects_unsupported_or_invalid_lines[0.3]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:30: in test_handicap_rejects_unsupported_or_invalid_lines
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_handicap_rejects_unsupported_or_invalid_lines[True]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:30: in test_handicap_rejects_unsupported_or_invalid_lines
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_prediction_protocol_rejects_negative_live_score" time="0.025"><failure message="Failed: DID NOT RAISE ValidationError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:37: in test_prediction_protocol_rejects_negative_live_score
+    with pytest.raises(ValidationError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValidationError</failure></testcase><testcase classname="tests.test_completion_math_consumer" name="test_full_prediction_cli_cannot_succeed_after_audit_log_failure" time="6.254"><failure message="Failed: DID NOT RAISE RuntimeError">..\..\..\brasileirao-predictor\tests\test_completion_math_consumer.py:61: in test_full_prediction_cli_cannot_succeed_after_audit_log_failure
+    with pytest.raises(RuntimeError, match="audit log"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE RuntimeError</failure></testcase></testsuite></testsuites>

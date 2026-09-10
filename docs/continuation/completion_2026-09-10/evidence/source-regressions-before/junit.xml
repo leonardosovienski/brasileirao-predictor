@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="5" time="2.426" timestamp="2026-09-10T11:22:59.125901-03:00" hostname="Leo"><testcase classname="tests.test_source_temporal_regressions" name="test_lineup_published_before_cut_but_received_after_is_excluded" time="0.006"><failure message="AssertionError: assert {'t': {'p'}} == {}&#10;  &#10;  Left contains 1 more item:&#10;  {'t': {'p'}}&#10;  Use -v to get more diff">..\..\..\brasileirao-predictor\tests\test_source_temporal_regressions.py:14: in test_lineup_published_before_cut_but_received_after_is_excluded
+    assert lineup_state_asof(rows, event_id="e", asof="2024-01-01T11:00:00Z") == {}
+E   AssertionError: assert {'t': {'p'}} == {}
+E     
+E     Left contains 1 more item:
+E     {'t': {'p'}}
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_source_temporal_regressions" name="test_lineup_without_receipt_is_not_point_in_time_evidence" time="0.002"><failure message="AssertionError: assert {'t': {'p'}} == {}&#10;  &#10;  Left contains 1 more item:&#10;  {'t': {'p'}}&#10;  Use -v to get more diff">..\..\..\brasileirao-predictor\tests\test_source_temporal_regressions.py:20: in test_lineup_without_receipt_is_not_point_in_time_evidence
+    assert lineup_state_asof(rows, event_id="e", asof="2024-01-01T11:00:00Z") == {}
+E   AssertionError: assert {'t': {'p'}} == {}
+E     
+E     Left contains 1 more item:
+E     {'t': {'p'}}
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_source_temporal_regressions" name="test_consensus_cannot_pool_different_fixtures" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_source_temporal_regressions.py:28: in test_consensus_cannot_pool_different_fixtures
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_source_temporal_regressions" name="test_api_lineup_does_not_fabricate_publisher_timestamp" time="0.002"><failure message="AssertionError: assert '2024-01-01T00:00:00+00:00' is None">..\..\..\brasileirao-predictor\tests\test_source_temporal_regressions.py:37: in test_api_lineup_does_not_fabricate_publisher_timestamp
+    assert row["published_at"] is None
+E   AssertionError: assert '2024-01-01T00:00:00+00:00' is None</failure></testcase><testcase classname="tests.test_source_temporal_regressions" name="test_sportmonks_naive_start_is_utc_only_under_explicit_timezone_contract" time="0.002"><failure message="assert 0 == 1&#10; +  where 0 = len([])">..\..\..\brasileirao-predictor\tests\test_source_temporal_regressions.py:52: in test_sportmonks_naive_start_is_utc_only_under_explicit_timezone_contract
+    assert len(rows) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])</failure></testcase></testsuite></testsuites>

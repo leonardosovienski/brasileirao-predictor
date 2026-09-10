@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="9" skipped="0" tests="9" time="17.451" timestamp="2026-09-10T12:41:06.534656-03:00" hostname="Leo"><testcase classname="tests.test_completion_event_inputs" name="test_count_target_requires_finite_nonnegative_integer[-1]" time="0.050"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_event_inputs.py:11: in test_count_target_requires_finite_nonnegative_integer
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_event_inputs" name="test_count_target_requires_finite_nonnegative_integer[2.5]" time="0.036"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_event_inputs.py:11: in test_count_target_requires_finite_nonnegative_integer
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_event_inputs" name="test_count_target_requires_finite_nonnegative_integer[inf]" time="0.037"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_event_inputs.py:11: in test_count_target_requires_finite_nonnegative_integer
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_event_inputs" name="test_count_target_requires_finite_nonnegative_integer[True]" time="0.034"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_event_inputs.py:11: in test_count_target_requires_finite_nonnegative_integer
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_event_inputs" name="test_empty_training_set_is_not_a_fitted_model" time="0.038"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_event_inputs.py:16: in test_empty_training_set_is_not_a_fitted_model
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_event_inputs" name="test_missing_training_feature_is_not_observed_zero" time="0.029"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_event_inputs.py:21: in test_missing_training_feature_is_not_observed_zero
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_event_inputs" name="test_missing_prediction_feature_is_not_observed_zero" time="0.014"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_event_inputs.py:26: in test_missing_prediction_feature_is_not_observed_zero
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_completion_event_inputs" name="test_poisson_override_has_correct_distribution_contract" time="0.020"><failure message="AssertionError: assert 'nbinom' == 'poisson'&#10;  &#10;  - poisson&#10;  + nbinom">..\..\..\brasileirao-predictor\tests\test_completion_event_inputs.py:32: in test_poisson_override_has_correct_distribution_contract
+    assert params["distribution"] == "poisson"
+E   AssertionError: assert 'nbinom' == 'poisson'
+E     
+E     - poisson
+E     + nbinom</failure></testcase><testcase classname="tests.test_completion_event_inputs" name="test_unknown_distribution_is_rejected" time="0.025"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_completion_event_inputs.py:37: in test_unknown_distribution_is_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

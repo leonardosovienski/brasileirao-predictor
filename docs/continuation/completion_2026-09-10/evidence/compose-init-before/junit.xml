@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="22.017" timestamp="2026-09-10T12:56:44.555420-03:00" hostname="Leo"><testcase classname="tests.test_completion_compose_init" name="test_initializer_cannot_reset_an_existing_volume" time="0.027"><failure message="AssertionError: existing storage must be refused before db.connect">..\..\..\brasileirao-predictor\tests\test_completion_compose_init.py:19: in test_initializer_cannot_reset_an_existing_volume
+    init.main()
+..\..\..\brasileirao-predictor\brasileirao_scripts\init_compose_data.py:14: in main
+    sports = db.connect(sports_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\tests\test_completion_compose_init.py:10: in unexpected
+    raise AssertionError("existing storage must be refused before db.connect")
+E   AssertionError: existing storage must be refused before db.connect</failure></testcase><testcase classname="tests.test_completion_compose_init" name="test_initializer_requires_distinct_databases" time="0.016"><failure message="AssertionError: existing storage must be refused before db.connect">..\..\..\brasileirao-predictor\tests\test_completion_compose_init.py:28: in test_initializer_requires_distinct_databases
+    init.main()
+..\..\..\brasileirao-predictor\brasileirao_scripts\init_compose_data.py:14: in main
+    sports = db.connect(sports_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\tests\test_completion_compose_init.py:10: in unexpected
+    raise AssertionError("existing storage must be refused before db.connect")
+E   AssertionError: existing storage must be refused before db.connect</failure></testcase></testsuite></testsuites>

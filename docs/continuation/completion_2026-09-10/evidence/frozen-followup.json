@@ -1,0 +1,12 @@
+{
+  "verified_at": "2026-09-10T16:13:20.118370+00:00",
+  "helpers": {
+    "followup_capture.py": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88",
+    "audit_followup.py": "ebce7ddeb384b347be4985b7a3812a1b83c7dfaceafdb3e2a6cb00f7e2d09a24"
+  },
+  "followup_receipt_exists": false,
+  "followup_marker_exists": false,
+  "capture_invoked": false,
+  "decision_at": "2026-09-11T23:00:00Z",
+  "note": "Existence checks only. No receipt content or quota endpoint read; hashes do not verify active schedule."
+}
