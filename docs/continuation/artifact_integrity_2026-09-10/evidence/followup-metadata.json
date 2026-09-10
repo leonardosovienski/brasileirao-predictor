@@ -1,0 +1,12 @@
+{
+  "checked_at": "2026-09-10T18:07:24.517523+00:00",
+  "hashes": {
+    "followup_capture.py": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88",
+    "audit_followup.py": "ebce7ddeb384b347be4985b7a3812a1b83c7dfaceafdb3e2a6cb00f7e2d09a24"
+  },
+  "attempt_exists": false,
+  "receipt_exists": false,
+  "decision_utc": "2026-09-11T23:00:00Z",
+  "observation": "metadata only; no execution, API, outcome or automation mutation",
+  "active_automation_status": "unverified: earlier view exposed only UI card"
+}

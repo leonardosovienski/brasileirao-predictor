@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="24" skipped="0" tests="24" time="6.528" timestamp="2026-09-10T14:58:43.115853-03:00" hostname="Leo"><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change0]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change1]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change2]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change3]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change4]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change5]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change6]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change7]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change8]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change9]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change10]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_artifact_cannot_be_loaded[change11]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:27: in test_invalid_artifact_cannot_be_loaded
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_duplicate_feature_names_are_rejected" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:34: in test_duplicate_feature_names_are_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_interval_multiplier_must_be_finite_nonnegative[-1.0]" time="0.008"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:41: in test_interval_multiplier_must_be_finite_nonnegative
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_interval_multiplier_must_be_finite_nonnegative[nan]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:41: in test_interval_multiplier_must_be_finite_nonnegative
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_interval_multiplier_must_be_finite_nonnegative[inf]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:41: in test_interval_multiplier_must_be_finite_nonnegative
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_interval_multiplier_must_be_finite_nonnegative[True]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:41: in test_interval_multiplier_must_be_finite_nonnegative
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_sigmoid_handles_extreme_logits_without_overflow" time="0.002"><failure message="FloatingPointError: overflow encountered in exp">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:47: in test_sigmoid_handles_extreme_logits_without_overflow
+    result = module._sigmoid(np.array([-1000.0, 0.0, 1000.0]))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\research\market_residual.py:24: in _sigmoid
+    return np.where(value &gt;= 0, 1.0 / (1.0 + np.exp(-value)), np.exp(value) / (1.0 + np.exp(value)))
+                                             ^^^^^^^^^^^^^^
+E   FloatingPointError: overflow encountered in exp</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_predict_and_export_reject_mutated_invalid_state" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:54: in test_predict_and_export_reject_mutated_invalid_state
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_loading_copies_arrays_instead_of_borrowing_mutable_payload" time="0.002"><failure message="assert np.float64(999.0) == 0.0">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:65: in test_loading_copies_arrays_instead_of_borrowing_mutable_payload
+    assert model.coefficients[0] == 0.0
+E   assert np.float64(999.0) == 0.0</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_failed_optimizer_never_publishes_model[binary]" time="0.018"><failure message="Failed: DID NOT RAISE RuntimeError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:82: in test_failed_optimizer_never_publishes_model
+    with pytest.raises(RuntimeError, match="optimization failed"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE RuntimeError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_failed_optimizer_never_publishes_model[multinomial]" time="0.002"><failure message="Failed: DID NOT RAISE RuntimeError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:82: in test_failed_optimizer_never_publishes_model
+    with pytest.raises(RuntimeError, match="optimization failed"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE RuntimeError</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_invalid_refit_does_not_replace_existing_model" time="0.008"><failure message="AssertionError: assert {'schema_vers...3096903], ...} == {'schema_vers....0, 0.1], ...}&#10;  &#10;  Omitting 3 identical items, use -vv to show&#10;  Differing items:&#10;  {'covariance': [[0.06669793495671703, 1.1456985644859462e-11], [1.1456986019125518e-11, 0.05003164921783547]]} != {'covariance': [[1.0, 0.0], [0.0, 1.0]]}&#10;  {'coefficients': [1.058015985436632e-08, 0.04331596713096903]} != {'coefficients': [0.0, 0.1]}&#10;  {'means': [-3.7007434154171884e-18]} != {'means': [0.0]}&#10;  {'feature_names': ['x', 'extra']} != {'feature_names': ['signal']}&#10;  {'scales': [0.5870543146605619]} != {'scales': [1.0]}&#10;  Use -v to get more diff">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:92: in test_invalid_refit_does_not_replace_existing_model
+    assert model.to_dict() == before
+E   AssertionError: assert {'schema_vers...3096903], ...} == {'schema_vers....0, 0.1], ...}
+E     
+E     Omitting 3 identical items, use -vv to show
+E     Differing items:
+E     {'covariance': [[0.06669793495671703, 1.1456985644859462e-11], [1.1456986019125518e-11, 0.05003164921783547]]} != {'covariance': [[1.0, 0.0], [0.0, 1.0]]}
+E     {'coefficients': [1.058015985436632e-08, 0.04331596713096903]} != {'coefficients': [0.0, 0.1]}
+E     {'means': [-3.7007434154171884e-18]} != {'means': [0.0]}
+E     {'feature_names': ['x', 'extra']} != {'feature_names': ['signal']}
+E     {'scales': [0.5870543146605619]} != {'scales': [1.0]}
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_residual_artifact_integrity" name="test_multinomial_outcome_cannot_be_silently_truncated" time="0.009"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_residual_artifact_integrity.py:99: in test_multinomial_outcome_cannot_be_silently_truncated
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,11 @@
+c:\BRASILEIRAO\brasileirao-predictor\tests\test_residual_artifact_integrity.py
+  c:\BRASILEIRAO\brasileirao-predictor\tests\test_residual_artifact_integrity.py:84:5 - error: Argument of type "NDArray[Any]" cannot be assigned to parameter "value" of type "str | bool | float | list[str] | list[float] | list[list[float]]" in function "__setitem__"
+    Type "NDArray[Any]" is not assignable to type "str | bool | float | list[str] | list[float] | list[list[float]]"
+      "ndarray[_AnyShape, dtype[Any]]" is not assignable to "str"
+      "ndarray[_AnyShape, dtype[Any]]" is not assignable to "bool"
+      "ndarray[_AnyShape, dtype[Any]]" is not assignable to "float"
+      "ndarray[_AnyShape, dtype[Any]]" is not assignable to "list[str]"
+      "ndarray[_AnyShape, dtype[Any]]" is not assignable to "list[float]"
+      "ndarray[_AnyShape, dtype[Any]]" is not assignable to "list[list[float]]" (reportArgumentType)
+  c:\BRASILEIRAO\brasileirao-predictor\tests\test_residual_artifact_integrity.py:87:12 - error: Object of type "None" is not subscriptable (reportOptionalSubscript)
+2 errors, 0 warnings, 0 informations

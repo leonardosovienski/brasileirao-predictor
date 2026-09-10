@@ -1,0 +1,44 @@
+# Registro central ARI
+
+38 registros: 26 CPL, 8 CLO, 3 LGC e 1 ARI. [Detalhes e referências cruzadas](REGISTROS.json). Históricos anteriores preservados.
+
+| Alegação | Problema | Estado | Ação |
+| --- | --- | --- | --- |
+| CPL-A01 | CPL-P01: Duas chamadas e perda da data no formatter | validado | from_prediction recebe resultado e mercado já registrados |
+| CPL-A02 | CPL-P02: PK ignorava charter/event_at; hash arbitrava empate material | validado | Chave inclui protocolo/evento; empate material recusado; filtro explícito de charter; schema legado recusado sem migrar |
+| CPL-A03 | CPL-P03: Primeira página ou metadata ausente eram tratadas como coleção completa | validado | Cursor/legado, orçamento explícito, rejeição de incompletude e cursor repetido; next_page externo ignorado |
+| CPL-A04 | CPL-P04: Interface afirmava ALTA e validação lucrativa sem evidência correspondente | validado | Confiança NÃO VALIDADA, preços diagnósticos, capital false e comentários corrigidos |
+| CPL-A05 | CPL-P05: Ausência de checagem de ingestão; empate arbitrário de vintages | validado | Exige ingestão até corte e recusa versões conflitantes no mesmo recibo |
+| CPL-A06 | CPL-P06: Inventava publicação antes da requisição e ecoava erro arbitrário da fonte | validado | published_at=null; recebido após resposta; erro sanitizado; esquema lineup/2 |
+| CPL-A07 | CPL-P07: Descartava data que o contrato retorna no fuso da requisição | validado | Requisição fixa timezone=UTC e conversão sob esse contrato |
+| CPL-A08 | CPL-P08: Mistura de eventos/linhas, vintages e seleção duplicada; ofertante na referência | validado | Identidade única, captura única, conflito recusado, offered_by excluído da referência; método/v2 |
+| CPL-A09 | CPL-P09: Teste sintético reproduz PROSPECTIVE_ELIGIBLE após kickoff no legado compartilhado | validado | Legado protegido preservado; sucessor offline guarda SHA, IDs, clocks, vazio/inválido/incompleto, ABSTAIN e capital false |
+| CPL-A10 | CPL-P10: CDF do total não correspondia à soma de duas NB ajustadas; entradas/fallbacks inválidos aceitos | validado | Convolução individual, contagens/feature finitas obrigatórias, distribuição coerente e fallback identificado |
+| CPL-A11 | CPL-P11: Aceitava NaN, massas negativas/não normalizadas e linha não implementada | validado | Probabilidade quadrada normalizada; AH em quartos; total inteiro/meio; placar inteiro |
+| CPL-A12 | CPL-P12: Placar negativo passava pela prontidão | validado | Validação de contagens não negativas e times distintos |
+| CPL-A13 | CPL-P13: Recalculava; ignorava falha de log; período usava cache e caminho diferentes | validado | Fluxos usam build/show comuns, data preservada; falha de registro interrompe também período |
+| CPL-A14 | CPL-P14: NaN/Inf/bool, ID duplicado, HT impossível; banca/lista associavam pela posição | validado | Validações antes de append, IDs estáveis, capital disponível separado da exposição |
+| CPL-A15 | CPL-P15: build abria conexão RW | validado | db.connect read_only=True no consumidor, sem alterar db compartilhado |
+| CPL-A16 | CPL-P16: Assumia tupla de cinco; quatro valores/dict falhavam | validado | Aceita quatro/cinco/dict, conserva parâmetros sem arredondar e valida JSON antes de criar saída |
+| CPL-A17 | CPL-P17: Comparação lexical de offsets, HHI dividido por jogos e bootstrap não finito | validado | Corte normalizado UTC, HHI por aparições, bootstrap finito e raw criado exclusivamente |
+| CPL-A18 | CPL-P18: Stake negativa, entradas não finitas, fair odd inválida e recibo futuro aceitos | validado | Kelly em domínio válido com piso zero; configuração validada; odd finita; futuro não fresco |
+| CPL-A19 | CPL-P19: Nomes sugeriam publicação comprovada e recomendação financeira | validado | BetSignal explicita simulação/capital false; T0 declara captura não verificada, SourcePublishedAt=null |
+| CPL-A20 | CPL-P20: Poderia sobrescrever parâmetros existentes; data fixa parecia instante real | validado | Recusa destinos existentes/iguais, reserva exclusiva, relógio atual, aviso de parâmetros demo; Redis alinhado ao digest CI |
+| CPL-A21 | CPL-P21: runtime-after-02 excedeu inicialização; log da causa não existia | em investigação | Nova suíte completa127/127 após instrumentação; falha original e causa desconhecida preservadas |
+| CPL-A22 | CPL-P22: Cache por contagem/config; escrita separada Elo/params; placar revisado conserva primeiro relógio; xG/proveniência incompletos | bloqueado | Dependências protegidas preservadas e retiradas do caminho de validação econômica; usar contratos independentes |
+| CPL-A23 | CPL-P23: Endpoint de exemplo, Elo1500 fixo, posição UNKNOWN e parâmetros de demonstração | bloqueado | Estado experimental explícito; sinal financeiro sempre simulado; homologação comercial não afirmada |
+| CPL-A24 | CPL-P24: Ferramenta view só devolve cartão de UI; configuração documental não prova ativo | bloqueado | Consulta somente leitura preservada; não duplicar, não antecipar captura |
+| CPL-A25 | CPL-P25: Inventário/estática foram confundidos com revisão integral anterior | identificado | Inventário cumulativo de 457 arquivos: {'inventory_static_or_targeted_review_only': 283, 'protected_contract_only_no_execution': 59, 'semantic_read_with_recorded_findings': 115}. Cobertura semântica global continua parcial. |
+| CPL-A26 | CPL-P26: Casas/timestamps/aceitação/capacidade continuam ausentes | bloqueado | Contratos/decoder melhorados; sete GETs documentais, sem nova cotação nem novo desempenho |
+| CLO-A01 | CLO-P01: Resumo somava duplicatas/órfãos; int truncava gols; JSON aceitava NaN/chaves repetidas | validado | Validar JSON, IDs e lucro contra aposta antes de somar; contagens inteiras; retirar CLV automático de banco latest-state |
+| CLO-A02 | CLO-P02: Último preço válido ressuscitava estado antigo e misturava eventos/linhas | validado | closing/v2: exigir fonte/evento/período; rejeitar mistura, suspensão, desconhecido e conflito final; validar clocks de cura |
+| CLO-A03 | CLO-P03: OFFICIAL e elegibilidade prospectiva eram emitidos apenas a partir da declaração do chamador | validado | Contrato/v2 com proveniência não verificada; tipos estritos, identidade não branca e cronologia coerente |
+| CLO-A04 | CLO-P04: Universo vazio dividia por zero; órfãos geravam300% de cobertura | validado | Denominador de eventos distintos, interseções no mesmo universo e N/A quando vazio; conexão fecha em finally |
+| CLO-A05 | CLO-P05: Abrir status podia criar/migrar banco e classificava cache existente como fresh mesmo desatualizado | validado | Conexão RO/finally, estado stale conforme cache_is_current e ROI indefinido como N/A; rótulo bruto |
+| CLO-A06 | CLO-P06: NaN, stake negativo e intervalo invertido podiam gerar SHADOW_BET | validado | Validar finitude/domínio/ordem dos limites; stake zero abstém; declarar fração de banca de referência e evidência falsa |
+| CLO-A07 | CLO-P07: Booleano textual viravaTrue; coordenadas impossíveis, contagens de jogos fracionárias e recibo pós-kickoff admitidos | validado | Tipos/limites físicos, contagens inteiras, anúncio até available_at e recebimento pré-jogo; GO estritamente booleano |
+| CLO-A08 | CLO-P08: Sorted set crescia indefinidamente; read-modify-write perdia versão nova e admitia T4 anterior a T3 | validado | Janela por relógio Redis e capacidade, percentis atômicos, CAS com KEEPTTL, rejeitar T4 anterior, excluir clocks inválidos; namespacev2 preserva histórico |
+| LGC-A01 | LGC-P01: Leitura seguida de append sem exclusão permitia duplicar ID e liquidação; última linha sem LF era concatenada. | validado | Trava de SO por caminho canônico, não bloqueante, em sidecar persistente; append preserva bytes, acrescenta separador se necessário, flush e fsync. |
+| LGC-A02 | LGC-P02: Duas leituras combinavam lucro antigo com exposição nova; JSON bancário aceitava NaN, booleanos, negativos, campos repetidos e relógios sem timezone. | validado | Uma leitura de apostas antes de filtrar/somar; parser estrito compartilhado, domínios bancários e clocks explícitos; gravações bancárias usam a mesma trava. |
+| LGC-A03 | LGC-P03: Contrato importado inválido era liquidado; placar invertido ficava sob mando errado; ID estável exigia linha legada; NaN desativava teto; CLI afirmava CLV comprovado. | validado | Recusar contrato inconsistente, usar índices por ID/legado, normalizar placar ao mando gravado, validar teto finito e mostrar relatos manuais brutos sem selo econômico. |
+| ARI-A01 | ARI-P01: NaN/Inf/escalas e covariâncias inválidas eram aceitos; arrays emprestados mudavam modelo; sigmoid overflow; otimizador sem sucesso podia publicar estado; labels multinomiais truncados. | validado | 24 regressões reproduzidas. Validação no carregamento, inferência e exportação; cópia de arrays; fit transacional; target sem truncamento; expit estável e gradiente analítico da mesma função objetivo. |

@@ -1,3 +1,5 @@
+**Atualização ARI-20260910:** artefatos e otimização residual corrigidos; 54 testes aprovados, com dados sintéticos. [Resultado atual](docs/continuation/artifact_integrity_2026-09-10/RESULTADO.md). Revisão integral aberta; lucro executável não comprovado.
+
 **Atualização LGC-20260910:** integridade e concorrência do livro manual corrigidas; 95 testes aprovados e trava entre processos Windows verificada. [Resultado LGC](docs/continuation/ledger_consistency_2026-09-10/RESULTADO.md). Revisão integral ainda aberta; lucro executável não demonstrado.
 
 # brasileirao-predictor

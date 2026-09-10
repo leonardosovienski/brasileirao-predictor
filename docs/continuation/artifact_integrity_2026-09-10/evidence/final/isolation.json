@@ -1,0 +1,14 @@
+{
+  "tests": [
+    "test_residual_artifact_integrity.py",
+    "test_market_residual.py",
+    "test_closeout_research_inputs.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

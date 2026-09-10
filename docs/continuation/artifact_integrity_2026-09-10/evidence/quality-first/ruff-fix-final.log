@@ -1,0 +1,12 @@
+E501 Line too long (144 > 120)
+   --> brasileirao_predictor\research\market_residual.py:189:121
+    |
+187 | …
+188 | …
+189 | …rsion") != "market-residual/1" or payload.get("capital_enabled") is not False:
+    |                                                        ^^^^^^^^^^^^^^^^^^^^^^^^
+190 | …ifact")
+191 | …
+    |
+
+Found 1 error.

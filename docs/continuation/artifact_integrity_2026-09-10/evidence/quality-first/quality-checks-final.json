@@ -1,0 +1,62 @@
+{
+  "files": [
+    "brasileirao_predictor/research/market_residual.py",
+    "tests/test_residual_artifact_integrity.py"
+  ],
+  "commands": [
+    {
+      "name": "ruff-fix",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "check",
+        "--fix",
+        "brasileirao_predictor/research/market_residual.py",
+        "tests/test_residual_artifact_integrity.py"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "ruff-format",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "format",
+        "brasileirao_predictor/research/market_residual.py",
+        "tests/test_residual_artifact_integrity.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "ruff-check",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "check",
+        "brasileirao_predictor/research/market_residual.py",
+        "tests/test_residual_artifact_integrity.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "ruff-format-check",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "format",
+        "--check",
+        "brasileirao_predictor/research/market_residual.py",
+        "tests/test_residual_artifact_integrity.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "pyright",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\tools\\node.exe",
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Lib\\site-packages\\pyright\\dist\\index.js",
+        "--pythonpath",
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "--project",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\pyright.json"
+      ],
+      "exit_code": 1
+    }
+  ]
+}

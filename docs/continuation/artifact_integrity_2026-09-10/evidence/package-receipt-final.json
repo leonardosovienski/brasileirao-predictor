@@ -1,0 +1,123 @@
+{
+  "commands": [
+    {
+      "name": "build",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\bootstrap\\Scripts\\uv.exe",
+        "build",
+        "--offline",
+        "--no-python-downloads",
+        "--python",
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "--out-dir",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\dist"
+      ],
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "name": "install",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\bootstrap\\Scripts\\uv.exe",
+        "pip",
+        "install",
+        "--python",
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "--offline",
+        "--no-deps",
+        "--target",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\installed",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\dist\\brasileirao_predictor-0.1.0-py3-none-any.whl"
+      ],
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "name": "odds-empty",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "brasileirao_predictor.data.odds_api_snapshot",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\empty.json",
+        "--sha256",
+        "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "--received-at",
+        "2020-01-01T12:00:00Z",
+        "--output",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\empty-result.json"
+      ],
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "name": "odds-invalid",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "brasileirao_predictor.data.odds_api_snapshot",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\invalid.json",
+        "--sha256",
+        "33414f12112e93f2cc846c28e58118efb0c1dc8eb8b422768a78fb564a032e99",
+        "--received-at",
+        "2020-01-01T12:00:00Z",
+        "--output",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\invalid-result.json"
+      ],
+      "exit_code": 2,
+      "expected": 2
+    },
+    {
+      "name": "readiness-False",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "brasileirao_scripts.check_prediction_readiness",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\readiness-False.json"
+      ],
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "name": "readiness-True",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "brasileirao_scripts.check_prediction_readiness",
+        "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\readiness-True.json"
+      ],
+      "exit_code": 2,
+      "expected": 2
+    },
+    {
+      "name": "installed-path",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "-B",
+        "-c",
+        "import brasileirao_predictor.data.odds_api_snapshot as m; print(m.__file__)"
+      ],
+      "exit_code": 0,
+      "expected": 0
+    }
+  ],
+  "installed_source": "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\package-smoke-final\\installed\\brasileirao_predictor\\data\\odds_api_snapshot.py",
+  "dependency_scope": "wheel installed to explicit target; dependencies supplied by existing isolated RI venv",
+  "files": {
+    ".gitignore": {
+      "bytes": 1,
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    },
+    "brasileirao_predictor-0.1.0-py3-none-any.whl": {
+      "bytes": 624577,
+      "sha256": "605c874bbf6f9f41ecf82ef7c22d3080a8f0f0490a99417a9c7b8812b2787487"
+    },
+    "brasileirao_predictor-0.1.0.tar.gz": {
+      "bytes": 9327636,
+      "sha256": "673978cb0f99df5f7fb58568c84b3f724eef37ed5a86963488cab3e63a136e60"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "python": {
+    "before": {
+      "tests": 24,
+      "failures": 24,
+      "errors": 0,
+      "skips": 0
+    },
+    "after": {
+      "tests": 50,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "final": {
+      "tests": 52,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "consumer": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    }
+  },
+  "unique_final_cases": 54,
+  "final_executions": 2,
+  "lint_format_typing": "passed",
+  "synthetic_only": true,
+  "financial_execution": false,
+  "new_economic_experiment": false,
+  "network_acquisition": false,
+  "optimizer": "BFGS unchanged objective/L2/sample; analytic derivatives checked by central finite differences",
+  "confidence_scope": "conditional model Hessian approximation, not validated economic uncertainty"
+}
