@@ -1,0 +1,21 @@
+{
+  "platform": "win32",
+  "lock_source_sha256": "aba4675c56277eb9f62fbd9cbd86573073a018ac8fdb940a240fe06faf3186c2",
+  "holder_pid": 21256,
+  "holder_stopped": true,
+  "phases": [
+    {
+      "phase": "separate_process_conflict",
+      "result": {
+        "acquired": false
+      }
+    },
+    {
+      "phase": "after_owned_holder_termination",
+      "result": {
+        "acquired": true
+      }
+    }
+  ],
+  "scope": "Windows local filesystem OS lock; actual ledger calls tested separately with threads"
+}

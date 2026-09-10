@@ -1,0 +1,12 @@
+{
+  "tests": [
+    "test_ledger_consistency.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 1
+}

@@ -1,3 +1,5 @@
+**Atualização LGC-20260910:** integridade e concorrência do livro manual corrigidas; 95 testes aprovados e trava entre processos Windows verificada. [Resultado LGC](docs/continuation/ledger_consistency_2026-09-10/RESULTADO.md). Revisão integral ainda aberta; lucro executável não demonstrado.
+
 # brasileirao-predictor
 
 **Atualização CLO-20260910:** oito grupos adicionais de falhas corrigidos;275 testes Python,27 Redis e127.NET aprovados. Mandato integral permanece aberto; dados comerciais insuficientes e lucro executável não demonstrado. [Resultado atual](docs/continuation/closeout_2026-09-10/RESULTADO.md), [registro central](docs/continuation/closeout_2026-09-10/REGISTROS.md), [continuação](docs/continuation/closeout_2026-09-10/PROXIMO_PROMPT.md).

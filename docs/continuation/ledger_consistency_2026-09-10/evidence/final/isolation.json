@@ -1,0 +1,29 @@
+{
+  "tests": [
+    "test_ledger_consistency.py",
+    "test_bet_log.py",
+    "test_bet_id.py",
+    "test_info_stake_cap.py",
+    "test_completion_ledger.py",
+    "test_closeout_integrity.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

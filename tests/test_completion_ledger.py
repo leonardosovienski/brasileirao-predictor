@@ -36,6 +36,8 @@ def test_stable_bet_id_survives_line_reordering_in_list_and_bank(tmp_path):
         "home": "C",
         "away": "D",
         "market": "ou15",
+        "line": 1.5,
+        "period": "FT",
         "selection": "over",
         "stake": 3,
         "odds": 2,

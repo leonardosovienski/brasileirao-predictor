@@ -1,0 +1,8 @@
+{
+  "status": "failed_before_claiming_interprocess_verification",
+  "reason": "The venv executable is a Windows launcher: Popen.pid differed from os.getpid in the interpreter. The identity assertion correctly refused the test.",
+  "child_reported_pid": 18072,
+  "cleanup": "Finally killed only the owned Popen handle and communicate closed stdin, allowing interpreter EOF exit. No arbitrary PID was terminated.",
+  "correction": "Use sys._base_executable and retain equality check in a new exclusive output folder.",
+  "ledger_validation_claim": false
+}

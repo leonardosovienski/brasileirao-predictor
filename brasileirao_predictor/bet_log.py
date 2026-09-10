@@ -16,11 +16,14 @@ CLV depende de fechamento identificado, independente e temporalmente admissível
 não prova lucro futuro. O banco latest-state não fornece esse contrato.
 """
 
+import errno
 import json
 import math
 import os
 import uuid
+from contextlib import contextmanager
 from datetime import UTC, datetime
+from functools import wraps
 from numbers import Integral, Real
 from pathlib import Path
 
@@ -90,8 +93,61 @@ def _resolve(path=None) -> Path:
     return Path(path or os.environ.get(ENV_PATH) or _DEFAULT)
 
 
-def _read(path=None) -> list[dict]:
-    p = _resolve(path)
+@contextmanager
+def _writer_lock(path: Path):
+    """Nonblocking OS lock for cooperating writers; keep the sidecar inode.
+
+    The OS releases the lock on process exit. Never delete a live sidecar:
+    replacing it could let two writers lock different files for the same book.
+    Manual edits and network-filesystem lock semantics are outside this contract.
+    """
+    lock_path = path.with_name(path.name + ".writer.lock")
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(lock_path, "a+b") as handle:
+        if os.name == "nt":
+            import msvcrt
+
+            def acquire():
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+
+            def release():
+                handle.seek(0)
+                msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+
+        else:
+            import fcntl
+
+            def acquire():
+                fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+            def release():
+                fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+
+        try:
+            acquire()
+        except OSError as exc:
+            raise BlockingIOError(errno.EWOULDBLOCK, "livro indisponível para escrita exclusiva") from exc
+        try:
+            yield
+        finally:
+            release()
+
+
+def _single_writer(resolve):
+    def decorate(function):
+        @wraps(function)
+        def locked(*args, **kwargs):
+            path = resolve(kwargs.get("path")).resolve()
+            with _writer_lock(path):
+                return function(*args, **{**kwargs, "path": path})
+
+        return locked
+
+    return decorate
+
+
+def _read_records(p: Path, kinds: set[str]) -> list[dict]:
     if not p.exists():
         return []
 
@@ -116,17 +172,31 @@ def _read(path=None) -> list[dict]:
         for line in p.read_text(encoding="utf-8").splitlines()
         if line.strip()
     ]
-    if any(not isinstance(row, dict) or row.get("kind") not in {"bet", "settlement"} for row in rows):
+    if any(
+        not isinstance(row, dict) or not isinstance(row.get("kind"), str) or row["kind"] not in kinds for row in rows
+    ):
         raise ValueError("registro desconhecido no livro")
     return rows
 
 
+def _read(path=None) -> list[dict]:
+    return _read_records(_resolve(path), {"bet", "settlement"})
+
+
 def _append(rec: dict, path=None) -> None:
-    encoded = json.dumps(rec, ensure_ascii=False, allow_nan=False)
+    """Append under the caller's writer lock; never rewrite prior bytes."""
+    encoded = (json.dumps(rec, ensure_ascii=False, allow_nan=False) + "\n").encode("utf-8")
     dest = _resolve(path)
     dest.parent.mkdir(parents=True, exist_ok=True)
-    with open(dest, "a", encoding="utf-8") as f:
-        f.write(encoded + "\n")
+    with open(dest, "a+b") as f:
+        f.seek(0, os.SEEK_END)
+        if f.tell():
+            f.seek(-1, os.SEEK_END)
+            if f.read(1) != b"\n":
+                encoded = b"\n" + encoded
+        f.write(encoded)
+        f.flush()
+        os.fsync(f.fileno())
 
 
 def _finite_number(value, name):
@@ -143,6 +213,13 @@ def _settlement_index(rows):
             _finite_number(row.get(field), field)
         if row["stake"] <= 0 or row["odds"] <= 1:
             raise ValueError("stake ou odd inválida no livro")
+        market = row.get("market")
+        if not isinstance(market, str) or market not in MARKETS:
+            raise ValueError("mercado inválido no livro")
+        if (row.get("line"), row.get("period")) != MARKETS[market] or row.get("selection") not in {"over", "under"}:
+            raise ValueError("contrato de mercado inconsistente no livro")
+        if any(not isinstance(row.get(field), str) or not row[field].strip() for field in ("home", "away")):
+            raise ValueError("identidade dos times inválida no livro")
         if row.get("bet_id") is not None:
             identity = row["bet_id"]
             if not isinstance(identity, str) or not identity.strip() or identity in bets:
@@ -192,6 +269,7 @@ def _goal_count(value):
     return int(value)
 
 
+@_single_writer(_resolve)
 def add_bet(
     home,
     away,
@@ -237,7 +315,12 @@ def add_bet(
     # odds_shop já sugere 'aposte menor'). Se o operador quiser impor o teto,
     # seta BETLOG_MAX_INFO_STAKE (em unidades); sem a env var, nada muda.
     cap = os.environ.get("BETLOG_MAX_INFO_STAKE")
-    if cap and market not in VALIDATED and float(stake) > float(cap):
+    if cap is not None and market not in VALIDATED:
+        cap_value = float(cap)
+        _finite_number(cap_value, "BETLOG_MAX_INFO_STAKE")
+        if cap_value < 0:
+            raise ValueError("BETLOG_MAX_INFO_STAKE deve ser não negativo")
+    if cap is not None and market not in VALIDATED and float(stake) > float(cap):
         raise ValueError(
             f"stake {stake}u excede o teto de {cap}u para mercado SEM CLV "
             f"validado ({market}) — teto definido em BETLOG_MAX_INFO_STAKE"
@@ -307,6 +390,7 @@ def add_bet(
     return rec
 
 
+@_single_writer(_resolve)
 def settle_bet(
     home, away, home_score, away_score, *, ht=None, path=None, recorded_at=None, match_date=None
 ) -> list[dict]:
@@ -345,17 +429,13 @@ def settle_bet(
             "placar certo"
         )
     target = frozenset((_canon(home), _canon(away)))
-    open_ids, settled_ids, settled_bet_ids = {}, set(), set()
+    open_ids = {}
     rows = _read(path)
-    _settlement_index(rows)
+    settled_bet_ids, settled_ids = _settlement_index(rows)
     for i, r in enumerate(rows):
         key = frozenset((_canon(r["home"]), _canon(r["away"])))
         if r["kind"] == "bet" and key == target:
             open_ids[i] = r
-        elif r["kind"] == "settlement" and key == target:
-            settled_ids.add(r["bet_line_no"])
-            if r.get("bet_id"):
-                settled_bet_ids.add(r["bet_id"])
 
     def _already_settled(i, b):
         # W? (auditoria hostil 2026-07-17): bet_id é estável e sobrevive a
@@ -400,6 +480,9 @@ def settle_bet(
         # Relatos antigos ficam intactos; novas liquidações exigiriam um contrato
         # de preço independente e temporalmente admissível para calcular CLV.
         clv = None
+        reverse = _canon(bet["home"]) != _canon(home)
+        score_pair = (away_score, home_score) if reverse else (home_score, away_score)
+        ht_pair = None if ht is None else ht[::-1] if reverse else ht
         rec = {
             "recorded_at": recorded_at or datetime.now(UTC).isoformat(timespec="seconds"),
             "kind": "settlement",
@@ -408,8 +491,8 @@ def settle_bet(
             "bet_id": bet.get("bet_id"),
             "home": bet["home"],
             "away": bet["away"],
-            "score": f"{home_score}-{away_score}",
-            "ht": None if ht is None else f"{ht[0]}-{ht[1]}",
+            "score": f"{score_pair[0]}-{score_pair[1]}",
+            "ht": None if ht_pair is None else f"{ht_pair[0]}-{ht_pair[1]}",
             "total_do_periodo": total,
             "market": bet["market"],
             "period": period,
@@ -433,6 +516,32 @@ def _resolve_bank(path=None) -> Path:
     return Path(path or os.environ.get(ENV_BANK_PATH) or _BANK_DEFAULT)
 
 
+def _timestamp(value) -> datetime:
+    if not isinstance(value, str):
+        raise ValueError("timestamp exige ISO-8601 com timezone")
+    result = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    if result.tzinfo is None or result.utcoffset() is None:
+        raise ValueError("timestamp exige timezone explícito")
+    return result.astimezone(UTC)
+
+
+def _read_bank(path) -> list[dict]:
+    rows = _read_records(_resolve_bank(path), {"init", "deposit", "withdraw"})
+    for row in rows:
+        _finite_number(row.get("amount"), "valor bancário")
+        if row["amount"] <= 0:
+            raise ValueError("valor bancário deve ser positivo")
+        _timestamp(row.get("at"))
+        if row["kind"] == "init":
+            _finite_number(row.get("unit"), "unidade")
+            if row["unit"] <= 0:
+                raise ValueError("unidade deve ser positiva")
+            if not isinstance(row.get("currency"), str) or not row["currency"].strip():
+                raise ValueError("moeda deve ser declarada")
+    return rows
+
+
+@_single_writer(_resolve_bank)
 def bank_init(amount, unit, *, currency="BRL", path=None, at=None) -> dict:
     """Abre (ou reabre) a banca: valor total e valor da UNIDADE em dinheiro.
     Append-only — um novo init reinicia a contagem a partir dele (o histórico
@@ -441,6 +550,9 @@ def bank_init(amount, unit, *, currency="BRL", path=None, at=None) -> dict:
     _finite_number(unit, "unidade")
     if amount <= 0 or unit <= 0:
         raise ValueError("banca e unidade devem ser positivas")
+    if not isinstance(currency, str) or not currency.strip():
+        raise ValueError("moeda deve ser declarada")
+    _read_bank(path)
     rec = {
         "at": at or datetime.now(UTC).isoformat(timespec="seconds"),
         "kind": "init",
@@ -448,13 +560,12 @@ def bank_init(amount, unit, *, currency="BRL", path=None, at=None) -> dict:
         "unit": float(unit),
         "currency": currency,
     }
-    dest = _resolve_bank(path)
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    with open(dest, "a", encoding="utf-8") as f:
-        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    _timestamp(rec["at"])
+    _append(rec, _resolve_bank(path))
     return rec
 
 
+@_single_writer(_resolve_bank)
 def bank_flow(kind, amount, *, path=None, at=None) -> dict:
     """Depósito ou saque (kind='deposit'|'withdraw')."""
     if kind not in ("deposit", "withdraw"):
@@ -462,15 +573,14 @@ def bank_flow(kind, amount, *, path=None, at=None) -> dict:
     _finite_number(amount, "valor")
     if amount <= 0:
         raise ValueError("valor deve ser positivo")
+    _read_bank(path)
     rec = {
         "at": at or datetime.now(UTC).isoformat(timespec="seconds"),
         "kind": kind,
         "amount": float(amount),
     }
-    dest = _resolve_bank(path)
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    with open(dest, "a", encoding="utf-8") as f:
-        f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    _timestamp(rec["at"])
+    _append(rec, _resolve_bank(path))
     return rec
 
 
@@ -482,8 +592,7 @@ def bank_state(bank_path=None, bets_path=None) -> dict | None:
     if not p.exists():
         return None
     init, flows = None, 0.0
-    for line in p.read_text(encoding="utf-8").splitlines():
-        r = json.loads(line)
+    for r in _read_bank(p):
         if r["kind"] == "init":
             init, flows = r, 0.0  # novo init zera a contagem
         elif r["kind"] == "deposit":
@@ -494,16 +603,13 @@ def bank_state(bank_path=None, bets_path=None) -> dict | None:
         return None
     unit = init["unit"]
 
-    # W3: comparar como datetime, não como string — lexicográfico funcionava
-    # por acidente (todos os registros usam o mesmo formato '+00:00'), mas um
-    # 'Z' de sufixo já inverteria a ordem ('Z' > '+').
-    def _ts(s):
-        return datetime.fromisoformat(s.replace("Z", "+00:00"))
-
-    init_at = _ts(init["at"])
+    # Um snapshot reconciliado sustenta tanto o resultado quanto a exposição.
+    all_rows = _read(bets_path)
+    settled_ids, settled_lines = _settlement_index(all_rows)
+    init_at = _timestamp(init["at"])
     settles = sorted(
-        (r for r in _read(bets_path) if r["kind"] == "settlement" and _ts(r["recorded_at"]) >= init_at),
-        key=lambda r: _ts(r["recorded_at"]),
+        (r for r in all_rows if r["kind"] == "settlement" and _timestamp(r["recorded_at"]) >= init_at),
+        key=lambda r: _timestamp(r["recorded_at"]),
     )
     profit_units = sum(r["profit"] for r in settles)
     # equity curve em dinheiro -> max drawdown (do pico ao vale)
@@ -514,8 +620,6 @@ def bank_state(bank_path=None, bets_path=None) -> dict | None:
         mdd = max(mdd, peak - equity)
     # exposição = TODA aposta ainda aberta no livro (mesmo registrada antes do
     # init — aposta viva é dinheiro em jogo desta banca), casada por linha
-    all_rows = _read(bets_path)
-    settled_ids, settled_lines = _settlement_index(all_rows)
     open_units = sum(
         r["stake"]
         for i, r in enumerate(all_rows)
@@ -531,6 +635,8 @@ def bank_state(bank_path=None, bets_path=None) -> dict | None:
         "balance": round(balance, 2),
         "available_money": round(balance - open_units * unit, 2),
         "accounting_scope": "gross_reported_units_at_current_unit_value",
+        "drawdown_scope": "gross_settlement_pnl_at_current_unit_excluding_flow_timing",
+        "economic_evidence_eligible": False,
         "costs_reconciled": False,
         "profit_units": round(profit_units, 4),
         "profit_money": round(profit_units * unit, 2),
@@ -708,7 +814,7 @@ def main():
         if abertas:
             print(f"\n=== ABERTAS ({len(abertas)}) ===")
             for b in abertas:
-                v = "VALID" if b.get("validated", b["market"] in VALIDATED) else "info "
+                v = "funil legado" if b.get("validated", b["market"] in VALIDATED) else "informativo"
                 money = f" = R$ {b['stake'] * unit:.0f}" if unit else ""
                 extra = " ".join(
                     x
@@ -804,11 +910,12 @@ def main():
             print(f"  AVISO: exposição aberta > {MAX_OPEN_UNITS:.0f}u")
     else:
         tally = summary()
+        print("Relatos manuais brutos: sem comprovação de aceitação, custos ou rentabilidade.")
         if not tally:
             print("nenhuma aposta fechada ainda (data/bets.jsonl)")
         for grupo, ok in (
-            ("MERCADO VALIDADO (CLV comprovado)", True),
-            ("INFORMATIVO (sem CLV)", False),
+            ("MERCADO DO FUNIL LEGADO (flag técnica, sem certificação econômica)", True),
+            ("OUTROS MERCADOS REGISTRADOS", False),
         ):
             linhas = {m: t for m, t in tally.items() if t["validated"] == ok}
             if not linhas:

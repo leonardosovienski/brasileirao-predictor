@@ -1,0 +1,5 @@
+# Machine receipts are immutable bytes; do not normalize test output on checkout.
+* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+*.xml -diff
+*.trx -diff
+*.log -diff
