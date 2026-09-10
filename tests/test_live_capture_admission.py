@@ -9,6 +9,7 @@ def payload():
     return {
         "fixtureId": "id1",
         "statusId": 0,
+        "hasOdds": True,
         "startTime": "2026-09-12T00:00:00Z",
         "bookmakerOdds": {
             b: {

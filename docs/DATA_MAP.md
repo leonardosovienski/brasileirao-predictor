@@ -6,6 +6,18 @@ O detalhamento anterior do schema e das coletas está
 [arquivado](history/antes_consolidacao_2026-09-09/docs/DATA_MAP.md); seus números
 de linhas e estados datados não foram recalculados nesta etapa.
 
+
+## Revisão RI-20260909: situação mais recente
+
+A [revisão de campos/fontes](continuation/integral_review_2026-09-09/MAPA_DADOS.md) reconferiu os 177 históricos, CSV 2025 e piloto, sem reabrir bancos protegidos. Estado: arquivos íntegros, execução histórica inadmissível/insuficiente; lucro executável não mensurável. [Resultado](continuation/integral_review_2026-09-09/RESULTADO.md).
+
+- `C:/BRASILEIRAO/work/revisao-integral-2026-09-09`: venv completo, SDK10 portátil, inventário, contratos públicos, ensaios, logs, conta independente e backups dos guias/helpers anteriores.
+- `C:/BRASILEIRAO/brasileirao-predictor/docs/continuation/integral_review_2026-09-09`: registros centrais, mapas, protocolo, relatório, próximo prompt e evidências sanitizadas.
+- `C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_RI_20260909`: cópia conferida da entrega RI.
+- `C:/BRASILEIRAO/AUDITORIA/REVISAO_INTEGRAL_2026-09-09.json`: integração, hashes, diff, cópias e recuperação Git. Não é recuperação operacional dos dados protegidos.
+
+Nenhum rawDC foi reescrito; apenas o auditor futuro independente foi atualizado com backup/hash. O estado atual da agenda não pôde ser lido pela ferramenta; TOML antigo é documental. O restante deste mapa descreve locais e recibos anteriores, com seu escopo/datamento preservado.
+
 ## Armazenamento atual
 
 | Área | Conteúdo e regra |

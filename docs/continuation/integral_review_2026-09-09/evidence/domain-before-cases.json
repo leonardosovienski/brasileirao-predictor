@@ -1,0 +1,6 @@
+[
+  {
+    "id": "tests.test_integral_review_domain::test_league_simulator_rejects_before_database_connection",
+    "status": "failed"
+  }
+]

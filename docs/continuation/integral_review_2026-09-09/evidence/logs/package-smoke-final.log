@@ -1,0 +1,24 @@
+usage: brasileirao-predict [-h] [--neutral] [--fixtures N] [--rankings N]
+                           [--resumo] [--expand | --stats | --full | --json]
+                           [--corners] [--cards]
+                           [teams ...]
+
+Preditor de partidas internacionais
+
+positional arguments:
+  teams         TIME_A TIME_B (em ingl�s, ex: Brazil)
+
+options:
+  -h, --help    show this help message and exit
+  --neutral     campo neutro
+  --fixtures N  prev� os pr�ximos N fixtures da base
+  --rankings N  top N do Elo
+  --resumo      modo lote: s� a tabela resumo ao final, sem os blocos por jogo
+                (--fixtures continua computando e registrando cada predi��o)
+  --expand      n�vel 1: gols esperados, edge detalhado, placar top-1
+  --stats       n�vel 2: Shin completo, placares top-5, par�metros do modelo
+  --full        n�vel 3: dupla chance, draw no bet, handicap asi�tico
+  --json        sa�da estruturada (machine-output), ignora os outros n�veis
+  --corners     injeta escanteios (SEM valida��o de CLV) sem precisar de
+                --full
+  --cards       injeta cart�es (SEM valida��o de CLV) sem precisar de --full

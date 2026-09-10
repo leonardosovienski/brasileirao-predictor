@@ -1,0 +1,686 @@
+[
+  {
+    "id": "tests.test_audit_fixes::test_p5_params_5_elementos_com_deltas_zero_equivale_ao_baseline",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p5_padrao_buggy_documentado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p10_history_no_formato_errado_falha_fechado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p10_history_saudavel_nao_avisa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p3_ratings_asof_nao_enxerga_o_futuro",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p6_cluster_ci_mais_largo_que_iid_sob_correlacao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p6_cluster_degenera_no_iid_com_um_por_cluster",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p6_cluster_amostra_vazia_estoura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p8_lambda_home_diferente_de_away_para_diff_positivo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p8_b_recupera_o_sinal_gerador",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p11_nb_recupera_a_media_real_nao_a_invertida",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p11_b_positivo_recupera_direcao_correta",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p12_nb_em_dado_poisson_nao_diverge",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p2_load_event_data_uma_linha_por_jogo_e_so_periodo_all",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p7_gatilho_e_prob_de_mercado_usam_a_abertura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_calibration_gate::test_existing_a10_report_is_formally_no_go",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_calibration_gate::test_gate_requires_primary_and_every_guardrail",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_calibration_gate::test_gate_requires_material_rps_gain_and_home_win_guardrail",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_calibration_gate::test_a10_producer_can_compute_home_win_guardrail",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_json_and_unknown_version_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_missing_identifier_is_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_duplicate_idempotency_claim_is_safe",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_valid_payload_writes_versioned_ttl_response",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[protocol_version]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[job_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[run_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[match_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[idempotency_key]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[timestamp_t3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[state_version]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[None-job_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[None-run_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[None-match_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[None-idempotency_key]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[-job_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[-run_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[-match_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[-idempotency_key]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[123-job_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[123-run_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[123-match_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[123-idempotency_key]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[True-job_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[True-run_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[True-match_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[True-idempotency_key]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid4-job_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid4-run_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid4-match_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid4-idempotency_key]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid5-job_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid5-run_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid5-match_id]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid5-idempotency_key]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[None-elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[None-elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[None-dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[None-dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[1500-elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[1500-elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[1500-dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[1500-dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[True-elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[True-elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[True-dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[True-dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid3-elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid3-elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid3-dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid3-dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid4-elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid4-elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid4-dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid4-dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[nan-elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[nan-elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[nan-dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[nan-dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[inf-elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[inf-elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[inf-dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[inf-dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[-inf-elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[-inf-elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[-inf-dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[-inf-dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-elo_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-elo_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-dvorp_a]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-dvorp_b]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[-1.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[0.5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[invalid6]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[invalid7]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[nan]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[inf]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[null]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[[]]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[true]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[\"message\"]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[{]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[\\xff]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_additional_properties_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[invalid3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[invalid4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_unrepresentable_rates_are_rejected_before_claim[1e+308]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_unrepresentable_rates_are_rejected_before_claim[-1e+308]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_message_does_not_poison_valid_retry",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_schema_valid_numeric_representations_are_accepted[0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_schema_valid_numeric_representations_are_accepted[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_schema_valid_numeric_representations_are_accepted[1.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_schema_valid_numeric_representations_are_accepted[1e+20]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[01]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[1.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[1e3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[\\uff11\\uff12]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[\\u0661]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[9223372036854775808]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[11111111111111111111]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_version_above_lua_double_precision_is_preserved_as_string",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_legacy_v1_cannot_bypass_registered_v2_lifecycle",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_grid_is_normalized_non_negative_and_dixon_coles_changes_low_scores",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_numba_python_implementation_is_directly_verifiable",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_fair_odds_cover_complete_probability_grid",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_fair_odds_represents_zero_probability_as_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_load_params_closes_sports_db_and_applies_config",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_load_params_closes_sports_db_when_cache_is_empty",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_load_params_rejects_stale_versioned_cache",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_warmup_invokes_grid_twice",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_main_rejects_missing_runtime_configuration",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_main_healthcheck_reports_redis_state",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_main_healthcheck_fails_when_kernel_is_not_ready",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_main_starts_daemon_with_explicit_absolute_configuration",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_daemon_sets_health_and_cleans_up_on_shutdown",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_uncertain_completion_releases_only_its_attempt[ConnectionError]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_uncertain_completion_releases_only_its_attempt[CancelledError]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_computation_failure_releases_claim_and_never_completes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_poller_recovers_registered_payloads_without_pubsub",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_windows_signal_fallback_schedules_stop_and_restores_handlers",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_session_keeps_client_open_until_inflight_handler_cleans_up",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promotions_dataset::test_versioned_promotion_dataset_is_complete",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promotions_dataset::test_promotion_dataset_rejects_empty_file",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promotions_dataset::test_versioned_relegation_dataset_is_complete",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_domain::test_league_simulator_rejects_before_database_connection",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_contradictory_fixture_state_cannot_admit_pre_game_prices[trueStartTime-2026-09-09T19:00:00Z]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_contradictory_fixture_state_cannot_admit_pre_game_prices[trueEndTime-2026-09-09T19:00:00Z]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_contradictory_fixture_state_cannot_admit_pre_game_prices[hasOdds-False]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_missing_required_change_clock_is_not_verified_state",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_duplicate_conflicting_active_keys_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_duplicate_receipt_keys_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_nonfinite_payload_metadata_cannot_be_admitted",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_hash_integrity_does_not_authorize_swapped_participants",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_concurrent_publisher_cannot_overwrite_completed_audit",
+    "status": "passed"
+  }
+]

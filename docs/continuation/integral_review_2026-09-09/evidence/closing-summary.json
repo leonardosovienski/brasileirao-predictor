@@ -1,0 +1,36 @@
+{
+  "status": "CONDITIONAL_NON_EXECUTABLE",
+  "universe_n": 380,
+  "conditional_price_candidates": 32,
+  "conditional_bets": 32,
+  "settled": 32,
+  "unsettled": 0,
+  "abstentions": 348,
+  "initial_bankroll": "100",
+  "contributions": "0",
+  "total_stakes": "32",
+  "prizes_including_principal": "23.4",
+  "scenario_costs": "0.64",
+  "final_cash": "90.76",
+  "locked_principal": "0",
+  "final_equity_at_cost": "90.76",
+  "net_realized_pnl": "-9.24",
+  "roi_on_stakes": "-0.28875",
+  "return_on_bankroll": "-0.0924",
+  "maximum_simultaneous_exposure_daily_scenario": "3",
+  "execution_proven": false,
+  "actual_costs_known": false,
+  "abstention_reasons": {
+    "missing_or_invalid_individual_closing_prices": 222,
+    "no_price_difference_inside_frozen_threshold": 126
+  },
+  "first_bet_date": "2025-08-16",
+  "last_bet_date": "2025-12-04",
+  "monthly_bet_counts": {
+    "2025-08": 8,
+    "2025-09": 10,
+    "2025-10": 13,
+    "2025-12": 1
+  },
+  "full_receipt_sha256": "296da3b1e43f8f46cce25226599d356f29b2dcc7a76318b9972a65bc80ac0ffe"
+}

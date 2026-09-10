@@ -17,7 +17,9 @@ Fixes da auditoria 2026-07-02:
   P8 — modelo assimétrico (ver event_models.py).
 """
 
+import math
 import sqlite3
+from datetime import date
 
 import numpy as np
 
@@ -28,8 +30,7 @@ from brasileirao_predictor.obs import get_logger, setup_logging
 from brasileirao_predictor.predict import _canon
 from brasileirao_predictor.ratings import ratings_asof
 
-# Configura logging imediatamente
-setup_logging(ROOT / "data")
+# Importing numerical helpers must not create an operational log.
 log = get_logger()
 
 
@@ -186,10 +187,35 @@ def backtest_event(
         log.warning(f"Sem dados para {market}")
         return {}
 
-    data.sort(key=lambda x: x["date"])
-    split = int(0.8 * len(data))
-    train = data[:split]
-    test = data[split:]
+    # v2: a match contributes one training target, regardless of how many
+    # price lines it has. With date-only data, keep the entire boundary day
+    # out of training. Calendar order alone does not establish publication
+    # times or executable opening prices.
+    unique_events = {}
+    identity_fields = ("date", "home", "away", "elo_home", "elo_away", "home_event", "away_event")
+    for row in data:
+        day = date.fromisoformat(row["date"])
+        if day.isoformat() != row["date"]:
+            raise ValueError("canonical_event_date_required")
+        previous = unique_events.setdefault(row["event_id"], row)
+        if any(previous[field] != row[field] for field in identity_fields):
+            raise ValueError("conflicting_event_training_identity")
+    events = sorted(unique_events.values(), key=lambda row: row["date"])
+    cutoff_day = events[int(0.8 * len(events))]["date"]
+    train = [row for row in events if row["date"] < cutoff_day]
+    test = sorted((row for row in data if row["date"] >= cutoff_day), key=lambda row: row["date"])
+    abstentions = []
+    scope = {
+        "methodology_version": "event-backtest/v2",
+        "evidence_scope": "conditional_price_scenario_not_execution",
+        "split_cutoff_day": cutoff_day,
+        "n_train_events": len(train),
+        "n_test_events": len({row["event_id"] for row in test}),
+        "n_test_price_rows": len(test),
+        "abstentions": abstentions,
+    }
+    if not train:
+        return {**scope, "n_trades": 0, "reason": "no_prior_training_day"}
 
     log.info(f"Treino: {len(train)}, Teste: {len(test)}")
 
@@ -213,13 +239,32 @@ def backtest_event(
         lam_h, lam_a, probs = predict_event(d["elo_home"], d["elo_away"], params)
         line = d["line"]
 
-        over_prob = probs.get(f"over_{line}", 0.5)
+        over_prob = probs.get(f"over_{line}")
+        if (
+            isinstance(line, bool)
+            or not isinstance(line, int | float)
+            or not math.isfinite(line)
+            or line < 0
+            or line % 1 != 0.5
+            or isinstance(over_prob, bool)
+            or not isinstance(over_prob, int | float)
+            or not math.isfinite(over_prob)
+            or not 0 <= over_prob <= 1
+        ):
+            abstentions.append({"event_id": d["event_id"], "line": line, "reason": "unsupported_line_or_probability"})
+            continue
         under_prob = 1 - over_prob
 
         close_over = d["close_a"]
         close_under = d["close_b"]
         open_over = d["open_a"]
         open_under = d["open_b"]
+        if any(
+            isinstance(odd, bool) or not isinstance(odd, int | float) or not math.isfinite(odd) or odd <= 1
+            for odd in (open_over, open_under, close_over, close_under)
+        ):
+            abstentions.append({"event_id": d["event_id"], "line": line, "reason": "invalid_decimal_odds"})
+            continue
 
         # Edge contra a ABERTURA (auditoria P7): é o preço da aposta; a odd de
         # fechamento não existe no momento da decisão.
@@ -272,7 +317,7 @@ def backtest_event(
     n_trades = len(trades)
     if n_trades == 0:
         log.warning(f"Nenhuma aposta para {market} (edge thresholds podem estar apertados)")
-        return {"n_trades": 0}
+        return {**scope, "n_trades": 0}
 
     profits = [t["profit"] for t in trades]
     clvs = [t["clv"] for t in trades]
@@ -298,6 +343,7 @@ def backtest_event(
     """)
 
     return {
+        **scope,
         "market": market,
         "n_trades": n_trades,
         "n_events": n_events,
@@ -312,5 +358,6 @@ def backtest_event(
 
 
 if __name__ == "__main__":
+    setup_logging(ROOT / "data")
     for m in ["corners", "cards"]:
         backtest_event(m, min_edge=0.0, max_edge=0.15, stake=1.0)

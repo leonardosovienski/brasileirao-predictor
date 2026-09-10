@@ -1,5 +1,15 @@
 # HANDOFF.md — brasileirao-predictor
 
+
+## 09/09/2026 — revisão RI concluída no escopo permitido
+
+Leia primeiro [resultado RI](docs/continuation/integral_review_2026-09-09/RESULTADO.md), [registros centrais](docs/continuation/integral_review_2026-09-09/REGISTROS.json) e [próximo prompt](docs/continuation/integral_review_2026-09-09/PROXIMO_PROMPT.md). Base ac22c56. A revisão agora foi executada; entradas mais antigas abaixo descrevem seu próprio estágio e não invalidam este checkpoint.
+
+Corrigidos admissão de identidade/estado/JSON, publicação concorrente, agrupamento temporal, treino/abstenção no backtest de eventos, import que escrevia log e recusa tardia do simulador de Copa. Novo venv completo e SDK .NET 10; 1.291 casos únicos aprovados/um skip em lotes delimitados; .NET: 69/41 skip; build/pacote/lint/tipagem documentados.177 históricos íntegros,380 jogos de 2025,3 capturas/1 evento; conta condicional−9,24 u reproduzida. Zero execução admitida; projeto não pronto e lucro executável não mensurável.
+
+Auditor independente corrigido ativado; coletor, fixture, casas, decisão, janelas, quota e agenda preservados. Agenda pertence à tarefa anterior; estado atual não confirmado pela resposta legível da ferramenta, não duplicar. H14/H15/H9/A1 e DB/Redis operacionais intocados. Integração/cópias/backup em C:/BRASILEIRAO/AUDITORIA/REVISAO_INTEGRAL_2026-09-09.json. Não reabrir históricos como holdout nem executar avaliações protegidas.
+
+
 ## 2026-09-09 — ER-20260909: cinco falhas corrigidas na rotina futura
 
 Base `7f18d543891cb3e68bb82c0a0d9fb58f9a8f12c0`.

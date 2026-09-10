@@ -1,0 +1,34 @@
+[
+  {
+    "id": "tests.test_integral_review_admission::test_contradictory_fixture_state_cannot_admit_pre_game_prices[trueStartTime-2026-09-09T19:00:00Z]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_contradictory_fixture_state_cannot_admit_pre_game_prices[trueEndTime-2026-09-09T19:00:00Z]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_contradictory_fixture_state_cannot_admit_pre_game_prices[hasOdds-False]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_missing_required_change_clock_is_not_verified_state",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_duplicate_conflicting_active_keys_are_rejected",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_duplicate_receipt_keys_are_rejected",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_nonfinite_payload_metadata_cannot_be_admitted",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_hash_integrity_does_not_authorize_swapped_participants",
+    "status": "failed"
+  }
+]

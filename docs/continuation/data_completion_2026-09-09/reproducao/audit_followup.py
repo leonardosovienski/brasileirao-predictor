@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import sys
+import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -45,12 +46,12 @@ def main():
                 raise PermissionError("private_protected_input")
 
     sys.addaudithook(guard)
-    from brasileirao_predictor.research.price_strength.live_capture_admission import audit_capture
+    from brasileirao_predictor.research.price_strength.live_capture_admission import audit_capture, strict_json_loads
 
     raw = (INPUT / "capture.json").read_bytes()
     reason = "invalid_receipt_json_or_schema"
     try:
-        state = json.loads((INPUT / "receipt.json").read_text(encoding="utf-8"))
+        state = strict_json_loads((INPUT / "receipt.json").read_text(encoding="utf-8"))
         receipts = [r for r in state["requests"] if r.get("file") == "capture.json"]
         reason = "receipt_contract_mismatch"
         if len(receipts) != 1:
@@ -73,8 +74,21 @@ def main():
         if hashlib.sha256(raw).hexdigest() != receipt.get("sha256"):
             raise ValueError(reason)
         reason = "invalid_payload_or_clock"
-        payload = json.loads(raw)
-        audit = audit_capture(payload, receipt, "id1000032566887012")
+        payload = strict_json_loads(raw)
+        # Identity from the calendar catalog received before pilot prices.
+        # See RI-20260909 identity receipt; this does not select another event.
+        audit = audit_capture(
+            payload,
+            receipt,
+            "id1000032566887012",
+            expected_identity={
+                "participant1Id": 1982,
+                "participant2Id": 1967,
+                "sportId": 10,
+                "tournamentId": 325,
+                "seasonId": 137706,
+            },
+        )
         received = datetime.fromisoformat(receipt["received_at"])
         decision = datetime(2026, 9, 11, 23, tzinfo=UTC)
         audit["frozen_decision_clock_admitted"] = 0 <= (decision - received).total_seconds() <= 120
@@ -98,9 +112,17 @@ def main():
         }
     audit["source_hash"] = hashlib.sha256(raw).hexdigest()
     audit["completed_at"] = datetime.now(UTC).isoformat()
-    temporary = OUTPUT / "audit.json.tmp"
+    temporary = OUTPUT / ("audit." + uuid.uuid4().hex + ".tmp")
     temporary.write_text(json.dumps(audit, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    temporary.replace(OUTPUT / "audit.json")
+    try:
+        # A completed competitor must never be replaced. Linking a fully
+        # written file is atomic and fails if the destination already exists.
+        os.link(temporary, OUTPUT / "audit.json")
+    except FileExistsError:
+        print("ALREADY_AUDITED")
+        return
+    finally:
+        temporary.unlink()
     print(json.dumps(audit, ensure_ascii=False))
 
 

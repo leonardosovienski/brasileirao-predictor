@@ -1,0 +1,134 @@
+[
+  {
+    "id": "tests.test_integral_review_admission::test_contradictory_fixture_state_cannot_admit_pre_game_prices[trueStartTime-2026-09-09T19:00:00Z]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_contradictory_fixture_state_cannot_admit_pre_game_prices[trueEndTime-2026-09-09T19:00:00Z]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_contradictory_fixture_state_cannot_admit_pre_game_prices[hasOdds-False]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_missing_required_change_clock_is_not_verified_state",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_duplicate_conflicting_active_keys_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_duplicate_receipt_keys_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_nonfinite_payload_metadata_cannot_be_admitted",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_integral_review_admission::test_hash_integrity_does_not_authorize_swapped_participants",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_active_children_cannot_override_inactive_parent",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_suspension_and_missing_flags_reject[suspended]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_suspension_and_missing_flags_reject[market]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_suspension_and_missing_flags_reject[selection]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_suspension_and_missing_flags_reject[missing_suspension_flag]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_network_receipt_is_not_bookmaker_change_or_execution",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_generic_bet365_cannot_substitute_regional_book",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_postkickoff_or_foreign_identity_cannot_be_admitted",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_payload_is_not_modified",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_boolean_status_cannot_masquerade_as_numeric_pre_game",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_whole_capture_keeps_one_metered_call_and_is_idempotent",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_outside_window_does_not_read_credentials_or_call_api[-301]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_outside_window_does_not_read_credentials_or_call_api[-45]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_quota_reserve_and_paid_plan_block_before_odds[20-None-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_quota_reserve_and_paid_plan_block_before_odds[21-None-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_quota_reserve_and_paid_plan_block_before_odds[183-10-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_http_failure_is_not_retried_and_does_not_expose_key",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_invalid_json_response_is_preserved_and_audited_as_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_credential_failure_still_leaves_sanitized_receipt",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_missing_kickoff_produces_rejection_instead_of_crashing",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_partial_audit_directory_does_not_prevent_recovery",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_relabelled_provider_endpoint_cannot_be_admitted",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_late_or_timezone_free_receipt_cannot_pass_price_gate[2026-09-11T23:00:01+00:00]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_late_or_timezone_free_receipt_cannot_pass_price_gate[2026-09-11T22:58:30]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_rescheduled_fixture_does_not_move_frozen_decision",
+    "status": "passed"
+  }
+]

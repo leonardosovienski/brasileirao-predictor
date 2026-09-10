@@ -1,0 +1,11 @@
+{
+  "source_files": 421,
+  "review_methods": {
+    "static_inventory": 365,
+    "metadata_only_protected_or_adjacent": 56
+  },
+  "baseline_selected_test_files": 105,
+  "inventory_sha256": "efc48e7ae8c54ebc7f0f9018f90392297d0eb3ae101fbb46cc61af6b5b6fe005",
+  "full_inventory": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\source_inventory.json",
+  "not_line_by_line_certification": true
+}

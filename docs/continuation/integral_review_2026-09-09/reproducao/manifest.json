@@ -1,0 +1,42 @@
+{
+  "canonical_execution_root": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09",
+  "do_not_execute_from_documentation_copy": true,
+  "scripts": {
+    "audit_data.py": "1134b8be7b726f5c44c3d55dc464db381d9c98e338e82601cbdf4c9a91175086",
+    "consolidate_evidence.py": "bcb09e7a28c21029cd6ac7a77ab6e5109b36ea8b476008fd801fce66dd293ffe",
+    "finish_review_artifacts.py": "9efca871b914f6b1bf25ee55a8155a90aa760f13c4a04f4869bf2dcc924523ee",
+    "inventory.py": "7bd3158ab474e3a90b9d5957709046ab791998b2fbdc6f760931b62b7c554188",
+    "NuGet.Config": "ef18aae73f086bb5fc3e982ce9b14cd85951b0c85871c7f3459dfa7041d5158b",
+    "package_smoke.py": "6b6c36e4c4cceafb24abb758188f5cc7d834d7391980dfe0570211307149e817",
+    "prepare_dotnet.py": "2f18ddbab935bbe780f29bce217de846ec6df629cb462d54eaf6182be3bcc56e",
+    "pyrightconfig.json": "1da33e91a2a8660ab12e57997072322696bc7f4717797623f67b7a79750c679b",
+    "reconcile_final_records.py": "23cafa6d8092dbe6ead6bcf45cee6077df05a02ec08f6a57be75014c8b118c2b",
+    "recover_public.py": "0bc2acd057cd7c41a3cff597435b2a4090790f4f441b2e085bddde2d45649c7b",
+    "run_dotnet.ps1": "4a416bb50375750be1b02bb95f24bffd5396188273d32ea2eb1fd7eb3cf7c11e",
+    "run_isolated.py": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579",
+    "test_isolation_boundary.py": "a177ad0eb063817121fb1aec01662132a68b840d6bad3d9ee304d2a0743f86ca",
+    "update_guides.py": "41ee48b353011931214e33ed9510ac6b4384c1a23ee3d91550a10a46377debbb",
+    "write_reports.py": "c3e220ee5ff52acc5c82623bebfeb660c76443d717c56d31feb5d1a45b50cb8d",
+    "package_smoke_final.py": "c0222dae82b2c9372eeceaaf7640e958e4b5712799211c093d2f93f27dcdb136"
+  },
+  "historical_generation_scripts_do_not_rerun_blindly": true,
+  "canonical_work_scripts": {
+    "audit_data.py": "1134b8be7b726f5c44c3d55dc464db381d9c98e338e82601cbdf4c9a91175086",
+    "consolidate_evidence.py": "bcb09e7a28c21029cd6ac7a77ab6e5109b36ea8b476008fd801fce66dd293ffe",
+    "finish_review_artifacts.py": "9efca871b914f6b1bf25ee55a8155a90aa760f13c4a04f4869bf2dcc924523ee",
+    "inventory.py": "7bd3158ab474e3a90b9d5957709046ab791998b2fbdc6f760931b62b7c554188",
+    "NuGet.Config": "ef18aae73f086bb5fc3e982ce9b14cd85951b0c85871c7f3459dfa7041d5158b",
+    "package_smoke.py": "6b6c36e4c4cceafb24abb758188f5cc7d834d7391980dfe0570211307149e817",
+    "prepare_dotnet.py": "2f18ddbab935bbe780f29bce217de846ec6df629cb462d54eaf6182be3bcc56e",
+    "pyrightconfig.json": "1da33e91a2a8660ab12e57997072322696bc7f4717797623f67b7a79750c679b",
+    "reconcile_final_records.py": "23cafa6d8092dbe6ead6bcf45cee6077df05a02ec08f6a57be75014c8b118c2b",
+    "recover_public.py": "0bc2acd057cd7c41a3cff597435b2a4090790f4f441b2e085bddde2d45649c7b",
+    "run_dotnet.ps1": "4a416bb50375750be1b02bb95f24bffd5396188273d32ea2eb1fd7eb3cf7c11e",
+    "run_isolated.py": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579",
+    "test_isolation_boundary.py": "a177ad0eb063817121fb1aec01662132a68b840d6bad3d9ee304d2a0743f86ca",
+    "update_guides.py": "cabc3d372a365b5c1a9afe54bb3e0a072cd9af8fe9badafdd05f2d46943704c9",
+    "write_reports.py": "de74080e673e9a48e3d32fb2cc8425887e86ab8dffaf2fd211eee82e18896f40",
+    "package_smoke_final.py": "c0222dae82b2c9372eeceaaf7640e958e4b5712799211c093d2f93f27dcdb136"
+  },
+  "text_encoding": "versioned copies UTF-8 LF; original run byte hashes retained separately"
+}

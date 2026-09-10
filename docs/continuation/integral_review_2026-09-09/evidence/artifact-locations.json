@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-09-10T00:48:26.694437+00:00",
+  "work": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09",
+  "repo": "C:\\BRASILEIRAO\\brasileirao-predictor",
+  "data_inputs_unchanged": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09",
+  "github_base_ci_run": "https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34419406215",
+  "base_commit": "ac22c56c3318623e07a722f34d44dc6cd877ea37",
+  "hashes": {
+    "baseline-broad.log": "4ea7ce45abb924409f698979b1c40096704e659712a2141771493ec62af7cd6f",
+    "baseline-failure-recheck.log": "c94181d88e5802376d62f3f3334cd8041aa58fab7be640138365769580d38c27",
+    "dotnet-build-03.log": "f862175e0b841b03a23981ecbfeb533a85e32097f87b97cf8c8ed8dd54652684",
+    "dotnet-restore-02.log": "74983e8b841158d4d1f990d3b412f65a57355a5aceeb4f590639131f0ce2f31e",
+    "dotnet-restore-03.log": "9ede9ac1b3cf3c8379508d9ad662aa57577c3b832bcf2410b559cff7cba96d37",
+    "dotnet-restore.log": "74983e8b841158d4d1f990d3b412f65a57355a5aceeb4f590639131f0ce2f31e",
+    "dotnet-test-03.log": "76c95b05504991203d58d045ac442c864563f00efaa144195b1b95736986b66a",
+    "final-corrections.log": "075855d48dce3f2f2dfd518d7de63dab848e4ff1b8df566dd6caf93f264e07a9",
+    "isolation-boundary.log": "89bc20e569eb864382d4a340bfc8670e989d65cf1a9e77c14793defd5044296c",
+    "package-build.log": "f67a9224021c2b4a0bc2269adf288a3afd5e45748567d9977e177279b3935f96",
+    "package-smoke.log": "cb580559952b07f73f15a3efc464c31acf95d3b698d3c0d4712418ff9605af49",
+    "pyright-explicit.log": "c03aa8117a4450d99df0ff6eeb1c5c627f8e3980e05ff7522440e2ac7aba457c",
+    "pyright-final.log": "119be0e9f0b274f79e9c6e220e892ea1bb28aad256ba4b84a35bdb51e4b8b04a",
+    "pyright-fixed-version.log": "94b0b492c9093b52ee7210852d8f102cca33cfe54ea793b33a893926516b8561",
+    "ruff-ci-scope.log": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+    "ruff-final.log": "d7d14a043d4e2a9870c70538fd236ecc52eacd14812e1c63c24933c0e33c81ae",
+    "ruff-format-ci-scope.log": "4af823bf3abfdca7d5481f5d78acb40c061302b079d83010847f034ecbe90dd5"
+  }
+}

@@ -1,0 +1,407 @@
+{
+  "review": "RI-20260909",
+  "base": "ac22c56c3318623e07a722f34d44dc6cd877ea37",
+  "dated_at": "2026-09-10T00:56:29.340193+00:00",
+  "claims": [
+    {
+      "id": "A01",
+      "claim": "O ambiente mÃ­nimo instalado representa a aplicaÃ§Ã£o completa.",
+      "origin": "InferÃªncia de prontidÃ£o a testar, contraposta aos guias ER/README que jÃ¡ indicavam ambiente mÃ­nimo, 09/09",
+      "scope": "InstalaÃ§Ã£o local",
+      "required": "Importar dependÃªncias fixadas e construir Python/.NET.",
+      "found": "RI instalou 59 dependÃªncias, construiu wheel/sdist e .NET; Redis/Compose nÃ£o executados.",
+      "conclusion": "refutada",
+      "impact": "NÃ£o confundir ambiente mÃ­nimo, instalaÃ§Ã£o de pesquisa e operaÃ§Ã£o; P01/P12."
+    },
+    {
+      "id": "A02",
+      "claim": "177/177 arquivos completos bastam para admitir execuÃ§Ã£o histÃ³rica.",
+      "origin": "InferÃªncia de suficiÃªncia a testar; DC distingue completude do universo e admissÃ£o, 09/09",
+      "scope": "177 timelines Janâ€“Jun/2026",
+      "required": "Hashes, schema, identidade, clocks de recebimento da Ã©poca e condiÃ§Ãµes comerciais.",
+      "found": "177 hashes/bytes conferidos; todos os recibos sÃ£o posteriores Ã s decisÃµes; 154 mudanÃ§as antigas e 23 pares incompletos.",
+      "conclusion": "refutada",
+      "impact": "Integridade confirmada, conclusÃ£o de execuÃ§Ã£o impedida; P02."
+    },
+    {
+      "id": "A03",
+      "claim": "MudanÃ§a antiga prova preÃ§o indisponÃ­vel; flag de agregador prova suspensÃ£o na casa.",
+      "origin": "VocabulÃ¡rio histÃ³rico PF/DC, revisto ER",
+      "scope": "SemÃ¢ntica OddsPapi vigente consultada em RI",
+      "required": "Contrato primÃ¡rio de cada timestamp/flag.",
+      "found": "changedAt Ã© mudanÃ§a registrada; bookmakerChangedAt opcional; bookmakerIsActive Ã© coleta do agregador. Nenhum prova disponibilidade contÃ­nua ou aceite.",
+      "conclusion": "refutada",
+      "impact": "NÃ£o inverter indevidamente os significados; P02."
+    },
+    {
+      "id": "A04",
+      "claim": "Hash e fixtureId bastam para a identidade e estado do preÃ§o recebido.",
+      "origin": "audit_capture/audit_followup em ac22c56",
+      "scope": "Captura independente congelada",
+      "required": "Adversariais de participantes, competiÃ§Ã£o, pais/filhos e JSON.",
+      "found": "8 regressÃµes falharam antes; nova versÃ£o rejeita participantes trocados, JSON ambÃ­guo, clocks ausentes e estado contraditÃ³rio.",
+      "conclusion": "refutada",
+      "impact": "CorreÃ§Ã£o validada; observaÃ§Ã£o ainda nÃ£o Ã© execuÃ§Ã£o; P03/P04."
+    },
+    {
+      "id": "A05",
+      "claim": "O auditor nÃ£o pode sobrescrever uma conclusÃ£o concorrente.",
+      "origin": "audit_followup em ac22c56",
+      "scope": "PublicaÃ§Ã£o offline",
+      "required": "Concorrente que publica entre a checagem inicial e o commit.",
+      "found": "RegressÃ£o falhou antes; hard link atÃ´mico de temporÃ¡rio Ãºnico preserva a conclusÃ£o concorrente.",
+      "conclusion": "refutada",
+      "impact": "IdempotÃªncia corrigida e testada no NTFS local; P05."
+    },
+    {
+      "id": "A06",
+      "claim": "TemporalPolicy nÃ£o permite treinar com um jogo simultÃ¢neo sem horÃ¡rio.",
+      "origin": "temporal-groups/v1",
+      "scope": "Replay nÃ£o protegido",
+      "required": "Dia parcialmente sem kickoff, incluindo conversÃ£o UTC.",
+      "found": "2 regressÃµes falharam antes; v2 agrupa todo o dia UTC quando hÃ¡ horÃ¡rio desconhecido.",
+      "conclusion": "refutada",
+      "impact": "Nova semÃ¢ntica recebe nova versÃ£o/fingerprint; P06."
+    },
+    {
+      "id": "A07",
+      "claim": "Backtest de eventos respeita treino temporal e um alvo por partida.",
+      "origin": "backtest_event em ac22c56; auditoria P2/P3/P7 anterior",
+      "scope": "Cards/corners legado",
+      "required": "Dia de fronteira e vÃ¡rias linhas de preÃ§o do mesmo jogo.",
+      "found": "Split por linha incluÃ­a alvos do primeiro dia de teste e multiplicava alvos no fit; regressÃµes antes/depois preservadas.",
+      "conclusion": "refutada",
+      "impact": "v2 separa dias e deduplica treino; P07."
+    },
+    {
+      "id": "A08",
+      "claim": "Uma probabilidade ausente pode usar 0,5 e qualquer linha pode ser liquidada.",
+      "origin": "backtest_event em ac22c56",
+      "scope": "Mercados de contagem",
+      "required": "Linha inteira, chave ausente e odds invÃ¡lidas.",
+      "found": "Inteiro podia perder no empate; fallback inventava probabilidade. v2 abstÃ©m nesses casos e registra razÃ£o.",
+      "conclusion": "refutada",
+      "impact": "NÃ£o declara push/asiÃ¡ticos implementados; P08."
+    },
+    {
+      "id": "A09",
+      "claim": "Remover margem das mesmas odds cria EV positivo.",
+      "origin": "Premissa matemÃ¡tica explicitamente posta Ã  prova no mandato",
+      "scope": "NormalizaÃ§Ã£o proporcional com S>1",
+      "required": "DerivaÃ§Ã£o algÃ©brica e testes analÃ­ticos.",
+      "found": "q_i=(1/o_i)/S implica q_i*o_i-1=1/S-1<0; price_hurdle e scanner verificam exclusÃ£o da oferta.",
+      "conclusion": "refutada",
+      "impact": "ReferÃªncia independente necessÃ¡ria; nÃ£o significa probabilidade verdadeira; P02."
+    },
+    {
+      "id": "A10",
+      "claim": "A conta condicional DC de 2025 Ã© -9,24u.",
+      "origin": "DC closing-01, 09/09",
+      "scope": "380 jogos, 32 escolhas congeladas, custo 2%, banca100",
+      "required": "Reproduzir escolhas e reconciliar com cÃ¡lculo independente.",
+      "found": "CSV/hash e 380 pares dirigidos Ãºnicos; escolhas idÃªnticas; 100-32-0,64+23,40=90,76.",
+      "conclusion": "confirmada no escopo",
+      "impact": "ReproduÃ§Ã£o aritmÃ©tica, sem nova validaÃ§Ã£o econÃ´mica; P02/P14."
+    },
+    {
+      "id": "A11",
+      "claim": "O simulador disponÃ­vel implementa o BrasileirÃ£o.",
+      "origin": "Premissa de capacidade a testar pelo nome do projeto; simulator.py jÃ¡ descrevia heranÃ§a de Copa",
+      "scope": "monte_carlo; configuraÃ§Ã£o liga",
+      "required": "Invocar liga sem tocar banco.",
+      "found": "Implementa grupos/mata-mata da Copa. A rejeiÃ§Ã£o vinha apÃ³s abrir banco; agora recusa antes.",
+      "conclusion": "refutada",
+      "impact": "Liga fora do caminho ativo; P09."
+    },
+    {
+      "id": "A12",
+      "claim": "Importar helpers numÃ©ricos nÃ£o escreve no banco/pasta operacional.",
+      "origin": "backtest_event importado em testes",
+      "scope": "Import do mÃ³dulo",
+      "required": "Guard de escrita fora da pasta sintÃ©tica.",
+      "found": "2 testes detectaram tentativa de criar log em data; setup_logging passou Ã  entrada explÃ­cita do script.",
+      "conclusion": "refutada",
+      "impact": "Efeito colateral corrigido, import validado; P10."
+    },
+    {
+      "id": "A13",
+      "claim": "PrevisÃ£o exibida equivale a oferta identificada e executÃ¡vel.",
+      "origin": "HipÃ³tese de uso econÃ´mico do serving, confrontada com predict.py/display.py e nÃ£o atribuÃ­da como promessa ao README",
+      "scope": "Serving legado e cache",
+      "required": "Vincular fixture, mando, bookmaker, estados e clocks.",
+      "found": "_market_probs permite aproximaÃ§Ã£o de data; display chama sem data; cache e odds nÃ£o tÃªm contrato do scanner estrito.",
+      "conclusion": "nÃ£o verificada",
+      "impact": "Serving retirado da interpretaÃ§Ã£o de oportunidade; dependÃªncia compartilhada preservada; P11."
+    },
+    {
+      "id": "A14",
+      "claim": "Worker e Compose jÃ¡ conectam uma casa real e provam execuÃ§Ã£o.",
+      "origin": "Premissa de integraÃ§Ã£o comercial a testar; contratos/runtime genÃ©ricos",
+      "scope": ".NET/Redis/WS",
+      "required": "Feed real documentado, estado, clocks, capacidade e aceite.",
+      "found": "69 testes passam; 41 dependem de Redis/processo separado. WS usa placeholder e contrato genÃ©rico; UtcNow Ã© clock de parsing.",
+      "conclusion": "refutada",
+      "impact": "Infraestrutura parcial; sem feed comercial/execuÃ§Ã£o; P12."
+    },
+    {
+      "id": "A15",
+      "claim": "CI verde da base comprova todos os novos caminhos locais.",
+      "origin": "InferÃªncia de abrangÃªncia a testar; CI da base ac22c56",
+      "scope": "Run 34419406215",
+      "required": "SHA correspondente e distinÃ§Ã£o de host/escopo.",
+      "found": "Run remoto confirmado success da base; RI tem checks locais e exclusÃµes declaradas.",
+      "conclusion": "refutada",
+      "impact": "NÃ£o atribuir CI da base ao commit novo; P13."
+    },
+    {
+      "id": "A16",
+      "claim": "O acompanhamento continua ativo e executarÃ¡ a captura no horÃ¡rio.",
+      "origin": "CÃ³pia TOML histÃ³rica / CONTINUIDADE DC",
+      "scope": "AutomaÃ§Ã£o completar-dados-do-brasileir-o",
+      "required": "Estado atual do aplicativo e recibo futuro.",
+      "found": "Consulta view retorna cartÃ£o sem estado legÃ­vel ao modelo; nÃ£o hÃ¡ tentativa followup em RI. CÃ³pia documental nÃ£o confirma agenda ativa.",
+      "conclusion": "nÃ£o verificÃ¡vel com os dados/permissÃµes atuais",
+      "impact": "NÃ£o duplicar nem forÃ§ar; janela permanece congelada; P15."
+    },
+    {
+      "id": "A17",
+      "claim": "O backup da pasta garante recuperaÃ§Ã£o operacional integral.",
+      "origin": "HipÃ³tese de alcance da recuperaÃ§Ã£o; recibos de consolidaÃ§Ã£o/migraÃ§Ã£o jÃ¡ limitam a garantia",
+      "scope": "Pacote recebido, Git e sistemas externos",
+      "required": "Restauro verificÃ¡vel e dependÃªncias externas.",
+      "found": "Recibo da migração é histórico, conteúdo protegido não reaberto. Bundle anterior da base verificado; recuperação do novo bundle em bare isolado registrada no recibo final. Serviços/dados privados não restaurados.",
+      "conclusion": "parcialmente confirmada",
+      "impact": "PreservaÃ§Ã£o recebida nÃ£o garante mÃ¡quina antiga inteira; P16."
+    },
+    {
+      "id": "A18",
+      "claim": "Mais sofisticaÃ§Ã£o de modelo resolve o gargalo econÃ´mico atual.",
+      "origin": "Alternativa de pesquisa RI",
+      "scope": "xG/Poisson/NB/calibradores",
+      "required": "Features PIT, comparaÃ§Ã£o temporal independente e preÃ§os/custos admitidos.",
+      "found": "Kernels tÃªm testes sintÃ©ticos, mas disponibilidade/capacidade nÃ£o recuperadas. Ajustar outro modelo nÃ£o cria esses campos.",
+      "conclusion": "nÃ£o verificada",
+      "impact": "Despriorizar nova busca de modelo; P02/P14."
+    },
+    {
+      "id": "A19",
+      "claim": "H14/H15/H9/A1 podem ser usados para preencher a revisÃ£o.",
+      "origin": "InterpretaÃ§Ã£o ampla rejeitada pelo mandato",
+      "scope": "Coortes protegidas",
+      "required": "AutorizaÃ§Ã£o especÃ­fica inexistente.",
+      "found": "Somente metadados/contratos permitidos; resultados e avaliadores excluÃ­dos.",
+      "conclusion": "nÃ£o verificÃ¡vel com os dados/permissÃµes atuais",
+      "impact": "Limite obrigatÃ³rio de cobertura, sem aprovaÃ§Ã£o implÃ­cita; P17."
+    },
+    {
+      "id": "A20",
+      "claim": "Disponibilidade temporal das features, transformaÃ§Ãµes e artefatos aprendidos estÃ¡ demonstrada em todas as rotas.",
+      "origin": "Premissa de causalidade integral a testar, cÃ³digo de features/ratings/xG/cache e armazenamento bitemporal",
+      "scope": "Rotas legadas/shared e pesquisa distinta; sem dados de coortes",
+      "required": "PublicaÃ§Ã£o/recebimento/revisÃµes por campo, split e estado aprendido por decisÃ£o; conflitos resolvidos explicitamente.",
+      "found": "CalendÃ¡rio Ã© respeitado em rotas testadas, mas nÃ£o substitui proveniÃªncia de publicaÃ§Ã£o; fallback xG por gols Ã© proxy, cache nÃ£o comprova frescor. OrdenaÃ§Ã£o determinÃ­stica de versÃµes por hash nÃ£o comprova verdade de uma revisÃ£o conflitante.",
+      "conclusion": "parcialmente confirmada",
+      "impact": "NÃ£o promover features/cache legados a dados PIT; P11/P18."
+    }
+  ],
+  "problems": [
+    {
+      "id": "P01",
+      "claims": "A01",
+      "problem": "Ambiente incompleto em comparaÃ§Ã£o ao cÃ³digo declarado.",
+      "severity": "engenharia / alta",
+      "cause": "Core/Ops sÃ³ no lock e SDK10 ausente.",
+      "dependencies": "Downloads oficiais e isolamento.",
+      "action": "Instalar extras fixados em venv RI; SDK10 portÃ¡til; wheel/sdist e smoke.",
+      "closure": "Logs instalaÃ§Ã£o/build, package-smoke e dotnet-build-03.",
+      "status": "validado"
+    },
+    {
+      "id": "P02",
+      "claims": "A02,A03,A09",
+      "problem": "HistÃ³rico nÃ£o estabelece oferta executÃ¡vel em T-60.",
+      "severity": "dados/economia / crÃ­tica",
+      "cause": "Recibos atuais, sem capacidade/aceite; mudouAt nÃ£o Ã© recebeuAt.",
+      "dependencies": "Fonte com coleta temporal e condiÃ§Ãµes comerciais; nÃ£o recuperÃ¡veis por hash.",
+      "action": "Conferir 177, contratos primÃ¡rios e alternativa The Odds API; preservar dados e nÃ£o abrir novos candidatos.",
+      "closure": "SÃ³ fecha para lucro com dados temporais e condiÃ§Ãµes de execuÃ§Ã£o verificÃ¡veis.",
+      "status": "bloqueado"
+    },
+    {
+      "id": "P03",
+      "claims": "A04",
+      "problem": "Identidade/estado contraditÃ³rio podiam admitir observaÃ§Ã£o.",
+      "severity": "correÃ§Ã£o / crÃ­tica",
+      "cause": "Apenas fixtureId; pregame podia contradizer inÃ­cio/fim e hasOdds.",
+      "dependencies": "CatÃ¡logo congelado anterior Ã s odds, mÃ³dulo de pesquisa independente.",
+      "action": "Exigir IDs inteiros de participantes/competiÃ§Ã£o e todos os estados; checar changedAt e updatedAt.",
+      "closure": "8 falhas anteriores; final-corrections passa.",
+      "status": "validado"
+    },
+    {
+      "id": "P04",
+      "claims": "A04",
+      "problem": "JSON duplicado ou nÃ£o finito apagava conflito no parse.",
+      "severity": "correÃ§Ã£o / crÃ­tica",
+      "cause": "json.loads normal retÃ©m Ãºltima chave; aceita NaN.",
+      "dependencies": "Parser da auditoria offline.",
+      "action": "strict_json_loads rejeita chaves duplicadas, NaN/Infinity e overflow float em raw e recibo.",
+      "closure": "Casos de corpo e recibo ambÃ­guos rejeitados.",
+      "status": "validado"
+    },
+    {
+      "id": "P05",
+      "claims": "A05",
+      "problem": "PublicaÃ§Ã£o final podia substituir auditoria concorrente.",
+      "severity": "concorrÃªncia / alta",
+      "cause": "Path.replace apÃ³s exists tinha corrida.",
+      "dependencies": "Filesystem com link atÃ´mico; NTFS testado.",
+      "action": "TemporÃ¡rio UUID e os.link que falha se destino existe; remover sÃ³ prÃ³prio temporÃ¡rio.",
+      "closure": "concurrency-before falha; teste passa apÃ³s mudanÃ§a.",
+      "status": "validado"
+    },
+    {
+      "id": "P06",
+      "claims": "A06",
+      "problem": "Agrupamento misto permitia leakage dentro do mesmo dia.",
+      "severity": "temporal / crÃ­tica",
+      "cause": "Data isolada ordenada antes do kickoff conhecido.",
+      "dependencies": "Consumidores research/temporal_replay, fora da coleta protegida.",
+      "action": "temporal-groups/v2 colapsa dia UTC parcialmente incompleto; rejeita v1 relabelado.",
+      "closure": "2 casos antes falham; temporal-after 7 passam.",
+      "status": "validado"
+    },
+    {
+      "id": "P07",
+      "claims": "A07",
+      "problem": "Split por linhas e treino repetido por odds enviesavam replay.",
+      "severity": "temporal/modelagem / crÃ­tica",
+      "cause": "80% das linhas, nÃ£o eventos; mesmo dia nos dois lados.",
+      "dependencies": "Backtest legado de eventos; sem execuÃ§Ã£o de dados protegidos.",
+      "action": "v2 usa eventos Ãºnicos, dia integral fora do treino e rejeita alvos/identidade conflitantes.",
+      "closure": "4 regressÃµes antes + casos adicionais; final-corrections.",
+      "status": "validado"
+    },
+    {
+      "id": "P08",
+      "claims": "A08",
+      "problem": "Fallback 0,5, linha inteira e odds invÃ¡lidas podiam gerar conta falsa.",
+      "severity": "matemÃ¡tica/contabilidade / alta",
+      "cause": "Probabilidade inventada, igualdade tratada como derrota, odds sem domÃ­nio.",
+      "dependencies": "Somente linhas meia-unidade implementadas.",
+      "action": "AbstenÃ§Ã£o explÃ­cita sem probabilidade vÃ¡lida, linha suportada ou odds finitas >1.",
+      "closure": "Testes de inteiro, ausÃªncia, NaN, infinito, bool e odds <=1.",
+      "status": "validado"
+    },
+    {
+      "id": "P09",
+      "claims": "A11",
+      "problem": "Simulador de Copa abria banco antes de recusar liga.",
+      "severity": "domÃ­nio/efeito colateral / alta",
+      "cause": "ValidaÃ§Ã£o tardia no monte_carlo.",
+      "dependencies": "NÃ£o existe motor de classificaÃ§Ã£o do BrasileirÃ£o neste caminho.",
+      "action": "Recusar configuraÃ§Ã£o de liga antes de db.connect; retirar simulaÃ§Ã£o de liga das capacidades atuais.",
+      "closure": "domain-before falha; final-corrections passa.",
+      "status": "validado"
+    },
+    {
+      "id": "P10",
+      "claims": "A12",
+      "problem": "Import criava log operacional.",
+      "severity": "isolamento / alta",
+      "cause": "setup_logging(ROOT/data) no topo do mÃ³dulo.",
+      "dependencies": "Backtest de eventos, importado por ensaios.",
+      "action": "Inicializar log sÃ³ na execuÃ§Ã£o explÃ­cita; testes continuam sem dados operacionais.",
+      "closure": "2 falhas iniciais de escrita eliminadas; test_audit_fixes passa.",
+      "status": "validado"
+    },
+    {
+      "id": "P11",
+      "claims": "A13",
+      "problem": "Serving usa associaÃ§Ã£o aproximada de odds/cache sem admissÃ£o estrita.",
+      "severity": "arquitetura/dados / crÃ­tica",
+      "cause": "display chama _market_probs sem data, helper aproxima jogo.",
+      "dependencies": "predict/display/config/modelos sÃ£o compartilhados; mudanÃ§a poderia afetar coleta vedada.",
+      "action": "Marcar serving como legado e nÃ£o admissÃ­vel para decisÃ£o; scanner isolado permanece caminho de pesquisa.",
+      "closure": "SÃ³ fecha com separaÃ§Ã£o segura de consumidor e contrato fixture+clocks; sem alterar coleta protegida.",
+      "status": "bloqueado"
+    },
+    {
+      "id": "P12",
+      "claims": "A01,A14",
+      "problem": "IntegraÃ§Ã£o local real Redis/Compose e feed comercial ausentes.",
+      "severity": "integraÃ§Ã£o / crÃ­tica",
+      "cause": "Docker nÃ£o encontrado no PATH nem local padrÃ£o; 41 testes .NET pulados.",
+      "dependencies": "Runtime descartÃ¡vel Redis identificado por run_id e fornecedor legÃ­timo.",
+      "action": "Recuperar SDK/build; manter .NET parcial; nÃ£o apontar testes a serviÃ§os existentes nem inventar adaptador.",
+      "closure": "Build+69 testes nÃ£o fecham integraÃ§Ã£o; requer host isolado e dados admitidos.",
+      "status": "bloqueado"
+    },
+    {
+      "id": "P13",
+      "claims": "A15",
+      "problem": "Relatos de CI/lint confundem escopos.",
+      "severity": "validaÃ§Ã£o / mÃ©dia",
+      "cause": "CI sÃ³ da base; ruff . inclui cÃ³pias histÃ³ricas fora da CI.",
+      "dependencies": "Base Git, escopo CI e relatÃ³rios de execuÃ§Ã£o.",
+      "action": "CI da base confirmado; Ruff CI passou, format390, tipagem explÃ­cita; 805 achados globais preservados fora do escopo ativo.",
+      "closure": "Recibos com versÃµes, escopos e ausÃªncia de aprovaÃ§Ã£o global.",
+      "status": "validado"
+    },
+    {
+      "id": "P14",
+      "claims": "A10,A18",
+      "problem": "MÃ©tricas condicionais e testes podem ser promovidos indevidamente a lucro.",
+      "severity": "economia / crÃ­tica",
+      "cause": "Closing sem clock e referÃªncia comprometida; 3 snapshots=1 evento.",
+      "dependencies": "Capacidade, custos, unidade monetÃ¡ria e avaliaÃ§Ã£o futura independente.",
+      "action": "Conta decimal reproduzida; abstenÃ§Ãµes preservadas; nenhuma otimizaÃ§Ã£o/novo holdout.",
+      "closure": "Somente fecha com validaÃ§Ã£o futura prÃ©-especificada e custos prÃ³prios verificÃ¡veis.",
+      "status": "bloqueado"
+    },
+    {
+      "id": "P15",
+      "claims": "A16",
+      "problem": "Estado atual da agenda nÃ£o Ã© comprovado pelo TOML histÃ³rico.",
+      "severity": "operaÃ§Ã£o / alta",
+      "cause": "view sem estado modelÃ¡vel; nenhuma tentativa followup.",
+      "dependencies": "Aplicativo ligado e scheduler; tarefa anterior.",
+      "action": "NÃ£o duplicar nem mudar agenda; conferir estado pelo aplicativo antes da janela e manter auditor corrigido.",
+      "closure": "Recibo da execuÃ§Ã£o na janela ou motivo explÃ­cito de nÃ£o execuÃ§Ã£o.",
+      "status": "bloqueado"
+    },
+    {
+      "id": "P16",
+      "claims": "A17",
+      "problem": "RecuperaÃ§Ã£o de dados operacionais e mÃ¡quina antiga nÃ£o comprovada nesta rodada.",
+      "severity": "preservaÃ§Ã£o / alta",
+      "cause": "Manifesto recebido tem escopo limitado; dados protegidos nÃ£o podem ser abertos.",
+      "dependencies": "Pacote recebido, computador antigo, autorizaÃ§Ã£o especÃ­fica para operaÃ§Ã£o.",
+      "action": "Preservar; verificar recuperaÃ§Ã£o Git separadamente; explicitar instalaÃ§Ã£o externa e limites.",
+      "closure": "Bundle/clone bare/fsck no recibo final; nÃ£o Ã© restauro de bancos/serviÃ§os.",
+      "status": "bloqueado"
+    },
+    {
+      "id": "P17",
+      "claims": "A19",
+      "problem": "Cobertura de coortes/avaliadores protegidos vedada.",
+      "severity": "permissÃµes / crÃ­tica",
+      "cause": "Mandato proÃ­be ler resultados e executar avaliadores.",
+      "dependencies": "AutorizaÃ§Ã£o nÃ£o concedida.",
+      "action": "Somente metadados/documentaÃ§Ã£o permitida; excluir conteÃºdos, avaliaÃ§Ãµes e dependÃªncias operacionais de mudanÃ§as.",
+      "closure": "PreservaÃ§Ã£o do diff; nenhuma conclusÃ£o empÃ­rica dessas coortes.",
+      "status": "bloqueado"
+    },
+    {
+      "id": "P18",
+      "claims": "A18,A20",
+      "problem": "Disponibilidade histÃ³rica por feature e artefato aprendido nÃ£o demonstrada integralmente.",
+      "severity": "causalidade/modelagem / crÃ­tica",
+      "cause": "Data da partida, cache e desempate por hash nÃ£o comprovam publicaÃ§Ã£o, disponibilidade ou validade da revisÃ£o.",
+      "dependencies": "ProveniÃªncia por campo e artefato; dependÃªncias compartilhadas cuja alteraÃ§Ã£o pode afetar coleta protegida.",
+      "action": "Mapear e manter rotas nÃ£o demonstradas fora da inferÃªncia econÃ´mica; manter ensemble xG desligado; nÃ£o consultar coortes para completar campos.",
+      "closure": "Dataset/artefatos permitidos com clocks e polÃ­tica de conflito verificÃ¡veis, em estudo futuro separado e prÃ©-especificado.",
+      "status": "bloqueado"
+    }
+  ]
+}

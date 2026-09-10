@@ -1,0 +1,55 @@
+{
+  "at": "2026-09-10T00:21:55.682686+00:00",
+  "historical": {
+    "universe": 177,
+    "verified": 177,
+    "bytes": 623271596,
+    "reasons": {
+      "last_change_age_over_120s_not_network_freshness": 154,
+      "incomplete_active_pair": 23
+    },
+    "execution_admitted": 0,
+    "receipts_after_decision": 177
+  },
+  "pilot": {
+    "captures": 3,
+    "independent_events": 1,
+    "api_pairs_admitted": 0,
+    "execution_admitted": 0
+  },
+  "csv_2025": {
+    "rows": 380,
+    "clubs": 20,
+    "appearances_per_club": {
+      "Cruzeiro": 38,
+      "Mirassol": 38,
+      "Fortaleza": 38,
+      "Fluminense": 38,
+      "Gremio": 38,
+      "Atletico-MG": 38,
+      "Juventude": 38,
+      "Vitoria": 38,
+      "Sao Paulo": 38,
+      "Sport Recife": 38,
+      "Flamengo RJ": 38,
+      "Internacional": 38,
+      "Palmeiras": 38,
+      "Botafogo RJ": 38,
+      "Vasco": 38,
+      "Santos": 38,
+      "Bahia": 38,
+      "Corinthians": 38,
+      "Bragantino": 38,
+      "Ceara": 38
+    },
+    "unique_directed_pairs": 380,
+    "duplicate_directed_pairs": 0,
+    "identical_frozen_choices": true,
+    "bets": 32,
+    "independent_net_pnl": "-9.24",
+    "fixed_costs_and_execution_costs_known": false
+  },
+  "labels_2026_used": false,
+  "protected_cohorts_read": false,
+  "profitability_established": false
+}

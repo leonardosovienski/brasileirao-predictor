@@ -1,66 +1,23 @@
-# Retomada — C:/BRASILEIRAO, ER-20260909
+# Retomada após RI-20260909
 
-Para o novo chat, siga primeiro o [prompt final de revisão integral](PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md).
-O usuário pediu reexaminar o existente e o caminho escolhido, depois resolver as lacunas.
-Essa revisão ainda não foi executada; a rotina independente abaixo continua com seu protocolo.
-
-Leia [estado atual](../ESTADO_ATUAL.md), [mandato](MANDATO_LUCRO_2026-09-09.md),
-[resultado ER](execution_readiness_2026-09-09/RESULTADO.md) e
-[continuidade](data_completion_2026-09-09/CONTINUIDADE.md).
-Trabalhe sozinho. Lucro executável não está demonstrado; capital bloqueado.
+Leia o [próximo prompt](integral_review_2026-09-09/PROXIMO_PROMPT.md), [estado atual](../ESTADO_ATUAL.md), [resultado RI](integral_review_2026-09-09/RESULTADO.md), [registros](integral_review_2026-09-09/REGISTROS.json) e mandato original em C:/BRASILEIRAO/INSTRUCOES/MANDATO_RECEBIDO_2026-09-09.txt. Trabalhe sozinho. O prompt final original foi executado no escopo permitido; não apagar correções ou recomeçar estudos já vistos.
 
 ## Checkpoint
 
-Base da continuação `main` em `7f18d543891cb3e68bb82c0a0d9fb58f9a8f12c0`; commit
-de integração no recibo `C:/BRASILEIRAO/AUDITORIA/EXECUTION_READINESS_2026-09-09.json`.
-177/177 históricos verificados, CSV de 380 jogos de 2025 recuperado e três
-capturas atuais de um único evento. Não repetir downloads completos.
-O fechamento tem aviso de referência Pinnacle desatualizada; no piloto a
-coleta Bet365 Brasil tinha `bookmakerIsActive=false`. Seleções ativas nos
-filhos não anulam o estado de coleta inativo do agregador. Zero admissões para execução.
+Base inicial main/ac22c56; integração e recuperação Git no recibo C:/BRASILEIRAO/AUDITORIA/REVISAO_INTEGRAL_2026-09-09.json. Novo ambiente completo de pesquisa e SDK 10 em C:/BRASILEIRAO/work/revisao-integral-2026-09-09. 1.291 casos únicos com último resultado aprovado/um skip em lotes delimitados; .NET: 69 aprovados/41 pulados; build e pacote Python, Ruff e tipagem passaram. Sem homologação integral ou operação real.
 
-O replay closing condicional perdeu 9,24u; não ajustar filtros após esse saldo
-nem chamar a fonte comprometida de validação. Os 153 testes da pesquisa
-passaram após as correções ER. Nenhuma coorte protegida ou resultado de 2026 foi avaliado.
+Admissão, JSON, concorrência, temporalidade e backtest de eventos corrigidos. Todos os 177 históricos íntegros; 380 jogos de 2025; 3 capturas/1 evento; zero execuções admitidas. Conta congelada−9,24 u reproduzida como cenário, sem nova validação. Preços temporais/capacidade/custos continuam o requisito decisivo; novo modelo foi despriorizado.
 
-A [continuação ER](execution_readiness_2026-09-09/RESULTADO.md) corrigiu cinco
-falhas na captura/auditoria, com 15 testes novos. A regra pública não fornece
-limite pessoal. O flag de coleta não prova suspensão da aposta na casa.
-As versões novas já estão nos caminhos ativos; conservar a captura congelada.
+## Próxima ação justificada
 
-## Acompanhamento independente já configurado na tarefa anterior
+Conferir estado atual da automação existente completar-dados-do-brasileir-o, pertencente à tarefa anterior 01 a 08756-2962-7 c 43-9773-c 790 cc 81329 d. A RI recebeu apenas cartão sem estado legível, não confirmou agenda ativa e não criou outra. Cópia histórica em AUDITORIA não prova execução. Preserve o [protocolo DC](data_completion_2026-09-09/CONTINUIDADE.md).
 
-O acompanhamento diário às 19:57 de São Paulo executa a rotina delimitada
-`C:/BRASILEIRAO/work/data-completion-2026-09-09/followup_capture.py`.
-Antes de 11/09 19:55, retorna WAITING sem API. Na janela, no máximo uma
-consulta de odds para o fixture congelado `id1000032566887012`, par
-Pinnacle / bet365.bet.br, antes da decisão de 11/09 20:00.
-Conta gratuita e reserva mínima são novamente verificadas. Chegada tardia
-não autoriza redefinir o corte ou fabricar disponibilidade.
+Captura fixa: fixture id 1000032566887012, Pinnacle/bet 365.bet.br, decisão 11/09/2026 23:00 UTC, kickoff 12/09 00:00 UTC. Janela de início 22:55–22:59:15 UTC, alvo 22:58:30 UTC, conta gratuita, reserva 20, máximo 1 consulta de odds. Antes da janela não consumir API. Chegada tardia não autoriza outro corte ou reconstrução. Não consultar desfecho do fixture.
 
-Depois da captura, executar `audit_followup.py` em processo separado e sem
-credenciais. Exigir clocks, calendário congelado e todos os estados ativos
-antes de admitir a observação; aceite, capacidade e custos continuam separados.
-Até duas consultas públicas oficiais úteis por rodada diária são permitidas.
-Não repetir testes sem mudança ou falha que justifique. Em 12/09, ou ao
-terminar a captura auditada, reavaliar o próximo passo dentro do mandato e
-pausar o acompanhamento se nenhuma ação útil autorizada restar.
+Helpers em work/data-completion-2026-09-09. Coletor inalterado; auditor RI ativado com recibo e backup, hashes no estado atual. Depois de captura, auditar em processo separado sem credenciais; uma observação válida ainda não demonstra aceite, capacidade, custo ou lucro. Não repetir ensaios sem nova alteração/falha. Após auditoria ou 12/09, reavaliar e pausar o acompanhamento existente se não houver ação útil autorizada.
 
-## Caminhos e reprodução
+## Outros requisitos abertos
 
-Código: `C:/BRASILEIRAO/brasileirao-predictor`. Novos dados, recibos e scripts:
-`C:/BRASILEIRAO/work/data-completion-2026-09-09`. Entrega atual:
-`C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_DC_20260909`.
-[Reprodução offline](data_completion_2026-09-09/REPRODUZIR.md),
-[pendências](data_completion_2026-09-09/PENDENCIAS.md) e [mapa de dados](../DATA_MAP.md).
+Os [problemas centrais](integral_review_2026-09-09/PROBLEMAS.md) documentam: feed/Redis/Compose real em ambiente descartável; consumidor de odds com identidade/clocks estritos; capacidade/custos verificáveis; limites da recuperação e da operação protegida. Não apontar testes a DB/Redis existentes ou modificar dependências da coleta. Não preencher esses campos com estimativas tratadas como observação.
 
-Preservar H14/H15/H9/A1, artefatos, contratos, observadores, quotas reservadas,
-claims, agendas e avaliadores. Não importar tarefas antigas nem ligar runtime
-para reproduzir essa pesquisa. Nenhuma aposta, conta de apostas, compra ou
-alteração financeira está autorizada. O ambiente mínimo Python não é uma
-instalação operacional completa.
-
-A [rodada PF anterior](price_feasibility_2026-09-09/RESULTADO.md) e os
-[guias anteriores à consolidação](../history/antes_consolidacao_2026-09-09/README.md)
-preservam seu contexto histórico. Não atualizar resultados congelados para
-fazê-los parecer vigentes; atualizar os guias de entrada e acrescentar novo checkpoint.
+Entregas RI em C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_RI_20260909; código/recibos compactos em integral_review_2026-09-09; rawsDC intactos. [Reprodução](integral_review_2026-09-09/REPRODUZIR.md). Preserve históricos PF/DC/ER, negativos, protocolos e todas as tentativas. Nenhuma ação financeira, compra, conta de apostas ou avaliação H14/H15/H9/A1 autorizada.

@@ -1,0 +1,12 @@
+  Determinando os projetos a serem restaurados...
+  Falha ao baixar o pacote 'Microsoft.CodeCoverage.18.0.1' de 'https://api.nuget.org/v3-flatcontainer/microsoft.codecoverage/18.0.1/microsoft.codecoverage.18.0.1.nupkg'.
+  Unable to read data from the transport connection: Foi forçado o cancelamento de uma conexão existente pelo host remoto..
+    Foi forçado o cancelamento de uma conexão existente pelo host remoto.
+  Falha ao baixar o pacote 'Microsoft.TestPlatform.TestHost.18.0.1' de 'https://api.nuget.org/v3-flatcontainer/microsoft.testplatform.testhost/18.0.1/microsoft.testplatform.testhost.18.0.1.nupkg'.
+  Unable to read data from the transport connection: Foi forçado o cancelamento de uma conexão existente pelo host remoto..
+    Foi forçado o cancelamento de uma conexão existente pelo host remoto.
+  Falha ao baixar o pacote 'StackExchange.Redis.3.0.17' de 'https://api.nuget.org/v3-flatcontainer/stackexchange.redis/3.0.17/stackexchange.redis.3.0.17.nupkg'.
+  Unable to read data from the transport connection: Foi forçado o cancelamento de uma conexão existente pelo host remoto..
+    Foi forçado o cancelamento de uma conexão existente pelo host remoto.
+  C:\BRASILEIRAO\work\revisao-integral-2026-09-09\dotnet-work\dotnet\LineupWorker\LineupWorker.csproj restaurado (em 54,12 seg).
+  C:\BRASILEIRAO\work\revisao-integral-2026-09-09\dotnet-work\dotnet\LineupWorker.Tests\LineupWorker.Tests.csproj restaurado (em 56,63 seg).

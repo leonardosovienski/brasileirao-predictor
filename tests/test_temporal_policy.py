@@ -34,3 +34,22 @@ def test_duplicate_team_in_same_group_fails_closed():
     ]
     with pytest.raises(ValueError, match="more than once"):
         assert_unique_teams(TemporalPolicy().group(rows)[0])
+
+
+def test_missing_kickoff_collapses_known_kickoffs_on_the_same_utc_day():
+    rows = [
+        {"date": "2030-01-01", "home_team": "A", "away_team": "B"},
+        {"kickoff_at": "2030-01-01T21:00:00Z", "home_team": "C", "away_team": "D"},
+    ]
+    groups = TemporalPolicy().group(rows)
+    assert len(groups) == 1
+    assert groups[0].precision == "date"
+    assert len(groups[0].rows) == 2
+
+
+def test_missing_kickoff_is_grouped_after_timezone_normalization():
+    rows = [
+        {"date": "2030-01-02", "home_team": "A", "away_team": "B"},
+        {"kickoff_at": "2030-01-01T22:00:00-03:00", "home_team": "C", "away_team": "D"},
+    ]
+    assert len(TemporalPolicy().group(rows)) == 1

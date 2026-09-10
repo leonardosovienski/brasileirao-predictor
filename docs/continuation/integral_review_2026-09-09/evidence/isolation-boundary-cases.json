@@ -1,0 +1,18 @@
+[
+  {
+    "id": "test_isolation_boundary::test_asyncio_internal_socketpair_remains_usable",
+    "status": "passed"
+  },
+  {
+    "id": "test_isolation_boundary::test_external_connection_is_still_blocked",
+    "status": "passed"
+  },
+  {
+    "id": "test_isolation_boundary::test_operational_sqlite_is_still_blocked",
+    "status": "passed"
+  },
+  {
+    "id": "test_isolation_boundary::test_write_outside_output_is_still_blocked",
+    "status": "passed"
+  }
+]

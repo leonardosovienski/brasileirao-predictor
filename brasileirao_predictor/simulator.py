@@ -211,6 +211,8 @@ def monte_carlo(n=10000, seed=None, vorp=None):
     from .ingest import load_config as _load_config
 
     cfg = _load_config()
+    if cfg.get("tournament_name") != "FIFA World Cup":
+        sys.exit("simulação de liga não implementada; o simulador legado suporta somente a Copa com 12 grupos")
     conn = _db.connect(str(_ROOT / cfg["database"]))
     elo = _db.load_elo(conn)
     prow = _db.load_params(conn)

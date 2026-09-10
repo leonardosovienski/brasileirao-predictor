@@ -1,0 +1,25 @@
+{
+  "packaged_at": "2026-09-09T21:11:15.936053+00:00",
+  "execution_root": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09",
+  "files": {
+    "account_recheck.py": "5f2628e014913263666d3385ed196583440c4da4bca19fcf8cac49d12e2db0a5",
+    "acquire_history.py": "9320337f9509e2c94a7a171b1d03a4c816bf29347970f0417599f3a964ab47cd",
+    "audit_followup.py": "9b721572618a4cb9a37365cc613ea6cab8b36befb74b54bf702284a93859d080",
+    "audit_results.py": "0d13151d4889e39134cc9914e55867dc3fccf9bf56fe072ec4c2f733b2c14e46",
+    "capture_pilot.py": "355d6925c8a58c3b748949f7814743224d4186644d38ee2153bc2d44d9289c80",
+    "check_account.py": "d82114c0ba383d080c91e8af664f49101eadcbf516ae2e7a909555e7a73590dc",
+    "fetch_public.py": "18712bf4c13d3e1b9a119edbf858156ba0b3cca353742f135371b06add67d4cf",
+    "fetch_public_extra.py": "5c161c6bdf7bf5b0883372e0e354a1e75b17959c36311361b084d09a9ae28619",
+    "followup_capture.py": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88",
+    "pyrightconfig.json": "aa0a848903d2ae01fd61d8566a068a44b476444a3639acc31f0542989b25d2a4",
+    "repair_transport.py": "6365316bedee0162460ba24a17910a1929bc1fa941a5f2eebde774dc769ddd8f",
+    "run_closing.py": "6419b17af714242beec00c9f66e9699e597d2720b6c950c6b1347f1178a355aa",
+    "validate_offline.py": "ea488b771b6c2c7e562b98511d7c461eae15e01e99a76c78d16d9b09c60c0bb7",
+    "verify_closing_independently.py": "6eee560d83b49f307e1b133386bf4bbcf3a879b46b503d24781ceaaab2efe2f4"
+  },
+  "online_acquisition_is_not_offline_reproduction": true,
+  "versioned_text_encoding": "UTF-8 LF; original acquisition/output byte hashes refer to canonical work files",
+  "revision_updated_at": "2026-09-09T21:38:46.258258+00:00",
+  "revision_round": "ER-20260909; only followup_capture.py and audit_followup.py changed",
+  "previous_version_commit": "7f18d543891cb3e68bb82c0a0d9fb58f9a8f12c0"
+}

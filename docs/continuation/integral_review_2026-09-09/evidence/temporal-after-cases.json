@@ -1,0 +1,30 @@
+[
+  {
+    "id": "tests.test_temporal_policy::test_groups_equal_utc_kickoffs_and_fingerprints_policy",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_policy::test_date_fallback_is_conservative_and_reject_is_available",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_policy::test_duplicate_team_in_same_group_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_policy::test_missing_kickoff_collapses_known_kickoffs_on_the_same_utc_day",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_policy::test_missing_kickoff_is_grouped_after_timezone_normalization",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_replay::test_temporal_replay_manifest_is_fingerprinted_and_batched",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_replay::test_temporal_replay_rejects_team_twice_in_same_batch",
+    "status": "passed"
+  }
+]

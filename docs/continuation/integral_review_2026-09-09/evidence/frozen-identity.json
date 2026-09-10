@@ -1,0 +1,14 @@
+{
+  "identity": {
+    "participant1Id": 1982,
+    "participant2Id": 1967,
+    "sportId": 10,
+    "tournamentId": 325,
+    "seasonId": 137706
+  },
+  "catalogue_sha256": "f0ab2bada4e47502b63f3babbc5305b4ce59aeec7b35dc170f8b3393d395fbe3",
+  "selected_fixture_sha256": "b9d6254e91e49aa8fabf888278200d9c1ba7fc4dacdacffc98045a757d5d77e4",
+  "source": "calendar_catalog_before_pilot_odds",
+  "home": "Coritiba FC PR",
+  "away": "CA Paranaense PR"
+}

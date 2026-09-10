@@ -1,0 +1,15 @@
+# Continuação após a revisão RI-20260909
+
+Trabalhe sozinho em C:/BRASILEIRAO/brasileirao-predictor, mantendo novos arquivos em C:/BRASILEIRAO. Leia integralmente o mandato original em C:/BRASILEIRAO/INSTRUCOES/MANDATO_RECEBIDO_2026-09-09.txt e o prompt consolidado original, depois docs/ESTADO_ATUAL.md, esta revisão RI (RESULTADO, REGISTROS, MAPAS, REPRODUZIR) e a continuidade DC. Não reinicie a revisão como se não tivesse ocorrido.
+
+Confira HEAD/branch/remote/diff, horário e concorrência. O recibo C:/BRASILEIRAO/AUDITORIA/REVISAO_INTEGRAL_2026-09-09.json identifica a integração/backup. Não reverta alterações de outra sessão. As correções RI estão validadas no escopo isolado; o projeto continua não pronto, com lucro executável não mensurável. Não buscar nova variante positiva nem chamar reprodução 2025 de holdout.
+
+Prioridade: acompanhar a única captura já congelada na tarefa anterior 01 a 08756-2962-7 c 43-9773-c 790 cc 81329 d, automação completar-dados-do-brasileir-o. A RI não confirmou o estado legível da agenda ativa e não a duplicou. Antes de qualquer ação, conferir aplicativo e recibos. Não criar outra automação ou importar agendas históricas.
+
+Fixture id 1000032566887012, Pinnacle/bet 365.bet.br, decisão 11/09/2026 23:00 UTC, kickoff 12/09 00:00 UTC. Preservar protocoloDC: janela de início 22:55–22:59:15 UTC, captura-alvo 22:58:30 UTC, reserva 20, plano gratuito, quota, idempotência, máximo 1 consulta de odds. Se chegar fora da janela, não reconstruir disponibilidade nem consultar desfecho. Antes da janela, não consumir API. Os helpers ficam em C:/BRASILEIRAO/work/data-completion-2026-09-09; conferir hashes do auditor RI e coletor congelado antes de usar. Não renovar claims/atestados de coortes.
+
+Auditar a captura em processo separado, sem credenciais, aplicando JSON estrito, hash+recibo, participantes/competição, clocks/estado e horário congelado. Não admitir execução: mesmo observação API válida precisa de capacidade, custos e validação futura. Preservar rejeições e tentativas. Se não houver observação válida, registrar o requisito e a falha sem otimizar fixture/casa/janela. Ao terminar a captura auditada, ou após 12/09, reavaliar acompanhamento existente e pausá-lo se não restar ação útil autorizada.
+
+Para resolver P11/P12 antes de ativar aplicativo: ambiente Redis/Compose descartável, contrato real do fornecedor e consumidor com identidade/clocks estritos são requisitos. Não apontar testes aos serviços existentes ou bancos protegidos. Alteração de dependência que possa mudar a coleta H14/H15/H9/A1 permanece vedada. Novas features/modelos só merecem experimento após justificar como mudam uma decisão com dados admissíveis.
+
+Preserve integralmente H14/H15/H9/A1, resultados, observadores, artefatos, agendas, avaliadores e dependências compartilhadas. Só metadados/contratos explicitamente permitidos. Sem apostas, movimentação financeira, depósito, login/cadastro de apostas, pagamento, contorno de limites ou compra de dados. Atualize registros e guias atuais por novo checkpoint; não reescreva resultados congelados. Distinga sempre prontidão técnica, admissibilidade e evidência econômica.

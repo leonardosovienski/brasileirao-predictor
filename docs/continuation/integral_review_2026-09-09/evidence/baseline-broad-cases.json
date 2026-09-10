@@ -1,0 +1,5086 @@
+[
+  {
+    "id": "tests.test_api_football_provider::test_api_football_normalizes_historical_fixture_and_hides_key",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_api_football_provider::test_api_football_allows_2026_when_subscription_exposes_it",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_api_football_provider::test_api_football_surfaces_provider_errors",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_api_football_provider::test_api_football_requires_environment_secret",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_api_football_provider::test_api_football_validates_league_and_filters_malformed_fixtures",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_api_football_provider::test_api_football_rejects_invalid_provider_payloads[payload0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_api_football_provider::test_api_football_rejects_invalid_provider_payloads[payload1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_api_football_provider::test_api_football_rejects_invalid_provider_payloads[payload2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_api_football_provider::test_api_football_rejects_naive_observation_time",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_api_football_provider::test_api_football_normalizes_lineup_vintage",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p5_params_5_elementos_com_deltas_zero_equivale_ao_baseline",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p5_padrao_buggy_documentado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p10_history_no_formato_errado_falha_fechado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p10_history_saudavel_nao_avisa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p3_ratings_asof_nao_enxerga_o_futuro",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p6_cluster_ci_mais_largo_que_iid_sob_correlacao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p6_cluster_degenera_no_iid_com_um_por_cluster",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p6_cluster_amostra_vazia_estoura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p8_lambda_home_diferente_de_away_para_diff_positivo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p8_b_recupera_o_sinal_gerador",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p11_nb_recupera_a_media_real_nao_a_invertida",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p11_b_positivo_recupera_direcao_correta",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p12_nb_em_dado_poisson_nao_diverge",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p2_load_event_data_uma_linha_por_jogo_e_so_periodo_all",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_audit_fixes::test_p7_gatilho_e_prob_de_mercado_usam_a_abertura",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_backtest_extended::test_btts_settled_no_push",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_extended::test_double_chance_settled",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_extended::test_double_chance_swap_orientation",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_extended::test_ou_half_lines_settled",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_extended::test_integer_line_and_2_5_excluded",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_extended::test_ah_lines_excluded_in_phase_4a",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_extended::test_no_extended_data_only_legacy_markets",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_swap_orienta_odd_pro_time_certo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_sem_swap_quando_orientacao_coincide",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_swap_fim_a_fim_no_ledger",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_alias_reconcilia_south_korea",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_alias_reconcilia_united_states",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_nome_nao_mapeado_nao_casa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_odds_orfas_geram_aviso",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_data_dentro_de_3_dias_casa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_data_alem_de_3_dias_nao_casa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_data_invalida_descartada_calada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_candidato_mais_proximo_na_data_vence",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_mercado_parcial_pula_o_mercado_nao_o_jogo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_backtest_odds::test_shin_estoura_com_odd_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_metric_record_carrega_delta_ci95_quando_fornecido",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_delta_ci95_tem_o_sinal_do_campo_delta",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_delta_ci95_recusa_series_desalinhadas",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_turnos_usam_primeiro_e_segundo_confronto_em_temporada_incompleta",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_turnos_falham_alto_com_terceiro_confronto_na_mesma_temporada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_metrica_de_turno_carrega_baseline_delta_ic_e_n",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_metrica_de_turno_reporta_ou_e_accuracy_apenas_como_diagnostico",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_bootstrap_usa_bloco_movel",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_bootstrap_mean_ci_vazio_e_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_bootstrap_estrato_menor_que_bloco_retorna_none_sem_quebrar_relatorio",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_slope_ignora_bin_minusculo_fora_da_curva",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_guardrails_sem_observacao_devolvem_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_baseline_desconhecido_falha_alto",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_climatology_e_o_baseline_suportado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_climatologia_e_prequential_e_congela_jogos_do_mesmo_dia",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_climatologia_inclui_burn_in_observado_antes_da_coorte",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_market_no_vig_e_shin_na_orientacao_do_rps",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_market_no_vig_rejeita_mercado_incompleto_ou_invalido",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_engine_desconhecido_falha_alto",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_engine_default_continua_sendo_dixon_coles",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_engine_serving_instancia_a_pilha_de_producao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_engine_serving_exige_config",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_p_over_do_serving_vem_da_grade_servida",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_p_over_do_dixon_coles_reconstroi_a_matriz",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_p_over_falha_alto_sem_p_over_e_sem_rho",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_walkforward_serving_produz_linhas_de_ponta_a_ponta",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_ensemble_state_none_no_motor_sem_xg",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_ensemble_state_carimba_ligado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_ensemble_state_carimba_desligado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_xg_fit_failures_none_quando_nem_foi_tentado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_xg_fit_failures_conta_quando_foi_tentado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_benchmark_panel_fixes::test_relatorio_do_serving_carimba_o_ensemble_de_ponta_a_ponta",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_id::test_bet_id_unico_e_presente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_id::test_bet_id_injetavel_e_carimbado_no_settlement",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_id::test_aposta_legada_sem_bet_id_liquida_normal",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_add_grava_linha_aberta",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_add_rejeita_mercado_e_odd_invalidos",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_settle_rejeita_placar_negativo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_settle_ganha_perde_e_nao_duplica",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_settle_casa_por_conjunto_de_times",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_settle_periodo_exige_ht_e_fecha_com_ht",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_summary_separa_validado_de_informativo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_summary_roi",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_banca_saldo_exposicao_e_drawdown",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_banca_deposito_saque_e_reinit",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_kickoff_marca_aposta_tardia",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_aviso_de_bilhete_duplicado_aberto",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_settle_rejeita_ht_maior_que_final",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_list_bets_casa_aberta_e_fechada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_banca_none_sem_init",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_settle_confronto_repetido_exige_match_date_para_desambiguar",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_settle_idempotente_sobrevive_a_reordenacao_do_arquivo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_settle_placar_none_levanta_valueerror_claro",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_add_bet_naive_vs_aware_nao_crasha",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_capital_gate_status_avisa_sem_trial_comprovada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_capital_gate_status_silencioso_com_trial_comprovada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_capital_gate_status_ignora_mercado_fora_do_gate",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bet_log::test_capital_gate_status_falha_fechado_sem_trials_json",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bitemporal_store::test_as_known_at_never_sees_a_result_published_later",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bitemporal_store::test_latest_version_and_idempotency",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bitemporal_store::test_rejects_impossible_ingestion_clock",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_fold_remove_acento_e_caixa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_fold_nao_colide_times_distintos",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_nome_exato",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_acento_ausente_resolve_quando_unico",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_alias_explicito_para_nome_comercial_diferente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_nome_desconhecido_falha_fechado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_alias_para_time_fora_da_base_falha_fechado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_ambiguidade_de_dobra_falha_fechado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_caixa_exata_tem_precedencia_sobre_a_dobra",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_casa_fixture_com_acento_divergente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_kickoff_distante_nao_casa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_placeholder_de_meia_noite_da_api_ainda_casa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_alias_sem_h_do_athletico",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_mesmo_confronto_duas_vezes_na_janela_e_ambiguo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_mando_invertido_nao_casa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_persistencia_e_idempotente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_persistencia_nao_colapsa_bookmaker_ou_mercado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_fechamento_pega_a_ultima_antes_do_apito",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_fechamento_ignora_cotacao_pos_apito",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_fechamento_ignora_odd_invalida",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_odds::test_fechamento_nao_mistura_selecao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_stability::test_append_only_and_exchange_is_not_recommended",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_stability::test_stable_and_insufficient_coverage_are_deterministic",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_stability::test_smoke_uses_retrieval_time_not_bookmaker_update_time",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bookmaker_stability::test_three_smokes_inside_24_hours_remain_pending",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bootstrap::test_ic_contem_a_media_amostral",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bootstrap::test_amostra_constante_colapsa_o_ic",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bootstrap::test_n_igual_a_1_nao_estoura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bootstrap::test_determinismo_sob_seed_fixa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bootstrap::test_seeds_diferentes_divergem",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bootstrap::test_amostra_vazia_estoura_em_voz_alta",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_bootstrap::test_ic_ordenado_e_estreita_com_n",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_config_identidade_do_dominio",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_k_factor_brasileirao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_modelo_com_dois_clubes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_settle_resultado_real_brasileirao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_espelho_sofascore_para_matches",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_espelho_marca_e_remove_linha_orfa_de_adiamento",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_espelho_remove_fixture_legado_sem_event_id_quando_data_muda",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_odds_shop_sport_key_do_config",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_proximos_fixtures_excluem_eventos_passados_sem_placar",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_brasileirao_domain::test_ht_fraction_forward_only",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_calibration_gate::test_existing_a10_report_is_formally_no_go",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_calibration_gate::test_gate_requires_primary_and_every_guardrail",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_calibration_gate::test_gate_requires_material_rps_gain_and_home_win_guardrail",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_calibration_gate::test_a10_producer_can_compute_home_win_guardrail",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_capture_sofascore_event::test_build_capture_uses_aware_clock_and_strict_pre_match_boundary",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_capture_sofascore_event::test_build_capture_rejects_naive_timestamp",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_capture_sofascore_event::test_append_capture_is_append_only_and_deduplicates",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_capture_sofascore_event::test_post_kickoff_capture_never_enters_pre_match_odds",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_capture_sofascore_event::test_wait_until_confirmed_has_injectable_clock_and_sleep",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_capture_sofascore_event::test_wait_until_confirmed_refuses_at_kickoff_without_fetching_lineup",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_price_stage_refuses_outcome_fields",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_self_odds_do_not_create_edge",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_missing_price_preserves_universe[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_missing_price_preserves_universe[]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_missing_price_preserves_universe[NaN]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_missing_price_preserves_universe[Infinity]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_missing_price_preserves_universe[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_missing_price_preserves_universe[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_missing_price_preserves_universe[garbage]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_win_returns_principal_but_does_not_count_it_as_profit",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_loss_reconciles_stake_and_separate_cost",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_no_result_keeps_money_locked_and_roi_undefined",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_conflicting_score_does_not_become_void_or_loss",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_cannot_recycle_same_day_winnings_to_fund_second_pick",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_next_day_can_use_previous_days_settled_balance",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_dates_order_and_duplicate_identity",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_protected_years_are_excluded",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_consistent_result_codes[H]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_consistent_result_codes[D]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_closing_scenario::test_consistent_result_codes[A]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_contextual_ensemble::test_contextual_trial_is_expanding_and_never_changes_serving",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_contextual_ensemble::test_contextual_trial_blocks_insufficient_data",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_contextual_ensemble::test_contextual_trial_rejects_post_kickoff_evidence",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_coalesce_preserva_abertura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_close_sempre_sobrescreve",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_upsert_resolve_placeholder_de_bracket_para_nome_real",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_snapshots_idempotentes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_snapshots_acumulam_no_tempo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_ht_goal_fraction_calibra_e_respeita_minimo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_update_ht_scores_grava_e_none_e_noop",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_update_kickoff_grava_utc_e_none_e_noop",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_update_kickoff_versions_reschedule",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db::test_completed_matches_propagates_best_known_kickoff",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_migration_adds_flat_columns_to_old_db",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_migration_is_idempotent",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_backfill_ou_2_5_into_odds_lines",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_backfill_skips_when_no_legacy_ou",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_update_flat_markets_close_and_open",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_flat_open_is_write_once",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_flat_open_null_when_absent",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_lines_rows_from_parsed_pure",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_lines_rows_open_null_when_absent",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_upsert_odds_lines_close_overwrites_open_write_once",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_extended_odds::test_odds_lines_multiple_lines_coexist",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_readonly::test_read_only_allows_reads",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_db_readonly::test_read_only_rejects_writes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_tau_is_one_outside_thin_cells",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_tau_negative_rho_inflates_draws_deflates_one_zero",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_tau_zero_rho_is_identity",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_tau_out_of_range_rho_raises",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_decay_today_is_one_and_monotone",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_decay_halflife",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_decay_zero_xi_is_flat",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_decay_rejects_future_match_and_negative_xi",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_grid_sums_to_one",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_outcome_probs_sum_to_one_and_favor_home",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_negative_rho_raises_draw_prob_vs_independent",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_rho_bounds_enforced_at_construction",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_score_prob_matches_grid_and_validates_range",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles::test_invalid_means_raise",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles_fit::test_fit_recovers_strength_ordering",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles_fit::test_fit_identification_mean_attack_near_one",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles_fit::test_fit_rejects_empty_and_single_team",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles_fit::test_evaluator_xi_from_half_life",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles_fit::test_walkforward_returns_prediction_points",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dixon_coles_fit::test_walkforward_prediction_never_uses_future_kickoff",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_draw_diagnostics::test_display_exposes_draw_hypotheses_in_structured_and_human_output",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dynamic_strength::test_fit_rejects_invalid_alphas",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dynamic_strength::test_balanced_observations_keep_corrections_near_zero",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_dynamic_strength::test_attack_and_defence_are_directional_and_unseen_team_is_neutral",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ecosystem_plugin::test_ecosystem_plugin_contract_shape",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline::test_predictions_are_proper_distributions",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline::test_strong_team_is_favored",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline::test_deterministic_across_runs",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline::test_draw_rate_comes_from_training_history",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline_block_guard::test_predicted_at_e_estritamente_anterior_ao_matures_at",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline_block_guard::test_bloco_simultaneo_e_descartado_do_treino",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline_block_guard::test_kickoffs_distintos_nao_descartam_nada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline_block_guard::test_taxa_de_empate_sai_do_historico_truncado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline_block_guard::test_primeiro_ajuste_sem_historico_utilizavel_falha_alto",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_elo_baseline_block_guard::test_probabilidades_somam_um",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_feature_builder::test_build_features",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_feature_builder::test_build_features_empty",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_feature_builder::test_delta_xg_so_existe_quando_os_dois_lados_tem_historico",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_feature_builder::test_build_features_filtra_pelo_lado_do_time",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_feature_builder::test_build_features_ignora_periodos_parciais",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_sem_swap_quando_armazenado_bate_com_mando",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_swap_quando_armazenado_invertido_vs_mando",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_home_recebe_sempre_a_propria_odd_independente_da_orientacao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_over_under_independe_da_orientacao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_data_dentro_da_tolerancia_de_3_dias_casa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_data_fora_da_tolerancia_nao_casa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_escolhe_candidato_de_data_mais_proxima",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_par_inexistente_devolve_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_data_malformada_no_candidato_e_ignorada_sem_estourar",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_canon_aplica_alias",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_canon_reconcilia_bosnia_e_comercial",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_canon_normaliza_caixa_e_espaco",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_find_odds::test_canon_passthrough_sem_alias",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_whole_capture_keeps_one_metered_call_and_is_idempotent",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_outside_window_does_not_read_credentials_or_call_api[-301]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_outside_window_does_not_read_credentials_or_call_api[-45]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_quota_reserve_and_paid_plan_block_before_odds[20-None-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_quota_reserve_and_paid_plan_block_before_odds[21-None-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_quota_reserve_and_paid_plan_block_before_odds[183-10-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_http_failure_is_not_retried_and_does_not_expose_key",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_invalid_json_response_is_preserved_and_audited_as_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_credential_failure_still_leaves_sanitized_receipt",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_missing_kickoff_produces_rejection_instead_of_crashing",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_partial_audit_directory_does_not_prevent_recovery",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_relabelled_provider_endpoint_cannot_be_admitted",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_late_or_timezone_free_receipt_cannot_pass_price_gate[2026-09-11T23:00:01+00:00]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_late_or_timezone_free_receipt_cannot_pass_price_gate[2026-09-11T22:58:30]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_followup_capture_contract::test_rescheduled_fixture_does_not_move_frozen_decision",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_suspension_cannot_resurrect_previous_active_price",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_future_state_does_not_change_past_selection",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_conflicting_latest_state_fails_closed[change0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_conflicting_latest_state_fails_closed[change1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_conflicting_latest_state_fails_closed[change2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_invalid_price_never_uses_older_good_quote[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_invalid_price_never_uses_older_good_quote[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_invalid_price_never_uses_older_good_quote[2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_invalid_price_never_uses_older_good_quote[1.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_invalid_price_never_uses_older_good_quote[-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_invalid_price_never_uses_older_good_quote[inf]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_invalid_price_never_uses_older_good_quote[nan]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_active_must_be_literal_boolean[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_active_must_be_literal_boolean[true]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_active_must_be_literal_boolean[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_unknown_clock_cannot_be_silently_ignored[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_unknown_clock_cannot_be_silently_ignored[bad]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_unknown_clock_cannot_be_silently_ignored[2026-05-01T19:59:00]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_timezone_offset_and_cutoff_inclusion",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_input_order_and_identical_duplicates_do_not_change_quote",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_limit_does_not_prove_fill_and_ambiguous_limit_remains_unknown",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_retrospective_data_never_passes_execution_gate_even_with_positive_proxy",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_mismatched_identity_is_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_other_market_cannot_fill_missing_1x2",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_stale_selection_and_skew_are_separate_diagnostics",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_no_mutation_or_use_of_result_fields",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_admission::test_protected_time_window_cannot_enter_the_audit",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_expansion::test_reconciles_observed_alias_and_ingest_is_idempotent",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_expansion::test_unknown_team_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_expansion::test_report_detects_duplicates_new_rows_and_score_conflicts",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_historical_numeric_boundary::test_huge_integer_rejected_and_negative_limit_not_admitted",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_shin_rejeita_odd_invalida_com_erro_claro[odds0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_shin_rejeita_odd_invalida_com_erro_claro[odds1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_shin_rejeita_odd_invalida_com_erro_claro[odds2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_shin_rejeita_odd_invalida_com_erro_claro[odds3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_shin_rejeita_odd_invalida_com_erro_claro[odds4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_shin_continua_correto_para_odds_validas",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_market_probs_ignora_placeholder_1x2_todo_em_1",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_market_probs_escolhe_a_linha_valida_e_pula_a_placeholder",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_settle_nao_liquida_pick_duplicado_duas_vezes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_settle_rerun_continua_idempotente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_settle_com_fechamento_invalido_liquida_sem_clv[nan-1.9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_settle_com_fechamento_invalido_liquida_sem_clv[-2.0-1.9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_settle_com_fechamento_invalido_liquida_sem_clv[1.0-1.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_settle_recusa_linha_inteira",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_capture_recusa_linha_inteira",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_record_result_rejeita_placar_negativo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_banco_truncado_falha_claramente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hostil_2026_07_18::test_leitor_read_only_ve_dado_commitado_durante_escrita",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_wakes_only_the_exact_registered_v2_request",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_cannot_create_a_missing_registration",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_rejects_noncurrent_results[superseded]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_rejects_noncurrent_results[expired]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_rejects_noncurrent_results[inconsistent]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_rejects_noncurrent_results[unregistered]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_requires_result_correlation",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_requires_idempotency_identity_correlation",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_rejects_incomplete_registered_payload_before_wakeup",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_smoke_times_out_without_creating_a_replacement_request",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_cli_does_not_echo_a_connection_error_or_redis_credentials",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_hotpath_smoke::test_synthetic_smoke_sends_lineups_to_worker_without_registering_itself",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_identity::test_resolves_canonical_name_id_and_normalized_alias",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_identity::test_unknown_only_suggests_and_never_resolves",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_identity::test_rejects_unknown_target_and_normalized_collision",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_info_stake_cap::test_sem_env_var_nada_muda",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_info_stake_cap::test_teto_bloqueia_informativa_acima",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_info_stake_cap::test_teto_permite_informativa_dentro",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_info_stake_cap::test_mercado_validado_ignora_teto",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ingest_typing_boundaries::test_load_config_honors_explicit_runtime_path",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ingest_typing_boundaries::test_normalize_keeps_dataframe_shape_and_nullable_scores",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ingest_typing_boundaries::test_parse_player_stats_preserves_fbref_numeric_semantics",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_json_and_unknown_version_are_rejected",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_missing_identifier_is_rejected",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_duplicate_idempotency_claim_is_safe",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_valid_payload_writes_versioned_ttl_response",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[protocol_version]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[job_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[run_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[match_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[idempotency_key]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[timestamp_t3]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_each_required_field_is_rejected_when_missing[state_version]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[None-job_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[None-run_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[None-match_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[None-idempotency_key]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[-job_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[-run_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[-match_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[-idempotency_key]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[123-job_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[123-run_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[123-match_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[123-idempotency_key]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[True-job_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[True-run_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[True-match_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[True-idempotency_key]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid4-job_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid4-run_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid4-match_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid4-idempotency_key]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid5-job_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid5-run_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid5-match_id]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_identifier_is_rejected_without_coercion[invalid5-idempotency_key]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[None-elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[None-elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[None-dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[None-dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[1500-elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[1500-elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[1500-dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[1500-dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[True-elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[True-elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[True-dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[True-dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid3-elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid3-elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid3-dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid3-dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid4-elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid4-elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid4-dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[invalid4-dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[nan-elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[nan-elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[nan-dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[nan-dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[inf-elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[inf-elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[inf-dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[inf-dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[-inf-elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[-inf-elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[-inf-dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[-inf-dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-elo_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-elo_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-dvorp_a]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_number_is_rejected_before_claim[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000-dvorp_b]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[None]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[1]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[True]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[-1]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[-1.0]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[0.5]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[invalid6]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[invalid7]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[nan]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_timestamp_is_rejected_before_claim[inf]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[null]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[[]]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[1]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[true]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[\"message\"]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[{]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_object_or_malformed_payload_is_rejected[\\xff]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_additional_properties_are_rejected",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[None]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[1]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[True]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[invalid3]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_non_string_protocol_version_is_rejected[invalid4]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_unrepresentable_rates_are_rejected_before_claim[1e+308]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_unrepresentable_rates_are_rejected_before_claim[-1e+308]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_invalid_message_does_not_poison_valid_retry",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_schema_valid_numeric_representations_are_accepted[0]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_schema_valid_numeric_representations_are_accepted[1]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_schema_valid_numeric_representations_are_accepted[1.0]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_schema_valid_numeric_representations_are_accepted[1e+20]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[None]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[True]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[1]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[0]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[01]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[-1]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[1.0]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[1e3]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[\\uff11\\uff12]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[\\u0661]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[9223372036854775808]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_state_version_requires_canonical_positive_redis_integer[11111111111111111111]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_version_above_lua_double_precision_is_preserved_as_string",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_protocol::test_legacy_v1_cannot_bypass_registered_v2_lifecycle",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_grid_is_normalized_non_negative_and_dixon_coles_changes_low_scores",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_numba_python_implementation_is_directly_verifiable",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_fair_odds_cover_complete_probability_grid",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_fair_odds_represents_zero_probability_as_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_load_params_closes_sports_db_and_applies_config",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_load_params_closes_sports_db_when_cache_is_empty",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_load_params_rejects_stale_versioned_cache",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_warmup_invokes_grid_twice",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_main_rejects_missing_runtime_configuration",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_main_healthcheck_reports_redis_state",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_main_healthcheck_fails_when_kernel_is_not_ready",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_main_starts_daemon_with_explicit_absolute_configuration",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_runtime::test_daemon_sets_health_and_cleans_up_on_shutdown",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_uncertain_completion_releases_only_its_attempt[ConnectionError]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_uncertain_completion_releases_only_its_attempt[CancelledError]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_computation_failure_releases_claim_and_never_completes",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_poller_recovers_registered_payloads_without_pubsub",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_windows_signal_fallback_schedules_stop_and_restores_handlers",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kernel_v2_runtime::test_session_keeps_client_open_until_inflight_handler_cleans_up",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_kickoff_block_guard::test_treino_nunca_alcanca_o_kickoff_do_alvo[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kickoff_block_guard::test_treino_nunca_alcanca_o_kickoff_do_alvo[4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kickoff_block_guard::test_treino_nunca_alcanca_o_kickoff_do_alvo[9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kickoff_block_guard::test_bloco_simultaneo_e_efetivamente_descartado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kickoff_block_guard::test_kickoffs_distintos_nao_descartam_nada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kickoff_block_guard::test_predicted_at_e_estritamente_anterior_ao_matures_at",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kickoff_block_guard::test_cadencia_de_refit_continua_valendo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_kickoff_block_guard::test_primeiro_ajuste_sem_historico_utilizavel_falha_alto",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_lineup_archive::test_lineup_archive_is_append_only_and_idempotent_by_vintage",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_lineup_inbox::test_enqueue_preserves_event_for_idempotent_retry_and_does_not_trim",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_lineup_inbox::test_invalid_serialization_is_not_sent_to_redis[event0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_lineup_inbox::test_invalid_serialization_is_not_sent_to_redis[event1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_active_children_cannot_override_inactive_parent",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_suspension_and_missing_flags_reject[suspended]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_suspension_and_missing_flags_reject[market]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_suspension_and_missing_flags_reject[selection]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_suspension_and_missing_flags_reject[missing_suspension_flag]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_network_receipt_is_not_bookmaker_change_or_execution",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_generic_bet365_cannot_substitute_regional_book",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_postkickoff_or_foreign_identity_cannot_be_admitted",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_payload_is_not_modified",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_live_capture_admission::test_boolean_status_cannot_masquerade_as_numeric_pre_game",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_anchor::test_remove_overround_returns_complete_distribution",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_anchor::test_remove_overround_rejects_incomplete_or_invalid_market",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_anchor::test_consensus_uses_complete_books_and_best_executable_price",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_anchor::test_research_persistence_marks_collection_only",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_grade_declara_sessenta_tentativas",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_devig_rejeita_placeholder_e_preserva_ordem_away_draw_home",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_bins_tem_fronteiras_deterministicas",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_permutacao_preserva_resultados_dentro_de_cada_estrato",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_permutacao_nao_altera_previsoes_odds_ou_elo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_power_cresce_com_variancia_e_recusa_amostra_inutil",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_celula_pequena_serializa_psr_e_dsr_indefinidos_como_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_validacao_pode_usar_referencia_de_poder_do_desenvolvimento",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_draw_ordering_exige_tres_faixas_e_monotonicidade",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_edge_ordering::test_paired_records_nao_aceita_linha_sem_elo_pit",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_grid_sums_to_one",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_result_1x2",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_double_chance",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_btts",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_over_under_half_line_no_push",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_over_under_other_half_line",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_over_under_integer_line_has_push",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_exact_score",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_exact_score_out_of_range",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_draw_no_bet_push_is_draw",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_asian_handicap_level",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_asian_handicap_minus_one_integer_push",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_asian_handicap_half_line_no_push",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_asian_handicap_plus_half",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_asian_handicap_quarter_line_splits",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_pricer::test_non_square_grid_raises",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_probs_date::test_com_data_escolhe_a_edicao_certa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_probs_date::test_tolerancia_de_3_dias",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_probs_date::test_sem_data_fica_com_o_mais_recente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_probs_date::test_orientacao_preservada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_probs_date::test_data_ilegivel_nao_trava",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_probs_date::test_confronto_inexistente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_residual_model_learns_signal_around_market_offset",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_residual_model_rejects_small_sample",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_shadow_decision_uses_lower_confidence_bound_and_never_enables_capital",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_shadow_decision_subtracts_friction_and_can_choose_under",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_friction_can_turn_apparent_edge_into_no_bet",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_fractional_kelly_uses_post_friction_win_and_loss_payoffs",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_residual_artifact_roundtrip_is_shadow_only",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_multinomial_residual_learns_sports_signal_around_market",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_multinomial_residual_rejects_market_probabilities_not_normalized",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_market_residual::test_multinomial_residual_rejects_invalid_prediction_market",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_shin_probs_somam_um",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_shin_sem_margem_recai_na_normalizacao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_shin_overround_positivo_quando_ha_vig",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_shin_penaliza_longshot_bias",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_shin_duas_saidas_over_under",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_clv_mede_contra_shin_do_fechamento",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_pnl_liquida_no_preco_pactuado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_bet_at_open_quando_ha_abertura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_bet_at_close_no_fallback",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_settle_rejeita_fora_da_janela_de_edge",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_pre_match_quando_apito_no_futuro",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_nao_pre_match_durante_o_jogo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_nao_pre_match_no_apito_exato",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_math::test_sem_timestamp_assume_nao_pre_match",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_missingness_audit::test_xg_coverage_separates_paired_observation_from_legacy_fallback",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_nb_colapsa_em_poisson_quando_alpha_zero",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_probabilidades_1x2_somam_um",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_nb_dixon_coles_expoe_normalizador_nao_trivial",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_rho_que_gera_celula_negativa_falha_em_vez_de_clipar",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_parametros_invalidos_falham_alto[params0-12]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_parametros_invalidos_falham_alto[params1-12]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_parametros_invalidos_falham_alto[params2-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_draw_diagnostics_expose_all_discussed_hypotheses_without_decision_rule",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_mando_favorece_o_mandante",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_predict_remaining_fraction_1_bate_com_predict_match",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_predict_remaining_fraction_meio_escala_lambda_pela_metade",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_predict_remaining_grid_soma_um",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_predict_remaining_fraction_zero_is_exactly_no_more_goals",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_predict_remaining_rejeita_fracao_invalida[-0.1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_predict_remaining_rejeita_fracao_invalida[1.1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_predict_remaining_rejeita_fracao_invalida[nan]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model::test_predict_remaining_rejeita_fracao_invalida[inf]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_fit_without_xg",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_fit_with_xg",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_fit_with_unit_weights_preserves_legacy_result",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_recent_matches_receive_more_influence",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_sample_weights_fail_closed[weights0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_sample_weights_fail_closed[weights1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_sample_weights_fail_closed[weights2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_goal_history_fails_closed[history0-elo_diff]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_goal_history_fails_closed[history1-elo_diff]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_goal_history_fails_closed[history2-home_goals]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_goal_history_fails_closed[history3-home_goals]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_goal_history_fails_closed[history4-home_goals]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_goal_history_fails_closed[history5-away_goals]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_goal_history_fails_closed[history6-three-item]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_goal_history_fails_closed[history7-three-item]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_delta_xg_fails_closed[delta_xg0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_delta_xg_fails_closed[delta_xg1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_invalid_delta_xg_fails_closed[delta_xg2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_empty_history_preserves_explicit_cold_start",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_optimizer_failure_is_typed_and_never_returns_fallback",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_exponential_recency_weights_obey_half_life_exactly",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_exponential_recency_weights_support_explicit_uniform_policy",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_exponential_recency_weights_reject_invalid_half_life[0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_exponential_recency_weights_reject_invalid_half_life[-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_exponential_recency_weights_reject_invalid_half_life[nan]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_exponential_recency_weights_reject_invalid_half_life[inf]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_exponential_recency_weights_reject_future_match",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_predict_with_xg",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_model_xg::test_predict_without_xg",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_odds_shop_stale::test_filtro_descarta_feed_morto",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_odds_shop_stale::test_none_desliga_o_filtro",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_odds_shop_stale::test_last_update_ilegivel_nao_trava",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_odds_source_smoke::test_smoke_lists_only_sanitized_bookmaker_metadata",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ou25_annual::test_price_quality_gate_rejects_placeholder_pair",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ou25_annual::test_annual_baseline_settles_one_unit_and_devigged_clv",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ou25_annual::test_annual_baseline_drops_invalid_prices",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ou25_certainty::test_wilson_lower_is_conservative_and_tightens_with_sample",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ou25_certainty::test_higher_confidence_has_lower_bound",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ou25_market_anchor::test_anchor_selects_market_when_model_is_worse",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ou25_market_anchor::test_anchor_does_not_split_simultaneous_kickoff_group",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ou25_market_anchor::test_anchor_excludes_invalid_price_pairs",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ou25_market_anchor::test_future_labels_do_not_change_first_anchor_weight",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_1x2",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_double_chance",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_draw_no_bet",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_btts",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_ou_multi_line",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_asian_handicap_oriented_to_home",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_asian_handicap_orientation_flips_with_home",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_out_of_scope_markets_ignored",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_none_and_empty_safe",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_ah_without_team_names_is_skipped",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_all_odds::test_initial_reads_opening_odds",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_other_market_cannot_replace_goal_prices[Total corners-21]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_other_market_cannot_replace_goal_prices[Total cards-20]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_other_market_cannot_replace_goal_prices[Total goals-20]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_other_market_cannot_replace_goal_prices[1st half total goals-9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_other_market_cannot_replace_goal_prices[2nd half goals-9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_other_market_cannot_replace_goal_prices[Home team total goals-9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_other_market_cannot_replace_goal_prices[Away team total goals-9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_other_market_cannot_replace_goal_prices[Total corners-None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_other_market_cannot_replace_goal_prices[Corners over/under-None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_unrecognized_period_is_not_full_time[period-1st half]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_unrecognized_period_is_not_full_time[periodName-Second half]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_unrecognized_period_is_not_full_time[marketPeriod-extra time]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_unrecognized_period_is_not_full_time[periodId-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_unrecognized_period_is_not_full_time[period-value4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_unrecognized_period_is_not_full_time[period-unknown]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_full_time_preserved[full time]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_full_time_preserved[FT]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_full_time_preserved[match]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_explicit_full_time_preserved[90 minutes]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_documented_market_id_without_name_preserved",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_legacy_goal_name_without_id_preserved",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_opening_and_current_do_not_mix",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_conflicting_full_time_market_versions_fail_closed_in_any_order",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_identical_market_duplicates_are_not_conflicts",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_duplicate_side_with_conflicting_price_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_conflicting_group_and_choice_handicap_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_nonfinite_or_nonbettable_quote_cannot_pass[nan]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_nonfinite_or_nonbettable_quote_cannot_pass[inf]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_nonfinite_or_nonbettable_quote_cannot_pass[-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_nonfinite_or_nonbettable_quote_cannot_pass[0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_unrecognized_choice_cannot_contribute_a_goal_side",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parse_ou_scope_regression::test_normalized_line_table_uses_identical_scope_and_conflict_rules",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_fracao_valida",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_fracao_menor_que_um",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_divisao_por_zero_vira_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_fracao_malformada_vira_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_fracao_com_tres_termos_vira_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_fallback_para_decimal_value",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_sem_valor_nenhum_vira_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_decimal_zero_vira_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_fracao_nao_string_nao_estoura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_decimal_malformado_nao_estoura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_frac_to_decimal_key_abertura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_frac_to_decimal_initial_ausente_vira_none_sem_fallback",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_parse_odds_initial_le_abertura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_payload_vazio_devolve_nones",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_market_id_1_sem_nome_e_aceito",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_choice_sem_nome_nao_estoura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_mercado_parcial_e_aceito_sem_aviso",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_ou_linha_inexistente_vira_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_ou_sem_under_vira_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_ou_via_choice_group",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_ou_payload_vazio",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_linha_2_5_nao_pega_odd_da_12_5",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_jogo_de_2022_visto_em_2026_nao_e_pre",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_timestamp_em_ms_nao_e_pre_match",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_parse_match_normaliza_timestamp_em_ms",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_parse_match_data_em_utc",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_parse_match_extrai_placar_do_intervalo",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_parsers_sofascore::test_parse_match_ht_nulo_se_nao_terminou",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_permutacao_preserva_as_marginais_da_liga",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_permutacao_mantem_o_placar_inteiro_junto",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_permutacao_desassocia_time_de_desfecho",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_permutacao_nao_altera_a_ordem_temporal",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_permutacao_e_deterministica_por_seed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_permutacao_nao_muta_a_entrada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_modelo_igual_a_climatologia_nao_bate_a_climatologia",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_modelo_com_sinal_real_bate_a_climatologia",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_recusa_periodo_que_alcanca_o_holdout[2021-01-01,2025-06-30]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_recusa_periodo_que_alcanca_o_holdout[2021-01-01,2026-12-31]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_recusa_periodo_que_alcanca_o_holdout[2021-01-01,]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_permutation_test::test_recusa_zero_permutacoes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_backfill::test_raw_is_write_once_hashable_and_tamper_detected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_backfill::test_curated_store_has_provenance_and_never_touches_live",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_backfill::test_entity_resolution_rejects_ambiguous_case",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_backfill::test_closing_requires_valid_pre_kickoff_quote_and_versions_definition",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_backfill::test_curated_odds_rejects_future_capture_and_preserves_all_clocks",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_backfill::test_pit_rejects_future_and_evaluation_view_is_temporal",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_backfill::test_walk_forward_holdout_and_cluster_gate_never_enable_capital",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_contextual_features::test_rest_is_strictly_pre_match",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_contextual_features::test_travel_surface_and_coach_materialize_deterministically",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_contextual_features::test_future_previous_match_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_features_scaffold::test_todas_as_familias_declaram_mecanismo_proveniencia_e_bloqueio",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_features_scaffold::test_informacao_no_ou_apos_kickoff_falha_fechado[offset0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_features_scaffold::test_informacao_no_ou_apos_kickoff_falha_fechado[offset1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_features_scaffold::test_rejeita_relogio_ingenuo_e_ingestao_anterior_a_publicacao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_features_scaffold::test_envelope_precisa_corresponder_a_declaracao_e_campos_ex_ante",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_features_scaffold::test_xg_isolado_proibe_linhagem_h12_e_blends",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_pit_features_scaffold::test_treino_bloqueado_sem_go_e_referencia",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_player_comp_stats_sofascore::test_aggregate_and_persist_player_stats_with_provenance",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_predict_cache_freshness::test_build_recomputes_in_memory_when_cache_hash_is_stale",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_predict_cache_freshness::test_build_uses_cache_only_when_hash_and_match_count_are_current",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_prediction_log::test_log_appends_one_jsonl_line",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_prediction_log::test_log_preserves_draw_diagnostics_from_real_model_output",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_prediction_log::test_log_records_1x2_market_block_even_without_ou_odds",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_prediction_log::test_log_records_ou25_market_block_when_odds_present",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_prediction_log::test_log_respects_env_path",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_prediction_log::test_show_fails_closed_when_audit_log_cannot_be_persisted",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_prediction_log::test_log_period_prediction_grava_schema_proprio",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_prediction_log::test_log_period_respects_env_path",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_break_even_matches_two_branch_cash_flow_with_commission",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_own_price_identity_preserves_sign_and_never_claims_execution[odds0-positive]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_own_price_identity_preserves_sign_and_never_claims_execution[odds1-zero]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_own_price_identity_preserves_sign_and_never_claims_execution[odds2-negative]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_exact_hurdle_separates_embedded_margin_from_additional_cost",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_prices_do_not_enter_numeric_coverage[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_prices_do_not_enter_numeric_coverage[odds1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_prices_do_not_enter_numeric_coverage[odds2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_prices_do_not_enter_numeric_coverage[odds3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_prices_do_not_enter_numeric_coverage[odds4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_prices_do_not_enter_numeric_coverage[odds5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_prices_do_not_enter_numeric_coverage[odds6]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_prices_do_not_enter_numeric_coverage[odds7]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_probability_and_cost_fail_closed[0-0.02-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_probability_and_cost_fail_closed[1.1-0.02-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_probability_and_cost_fail_closed[True-0.02-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_probability_and_cost_fail_closed[0.4--1-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_probability_and_cost_fail_closed[0.4-nan-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_invalid_probability_and_cost_fail_closed[0.4-0.02-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_future_rows_are_excluded_before_outcomes_or_odds_are_used",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_results_do_not_affect_any_output_and_inputs_are_unchanged",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_identity_time_and_schema_conflicts_abort[mutation0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_identity_time_and_schema_conflicts_abort[mutation1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_identity_time_and_schema_conflicts_abort[mutation2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_identity_time_and_schema_conflicts_abort[mutation3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_identity_time_and_schema_conflicts_abort[mutation4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_identity_time_and_schema_conflicts_abort[mutation5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_identity_time_and_schema_conflicts_abort[mutation6]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_duplicate_event_is_not_an_independent_observation",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_hurdle::test_sensitivity_holds_universe_and_prices_fixed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_reader_rejects_nonfinite_json_numbers[{\"x\":NaN}]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_reader_rejects_nonfinite_json_numbers[{\"x\":Infinity}]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_reader_rejects_nonfinite_json_numbers[{\"x\":-Infinity}]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_reader_rejects_nonfinite_json_numbers[{\"x\":1e999}]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_reader_rejects_duplicate_keys_at_every_depth[{\"x\":1,\"x\":2}]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_reader_rejects_duplicate_keys_at_every_depth[{\"nested\":{\"x\":1,\"x\":2}}]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_reader_preserves_boolean_types_and_requires_utf8_objects",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_jsonl_rejects_blank_lines_and_keeps_error_line",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_read_hashed_parses_and_hashes_one_identical_read[False]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_read_hashed_parses_and_hashes_one_identical_read[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_jsonl_preserves_unicode_separator_inside_json_string",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_repository_data_is_rejected_before_open",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_symlink_input_resolved_into_repository_data_is_rejected",
+    "status": "skipped"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_receipt_hashes_exact_inputs_artifacts_and_source_code",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_output_cannot_target_data_git_or_repository_root[data/run]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_output_cannot_target_data_git_or_repository_root[.git/run]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_output_cannot_target_data_git_or_repository_root[.]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_existing_directory_or_input_cannot_be_overwritten",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_invalid_artifact_names_fail_before_creating_output[../escape.json]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_invalid_artifact_names_fail_before_creating_output[nested/x.json]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_invalid_artifact_names_fail_before_creating_output[nested\\\\x.json]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_invalid_artifact_names_fail_before_creating_output[C:x.json]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_invalid_artifact_names_fail_before_creating_output[manifest.json]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_invalid_artifact_names_fail_before_creating_output[failure.json]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_invalid_artifact_names_fail_before_creating_output[wrong.txt]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_nonfinite_output_rejected_before_directory_creation[nan]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_nonfinite_output_rejected_before_directory_creation[inf]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_nonfinite_output_rejected_before_directory_creation[-inf]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_jsonl_requires_list_of_objects_and_case_collisions_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_failed_write_preserves_existing_artifact_without_success_manifest",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_failed_manifest_publication_cannot_leave_complete_receipt",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_changed_input_fails_before_artifact_write_and_records_failure",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_input_hash_expectations_cannot_silently_omit_inputs[expected0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_input_hash_expectations_cannot_silently_omit_inputs[expected1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_input_hash_expectations_cannot_silently_omit_inputs[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_artifacts::test_matching_input_hashes_connect_receipt_to_processed_bytes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_probabilities_are_normalized_and_consistent_with_poisson_rates",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_future_results_and_late_statistics_cannot_change_forecast",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_statistics_at_the_decision_boundary_are_not_available",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_own_match_id_never_enters_history_even_with_incorrect_external_fixture_identity",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_history_is_order_invariant_and_duplicate_delivery_is_counted_once",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_latest_available_revision_is_used_without_looking_at_future_revision",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_conflicting_visible_revision_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_superseded_conflicting_revisions_fail_closed_in_every_input_order[order0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_superseded_conflicting_revisions_fail_closed_in_every_input_order[order1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_superseded_conflicting_revisions_fail_closed_in_every_input_order[order2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_superseded_conflicting_revisions_fail_closed_in_every_input_order[order3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_superseded_conflicting_revisions_fail_closed_in_every_input_order[order4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_superseded_conflicting_revisions_fail_closed_in_every_input_order[order5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_identical_superseded_duplicates_are_tolerated_in_every_input_order[order0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_identical_superseded_duplicates_are_tolerated_in_every_input_order[order1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_identical_superseded_duplicates_are_tolerated_in_every_input_order[order2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_identical_superseded_duplicates_are_tolerated_in_every_input_order[order3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_identical_superseded_duplicates_are_tolerated_in_every_input_order[order4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_identical_superseded_duplicates_are_tolerated_in_every_input_order[order5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_conflicting_future_revisions_are_ignored_before_conflict_validation",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_conflicting_visible_match_identity_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_window_selects_recent_kickoffs_not_recent_delivery_dates",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_cold_start_does_not_promote_prior_probabilities_into_an_eligible_forecast",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_venue_specific_history_is_required_for_both_teams",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_more_opponent_xg_conceded_increases_home_scoring_probability",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_raw_forecast_uses_xg_not_realized_goals",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_calibration_uses_only_prior_forecasts_and_observed_labels",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_calibration_is_invariant_to_future_results_and_late_labels",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_last_calibration_matches_own_xg_cannot_change_its_prediction_or_fitted_scales",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_result_at_calibration_end_is_excluded",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_calibration_has_explicit_cold_start_and_optional_outcomes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_calibration_is_applied_coherently_and_records_input_lineage",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_calibration_from_the_decision_boundary_or_future_is_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_calibration_cannot_be_applied_to_its_own_target_or_different_candidate",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_decision_clocks_are_rejected[decision0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_decision_clocks_are_rejected[decision1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_decision_clocks_are_rejected[decision2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates6]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates7]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates8]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_observations_fail_closed[updates10]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_configuration_is_rejected[updates0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_configuration_is_rejected[updates1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_configuration_is_rejected[updates2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_configuration_is_rejected[updates3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_configuration_is_rejected[updates4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_configuration_is_rejected[updates5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_dynamic_xg::test_invalid_configuration_is_rejected[updates6]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_explicit_friction_and_independent_probability_have_reviewable_provenance",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_offering_book_never_contributes_to_its_own_reference",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_reference_book_cannot_self_validate_when_no_independent_reference_exists",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_latest_inactive_state_never_revives_older_prices[offer-suspended]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_latest_inactive_state_never_revives_older_prices[offer-unavailable]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_latest_inactive_state_never_revives_older_prices[reference-suspended]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_latest_inactive_state_never_revives_older_prices[reference-unavailable]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_malformed_latest_state_blocks_old_valid_price[changes0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_malformed_latest_state_blocks_old_valid_price[changes1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_malformed_latest_state_blocks_old_valid_price[changes2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_malformed_latest_state_blocks_old_valid_price[changes3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_malformed_latest_state_blocks_old_valid_price[changes4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_malformed_latest_state_blocks_old_valid_price[changes5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_unorderable_invalid_row_blocks_batch_without_fallback",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_future_receipt_does_not_change_a_past_decision",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_naive_snapshot_timestamps_are_reported_as_validation_errors[observed_at]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_naive_snapshot_timestamps_are_reported_as_validation_errors[available_at]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_naive_snapshot_timestamps_are_reported_as_validation_errors[received_at]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_naive_snapshot_timestamps_are_reported_as_validation_errors[kickoff_at]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_clock_order_cannot_be_inverted[changes0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_clock_order_cannot_be_inverted[changes1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_naive_decision_clock_is_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_decision_exactly_at_kickoff_is_not_pre_match",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_staleness_uses_decision_clock_and_does_not_search_older_prices",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_timestamp_skew_excludes_reference_even_when_both_quotes_are_fresh",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_each_reference_contributes_once_regardless_of_capture_count",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_ambiguous_sources_for_same_book_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_event_identity_or_kickoff_conflict_blocks_cross_book_comparison[changes0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_event_identity_or_kickoff_conflict_blocks_cross_book_comparison[changes1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_conflicting_snapshots_at_same_receipt_time_are_not_resolved_by_input_order",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_exact_duplicate_snapshot_does_not_change_weight_or_candidates",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_supported_markets_preserve_canonical_outcomes[1x2-None-reference_odds0-offer_odds0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_supported_markets_preserve_canonical_outcomes[btts-None-reference_odds1-offer_odds1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_insufficient_reference_count_and_nonpositive_reference_margin_fail_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_filters_use_net_ev_after_explicit_costs[changes0-non_positive_net_ev]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_filters_use_net_ev_after_explicit_costs[changes1-below_minimum_net_ev]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_filters_use_net_ev_after_explicit_costs[changes2-above_maximum_net_ev]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_one_candidate_per_event_and_deterministic_tie_break_independent_of_input_order",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes6]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes7]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes8]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_invalid_policy_is_rejected_before_comparison[changes10]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_quotes::test_no_implicit_legacy_snapshot_adapter_or_provenance_fabrication",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_binary_interior_solution_uses_positive_class_brier_once",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_three_class_interior_solution_sums_all_classes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_unconstrained_solution_is_clipped_to_convex_endpoints[0-1.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_unconstrained_solution_is_clipped_to_convex_endpoints[1-0.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_identical_model_and_market_choose_market_for_zero_denominator[vector0-labels0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_identical_model_and_market_choose_market_for_zero_denominator[vector1-labels1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_repeated_vectors_are_not_mistaken_for_duplicate_event_ids",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_input_order_does_not_change_fit_and_inputs_are_not_modified",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_joint_class_permutation_preserves_multiclass_fit",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_fit_accepts_ordered_generators_without_consuming_them_twice",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_fitted_weight_minimizes_synthetic_loss_along_the_convex_segment[2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_fitted_weight_minimizes_synthetic_loss_along_the_convex_segment[3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_blend_is_normalized_convex_and_returns_an_immutable_tuple[0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_blend_is_normalized_convex_and_returns_an_immutable_tuple[0.25]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_blend_is_normalized_convex_and_returns_an_immutable_tuple[0.5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_blend_is_normalized_convex_and_returns_an_immutable_tuple[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_endpoints_preserve_valid_input_without_silent_renormalization",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid6]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid7]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid8]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid10]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid11]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[01]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid14]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_probability_vectors_are_rejected_in_fit_and_blend[invalid15]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_blend_weights_are_rejected[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_blend_weights_are_rejected[False]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_blend_weights_are_rejected[-0.1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_blend_weights_are_rejected[1.1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_blend_weights_are_rejected[nan]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_blend_weights_are_rejected[inf]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_blend_weights_are_rejected[0.5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_blend_weights_are_rejected[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_invalid_blend_weights_are_rejected[10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_binary_outcomes_require_integer_class_indices[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_binary_outcomes_require_integer_class_indices[False]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_binary_outcomes_require_integer_class_indices[-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_binary_outcomes_require_integer_class_indices[2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_binary_outcomes_require_integer_class_indices[0.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_binary_outcomes_require_integer_class_indices[nan]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_binary_outcomes_require_integer_class_indices[0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_binary_outcomes_require_integer_class_indices[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_inconsistent_dimensions_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_empty_unordered_or_unaligned_fitting_samples_are_rejected[models0-markets0-outcomes0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_empty_unordered_or_unaligned_fitting_samples_are_rejected[models1-markets1-outcomes1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_empty_unordered_or_unaligned_fitting_samples_are_rejected[models2-markets2-outcomes2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_empty_unordered_or_unaligned_fitting_samples_are_rejected[models3-markets3-outcomes3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_empty_unordered_or_unaligned_fitting_samples_are_rejected[None-markets4-outcomes4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_empty_unordered_or_unaligned_fitting_samples_are_rejected[models5-None-outcomes5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_empty_unordered_or_unaligned_fitting_samples_are_rejected[models6-markets6-None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_empty_unordered_or_unaligned_fitting_samples_are_rejected[models7-markets7-outcomes7]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_reliability::test_empty_unordered_or_unaligned_fitting_samples_are_rejected[models8-markets8-outcomes8]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_provider_event_cannot_split_into_two_canonical_event_ids[False]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_provider_event_cannot_split_into_two_canonical_event_ids[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_cli_invalid_timestamp_does_not_echo_arbitrary_input",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_invalid_calibration_eligibility_is_not_truthy_permission[false]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_invalid_calibration_eligibility_is_not_truthy_permission[true]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_invalid_calibration_eligibility_is_not_truthy_permission[0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_invalid_calibration_eligibility_is_not_truthy_permission[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_invalid_calibration_eligibility_is_not_truthy_permission[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_study_ignores_identity_changes_received_only_after_decision",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_study_rejects_provider_event_aliases_across_per_fixture_scans",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_future_alias_does_not_change_global_study_identity_mapping",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_unknown_quote_receipt_never_bypasses_validation_as_future[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_unknown_quote_receipt_never_bypasses_validation_as_future[unreadable-synthetic-timestamp]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_unknown_quote_receipt_never_bypasses_validation_as_future[2030-05-20T17:00:00]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_provider_ids_are_namespaced_by_source",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_review_regressions::test_future_provider_alias_cannot_reject_current_scanner_candidates",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_full_synthetic_study_compares_probabilities_and_keeps_execution_unproven",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_history_and_fixture_order_do_not_change_predictions_or_paired_metrics",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_future_evaluation_statistics_do_not_change_first_forecast_or_calibration",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_missing_results_and_prices_reduce_paired_coverage_without_imputation",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_frozen_external_baseline_is_compared_on_the_same_fixtures",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_invalid_study_contracts_fail_closed[<lambda>-exploratory]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_invalid_study_contracts_fail_closed[<lambda>-ordered]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_invalid_study_contracts_fail_closed[<lambda>-duplicate]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_invalid_study_contracts_fail_closed[<lambda>-fixture universe]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_invalid_study_contracts_fail_closed[<lambda>-kickoff]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_cli_demo_writes_reproducible_receipts_and_never_overwrites",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_cli_scan_requires_explicit_inputs_and_retains_invalid_snapshot_evidence",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_conflicting_evaluation_identity_is_rejected_even_with_identical_scores[False]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_price_strength_study::test_conflicting_evaluation_identity_is_rejected_even_with_identical_scores[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promoted_cold_start::test_prior_for_a_season_uses_only_strictly_earlier_seasons",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promoted_cold_start::test_missing_metadata_blocks_without_changing_serving",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promoted_cold_start::test_duplicate_or_insufficient_history_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promoted_cold_start::test_build_entries_fails_closed_without_point_in_time_rating",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promoted_cold_start::test_empirical_prior_blocks_small_samples_and_never_changes_serving",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promoted_cold_start::test_first_matches_cold_start_runs_oos_and_never_changes_serving",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promoted_cold_start::test_goal_prior_arm_is_isolated_from_serving",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promotions_dataset::test_versioned_promotion_dataset_is_complete",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_promotions_dataset::test_promotion_dataset_rejects_empty_file",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_promotions_dataset::test_versioned_relegation_dataset_is_complete",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_ratings::test_troca_conserva_pontos",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_conservacao_em_serie_longa",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_zebra_move_mais_que_favorito",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_decay_regride_a_media",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_decay_nulo_e_identidade",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_decay_terminal_chega_ao_horizonte_da_previsao",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_decay_terminal_rejeita_horizonte_anterior_ao_historico",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_k_fallback_de_eliminatoria",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_k_de_torneio_nulo_nao_estoura",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_margem_cresce_monotonicamente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_same_date_is_updated_as_one_batch_and_is_order_invariant",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_reliable_kickoff_allows_multiple_sequential_games_on_same_date",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_duplicate_team_in_date_fallback_batch_uses_same_pre_batch_state",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_ratings::test_mixed_precision_collapses_the_whole_date_conservatively",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_redis_contract::test_shared_schema_is_versioned_and_correlated",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_redis_contract::test_golden_pricing_grid_is_preserved",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_dataset::test_materializes_only_complete_books_available_at_horizon",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_dataset::test_does_not_materialize_without_result_or_complete_market",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_dataset::test_rejects_synthetic_pair_from_different_market_states",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_diagnostics::test_losses_are_zero_for_certain_correct_prediction",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_diagnostics::test_confidence_bins_have_frozen_boundaries",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_diagnostics::test_market_home_bins_have_frozen_boundaries",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_features::test_lineup_state_uses_latest_vintage_available_asof",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_features::test_residual_features_capture_dispersion_time_and_lineup_change",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_features::test_residual_features_reject_post_kickoff_observation",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_gate::test_gate_is_pending_below_sample_floor",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_gate::test_gate_rejects_negative_economics_even_with_high_dsr",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_gate::test_gate_can_only_return_candidate_not_enable_capital",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_walkforward::test_walkforward_respects_maturity_and_never_enables_capital",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_residual_walkforward::test_walkforward_reports_post_friction_policy",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_rho_stability::test_rho_diagnostic_blocks_without_holdout_data",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_rho_stability::test_rho_diagnostic_returns_finite_oos_metrics",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_rho_stability::test_rho_rejects_misaligned_temporal_groups",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_earlier_seasons_are_training_even_without_round[2021]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_earlier_seasons_are_training_even_without_round[2022]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_earlier_seasons_are_training_even_without_round[2023]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_earlier_seasons_are_training_even_without_round[2024]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_2025_is_calibration",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[6]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[7]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[8]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[9]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[10]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[11]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[12]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[13]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[14]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[15]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[16]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[17]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[18]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[19]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[20]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[21]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[22]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[23]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[24]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[25]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[26]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[27]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[28]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[29]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[30]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[31]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[32]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[33]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[34]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[35]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[36]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[37]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_every_official_2026_round_has_exact_role[38]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_2026_round_cannot_be_missing_coerced_or_outside_calendar[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_2026_round_cannot_be_missing_coerced_or_outside_calendar[0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_2026_round_cannot_be_missing_coerced_or_outside_calendar[-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_2026_round_cannot_be_missing_coerced_or_outside_calendar[39]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_2026_round_cannot_be_missing_coerced_or_outside_calendar[100]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_2026_round_cannot_be_missing_coerced_or_outside_calendar[19.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_2026_round_cannot_be_missing_coerced_or_outside_calendar[19]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_2026_round_cannot_be_missing_coerced_or_outside_calendar[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_unselected_seasons_remain_outside_scope[2020]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_unselected_seasons_remain_outside_scope[2027]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_unselected_seasons_remain_outside_scope[1900]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_season_is_not_silently_coerced[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_season_is_not_silently_coerced[2026]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_season_is_not_silently_coerced[2026.0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_season_is_not_silently_coerced[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_delayed_round_19_in_september_remains_test",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_nonpaper_roles_cannot_emit_a_signal[train]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_nonpaper_roles_cannot_emit_a_signal[calibration]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_nonpaper_roles_cannot_emit_a_signal[test_exploratory]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_nonpaper_roles_cannot_emit_a_signal[out_of_scope]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_future_game_requires_every_gate[gates0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_future_game_requires_every_gate[gates1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_future_game_requires_every_gate[gates2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_future_game_requires_every_gate[gates3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_future_game_requires_every_gate[gates4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_future_game_requires_every_gate[gates5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_future_game_requires_every_gate[gates6]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_future_game_requires_every_gate[gates7]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates0--86400]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates0--1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates0-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates0-1800]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates0-3600]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates1--86400]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates1--1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates1-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates1-1800]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_past_or_exact_freeze_decision_never_becomes_prospective[gates1-3600]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_decision_lead_matches_frozen_one_hour_contract",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_first_second_after_decision_boundary_can_be_a_paper_signal",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_unknown_kickoff_stays_pending_instead_of_getting_an_invented_date",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_unknown_kickoff_stays_pending_even_without_an_eligible_model",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_timezone_equivalent_kickoff_is_not_a_future_game",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_offset_comparison_uses_instants_and_accepts_utc_z",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[freeze-2026-09-07]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[freeze-2026-09-07T18:00:00]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[freeze-]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[freeze-garbage]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[freeze-bad_time4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[kickoff-2026-09-07]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[kickoff-2026-09-07T18:00:00]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[kickoff-]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[kickoff-garbage]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_naive_and_invalid_timestamps_are_rejected[kickoff-bad_time4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_invalid_freeze_types_are_rejected[0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_invalid_freeze_types_are_rejected[1788804000]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_invalid_freeze_types_are_rejected[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_truthy_nonbooleans_cannot_unlock_paper_signal[1-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_truthy_nonbooleans_cannot_unlock_paper_signal[1-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_truthy_nonbooleans_cannot_unlock_paper_signal[1-2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_truthy_nonbooleans_cannot_unlock_paper_signal[False-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_truthy_nonbooleans_cannot_unlock_paper_signal[False-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_truthy_nonbooleans_cannot_unlock_paper_signal[False-2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_truthy_nonbooleans_cannot_unlock_paper_signal[None-0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_truthy_nonbooleans_cannot_unlock_paper_signal[None-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_truthy_nonbooleans_cannot_unlock_paper_signal[None-2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_season_2026_split::test_unknown_role_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_secrets_telemetry::test_guard_catches_planted_secret",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_secrets_telemetry::test_guard_passes_clean_text",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_secrets_telemetry::test_real_telemetry_has_no_secrets",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settings::test_settings_require_absolute_isolated_paths",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settings::test_settings_require_redis_url",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settle::test_grade_marks_each_market",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settle::test_record_and_summary_roundtrip",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settle::test_record_without_prediction_warns",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settle::test_finds_prediction_with_swapped_home_away",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settle::test_finds_prediction_with_team_alias",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settle_live_prediction::test_settlement_is_separate_linked_append_only_and_diagnostic",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settle_live_prediction::test_settlement_refuses_unfinished_event_and_naive_clock",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_settle_live_prediction::test_load_prediction_requires_exactly_one_original",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_simulator::test_deriva_dois_grupos_de_quatro",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_simulator::test_ignora_componente_de_tamanho_errado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_simulator::test_ignora_jogos_ja_disputados",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_simulator_fixes::test_play_reproducible_with_seed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_simulator_fixes::test_simulate_batch_reproducible_with_seed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_simulator_fixes::test_sample_score_from_dc_grid",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_cache::test_next_events_are_never_cached_bracket_placeholder_resolves",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_cache::test_last_events_are_cached",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_cache::test_cache_truncado_e_refeito_sem_bloquear_coleta",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_cache::test_no_cache_dir_skips_disk_entirely",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_cache::test_sofascore_insecure_env_disables_verification",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_cache::test_event_wrappers_delegate_to_get",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_cache::test_cache_write_failure_removes_temp_file_and_reraises",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_probe::test_summarize_odds_extracts_markets_and_choices",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_probe::test_summarize_odds_none_safe",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_probe::test_summarize_odds_missing_choices_is_empty_list",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_probe::test_summarize_statistics_collects_item_names",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_probe::test_summarize_statistics_none_safe",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_probe::test_summarize_lineups_collects_stat_keys",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sofascore_probe::test_summarize_lineups_none_safe",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sportmonks_provider::test_sportmonks_uses_raw_authorization_and_hides_token",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sportmonks_provider::test_sportmonks_reports_league_outside_subscription",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sportmonks_provider::test_sportmonks_requires_environment_secret",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sportmonks_provider::test_sportmonks_resolves_unique_league_and_filters_invalid_rows",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sportmonks_provider::test_sportmonks_rejects_invalid_payloads[payload0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sportmonks_provider::test_sportmonks_rejects_invalid_payloads[payload1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sportmonks_provider::test_sportmonks_rejects_invalid_payloads[payload2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sportmonks_provider::test_sportmonks_rejects_naive_observation_time",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_statistics_parser::test_safe_float",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_statistics_parser::test_parse_statistics",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_statistics_parser::test_parse_statistics_flat",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_statistics_parser::test_parse_empty",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_power_devig_is_normalized",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_detector_emits_only_locked_shadow_candidates[shin]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_detector_emits_only_locked_shadow_candidates[power]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_no_alert_below_frozen_ev_threshold",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_stale_reference_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_identity_mismatch_fails_closed[event_id-other]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_identity_mismatch_fails_closed[line-2.5]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_identity_mismatch_fails_closed[mapping_version-teams-v3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_naive_timestamp_and_post_kickoff_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_structural_edge::test_invalid_odds_and_selection_mismatch_are_rejected",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sync_competition_filter::test_so_a_competicao_configurada_e_espelhada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sync_competition_filter::test_competicao_extra_configurada_entra",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_sync_competition_filter::test_upsert_e_idempotente",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_telemetry::test_backtest_emits_structured_event",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_policy::test_groups_equal_utc_kickoffs_and_fingerprints_policy",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_policy::test_date_fallback_is_conservative_and_reject_is_available",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_policy::test_duplicate_team_in_same_group_fails_closed",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_policy::test_missing_kickoff_collapses_known_kickoffs_on_the_same_utc_day",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_policy::test_missing_kickoff_is_grouped_after_timezone_normalization",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_replay::test_temporal_replay_manifest_is_fingerprinted_and_batched",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_temporal_replay::test_temporal_replay_rejects_team_twice_in_same_batch",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_the_odds_api_provider::test_normalizes_explicit_bookmaker_and_pre_event_quote",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_the_odds_api_provider::test_normalizes_1x2_and_multiple_total_lines",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_the_odds_api_provider::test_normalizes_event_scoped_first_half_totals",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_the_odds_api_provider::test_rejects_aggregate_without_bookmaker_or_post_kickoff_quote",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_the_odds_api_provider::test_requires_key_without_network",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_the_odds_api_provider::test_transport_error_is_sanitized_even_when_url_contains_key",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_the_odds_api_provider::test_rejects_invalid_featured_market_requests_without_network",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_the_odds_api_provider::test_rejects_invalid_event_market_requests_without_network",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_the_odds_api_provider::test_rejects_invalid_payload_shapes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_walkforward_temporal_blocks::test_blocks_never_split_a_calendar_date",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_xgot_cannot_substitute_for_expected_goals",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_conflicting_full_match_xg_is_rejected_in_every_order",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_invalid_xg_never_becomes_a_provider_observation[True]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_invalid_xg_never_becomes_a_provider_observation[False]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_invalid_xg_never_becomes_a_provider_observation[nan0]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_invalid_xg_never_becomes_a_provider_observation[inf]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_invalid_xg_never_becomes_a_provider_observation[-0.1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_invalid_xg_never_becomes_a_provider_observation[nan1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_invalid_xg_never_becomes_a_provider_observation[-1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_invalid_xg_never_becomes_a_provider_observation[value7]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_invalid_xg_never_becomes_a_provider_observation[value8]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_malformed_payload_is_missing_without_crashing[None]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_malformed_payload_is_missing_without_crashing[value1]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_malformed_payload_is_missing_without_crashing[value2]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_malformed_payload_is_missing_without_crashing[value3]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_malformed_payload_is_missing_without_crashing[value4]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_period_identity_and_real_zero_are_preserved",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair0-MISSING_PAIR]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair1-PARTIAL_PAIR]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair2-ZERO_PAIR_UNATTESTED]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair3-NUMERIC_PAIR]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair4-NUMERIC_PAIR]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair5-INVALID_PAIR]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair6-INVALID_PAIR]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair7-INVALID_PAIR]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair8-INVALID_PAIR]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_pair_classification_preserves_zero_ambiguity[pair9-INVALID_PAIR]",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_input_quality::test_presence_does_not_claim_numeric_quality_or_attested_coverage",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_fit_ordena_forcas",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_fit_vazio_devolve_none",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_fit_sem_xg_cai_nos_gols",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_fit_e_serializavel",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_predict_probs_consistentes",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_predict_time_desconhecido_e_media",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_predict_neutro_remove_mando",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_blend_extremos",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_blend_meio_soma_um_e_marca_ensemble",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_save_load_xg_params_roundtrip",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_load_xg_params_vazio",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_maybe_blend_desligado_devolve_intocado",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_maybe_blend_sem_secao_config",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_maybe_blend_ligado_sem_cache_degrada",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_maybe_blend_ligado_com_cache_blenda",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_maybe_blend_nunca_lanca",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_config_hash_inclui_recencia_e_flag_do_ensemble",
+    "status": "passed"
+  },
+  {
+    "id": "tests.test_xg_model::test_cache_is_current_requires_matching_hash_and_completed_count",
+    "status": "passed"
+  }
+]

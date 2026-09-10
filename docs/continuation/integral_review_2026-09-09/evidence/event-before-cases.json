@@ -1,0 +1,18 @@
+[
+  {
+    "id": "tests.test_integral_review_event_backtest::test_split_cannot_train_on_any_outcome_from_first_test_day",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_event_backtest::test_multiple_price_lines_do_not_reweight_training_targets",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_event_backtest::test_unsupported_line_or_missing_probability_abstains[8.0-probs0]",
+    "status": "failed"
+  },
+  {
+    "id": "tests.test_integral_review_event_backtest::test_unsupported_line_or_missing_probability_abstains[8.5-probs1]",
+    "status": "failed"
+  }
+]

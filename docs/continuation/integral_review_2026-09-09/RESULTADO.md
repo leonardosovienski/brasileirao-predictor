@@ -1,0 +1,48 @@
+# Revisão integral no escopo permitido — RI-20260909
+
+**Projeto globalmente não pronto; preços executáveis e lucro líquido futuro não demonstrados.** A revisão do escopo permitido foi executada com correções, recuperação de ambiente/contratos, reprodução da conta congelada e validação delimitada. A conclusão da revisão não encerra os bloqueadores externos nem realiza o objetivo econômico. Base inicial `main/ac22c56c3318623e07a722f34d44dc6cd877ea37`, remoto main conferido nessa mesma base antes da integração. Trabalho solo, todo material final sob `C:/BRASILEIRAO`.
+
+Registros centrais: [alegações](ALEGACOES.md), [problemas](PROBLEMAS.md), [mapa do sistema](MAPA_SISTEMA.md), [mapa de dados](MAPA_DADOS.md), [protocolo anterior ao desempenho](PROTOCOLO.md), [reprodução](REPRODUZIR.md). Os resumos derivam de [REGISTROS.json](REGISTROS.json); problemas bloqueados não são apresentados como solucionados.
+
+## O que mudou e por quê
+
+Foram demonstrados antes da correção: 8 casos de admissão incorreta, 2 de agrupamento temporal, 1 de publicação concorrente, 1 de abertura indevida do banco pelo simulador e 4 de backtest de eventos. A suíte ampla também detectou 2 tentativas de log operacional durante import. Corrigiram-se identidade/flags/clocks, parsing JSON, publicação atômica, dias parcialmente sem kickoff, treino por evento/dia e abstenção em linhas/probabilidades/odds inválidas. O simulador legado passa a recusar liga antes de abrir DB; importar backtest_event não cria log.
+
+O auditor offline independente corrigido foi copiado para seu caminho ativo com backup e hash idêntico ao código testado. O coletor, fixture, casas, decisão, quota/reserva e agenda não foram alterados. H14/H15/H9/A1 e dependências capazes de alterar coleta ficaram preservados; nenhuma execução de avaliadores, join com seus desfechos, renovação de claims ou consulta aos bancos operacionais.
+
+Recuperou-se um ambiente completo de pesquisa Python, sem modificar o ambiente mínimo da captura, e o SDK .NET 10 portátil. Restore/build .NET e pacote Python passaram. Nenhum serviço de produção, Redis ou Compose foi iniciado. O build não converte um adaptador genérico de WebSocket em integração comercial.
+
+## Rodada econômica: os 14 itens
+
+1. **Pergunta.** A cadeia atual sustenta comparação causal entre oferta Bet 365 e referência Pinnacle, ou ainda admite falsos positivos de identidade, estado e conta?
+2. **Prioridade.** Resolver a validade da medição muda a decisão antes de buscar outro modelo. Mais dados com o mesmo clock inadequado não completam a prova.
+3. **Hipótese/mecanismo.** Diferença de preços entre casas independentes, com ofertante excluído da referência proporcional, poderia motivar investigação. q sem margem é estimativa; das mesmas odds resulta EV=1/S−1, negativo quando S>1.
+4. **Experimento.** Protocolo RI registrado antes do cálculo: 177 timelines já recebidas, 380 jogos de 2025 com escolhas DC congeladas, 3 capturas de 1 evento e ensaios adversariais. Não houve tuning, novo candidato, escolha retrospectiva de janela/casa ou uso de dados vistos como holdout.
+5. **Dados/fontes.** Todos os 177 hashes conferidos; CSV íntegro com 380 partidas únicas e 20 clubes. Contratos OddsPapi e The Odds API recebidos; duas URLs Football-Data retornaram 503. Evidência e denominadores em MAPA_DADOS.
+6. **Disponibilidade temporal.** Os 177 recibos são posteriores às decisões históricas; 154 alterações antigas não provam indisponibilidade, 23 pares estavam incompletos. Closing 2025 não contém instante decisório demonstrado. Piloto com recibo real não prova aceite/capacidade.
+7. **Resultado.** Zero execuções admitidas; 0 pares API nas 3 capturas. Reproduziu-se exatamente o cenário conhecido: 380 jogos, 32 apostas condicionais e 348 abstenções. 222 sem preços individuais válidos, 126 sem diferença no filtro. Banca 100 u, stakes 32 u, custo 0,64 u, retornos com principal 23,40 u, saldo 90,76 u, perda −9,24 u. ROI condicional sobre stakes −28,875%; retorno condicional sobre banca −9,24%. Nenhuma dessas taxas é ROI executável. Exposição máxima diária simulada 3 u, 0 de principal pendente, 0 aportes. Janela das escolhas 16/08 a 04/12/2025; horas de capital preso não disponíveis.
+8. **Custos.** 2% do stake é hipótese já congelada, não tarifa pessoal. A margem está embutida nas odds; não foi debitada duas vezes. Capacidade, moeda, imposto pessoal, slippage, recusa, preenchimento parcial, infraestrutura e manutenção continuam desconhecidos. Nenhuma compra ou execução financeira nesta rodada.
+9. **Riscos.** 32 escolhas concentradas por mês: 8 agosto, 10 setembro, 13 outubro, 1 dezembro; mesmas equipes e dias trazem dependência. 3 snapshots não são 3 eventos independentes. Fonte com referência comprometida e multiplicidade histórica de pesquisas impedem atribuir o saldo a um teste independente.
+10. **Limitações.** Reprodução confirma integridade e aritmética, não valida causalidade nem sustentabilidade. Sem dados admissíveis, intervalo de lucro executável não é estimável; não se fabrica significância ou probabilidade de sucesso a partir desses números. Falha 503 não prova ausência de oportunidade.
+11. **Testes.** 105 arquivos selecionados inicialmente. Primeiro lote: 1.139 passaram, 131 falharam, 1 skip. Dessas 131 falhas, 129 provinham do limite do harness (126 de socketpair e 3 de arquivos públicos explicitamente permitidos), 2 revelaram log indevido. Após correções: 171 passaram na reconferência; 68 nas correções finais. Consolidando últimos resultados por caso: 1.291 aprovados, 1 skip, sem falha remanescente no conjunto escolhido. 4 testes verificaram que asyncio local funciona e rede/SQLite/escrita externa continuam bloqueados. Não é uma execução integral da suíte. .NET: 69 passaram, 41 skip. Ruff no escopo CI passou; 390 arquivos formatados. Tipagem e pacote têm recibos separados.
+12. **Estado da evidência.** Aritmética condicional confirmada; hipótese de lucro executável não mensurável com esses insumos. Premissa de suficiência dos dados/admissões anteriores refutada. Testes são evidência de software.
+13. **Decisão.** Encerrar este experimento após refutar a premissa de suficiência e concluir correções necessárias, dentro do orçamento. Manter abstenção financeira; não procurar variante positiva. Novo modelo perde prioridade. A recuperação prospectiva deve manter o protocolo já congelado e a separação entre observação, capacidade, custos e validação.
+14. **Próxima informação decisiva.** O recibo dentro da janela fixa, com identidade e estado de ambas as casas admitidos pelo auditor corrigido. Ele decide se há cobertura de observação para continuar. Para avançar à validação econômica, ainda serão necessários preços prospectivos independentes e condições de capacidade/custo verificáveis; uma captura não basta.
+
+## Três estados finais separados
+
+| Dimensão | Estado e escopo | Evidência e limite |
+| --- | --- | --- |
+| Prontidão técnica | **Pronto no escopo dos módulos corrigidos e testes isolados; projeto globalmente não pronto.** | Python/build/smoke e build .NET verificados. Redis/Compose real, feed comercial, serving com identidade/clocks e operação protegida sem aprovação. P11/P12/P17. |
+| Admissibilidade dos dados | **Admissíveis para integridade, contratos e reprodução aritmética 2025; insuficientes/inadmissíveis para inferir execução em T−60 ou lucro futuro.** |177/177 íntegros, 380 partidas, 3 capturas/1 evento. Sem recibos históricos da época, capacidade/custos; nenhuma admissão executável. P02/P14. |
+| Evidência econômica | **Lucro executável não mensurável; evidência insuficiente.** |−9,24 u apenas no cenário conhecido. Premissa de dados já suficientes refutada. Nenhum critério cumprido para liberar capital ou declarar rentabilidade. |
+
+A descoberta que mais mudou a decisão foi que **um recibo íntegro ainda podia admitir identidade ou estado contraditório**: corrigir essa barreira veio antes de coletar/ajustar mais. A hipótese que perdeu prioridade foi **substituir já a referência por novo modelo xG**. A próxima informação que muda a decisão é **a observação válida dentro da janela congelada**, seguida das condições comerciais faltantes.
+
+## Cobertura, bloqueios e preservação
+
+Os mapas cobrem os subsistemas permitidos, com profundidade declarada e leitura semântica dirigida às dependências reais. Os 421 arquivos inventariados não equivalem a 421 arquivos homologados. 56 ficaram em metadados por proteção/proximidade. Bancos operacionais, coortes, Redis real, serviços e conteúdo privado não foram examinados. A revisão não conclui que essas áreas estejam corretas.
+
+P02/P14 exigem informação comercial e temporal ausente após tentativas legítimas. P12 exige runtime descartável e fornecedor documentado. P15 exige estado atual do aplicativo/recibo de execução; a cópia TOML não basta e nenhuma agenda nova foi criada. P11/P17/P18 têm limite de alteração imposto pela preservação das dependências da coleta. P16 distingue backup Git testado de recuperação operacional proibida/não realizada. Detalhes e critérios para destravar estão no registro central.
+
+Os históricos PF/DC/ER, raws, negativos, protocolos e tentativas foram preservados. Guias atuais foram atualizados por novo checkpoint; resultados congelados não foram reescritos. Hashes, comandos, diff, commit, backup e igualdade das entregas constam dos recibos em `C:/BRASILEIRAO/AUDITORIA/REVISAO_INTEGRAL_2026-09-09.json` e no diretório RI. Uma primeira tentativa de Pyright solicitou versão latest e criou cache externo; foi interrompida, os diretórios novos foram movidos para RI e a validação repetida com a versão fixa e Node copiado. O resultado usado é o de versão fixa, não o ensaio interrompido.

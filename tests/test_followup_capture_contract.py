@@ -26,6 +26,12 @@ def fixture_payload():
         "fixtureId": FIXTURE,
         "startTime": "2026-09-12T00:00:00Z",
         "statusId": 0,
+        "hasOdds": True,
+        "participant1Id": 1982,
+        "participant2Id": 1967,
+        "sportId": 10,
+        "tournamentId": 325,
+        "seasonId": 137706,
         "bookmakerOdds": {
             book: {
                 "bookmakerIsActive": True,
