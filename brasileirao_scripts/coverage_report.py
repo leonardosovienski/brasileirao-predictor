@@ -39,10 +39,15 @@ MIGRATION = {
     "brasileirao_predictor/ingest_sofascore.py",
     "brasileirao_predictor/ingest_fbref.py",
 }
-# The homologated Redis integration surface is the versioned kernel protocol.
+# Redis protocol coverage is a code classification, not proof of an E2E run.
 # The operator smoke is executed as an E2E container gate and reported separately.
 REDIS_INTEGRATION: set[str] = set()
-KERNEL = {"brasileirao_predictor/kernel_daemon.py", "brasileirao_predictor/kernel_message.py"}
+KERNEL = {
+    "brasileirao_predictor/kernel_cli.py",
+    "brasileirao_predictor/kernel_daemon.py",
+    "brasileirao_predictor/kernel_message.py",
+    "brasileirao_predictor/kernel_redis_v2.py",
+}
 # Código que produz EVIDÊNCIA publicada: os artefatos de reports/ que sustentam
 # vereditos fechados no registro de tentativas, e a régua que os desconta.
 # Auditoria adversarial 2026-09-05, achado 6 (issue #57): estes arquivos caíam
@@ -65,15 +70,18 @@ EVIDENCIA = {
 EVIDENCIA_PISO = 56.0
 
 
-def _percent(files: dict[str, dict], names: Iterable[str]) -> tuple[float, int, int]:
+def _percent(files: dict[str, dict], names: Iterable[str]) -> tuple[float | None, int, int]:
     covered = possible = 0
     for name in names:
-        if name not in files:
-            continue
         summary = files[name]["summary"]
+        counts = [summary[k] for k in ("covered_lines", "num_statements", "covered_branches", "num_branches")]
+        if any(type(value) is not int or value < 0 for value in counts):
+            raise ValueError(f"invalid_coverage_counts:{name}")
+        if counts[0] > counts[1] or counts[2] > counts[3]:
+            raise ValueError(f"covered_exceeds_possible:{name}")
         covered += summary["covered_lines"] + summary["covered_branches"]
         possible += summary["num_statements"] + summary["num_branches"]
-    return (100.0 * covered / possible if possible else 100.0, covered, possible)
+    return (100.0 * covered / possible if possible else None, covered, possible)
 
 
 def classify(path: str) -> str:
@@ -105,6 +113,12 @@ def main() -> int:
     args = parser.parse_args()
     raw = json.loads(args.coverage_json.read_text(encoding="utf-8"))
     files = {name.replace("\\", "/"): value for name, value in raw["files"].items()}
+    falhas = []
+    if raw.get("meta", {}).get("branch_coverage") is not True:
+        falhas.append("branch_coverage must be true")
+    required_files = RUNTIME | KERNEL | REDIS_INTEGRATION | PROVIDERS | EVIDENCIA
+    for missing in sorted(required_files - files.keys()):
+        falhas.append(f"arquivo obrigatorio ausente: {missing}")
     groups: dict[str, list[str]] = {}
     for name in files:
         groups.setdefault(classify(name), []).append(name)
@@ -128,19 +142,23 @@ def main() -> int:
     ):
         names = groups.get(group, [])
         if group == "integracao_redis":
-            names = sorted(REDIS_INTEGRATION | KERNEL)
+            names = sorted((REDIS_INTEGRATION | KERNEL) & files.keys())
         percent, covered, possible = _percent(files, names)
         results[group] = percent
-        lines.append(f"| {group} | {covered} | {possible} | {percent:.2f}% |")
-    global_summary = raw["totals"]
+        display = "N/A" if percent is None else f"{percent:.2f}%"
+        lines.append(f"| {group} | {covered} | {possible} | {display} |")
+    global_percent, _, _ = _percent(files, files)
+    global_display = "N/A" if global_percent is None else f"{global_percent:.2f}%"
     lines.extend(
         [
             "",
-            f"Cobertura global branch-aware: **{global_summary['percent_covered']:.2f}%**.",
+            f"Cobertura global branch-aware nos arquivos fornecidos: **{global_display}**.",
             "",
-            "Worker .NET (collector Cobertura): **85,15% linhas / 80,92% branches**.",
+            "Worker .NET: consulte o artefato Cobertura e o gate separado do job .NET; "
+            "este JSON Python não fornece sua cobertura.",
             "",
-            "A cobertura global inclui pesquisa, migração e legado sem exclusões silenciosas.",
+            "Arquivos obrigatórios ausentes reprovam o gate. N/A indica ausência de denominador, "
+            "não 100%. A enumeração do restante depende de coverage.source e do comando executado.",
             "",
             f"`geradores_de_evidencia` é o código que produz os artefatos de `reports/` "
             f"que sustentam vereditos fechados. Piso-catraca em {EVIDENCIA_PISO:.0f}% "
@@ -151,9 +169,16 @@ def main() -> int:
     args.output.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps(results, sort_keys=True))
     required = ("runtime_homologado", "kernel", "integracao_redis", "providers")
-    falhas = [f"{g} {results[g]:.2f}% < 80%" for g in required if results[g] < 80]
+    for group in required:
+        percent = results[group]
+        if percent is None:
+            falhas.append(f"{group}: sem linhas/branches medidos")
+        elif percent < 80:
+            falhas.append(f"{group} {percent:.2f}% < 80%")
     evidencia = results["geradores_de_evidencia"]
-    if evidencia < EVIDENCIA_PISO:
+    if evidencia is None:
+        falhas.append("geradores_de_evidencia: sem linhas/branches medidos")
+    elif evidencia < EVIDENCIA_PISO:
         falhas.append(
             f"geradores_de_evidencia {evidencia:.2f}% < piso {EVIDENCIA_PISO:.2f}% — "
             "o código que produz evidência publicada não pode regredir"

@@ -1,0 +1,14 @@
+{
+  "tests": [
+    "test_resolution_restore.py::test_backup_restore_does_not_decode_literal_percent_sequences",
+    "test_resolution_restore.py::test_create_refuses_destination_inside_a_copied_tree_before_copying",
+    "test_resolution_restore.py::test_create_checks_source_links_before_copying_external_content"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 1
+}

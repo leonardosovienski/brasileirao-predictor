@@ -27,6 +27,12 @@ def _utc(value: str) -> datetime:
 
 
 def lineup_state_asof(rows: list[dict[str, Any]], *, event_id: str, asof: str) -> dict[str, set[str]]:
+    if any("schema_version" in row for row in rows):
+        # Explicit successor archive; do not flatten away empty/removed states
+        # or silently mix legacy rows with complete envelopes.
+        from brasileirao_predictor.data.lineup_envelopes import snapshot_state_asof
+
+        return snapshot_state_asof(rows, event_id=event_id, asof=asof)
     cutoff = _utc(asof)
     vintages: dict[str, tuple[datetime, str, list[dict[str, Any]]]] = {}
     grouped: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="7" time="15.598" timestamp="2026-09-10T18:20:10.752327-03:00" hostname="Leo"><testcase classname="tests.test_resolution_player_stats" name="test_postmatch_player_stats_are_not_backdated_to_kickoff" time="0.071"><failure message="AssertionError: assert datetime.datetime(2026, 9, 10, 21, 20, 25, 155679, tzinfo=datetime.timezone.utc) &lt;= datetime.datetime(2024, 1, 1, 0, 0, tzinfo=datetime.timezone.utc)&#10; +  where datetime.datetime(2024, 1, 1, 0, 0, tzinfo=datetime.timezone.utc) = &lt;built-in method fromisoformat of type object at 0x00007FFFB520D270&gt;('2024-01-01T00:00:00Z')&#10; +    where &lt;built-in method fromisoformat of type object at 0x00007FFFB520D270&gt; = datetime.fromisoformat">..\..\..\brasileirao-predictor\tests\test_resolution_player_stats.py:23: in test_postmatch_player_stats_are_not_backdated_to_kickoff
+    assert before &lt;= datetime.fromisoformat(row[-1]) &lt;= datetime.now(UTC)
+E   AssertionError: assert datetime.datetime(2026, 9, 10, 21, 20, 25, 155679, tzinfo=datetime.timezone.utc) &lt;= datetime.datetime(2024, 1, 1, 0, 0, tzinfo=datetime.timezone.utc)
+E    +  where datetime.datetime(2024, 1, 1, 0, 0, tzinfo=datetime.timezone.utc) = &lt;built-in method fromisoformat of type object at 0x00007FFFB520D270&gt;('2024-01-01T00:00:00Z')
+E    +    where &lt;built-in method fromisoformat of type object at 0x00007FFFB520D270&gt; = datetime.fromisoformat</failure></testcase><testcase classname="tests.test_resolution_player_stats" name="test_missing_xg_is_unknown_instead_of_zero" time="0.053"><failure message="assert (0.0 is None)">..\..\..\brasileirao-predictor\tests\test_resolution_player_stats.py:29: in test_missing_xg_is_unknown_instead_of_zero
+    assert row[9] is None and row[10] is None
+E   assert (0.0 is None)</failure></testcase><testcase classname="tests.test_resolution_player_stats" name="test_player_counts_are_not_coerced_or_truncated[True]" time="0.037"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_player_stats.py:34: in test_player_counts_are_not_coerced_or_truncated
+    with inputs(tmp_path, {"goals": count}) as conn, pytest.raises(ValueError):
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_player_stats" name="test_player_counts_are_not_coerced_or_truncated[1.9]" time="0.039"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_player_stats.py:34: in test_player_counts_are_not_coerced_or_truncated
+    with inputs(tmp_path, {"goals": count}) as conn, pytest.raises(ValueError):
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_player_stats" name="test_player_counts_are_not_coerced_or_truncated[-1]" time="0.032"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_player_stats.py:34: in test_player_counts_are_not_coerced_or_truncated
+    with inputs(tmp_path, {"goals": count}) as conn, pytest.raises(ValueError):
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_player_stats" name="test_player_counts_are_not_coerced_or_truncated[2]" time="0.047"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_player_stats.py:34: in test_player_counts_are_not_coerced_or_truncated
+    with inputs(tmp_path, {"goals": count}) as conn, pytest.raises(ValueError):
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_player_stats" name="test_corrupt_player_file_does_not_silently_shrink_the_aggregate" time="0.020"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_player_stats.py:41: in test_corrupt_player_file_does_not_silently_shrink_the_aggregate
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

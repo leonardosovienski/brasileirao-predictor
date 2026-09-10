@@ -121,6 +121,15 @@ public record MarketOdds(
     string         Source   // "pinnacle" | "isn" | "betfair"
 )
 {
+    public string Bookmaker { get; init; } = "UNVERIFIED";
+    public string Status { get; init; } = "ACTIVE";
+    public string Period { get; init; } = "FT";
+    public long Revision { get; init; }
+    public DateTimeOffset? ReceivedAt { get; init; }
+    public DateTimeOffset? AvailableAt { get; init; }
+    public DateTimeOffset? KickoffAt { get; init; }
+    public string SnapshotIdentity { get; init; } = "";
+    public bool Synthetic { get; init; }
     /// <summary>Overround detectado (>1.0 indica margem presente).</summary>
     public double Overround =>
         (OddsHome > 0 ? 1.0 / OddsHome : 0)
@@ -131,6 +140,7 @@ public record MarketOdds(
     public bool IsFresh(TimeSpan maxAge)
     {
         var age = DateTimeOffset.UtcNow - LastUpdated;
-        return maxAge >= TimeSpan.Zero && age >= TimeSpan.Zero && age <= maxAge;
+        return Status == "ACTIVE" && maxAge >= TimeSpan.Zero && age >= TimeSpan.Zero && age <= maxAge &&
+            (!KickoffAt.HasValue || KickoffAt > DateTimeOffset.UtcNow);
     }
 }

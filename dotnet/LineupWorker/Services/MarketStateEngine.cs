@@ -259,6 +259,14 @@ public sealed class MarketStateEngine : BackgroundService
         }
 
         ct.ThrowIfCancellationRequested();
+        // Awaited lineup/audit reads may outlive a market revision or freshness
+        // window. Retain only the exact still-current observed quote. This
+        // fences local knowledge; it is not an exchange execution guarantee.
+        if (_marketCache.TryGet(matchId) != market)
+        {
+            _log.LogInformation("[MSE] ABORT {Match} — market quote changed or expired during calculation", matchId);
+            return;
+        }
         var arguments = new List<RedisValue> { currentRaw, rawKey, stateRaw, BET_SIGNAL_CHANNEL };
         arguments.AddRange(signals.Select(signal => (RedisValue)JsonSerializer.Serialize(signal)));
         var emitted = (long)await db.ScriptEvaluateAsync(KernelRedisProtocolV2.PublishSignals,
@@ -334,7 +342,14 @@ public sealed class MarketStateEngine : BackgroundService
                 DeltaVorpAway:      dva,
                 IssuedAt:           t4,
                 PipelineLatencyMs:  e2e
-            );
+            )
+            {
+                ModelInputIdentity = state?.ModelInputIdentity,
+                MarketSource = market.Source, MarketBookmaker = market.Bookmaker,
+                MarketRevision = market.Revision, MarketSnapshotIdentity = market.SnapshotIdentity,
+                MarketObservedAt = market.LastUpdated, MarketReceivedAt = market.ReceivedAt,
+                MarketAvailableAt = market.AvailableAt, MarketSynthetic = market.Synthetic
+            };
         }
     }
 

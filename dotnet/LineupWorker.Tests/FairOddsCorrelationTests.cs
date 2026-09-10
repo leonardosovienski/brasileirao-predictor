@@ -58,6 +58,11 @@ public sealed class FairOddsCorrelationTests
         var signals = await ProcessAsync(FairOdds(), FairOdds());
 
         Assert.Single(signals);
+        using var signal = JsonDocument.Parse(signals.Single());
+        Assert.Equal("synthetic", signal.RootElement.GetProperty("MarketSource").GetString());
+        Assert.Equal("SYNTHETIC", signal.RootElement.GetProperty("MarketBookmaker").GetString());
+        Assert.True(signal.RootElement.GetProperty("MarketSynthetic").GetBoolean());
+        Assert.False(signal.RootElement.GetProperty("CapitalEnabled").GetBoolean());
     }
 
     [Fact]
@@ -65,6 +70,20 @@ public sealed class FairOddsCorrelationTests
     {
         var signals = await ProcessAsync(null, FairOdds());
 
+        Assert.Empty(signals);
+    }
+
+    [Theory]
+    [InlineData(1.0)]
+    [InlineData(2.6)]
+    public async Task ChangedOrWithdrawnQuoteDuringStateReadCannotEmitOldPrice(double replacement)
+    {
+        var signals = await ProcessAsync(FairOdds(), FairOdds(), afterStateRead: cache =>
+        {
+            var parse = typeof(MarketOddsCache).GetMethod("ParseAndUpdate", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            parse.Invoke(cache, [new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(
+                new { match_id = "match", home = replacement, draw = 3.0, away = 4.0, source = "synthetic" })))]);
+        });
         Assert.Empty(signals);
     }
 
@@ -88,9 +107,11 @@ public sealed class FairOddsCorrelationTests
             ["1"] = 2.0, ["X"] = 3.0, ["2"] = 4.0,
         });
 
-    private static async Task<List<string>> ProcessAsync(string? stored, string notified, long scriptResult = 1)
+    private static async Task<List<string>> ProcessAsync(string? stored, string notified, long scriptResult = 1,
+        Action<MarketOddsCache>? afterStateRead = null)
     {
         var signals = new List<string>();
+        MarketOddsCache? cache = null;
         var state = JsonSerializer.Serialize(new LineupState("match", 0, 0, true, true,
             DateTimeOffset.UtcNow, DateTimeOffset.UtcNow, "none"));
         var current = JsonSerializer.Serialize(new KernelInvokePayload("brasileirao.redis/2", "job", "run",
@@ -108,7 +129,11 @@ public sealed class FairOddsCorrelationTests
                 };
                 return Task.FromResult(value);
             }
-            if (method.Name == "HashGetAsync") return Task.FromResult((RedisValue)state);
+            if (method.Name == "HashGetAsync")
+            {
+                afterStateRead?.Invoke(cache!);
+                return Task.FromResult((RedisValue)state);
+            }
             Assert.Equal("ScriptEvaluateAsync", method.Name);
             Assert.Equal(KernelRedisProtocolV2.PublishSignals, args![0]);
             var values = (RedisValue[])args[2]!;
@@ -130,11 +155,12 @@ public sealed class FairOddsCorrelationTests
             "GetSubscriber" => subscriber,
             _ => throw new InvalidOperationException(method.Name),
         };
-        var config = new ConfigurationBuilder().Build();
-        var cache = new MarketOddsCache(NullLogger<MarketOddsCache>.Instance, config);
+        var config = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?>
+        { ["Exchange:AllowSyntheticPayloads"] = "true" }).Build();
+        cache = new MarketOddsCache(NullLogger<MarketOddsCache>.Instance, config);
         var parse = typeof(MarketOddsCache).GetMethod("ParseAndUpdate", BindingFlags.Instance | BindingFlags.NonPublic)!;
         parse.Invoke(cache, [new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes(
-            """{"match_id":"match","home":2.4,"draw":3.0,"away":4.0}"""))]);
+            """{"match_id":"match","home":2.4,"draw":3.0,"away":4.0,"source":"synthetic"}"""))]);
         var audit = new LatencyAuditService(redis, NullLogger<LatencyAuditService>.Instance, config);
         var engine = new MarketStateEngine(redis, cache, audit, NullLogger<MarketStateEngine>.Instance, config);
         var process = typeof(MarketStateEngine).GetMethod("ProcessFairOddsAsync", BindingFlags.Instance | BindingFlags.NonPublic)!;

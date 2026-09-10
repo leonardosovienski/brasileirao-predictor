@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 import statistics as st
+from collections import defaultdict
 from numbers import Integral, Real
 from typing import Any
 
@@ -68,20 +69,29 @@ def evaluate_economic_gate(
             raise ValueError("residual gate requires unit stake; variable stakes need a portfolio evaluator")
         if len(values) == 2 and event_id is not None:
             complete.append({"event_id": event_id, **values})
+    event_pnl = defaultdict(list)
+    for row in complete:
+        event_pnl[str(row["event_id"])].append(row["pnl"])
     metadata = {
-        "schema_version": "residual-shadow-gate/v2",
+        "schema_version": "residual-shadow-gate/v3",
         "n": len(complete),
+        "n_events": len(event_pnl),
         "n_input": len(settlements),
         "n_incomplete": len(settlements) - len(complete),
         "minimum_sample": int(minimum_sample),
         "roi_scope": "mean_pnl_assuming_one_unit_staked_per_row",
         "dsr_source": "caller_declared_unverified",
-        "psr_scope": "row_returns_without_cluster_dependence_adjustment",
+        "psr_scope": "one_mean_unit_return_per_event_iid_diagnostic_only",
+        "dsr_used_for_promotion": False,
+        "promotion_requires": [
+            "registered_trial_inventory_and_return_matrix",
+            "preregistered_temporal_dependence_design",
+        ],
         "provenance_verified": False,
         "economic_evidence": False,
         "capital_enabled": False,
     }
-    if len(complete) != len(settlements) or len(complete) < minimum_sample:
+    if len(complete) != len(settlements) or len(event_pnl) < minimum_sample:
         return {
             **metadata,
             "verdict": "PENDING_DATA" if len(complete) != len(settlements) else "PENDING_SAMPLE",
@@ -104,7 +114,10 @@ def evaluate_economic_gate(
         n_boot=n_boot,
         seed=17,
     )
-    raw_psr = probabilistic_sharpe_ratio(pnl, 0.0)
+    # A snapshot is not an independent trial. Collapse repeat observations of
+    # an event for PSR and the sample floor; temporal independence remains an
+    # unverified assumption, explicitly insufficient for promotion below.
+    raw_psr = probabilistic_sharpe_ratio([st.mean(values) for values in event_pnl.values()], 0.0)
     psr = float(raw_psr) if raw_psr is not None and math.isfinite(raw_psr) else None
     passed = bool(
         roi_lo is not None
@@ -113,11 +126,12 @@ def evaluate_economic_gate(
         and clv_lo > 0
         and psr is not None
         and psr >= minimum_psr
-        and dsr >= minimum_dsr
     )
     return {
         **metadata,
-        "verdict": "GO_CANDIDATE" if passed else "NO_GO",
+        # This historical signature contains neither trial provenance nor a
+        # temporal block design. A caller-provided DSR cannot fill that gap.
+        "verdict": "PENDING_DESIGN" if passed else "NO_GO",
         "roi": st.mean(pnl),
         "roi_ci95": [roi_lo, roi_hi],
         "clv": st.mean(clv),

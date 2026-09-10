@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7caadcb8-a0f9-4d3f-bcee-a8615f36ad88" name="@LEO 2026-09-10 20:21:20" runUser="LEO\leona" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-09-10T20:21:20.0981888-03:00" queuing="2026-09-10T20:21:20.0981893-03:00" start="2026-09-10T20:20:55.4943267-03:00" finish="2026-09-10T20:21:20.4901184-03:00" />
+  <TestSettings name="default" id="72c03f26-4072-4bb0-9f3f-9b8cacdf468c">
+    <Deployment runDeploymentRoot="_LEO_2026-09-10_20_21_20" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1429e0c7-11bc-4112-a913-dcaaf386a8be" testId="6bc8be91-7b08-e54e-1b53-0e17961e0bb3" testName="LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch" computerName="LEO" duration="00:00:17.2345390" startTime="2026-09-10T20:21:02.5798817-03:00" endTime="2026-09-10T20:21:19.7840808-03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1429e0c7-11bc-4112-a913-dcaaf386a8be" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch" storage="c:\brasileirao\work\resolution-2026-09-10\installed-cross-final\source\dotnet\lineupworker.tests\bin\release\net10.0\lineupworker.tests.dll" id="6bc8be91-7b08-e54e-1b53-0e17961e0bb3">
+      <Execution id="1429e0c7-11bc-4112-a913-dcaaf386a8be" />
+      <TestMethod codeBase="C:\BRASILEIRAO\work\resolution-2026-09-10\installed-cross-final\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="LineupWorker.Tests.KernelCrossProcessTests" name="RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6bc8be91-7b08-e54e-1b53-0e17961e0bb3" executionId="1429e0c7-11bc-4112-a913-dcaaf386a8be" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Resultados que não estão em uma lista" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Todos os resultados carregados" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.12)&#xD;
+[xUnit.net 00:00:00.19]   Discovering: LineupWorker.Tests&#xD;
+[xUnit.net 00:00:00.32]   Discovered:  LineupWorker.Tests&#xD;
+[xUnit.net 00:00:00.39]   Starting:    LineupWorker.Tests&#xD;
+[xUnit.net 00:00:17.73]   Finished:    LineupWorker.Tests&#xD;
+</StdOut>
+    </Output>
+    <CollectorDataEntries>
+      <Collector agentName="LEO" uri="datacollector://microsoft/CoverletCodeCoverage/1.0" collectorDisplayName="XPlat code coverage">
+        <UriAttachments>
+          <UriAttachment>
+            <A href="LEO\coverage.cobertura.xml"></A>
+          </UriAttachment>
+        </UriAttachments>
+      </Collector>
+    </CollectorDataEntries>
+  </ResultSummary>
+</TestRun>

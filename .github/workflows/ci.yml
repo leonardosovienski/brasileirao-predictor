@@ -114,7 +114,6 @@ jobs:
           export BRASILEIRAO_LAB_OUTPUT="$RUNNER_TEMP/brasileirao-runtime-lab"
           mkdir -p "$BRASILEIRAO_LAB_OUTPUT"
           export BRASILEIRAO_LAB_REPO="$GITHUB_WORKSPACE"
-          export PYTHONPATH="$GITHUB_WORKSPACE/tools/runtime_lab:$GITHUB_WORKSPACE"
           export PYTHONDONTWRITEBYTECODE=1
           export NUMBA_CACHE_DIR="$BRASILEIRAO_LAB_OUTPUT/numba"
           export TMPDIR="$BRASILEIRAO_LAB_OUTPUT"
@@ -140,8 +139,9 @@ jobs:
     needs: [python, dotnet]
     env:
       COMPOSE_PROJECT_NAME: brasileirao-ci-${{ github.run_id }}-${{ github.run_attempt }}
-      EXCHANGE_WEBSOCKET_URL: ws://127.0.0.1:9
+      EXCHANGE_WEBSOCKET_URL: ""
       EXCHANGE_API_KEY: ""
+      LINEUP_ALLOW_SYNTHETIC_INPUTS: "true"
     steps:
       - uses: actions/checkout@v7
       - name: Verify canonical shared wheel hashes

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="22.540" timestamp="2026-09-10T18:10:51.592405-03:00" hostname="Leo"><testcase classname="tests.test_resolution_restore" name="test_backup_restore_accepts_literal_uri_characters_in_paths" time="0.804" /><testcase classname="tests.test_resolution_walkforward" name="test_portfolio_rejects_nonfinite_output_from_finite_inputs" time="0.007"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:114: in test_portfolio_rejects_nonfinite_output_from_finite_inputs
+    with pytest.raises(ValueError, match="finite"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

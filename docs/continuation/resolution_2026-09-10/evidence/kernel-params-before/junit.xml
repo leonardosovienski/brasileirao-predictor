@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="9" time="9.278" timestamp="2026-09-10T18:33:08.206527-03:00" hostname="Leo"><testcase classname="tests.test_resolution_kernel_params" name="test_invalid_kernel_parameters_never_reach_numba[0-inf]" time="0.004"><failure message="AssertionError: invalid parameters reached the numerical kernel">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:17: in test_invalid_kernel_parameters_never_reach_numba
+    kernel._warmup_jit(tuple(params))
+..\..\..\brasileirao-predictor\brasileirao_predictor\kernel_daemon.py:167: in _warmup_jit
+    _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:13: in unsafe_jit
+    raise AssertionError("invalid parameters reached the numerical kernel")
+E   AssertionError: invalid parameters reached the numerical kernel</failure></testcase><testcase classname="tests.test_resolution_kernel_params" name="test_invalid_kernel_parameters_never_reach_numba[1-nan]" time="0.002"><failure message="AssertionError: invalid parameters reached the numerical kernel">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:17: in test_invalid_kernel_parameters_never_reach_numba
+    kernel._warmup_jit(tuple(params))
+..\..\..\brasileirao-predictor\brasileirao_predictor\kernel_daemon.py:167: in _warmup_jit
+    _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:13: in unsafe_jit
+    raise AssertionError("invalid parameters reached the numerical kernel")
+E   AssertionError: invalid parameters reached the numerical kernel</failure></testcase><testcase classname="tests.test_resolution_kernel_params" name="test_invalid_kernel_parameters_never_reach_numba[2--0.1]" time="0.002"><failure message="AssertionError: invalid parameters reached the numerical kernel">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:17: in test_invalid_kernel_parameters_never_reach_numba
+    kernel._warmup_jit(tuple(params))
+..\..\..\brasileirao-predictor\brasileirao_predictor\kernel_daemon.py:167: in _warmup_jit
+    _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:13: in unsafe_jit
+    raise AssertionError("invalid parameters reached the numerical kernel")
+E   AssertionError: invalid parameters reached the numerical kernel</failure></testcase><testcase classname="tests.test_resolution_kernel_params" name="test_invalid_kernel_parameters_never_reach_numba[4-True]" time="0.002"><failure message="AssertionError: invalid parameters reached the numerical kernel">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:17: in test_invalid_kernel_parameters_never_reach_numba
+    kernel._warmup_jit(tuple(params))
+..\..\..\brasileirao-predictor\brasileirao_predictor\kernel_daemon.py:167: in _warmup_jit
+    _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:13: in unsafe_jit
+    raise AssertionError("invalid parameters reached the numerical kernel")
+E   AssertionError: invalid parameters reached the numerical kernel</failure></testcase><testcase classname="tests.test_resolution_kernel_params" name="test_invalid_kernel_parameters_never_reach_numba[5-0]" time="0.003"><failure message="AssertionError: invalid parameters reached the numerical kernel">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:17: in test_invalid_kernel_parameters_never_reach_numba
+    kernel._warmup_jit(tuple(params))
+..\..\..\brasileirao-predictor\brasileirao_predictor\kernel_daemon.py:167: in _warmup_jit
+    _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:13: in unsafe_jit
+    raise AssertionError("invalid parameters reached the numerical kernel")
+E   AssertionError: invalid parameters reached the numerical kernel</failure></testcase><testcase classname="tests.test_resolution_kernel_params" name="test_invalid_kernel_parameters_never_reach_numba[5--1]" time="0.002"><failure message="AssertionError: invalid parameters reached the numerical kernel">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:17: in test_invalid_kernel_parameters_never_reach_numba
+    kernel._warmup_jit(tuple(params))
+..\..\..\brasileirao-predictor\brasileirao_predictor\kernel_daemon.py:167: in _warmup_jit
+    _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:13: in unsafe_jit
+    raise AssertionError("invalid parameters reached the numerical kernel")
+E   AssertionError: invalid parameters reached the numerical kernel</failure></testcase><testcase classname="tests.test_resolution_kernel_params" name="test_invalid_kernel_parameters_never_reach_numba[5-1.5]" time="0.006"><failure message="AssertionError: invalid parameters reached the numerical kernel">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:17: in test_invalid_kernel_parameters_never_reach_numba
+    kernel._warmup_jit(tuple(params))
+..\..\..\brasileirao-predictor\brasileirao_predictor\kernel_daemon.py:167: in _warmup_jit
+    _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:13: in unsafe_jit
+    raise AssertionError("invalid parameters reached the numerical kernel")
+E   AssertionError: invalid parameters reached the numerical kernel</failure></testcase><testcase classname="tests.test_resolution_kernel_params" name="test_invalid_kernel_parameters_never_reach_numba[5-101]" time="0.003"><failure message="AssertionError: invalid parameters reached the numerical kernel">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:17: in test_invalid_kernel_parameters_never_reach_numba
+    kernel._warmup_jit(tuple(params))
+..\..\..\brasileirao-predictor\brasileirao_predictor\kernel_daemon.py:167: in _warmup_jit
+    _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_params.py:13: in unsafe_jit
+    raise AssertionError("invalid parameters reached the numerical kernel")
+E   AssertionError: invalid parameters reached the numerical kernel</failure></testcase><testcase classname="tests.test_resolution_kernel_params" name="test_supported_kernel_parameters_keep_two_warmup_calls" time="0.001" /></testsuite></testsuites>

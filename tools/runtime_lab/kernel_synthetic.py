@@ -6,6 +6,8 @@ import os
 import time
 from pathlib import Path
 
+import lab_guard  # noqa: F401 -- explicit guard before any application import
+
 if os.environ.get("BRASILEIRAO_LAB_GUARD_ACTIVE") != "1":
     raise RuntimeError("isolated_lab_guard_required")
 

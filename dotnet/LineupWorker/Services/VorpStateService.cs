@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Security.Cryptography;
 using StackExchange.Redis;
 
 namespace LineupWorker.Services;
@@ -20,6 +21,7 @@ public sealed class VorpStateService : IHostedService
     private IReadOnlyDictionary<string, double[]> _titularidadeByTeam = new Dictionary<string, double[]>();
 
     private bool _ready;
+    public string ArtifactSha256 { get; private set; } = "";
 
     public VorpStateService(ILogger<VorpStateService> log, OperationalSettings settings)
     {
@@ -32,8 +34,8 @@ public sealed class VorpStateService : IHostedService
         var artifactPath = _settings.VorpArtifactPath;
         _log.LogInformation("[VorpState] aquecendo de {Path}", artifactPath);
 
-        using var stream = File.OpenRead(artifactPath);
-        var doc = JsonDocument.Parse(stream);
+        var bytes = File.ReadAllBytes(artifactPath);
+        using var doc = JsonDocument.Parse(bytes);
         var root = doc.RootElement;
 
         _vorpByPlayer = root.GetProperty("beta_players")
@@ -43,19 +45,24 @@ public sealed class VorpStateService : IHostedService
         _replacementByPos = root.GetProperty("replacement_levels")
             .EnumerateObject()
             .ToDictionary(p => p.Name, p => p.Value.GetDouble());
+        if (_vorpByPlayer.Values.Concat(_replacementByPos.Values).Any(value => !double.IsFinite(value)))
+            throw new JsonException("VORP and replacement values must be finite");
+        ArtifactSha256 = Convert.ToHexString(SHA256.HashData(bytes));
 
         // Titularidade histórica por time (opcional — arquivo separado)
         var titPath = _settings.TitularidadePath;
         if (File.Exists(titPath))
         {
             using var tstream = File.OpenRead(titPath);
-            var tdoc = JsonDocument.Parse(tstream);
+            using var tdoc = JsonDocument.Parse(tstream);
             _titularidadeByTeam = tdoc.RootElement
                 .EnumerateObject()
                 .ToDictionary(
                     p => p.Name,
                     p => p.Value.EnumerateArray().Select(v => v.GetDouble()).ToArray()
                 );
+            if (_titularidadeByTeam.Values.SelectMany(values => values).Any(value => !double.IsFinite(value) || value < 0 || value > 1))
+                throw new JsonException("Starter probabilities must be finite in [0,1]");
         }
 
         _ready = true;
@@ -82,6 +89,19 @@ public sealed class VorpStateService : IHostedService
     /// <summary>Delta VORP de um lineup completo: soma dos VORPs dos 11 titulares.</summary>
     public double ComputeDeltaVorp(IEnumerable<(string Player, string Position)> starters)
         => starters.Sum(s => GetVorp(s.Player, s.Position));
+
+    public double ComputeDeclaredDelta(IEnumerable<(string Player, string Position)> starters)
+    {
+        var sum = 0.0;
+        foreach (var (player, position) in starters)
+        {
+            if (!_vorpByPlayer.TryGetValue(player, out var value) && !_replacementByPos.TryGetValue(position, out value))
+                throw new ArgumentException("Player and declared position lack VORP coverage");
+            sum += value;
+        }
+        if (!double.IsFinite(sum)) throw new ArgumentException("Nonfinite lineup VORP");
+        return sum;
+    }
 
     /// <summary>Retorna a matriz de probabilidade de titularidade histórica do time.
     /// Usada no fallback de timeout. null se não disponível.</summary>

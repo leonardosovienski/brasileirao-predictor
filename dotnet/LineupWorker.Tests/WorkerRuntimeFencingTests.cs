@@ -19,7 +19,7 @@ public sealed partial class WorkerRuntimeTests
         if (marketMatch is not null)
             typeof(MarketOddsCache).GetMethod("ParseAndUpdate", BindingFlags.Instance | BindingFlags.NonPublic)!
                 .Invoke(cache, [new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(
-                    new { match_id = marketMatch, home = 2.4, draw = 3.0, away = 4.0 })))]);
+                    new { match_id = marketMatch, home = 2.4, draw = 3.0, away = 4.0, source = "synthetic" })))]);
         var redis = connection ?? _redis;
         return new MarketStateEngine(redis, cache,
             new LatencyAuditService(redis, NullLogger<LatencyAuditService>.Instance, cfg),
@@ -198,14 +198,15 @@ public sealed partial class WorkerRuntimeTests
     }
 
     private async Task<LineupWorkerService> Worker(IConnectionMultiplexer? connection = null, int capacity = 16,
-        int timeoutMinutes = 55, int watchdogIntervalSeconds = 60)
+        int timeoutMinutes = 55, int watchdogIntervalSeconds = 60, bool allowSyntheticInputs = true)
     {
         var vorpPath = Path.Combine(_root, "fencing-vorp.json");
-        await File.WriteAllTextAsync(vorpPath, """{"beta_players":{"p1":1.0,"p2":2.0},"replacement_levels":{"UNKNOWN":0}}""");
+        await File.WriteAllTextAsync(vorpPath, """{"beta_players":{"p1":1.0,"p2":2.0},"replacement_levels":{"GK":0,"UNKNOWN":0}}""");
         var vorp = new VorpStateService(NullLogger<VorpStateService>.Instance,
             CreateSettings(vorpPath, Path.Combine(_root, "absent.json")));
         await vorp.StartAsync(default);
         var cfg = Config(("Worker:QueueCapacity", capacity.ToString()),
+            ("Worker:AllowSyntheticInputs", allowSyntheticInputs.ToString()),
             ("Worker:LineupTimeoutMinutes", timeoutMinutes.ToString()),
             ("Worker:WatchdogIntervalSeconds", watchdogIntervalSeconds.ToString()));
         var redis = connection ?? _redis;

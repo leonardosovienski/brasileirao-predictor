@@ -1,0 +1,18 @@
+{
+  "tests": [
+    "test_resolution_curated_versions.py",
+    "test_pit_backfill.py",
+    "test_closeout_integrity.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "sqlite3.connect",
+      "reason": "only_synthetic_sqlite_inside_test_output"
+    }
+  ],
+  "exit_code": 1
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="8" time="4.944" timestamp="2026-09-10T17:50:00.014249-03:00" hostname="Leo"><testcase classname="tests.test_resolution_residual_dataset" name="test_offer_book_is_excluded_from_its_own_probability_reference" time="0.015"><failure message="assert 0.375 == 0.5 ± 5.0e-07&#10;  &#10;  comparison failed&#10;  Obtained: 0.375&#10;  Expected: 0.5 ± 5.0e-07">..\..\..\brasileirao-predictor\tests\test_resolution_residual_dataset.py:35: in test_offer_book_is_excluded_from_its_own_probability_reference
+    assert row["market_probability"] == pytest.approx(0.5)
+E   assert 0.375 == 0.5 ± 5.0e-07
+E     
+E     comparison failed
+E     Obtained: 0.375
+E     Expected: 0.5 ± 5.0e-07</failure></testcase><testcase classname="tests.test_resolution_residual_dataset" name="test_unfinished_event_is_preserved_without_fabricated_label" time="0.004"><failure message="IndexError: list index out of range">..\..\..\brasileirao-predictor\tests\test_resolution_residual_dataset.py:41: in test_unfinished_event_is_preserved_without_fabricated_label
+    row = materialize(quotes(), [])[0]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   IndexError: list index out of range</failure></testcase><testcase classname="tests.test_resolution_residual_dataset" name="test_late_receipt_cannot_become_historical_offer" time="0.003"><failure message="KeyError: 'data_status'">..\..\..\brasileirao-predictor\tests\test_resolution_residual_dataset.py:51: in test_late_receipt_cannot_become_historical_offer
+    assert row["data_status"] == "ABSTAIN_DATA"
+           ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'data_status'</failure></testcase><testcase classname="tests.test_resolution_residual_dataset" name="test_suspension_cannot_resurrect_old_quote" time="0.003"><failure message="KeyError: 'data_status'">..\..\..\brasileirao-predictor\tests\test_resolution_residual_dataset.py:59: in test_suspension_cannot_resurrect_old_quote
+    assert row["data_status"] == "ABSTAIN_DATA"
+           ^^^^^^^^^^^^^^^^^^
+E   KeyError: 'data_status'</failure></testcase><testcase classname="tests.test_resolution_residual_dataset" name="test_scores_must_be_nonnegative_integer_counts[True]" time="0.004"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_residual_dataset.py:66: in test_scores_must_be_nonnegative_integer_counts
+    with pytest.raises(ValueError, match="goals"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_residual_dataset" name="test_scores_must_be_nonnegative_integer_counts[1.9]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_residual_dataset.py:66: in test_scores_must_be_nonnegative_integer_counts
+    with pytest.raises(ValueError, match="goals"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_residual_dataset" name="test_scores_must_be_nonnegative_integer_counts[-1]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_residual_dataset.py:66: in test_scores_must_be_nonnegative_integer_counts
+    with pytest.raises(ValueError, match="goals"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_residual_dataset" name="test_scores_must_be_nonnegative_integer_counts[2]" time="0.006"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_residual_dataset.py:66: in test_scores_must_be_nonnegative_integer_counts
+    with pytest.raises(ValueError, match="goals"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

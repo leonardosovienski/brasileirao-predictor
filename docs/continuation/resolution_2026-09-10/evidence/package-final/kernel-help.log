@@ -1,0 +1,9 @@
+usage: brasileirao-kernel [-h] [--db DB] [--redis REDIS] [--healthcheck]
+
+Kernel Python Daemon — Zona 3
+
+options:
+  -h, --help     show this help message and exit
+  --db DB
+  --redis REDIS
+  --healthcheck

@@ -1,0 +1,2 @@
+usage: brasileirao-kernel [-h] [--db DB] [--redis REDIS] [--healthcheck]
+brasileirao-kernel: error: --db or SPORTS_DB_PATH must be an absolute path

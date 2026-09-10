@@ -1,0 +1,19 @@
+usage: odds_shop.py [-h] [--jogo JOGO] [--min-edge MIN_EDGE]
+                    [--from-file FROM_FILE] [--tempos]
+                    [--max-stale-min MAX_STALE_MIN]
+
+Line shopping multi-casas + cruzamento com o modelo
+
+options:
+  -h, --help            show this help message and exit
+  --jogo JOGO           filtra por nome de time (substring)
+  --min-edge MIN_EDGE
+  --from-file FROM_FILE
+                        JSON salvo da API (offline/teste)
+  --tempos              inclui odds de 1o/2o tempo (totals_h1/h2 — 1 chamada
+                        de API POR JOGO; use com --jogo pra poupar quota)
+  --max-stale-min MAX_STALE_MIN
+                        descarta casa cujo last_update tem mais que N minutos
+                        (W5: feed congelado vira melhor preco fantasma). Exige
+                        valor positivo no modo online; --from-file nunca
+                        filtra (snapshot e' velho por definicao). Default: 15

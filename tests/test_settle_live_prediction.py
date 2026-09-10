@@ -11,6 +11,7 @@ from brasileirao_scripts.settle_live_prediction import append_settlement, build_
 def prediction():
     return {
         "prediction_id": "LIVE-2026-08-22-001",
+        "source_event_id": "15235430",
         "prediction": {"p_home": 0.57, "p_draw": 0.25, "p_away": 0.18},
     }
 

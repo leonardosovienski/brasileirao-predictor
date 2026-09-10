@@ -1,0 +1,60 @@
+{
+  "purpose": "validate current Compose model without Docker daemon or private .env",
+  "budget": {
+    "public_gets": 2,
+    "max_download_bytes": 83886080,
+    "paid_api_calls": 0
+  },
+  "official_instructions": "https://docs.docker.com/compose/install/standalone/",
+  "downloads": [
+    {
+      "url": "https://github.com/docker/compose/releases/download/v5.5.0/docker-compose-windows-x86_64.exe.sha256",
+      "started_at": "2026-09-10T20:19:14.860264+00:00",
+      "status_code": 200,
+      "bytes": 100,
+      "sha256": "f54385b0b388929b7ddc784afb5519ad07bbcdc268bb6b98f36b0e2a13f9b50d"
+    },
+    {
+      "url": "https://github.com/docker/compose/releases/download/v5.5.0/docker-compose-windows-x86_64.exe",
+      "started_at": "2026-09-10T20:19:16.116711+00:00",
+      "status_code": 200,
+      "bytes": 50317312,
+      "sha256": "51e1e61195f3616896265487ed64551095f3bd27ac7fbd5758d3538c3bfa1b19"
+    }
+  ],
+  "commands": [
+    {
+      "label": "version",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\compose-check\\docker-compose-windows-x86_64.exe",
+        "version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "model",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\compose-check\\docker-compose-windows-x86_64.exe",
+        "--env-file",
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\compose-check\\empty.env",
+        "-f",
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\compose-check\\compose.yaml",
+        "config",
+        "--no-env-resolution",
+        "--no-interpolate",
+        "--format",
+        "json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "services": [
+    "init-data",
+    "kernel",
+    "redis",
+    "worker"
+  ],
+  "daemon_started": false,
+  "containers_executed": false,
+  "model_sha256": "d5bf0d28f320a381f2a732214ae12eba5916b2d627961d293732279a10f0b486"
+}

@@ -1,0 +1,42 @@
+{
+  "tests": [
+    "test_resolution_bank.py",
+    "test_bet_log.py",
+    "test_completion_ledger.py",
+    "test_ledger_consistency.py",
+    "test_resolution_curated_versions.py",
+    "test_pit_backfill.py",
+    "test_closeout_integrity.py",
+    "test_resolution_gate_dependence.py",
+    "test_residual_gate.py",
+    "test_reconciliation_gate_contracts.py",
+    "test_resolution_restore.py",
+    "test_backup_restore.py",
+    "test_resolution_lineup_envelopes.py",
+    "test_residual_features.py",
+    "test_resolution_walkforward.py",
+    "test_residual_walkforward.py",
+    "test_resolution_residual_dataset.py",
+    "test_residual_dataset.py",
+    "test_core_integrity.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

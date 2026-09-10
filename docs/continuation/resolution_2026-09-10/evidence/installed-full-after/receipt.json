@@ -1,0 +1,63 @@
+{
+  "server_path": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\software\\redis-8.2.9\\Redis-8.2.9-Windows-x64-msys2\\redis-server.exe",
+  "server_sha256": "f9bf66f93438ec461b6e32453e6c9a8dde2f8c93c1018d1b75aa38b113ba3f14",
+  "runtime_scope": "disposable_community_Windows_build_not_production_homologation",
+  "commands": [
+    {
+      "name": "dotnet-restore",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\dotnet-sdk\\dotnet.exe",
+        "restore",
+        "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+        "--locked-mode"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 30.522096200002125,
+      "timeout_seconds": 180
+    },
+    {
+      "name": "dotnet-build",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\dotnet-sdk\\dotnet.exe",
+        "build",
+        "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--warnaserror",
+        "--disable-build-servers",
+        "-p:UseSharedCompilation=false"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 97.07036900000094,
+      "timeout_seconds": 180
+    },
+    {
+      "name": "dotnet-test",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\dotnet-sdk\\dotnet.exe",
+        "test",
+        "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj",
+        "-c",
+        "Release",
+        "--no-restore",
+        "--no-build",
+        "--logger",
+        "trx",
+        "--collect:XPlat Code Coverage",
+        "--results-directory",
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\installed-full-after\\dotnet-results",
+        "--filter",
+        "FullyQualifiedName~LineupWorker.Tests"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 102.16716730000189,
+      "timeout_seconds": 240
+    }
+  ],
+  "pid": 23488,
+  "run_id": "b2b6f5205b344373d6774caab0a8e3a87549a6d1",
+  "redis_version": "8.2.9",
+  "redis_process_id": 1969,
+  "server_stopped": true
+}

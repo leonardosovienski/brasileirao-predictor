@@ -18,11 +18,12 @@ from collections.abc import Iterable
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote
 
 from predictor_core.data.contracts import DataUnavailableError
 
 RAW_SCHEMA_VERSION = "pit-raw/1.0"
-CURATED_SCHEMA_VERSION = "pit-curated/1.0"
+CURATED_SCHEMA_VERSION = "pit-curated/2.0"
 CLOSING_DEFINITION_VERSION = "closing-v2:last-observed-state-single-contract"
 MAPPING_VERSION = "brasileirao-club-aliases/1.0"
 
@@ -51,7 +52,8 @@ CREATE TABLE IF NOT EXISTS curated_matches (
     data_quality_status TEXT NOT NULL,
     backfill_batch_id TEXT NOT NULL,
     provenance_hash TEXT NOT NULL,
-    PRIMARY KEY(source, source_match_id)
+    match_status TEXT NOT NULL,
+    PRIMARY KEY(source, source_match_id, ingested_at, provenance_hash)
 );
 CREATE INDEX IF NOT EXISTS idx_curated_match_key
   ON curated_matches(canonical_match_id, kickoff_at);
@@ -68,7 +70,7 @@ CREATE TABLE IF NOT EXISTS curated_odds (
     bookmaker TEXT NOT NULL,
     market TEXT NOT NULL,
     selection TEXT NOT NULL,
-    raw_odds REAL NOT NULL CHECK(raw_odds > 1.0 AND raw_odds < 1000.0),
+    raw_odds REAL CHECK(raw_odds IS NULL OR raw_odds > 1.0),
     normalized_probability REAL,
     is_closing INTEGER NOT NULL DEFAULT 0 CHECK(is_closing IN (0,1)),
     closing_definition_version TEXT,
@@ -77,7 +79,11 @@ CREATE TABLE IF NOT EXISTS curated_odds (
     data_quality_status TEXT NOT NULL,
     backfill_batch_id TEXT NOT NULL,
     provenance_hash TEXT NOT NULL,
-    PRIMARY KEY(source, source_match_id, bookmaker, market, selection, captured_at)
+    period TEXT NOT NULL,
+    line REAL,
+    line_key TEXT NOT NULL,
+    status TEXT NOT NULL,
+    PRIMARY KEY(source, source_match_id, bookmaker, market, selection, period, line_key, captured_at, provenance_hash)
 );
 CREATE INDEX IF NOT EXISTS idx_curated_odds_pit
   ON curated_odds(canonical_match_id, market, selection, bookmaker, captured_at);
@@ -107,6 +113,9 @@ CREATE TABLE IF NOT EXISTS raw_files (
     license TEXT,
     parser_version TEXT NOT NULL
 );
+CREATE TABLE IF NOT EXISTS curated_schema (version TEXT PRIMARY KEY);
+INSERT OR IGNORE INTO curated_schema VALUES ('pit-curated/2.0');
+PRAGMA user_version=2;
 """
 
 
@@ -127,10 +136,35 @@ def _hash_bytes(data: bytes) -> str:
 
 
 def connect_curated(path: str | Path) -> sqlite3.Connection:
-    path = Path(path)
+    path = Path(path).resolve()
+    if path.exists():
+        # Inspect existing stores read-only before any schema statement. Older
+        # snapshots remain immutable; callers must create a new v2 destination.
+        check = sqlite3.connect("file:" + quote(path.as_posix(), safe="/:") + "?mode=ro", uri=True)
+        try:
+            if check.execute("PRAGMA user_version").fetchone()[0] != 2:
+                raise ValueError("schema curated legado: use novo destino v2, sem migração implícita")
+            if check.execute("SELECT version FROM curated_schema").fetchall() != [(CURATED_SCHEMA_VERSION,)]:
+                raise ValueError("schema curated incompatível")
+            columns = {r[1] for r in check.execute("PRAGMA table_info(curated_odds)")}
+            match_columns = {r[1] for r in check.execute("PRAGMA table_info(curated_matches)")}
+            if (
+                not {"period", "line", "line_key", "status", "provenance_hash"} <= columns
+                or "match_status" not in match_columns
+            ):
+                raise ValueError("schema curated incompleto")
+        except sqlite3.DatabaseError as exc:
+            raise ValueError("schema curated inválido") from exc
+        finally:
+            check.close()
+        return sqlite3.connect(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(path)
-    conn.executescript(SCHEMA)
+    try:
+        conn.executescript(SCHEMA)
+    except BaseException:
+        conn.close()
+        raise
     return conn
 
 
@@ -254,7 +288,9 @@ def insert_entity_mapping(
 
 
 def _provenance(row: dict[str, Any]) -> str:
-    encoded = json.dumps(row, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    encoded = json.dumps(row, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False).encode(
+        "utf-8"
+    )
     return _hash_bytes(encoded)
 
 
@@ -278,6 +314,13 @@ def curate_match(
         raise DataUnavailableError("partida rejeitada: entidade sem resolução inequívoca")
     if home == away:
         raise DataUnavailableError("mandante e visitante resolvem para o mesmo clube")
+    for field in ("home_goals", "away_goals"):
+        value = row.get(field)
+        if value is not None and (isinstance(value, bool) or not isinstance(value, int) or value < 0):
+            raise ValueError("gols curados devem ser inteiros não negativos ou desconhecidos")
+    match_status = row.get("match_status", "UNKNOWN")
+    if match_status not in {"SCHEDULED", "POSTPONED", "CANCELLED", "LIVE", "FINISHED", "UNKNOWN"}:
+        raise ValueError("estado da partida inválido")
     canonical_id = row.get("canonical_match_id") or (f"{kickoff.isoformat()}|{home}|{away}")
     payload = {
         **row,
@@ -289,14 +332,7 @@ def curate_match(
         "batch_id": batch_id,
     }
     conn.execute(
-        """INSERT INTO curated_matches VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-      ON CONFLICT(source,source_match_id) DO UPDATE SET
-        canonical_match_id=excluded.canonical_match_id,kickoff_at=excluded.kickoff_at,
-        ingested_at=excluded.ingested_at,home_team=excluded.home_team,
-        away_team=excluded.away_team,home_goals=excluded.home_goals,
-        away_goals=excluded.away_goals,mapping_status=excluded.mapping_status,
-        data_quality_status=excluded.data_quality_status,
-        backfill_batch_id=excluded.backfill_batch_id,provenance_hash=excluded.provenance_hash""",
+        """INSERT OR IGNORE INTO curated_matches VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
         (
             row["source"],
             str(row["source_match_id"]),
@@ -314,6 +350,7 @@ def curate_match(
             row.get("data_quality_status", "OK"),
             batch_id,
             _provenance(payload),
+            match_status,
         ),
     )
     conn.commit()
@@ -321,7 +358,10 @@ def curate_match(
 
 
 def valid_price(value: Any) -> bool:
-    return isinstance(value, (int, float)) and value == value and value != float("inf") and value > 1.0
+    try:
+        return not isinstance(value, bool) and isinstance(value, (int, float)) and math.isfinite(value) and value > 1.0
+    except OverflowError:
+        return False
 
 
 def curate_odds(
@@ -343,7 +383,6 @@ def curate_odds(
         "bookmaker",
         "market",
         "selection",
-        "raw_odds",
     )
     if any(row.get(field) in (None, "") for field in required):
         raise ValueError("odd curada sem campo obrigatório")
@@ -351,8 +390,27 @@ def curate_odds(
     observed = _utc(row["observed_at"], "observed_at")
     available = _utc(row["available_at"], "available_at")
     captured = _utc(row["captured_at"], "captured_at")
-    if not valid_price(row["raw_odds"]):
+    status = row.get("status", "UNKNOWN")
+    period = row.get("period", "UNKNOWN")
+    if status not in {"ACTIVE", "SUSPENDED", "CLOSED", "INVALID", "UNKNOWN"}:
+        raise ValueError("status de preço inválido")
+    if period not in {"FT", "1H", "2H", "UNKNOWN"}:
+        raise ValueError("período de preço inválido")
+    price = row.get("raw_odds")
+    if (price is not None and not valid_price(price)) or (status == "ACTIVE" and price is None):
         raise ValueError("raw_odds inválida")
+    line = row.get("line")
+    if line is not None and (isinstance(line, bool) or not isinstance(line, (int, float)) or not math.isfinite(line)):
+        raise ValueError("linha deve ser finita ou desconhecida")
+    line_key = "" if line is None else str(float(line) if line != 0 else 0.0)
+    normalized = row.get("normalized_probability")
+    if normalized is not None and (
+        isinstance(normalized, bool)
+        or not isinstance(normalized, (int, float))
+        or not math.isfinite(normalized)
+        or not 0 <= normalized <= 1
+    ):
+        raise ValueError("probabilidade normalizada inválida")
     if available > captured or captured >= kickoff:
         raise ValueError("odd não é pré-evento ou available_at posterior à captura")
     if observed > captured:
@@ -369,7 +427,7 @@ def curate_odds(
         "mapping_version": MAPPING_VERSION,
     }
     conn.execute(
-        """INSERT INTO curated_odds VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+        """INSERT OR IGNORE INTO curated_odds VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
         (
             row["source"],
             str(row["source_match_id"]),
@@ -382,8 +440,8 @@ def curate_odds(
             row["bookmaker"],
             row["market"],
             row["selection"],
-            float(row["raw_odds"]),
-            row.get("normalized_probability"),
+            float(price) if price is not None else None,
+            normalized,
             int(row.get("is_closing", 0)),
             row.get("closing_definition_version"),
             MAPPING_VERSION,
@@ -391,6 +449,10 @@ def curate_odds(
             row.get("data_quality_status", "OK"),
             batch_id,
             _provenance(payload),
+            period,
+            line,
+            line_key,
+            status,
         ),
     )
     conn.commit()
@@ -425,6 +487,11 @@ def choose_closing(
         if row.get("bookmaker") != bookmaker or row.get("market") != market or row.get("selection") != selection:
             continue
         captured = _utc(row.get("captured_at"), "captured_at")
+        for field in ("observed_at", "available_at", "published_at"):
+            if row.get(field) is not None and _utc(row[field], field) > captured:
+                raise ValueError(f"{field} posterior à captura")
+        if row.get("kickoff_at") is not None and _utc(row["kickoff_at"], "kickoff_at") != kickoff:
+            raise ValueError("kickoff do contrato diverge da referência")
         if captured >= kickoff or (kickoff - captured).total_seconds() > max_window_hours * 3600:
             continue
         required = ("source", "source_match_id", "period")
@@ -447,6 +514,7 @@ def choose_closing(
     if (
         not valid_price(chosen.get("raw_odds"))
         or chosen.get("status") != "ACTIVE"
+        or chosen.get("period") not in {"FT", "1H", "2H"}
         or chosen.get("data_quality_status", "OK") != "OK"
     ):
         return None
@@ -466,16 +534,41 @@ def pit_eligible(*, available_at: str, predicted_at: str, kickoff_at: str) -> bo
     return available <= predicted < kickoff
 
 
-def evaluation_view(conn: sqlite3.Connection, *, predicted_at: str) -> list[sqlite3.Row]:
-    """View somente de partidas curadas disponíveis antes da decisão."""
+def evaluation_view(conn: sqlite3.Connection, *, predicted_at: str) -> list[dict[str, Any]]:
+    """Latest admissible receipt per source event; never arbitrate tied conflicts.
+
+    Rank before the kickoff filter: a newer cancellation/postponement must not
+    resurrect an older version just because the older date matches a filter.
+    This is a source view, not a label-admission or trading authorization.
+    """
     predicted_at = _utc(predicted_at, "predicted_at").isoformat()
     conn.row_factory = sqlite3.Row
-    return conn.execute(
-        """SELECT * FROM curated_matches
-      WHERE kickoff_at > ? AND ingested_at <= ?
-        ORDER BY kickoff_at, canonical_match_id""",
-        (predicted_at, predicted_at),
+    rows = conn.execute(
+        """SELECT * FROM (SELECT *, DENSE_RANK() OVER (
+            PARTITION BY source, source_match_id ORDER BY ingested_at DESC) AS receipt_rank
+            FROM curated_matches WHERE ingested_at <= ?) WHERE receipt_rank=1""",
+        (predicted_at,),
     ).fetchall()
+    selected: dict[tuple[str, str], dict[str, Any]] = {}
+    for raw in rows:
+        row = {k: raw[k] for k in raw.keys() if k != "receipt_rank"}
+        key = (row["source"], row["source_match_id"])
+        previous = selected.get(key)
+
+        def material(r):
+            return {k: v for k, v in r.items() if k not in {"provenance_hash", "backfill_batch_id"}}
+
+        if previous is not None and material(previous) != material(row):
+            raise ValueError("revisões de partida conflitantes no mesmo recebimento")
+        selected[key] = row
+    return sorted(
+        [
+            r
+            for r in selected.values()
+            if r["kickoff_at"] > predicted_at and r["match_status"] in {"SCHEDULED", "UNKNOWN"}
+        ],
+        key=lambda r: (r["kickoff_at"], r["canonical_match_id"]),
+    )
 
 
 def walk_forward_splits(

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="14" skipped="0" tests="14" time="43.106" timestamp="2026-09-10T19:55:09.807095-03:00" hostname="Leo"><testcase classname="tests.test_resolution_odds_shop" name="test_unknown_invalid_or_future_clock_is_not_fresh[None]" time="0.013"><failure message="AssertionError: assert False is True&#10; +  where False = &lt;function _stale at 0x00000243D29816C0&gt;({'last_update': None}, 900)&#10; +    where &lt;function _stale at 0x00000243D29816C0&gt; = shop._stale">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:26: in test_unknown_invalid_or_future_clock_is_not_fresh
+    assert shop._stale({"last_update": clock}, 900) is True
+E   AssertionError: assert False is True
+E    +  where False = &lt;function _stale at 0x00000243D29816C0&gt;({'last_update': None}, 900)
+E    +    where &lt;function _stale at 0x00000243D29816C0&gt; = shop._stale</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_unknown_invalid_or_future_clock_is_not_fresh[invalid]" time="0.004"><failure message="AssertionError: assert False is True&#10; +  where False = &lt;function _stale at 0x00000243D29816C0&gt;({'last_update': 'invalid'}, 900)&#10; +    where &lt;function _stale at 0x00000243D29816C0&gt; = shop._stale">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:26: in test_unknown_invalid_or_future_clock_is_not_fresh
+    assert shop._stale({"last_update": clock}, 900) is True
+E   AssertionError: assert False is True
+E    +  where False = &lt;function _stale at 0x00000243D29816C0&gt;({'last_update': 'invalid'}, 900)
+E    +    where &lt;function _stale at 0x00000243D29816C0&gt; = shop._stale</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_unknown_invalid_or_future_clock_is_not_fresh[2026-01-01T00:00:00]" time="0.013"><failure message="TypeError: can't subtract offset-naive and offset-aware datetimes">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:26: in test_unknown_invalid_or_future_clock_is_not_fresh
+    assert shop._stale({"last_update": clock}, 900) is True
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\odds_shop.py:129: in _stale
+    age = (datetime.now(UTC) - datetime.fromisoformat(lu.replace("Z", "+00:00"))).total_seconds()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: can't subtract offset-naive and offset-aware datetimes</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_unknown_invalid_or_future_clock_is_not_fresh[2099-01-01T00:00:00+00:00]" time="0.004"><failure message="AssertionError: assert False is True&#10; +  where False = &lt;function _stale at 0x00000243D29816C0&gt;({'last_update': '2099-01-01T00:00:00+00:00'}, 900)&#10; +    where &lt;function _stale at 0x00000243D29816C0&gt; = shop._stale">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:26: in test_unknown_invalid_or_future_clock_is_not_fresh
+    assert shop._stale({"last_update": clock}, 900) is True
+E   AssertionError: assert False is True
+E    +  where False = &lt;function _stale at 0x00000243D29816C0&gt;({'last_update': '2099-01-01T00:00:00+00:00'}, 900)
+E    +    where &lt;function _stale at 0x00000243D29816C0&gt; = shop._stale</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_bad_prices_cannot_become_consensus[nan]" time="0.007"><failure message="AssertionError: assert {'Over': {'be...'n_books': 1}} == {}&#10;  &#10;  Left contains 2 more items:&#10;  {'Over': {'best': (nan, 'Book'), 'consensus_prob': nan, 'n_books': 1},&#10;   'Under': {'best': (1.8, 'Book'), 'consensus_prob': nan, 'n_books': 1}}&#10;  Use -v to get more diff">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:33: in test_bad_prices_cannot_become_consensus
+    assert shop.consensus(sample, "totals", point=2.5, max_stale_s=900) == {}
+E   AssertionError: assert {'Over': {'be...'n_books': 1}} == {}
+E     
+E     Left contains 2 more items:
+E     {'Over': {'best': (nan, 'Book'), 'consensus_prob': nan, 'n_books': 1},
+E      'Under': {'best': (1.8, 'Book'), 'consensus_prob': nan, 'n_books': 1}}
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_bad_prices_cannot_become_consensus[inf]" time="0.006"><failure message="AssertionError: assert {'Over': {'be...'n_books': 1}} == {}&#10;  &#10;  Left contains 2 more items:&#10;  {'Over': {'best': (inf, 'Book'), 'consensus_prob': 0.0, 'n_books': 1},&#10;   'Under': {'best': (1.8, 'Book'), 'consensus_prob': 1.0, 'n_books': 1}}&#10;  Use -v to get more diff">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:33: in test_bad_prices_cannot_become_consensus
+    assert shop.consensus(sample, "totals", point=2.5, max_stale_s=900) == {}
+E   AssertionError: assert {'Over': {'be...'n_books': 1}} == {}
+E     
+E     Left contains 2 more items:
+E     {'Over': {'best': (inf, 'Book'), 'consensus_prob': 0.0, 'n_books': 1},
+E      'Under': {'best': (1.8, 'Book'), 'consensus_prob': 1.0, 'n_books': 1}}
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_bad_prices_cannot_become_consensus[True]" time="0.010"><failure message="AssertionError: assert {'Over': {'be...'n_books': 1}} == {}&#10;  &#10;  Left contains 2 more items:&#10;  {'Over': {'best': (True, 'Book'),&#10;            'consensus_prob': 0.6428571428571428,&#10;            'n_books': 1},&#10;   'Under': {'best': (1.8, 'Book'),&#10;             'consensus_prob': 0.35714285714285715,&#10;             'n_books': 1}}&#10;  Use -v to get more diff">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:33: in test_bad_prices_cannot_become_consensus
+    assert shop.consensus(sample, "totals", point=2.5, max_stale_s=900) == {}
+E   AssertionError: assert {'Over': {'be...'n_books': 1}} == {}
+E     
+E     Left contains 2 more items:
+E     {'Over': {'best': (True, 'Book'),
+E               'consensus_prob': 0.6428571428571428,
+E               'n_books': 1},
+E      'Under': {'best': (1.8, 'Book'),
+E                'consensus_prob': 0.35714285714285715,
+E                'n_books': 1}}
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_bad_prices_cannot_become_consensus[0.9]" time="0.002"><failure message="AssertionError: assert {'Over': {'be...'n_books': 1}} == {}&#10;  &#10;  Left contains 2 more items:&#10;  {'Over': {'best': (0.9, 'Book'),&#10;            'consensus_prob': 0.6666666666666666,&#10;            'n_books': 1},&#10;   'Under': {'best': (1.8, 'Book'),&#10;             'consensus_prob': 0.3333333333333333,&#10;             'n_books': 1}}&#10;  Use -v to get more diff">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:33: in test_bad_prices_cannot_become_consensus
+    assert shop.consensus(sample, "totals", point=2.5, max_stale_s=900) == {}
+E   AssertionError: assert {'Over': {'be...'n_books': 1}} == {}
+E     
+E     Left contains 2 more items:
+E     {'Over': {'best': (0.9, 'Book'),
+E               'consensus_prob': 0.6666666666666666,
+E               'n_books': 1},
+E      'Under': {'best': (1.8, 'Book'),
+E                'consensus_prob': 0.3333333333333333,
+E                'n_books': 1}}
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_duplicate_books_do_not_manufacture_consensus_strength" time="0.002"><failure message="AssertionError: assert ({'Over': {'be...'n_books': 4}} == {}&#10;  &#10;  Left contains 2 more items:&#10;  {'Over': {'best': (2.5, 'Book'),&#10;            'consensus_prob': 0.4186046511627907,&#10;            'n_books': 4},&#10;   'Under': {'best': (1.8, 'Book'),&#10;             'consensus_prob': 0.5813953488372093,&#10;             'n_books': 4}}&#10;  Use -v to get more diff or 4 == 1)">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:40: in test_duplicate_books_do_not_manufacture_consensus_strength
+    assert result == {} or result["Over"]["n_books"] == 1
+E   AssertionError: assert ({'Over': {'be...'n_books': 4}} == {}
+E     
+E     Left contains 2 more items:
+E     {'Over': {'best': (2.5, 'Book'),
+E               'consensus_prob': 0.4186046511627907,
+E               'n_books': 4},
+E      'Under': {'best': (1.8, 'Book'),
+E                'consensus_prob': 0.5813953488372093,
+E                'n_books': 4}}
+E     Use -v to get more diff or 4 == 1)</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_incomplete_market_is_excluded" time="0.002"><failure message="AssertionError: assert {'Over': {'be...'n_books': 2}} == {}&#10;  &#10;  Left contains 1 more item:&#10;  {'Over': {'best': (2.5, 'Book'), 'consensus_prob': 0.5, 'n_books': 2}}&#10;  Use -v to get more diff">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:46: in test_incomplete_market_is_excluded
+    assert shop.consensus(sample, "totals", point=2.5, max_stale_s=900) == {}
+E   AssertionError: assert {'Over': {'be...'n_books': 2}} == {}
+E     
+E     Left contains 1 more item:
+E     {'Over': {'best': (2.5, 'Book'), 'consensus_prob': 0.5, 'n_books': 2}}
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_diagnostic_output_does_not_call_unproven_window_validated" time="0.004"><failure message="assert 'JANELA VALIDADA' not in '\n=========...--ht H-A`.\n'&#10;  &#10;  'JANELA VALIDADA' is contained here:&#10;    &#10;          -&gt; JANELA VALIDADA (+10.0%): python -m brasileirao_predictor.bet_log add &quot;Home&quot; &quot;Away&quot; ou25 over 2.5 --casa &quot;Book&quot; --edge 0.1000 --prob 0.5000 --date 2026-09-10 --kickoff 2026-09-10T23:55:52.863060+00:00&#10;  ?          +++++++++++++++&#10;      Under              1.80  Book                  58.1%   50.0%  &#10;    ...&#10;  &#10;  ...Full output truncated (7 lines hidden), use '-vv' to show">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:60: in test_diagnostic_output_does_not_call_unproven_window_validated
+    assert "JANELA VALIDADA" not in output
+E   assert 'JANELA VALIDADA' not in '\n=========...--ht H-A`.\n'
+E     
+E     'JANELA VALIDADA' is contained here:
+E       
+E             -&gt; JANELA VALIDADA (+10.0%): python -m brasileirao_predictor.bet_log add "Home" "Away" ou25 over 2.5 --casa "Book" --edge 0.1000 --prob 0.5000 --date 2026-09-10 --kickoff 2026-09-10T23:55:52.863060+00:00
+E     ?          +++++++++++++++
+E         Under              1.80  Book                  58.1%   50.0%  
+E       ...
+E     
+E     ...Full output truncated (7 lines hidden), use '-vv' to show</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_missing_kickoff_cannot_be_treated_as_future[None]" time="0.001"><failure message="AssertionError: assert False is True&#10; +  where False = &lt;function _started at 0x00000243D2981940&gt;({'commence_time': None})&#10; +    where &lt;function _started at 0x00000243D2981940&gt; = shop._started">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:67: in test_missing_kickoff_cannot_be_treated_as_future
+    assert shop._started({"commence_time": clock}) is True
+E   AssertionError: assert False is True
+E    +  where False = &lt;function _started at 0x00000243D2981940&gt;({'commence_time': None})
+E    +    where &lt;function _started at 0x00000243D2981940&gt; = shop._started</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_missing_kickoff_cannot_be_treated_as_future[bad]" time="0.002"><failure message="AssertionError: assert False is True&#10; +  where False = &lt;function _started at 0x00000243D2981940&gt;({'commence_time': 'bad'})&#10; +    where &lt;function _started at 0x00000243D2981940&gt; = shop._started">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:67: in test_missing_kickoff_cannot_be_treated_as_future
+    assert shop._started({"commence_time": clock}) is True
+E   AssertionError: assert False is True
+E    +  where False = &lt;function _started at 0x00000243D2981940&gt;({'commence_time': 'bad'})
+E    +    where &lt;function _started at 0x00000243D2981940&gt; = shop._started</failure></testcase><testcase classname="tests.test_resolution_odds_shop" name="test_missing_kickoff_cannot_be_treated_as_future[2026-01-01T00:00:00]" time="0.001"><failure message="TypeError: can't compare offset-naive and offset-aware datetimes">..\..\..\brasileirao-predictor\tests\test_resolution_odds_shop.py:67: in test_missing_kickoff_cannot_be_treated_as_future
+    assert shop._started({"commence_time": clock}) is True
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\odds_shop.py:270: in _started
+    return start &lt;= datetime.now(UTC)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: can't compare offset-naive and offset-aware datetimes</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,2 @@
+# Preserve receipt/log bytes used by the evidence SHA-256 manifest.
+evidence/** -text whitespace=cr-at-eol,-blank-at-eol

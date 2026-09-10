@@ -1,9 +1,7 @@
-# Handoff corrente — RCA-20260910
+# Handoff — RES-20260910
 
-**O primeiro mandato não foi concluído integralmente.** Leia [resultado](docs/continuation/reconciliation_2026-09-10/RESULTADO.md), [matriz](docs/continuation/reconciliation_2026-09-10/MATRIZ_MANDATO.md), [histórico/errata](docs/continuation/reconciliation_2026-09-10/HISTORICO.md) e [registro central](docs/continuation/reconciliation_2026-09-10/REGISTROS.json).
+Correções extensas implementadas e validadas; o mandato global continua incompleto. Leia [resultado](docs/continuation/resolution_2026-09-10/RESULTADO.md), [registro central](docs/continuation/resolution_2026-09-10/REGISTROS.json) e [continuação](docs/continuation/resolution_2026-09-10/PROXIMO_PROMPT.md).
 
-Os dois gates têm contratos v2 corrigidos e 49 testes finais sintéticos; dependências runtime/extras e SDK presentes, build offline passa. Restam cobertura semântica, persistência/temporalidade/replay/telemetria, feed demonstrativo, Compose/CI, scheduler e dados comerciais insuficientes. Não transformar correções delimitadas em homologação global.
+336 testes Python distintos; 160 .NET; qualidade dos 41 Python alterados. Pacote e entrega recuperável têm recibos próprios. Fronteiras H14/H15/H9/A1 permanecem. Não fazer migração operacional ou novo tuning para produzir lucro. Todos os arquivos em C:/BRASILEIRAO. Base desta etapa 3bda4c4; conferir commit no recibo AUDITORIA/RESOLUCAO_2026-09-10.json. Histórico RCA/BE e guias anteriores preservados.
 
-[Próximo prompt](docs/continuation/reconciliation_2026-09-10/PROXIMO_PROMPT.md) e [dados](docs/DATA_MAP.md). Preservar H14/H15/H9/A1, estudo BE e janela DC; não executar operações protegidas. Todo trabalho em C:/BRASILEIRAO, solo. Reconfirmar estado real na retomada.
-
-O handoff acumulado anterior está intacto no Git 6c850454418a1c7e878fdb6a461dea509571caec e em C:/BRASILEIRAO/work/reconciliation-2026-09-10/previous-guides/HANDOFF.md. Seus relatos “vigentes” e comandos são históricos e exigem reconciliação; não autorizam reavaliar coortes.
+Inventário base: 399 arquivos com leitura semântica e 59 protegidos limitados a contratos/metadados. Registro RES: 52 itens validados, sete bloqueados por requisitos especificados. Não significa zero bugs, CI global aprovado ou lucro demonstrado.

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="11" skipped="0" tests="11" time="14.846" timestamp="2026-09-10T16:58:05.019824-03:00" hostname="Leo"><testcase classname="tests.test_resolution_walkforward" name="test_replay_rejects_invalid_label_before_training[1.9]" time="0.005"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:51: in test_replay_rejects_invalid_label_before_training
+    with pytest.raises(ValueError, match="outcome"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_rejects_invalid_label_before_training[-0.1]" time="0.005"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:51: in test_replay_rejects_invalid_label_before_training
+    with pytest.raises(ValueError, match="outcome"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_rejects_invalid_label_before_training[True]" time="0.004"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:51: in test_replay_rejects_invalid_label_before_training
+    with pytest.raises(ValueError, match="outcome"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_rejects_invalid_label_before_training[1]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:51: in test_replay_rejects_invalid_label_before_training
+    with pytest.raises(ValueError, match="outcome"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_rejects_invalid_label_before_training[nan]" time="0.003"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'outcome'&#10;  Actual message: 'cannot convert float NaN to integer'">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:51: in test_replay_rejects_invalid_label_before_training
+    with pytest.raises(ValueError, match="outcome"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'outcome'
+E     Actual message: 'cannot convert float NaN to integer'</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_rejects_impossible_chronology[predicted_at]" time="0.004"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:59: in test_replay_rejects_impossible_chronology
+    with pytest.raises(ValueError, match="chronology"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_rejects_impossible_chronology[settled_at]" time="0.005"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:59: in test_replay_rejects_impossible_chronology
+    with pytest.raises(ValueError, match="chronology"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_preserves_missing_quote_and_unsettled_games" time="0.004"><failure message="TypeError: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:68: in test_replay_preserves_missing_quote_and_unsettled_games
+    result = wf.evaluate_walkforward(rows, minimum_train=20)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\research\residual_walkforward.py:85: in evaluate_walkforward
+    y = int(row["outcome"])
+        ^^^^^^^^^^^^^^^^^^^
+E   TypeError: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_reserves_capital_and_uses_requested_stake" time="0.003"><failure message="KeyError: 'portfolio'">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:81: in test_replay_reserves_capital_and_uses_requested_stake
+    portfolio = result["portfolio"]
+                ^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'portfolio'</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_rejects_duplicate_events" time="0.006"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:96: in test_replay_rejects_duplicate_events
+    with pytest.raises(ValueError, match="duplicate"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_walkforward" name="test_replay_rejects_future_feature_availability" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_walkforward.py:103: in test_replay_rejects_future_feature_availability
+    with pytest.raises(ValueError, match="available"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

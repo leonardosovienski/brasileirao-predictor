@@ -1,26 +1,39 @@
 """Agrega os caches de lineup Sofascore em player_comp_stats.
 
-O agregado de uma temporada recebe ``available_at`` igual ao último kickoff
-incluído. Consumidores point-in-time só podem usá-lo depois desse instante.
+O cache sem recibo histórico só se torna conhecido nesta materialização.
+``available_at`` registra a conclusão da leitura local, nunca o kickoff do jogo.
+Campos ausentes permanecem desconhecidos; não se executa migração retrospectiva.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import math
 import sqlite3
 from collections import Counter, defaultdict
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 from brasileirao_predictor import db
 from brasileirao_predictor.ingest import ROOT, load_config
 
-SOURCE = "sofascore_lineups_cache/v1"
+SOURCE = "sofascore_lineups_cache/v2_observed_on_materialization"
 
 
-def _number(value: Any) -> float:
-    return float(value) if isinstance(value, (int, float)) else 0.0
+def _number(value: Any, *, count: bool = False) -> float | int | None:
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ValueError("player statistics must be explicit nonnegative numbers")
+    try:
+        number = float(value)
+    except OverflowError as exc:
+        raise ValueError("player statistics must be finite") from exc
+    if not math.isfinite(number) or number < 0 or (count and (not isinstance(value, int))):
+        raise ValueError("invalid player statistic or non-integer count")
+    return value if count else number
 
 
 def aggregate(conn: sqlite3.Connection, cache_dir: Path) -> list[tuple[Any, ...]]:
@@ -40,34 +53,48 @@ def aggregate(conn: sqlite3.Connection, cache_dir: Path) -> list[tuple[Any, ...]
             "assists": 0,
             "xg": 0.0,
             "xag": 0.0,
-            "available_at": "",
         }
     )
     for path in sorted(cache_dir.glob("event_*_lineups.json")):
         try:
             event_id = int(path.name.split("_", 2)[1])
-            competition, season, kickoff, home, away = events[event_id]
+            competition, season, _kickoff, home, away = events[event_id]
             payload = json.loads(path.read_text(encoding="utf-8"))
-        except (KeyError, ValueError, json.JSONDecodeError):
-            continue
+        except (KeyError, ValueError, json.JSONDecodeError) as exc:
+            raise ValueError(f"unresolved or corrupt player cache: {path.name}") from exc
+        if not isinstance(payload, dict):
+            raise ValueError("player cache must be an object")
         for side, team in (("home", home), ("away", away)):
-            for item in (payload.get(side) or {}).get("players", []):
+            side_data = payload.get(side)
+            if not isinstance(side_data, dict) or not isinstance(side_data.get("players"), list):
+                raise ValueError("both lineup sides require explicit player arrays")
+            seen = set()
+            for item in side_data["players"]:
                 player = (item.get("player") or {}).get("name")
                 stats = item.get("statistics") or {}
                 if not player or not team or not competition or not season or not stats:
                     continue
+                if player in seen:
+                    raise ValueError("duplicate player identity in the same event and side")
+                seen.add(player)
                 key = (str(player), str(team), str(competition), str(season))
                 out = totals[key]
                 position = item.get("position") or (item.get("player") or {}).get("position")
                 if position:
                     out["positions"][str(position)] += 1
-                out["minutes"] += int(_number(stats.get("minutesPlayed")))
                 out["games"] += 1
-                out["goals"] += int(_number(stats.get("goals")))
-                out["assists"] += int(_number(stats.get("goalAssist")))
-                out["xg"] += _number(stats.get("expectedGoals"))
-                out["xag"] += _number(stats.get("expectedAssists"))
-                out["available_at"] = max(out["available_at"], str(kickoff or ""))
+                for target, field, count in (
+                    ("minutes", "minutesPlayed", True),
+                    ("goals", "goals", True),
+                    ("assists", "goalAssist", True),
+                    ("xg", "expectedGoals", False),
+                    ("xag", "expectedAssists", False),
+                ):
+                    value = _number(stats.get(field), count=count)
+                    out[target] = None if value is None or out[target] is None else out[target] + value
+                    if out[target] is not None and not math.isfinite(float(out[target])):
+                        raise ValueError("nonfinite aggregate player statistic")
+    observed_on_materialization = datetime.now(UTC).isoformat()
     rows = []
     for key, values in sorted(totals.items()):
         position = values["positions"].most_common(1)[0][0] if values["positions"] else None
@@ -79,10 +106,10 @@ def aggregate(conn: sqlite3.Connection, cache_dir: Path) -> list[tuple[Any, ...]
                 values["games"],
                 values["goals"],
                 values["assists"],
-                round(values["xg"], 6),
-                round(values["xag"], 6),
+                round(values["xg"], 6) if values["xg"] is not None else None,
+                round(values["xag"], 6) if values["xag"] is not None else None,
                 SOURCE,
-                values["available_at"] or None,
+                observed_on_materialization,
             )
         )
     return rows

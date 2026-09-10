@@ -1,0 +1,24 @@
+{
+  "tests": [
+    "test_resolution_kernel_lifecycle.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 1
+}

@@ -1,0 +1,29 @@
+{
+  "final_build": "package-final-02",
+  "sdist_and_wheel_succeeded": true,
+  "wheel_modules_byte_equal": 231,
+  "artifacts": {
+    ".gitignore": {
+      "bytes": 1,
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    },
+    "brasileirao_predictor-0.1.0-py3-none-any.whl": {
+      "bytes": 640448,
+      "sha256": "3fa55c8e714840911c70e151988430d094089a7998dbf7cbbf8974f4f7d7544b"
+    },
+    "brasileirao_predictor-0.1.0.tar.gz": {
+      "bytes": 9735194,
+      "sha256": "6a2be3033387ffbd6aba031bfed02f2bb23ad8897ead752bbbb68adbba1ab58c"
+    }
+  },
+  "installation_without_pythonpath": true,
+  "explicit_reuse_of_RI_dependencies": true,
+  "cli_checks_completed": true,
+  "previous_package_failure_preserved": true,
+  "previous_cross_process_passed": 1,
+  "changes_since_cross_process": [
+    "brasileirao_scripts/settle_live_prediction.py"
+  ],
+  "all_kernel_modules_identical": true,
+  "redis_stopped": true
+}

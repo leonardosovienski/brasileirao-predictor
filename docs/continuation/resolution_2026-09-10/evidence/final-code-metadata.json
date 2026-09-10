@@ -1,0 +1,166 @@
+{
+  "brasileirao_predictor/backup_restore.py": {
+    "bytes": 8158,
+    "sha256": "9cfb78b7b1f4917fc077ca7a95969da4f14e67fbfa599b998313a7d08bf50273"
+  },
+  "brasileirao_predictor/bet_log.py": {
+    "bytes": 44503,
+    "sha256": "481c0b88610aed6bded8d3c8ac5b0e6adc39c3e34e1ad85fe506679a9208690e"
+  },
+  "brasileirao_predictor/data/lineup_envelopes.py": {
+    "bytes": 6584,
+    "sha256": "2f56925809a3b78fdd51794e419813d8d25777fe43ecd3785e6439113ece57d4"
+  },
+  "brasileirao_predictor/data/pit_backfill.py": {
+    "bytes": 25081,
+    "sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572"
+  },
+  "brasileirao_predictor/data/promotions.py": {
+    "bytes": 5567,
+    "sha256": "b907b4d9a52cb01718569a41046df00ecb0836ac601b71d4696df24b83074628"
+  },
+  "brasileirao_predictor/kernel_cli.py": {
+    "bytes": 1545,
+    "sha256": "2f0cc6049322a6a1280e33c35a91499eb8a200986b30da99d50efe909ffb181d"
+  },
+  "brasileirao_predictor/kernel_daemon.py": {
+    "bytes": 21094,
+    "sha256": "7b0d0e3218946830ff4fb280b29002cc872b439fd42cc1d5684c3ee65db5c166"
+  },
+  "brasileirao_predictor/research/residual_dataset.py": {
+    "bytes": 11164,
+    "sha256": "2de4d85f8107fbb79a1c2ab01ce2a84a41b58e3fc243d41600dc0716c2666e3a"
+  },
+  "brasileirao_predictor/research/residual_features.py": {
+    "bytes": 3483,
+    "sha256": "fc8aa49a75d755b0e184e651a924ed0c18762d6fae397dc230ba9913a48e053b"
+  },
+  "brasileirao_predictor/research/residual_gate.py": {
+    "bytes": 5657,
+    "sha256": "495508d2e0dd53fa327dacaa8e3230443ee9efc25947d4cf6a8f08a4685ec49c"
+  },
+  "brasileirao_predictor/research/residual_walkforward.py": {
+    "bytes": 10605,
+    "sha256": "a7a2909de8a912470f35b9774e399ce28be0b7bf58c4dd1fc8b11b58430990a2"
+  },
+  "brasileirao_predictor/research/shadow_portfolio.py": {
+    "bytes": 6618,
+    "sha256": "d0f07e465464fd22c9394279938cccba3085e17004d73f237f569dec21e07e32"
+  },
+  "brasileirao_predictor/research/structural_edge.py": {
+    "bytes": 8278,
+    "sha256": "538eebc5d302cab29a99b71c44bd18bbeb689e67ad79083e379916dda84b6203"
+  },
+  "brasileirao_scripts/backfill_player_comp_stats_from_sofascore.py": {
+    "bytes": 6164,
+    "sha256": "e42b3e3fc9355fac47bd65f498f7699defc6e96f9bbd655648615a6093573e00"
+  },
+  "brasileirao_scripts/coverage_report.py": {
+    "bytes": 8088,
+    "sha256": "ad20c905505a5b00aba16a1df3213f8eadcddd37a1a36b61aea6666a5de863d9"
+  },
+  "brasileirao_scripts/import_ou25_historical_backfill.py": {
+    "bytes": 10692,
+    "sha256": "65ae3d1a1511faabe9574835ad7d68fb9e0b816c4f6a8b6d4aae357c4cf2b6ec"
+  },
+  "brasileirao_scripts/odds_shop.py": {
+    "bytes": 19278,
+    "sha256": "1bd02c3ad30a8cc570d0866250515973fe4b863431d596e23c808fbe83ed9b71"
+  },
+  "brasileirao_scripts/settle_live_prediction.py": {
+    "bytes": 7043,
+    "sha256": "61e578539b6f9268d55c6e0b748aa103421dfbc5196192171b9dc3c454b200e0"
+  },
+  "tests/test_kernel_runtime.py": {
+    "bytes": 8215,
+    "sha256": "5d0ad4c1f233712a02e9b783f8178925cf8d08f4c165b0a6c48376f6c8ad81d1"
+  },
+  "tests/test_odds_shop_stale.py": {
+    "bytes": 2256,
+    "sha256": "d55837e8352bdafb01ca86097922ef5b4a39bc5cf49de445b7f4a06a5206ec99"
+  },
+  "tests/test_player_comp_stats_sofascore.py": {
+    "bytes": 1605,
+    "sha256": "ceca0c4e07c2786e270ed2262c2c3403ddccd606dc7cf18ad16fee8807d30960"
+  },
+  "tests/test_residual_dataset.py": {
+    "bytes": 2760,
+    "sha256": "03d0ee0dfb80ea3d0cc093b4bbddd72b932b69acae104e19f69f294f31ad3f0b"
+  },
+  "tests/test_resolution_bank.py": {
+    "bytes": 3453,
+    "sha256": "6642e2593595ba94f7569749299c9c303756de08f93954233cb5b42ec71f83aa"
+  },
+  "tests/test_resolution_coverage.py": {
+    "bytes": 2810,
+    "sha256": "97a020d149f8ef10d63b9755b2d977cfa7e6870935598bc0b5cb8d421a5378fa"
+  },
+  "tests/test_resolution_curated_versions.py": {
+    "bytes": 5157,
+    "sha256": "7f82b489b65ce4317b423b6cd366dbfe0684924f9e287b92ddebb15e49b2ca65"
+  },
+  "tests/test_resolution_gate_dependence.py": {
+    "bytes": 1226,
+    "sha256": "8397e7d1082a9de01bf294e8b19e6e264d5e928db2f671f3f5ce2d821368e29d"
+  },
+  "tests/test_resolution_historical_import.py": {
+    "bytes": 2980,
+    "sha256": "39b221329456d950294011450f238914a8f089e910152b382a470d612f234634"
+  },
+  "tests/test_resolution_kernel_lifecycle.py": {
+    "bytes": 4320,
+    "sha256": "409f60d2bbc38857a13a2cd37dde629d884d67a6d2b68a1f7b7765e9b5f86712"
+  },
+  "tests/test_resolution_kernel_params.py": {
+    "bytes": 926,
+    "sha256": "dbdc685f93549f6aacae8cf691e7158f91b82305bbdcb7f94644dc6ebb7ac4b1"
+  },
+  "tests/test_resolution_lineup_envelopes.py": {
+    "bytes": 3586,
+    "sha256": "2bdef1e7cf11912e28705c644c113ba4ab4101667c166306e71101cdf61ad487"
+  },
+  "tests/test_resolution_live_settlement.py": {
+    "bytes": 3399,
+    "sha256": "106900f8ef57da8b173185f31fbcc2c9d4cd934969f2275e2f918c53ba5119c8"
+  },
+  "tests/test_resolution_odds_shop.py": {
+    "bytes": 2768,
+    "sha256": "1981d35125151f82508046924fd7bc3a08160c06f5c437ea47ecaa1f45906398"
+  },
+  "tests/test_resolution_player_stats.py": {
+    "bytes": 1760,
+    "sha256": "cf7b27422e3c241f885a4e2c55067eedf24435fe082b89534dfcbd08079bb264"
+  },
+  "tests/test_resolution_promotions.py": {
+    "bytes": 1952,
+    "sha256": "eb93d1aedbc55107f9abe6373dfb99446336bd05bd4c6f0d914b9626ea31033c"
+  },
+  "tests/test_resolution_residual_dataset.py": {
+    "bytes": 3362,
+    "sha256": "ae9002e7e2dc3ba863312758bcec9522e6dcfb8d5c59af9368fe2a780dc80e2f"
+  },
+  "tests/test_resolution_restore.py": {
+    "bytes": 3576,
+    "sha256": "134383ddbb5b73d01a99e01520937e8f25c75a8d69d851e7c96ac04d931a4a45"
+  },
+  "tests/test_resolution_structural_edge.py": {
+    "bytes": 1997,
+    "sha256": "a774a80bacf1f4f1d28f13658a6b763f02105436e7953d1e8e0c0ccecae743cc"
+  },
+  "tests/test_resolution_walkforward.py": {
+    "bytes": 4309,
+    "sha256": "a79fe67cfcd45c66e07a19026caf872f59826c19ac06a984cc7250dd4281fd9f"
+  },
+  "tests/test_settle_live_prediction.py": {
+    "bytes": 1909,
+    "sha256": "545e69bc39f942b8d8a77b5b30351e8d9a951013f1598e903d14840cd42dfcdd"
+  },
+  "tools/runtime_lab/kernel_synthetic.py": {
+    "bytes": 2143,
+    "sha256": "fdbf9a62e6ebd6b700a2078b4990d9fd2fcef488f00270c4daa8091888c5f0a4"
+  },
+  "tools/runtime_lab/run.py": {
+    "bytes": 10741,
+    "sha256": "df5012bc29a01a31bbd8a1ceba0d96ab85acf05566bbb9330cc039ab72dedcce"
+  }
+}

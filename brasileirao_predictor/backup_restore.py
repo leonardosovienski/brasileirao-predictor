@@ -51,13 +51,31 @@ def _hash(path: Path) -> str:
 
 
 def _files(root: Path) -> list[Path]:
-    return sorted(path for path in root.rglob("*") if path.is_file() and path.name != "BACKUP_MANIFEST.json")
+    paths = list(root.rglob("*"))
+    _reject_links([root, *paths])
+    return sorted(path for path in paths if path.is_file() and path != root / "BACKUP_MANIFEST.json")
+
+
+def _reject_links(paths: list[Path]) -> None:
+    if any(path.is_symlink() or path.is_junction() for path in paths):
+        raise BackupError("backup contém link simbólico; conteúdo externo não é admitido")
 
 
 def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
+    _reject_links([root, root / "data"])
+    root = root.resolve()
     destination = destination.resolve()
     if destination.exists():
         raise BackupError(f"destino já existe: {destination}")
+    source_directories = [root / "data" / name for name in ("research", "runtime", *OPERATIONAL_DIRECTORIES)]
+    source_directories.extend(root / name for name in ROOT_DIRECTORIES)
+    if any(destination.is_relative_to(path) for path in source_directories):
+        raise BackupError("destino dentro de uma árvore copiada causaria backup recursivo")
+    source_files = [root / "data" / name for name in ("matches.db", "odds_operational.db", *LEDGERS)]
+    _reject_links([*source_files, *source_directories])
+    for path in source_directories:
+        if path.is_dir():
+            _files(path)  # Refuse source links before any content is copied.
     temporary = destination.with_name(f".{destination.name}.{uuid.uuid4().hex}.tmp")
     temporary.mkdir(parents=True)
     try:
@@ -66,7 +84,7 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
         source_db = root / "data" / "matches.db"
         if not source_db.is_file():
             raise BackupError("data/matches.db ausente")
-        source = sqlite3.connect(f"file:{source_db.resolve().as_posix()}?mode=ro", uri=True, timeout=30)
+        source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
         target = sqlite3.connect(data / "matches.db")
         try:
             source.backup(target)
@@ -75,7 +93,7 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
             source.close()
         odds_db = root / "data" / "odds_operational.db"
         if odds_db.is_file():
-            source = sqlite3.connect(f"file:{odds_db.resolve().as_posix()}?mode=ro", uri=True, timeout=30)
+            source = sqlite3.connect(f"{odds_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
             target = sqlite3.connect(data / "odds_operational.db")
             try:
                 source.backup(target)
@@ -85,19 +103,19 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
         for name in LEDGERS:
             path = root / "data" / name
             if path.is_file():
-                shutil.copy2(path, data / name)
+                shutil.copy2(path, data / name, follow_symlinks=False)
         for name in ("research", "runtime"):
             source_directory = root / "data" / name
             if source_directory.is_dir():
-                shutil.copytree(source_directory, data / name)
+                shutil.copytree(source_directory, data / name, symlinks=True)
         for name in OPERATIONAL_DIRECTORIES:
             source_directory = root / "data" / name
             if source_directory.is_dir():
-                shutil.copytree(source_directory, data / name)
+                shutil.copytree(source_directory, data / name, symlinks=True)
         for name in ROOT_DIRECTORIES:
             source_directory = root / name
             if source_directory.is_dir():
-                shutil.copytree(source_directory, temporary / name)
+                shutil.copytree(source_directory, temporary / name, symlinks=True)
         files = {path.relative_to(temporary).as_posix(): _hash(path) for path in _files(temporary)}
         manifest: dict[str, Any] = {
             "schema_version": SCHEMA_VERSION,
@@ -116,18 +134,23 @@ def create_backup(destination: Path, *, root: Path = ROOT) -> Path:
 
 
 def verify_backup(backup: Path) -> dict[str, Any]:
+    _reject_links([backup])
     backup = backup.resolve()
     try:
         manifest = json.loads((backup / "BACKUP_MANIFEST.json").read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         raise BackupError(f"manifesto ilegível: {exc}") from exc
-    if manifest.get("schema_version") != SCHEMA_VERSION or not isinstance(manifest.get("files"), dict):
+    if (
+        not isinstance(manifest, dict)
+        or manifest.get("schema_version") != SCHEMA_VERSION
+        or not isinstance(manifest.get("files"), dict)
+    ):
         raise BackupError("manifesto inválido")
     actual = {path.relative_to(backup).as_posix(): _hash(path) for path in _files(backup)}
     if actual != manifest["files"]:
         raise BackupError("conteúdo do backup diverge do manifesto")
     for database in (backup / "data").glob("*.db"):
-        conn = sqlite3.connect(f"file:{database.resolve().as_posix()}?mode=ro&immutable=1", uri=True)
+        conn = sqlite3.connect(f"{database.resolve().as_uri()}?mode=ro&immutable=1", uri=True)
         try:
             if conn.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
                 raise BackupError(f"integrity_check do SQLite falhou: {database.name}")
@@ -137,12 +160,18 @@ def verify_backup(backup: Path) -> dict[str, Any]:
 
 
 def restore_backup(backup: Path, destination_root: Path) -> Path:
-    verify_backup(backup)
+    expected = verify_backup(backup)
     destination_root = destination_root.resolve()
     if destination_root.exists():
         raise BackupError(f"raiz de restauração já existe: {destination_root}")
-    shutil.copytree(backup.resolve(), destination_root)
-    (destination_root / "BACKUP_MANIFEST.json").unlink()
+    shutil.copytree(backup.resolve(), destination_root, symlinks=True)
+    # Keep the manifest for an independent audit after copying. Source
+    # verification alone cannot detect a copy failure or a concurrent source
+    # mutation. A failed destination remains available for forensic review and
+    # is never returned as restored or silently overwritten on a retry.
+    restored = verify_backup(destination_root)
+    if restored != expected:
+        raise BackupError("manifesto mudou durante a restauração")
     return destination_root
 
 

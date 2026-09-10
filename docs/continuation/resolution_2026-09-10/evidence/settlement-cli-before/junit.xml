@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.156" timestamp="2026-09-10T20:36:42.963329-03:00" hostname="Leo"><testcase classname="tests.test_resolution_live_settlement" name="test_cli_retry_reports_persisted_receipt_in_stdout_and_run_log" time="0.052"><failure message="AssertionError: assert {'prediction_...': '123', ...} == {'settlement_...': '123', ...}&#10;  &#10;  Omitting 15 identical items, use -vv to show&#10;  Differing items:&#10;  {'content_hash': '1d5b4b2b91cfa67f4479372a0695b848c879070b6b90b7b2bef1720cc1937973'} != {'content_hash': 'cc8264ce5503a4636c70f9ebdd13a47ee67dc30e249417b2db91829ca2912775'}&#10;  {'settled_at': '2024-01-01T00:05:00Z'} != {'settled_at': '2024-01-01T00:00:00Z'}&#10;  Use -v to get more diff">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:88: in test_cli_retry_reports_persisted_receipt_in_stdout_and_run_log
+    assert reported == {"settlement_appended": False, **first}
+E   AssertionError: assert {'prediction_...': '123', ...} == {'settlement_...': '123', ...}
+E     
+E     Omitting 15 identical items, use -vv to show
+E     Differing items:
+E     {'content_hash': '1d5b4b2b91cfa67f4479372a0695b848c879070b6b90b7b2bef1720cc1937973'} != {'content_hash': 'cc8264ce5503a4636c70f9ebdd13a47ee67dc30e249417b2db91829ca2912775'}
+E     {'settled_at': '2024-01-01T00:05:00Z'} != {'settled_at': '2024-01-01T00:00:00Z'}
+E     Use -v to get more diff</failure></testcase></testsuite></testsuites>

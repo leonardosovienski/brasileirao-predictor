@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="10" skipped="0" tests="10" time="1.960" timestamp="2026-09-10T16:45:14.725707-03:00" hostname="Leo"><testcase classname="tests.test_resolution_curated_versions" name="test_curated_roundtrip_keeps_market_contract" time="0.063"><failure message="KeyError: 'status'">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:39: in test_curated_roundtrip_keeps_market_contract
+    assert (row["status"], row["period"], row["line"]) == ("ACTIVE", "FT", 2.5)
+            ^^^^^^^^^^^^^
+E   KeyError: 'status'</failure></testcase><testcase classname="tests.test_resolution_curated_versions" name="test_curated_tied_conflicts_are_preserved_and_cannot_be_selected" time="0.062"><failure message="sqlite3.IntegrityError: UNIQUE constraint failed: curated_odds.source, curated_odds.source_match_id, curated_odds.bookmaker, curated_odds.market, curated_odds.selection, curated_odds.captured_at">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:46: in test_curated_tied_conflicts_are_preserved_and_cannot_be_selected
+    curate_odds(conn, quote(raw_odds=odds), canonical_match_id="canonical", batch_id="b1")
+..\..\..\brasileirao-predictor\brasileirao_predictor\data\pit_backfill.py:371: in curate_odds
+    conn.execute(
+E   sqlite3.IntegrityError: UNIQUE constraint failed: curated_odds.source, curated_odds.source_match_id, curated_odds.bookmaker, curated_odds.market, curated_odds.selection, curated_odds.captured_at</failure></testcase><testcase classname="tests.test_resolution_curated_versions" name="test_curated_suspension_survives_roundtrip_and_prevents_resurrection" time="0.064"><failure message="ValueError: odd curada sem campo obrigatório">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:56: in test_curated_suspension_survives_roundtrip_and_prevents_resurrection
+    curate_odds(conn, quote(status="SUSPENDED", raw_odds=None, captured_at="2020-01-02T19:00:00Z"),
+..\..\..\brasileirao-predictor\brasileirao_predictor\data\pit_backfill.py:349: in curate_odds
+    raise ValueError("odd curada sem campo obrigatório")
+E   ValueError: odd curada sem campo obrigatório</failure></testcase><testcase classname="tests.test_resolution_curated_versions" name="test_curated_exact_retry_is_idempotent" time="0.052"><failure message="sqlite3.IntegrityError: UNIQUE constraint failed: curated_odds.source, curated_odds.source_match_id, curated_odds.bookmaker, curated_odds.market, curated_odds.selection, curated_odds.captured_at">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:65: in test_curated_exact_retry_is_idempotent
+    curate_odds(conn, quote(), canonical_match_id="canonical", batch_id="b1")
+..\..\..\brasileirao-predictor\brasileirao_predictor\data\pit_backfill.py:371: in curate_odds
+    conn.execute(
+E   sqlite3.IntegrityError: UNIQUE constraint failed: curated_odds.source, curated_odds.source_match_id, curated_odds.bookmaker, curated_odds.market, curated_odds.selection, curated_odds.captured_at</failure></testcase><testcase classname="tests.test_resolution_curated_versions" name="test_curated_does_not_implicitly_mutate_old_schema" time="0.024"><failure message="sqlite3.OperationalError: no such column: canonical_match_id">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:75: in test_curated_does_not_implicitly_mutate_old_schema
+    connect_curated(path)
+..\..\..\brasileirao-predictor\brasileirao_predictor\data\pit_backfill.py:133: in connect_curated
+    conn.executescript(SCHEMA)
+E   sqlite3.OperationalError: no such column: canonical_match_id</failure></testcase><testcase classname="tests.test_resolution_curated_versions" name="test_match_revision_does_not_erase_earlier_as_of_state" time="0.070"><failure message="assert 1 == 2">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:92: in test_match_revision_does_not_erase_earlier_as_of_state
+    assert conn.execute("SELECT COUNT(*) FROM curated_matches").fetchone()[0] == 2
+E   assert 1 == 2</failure></testcase><testcase classname="tests.test_resolution_curated_versions" name="test_match_conflicting_revision_at_same_receipt_is_not_arbitrated" time="0.075"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:103: in test_match_conflicting_revision_at_same_receipt_is_not_arbitrated
+    with pytest.raises(ValueError, match="conflit"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_curated_versions" name="test_closing_rejects_future_information_even_for_direct_rows[observed_at]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:109: in test_closing_rejects_future_information_even_for_direct_rows
+    with pytest.raises(ValueError, match="captur"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_curated_versions" name="test_closing_rejects_future_information_even_for_direct_rows[available_at]" time="0.004"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:109: in test_closing_rejects_future_information_even_for_direct_rows
+    with pytest.raises(ValueError, match="captur"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_curated_versions" name="test_closing_rejects_future_information_even_for_direct_rows[published_at]" time="0.006"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_curated_versions.py:109: in test_closing_rejects_future_information_even_for_direct_rows
+    with pytest.raises(ValueError, match="captur"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

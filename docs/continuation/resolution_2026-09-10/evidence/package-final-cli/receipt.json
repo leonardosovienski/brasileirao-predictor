@@ -1,0 +1,80 @@
+{
+  "commands": [
+    {
+      "name": "health-missing-config",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\installed-cross-environment\\venv\\Scripts\\brasileirao-kernel.exe",
+        "--healthcheck"
+      ],
+      "exit_code": 2,
+      "expected": 2
+    },
+    {
+      "name": "health-invalid-endpoint-no-network",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\installed-cross-environment\\venv\\Scripts\\brasileirao-kernel.exe",
+        "--healthcheck",
+        "--db",
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\package-final-cli\\unused.db",
+        "--redis",
+        "invalid://synthetic"
+      ],
+      "exit_code": 1,
+      "expected": 1
+    },
+    {
+      "name": "odds_api_snapshot-help",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\installed-cross-environment\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "brasileirao_predictor.data.odds_api_snapshot",
+        "--help"
+      ],
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "name": "import_ou25_historical_backfill-help",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\installed-cross-environment\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "brasileirao_scripts.import_ou25_historical_backfill",
+        "--help"
+      ],
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "name": "odds_shop-help",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\installed-cross-environment\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "brasileirao_scripts.odds_shop",
+        "--help"
+      ],
+      "exit_code": 0,
+      "expected": 0
+    },
+    {
+      "name": "settle_live_prediction-help",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\installed-cross-environment\\venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "brasileirao_scripts.settle_live_prediction",
+        "--help"
+      ],
+      "exit_code": 0,
+      "expected": 0
+    }
+  ],
+  "completed": true,
+  "earlier_harness_error": "package-final expected health=1 without required configuration; actual argparse contract=2. Original failure preserved, no product code changed."
+}

@@ -37,7 +37,32 @@ public sealed class LatencyAuditService
         local now = redis.call('TIME')
         local nowUs = tonumber(now[1]) * 1000000 + tonumber(now[2])
         if ARGV[1] == 'record' then
-            redis.call('SET', KEYS[3], ARGV[4], 'PX', ARGV[2])
+            local incoming = cjson.decode(ARGV[4])
+            local oldRaw = redis.call('GET', KEYS[3])
+            local replace = true
+            local sameVersion = false
+            if oldRaw then
+                local previous = cjson.decode(oldRaw)
+                if type(previous.T3OrderingKey) ~= 'string' then
+                    error('legacy audit record requires explicit migration')
+                end
+                replace = incoming.T3OrderingKey > previous.T3OrderingKey
+                sameVersion = incoming.T3OrderingKey == previous.T3OrderingKey
+                if sameVersion then
+                    local identical = true
+                    for _, field in ipairs({'MatchId','Side','T0_SourcePublished','T1_Received',
+                        'T2_VorpComputed','DeltaVorp','IsFallback','FallbackReason'}) do
+                        if incoming[field] ~= previous[field] then identical = false end
+                    end
+                    -- Exact retries preserve the already-observed T4 and TTL.
+                    -- A changed diagnostic at the same T3 is a receipt revision;
+                    -- retain the existing expiration instead of extending it.
+                    if not identical then
+                        redis.call('SET', KEYS[3], ARGV[4], 'KEEPTTL')
+                    end
+                end
+            end
+            if replace then redis.call('SET', KEYS[3], ARGV[4], 'PX', ARGV[2]) end
             if ARGV[7] == '1' then
                 redis.call('ZADD', KEYS[1], ARGV[6], ARGV[5])
                 redis.call('ZADD', KEYS[2], nowUs, ARGV[5])

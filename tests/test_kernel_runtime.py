@@ -118,7 +118,7 @@ def test_main_rejects_missing_runtime_configuration(monkeypatch) -> None:
 def test_main_healthcheck_reports_redis_state(monkeypatch, tmp_path) -> None:
     sports_db = tmp_path / "sports.db"
     client = SimpleNamespace(eval=lambda *args: 1, close=lambda: None)
-    fake_redis = SimpleNamespace(from_url=lambda url: client)
+    fake_redis = SimpleNamespace(from_url=lambda url, **kwargs: client)
     monkeypatch.setitem(sys.modules, "redis", fake_redis)
     monkeypatch.setattr(
         sys,
@@ -139,7 +139,7 @@ def test_main_healthcheck_reports_redis_state(monkeypatch, tmp_path) -> None:
 def test_main_healthcheck_fails_when_kernel_is_not_ready(monkeypatch, tmp_path) -> None:
     sports_db = tmp_path / "sports.db"
     client = SimpleNamespace(eval=lambda *args: 0, close=lambda: None)
-    monkeypatch.setitem(sys.modules, "redis", SimpleNamespace(from_url=lambda url: client))
+    monkeypatch.setitem(sys.modules, "redis", SimpleNamespace(from_url=lambda url, **kwargs: client))
     monkeypatch.setattr(
         sys,
         "argv",

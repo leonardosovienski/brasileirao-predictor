@@ -42,6 +42,9 @@ public record LatencyRecord(
     public bool IsWithinBudget(double budgetMs) => double.IsFinite(budgetMs) && budgetMs > 0 && E2EMs >= 0 && E2EMs <= budgetMs;
     public DateTimeOffset? SourcePublishedAt => null;
     public string T0Semantics => "DECLARED_CAPTURE_NOT_VERIFIED_PUBLICATION";
+    // Fixed-width UTC ticks compare exactly as strings in Redis Lua; converting
+    // .NET ticks to Lua doubles would lose sub-microsecond ordering precision.
+    public string T3OrderingKey => T3_RedisWritten.UtcTicks.ToString("D19", System.Globalization.CultureInfo.InvariantCulture);
 }
 
 /// <summary>Sinal de simulação; preços/modelo sem homologação econômica e sem capital autorizado.</summary>
@@ -63,6 +66,15 @@ public record BetSignal(
     public string? JobId { get; init; }
     public string? RunId { get; init; }
     public string? StateVersion { get; init; }
+    public string? ModelInputIdentity { get; init; }
+    public string? MarketSource { get; init; }
+    public string? MarketBookmaker { get; init; }
+    public long? MarketRevision { get; init; }
+    public string? MarketSnapshotIdentity { get; init; }
+    public DateTimeOffset? MarketObservedAt { get; init; }
+    public DateTimeOffset? MarketReceivedAt { get; init; }
+    public DateTimeOffset? MarketAvailableAt { get; init; }
+    public bool MarketSynthetic { get; init; }
     public string ExecutionMode => "SIMULATION_ONLY";
     public bool CapitalEnabled => false;
     public string EconomicEvidence => "UNVERIFIED";

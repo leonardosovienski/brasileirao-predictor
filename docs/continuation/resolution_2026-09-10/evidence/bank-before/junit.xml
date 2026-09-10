@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="5" time="55.791" timestamp="2026-09-10T17:11:03.888223-03:00" hostname="Leo"><testcase classname="tests.test_resolution_bank" name="test_bank_snapshot_locks_both_books" time="0.078"><failure message="Failed: DID NOT RAISE OSError">..\..\..\brasileirao-predictor\tests\test_resolution_bank.py:32: in test_bank_snapshot_locks_both_books
+    with pytest.raises(OSError):
+         ^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE OSError</failure></testcase><testcase classname="tests.test_resolution_bank" name="test_old_stake_is_not_revalued_by_new_unit" time="51.596"><failure message="assert 10.0 == 1">..\..\..\brasileirao-predictor\tests\test_resolution_bank.py:44: in test_old_stake_is_not_revalued_by_new_unit
+    assert book.bank_state(bank, bets)["open_money"] == 1
+E   assert 10.0 == 1</failure></testcase><testcase classname="tests.test_resolution_bank" name="test_currency_change_requires_reconciliation_for_old_open_stake" time="0.364"><failure message="assert 99.0 is None">..\..\..\brasileirao-predictor\tests\test_resolution_bank.py:55: in test_currency_change_requires_reconciliation_for_old_open_stake
+    assert state["available_money"] is None
+E   assert 99.0 is None</failure></testcase><testcase classname="tests.test_resolution_bank" name="test_flow_requires_initial_bank_and_monotonic_clock" time="0.223"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_bank.py:61: in test_flow_requires_initial_bank_and_monotonic_clock
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_bank" name="test_drawdown_accounts_for_time_of_contribution" time="0.152"><failure message="KeyError: 'max_drawdown_pct'">..\..\..\brasileirao-predictor\tests\test_resolution_bank.py:77: in test_drawdown_accounts_for_time_of_contribution
+    assert state["max_drawdown_pct"] == pytest.approx(0.1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'max_drawdown_pct'</failure></testcase></testsuite></testsuites>

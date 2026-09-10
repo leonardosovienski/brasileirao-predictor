@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="6.470" timestamp="2026-09-10T17:41:15.181812-03:00" hostname="Leo"><testcase classname="tests.test_resolution_restore" name="test_restored_copy_keeps_manifest_and_is_independently_verifiable" time="0.380"><failure message="brasileirao_predictor.backup_restore.BackupError: manifesto ilegível: [Errno 2] No such file or directory: 'C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\restore-before\\tmp\\test_restored_copy_keeps_manif0\\restored\\BACKUP_MANIFEST.json'">..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:121: in verify_backup
+    manifest = json.loads((backup / "BACKUP_MANIFEST.json").read_text(encoding="utf-8"))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\pathlib\_local.py:546: in read_text
+    return PathBase.read_text(self, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\pathlib\_abc.py:632: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\pathlib\_local.py:537: in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\restore-before\\tmp\\test_restored_copy_keeps_manif0\\restored\\BACKUP_MANIFEST.json'
+
+The above exception was the direct cause of the following exception:
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:22: in test_restored_copy_keeps_manifest_and_is_independently_verifiable
+    assert backup.verify_backup(restored)["files"] == backup.verify_backup(source)["files"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:123: in verify_backup
+    raise BackupError(f"manifesto ilegível: {exc}") from exc
+E   brasileirao_predictor.backup_restore.BackupError: manifesto ilegível: [Errno 2] No such file or directory: 'C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\restore-before\\tmp\\test_restored_copy_keeps_manif0\\restored\\BACKUP_MANIFEST.json'</failure></testcase><testcase classname="tests.test_resolution_restore" name="test_restore_detects_copy_corruption_before_reporting_success" time="0.638"><failure message="Failed: DID NOT RAISE BackupError">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:38: in test_restore_detects_copy_corruption_before_reporting_success
+    with pytest.raises(backup.BackupError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE BackupError</failure></testcase></testsuite></testsuites>

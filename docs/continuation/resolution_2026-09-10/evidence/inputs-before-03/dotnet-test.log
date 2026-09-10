@@ -1,0 +1,16 @@
+Execução de teste para C:\BRASILEIRAO\work\resolution-2026-09-10\inputs-before-03\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:35.23]     LineupWorker.Tests.WorkerRuntimeTests.RealModeCannotInventEqualEloAndUnknownPositions [FAIL]
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.RealModeCannotInventEqualEloAndUnknownPositions [3 s]
+  Mensagem de erro:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(System.ArgumentException)
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.RealModeCannotInventEqualEloAndUnknownPositions() in C:\BRASILEIRAO\work\resolution-2026-09-10\inputs-before-03\source\dotnet\LineupWorker.Tests\WorkerInputContractTests.cs:line 13
+--- End of stack trace from previous location ---
+Arquivo de resultados: C:\BRASILEIRAO\work\resolution-2026-09-10\inputs-before-03\dotnet-results\_LEO_2026-09-10_17_43_41_net10.0.trx
+
+Com falha! – Com falha:     1, Aprovado:     0, Ignorado:     0, Total:     1, Duração: 11 s - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\resolution-2026-09-10\inputs-before-03\dotnet-results\7af445e3-d3fa-4ac5-9ce7-dfe1ddb3e3e2\coverage.cobertura.xml

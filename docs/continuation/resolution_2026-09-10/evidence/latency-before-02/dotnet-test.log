@@ -1,0 +1,26 @@
+Execução de teste para C:\BRASILEIRAO\work\resolution-2026-09-10\latency-before-02\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:01.82]     LineupWorker.Tests.WorkerRuntimeTests.DuplicateAuditArrivalCannotEraseTheRecordedMarketRead [FAIL]
+[xUnit.net 00:00:01.93]     LineupWorker.Tests.WorkerRuntimeTests.OlderAuditArrivalCannotReplaceLatestT3OrRefreshItsTtl [FAIL]
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.DuplicateAuditArrivalCannotEraseTheRecordedMarketRead [705 ms]
+  Mensagem de erro:
+   Assert.Equal() Failure: Values differ
+Expected: 2026-09-10T19:40:56.9686724+00:00
+Actual:   null
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.DuplicateAuditArrivalCannotEraseTheRecordedMarketRead() in C:\BRASILEIRAO\work\resolution-2026-09-10\latency-before-02\source\dotnet\LineupWorker.Tests\LatencyOrderingTests.cs:line 45
+--- End of stack trace from previous location ---
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.OlderAuditArrivalCannotReplaceLatestT3OrRefreshItsTtl [69 ms]
+  Mensagem de erro:
+   Assert.Equal() Failure: Values differ
+Expected: LatencyRecord { MatchId = reordered, Side = combined, T0_SourcePublished = 10/09/2026 19:40:57 +00:00, T1_Received = 10/09/2026 19:40:57 +00:00, T2_VorpComputed = 10/09/2026 19:40:57 +00:00, T3_RedisWritten = 10/09/2026 19:40:57 +00:00, T4_MarketEngineRead = , DeltaVorp = 0, IsFallback = False, FallbackReason = , NetworkLagMs = 20, ProcessingMs = 0, WriteMs = 0, E2EMs = 20, MarketReactionMs = , SourcePublishedAt = , T0Semantics = DECLARED_CAPTURE_NOT_VERIFIED_PUBLICATION }
+Actual:   LatencyRecord { MatchId = reordered, Side = combined, T0_SourcePublished = 10/09/2026 19:40:56 +00:00, T1_Received = 10/09/2026 19:40:56 +00:00, T2_VorpComputed = 10/09/2026 19:40:56 +00:00, T3_RedisWritten = 10/09/2026 19:40:56 +00:00, T4_MarketEngineRead = , DeltaVorp = 0, IsFallback = False, FallbackReason = , NetworkLagMs = 20, ProcessingMs = 0, WriteMs = 0, E2EMs = 20, MarketReactionMs = , SourcePublishedAt = , T0Semantics = DECLARED_CAPTURE_NOT_VERIFIED_PUBLICATION }
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.OlderAuditArrivalCannotReplaceLatestT3OrRefreshItsTtl() in C:\BRASILEIRAO\work\resolution-2026-09-10\latency-before-02\source\dotnet\LineupWorker.Tests\LatencyOrderingTests.cs:line 29
+--- End of stack trace from previous location ---
+Arquivo de resultados: C:\BRASILEIRAO\work\resolution-2026-09-10\latency-before-02\dotnet-results\_LEO_2026-09-10_16_40_59_net10.0.trx
+
+Com falha! – Com falha:     2, Aprovado:     0, Ignorado:     0, Total:     2, Duração: 1 s - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\resolution-2026-09-10\latency-before-02\dotnet-results\cb92efd6-e215-407f-81b9-ac3b7f653cad\coverage.cobertura.xml

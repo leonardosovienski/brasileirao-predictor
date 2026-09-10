@@ -1,0 +1,14 @@
+{
+  "tests": [
+    "test_resolution_odds_shop.py",
+    "test_odds_shop_stale.py",
+    "test_resolution_historical_import.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

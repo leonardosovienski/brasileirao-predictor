@@ -1,0 +1,24 @@
+Execução de teste para C:\BRASILEIRAO\work\resolution-2026-09-10\market-read-before\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:02.43]     LineupWorker.Tests.FairOddsCorrelationTests.ChangedOrWithdrawnQuoteDuringStateReadCannotEmitOldPrice(replacement: 1) [FAIL]
+[xUnit.net 00:00:02.49]     LineupWorker.Tests.FairOddsCorrelationTests.ChangedOrWithdrawnQuoteDuringStateReadCannotEmitOldPrice(replacement: 2,6000000000000001) [FAIL]
+  Com falha LineupWorker.Tests.FairOddsCorrelationTests.ChangedOrWithdrawnQuoteDuringStateReadCannotEmitOldPrice(replacement: 1) [838 ms]
+  Mensagem de erro:
+   Assert.Empty() Failure: Collection was not empty
+Collection: ["{\"MatchId\":\"match\",\"Market\":\"1x2\",\"Select"···]
+  Rastreamento de pilha:
+     at LineupWorker.Tests.FairOddsCorrelationTests.ChangedOrWithdrawnQuoteDuringStateReadCannotEmitOldPrice(Double replacement) in C:\BRASILEIRAO\work\resolution-2026-09-10\market-read-before\source\dotnet\LineupWorker.Tests\FairOddsCorrelationTests.cs:line 82
+--- End of stack trace from previous location ---
+  Com falha LineupWorker.Tests.FairOddsCorrelationTests.ChangedOrWithdrawnQuoteDuringStateReadCannotEmitOldPrice(replacement: 2,6000000000000001) [5 ms]
+  Mensagem de erro:
+   Assert.Empty() Failure: Collection was not empty
+Collection: ["{\"MatchId\":\"match\",\"Market\":\"1x2\",\"Select"···]
+  Rastreamento de pilha:
+     at LineupWorker.Tests.FairOddsCorrelationTests.ChangedOrWithdrawnQuoteDuringStateReadCannotEmitOldPrice(Double replacement) in C:\BRASILEIRAO\work\resolution-2026-09-10\market-read-before\source\dotnet\LineupWorker.Tests\FairOddsCorrelationTests.cs:line 82
+--- End of stack trace from previous location ---
+Arquivo de resultados: C:\BRASILEIRAO\work\resolution-2026-09-10\market-read-before\dotnet-results\_LEO_2026-09-10_18_27_38_net10.0.trx
+
+Com falha! – Com falha:     2, Aprovado:     0, Ignorado:     0, Total:     2, Duração: 905 ms - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\resolution-2026-09-10\market-read-before\dotnet-results\a2aea01a-ac02-4d66-af69-33adfc6f3053\coverage.cobertura.xml

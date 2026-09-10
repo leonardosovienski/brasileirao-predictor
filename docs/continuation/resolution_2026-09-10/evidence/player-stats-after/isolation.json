@@ -1,0 +1,13 @@
+{
+  "tests": [
+    "test_resolution_player_stats.py",
+    "test_player_comp_stats_sofascore.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

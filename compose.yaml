@@ -54,8 +54,12 @@ services:
     build: {context: ., dockerfile: Dockerfile.worker}
     environment:
       <<: *paths
-      LINEUP_Exchange__WebSocketUrl: ${EXCHANGE_WEBSOCKET_URL:-wss://exchange.invalid/odds/ws}
+      LINEUP_Exchange__WebSocketUrl: ${EXCHANGE_WEBSOCKET_URL:-}
       LINEUP_Exchange__ApiKey: ${EXCHANGE_API_KEY:-}
+      LINEUP_Exchange__Protocol: ${EXCHANGE_PROTOCOL:-}
+      LINEUP_Exchange__Source: ${EXCHANGE_SOURCE:-}
+      LINEUP_Exchange__Bookmaker: ${EXCHANGE_BOOKMAKER:-}
+      LINEUP_Worker__AllowSyntheticInputs: ${LINEUP_ALLOW_SYNTHETIC_INPUTS:-false}
     volumes:
       - app-data:/app/data:ro
       - ./docker:/app/config:ro

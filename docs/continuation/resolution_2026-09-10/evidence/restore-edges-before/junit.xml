@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="5.343" timestamp="2026-09-10T18:48:04.621612-03:00" hostname="Leo"><testcase classname="tests.test_resolution_restore" name="test_backup_restore_does_not_decode_literal_percent_sequences" time="0.271"><failure message="sqlite3.OperationalError: unable to open database file">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:52: in test_backup_restore_does_not_decode_literal_percent_sequences
+    source = fixture(directory)
+             ^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:16: in fixture
+    return backup.create_backup(tmp_path / "backup", root=source)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:72: in create_backup
+    source = sqlite3.connect(f"file:{source_db.resolve().as_posix()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   sqlite3.OperationalError: unable to open database file</failure></testcase><testcase classname="tests.test_resolution_restore" name="test_create_refuses_destination_inside_a_copied_tree_before_copying" time="0.671"><failure message="AssertionError: recursive backup destination was not rejected">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:67: in test_create_refuses_destination_inside_a_copied_tree_before_copying
+    backup.create_backup(root / "reports" / "recursive-backup", root=root)
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:103: in create_backup
+    shutil.copytree(source_directory, temporary / name)
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:63: in forbidden_copy
+    raise AssertionError("recursive backup destination was not rejected")
+E   AssertionError: recursive backup destination was not rejected</failure></testcase><testcase classname="tests.test_resolution_restore" name="test_create_checks_source_links_before_copying_external_content" time="0.181"><failure message="AssertionError: source link was followed before validation">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:84: in test_create_checks_source_links_before_copying_external_content
+    backup.create_backup(tmp_path / "second-backup", root=root)
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:103: in create_backup
+    shutil.copytree(source_directory, temporary / name)
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:80: in forbidden_copy
+    raise AssertionError("source link was followed before validation")
+E   AssertionError: source link was followed before validation</failure></testcase></testsuite></testsuites>

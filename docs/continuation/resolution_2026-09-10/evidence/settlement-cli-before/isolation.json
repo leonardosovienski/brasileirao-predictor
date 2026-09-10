@@ -1,0 +1,12 @@
+{
+  "tests": [
+    "test_resolution_live_settlement.py::test_cli_retry_reports_persisted_receipt_in_stdout_and_run_log"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 1
+}

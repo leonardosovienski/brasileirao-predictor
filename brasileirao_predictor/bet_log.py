@@ -21,7 +21,7 @@ import json
 import math
 import os
 import uuid
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from datetime import UTC, datetime
 from functools import wraps
 from numbers import Integral, Real
@@ -527,18 +527,33 @@ def _timestamp(value) -> datetime:
 
 def _read_bank(path) -> list[dict]:
     rows = _read_records(_resolve_bank(path), {"init", "deposit", "withdraw"})
+    previous = None
+    initialized = False
     for row in rows:
         _finite_number(row.get("amount"), "valor bancário")
         if row["amount"] <= 0:
             raise ValueError("valor bancário deve ser positivo")
-        _timestamp(row.get("at"))
+        timestamp = _timestamp(row.get("at"))
+        if previous is not None and timestamp < previous:
+            raise ValueError("cronologia bancária fora de ordem; reconciliação necessária")
+        previous = timestamp
         if row["kind"] == "init":
+            initialized = True
             _finite_number(row.get("unit"), "unidade")
             if row["unit"] <= 0:
                 raise ValueError("unidade deve ser positiva")
             if not isinstance(row.get("currency"), str) or not row["currency"].strip():
                 raise ValueError("moeda deve ser declarada")
+        elif not initialized:
+            raise ValueError("fluxo bancário exige abertura anterior")
     return rows
+
+
+def _bank_clock(rows, at):
+    stamp = _timestamp(at)
+    if rows and stamp < _timestamp(rows[-1]["at"]):
+        raise ValueError("cronologia bancária não permite lançamento retroativo")
+    return stamp
 
 
 @_single_writer(_resolve_bank)
@@ -552,7 +567,7 @@ def bank_init(amount, unit, *, currency="BRL", path=None, at=None) -> dict:
         raise ValueError("banca e unidade devem ser positivas")
     if not isinstance(currency, str) or not currency.strip():
         raise ValueError("moeda deve ser declarada")
-    _read_bank(path)
+    rows = _read_bank(path)
     rec = {
         "at": at or datetime.now(UTC).isoformat(timespec="seconds"),
         "kind": "init",
@@ -560,7 +575,7 @@ def bank_init(amount, unit, *, currency="BRL", path=None, at=None) -> dict:
         "unit": float(unit),
         "currency": currency,
     }
-    _timestamp(rec["at"])
+    _bank_clock(rows, rec["at"])
     _append(rec, _resolve_bank(path))
     return rec
 
@@ -573,78 +588,151 @@ def bank_flow(kind, amount, *, path=None, at=None) -> dict:
     _finite_number(amount, "valor")
     if amount <= 0:
         raise ValueError("valor deve ser positivo")
-    _read_bank(path)
+    rows = _read_bank(path)
+    if not rows:
+        raise ValueError("fluxo bancário exige abertura anterior")
     rec = {
         "at": at or datetime.now(UTC).isoformat(timespec="seconds"),
         "kind": kind,
         "amount": float(amount),
     }
-    _timestamp(rec["at"])
+    _bank_clock(rows, rec["at"])
     _append(rec, _resolve_bank(path))
     return rec
 
 
 def bank_state(bank_path=None, bets_path=None) -> dict | None:
-    """Estado da banca: saldo em dinheiro, exposição aberta, drawdown máximo.
-    None se a banca nunca foi aberta. Só considera settlements DEPOIS do
-    último init (a banca conta a partir de quando foi aberta)."""
-    p = _resolve_bank(bank_path)
-    if not p.exists():
-        return None
-    init, flows = None, 0.0
-    for r in _read_bank(p):
-        if r["kind"] == "init":
-            init, flows = r, 0.0  # novo init zera a contagem
-        elif r["kind"] == "deposit":
-            flows += r["amount"]
-        elif r["kind"] == "withdraw":
-            flows -= r["amount"]
-    if init is None:
-        return None
-    unit = init["unit"]
+    """Coherent snapshot of both manual books, with historically declared units.
 
-    # Um snapshot reconciliado sustenta tanto o resultado quanto a exposição.
-    all_rows = _read(bets_path)
-    settled_ids, settled_lines = _settlement_index(all_rows)
+    A new init resets the cash anchor, never the monetary size of an old bet.
+    Missing or ambiguous unit/currency history blocks monetary valuation. Locks
+    coordinate our local writers only; manual edits are outside this contract.
+    """
+    bank, bets = _resolve_bank(bank_path).resolve(), _resolve(bets_path).resolve()
+    if bank == bets:
+        raise ValueError("banca e apostas exigem livros distintos")
+    with ExitStack() as locks:
+        for path in sorted({bank, bets}, key=lambda item: str(item).casefold()):
+            locks.enter_context(_writer_lock(path))
+        bank_rows = _read_bank(bank)
+        if not bank_rows:
+            return None
+        all_rows = _read(bets)
+    return _bank_snapshot(bank_rows, all_rows)
+
+
+def _bank_snapshot(bank_rows, all_rows):
+    inits = [row for row in bank_rows if row["kind"] == "init"]
+    init = inits[-1]
     init_at = _timestamp(init["at"])
-    settles = sorted(
-        (r for r in all_rows if r["kind"] == "settlement" and _timestamp(r["recorded_at"]) >= init_at),
-        key=lambda r: _timestamp(r["recorded_at"]),
-    )
-    profit_units = sum(r["profit"] for r in settles)
-    # equity curve em dinheiro -> max drawdown (do pico ao vale)
-    equity, peak, mdd = init["amount"] + flows, init["amount"] + flows, 0.0
-    for r in settles:
-        equity += r["profit"] * unit
-        peak = max(peak, equity)
-        mdd = max(mdd, peak - equity)
-    # exposição = TODA aposta ainda aberta no livro (mesmo registrada antes do
-    # init — aposta viva é dinheiro em jogo desta banca), casada por linha
-    open_units = sum(
-        r["stake"]
-        for i, r in enumerate(all_rows)
-        if r["kind"] == "bet" and (r.get("bet_id") not in settled_ids if r.get("bet_id") else i not in settled_lines)
-    )
-    balance = init["amount"] + flows + profit_units * unit
-    return {
-        "currency": init.get("currency", "BRL"),
+    init_index = max(i for i, row in enumerate(bank_rows) if row["kind"] == "init")
+    flows = bank_rows[init_index + 1 :]
+    net_flows = sum(row["amount"] * (1 if row["kind"] == "deposit" else -1) for row in flows)
+    settled_ids, settled_lines = _settlement_index(all_rows)
+    issues, settlements, open_positions = [], [], []
+
+    def value_unit(bet):
+        try:
+            at = _timestamp(bet.get("logged_at"))
+        except ValueError:
+            issues.append("aposta sem horário de registro válido")
+            return None
+        regimes = [row for row in inits if _timestamp(row["at"]) <= at]
+        if not regimes:
+            issues.append("aposta anterior à primeira unidade monetária declarada")
+            return None
+        last_at = _timestamp(regimes[-1]["at"])
+        values = {(row["currency"], row["unit"]) for row in regimes if _timestamp(row["at"]) == last_at}
+        if len(values) != 1:
+            issues.append("unidades conflitantes no mesmo horário de registro")
+            return None
+        currency, unit = values.pop()
+        if currency != init["currency"]:
+            issues.append("moeda histórica diferente; conversão não comprovada")
+            return None
+        return unit
+
+    for index, bet in enumerate(all_rows):
+        if bet["kind"] != "bet":
+            continue
+        settlement = settled_ids.get(bet["bet_id"]) if bet.get("bet_id") else settled_lines.get(index)
+        if settlement is None:
+            open_positions.append((bet, value_unit(bet)))
+        elif _timestamp(settlement["recorded_at"]) >= init_at:
+            if _timestamp(settlement["recorded_at"]) < _timestamp(bet.get("logged_at")):
+                raise ValueError("liquidação anterior ao registro da aposta")
+            settlements.append((settlement, value_unit(bet)))
+    profit_units = sum(row["profit"] for row, _ in settlements)
+    open_units = sum(row["stake"] for row, _ in open_positions)
+    result = {
+        "currency": init["currency"],
         "initial": init["amount"],
-        "unit": unit,
-        "unit_pct": unit / init["amount"],
-        "flows": flows,
-        "balance": round(balance, 2),
-        "available_money": round(balance - open_units * unit, 2),
-        "accounting_scope": "gross_reported_units_at_current_unit_value",
-        "drawdown_scope": "gross_settlement_pnl_at_current_unit_excluding_flow_timing",
+        "unit": init["unit"],
+        "unit_pct": init["unit"] / init["amount"],
+        "flows": net_flows,
+        "accounting_scope": "gross_manual_reports_at_historically_declared_unit",
+        "drawdown_scope": "cash_flow_adjusted_gross_pnl_and_unitized_nav",
         "economic_evidence_eligible": False,
         "costs_reconciled": False,
         "profit_units": round(profit_units, 4),
-        "profit_money": round(profit_units * unit, 2),
-        "n_settled": len(settles),
-        "open_units": round(max(open_units, 0.0), 2),
-        "open_money": round(max(open_units, 0.0) * unit, 2),
-        "max_drawdown_money": round(mdd, 2),
+        "n_settled": len(settlements),
+        "open_units": round(open_units, 4),
         "since": init["at"],
+        "valuation_status": "PENDING_RECONCILIATION" if issues else "MANUAL_DECLARATIONS_ONLY",
+        "valuation_issues": sorted(set(issues)),
+    }
+    if issues:
+        return {
+            **result,
+            **dict.fromkeys(
+                ("balance", "available_money", "profit_money", "open_money", "max_drawdown_money", "max_drawdown_pct")
+            ),
+        }
+    profit_money = sum(row["profit"] * unit for row, unit in settlements)
+    open_money = sum(row["stake"] * unit for row, unit in open_positions)
+    equity = peak = float(init["amount"])
+    shares, nav_peak, mdd, mdd_pct = equity, 1.0, 0.0, 0.0
+    events = [
+        (_timestamp(row["at"]), 0, i, row["amount"] * (1 if row["kind"] == "deposit" else -1))
+        for i, row in enumerate(flows)
+    ]
+    events += [
+        (_timestamp(row["recorded_at"]), 1, i, row["profit"] * unit) for i, (row, unit) in enumerate(settlements)
+    ]
+    flow_times = {at for at, kind, _, _ in events if kind == 0}
+    nav_known = not any(at in flow_times for at, kind, _, _ in events if kind == 1)
+    for _, kind, _, amount in sorted(events):
+        if kind == 0:
+            if equity <= 0 or shares <= 0 or equity + amount <= 0:
+                nav_known = False
+            elif nav_known:
+                shares += amount / (equity / shares)
+            equity += amount
+            peak += amount
+        else:
+            equity += amount
+            peak = max(peak, equity)
+            mdd = max(mdd, peak - equity)
+            if equity < 0 or shares <= 0:
+                nav_known = False
+            elif nav_known:
+                nav = equity / shares
+                nav_peak = max(nav_peak, nav)
+                mdd_pct = max(mdd_pct, 1 - nav / nav_peak)
+    balance = init["amount"] + net_flows + profit_money
+    for value in (balance, profit_money, open_money, mdd, mdd_pct):
+        _finite_number(value, "reconciliação monetária")
+    if not math.isclose(equity, balance, rel_tol=1e-12, abs_tol=1e-8):
+        raise ArithmeticError("saldo não reconcilia com os eventos")
+    return {
+        **result,
+        "balance": round(balance, 2),
+        "available_money": round(balance - open_money, 2),
+        "profit_money": round(profit_money, 2),
+        "open_money": round(open_money, 2),
+        "max_drawdown_money": round(mdd, 2),
+        "max_drawdown_pct": mdd_pct if nav_known else None,
+        "nav_status": "COMPUTED" if nav_known else "UNDEFINED_ORDER_OR_NONPOSITIVE_CAPITAL",
     }
 
 
@@ -895,6 +983,9 @@ def main():
             return
         cur = st["currency"]
         print(f"\n=== BANCA ({cur}) — desde {st['since'][:10]} ===")
+        if st["valuation_status"] == "PENDING_RECONCILIATION":
+            print("Valores monetários indisponíveis: " + "; ".join(st["valuation_issues"]))
+            return
         fluxos = f", fluxos {st['flows']:+.2f}" if st["flows"] else ""
         print(f"  saldo atual:      {st['balance']:.2f}  (inicial {st['initial']:.2f}{fluxos})")
         print(f"  unidade:          {st['unit']:.2f}  ({st['unit_pct']:.1%} da banca inicial)")

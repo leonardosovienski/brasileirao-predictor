@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="8" time="0.981" timestamp="2026-09-10T19:53:17.919011-03:00" hostname="Leo"><testcase classname="tests.test_resolution_historical_import" name="test_existing_output_is_rejected_without_touching_bytes" time="0.050" /><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[AvgOver2.5-inf]" time="0.065"><failure message="OSError: [Errno 9] Bad file descriptor">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:43: in test_bad_price_or_count_is_quarantined
+    report = importer.import_backfill(source, database, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\import_ou25_historical_backfill.py:100: in import_backfill
+    os.fsync(handle.fileno())
+E   OSError: [Errno 9] Bad file descriptor</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[AvgUnder2.5-1]" time="0.075"><failure message="OSError: [Errno 9] Bad file descriptor">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:43: in test_bad_price_or_count_is_quarantined
+    report = importer.import_backfill(source, database, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\import_ou25_historical_backfill.py:100: in import_backfill
+    os.fsync(handle.fileno())
+E   OSError: [Errno 9] Bad file descriptor</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[HighOver2.5-nan]" time="0.060"><failure message="OSError: [Errno 9] Bad file descriptor">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:43: in test_bad_price_or_count_is_quarantined
+    report = importer.import_backfill(source, database, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\import_ou25_historical_backfill.py:100: in import_backfill
+    os.fsync(handle.fileno())
+E   OSError: [Errno 9] Bad file descriptor</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[NumBookmakers2.5-3.5]" time="0.086"><failure message="OSError: [Errno 9] Bad file descriptor">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:43: in test_bad_price_or_count_is_quarantined
+    report = importer.import_backfill(source, database, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\import_ou25_historical_backfill.py:100: in import_backfill
+    os.fsync(handle.fileno())
+E   OSError: [Errno 9] Bad file descriptor</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[NumBookmakers2.5--2]" time="0.060"><failure message="OSError: [Errno 9] Bad file descriptor">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:43: in test_bad_price_or_count_is_quarantined
+    report = importer.import_backfill(source, database, output)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\import_ou25_historical_backfill.py:100: in import_backfill
+    os.fsync(handle.fileno())
+E   OSError: [Errno 9] Bad file descriptor</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_failed_import_does_not_publish_partial_database" time="0.051" /><testcase classname="tests.test_resolution_historical_import" name="test_valid_import_preserves_raw_and_keeps_economics_disabled" time="0.057"><failure message="OSError: [Errno 9] Bad file descriptor">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:62: in test_valid_import_preserves_raw_and_keeps_economics_disabled
+    report = importer.import_backfill(source, database, tmp_path / "research.sqlite")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\import_ou25_historical_backfill.py:100: in import_backfill
+    os.fsync(handle.fileno())
+E   OSError: [Errno 9] Bad file descriptor</failure></testcase></testsuite></testsuites>

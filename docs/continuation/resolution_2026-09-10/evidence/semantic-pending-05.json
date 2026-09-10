@@ -1,0 +1,674 @@
+[
+  {
+    "path": "dotnet/LineupWorker.Tests/FairOddsCorrelationTests.cs",
+    "bytes": 6016,
+    "sha256": "6ce44fe46e4e2b71a29abd93012614f4e671f1ab19af4795ec2479dc817ab080",
+    "lines": 146,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/FairOddsRecoveryTests.cs",
+    "bytes": 10204,
+    "sha256": "50f0e958297437edd86e60f1098e9ee5b3a4665ef69715e660e841a4493b1407",
+    "lines": 192,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/KernelCrossProcessTests.cs",
+    "bytes": 11572,
+    "sha256": "27656be696b380d53178c0bd0a9c96ea93f77988ae5eff7355aa6b8327c86ffd",
+    "lines": 204,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/KernelInvocationIdentityTests.cs",
+    "bytes": 4584,
+    "sha256": "360b87e4d45b80301325c7ecec5843f6eb1fa2a17e193ee21b32a7c8e70fcd82",
+    "lines": 117,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/LineupStreamTests.cs",
+    "bytes": 8762,
+    "sha256": "bd4affa75ea36d5981deee21e3a6413e3a0105a75ed0f3a7d3acf123eeb43b6b",
+    "lines": 169,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/OperationalSettingsTests.cs",
+    "bytes": 3264,
+    "sha256": "af4192a191cad7605fd61764c1b6dccde09187d3ebcaf5ce2ffe9758cf3e8b76",
+    "lines": 84,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WatchdogRecoveryTests.cs",
+    "bytes": 6326,
+    "sha256": "2b5c4b4b47b9c05429a829be860a92161e9bf11c53d54f487954c8b27f3a8f93",
+    "lines": 115,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WorkerHealthTests.cs",
+    "bytes": 6131,
+    "sha256": "07baadae23b814392f2cb36cce72fee0ee84c8e9ddd143df6c180e9221595849",
+    "lines": 121,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WorkerRuntimeFencingTests.cs",
+    "bytes": 19150,
+    "sha256": "5661addebd269de6a4ee09785cec67d000de298652ae1ee12be8ea20a1de7e08",
+    "lines": 306,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker.Tests/WorkerRuntimeTests.cs",
+    "bytes": 25851,
+    "sha256": "361222a80e376c87530965c7b7bcf8c124403eddecf12734b753b5e238d313d0",
+    "lines": 477,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "dotnet/LineupWorker/packages.lock.json",
+    "bytes": 15008,
+    "sha256": "987220617e098936ef7c4f5273cb440e1a064777ac0b531bc48b8654ca780fcb",
+    "lines": 313,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "scripts/migration/build_data_archive.py",
+    "bytes": 24497,
+    "sha256": "e2c3b05c4609fe338b9bf6804be5cc5cae15b21c7d98fbd5db2cf211ab33f80b",
+    "lines": 627,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_audit_fixes.py",
+    "bytes": 14824,
+    "sha256": "6f52493270af5ec712b1c9ca391d77ee839ad62fbbc183987de02c4544f61c89",
+    "lines": 349,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_backtest_extended.py",
+    "bytes": 6452,
+    "sha256": "0f1319d27ea9e31a303e2ead6779a6fe4aa7d7ce0daf478af7751cbc60ba645f",
+    "lines": 178,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_backtest_odds.py",
+    "bytes": 9734,
+    "sha256": "a77418fe855f0dbc7ca6df467cf4b97a5ab5337266a68c52bcbdfcd24ac6d5a0",
+    "lines": 237,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_backup_restore.py",
+    "bytes": 3962,
+    "sha256": "9861be62fffe8a812a0dc93e68f404a66cf3bf7c2ef40daad77fafb9d8ab8852",
+    "lines": 88,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_benchmark_panel_fixes.py",
+    "bytes": 15637,
+    "sha256": "fbec8e861f74c87e8e734e932971b1166cfa78154cbbeb0c388d14900f126f0f",
+    "lines": 389,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_bookmaker_odds.py",
+    "bytes": 6999,
+    "sha256": "4596e067d1bef1b4c71a403b5e3e8ca829eca530204fbeb00927eeb95182ce5e",
+    "lines": 228,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_bookmaker_stability.py",
+    "bytes": 2344,
+    "sha256": "b135552cb43f953f54ea18ec3060fb2129a7fa8e013ac4c76543d2a7d4e1a731",
+    "lines": 62,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_bootstrap.py",
+    "bytes": 2649,
+    "sha256": "c0c89b95dbd53531c8de31e14a7a51bfa451546bfb6c26ccc15503c74910ff11",
+    "lines": 66,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_brasileirao_domain.py",
+    "bytes": 9658,
+    "sha256": "7e6ff5f8a7d4faf41bf334e9eb5a26e68ff79cd876a0fe74ea779c7ae1ee9265",
+    "lines": 230,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_build_data_archive.py",
+    "bytes": 11851,
+    "sha256": "d15e92b7ba02da3899af1dee2f3cbd41d3ffe1157d2f984adcd3811208af713f",
+    "lines": 286,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_capture_decision.py",
+    "bytes": 8855,
+    "sha256": "d7a810c2f82dd2710791d5aeb9bafd6e26d23831fc2a049a0944e5c08c1eca25",
+    "lines": 212,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_capture_sofascore_event.py",
+    "bytes": 3844,
+    "sha256": "fc3cb731985c8dc13fa1b8694171d7eaaaeb087a211584f754968f22a2c5a871",
+    "lines": 109,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_closing_scenario.py",
+    "bytes": 3424,
+    "sha256": "f0c87febcf1a4469df655fcd5e589597f08c5c0d31cb4e5781323dffbaf94767",
+    "lines": 89,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_collection_only_archive.py",
+    "bytes": 2215,
+    "sha256": "98fe53a44537237dacb7420724aa78e09fd4b70c45283e9d24f97087916d5590",
+    "lines": 56,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_db.py",
+    "bytes": 7077,
+    "sha256": "30d43061c1a5edb770ae9c0dfab12f3c7f6dfb3f77465cafd5adbd855cf4830e",
+    "lines": 172,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_db_extended_odds.py",
+    "bytes": 7194,
+    "sha256": "cf33efd062ee58ae70a1716aae004d7c20a135af18d21efd96c16775c752c52e",
+    "lines": 189,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_dixon_coles.py",
+    "bytes": 2890,
+    "sha256": "ed8139b2f87be41c1911daa3af2633a4b846c13d746678f96974882426881d3d",
+    "lines": 98,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_dixon_coles_fit.py",
+    "bytes": 3957,
+    "sha256": "a0ebc8ec3dbb16f66617a13175a7e950b5d593bdf56b679924287ee5bda3009f",
+    "lines": 117,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_economic_search.py",
+    "bytes": 4335,
+    "sha256": "8f4d3b71108d6477f2d255a6c8f4b0a9a6b019ac2c61dc7eab4249fba2b14ccb",
+    "lines": 118,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_elo_baseline.py",
+    "bytes": 2110,
+    "sha256": "703820717fe92ea872d570a242f2af8b42f0c2c4d393175445373d89dce99723",
+    "lines": 62,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_elo_baseline_block_guard.py",
+    "bytes": 3268,
+    "sha256": "86afedf01bf6d1162850c589e20048cc48ddca958403645c55d81f870734a979",
+    "lines": 90,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_exp001_cutoff_state_regression.py",
+    "bytes": 4093,
+    "sha256": "b3edf4a557b2282c7415f527e86f084c898fec3fe03628457b0eed3f9d271ab9",
+    "lines": 108,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_feature_builder.py",
+    "bytes": 4477,
+    "sha256": "02a98d9bc5e000d5c0933b0264b716eda2961df353eba905a3af64c0c21cf5f1",
+    "lines": 119,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_find_odds.py",
+    "bytes": 4841,
+    "sha256": "697286afc9c2c2773c881a82ab5f5e18d8085944e9a3244c49a93e37629ce7d2",
+    "lines": 120,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_followup_capture_contract.py",
+    "bytes": 9637,
+    "sha256": "7661b7670c2c812397fa8506a6d445edb1626271148424859542cd16c6df63a1",
+    "lines": 263,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_h10_fadiga_walkforward.py",
+    "bytes": 5316,
+    "sha256": "2ec2f1df89d8c75d2175607e92a2aadbdd434f51e08bb3dad1ba359316625ec3",
+    "lines": 133,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_historical_admission.py",
+    "bytes": 4966,
+    "sha256": "c4fb0052e72678cb387174c17f44b4f70a94e4bc7d3c549c6d95f54ff9a69337",
+    "lines": 132,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_historical_expansion.py",
+    "bytes": 2070,
+    "sha256": "33fb5c67465c035dcfec23e33dac95019b1129055bc0dafbeae13c7c3c777206",
+    "lines": 63,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_hostil_2026_07_18.py",
+    "bytes": 8841,
+    "sha256": "f8722c21753dcdaa87fb77ecd44e93ec1cedaa83c9f1b2a0c28b422d59368f32",
+    "lines": 240,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_hotpath_smoke.py",
+    "bytes": 5599,
+    "sha256": "a7fa0b957db56029041180edcebba79bd85aa0e656aeaaf0acfe644b3f0c457e",
+    "lines": 152,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_integral_review_admission.py",
+    "bytes": 2854,
+    "sha256": "e8fb5f57b0300c9ea3d8696688a1bbd63b905ef3d796005cceb2cf990323223d",
+    "lines": 76,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_integral_review_event_backtest.py",
+    "bytes": 3107,
+    "sha256": "da6acd880515db5744d736c82c0aa385c3713b4103e83c1de64e566d9aeb0c2a",
+    "lines": 84,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_inventario_dados.py",
+    "bytes": 6190,
+    "sha256": "e006f6f753cbf95c750a84943041816754956cf2fa1e4df3ca5b8ed0f6ea2ac4",
+    "lines": 163,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_kernel_protocol.py",
+    "bytes": 6813,
+    "sha256": "93816017c8be005643c038b4cf97864623201b8431e86d096040f752bc155c31",
+    "lines": 191,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_kickoff_block_guard.py",
+    "bytes": 5238,
+    "sha256": "fc196c195808e301924d68e3524c8b68f091d148951b3fea9b90317e1491178d",
+    "lines": 123,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_lineup_inbox_redis.py",
+    "bytes": 4458,
+    "sha256": "cd8c49ea3d6ad38c337315aabb3b2cbb2c20a3b5d152d4056544d82d537f1dc7",
+    "lines": 108,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_live_capture_admission.py",
+    "bytes": 3412,
+    "sha256": "dfc6c03b0501bb84a68c5185acce761de8e5a4a8ba1403476f4aaf57d9c62cd8",
+    "lines": 103,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_market_0b_resolution.py",
+    "bytes": 3057,
+    "sha256": "d47c4c751affe6589445877e934a47694bdc5d0b907932ea4a916f1250f6403c",
+    "lines": 79,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_market_edge_ordering.py",
+    "bytes": 4339,
+    "sha256": "703ae7476ec5022868368134f8a41ef211fff619ba588ce630be0ecac750928e",
+    "lines": 122,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_market_pricer.py",
+    "bytes": 4347,
+    "sha256": "417a492bda98c752807efeef562f9e150cf60321c3947ada4e2774e613599afb",
+    "lines": 141,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_market_probs_date.py",
+    "bytes": 2646,
+    "sha256": "b9a3b989bd3466badce31a7c4bba4a08fce809a80250d04b3def0940878bf4f9",
+    "lines": 68,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_math.py",
+    "bytes": 5033,
+    "sha256": "aa0021274c09653565200d5ac50afc141f135b3f6c734cab5ed483d79342efc8",
+    "lines": 150,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_model.py",
+    "bytes": 4806,
+    "sha256": "28a19ea7fe2e354479afa0878ebead5fba1493970987171736351edef905c2f0",
+    "lines": 113,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_model_xg.py",
+    "bytes": 5375,
+    "sha256": "9ce3e97444c3ca304d7b9de1fb888fca24778077a775f00aae9ee7d0dadbcf3b",
+    "lines": 141,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_operational_readiness.py",
+    "bytes": 2486,
+    "sha256": "579da506289cd672d52d266666ed8609684ac3e0e7271521d40042df84a5f574",
+    "lines": 61,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_ou25_market_anchor.py",
+    "bytes": 2235,
+    "sha256": "80019f806e2461b2914f8bd1e96d312628a6ad3dbdd17c7e3681ac97e4b7afa6",
+    "lines": 56,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_ou25_nested_replay.py",
+    "bytes": 6543,
+    "sha256": "dcf854486d08b1c0969a638dbef540eea60e2a4edc4e4ea445813486e6127b87",
+    "lines": 161,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_parse_all_odds.py",
+    "bytes": 6138,
+    "sha256": "f701299970f604fec12ee832fa51da32bfe852ca74d636851e45ec63f2c6ceac",
+    "lines": 175,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_parse_ou_scope_regression.py",
+    "bytes": 4097,
+    "sha256": "2bcfa9c6c4c78d687235d236ab35da4c6d5d14bdcae4538f2c3ce2969ee1922c",
+    "lines": 126,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_parsers_sofascore.py",
+    "bytes": 10049,
+    "sha256": "6bfdd32881b9e3279d23c91b277bc6f3d7a882406787d2bed4b12636c3e98336",
+    "lines": 286,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_permutation_test.py",
+    "bytes": 4723,
+    "sha256": "e98e36a3c9044da7c7b9dcc54462bcd37116e294e1743eda03ee043c69cc5308",
+    "lines": 131,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_pit_backfill.py",
+    "bytes": 6921,
+    "sha256": "fb7d49994d85d1580b50ce9868b5a48580250603b1f7c7d285eb1d89a136b64e",
+    "lines": 220,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_predict_cache_freshness.py",
+    "bytes": 1893,
+    "sha256": "83ab83eccadfbdbf9b132d3b7c45e8328f166083f8f67bd161577cfae378dd89",
+    "lines": 57,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_prediction_log.py",
+    "bytes": 7456,
+    "sha256": "f87b3815c9076d516d47a420efa4df2b00a14137f295b9564dd2677a03ab3e46",
+    "lines": 201,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_prereg_serving_vs_climatologia.py",
+    "bytes": 5528,
+    "sha256": "3d5a9e48a5198beb5d7ec5e46d831da9d5afe4395578c0d5b0a08dca720c9214",
+    "lines": 127,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_price_hurdle.py",
+    "bytes": 4780,
+    "sha256": "fe2aa0eab9805222651e0193d99727533ef16d9df0e78faa083b30e5d3137bb0",
+    "lines": 121,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_price_strength_artifacts.py",
+    "bytes": 10002,
+    "sha256": "323506e4963c795c0f9d240d793f8748af0b385a5e0543687f5272161548c207",
+    "lines": 242,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_price_strength_dynamic_xg.py",
+    "bytes": 12092,
+    "sha256": "f0b3dfa5c1cd62935149d78e43a1d22eb60c02744af82cf90c30ae0036fbab6e",
+    "lines": 296,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_price_strength_quotes.py",
+    "bytes": 14390,
+    "sha256": "ba8d05cdcd9b757235ec93bca5f2200cb1f8859caa7bb00a4ef219c59062ee21",
+    "lines": 361,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_price_strength_reliability.py",
+    "bytes": 7444,
+    "sha256": "2741f6f48218cb41dff98603486ae574352c6b08bc8e5e8597826559bb067eaf",
+    "lines": 185,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_price_strength_review_regressions.py",
+    "bytes": 7611,
+    "sha256": "30d482f625597399e851dc135094b9f61a2797a57f20090c7d1b6100361e57de",
+    "lines": 187,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_price_strength_study.py",
+    "bytes": 6661,
+    "sha256": "304571539f6c6be693b501f67ef0dff8ecbc11450a8295506c86b81810535bfb",
+    "lines": 160,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_promoted_cold_start.py",
+    "bytes": 3173,
+    "sha256": "2aac22b3c82f26767d1012383a9ab4eab82fef91da5f7f9cdab2333050550465",
+    "lines": 87,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_ratings.py",
+    "bytes": 5776,
+    "sha256": "804eaac3082f3c20263500dd0d3b39600fde24c1d08634bd33318bcf5267af6d",
+    "lines": 151,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_redis_integration.py",
+    "bytes": 21779,
+    "sha256": "407b6cfffd9776edd60f08fcb43726428bd0043c87db2de4ec4559ff2288d584",
+    "lines": 511,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_research_01a_refit_cadence.py",
+    "bytes": 12946,
+    "sha256": "9f6471f7534aab212e62d9abf52f809caeb80726cb90ec6b330444f804b3f7f7",
+    "lines": 303,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_research_xg_ensemble.py",
+    "bytes": 6322,
+    "sha256": "53f7a701d5f66f0933108bec4f6de70656187d107093c186cb2663b95ad17dfc",
+    "lines": 155,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_run_passive_process_tree.py",
+    "bytes": 6733,
+    "sha256": "ffd862c76ae884c54ccefe6b54b8b69f6545725193687cb303195244bf2301dc",
+    "lines": 156,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_run_passive_task.py",
+    "bytes": 6600,
+    "sha256": "80247cbef49d35604b45f88e1c9b3ca7715abbfa18118d15a48163c00995e465",
+    "lines": 154,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_season_2026_split.py",
+    "bytes": 4998,
+    "sha256": "e27db849277716e2a6922c2dd292d40fe90e6bd05031c5f59beba9bf9d35603b",
+    "lines": 131,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_serving_evaluator.py",
+    "bytes": 10159,
+    "sha256": "60a84992712108267cfa6c1899763d4daf1227794f7959832eb53bd7c89784d9",
+    "lines": 271,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_settle.py",
+    "bytes": 3258,
+    "sha256": "968a26b1d49cf77a7e931b37d37e1af6501cbd669c0bfbde2eaa5ad5a70ed787",
+    "lines": 78,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_simulator.py",
+    "bytes": 2303,
+    "sha256": "5d05122843041c5157d1ede5a7e544f190a5c0f3bb23d88113247c4654d38334",
+    "lines": 63,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_sofascore_cache.py",
+    "bytes": 4587,
+    "sha256": "162f6df40d5ffecdeae79b041003269a88d581e932ee4d1582ae2c62d4d707bb",
+    "lines": 107,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_sofascore_probe.py",
+    "bytes": 4227,
+    "sha256": "2592c87d9dd9014973b0a9d8bb12acf84e897eb4f64f8f017c091457fdc95483",
+    "lines": 121,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_sombra_h5.py",
+    "bytes": 9691,
+    "sha256": "7b59964a3a16fc17c764b57d8583c8b6a627d1826958f8cd6424020b3552bf60",
+    "lines": 219,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_statistics_parser.py",
+    "bytes": 2386,
+    "sha256": "5909fd6999bd03d38a139a94ff778ffbcf43df1cf3c03fc6bf6974b071f63136",
+    "lines": 69,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_sync_competition_filter.py",
+    "bytes": 2145,
+    "sha256": "fff7266043b41cd72d86ce41eaf32df95f0f6cc194451c397d4d3bfe32688a0b",
+    "lines": 57,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_the_odds_api_provider.py",
+    "bytes": 6986,
+    "sha256": "10f8ffcb1940397c60c15725b29e3feaa2e891c2c0ec15f5fbef1e73833a5fb9",
+    "lines": 182,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_trial_provenance_enforcement.py",
+    "bytes": 6582,
+    "sha256": "0d25ceb5434b706aed77fc40ae586ca776f81ffeba6fd0b1d0516b0c18cf7dcf",
+    "lines": 146,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_trials_registry_schema.py",
+    "bytes": 3553,
+    "sha256": "dc4f66552dc4dc7234dd22c54283f13bfc1dfee8bdbad9e86d0a27edd51997c0",
+    "lines": 80,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_windows_scheduler_contract.py",
+    "bytes": 2321,
+    "sha256": "f251ecb23a5b8b16dcd37819fe56df7350f84db4f3bc36b2cd86182f6d00c035",
+    "lines": 64,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_xg_input_quality.py",
+    "bytes": 3829,
+    "sha256": "4309d9a6f694b43b315f1852357fd82ae58e914a976e7ae4a659df32410fc732",
+    "lines": 98,
+    "review": "inventory_static_or_targeted_review_only"
+  },
+  {
+    "path": "tests/test_xg_model.py",
+    "bytes": 8160,
+    "sha256": "b9235d83dd265ede0182a93fa5737137620627d0ffb0a59de1599601883175ea",
+    "lines": 213,
+    "review": "inventory_static_or_targeted_review_only"
+  }
+]

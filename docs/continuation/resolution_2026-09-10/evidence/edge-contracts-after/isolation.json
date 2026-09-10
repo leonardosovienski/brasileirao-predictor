@@ -1,0 +1,16 @@
+{
+  "tests": [
+    "test_resolution_lineup_envelopes.py",
+    "test_resolution_residual_dataset.py",
+    "test_residual_dataset.py",
+    "test_resolution_walkforward.py",
+    "test_residual_walkforward.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import sys
 import time
@@ -15,6 +16,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from brasileirao_predictor.bet_log import _writer_lock  # noqa: E402
 from brasileirao_predictor.sofascore import Sofascore  # noqa: E402
 
 PREDICTIONS = ROOT / "data" / "live_predictions.jsonl"
@@ -39,15 +41,23 @@ def build_settlement(prediction: dict, event: dict, settled_at: datetime) -> dic
     status = event.get("status") or {}
     if status.get("type") != "finished":
         raise ValueError("event is not finished")
+    expected = prediction.get("source_event_id")
+    if not expected or isinstance(expected, bool) or str(event.get("id")) != str(expected):
+        raise ValueError("event identity does not match prediction")
     home = (event.get("homeScore") or {}).get("current")
     away = (event.get("awayScore") or {}).get("current")
-    if not isinstance(home, int) or not isinstance(away, int):
+    if type(home) is not int or type(away) is not int or home < 0 or away < 0:
         raise ValueError("official final score unavailable")
     actual = "home" if home > away else "away" if away > home else "draw"
     probs = prediction["prediction"]
+    values = [probs.get(f"p_{key}") for key in ("home", "draw", "away")]
+    if any(type(p) not in (int, float) or not math.isfinite(p) or not 0 <= p <= 1 for p in values):
+        raise ValueError("invalid probability vector")
+    if not math.isclose(sum(values), 1.0, abs_tol=1e-9, rel_tol=0):
+        raise ValueError("probabilities must sum to one")
     predicted = max(("home", "draw", "away"), key=lambda key: float(probs[f"p_{key}"]))
     row = {
-        "schema_version": "live-prediction-settlement/1",
+        "schema_version": "live-prediction-settlement/2",
         "prediction_id": prediction["prediction_id"],
         "source_event_id": str(event.get("id")),
         "settled_at": settled_at.astimezone(UTC).isoformat(timespec="seconds").replace("+00:00", "Z"),
@@ -60,26 +70,52 @@ def build_settlement(prediction: dict, event: dict, settled_at: datetime) -> dic
         "accuracy_policy": "DIAGNOSTIC_ONLY",
         "capital_enabled": False,
         "original_prediction_unchanged": True,
+        "prediction_hash": _digest(prediction),
     }
-    canonical = json.dumps(row, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
-    row["content_hash"] = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+    row["fact_hash"] = _digest({k: v for k, v in row.items() if k != "settled_at"})
+    row["content_hash"] = _digest(row)
     return row
 
 
+def _digest(value: dict) -> str:
+    canonical = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False)
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
 def append_settlement(path: Path, row: dict) -> bool:
+    return record_settlement(path, row)[0]
+
+
+def record_settlement(path: Path, row: dict) -> tuple[bool, dict]:
+    """Return the persisted receipt under the same writer lock used for append."""
+    path = path.resolve()
+    with _writer_lock(path):
+        return _append_settlement_locked(path, row)
+
+
+def _append_settlement_locked(path: Path, row: dict) -> tuple[bool, dict]:
+    if row.get("content_hash") != _digest({k: v for k, v in row.items() if k != "content_hash"}):
+        raise ValueError("settlement content hash mismatch")
+    if row.get("fact_hash") != _digest(
+        {k: v for k, v in row.items() if k not in {"content_hash", "fact_hash", "settled_at"}}
+    ):
+        raise ValueError("settlement fact hash mismatch")
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists():
         for line in path.read_text(encoding="utf-8").splitlines():
             existing = json.loads(line)
             if existing.get("prediction_id") == row.get("prediction_id"):
-                if existing.get("content_hash") != row.get("content_hash"):
+                valid = existing.get("content_hash") == _digest(
+                    {k: v for k, v in existing.items() if k != "content_hash"}
+                )
+                if not valid or existing.get("fact_hash") != row.get("fact_hash"):
                     raise ValueError(f"conflicting settlement for {row.get('prediction_id')}")
-                return False
+                return False, existing
     with path.open("a", encoding="utf-8", newline="\n") as handle:
         handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
         handle.flush()
         os.fsync(handle.fileno())
-    return True
+    return True, row
 
 
 def wait_for_final(
@@ -115,7 +151,7 @@ def main(*, now: Clock = lambda: datetime.now(UTC)) -> None:
         payload = client._get(f"event/{event_id}", cache=False) or {}
         event = payload.get("event", payload)
     row = build_settlement(prediction, event, now())
-    appended = append_settlement(args.settlements, row)
+    appended, row = record_settlement(args.settlements, row)
     output = json.dumps(
         {"prediction_id": args.prediction_id, "settlement_appended": appended, **row}, ensure_ascii=False
     )

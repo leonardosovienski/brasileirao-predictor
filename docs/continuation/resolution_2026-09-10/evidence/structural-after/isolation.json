@@ -1,0 +1,15 @@
+{
+  "tests": [
+    "test_resolution_structural_edge.py",
+    "test_structural_edge.py",
+    "test_resolution_kernel_lifecycle.py::test_healthcheck_connection_failure_closes_client_and_does_not_log_credentials",
+    "test_resolution_kernel_params.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

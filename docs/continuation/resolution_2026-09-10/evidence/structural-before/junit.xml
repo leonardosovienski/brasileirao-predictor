@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="8" time="8.650" timestamp="2026-09-10T18:58:27.730944-03:00" hostname="Leo"><testcase classname="tests.test_resolution_structural_edge" name="test_stale_offer_cannot_be_compared_with_fresh_reference" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_structural_edge.py:23: in test_stale_offer_cannot_be_compared_with_fresh_reference
+    with pytest.raises(ValueError, match="stale"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_structural_edge" name="test_invalid_policy_is_not_silently_interpreted[changes0]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_structural_edge.py:31: in test_invalid_policy_is_not_silently_interpreted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_structural_edge" name="test_invalid_policy_is_not_silently_interpreted[changes1]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_structural_edge.py:31: in test_invalid_policy_is_not_silently_interpreted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_structural_edge" name="test_invalid_policy_is_not_silently_interpreted[changes2]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_structural_edge.py:31: in test_invalid_policy_is_not_silently_interpreted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_structural_edge" name="test_invalid_policy_is_not_silently_interpreted[changes3]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_structural_edge.py:31: in test_invalid_policy_is_not_silently_interpreted
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_structural_edge" name="test_snapshot_does_not_change_when_callers_mutate_original_odds" time="0.002"><failure message="assert nan == 2.0">..\..\..\brasileirao-predictor\tests\test_resolution_structural_edge.py:39: in test_snapshot_does_not_change_when_callers_mutate_original_odds
+    assert value.odds["home"] == 2.0
+E   assert nan == 2.0</failure></testcase><testcase classname="tests.test_resolution_structural_edge" name="test_power_devig_brackets_valid_high_margin_prices" time="0.001"><failure message="ValueError: f(a) and f(b) must have different signs">..\..\..\brasileirao-predictor\tests\test_resolution_structural_edge.py:45: in test_power_devig_brackets_valid_high_margin_prices
+    probabilities, exponent, margin = power_probabilities([1.0001, 1.0001])
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\research\structural_edge.py:105: in power_probabilities
+    exponent = float(brentq(lambda k: float(np.power(implied, k).sum()) - 1.0, 1.0, 20.0))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\revisao-integral-2026-09-09\venv\Lib\site-packages\scipy\optimize\_zeros_py.py:858: in brentq
+    r = _zeros._brentq(f, a, b, xtol, rtol, maxiter, args, full_output, disp)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   ValueError: f(a) and f(b) must have different signs</failure></testcase><testcase classname="tests.test_resolution_structural_edge" name="test_nonfinite_market_line_is_rejected" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_structural_edge.py:51: in test_nonfinite_market_line_is_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

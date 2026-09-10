@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="10" skipped="0" tests="10" time="1.370" timestamp="2026-09-10T20:08:44.960886-03:00" hostname="Leo"><testcase classname="tests.test_resolution_live_settlement" name="test_rejects_wrong_event" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:20: in test_rejects_wrong_event
+    with pytest.raises(ValueError, match="identity"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_live_settlement" name="test_rejects_invalid_score[True]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:28: in test_rejects_invalid_score
+    with pytest.raises(ValueError, match="score"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_live_settlement" name="test_rejects_invalid_score[-1]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:28: in test_rejects_invalid_score
+    with pytest.raises(ValueError, match="score"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_live_settlement" name="test_rejects_invalid_probability_vector[nan]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:36: in test_rejects_invalid_probability_vector
+    with pytest.raises(ValueError, match="probab"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_live_settlement" name="test_rejects_invalid_probability_vector[-0.1]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:36: in test_rejects_invalid_probability_vector
+    with pytest.raises(ValueError, match="probab"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_live_settlement" name="test_rejects_invalid_probability_vector[1.1]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:36: in test_rejects_invalid_probability_vector
+    with pytest.raises(ValueError, match="probab"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_live_settlement" name="test_rejects_invalid_probability_vector[True]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:36: in test_rejects_invalid_probability_vector
+    with pytest.raises(ValueError, match="probab"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_live_settlement" name="test_rejects_invalid_probability_vector[0.2]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:36: in test_rejects_invalid_probability_vector
+    with pytest.raises(ValueError, match="probab"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_live_settlement" name="test_retry_retains_first_receipt_and_changed_result_conflicts" time="0.032"><failure message="ValueError: conflicting settlement for synthetic-1">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:46: in test_retry_retains_first_receipt_and_changed_result_conflicts
+    assert not append_settlement(path, build_settlement(p, e, at + timedelta(minutes=1)))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\settle_live_prediction.py:76: in append_settlement
+    raise ValueError(f"conflicting settlement for {row.get('prediction_id')}")
+E   ValueError: conflicting settlement for synthetic-1</failure></testcase><testcase classname="tests.test_resolution_live_settlement" name="test_writer_lock_is_respected" time="0.039"><failure message="Failed: DID NOT RAISE BlockingIOError">..\..\..\brasileirao-predictor\tests\test_resolution_live_settlement.py:58: in test_writer_lock_is_respected
+    with _writer_lock(path), pytest.raises(BlockingIOError):
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE BlockingIOError</failure></testcase></testsuite></testsuites>

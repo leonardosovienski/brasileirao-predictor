@@ -1,0 +1,27 @@
+{
+  "plan": {
+    "purpose": "CPL-P26: test a different legitimate public source for nominal football market metadata",
+    "performance_evaluation": false,
+    "credentials": false,
+    "accounts": false,
+    "orders": false,
+    "endpoint": "https://gamma-api.polymarket.com/sports",
+    "public_get_budget": 1,
+    "byte_budget": 2097152,
+    "timeout_seconds": 30,
+    "retries": 0,
+    "redirects": false,
+    "protected_api_quota_consumption": 0,
+    "rate_limit_reference": "https://docs.polymarket.com/api-reference/rate-limits",
+    "documented_gamma_general_limit": "4000 requests/10 seconds",
+    "public_access_reference": "https://docs.polymarket.com/market-data/overview",
+    "access_scope": "public market-data REST: no API key, wallet or authentication; no paid service contracted",
+    "geography_reference": "https://docs.polymarket.com/api-reference/geoblock",
+    "legal_or_personal_trading_eligibility": "not assessed; no trade or authentication",
+    "stop": "one catalog GET; no event/outcome response fetched, no historical performance, no automatic collector"
+  },
+  "started_at": "2026-09-10T21:07:54.482973+00:00",
+  "failure_type": "ConnectionError",
+  "failure_scope": "one public catalog request; not evidence of no economic opportunity",
+  "finished_at": "2026-09-10T21:07:54.714079+00:00"
+}

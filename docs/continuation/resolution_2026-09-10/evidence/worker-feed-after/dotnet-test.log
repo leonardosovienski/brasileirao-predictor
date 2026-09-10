@@ -1,0 +1,16 @@
+Execução de teste para C:\BRASILEIRAO\work\resolution-2026-09-10\worker-feed-after\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:01:31.94]     LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch [FAIL]
+  Com falha LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch [1 m 26 s]
+  Mensagem de erro:
+   Assert.Single() Failure: The collection was empty
+  Rastreamento de pilha:
+     at LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch() in C:\BRASILEIRAO\work\resolution-2026-09-10\worker-feed-after\source\dotnet\LineupWorker.Tests\KernelCrossProcessTests.cs:line 122
+   at LineupWorker.Tests.KernelCrossProcessTests.RegisteredDotnetRequestSurvivesLostWakeupAndProducesOneCurrentSignalBatch() in C:\BRASILEIRAO\work\resolution-2026-09-10\worker-feed-after\source\dotnet\LineupWorker.Tests\KernelCrossProcessTests.cs:line 210
+--- End of stack trace from previous location ---
+Arquivo de resultados: C:\BRASILEIRAO\work\resolution-2026-09-10\worker-feed-after\dotnet-results\_LEO_2026-09-10_17_48_51_net10.0.trx
+
+Com falha! – Com falha:     1, Aprovado:   137, Ignorado:     0, Total:   138, Duração: 1 m 57 s - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\resolution-2026-09-10\worker-feed-after\dotnet-results\db07e2a2-35c9-4066-b7ec-4471da606ae3\coverage.cobertura.xml

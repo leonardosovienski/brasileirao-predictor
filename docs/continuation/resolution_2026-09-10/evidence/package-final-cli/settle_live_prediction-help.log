@@ -1,0 +1,18 @@
+usage: settle_live_prediction.py [-h] [--predictions PREDICTIONS]
+                                 [--settlements SETTLEMENTS] [--wait-final]
+                                 [--poll-seconds POLL_SECONDS]
+                                 [--run-log RUN_LOG]
+                                 prediction_id
+
+Liquida uma previsão ao vivo em ledger separado, append-only e sem capital.
+
+positional arguments:
+  prediction_id
+
+options:
+  -h, --help            show this help message and exit
+  --predictions PREDICTIONS
+  --settlements SETTLEMENTS
+  --wait-final
+  --poll-seconds POLL_SECONDS
+  --run-log RUN_LOG

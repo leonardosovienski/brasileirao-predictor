@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="9" time="2.087" timestamp="2026-09-10T19:11:23.099500-03:00" hostname="Leo"><testcase classname="tests.test_resolution_promotions" name="test_invalid_season_roster_is_not_accepted_as_complete[extra_position-entries-load_promotions]" time="0.037"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_promotions.py:35: in test_invalid_season_roster_is_not_accepted_as_complete
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_promotions" name="test_invalid_season_roster_is_not_accepted_as_complete[extra_position-relegations-load_relegations]" time="0.069"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_promotions.py:35: in test_invalid_season_roster_is_not_accepted_as_complete
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_promotions" name="test_invalid_season_roster_is_not_accepted_as_complete[fractional_position-entries-load_promotions]" time="0.042"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_promotions.py:35: in test_invalid_season_roster_is_not_accepted_as_complete
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_promotions" name="test_invalid_season_roster_is_not_accepted_as_complete[fractional_position-relegations-load_relegations]" time="0.035"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_promotions.py:35: in test_invalid_season_roster_is_not_accepted_as_complete
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_promotions" name="test_invalid_season_roster_is_not_accepted_as_complete[duplicate_team-entries-load_promotions]" time="0.037" /><testcase classname="tests.test_resolution_promotions" name="test_invalid_season_roster_is_not_accepted_as_complete[duplicate_team-relegations-load_relegations]" time="0.036"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_promotions.py:35: in test_invalid_season_roster_is_not_accepted_as_complete
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_promotions" name="test_invalid_season_roster_is_not_accepted_as_complete[invalid_identity-entries-load_promotions]" time="0.032"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_promotions.py:35: in test_invalid_season_roster_is_not_accepted_as_complete
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_promotions" name="test_invalid_season_roster_is_not_accepted_as_complete[invalid_identity-relegations-load_relegations]" time="0.044"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_resolution_promotions.py:35: in test_invalid_season_roster_is_not_accepted_as_complete
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_resolution_promotions" name="test_valid_four_club_rosters_preserve_their_identity_and_order" time="0.035" /></testsuite></testsuites>

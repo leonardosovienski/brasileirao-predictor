@@ -1,106 +1,220 @@
-"""Materialize strict point-in-time rows from market snapshots and results."""
+"""Fixed-house, independent-reference materialization for conditional research.
+
+Only full-time binary half-goal totals are implemented. Missing inputs remain
+explicit abstentions; neither bookmaker availability nor acceptance is certified.
+"""
 
 from __future__ import annotations
 
 import statistics as st
 from collections import defaultdict
-from datetime import datetime, timedelta
+from datetime import timedelta
+from numbers import Integral
 from typing import Any
 
 from brasileirao_predictor.data.market_anchor import remove_overround
 from brasileirao_predictor.research.residual_features import build_residual_features
-
-
-def _utc(value: str) -> datetime:
-    parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-    if parsed.tzinfo is None:
-        raise ValueError("timestamp must be timezone-aware")
-    return parsed
+from brasileirao_predictor.research.shadow_portfolio import finite, utc
 
 
 def materialize_total_market_records(
     observations: list[dict[str, Any]],
     results: list[dict[str, Any]],
     *,
+    offer_bookmaker: str,
     horizon_hours: float = 24.0,
     max_pair_skew_seconds: float = 60.0,
-    context: dict[str, dict[str, float]] | None = None,
+    max_quote_age_seconds: float = 120.0,
+    total_line: float = 2.5,
+    context: dict[str, dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
-    """Create one ``over`` research row per event/total line at a fixed horizon."""
-    if horizon_hours <= 0 or max_pair_skew_seconds < 0:
-        raise ValueError("horizon and pair-skew policy must be valid")
-    result_by_event = {str(row["source_event_id"]): row for row in results}
-    by_event_market: dict[tuple[str, str, float], list[dict[str, Any]]] = defaultdict(list)
+    """The caller fixes the offer house and line before evaluating performance.
+
+    The universe is every supplied event observed in that market, including
+    pending results and unavailable prices. Events never supplied cannot be
+    recovered from this function. Legacy last-update-only rows are inadmissible.
+    """
+    if not isinstance(offer_bookmaker, str) or not offer_bookmaker.strip():
+        raise ValueError("offer_bookmaker must be fixed explicitly")
+    horizon_hours = finite(horizon_hours, "horizon_hours")
+    max_pair_skew_seconds = finite(max_pair_skew_seconds, "max_pair_skew_seconds")
+    max_quote_age_seconds = finite(max_quote_age_seconds, "max_quote_age_seconds")
+    total_line = finite(total_line, "total_line")
+    if (
+        horizon_hours <= 0
+        or max_pair_skew_seconds < 0
+        or max_quote_age_seconds <= 0
+        or total_line < 0
+        or total_line % 1 != 0.5
+    ):
+        raise ValueError("positive horizon/age and a binary half-goal line are required")
+    result_by_event = {}
+    for row in results:
+        identity = row.get("source_event_id")
+        if isinstance(identity, bool) or not isinstance(identity, (str, int)) or not str(identity).strip():
+            raise ValueError("source_event_id is required")
+        event = str(identity)
+        if event in result_by_event:
+            raise ValueError("duplicate result event; reconcile revisions before materialization")
+        for key in ("home_goals", "away_goals"):
+            value = row.get(key)
+            if value is not None and (isinstance(value, bool) or not isinstance(value, Integral) or value < 0):
+                raise ValueError("goals must be nonnegative integer counts")
+        result_by_event[event] = row
+    market = f"ou{total_line:g}"
+    events = defaultdict(list)
     for row in observations:
-        market, line = str(row.get("market", "")), row.get("line")
-        if not market.startswith("ou") or market.endswith("_1h") or not isinstance(line, (int, float)):
-            continue
-        by_event_market[(str(row.get("source_event_id")), market, float(line))].append(row)
+        if row.get("market") == market and row.get("line") == total_line:
+            event = row.get("source_event_id")
+            if isinstance(event, bool) or not isinstance(event, (str, int)) or not str(event).strip():
+                raise ValueError("source_event_id is required")
+            events[str(event)].append(row)
     records = []
-    for (event_id, market, line), rows in by_event_market.items():
-        result = result_by_event.get(event_id)
-        if result is None or result.get("home_goals") is None or result.get("away_goals") is None:
-            continue
-        kickoff = _utc(str(rows[0]["kickoff_at"]))
+    for event, rows in sorted(events.items()):
+        kickoffs = {utc(row["kickoff_at"]) for row in rows}
+        if len(kickoffs) != 1:
+            raise ValueError("conflicting kickoff revisions require an as-of fixture snapshot")
+        kickoff = kickoffs.pop()
         cutoff = kickoff - timedelta(hours=horizon_hours)
-        latest: dict[tuple[str, str], tuple[datetime, dict[str, Any]]] = {}
+        result = result_by_event.get(event, {})
+        outcome, settled = None, None
+        if result.get("home_goals") is not None and result.get("away_goals") is not None:
+            settled = utc(result["settled_at"])
+            if settled <= kickoff:
+                raise ValueError("result settlement must follow kickoff")
+            outcome = int(result["home_goals"] + result["away_goals"] > total_line)
+        record = {
+            "event_id": event,
+            "market": market,
+            "period": "FT",
+            "line": total_line,
+            "kickoff_at": kickoff.isoformat(),
+            "predicted_at": cutoff.isoformat(),
+            "settled_at": settled.isoformat() if settled else None,
+            "outcome": outcome,
+            "features": None,
+            "market_probability": None,
+            "best_odds": None,
+            "best_odds_by_selection": None,
+            "offer_bookmaker": offer_bookmaker,
+            "reference_books": [],
+            "book_count": 0,
+            "data_status": "ABSTAIN_DATA",
+            "abstention_reason": "NO_ADMISSIBLE_OFFER_OR_REFERENCE",
+            "scientific_state": "COLLECTION_ONLY",
+            "capital_enabled": False,
+            "economic_evidence": False,
+            "input_scope": "caller_declared_clocks_and_status",
+        }
+        if result.get("label_available_at") is not None:
+            record["label_available_at"] = result["label_available_at"]
+        latest, invalid_books = {}, set()
         for row in rows:
-            captured = _utc(str(row["odds_captured_at"]))
-            if captured > cutoff:
-                continue
-            key = (str(row.get("bookmaker")), str(row.get("selection")))
-            if key not in latest or captured > latest[key][0]:
-                latest[key] = (captured, row)
-        fair_by_book = {}
-        best_odds = {"over": 0.0, "under": 0.0}
-        for bookmaker in {key[0] for key in latest}:
-            pair = {
-                selection: latest[(bookmaker, selection)][1]
-                for selection in ("over", "under")
-                if (bookmaker, selection) in latest
-            }
-            if set(pair) != {"over", "under"}:
-                continue
-            pair_times = [_utc(str(row["odds_captured_at"])) for row in pair.values()]
-            if (max(pair_times) - min(pair_times)).total_seconds() > max_pair_skew_seconds:
-                # Do not create a synthetic de-vig pair from two different
-                # market states. Both legs must belong to the same snapshot.
+            book, side = row.get("bookmaker"), row.get("selection")
+            if not isinstance(book, str) or not book.strip() or side not in {"over", "under"}:
                 continue
             try:
-                fair = remove_overround({selection: float(row["decimal_odds"]) for selection, row in pair.items()})
-            except (KeyError, TypeError, ValueError):
+                received = utc(row["retrieved_at"])
+                if received > cutoff:
+                    continue
+                observed, available = utc(row["observed_at"]), utc(row["available_at"])
+                if observed > available or available > received or row.get("period") != "FT":
+                    raise ValueError("invalid quote clocks or period")
+                if row.get("published_at") is not None and utc(row["published_at"]) > available:
+                    raise ValueError("publication unavailable at declared availability")
+            except (ValueError, KeyError, TypeError):
+                invalid_books.add(book)
                 continue
-            fair_by_book[bookmaker] = fair["over"]
-            for selection in ("over", "under"):
-                best_odds[selection] = max(best_odds[selection], float(pair[selection]["decimal_odds"]))
-        if not fair_by_book:
-            continue
-        probabilities = list(fair_by_book.values())
-        anchor = st.median(probabilities)
-        ctx = (context or {}).get(event_id, {})
-        features = build_residual_features(
-            book_probabilities=probabilities,
-            captured_at=cutoff.isoformat(),
-            kickoff_at=kickoff.isoformat(),
-            xg_form_delta=float(ctx.get("xg_form_delta", 0.0)),
-            rest_days_delta=float(ctx.get("rest_days_delta", 0.0)),
+            key = (book, side)
+            if key not in latest or received > latest[key][0]:
+                latest[key] = (received, row, False)
+            elif received == latest[key][0] and row != latest[key][1]:
+                latest[key] = (received, row, True)
+        pairs, fair_by_book, pair_clocks = {}, {}, {}
+        for book in sorted({key[0] for key in latest} - invalid_books):
+            over, under = latest.get((book, "over")), latest.get((book, "under"))
+            if over is None or under is None:
+                continue
+            pair = [over, under]
+            if any(item[2] or item[1].get("status") != "ACTIVE" for item in pair):
+                continue
+            source = pair[0][1].get("source")
+            if not isinstance(source, str) or not source.strip() or pair[1][1].get("source") != source:
+                continue
+            observed = [utc(item[1]["observed_at"]) for item in pair]
+            if (max(observed) - min(observed)).total_seconds() > max_pair_skew_seconds or (
+                cutoff - min(observed)
+            ).total_seconds() > max_quote_age_seconds:
+                continue
+            try:
+                prices = {
+                    side: finite(item[1]["decimal_odds"], "decimal_odds") for side, item in zip(("over", "under"), pair)
+                }
+                if any(price <= 1 for price in prices.values()):
+                    raise ValueError("invalid decimal odds")
+            except (ValueError, KeyError, TypeError):
+                continue
+            pairs[book] = prices
+            pair_clocks[book] = [
+                utc(item[1][field]) for item in pair for field in ("observed_at", "available_at", "retrieved_at")
+            ]
+            if book != offer_bookmaker:
+                try:
+                    fair_by_book[book] = remove_overround(prices)["over"]
+                except ValueError:
+                    continue  # Explicit legacy reference policy: positive overround.
+        offer_clocks = pair_clocks.get(offer_bookmaker, [])
+        references = sorted(
+            book
+            for book in fair_by_book
+            if offer_clocks
+            and (max(offer_clocks + pair_clocks[book]) - min(offer_clocks + pair_clocks[book])).total_seconds()
+            <= max_pair_skew_seconds
         )
-        total = int(result["home_goals"]) + int(result["away_goals"])
-        records.append(
-            {
-                "event_id": event_id,
-                "market": market,
-                "line": line,
-                "kickoff_at": kickoff.isoformat(),
-                "predicted_at": cutoff.isoformat(),
-                "settled_at": str(result["settled_at"]),
-                "features": features,
-                "market_probability": anchor,
-                "best_odds": best_odds["over"],
-                "best_odds_by_selection": best_odds,
-                "outcome": int(total > line),
-                "book_count": len(fair_by_book),
-                "scientific_state": "COLLECTION_ONLY",
-            }
-        )
-    return sorted(records, key=lambda row: (row["kickoff_at"], row["event_id"], row["line"]))
+        if offer_bookmaker in pairs and references:
+            probabilities = [fair_by_book[book] for book in references]
+            record.update(reference_books=references, book_count=len(references))
+            ctx = (context or {}).get(event)
+            record["abstention_reason"] = "MISSING_OR_UNAVAILABLE_FEATURE_CONTEXT"
+            if ctx is not None and ctx.get("available_at") is not None and utc(ctx["available_at"]) <= cutoff:
+                current, expected = ctx.get("current_starters"), ctx.get("expected_starters")
+                if (
+                    not isinstance(current, list)
+                    or not isinstance(expected, list)
+                    or any(not isinstance(player, str) or not player for player in current + expected)
+                ):
+                    raise ValueError("feature context requires explicit starter lists")
+                if (
+                    len(current) > 11
+                    or len(expected) > 11
+                    or len(set(current)) != len(current)
+                    or len(set(expected)) != len(expected)
+                ):
+                    raise ValueError("starter lists must be unique and contain at most eleven players")
+                features = build_residual_features(
+                    book_probabilities=probabilities,
+                    captured_at=cutoff.isoformat(),
+                    kickoff_at=kickoff.isoformat(),
+                    current_starters=set(current),
+                    expected_starters=set(expected),
+                    xg_form_delta=finite(ctx["xg_form_delta"], "xg_form_delta"),
+                    rest_days_delta=finite(ctx["rest_days_delta"], "rest_days_delta"),
+                )
+                record.update(
+                    features=features,
+                    features_available_at=ctx["available_at"],
+                    market_probability=st.median(probabilities),
+                    best_odds=pairs[offer_bookmaker]["over"],
+                    best_odds_by_selection=pairs[offer_bookmaker],
+                    quote_available_at=max(
+                        offer_clocks + [clock for book in references for clock in pair_clocks[book]]
+                    ).isoformat(),
+                    quote_provenance={
+                        book: {side: dict(latest[(book, side)][1]) for side in ("over", "under")}
+                        for book in [offer_bookmaker, *references]
+                    },
+                    data_status="READY_FOR_CONDITIONAL_REPLAY",
+                    abstention_reason=None,
+                )
+        records.append(record)
+    return sorted(records, key=lambda row: (row["predicted_at"], row["event_id"]))

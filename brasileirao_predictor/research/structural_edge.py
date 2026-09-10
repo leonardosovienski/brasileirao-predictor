@@ -6,8 +6,12 @@ calcula stake, não executa apostas e nunca libera capital.
 
 from __future__ import annotations
 
+import math
+from collections.abc import Mapping
 from dataclasses import dataclass
 from datetime import datetime
+from numbers import Real
+from types import MappingProxyType
 from typing import Literal
 
 import numpy as np
@@ -24,9 +28,20 @@ def _require_aware(value: datetime, field: str) -> None:
         raise ValueError(f"{field} must be timezone-aware")
 
 
+def _finite(value: object) -> bool:
+    try:
+        return not isinstance(value, bool) and isinstance(value, Real) and math.isfinite(value)
+    except (OverflowError, TypeError):
+        return False
+
+
 @dataclass(frozen=True)
 class MarketSnapshot:
-    """Complete, canonical market observed at one real point in time."""
+    """Caller-declared market and capture clock; no source authentication.
+
+    The caller must supply canonical, complete selections. This legacy
+    interface has no publication/receipt split, status revisions or fills.
+    """
 
     event_id: str
     bookmaker: str
@@ -34,7 +49,7 @@ class MarketSnapshot:
     line: float | None
     captured_at: datetime
     kickoff_at: datetime
-    odds: dict[str, float]
+    odds: Mapping[str, float]
     mapping_version: str
 
     def __post_init__(self) -> None:
@@ -46,11 +61,15 @@ class MarketSnapshot:
             raise ValueError("mapping_version is required for auditable identity")
         if self.captured_at >= self.kickoff_at:
             raise ValueError("snapshot must be available strictly before kickoff")
-        if len(self.odds) < 2:
+        if self.line is not None and not _finite(self.line):
+            raise ValueError("market line must be finite or absent")
+        if not isinstance(self.odds, Mapping) or len(self.odds) < 2:
             raise ValueError("a complete market needs at least two selections")
-        for selection, odd in self.odds.items():
-            if not selection.strip() or not np.isfinite(odd) or odd <= 1.0:
+        copied = dict(self.odds)
+        for selection, odd in copied.items():
+            if not isinstance(selection, str) or not selection.strip() or not _finite(odd) or odd <= 1.0:
                 raise ValueError("selections must be named and decimal odds finite and > 1")
+        object.__setattr__(self, "odds", MappingProxyType(copied))
 
 
 @dataclass(frozen=True)
@@ -61,10 +80,14 @@ class StructuralEdgePolicy:
     devig_method: DevigMethod = "shin"
 
     def __post_init__(self) -> None:
-        if not 0.0 < self.ev_threshold < 1.0:
+        if not _finite(self.ev_threshold) or not 0.0 < self.ev_threshold < 1.0:
             raise ValueError("ev_threshold must be between 0 and 1")
-        if self.max_reference_staleness_seconds <= 0:
+        if not _finite(self.max_reference_staleness_seconds) or self.max_reference_staleness_seconds <= 0:
             raise ValueError("max_reference_staleness_seconds must be positive")
+        if not isinstance(self.reference_book, str) or not self.reference_book.strip():
+            raise ValueError("reference_book must be explicit")
+        if self.devig_method not in {"shin", "power"}:
+            raise ValueError("devig_method must be shin or power")
 
 
 @dataclass(frozen=True)
@@ -96,13 +119,17 @@ class StructuralEdgeEvaluation:
 def power_probabilities(odds: list[float]) -> tuple[np.ndarray, float, float]:
     """Remove overround with the power method, returning probabilities, k, margin."""
 
-    if len(odds) < 2 or any(not np.isfinite(odd) or odd <= 1.0 for odd in odds):
+    if len(odds) < 2 or any(not _finite(odd) or odd <= 1.0 for odd in odds):
         raise ValueError("power devig requires at least two finite decimal odds > 1")
     implied = np.asarray([1.0 / odd for odd in odds], dtype=float)
     booksum = float(implied.sum())
     if booksum <= 1.0:
         return implied / booksum, 1.0, booksum - 1.0
-    exponent = float(brentq(lambda k: float(np.power(implied, k).sum()) - 1.0, 1.0, 20.0))
+    # For k >= log(n)/-log(max(q)), every q**k <= 1/n. A factor of two
+    # gives a strict upper bracket even for valid odds extremely close to one.
+    upper = max(2.0, 2 * math.log(len(odds)) / -math.log(float(implied.max())))
+    root, _ = brentq(lambda k: float(np.power(implied, k).sum()) - 1.0, 1.0, upper, full_output=True)
+    exponent = float(root)
     probabilities = np.power(implied, exponent)
     return probabilities / probabilities.sum(), exponent, booksum - 1.0
 
@@ -114,7 +141,12 @@ def detect_structural_edges(
     evaluated_at: datetime,
     policy: StructuralEdgePolicy = StructuralEdgePolicy(),
 ) -> StructuralEdgeEvaluation:
-    """Compare synchronous canonical markets and emit shadow-only candidates."""
+    """Compare bounded-age declared markets and emit shadow-only candidates.
+
+    The age bound applies to both sides. It does not prove continuous or
+    simultaneous commercial availability; use the stronger quote contracts
+    for admission to a new point-in-time study.
+    """
 
     _require_aware(evaluated_at, "evaluated_at")
     if reference.bookmaker.casefold() != policy.reference_book.casefold():
@@ -132,6 +164,8 @@ def detect_structural_edges(
     staleness = (evaluated_at - reference.captured_at).total_seconds()
     if staleness > policy.max_reference_staleness_seconds:
         raise ValueError("reference snapshot is stale")
+    if (evaluated_at - soft.captured_at).total_seconds() > policy.max_reference_staleness_seconds:
+        raise ValueError("offer snapshot is stale")
 
     selections = sorted(reference.odds)
     reference_odds = [reference.odds[selection] for selection in selections]

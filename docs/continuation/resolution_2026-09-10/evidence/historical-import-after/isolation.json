@@ -1,0 +1,7 @@
+{
+  "tests": [
+    "test_resolution_historical_import.py"
+  ],
+  "blocked_attempts": [],
+  "exit_code": 1
+}

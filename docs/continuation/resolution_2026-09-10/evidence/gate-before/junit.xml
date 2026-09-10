@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="2.730" timestamp="2026-09-10T17:08:55.392621-03:00" hostname="Leo"><testcase classname="tests.test_resolution_gate_dependence" name="test_repeated_snapshots_cannot_satisfy_independent_sample_floor" time="0.007"><failure message="AssertionError: assert 'GO_CANDIDATE' == 'PENDING_SAMPLE'&#10;  &#10;  - PENDING_SAMPLE&#10;  + GO_CANDIDATE">..\..\..\brasileirao-predictor\tests\test_resolution_gate_dependence.py:13: in test_repeated_snapshots_cannot_satisfy_independent_sample_floor
+    assert result["verdict"] == "PENDING_SAMPLE"
+E   AssertionError: assert 'GO_CANDIDATE' == 'PENDING_SAMPLE'
+E     
+E     - PENDING_SAMPLE
+E     + GO_CANDIDATE</failure></testcase><testcase classname="tests.test_resolution_gate_dependence" name="test_declared_dsr_cannot_promote_unregistered_experiment" time="0.007"><failure message="AssertionError: assert 'GO_CANDIDATE' == 'PENDING_DESIGN'&#10;  &#10;  - PENDING_DESIGN&#10;  + GO_CANDIDATE">..\..\..\brasileirao-predictor\tests\test_resolution_gate_dependence.py:19: in test_declared_dsr_cannot_promote_unregistered_experiment
+    assert result["verdict"] == "PENDING_DESIGN"
+E   AssertionError: assert 'GO_CANDIDATE' == 'PENDING_DESIGN'
+E     
+E     - PENDING_DESIGN
+E     + GO_CANDIDATE</failure></testcase><testcase classname="tests.test_resolution_gate_dependence" name="test_psr_uses_event_returns_and_is_invariant_to_snapshot_repetition" time="0.020"><failure message="KeyError: 'n_events'">..\..\..\brasileirao-predictor\tests\test_resolution_gate_dependence.py:27: in test_psr_uses_event_returns_and_is_invariant_to_snapshot_repetition
+    assert once["n_events"] == twice["n_events"] == 20
+           ^^^^^^^^^^^^^^^^
+E   KeyError: 'n_events'</failure></testcase></testsuite></testsuites>

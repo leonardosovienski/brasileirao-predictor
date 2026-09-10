@@ -1,0 +1,8 @@
+{
+  "server_path": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\software\\redis-8.2.9\\Redis-8.2.9-Windows-x64-msys2\\redis-server.exe",
+  "server_sha256": "f9bf66f93438ec461b6e32453e6c9a8dde2f8c93c1018d1b75aa38b113ba3f14",
+  "runtime_scope": "disposable_community_Windows_build_not_production_homologation",
+  "commands": [],
+  "pid": 22992,
+  "server_stopped": true
+}

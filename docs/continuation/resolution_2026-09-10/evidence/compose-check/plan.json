@@ -1,0 +1,11 @@
+{
+  "purpose": "validate current Compose model without Docker daemon or private .env",
+  "budget": {
+    "public_gets": 2,
+    "max_download_bytes": 83886080,
+    "paid_api_calls": 0
+  },
+  "official_instructions": "https://docs.docker.com/compose/install/standalone/",
+  "downloads": [],
+  "commands": []
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="7" skipped="0" tests="8" time="1.235" timestamp="2026-09-10T19:52:04.795807-03:00" hostname="Leo"><testcase classname="tests.test_resolution_historical_import" name="test_existing_output_is_rejected_without_touching_bytes" time="0.074"><failure message="Failed: DID NOT RAISE FileExistsError">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:31: in test_existing_output_is_rejected_without_touching_bytes
+    with pytest.raises(FileExistsError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE FileExistsError</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[AvgOver2.5-inf]" time="0.064"><failure message="assert 1 == 0">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:44: in test_bad_price_or_count_is_quarantined
+    assert report["imported"] == 0
+E   assert 1 == 0</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[AvgUnder2.5-1]" time="0.083"><failure message="assert 1 == 0">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:44: in test_bad_price_or_count_is_quarantined
+    assert report["imported"] == 0
+E   assert 1 == 0</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[HighOver2.5-nan]" time="0.064"><failure message="assert 1 == 0">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:44: in test_bad_price_or_count_is_quarantined
+    assert report["imported"] == 0
+E   assert 1 == 0</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[NumBookmakers2.5-3.5]" time="0.056"><failure message="assert 1 == 0">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:44: in test_bad_price_or_count_is_quarantined
+    assert report["imported"] == 0
+E   assert 1 == 0</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_bad_price_or_count_is_quarantined[NumBookmakers2.5--2]" time="0.055"><failure message="assert 1 == 0">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:44: in test_bad_price_or_count_is_quarantined
+    assert report["imported"] == 0
+E   assert 1 == 0</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_failed_import_does_not_publish_partial_database" time="0.108"><failure message="AssertionError: assert not True&#10; +  where True = exists()&#10; +    where exists = WindowsPath('C:/BRASILEIRAO/work/resolution-2026-09-10/historical-import-before/tmp/test_failed_import_does_not_pu0/research.sqlite').exists">..\..\..\brasileirao-predictor\tests\test_resolution_historical_import.py:56: in test_failed_import_does_not_publish_partial_database
+    assert not output.exists()
+E   AssertionError: assert not True
+E    +  where True = exists()
+E    +    where exists = WindowsPath('C:/BRASILEIRAO/work/resolution-2026-09-10/historical-import-before/tmp/test_failed_import_does_not_pu0/research.sqlite').exists</failure></testcase><testcase classname="tests.test_resolution_historical_import" name="test_valid_import_preserves_raw_and_keeps_economics_disabled" time="0.189" /></testsuite></testsuites>

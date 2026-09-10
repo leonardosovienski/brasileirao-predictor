@@ -1,0 +1,13 @@
+{
+  "tests": [
+    "test_resolution_restore.py::test_backup_restore_accepts_literal_uri_characters_in_paths",
+    "test_resolution_walkforward.py::test_portfolio_rejects_nonfinite_output_from_finite_inputs"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 1
+}

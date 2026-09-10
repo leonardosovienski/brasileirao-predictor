@@ -1,0 +1,19 @@
+usage: odds_api_snapshot.py [-h] --sha256 SHA256 --received-at RECEIVED_AT
+                            [--event-id EVENT_ID] --output OUTPUT
+                            raw
+
+Offline The Odds API v4 receipt decoder, independent of protected collectors.
+This module does not fetch odds or open a database. It preserves a complete
+response as one observation, including empty/invalid states. A changed-at
+clock and the presence of an odd never certify commercial availability or
+execution.
+
+positional arguments:
+  raw
+
+options:
+  -h, --help            show this help message and exit
+  --sha256 SHA256
+  --received-at RECEIVED_AT
+  --event-id EVENT_ID
+  --output OUTPUT

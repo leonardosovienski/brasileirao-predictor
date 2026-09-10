@@ -1,0 +1,1698 @@
+{
+  "scope": "explicit isolated synthetic suites; not whole CI",
+  "unique_passed": 336,
+  "runs": [
+    "python-integrated",
+    "player-stats-after",
+    "kernel-lifecycle-after",
+    "structural-after",
+    "restore-edges-after-02",
+    "promotions-after",
+    "coverage-after",
+    "odds-import-integrated",
+    "live-settlement-after",
+    "settlement-cli-after"
+  ],
+  "cases": [
+    {
+      "classname": "tests.test_backup_restore",
+      "name": "test_backup_includes_operational_odds_and_audit_files",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_backup_restore",
+      "name": "test_backup_includes_research_and_runtime",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_backup_restore",
+      "name": "test_backup_includes_trial_v2_paper_capital_and_reports",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_backup_restore",
+      "name": "test_backup_rejeita_tamper_e_overwrite",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_backup_restore",
+      "name": "test_backup_verify_restore_roundtrip",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_add_bet_naive_vs_aware_nao_crasha",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_add_grava_linha_aberta",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_add_rejeita_mercado_e_odd_invalidos",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_aviso_de_bilhete_duplicado_aberto",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_banca_deposito_saque_e_reinit",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_banca_none_sem_init",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_banca_saldo_exposicao_e_drawdown",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_capital_gate_status_avisa_sem_trial_comprovada",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_capital_gate_status_falha_fechado_sem_trials_json",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_capital_gate_status_ignora_mercado_fora_do_gate",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_capital_gate_status_silencioso_com_trial_comprovada",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_kickoff_marca_aposta_tardia",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_list_bets_casa_aberta_e_fechada",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_settle_casa_por_conjunto_de_times",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_settle_confronto_repetido_exige_match_date_para_desambiguar",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_settle_ganha_perde_e_nao_duplica",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_settle_idempotente_sobrevive_a_reordenacao_do_arquivo",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_settle_periodo_exige_ht_e_fecha_com_ht",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_settle_placar_none_levanta_valueerror_claro",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_settle_rejeita_ht_maior_que_final",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_settle_rejeita_placar_negativo",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_summary_roi",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_bet_log",
+      "name": "test_summary_separa_validado_de_informativo",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_closing_cannot_mix_event_source_or_contract[changes0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_closing_cannot_mix_event_source_or_contract[changes1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_closing_cannot_mix_event_source_or_contract[changes2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_closing_cannot_mix_event_source_or_contract[changes3]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_closing_conflicting_latest_tie_abstains",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_curated_clock_cannot_follow_receipt[observed_at]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_curated_clock_cannot_follow_receipt[published_at]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_declarations_do_not_certify_prospective_evidence",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_half_time_requires_two_integer_counts[ht0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_half_time_requires_two_integer_counts[ht1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_half_time_requires_two_integer_counts[ht2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_half_time_requires_two_integer_counts[ht3]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_imported_duplicate_bet_id_is_rejected",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_inconsistent_chronology_blocks_contract[changes0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_inconsistent_chronology_blocks_contract[changes1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_inconsistent_chronology_blocks_contract[changes2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_inconsistent_chronology_blocks_contract[changes3]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_last_unusable_state_must_not_resurrect_price[changes0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_last_unusable_state_must_not_resurrect_price[changes1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_last_unusable_state_must_not_resurrect_price[changes2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_malformed_json_journal_refused[{\"kind\":\"bet\",\"kind\":\"settlement\"}]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_malformed_json_journal_refused[{\"kind\":\"bet\",\"stake\":NaN}]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_readiness_rejects_coerced_or_blank_input[changes0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_readiness_rejects_coerced_or_blank_input[changes1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_readiness_rejects_coerced_or_blank_input[changes2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_readiness_rejects_coerced_or_blank_input[changes3]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_readiness_rejects_coerced_or_blank_input[changes4]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_score_cannot_be_truncated_or_boolean[1.9_0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_score_cannot_be_truncated_or_boolean[1.9_1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_score_cannot_be_truncated_or_boolean[True]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_score_cannot_be_truncated_or_boolean[inf]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_summary_rejects_duplicate_settlement",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_closeout_integrity",
+      "name": "test_summary_rejects_orphan_and_changed_amount",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_completion_ledger",
+      "name": "test_duplicate_bet_id_is_rejected_before_append",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_completion_ledger",
+      "name": "test_invalid_bet_cannot_enter_journal[changes0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_completion_ledger",
+      "name": "test_invalid_bet_cannot_enter_journal[changes1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_completion_ledger",
+      "name": "test_invalid_bet_cannot_enter_journal[changes2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_completion_ledger",
+      "name": "test_invalid_bet_cannot_enter_journal[changes3]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_completion_ledger",
+      "name": "test_invalid_bet_cannot_enter_journal[changes4]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_completion_ledger",
+      "name": "test_invalid_bet_cannot_enter_journal[changes5]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_completion_ledger",
+      "name": "test_invalid_half_time_each_side_rejected_before_any_settlement",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_completion_ledger",
+      "name": "test_stable_bet_id_survives_line_reordering_in_list_and_bank",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_core_integrity",
+      "name": "test_ci_does_not_depend_on_workspace_imports",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_core_integrity",
+      "name": "test_shared_packages_are_supported_versions",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_core_integrity",
+      "name": "test_vendor_does_not_return",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_daemon_sets_health_and_cleans_up_on_shutdown",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_fair_odds_cover_complete_probability_grid",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_fair_odds_represents_zero_probability_as_none",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_grid_is_normalized_non_negative_and_dixon_coles_changes_low_scores",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_load_params_closes_sports_db_and_applies_config",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_load_params_closes_sports_db_when_cache_is_empty",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_load_params_rejects_stale_versioned_cache",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_main_healthcheck_fails_when_kernel_is_not_ready",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_main_healthcheck_reports_redis_state",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_main_rejects_missing_runtime_configuration",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_main_starts_daemon_with_explicit_absolute_configuration",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_numba_python_implementation_is_directly_verifiable",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_runtime",
+      "name": "test_warmup_invokes_grid_twice",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_v2_runtime",
+      "name": "test_computation_failure_releases_claim_and_never_completes",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_v2_runtime",
+      "name": "test_poller_recovers_registered_payloads_without_pubsub",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_v2_runtime",
+      "name": "test_session_keeps_client_open_until_inflight_handler_cleans_up",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_v2_runtime",
+      "name": "test_uncertain_completion_releases_only_its_attempt[CancelledError]",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_v2_runtime",
+      "name": "test_uncertain_completion_releases_only_its_attempt[ConnectionError]",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_kernel_v2_runtime",
+      "name": "test_windows_signal_fallback_schedules_stop_and_restores_handlers",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_append_preserves_unterminated_valid_record",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_bank_duplicate_json_key_is_rejected",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_bank_uses_one_snapshot_for_profit_and_exposure",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_cli_does_not_promote_legacy_market_flag",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_concurrent_writers_cannot_duplicate_identity[add]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_concurrent_writers_cannot_duplicate_identity[settle]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_failed_append_releases_writer_lock",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_imported_invalid_bank_record_is_rejected[change0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_imported_invalid_bank_record_is_rejected[change1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_imported_invalid_bank_record_is_rejected[change2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_imported_invalid_bank_record_is_rejected[change3]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_imported_invalid_bank_record_is_rejected[change4]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_imported_invalid_bank_record_is_rejected[change5]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_imported_invalid_bank_record_is_rejected[change6]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_invalid_configured_stake_cap_is_rejected[-1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_invalid_configured_stake_cap_is_rejected[Infinity]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_invalid_configured_stake_cap_is_rejected[NaN]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_invalid_configured_stake_cap_is_rejected[]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_invalid_imported_contract_cannot_be_settled[change0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_invalid_imported_contract_cannot_be_settled[change1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_invalid_imported_contract_cannot_be_settled[change2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_reversed_team_input_keeps_score_in_recorded_home_order",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_ledger_consistency",
+      "name": "test_stable_id_does_not_require_legacy_line_number",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_odds_shop_stale",
+      "name": "test_filtro_descarta_feed_morto",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_odds_shop_stale",
+      "name": "test_last_update_ilegivel_nao_trava",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_odds_shop_stale",
+      "name": "test_none_desliga_o_filtro",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_pit_backfill",
+      "name": "test_closing_requires_valid_pre_kickoff_quote_and_versions_definition",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_pit_backfill",
+      "name": "test_curated_odds_rejects_future_capture_and_preserves_all_clocks",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_pit_backfill",
+      "name": "test_curated_store_has_provenance_and_never_touches_live",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_pit_backfill",
+      "name": "test_entity_resolution_rejects_ambiguous_case",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_pit_backfill",
+      "name": "test_pit_rejects_future_and_evaluation_view_is_temporal",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_pit_backfill",
+      "name": "test_raw_is_write_once_hashable_and_tamper_detected",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_pit_backfill",
+      "name": "test_walk_forward_holdout_and_cluster_gate_never_enable_capital",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_player_comp_stats_sofascore",
+      "name": "test_aggregate_and_persist_player_stats_with_provenance",
+      "latest_evidence": "player-stats-after"
+    },
+    {
+      "classname": "tests.test_promotions_dataset",
+      "name": "test_promotion_dataset_rejects_empty_file",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_marks_report_only_and_does_not_mutate",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_missing_home_guardrail_still_abstains",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win--0.01]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win--inf]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win-None]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win-True]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win-inf]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win-nan]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[rps--0.01]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[rps--inf]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[rps-None]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[rps-True]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[rps-inf]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_invalid_numeric_evidence[rps-nan]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_malformed_report[None]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_malformed_report[bad1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_malformed_report[bad2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_calibration_rejects_malformed_report[bad3]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_cannot_call_variable_stake_pnl_roi",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_does_not_promote_a_selected_complete_subset",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_labels_unit_assumption_and_declared_dsr",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[-inf-clv]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[-inf-pnl]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[0.2-clv]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[0.2-pnl]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[True-clv]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[True-pnl]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[inf-clv]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[inf-pnl]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[nan-clv]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_rejects_invalid_values_before_any_statistics[nan-pnl]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_requires_an_event_identity[ ]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_requires_an_event_identity[True]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_requires_an_event_identity[bad2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_requires_an_event_identity[bad3]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[dsr-1.01]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[dsr-True]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[dsr-inf]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[minimum_dsr-nan]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[minimum_psr--0.01]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[minimum_sample-0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[minimum_sample-2.5]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[minimum_sample-True]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[n_boot-0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[n_boot-2.5]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_reconciliation_gate_contracts",
+      "name": "test_residual_validates_configuration_even_below_sample_floor[n_boot-True]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_redis_contract",
+      "name": "test_golden_pricing_grid_is_preserved",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_redis_contract",
+      "name": "test_shared_schema_is_versioned_and_correlated",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_residual_dataset",
+      "name": "test_keeps_unfinished_event_and_incomplete_market_as_abstention",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_dataset",
+      "name": "test_materializes_only_complete_books_available_at_horizon",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_dataset",
+      "name": "test_rejects_synthetic_pair_from_different_market_states",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_features",
+      "name": "test_lineup_state_uses_latest_vintage_available_asof",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_features",
+      "name": "test_residual_features_capture_dispersion_time_and_lineup_change",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_features",
+      "name": "test_residual_features_reject_post_kickoff_observation",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_gate",
+      "name": "test_gate_can_only_return_candidate_not_enable_capital",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_gate",
+      "name": "test_gate_is_pending_below_sample_floor",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_gate",
+      "name": "test_gate_rejects_negative_economics_even_with_high_dsr",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_walkforward",
+      "name": "test_walkforward_reports_post_friction_policy",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_residual_walkforward",
+      "name": "test_walkforward_respects_maturity_and_never_enables_capital",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_bank",
+      "name": "test_bank_snapshot_locks_both_books",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_bank",
+      "name": "test_currency_change_requires_reconciliation_for_old_open_stake",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_bank",
+      "name": "test_drawdown_accounts_for_time_of_contribution",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_bank",
+      "name": "test_flow_requires_initial_bank_and_monotonic_clock",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_bank",
+      "name": "test_old_stake_is_not_revalued_by_new_unit",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_current_kernel_surface_is_gated[kernel_cli.py]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_current_kernel_surface_is_gated[kernel_redis_v2.py]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_empty_input_cannot_approve",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_invalid_counts_cannot_approve[-1]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_invalid_counts_cannot_approve[1.5]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_invalid_counts_cannot_approve[11]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_invalid_counts_cannot_approve[True]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_line_only_coverage_cannot_approve",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_one_missing_required_file_cannot_approve",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_real_regression_keeps_ratchet",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_report_never_invents_dotnet_rates",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_coverage",
+      "name": "test_zero_denominator_is_unknown",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_cancelled_latest_match_does_not_resurrect_scheduled_version",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_closing_rejects_future_information_even_for_direct_rows[available_at]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_closing_rejects_future_information_even_for_direct_rows[observed_at]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_closing_rejects_future_information_even_for_direct_rows[published_at]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_curated_does_not_implicitly_mutate_old_schema",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_curated_exact_retry_is_idempotent",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_curated_roundtrip_keeps_market_contract",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_curated_suspension_survives_roundtrip_and_prevents_resurrection",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_curated_tied_conflicts_are_preserved_and_cannot_be_selected",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_match_conflicting_revision_at_same_receipt_is_not_arbitrated",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_curated_versions",
+      "name": "test_match_revision_does_not_erase_earlier_as_of_state",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_gate_dependence",
+      "name": "test_declared_dsr_cannot_promote_unregistered_experiment",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_gate_dependence",
+      "name": "test_psr_uses_event_returns_and_is_invariant_to_snapshot_repetition",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_gate_dependence",
+      "name": "test_repeated_snapshots_cannot_satisfy_independent_sample_floor",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_historical_import",
+      "name": "test_bad_price_or_count_is_quarantined[AvgOver2.5-inf]",
+      "latest_evidence": "odds-import-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_historical_import",
+      "name": "test_bad_price_or_count_is_quarantined[AvgUnder2.5-1]",
+      "latest_evidence": "odds-import-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_historical_import",
+      "name": "test_bad_price_or_count_is_quarantined[HighOver2.5-nan]",
+      "latest_evidence": "odds-import-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_historical_import",
+      "name": "test_bad_price_or_count_is_quarantined[NumBookmakers2.5--2]",
+      "latest_evidence": "odds-import-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_historical_import",
+      "name": "test_bad_price_or_count_is_quarantined[NumBookmakers2.5-3.5]",
+      "latest_evidence": "odds-import-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_historical_import",
+      "name": "test_existing_output_is_rejected_without_touching_bytes",
+      "latest_evidence": "odds-import-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_historical_import",
+      "name": "test_failed_import_does_not_publish_partial_database",
+      "latest_evidence": "odds-import-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_historical_import",
+      "name": "test_valid_import_preserves_raw_and_keeps_economics_disabled",
+      "latest_evidence": "odds-import-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_lifecycle",
+      "name": "test_healthcheck_connection_failure_closes_client_and_does_not_log_credentials",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_lifecycle",
+      "name": "test_installed_health_entrypoint_needs_no_numeric_or_database_import",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_lifecycle",
+      "name": "test_pubsub_burst_has_bounded_handlers_and_cancels_them_on_shutdown",
+      "latest_evidence": "kernel-lifecycle-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_params",
+      "name": "test_invalid_kernel_parameters_never_reach_numba[0-inf]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_params",
+      "name": "test_invalid_kernel_parameters_never_reach_numba[1-nan]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_params",
+      "name": "test_invalid_kernel_parameters_never_reach_numba[2--0.1]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_params",
+      "name": "test_invalid_kernel_parameters_never_reach_numba[4-True]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_params",
+      "name": "test_invalid_kernel_parameters_never_reach_numba[5--1]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_params",
+      "name": "test_invalid_kernel_parameters_never_reach_numba[5-0]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_params",
+      "name": "test_invalid_kernel_parameters_never_reach_numba[5-1.5]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_params",
+      "name": "test_invalid_kernel_parameters_never_reach_numba[5-101]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_kernel_params",
+      "name": "test_supported_kernel_parameters_keep_two_warmup_calls",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_atomic_envelopes_preserve_empty_and_concurrent_writes",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_corrupt_envelope_fails_closed",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_envelope_is_consumed_without_flattening_away_empty_state",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_invalid_envelope_is_rejected_before_writing[updates0]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_invalid_envelope_is_rejected_before_writing[updates1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_invalid_envelope_is_rejected_before_writing[updates2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_later_snapshot_resolves_old_conflict_independent_of_input_order",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_same_receipt_conflict_cannot_choose_a_lineup",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_unknown_lineup_is_not_an_empty_lineup[INVALID]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_lineup_envelopes",
+      "name": "test_unknown_lineup_is_not_an_empty_lineup[UNAVAILABLE]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_cli_retry_reports_persisted_receipt_in_stdout_and_run_log",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_rejects_invalid_probability_vector[-0.1]",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_rejects_invalid_probability_vector[0.2]",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_rejects_invalid_probability_vector[1.1]",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_rejects_invalid_probability_vector[True]",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_rejects_invalid_probability_vector[nan]",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_rejects_invalid_score[-1]",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_rejects_invalid_score[True]",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_rejects_wrong_event",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_retry_retains_first_receipt_and_changed_result_conflicts",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_live_settlement",
+      "name": "test_writer_lock_is_respected",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_bad_prices_cannot_become_consensus[0.9]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_bad_prices_cannot_become_consensus[True]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_bad_prices_cannot_become_consensus[inf]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_bad_prices_cannot_become_consensus[nan]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_diagnostic_output_does_not_call_unproven_window_validated",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_duplicate_books_do_not_manufacture_consensus_strength",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_incomplete_market_is_excluded",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_missing_kickoff_cannot_be_treated_as_future[2026-01-01T00:00:00]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_missing_kickoff_cannot_be_treated_as_future[None]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_missing_kickoff_cannot_be_treated_as_future[bad]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_unknown_invalid_or_future_clock_is_not_fresh[2026-01-01T00:00:00]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_unknown_invalid_or_future_clock_is_not_fresh[2099-01-01T00:00:00+00:00]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_unknown_invalid_or_future_clock_is_not_fresh[None]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_odds_shop",
+      "name": "test_unknown_invalid_or_future_clock_is_not_fresh[invalid]",
+      "latest_evidence": "live-settlement-after"
+    },
+    {
+      "classname": "tests.test_resolution_player_stats",
+      "name": "test_corrupt_player_file_does_not_silently_shrink_the_aggregate",
+      "latest_evidence": "player-stats-after"
+    },
+    {
+      "classname": "tests.test_resolution_player_stats",
+      "name": "test_missing_xg_is_unknown_instead_of_zero",
+      "latest_evidence": "player-stats-after"
+    },
+    {
+      "classname": "tests.test_resolution_player_stats",
+      "name": "test_player_counts_are_not_coerced_or_truncated[-1]",
+      "latest_evidence": "player-stats-after"
+    },
+    {
+      "classname": "tests.test_resolution_player_stats",
+      "name": "test_player_counts_are_not_coerced_or_truncated[1.9]",
+      "latest_evidence": "player-stats-after"
+    },
+    {
+      "classname": "tests.test_resolution_player_stats",
+      "name": "test_player_counts_are_not_coerced_or_truncated[2]",
+      "latest_evidence": "player-stats-after"
+    },
+    {
+      "classname": "tests.test_resolution_player_stats",
+      "name": "test_player_counts_are_not_coerced_or_truncated[True]",
+      "latest_evidence": "player-stats-after"
+    },
+    {
+      "classname": "tests.test_resolution_player_stats",
+      "name": "test_postmatch_player_stats_are_not_backdated_to_kickoff",
+      "latest_evidence": "player-stats-after"
+    },
+    {
+      "classname": "tests.test_resolution_promotions",
+      "name": "test_invalid_season_roster_is_not_accepted_as_complete[duplicate_team-entries-load_promotions]",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_resolution_promotions",
+      "name": "test_invalid_season_roster_is_not_accepted_as_complete[duplicate_team-relegations-load_relegations]",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_resolution_promotions",
+      "name": "test_invalid_season_roster_is_not_accepted_as_complete[extra_position-entries-load_promotions]",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_resolution_promotions",
+      "name": "test_invalid_season_roster_is_not_accepted_as_complete[extra_position-relegations-load_relegations]",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_resolution_promotions",
+      "name": "test_invalid_season_roster_is_not_accepted_as_complete[fractional_position-entries-load_promotions]",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_resolution_promotions",
+      "name": "test_invalid_season_roster_is_not_accepted_as_complete[fractional_position-relegations-load_relegations]",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_resolution_promotions",
+      "name": "test_invalid_season_roster_is_not_accepted_as_complete[invalid_identity-entries-load_promotions]",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_resolution_promotions",
+      "name": "test_invalid_season_roster_is_not_accepted_as_complete[invalid_identity-relegations-load_relegations]",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_resolution_promotions",
+      "name": "test_valid_four_club_rosters_preserve_their_identity_and_order",
+      "latest_evidence": "promotions-after"
+    },
+    {
+      "classname": "tests.test_resolution_residual_dataset",
+      "name": "test_late_receipt_cannot_become_historical_offer",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_residual_dataset",
+      "name": "test_offer_book_is_excluded_from_its_own_probability_reference",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_residual_dataset",
+      "name": "test_reference_and_offer_must_satisfy_cross_book_clock_skew",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_residual_dataset",
+      "name": "test_scores_must_be_nonnegative_integer_counts[-1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_residual_dataset",
+      "name": "test_scores_must_be_nonnegative_integer_counts[1.9]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_residual_dataset",
+      "name": "test_scores_must_be_nonnegative_integer_counts[2]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_residual_dataset",
+      "name": "test_scores_must_be_nonnegative_integer_counts[True]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_residual_dataset",
+      "name": "test_suspension_cannot_resurrect_old_quote",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_residual_dataset",
+      "name": "test_unfinished_event_is_preserved_without_fabricated_label",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_restore",
+      "name": "test_backup_restore_accepts_literal_uri_characters_in_paths",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_resolution_restore",
+      "name": "test_backup_restore_does_not_decode_literal_percent_sequences",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_resolution_restore",
+      "name": "test_create_checks_source_links_before_copying_external_content",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_resolution_restore",
+      "name": "test_create_refuses_destination_inside_a_copied_tree_before_copying",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_resolution_restore",
+      "name": "test_restore_detects_copy_corruption_before_reporting_success",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_resolution_restore",
+      "name": "test_restored_copy_keeps_manifest_and_is_independently_verifiable",
+      "latest_evidence": "restore-edges-after-02"
+    },
+    {
+      "classname": "tests.test_resolution_structural_edge",
+      "name": "test_invalid_policy_is_not_silently_interpreted[changes0]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_structural_edge",
+      "name": "test_invalid_policy_is_not_silently_interpreted[changes1]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_structural_edge",
+      "name": "test_invalid_policy_is_not_silently_interpreted[changes2]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_structural_edge",
+      "name": "test_invalid_policy_is_not_silently_interpreted[changes3]",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_structural_edge",
+      "name": "test_nonfinite_market_line_is_rejected",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_structural_edge",
+      "name": "test_power_devig_brackets_valid_high_margin_prices",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_structural_edge",
+      "name": "test_snapshot_does_not_change_when_callers_mutate_original_odds",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_structural_edge",
+      "name": "test_stale_offer_cannot_be_compared_with_fresh_reference",
+      "latest_evidence": "coverage-after"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_portfolio_rejects_nonfinite_output_from_finite_inputs",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_preserves_missing_quote_and_unsettled_games",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_rejects_duplicate_events",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_rejects_future_feature_availability",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_rejects_impossible_chronology[predicted_at]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_rejects_impossible_chronology[settled_at]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_rejects_invalid_label_before_training[-0.1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_rejects_invalid_label_before_training[1.9]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_rejects_invalid_label_before_training[1]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_rejects_invalid_label_before_training[True]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_rejects_invalid_label_before_training[nan]",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_resolution_walkforward",
+      "name": "test_replay_reserves_capital_and_uses_requested_stake",
+      "latest_evidence": "python-integrated"
+    },
+    {
+      "classname": "tests.test_settle_live_prediction",
+      "name": "test_load_prediction_requires_exactly_one_original",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_settle_live_prediction",
+      "name": "test_settlement_is_separate_linked_append_only_and_diagnostic",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_settle_live_prediction",
+      "name": "test_settlement_refuses_unfinished_event_and_naive_clock",
+      "latest_evidence": "settlement-cli-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_detector_emits_only_locked_shadow_candidates[power]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_detector_emits_only_locked_shadow_candidates[shin]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_identity_mismatch_fails_closed[event_id-other]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_identity_mismatch_fails_closed[line-2.5]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_identity_mismatch_fails_closed[mapping_version-teams-v3]",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_invalid_odds_and_selection_mismatch_are_rejected",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_naive_timestamp_and_post_kickoff_are_rejected",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_no_alert_below_frozen_ev_threshold",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_power_devig_is_normalized",
+      "latest_evidence": "structural-after"
+    },
+    {
+      "classname": "tests.test_structural_edge",
+      "name": "test_stale_reference_fails_closed",
+      "latest_evidence": "structural-after"
+    }
+  ]
+}

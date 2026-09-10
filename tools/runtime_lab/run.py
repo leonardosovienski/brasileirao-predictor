@@ -98,6 +98,7 @@ def main():
     native = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
 
     def command(argv, name, timeout):
+        started = time.monotonic()
         if process.poll() is not None or client.info("server")["run_id"] != receipt["run_id"]:
             raise RuntimeError("owned_redis_lost")
         with (out / (name + ".log")).open("wb") as log:
@@ -117,7 +118,15 @@ def main():
                 )
                 child.wait(timeout=15)
                 code = 124
-        receipt["commands"].append({"name": name, "argv": [str(x) for x in argv], "exit_code": code})
+        receipt["commands"].append(
+            {
+                "name": name,
+                "argv": [str(x) for x in argv],
+                "exit_code": code,
+                "elapsed_seconds": time.monotonic() - started,
+                "timeout_seconds": timeout,
+            }
+        )
         (out / "receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
         print(name, code, flush=True)
         return code
@@ -159,13 +168,17 @@ def main():
                 netstat = subprocess.run(
                     ["netstat.exe", "-ano", "-p", "TCP"],
                     capture_output=True,
-                    text=True,
                     env=env,
                     creationflags=native,
                     check=True,
-                ).stdout
+                ).stdout.decode("ascii", errors="replace")
                 rows = [
-                    line.split() for line in netstat.splitlines() if "127.0.0.1:26380 " in line and "LISTENING" in line
+                    fields
+                    for line in netstat.splitlines()
+                    if len(fields := line.split()) == 5
+                    and fields[0] == "TCP"
+                    and fields[1] == "127.0.0.1:26380"
+                    and fields[2] == "0.0.0.0:0"
                 ]
                 if rows:
                     if len(rows) != 1 or int(rows[0][-1]) != process.pid:
@@ -193,10 +206,24 @@ def main():
                 LINEUP_E2E_KERNEL_SCRIPT=str(Path(__file__).with_name("kernel_synthetic.py")),
             )
             project = "dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj"
+            # Keep compiler/build processes inside this invocation's lifetime.
+            # Persistent shared servers obscure ownership and can outlive a
+            # timed-out synthetic lab, affecting later cold-start measurements.
+            env.update(DOTNET_CLI_USE_MSBUILD_SERVER="0", MSBUILDDISABLENODEREUSE="1")
             if command([str(args.dotnet), "restore", project, "--locked-mode"], "dotnet-restore", 180) == 0:
                 if (
                     command(
-                        [str(args.dotnet), "build", project, "-c", "Release", "--no-restore", "--warnaserror"],
+                        [
+                            str(args.dotnet),
+                            "build",
+                            project,
+                            "-c",
+                            "Release",
+                            "--no-restore",
+                            "--warnaserror",
+                            "--disable-build-servers",
+                            "-p:UseSharedCompilation=false",
+                        ],
                         "dotnet-build",
                         180,
                     )

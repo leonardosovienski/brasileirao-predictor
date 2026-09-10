@@ -1,0 +1,12 @@
+{
+  "tests": [
+    "test_resolution_residual_dataset.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 1
+}

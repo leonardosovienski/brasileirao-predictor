@@ -1,11 +1,11 @@
-"""ZONA 3 — Kernel Python Daemon (Persistent, Zero Cold Start).
+"""ZONA 3 — Kernel Python Daemon persistente com warm-up no boot.
 
 Roda como processo residente via asyncio + redis.asyncio.
 Hiperparâmetros são carregados UMA VEZ no boot e mantidos em RAM.
 A grade bivariada NB é computada por função Numba @njit compilada no boot
 (cache=True → compilação persiste entre restarts do processo).
 
-Tempo esperado por invocação após boot: < 15ms.
+Meta histórica por invocação após boot: < 15ms; não é garantia medida.
 
 Contratos:
   Entrada  : canal Redis  "system:invoke_kernel:v2"    (JSON KernelInvokePayload)
@@ -18,16 +18,14 @@ Inicialização:
 Não acessa disco após o boot — toda I/O é via Redis.
 """
 
-import argparse
 import asyncio
 import json
 import logging
 import math
 import os
 import signal
-import sys
 import time
-from pathlib import Path
+from numbers import Integral, Real
 from uuid import uuid4
 
 import numpy as np
@@ -159,13 +157,44 @@ def _fair_odds_from_grid(grid: np.ndarray) -> dict:
 # ---------------------------------------------------------------------------
 
 
+def _validate_params(params: tuple) -> tuple[float, float, float, float, float, int]:
+    """Reject unsafe grid dimensions and invalid coefficients before native JIT.
+
+    The implementation supports one to 100 goals per side. This bounds native
+    allocations and ensures the four low-score cells exist; it is not a fitted
+    economic filter or evidence about the probability of extreme scores.
+    """
+    if len(params) != 6:
+        raise ValueError("six kernel parameters are required")
+    values = params[:5]
+    try:
+        if any(isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value) for value in values):
+            raise ValueError("kernel coefficients must be finite real numbers")
+        a, b, alpha, rho, theta = map(float, values)
+    except (OverflowError, TypeError) as exc:
+        raise ValueError("kernel coefficients must be finite real numbers") from exc
+    maximum = params[5]
+    if alpha < 0 or isinstance(maximum, bool) or not isinstance(maximum, Integral):
+        raise ValueError("kernel requires nonnegative dispersion and integer max_goals in [1,100]")
+    maximum = int(maximum)
+    if not 1 <= maximum <= 100:
+        raise ValueError("kernel requires nonnegative dispersion and integer max_goals in [1,100]")
+    try:
+        rate = math.exp(a)
+    except OverflowError as exc:
+        raise ValueError("kernel baseline rate is not representable") from exc
+    if not math.isfinite(rate) or rate <= 0:
+        raise ValueError("kernel baseline rate must be finite and positive")
+    return a, b, alpha, rho, theta, int(maximum)
+
+
 def _warmup_jit(params: tuple) -> float:
     """Compila a grade JIT uma vez. Retorna o tempo em ms."""
-    a, b, alpha, rho, theta, max_goals = params
+    a, b, alpha, rho, theta, max_goals = _validate_params(params)
     lam_a, lam_b = math.exp(a), math.exp(a)
     t0 = time.perf_counter()
     _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
-    # segunda chamada: usa o cache compilado — esta é a latência real
+    # Segunda chamada aquecida; elapsed abaixo inclui ambas as invocações.
     _compute_grid_jit(lam_a, lam_b, alpha, abs(rho), max_goals)
     elapsed = (time.perf_counter() - t0) * 1000
     log.info("[kernel] JIT warm-up concluído em %.2f ms (2 invocações)", elapsed)
@@ -202,7 +231,7 @@ def _load_params(db_path: str) -> tuple:
         prow[3],
         theta,
     )
-    return (float(prow[0]), float(prow[1]), float(prow[2]), float(prow[3]), theta, max_goals)
+    return _validate_params((float(prow[0]), float(prow[1]), float(prow[2]), float(prow[3]), theta, max_goals))
 
 
 # ---------------------------------------------------------------------------
@@ -227,7 +256,7 @@ async def _release_attempt(client, keys: tuple[str, ...], raw: bytes, run_id: st
 
 
 async def _handle_invoke(client, payload_bytes: bytes, params: tuple) -> None:
-    """Processa uma mensagem de kernel_invoke. Custo: < 15ms após warm-up."""
+    """Processa uma mensagem; mede a latência sem presumir cumprimento de SLA."""
     t_recv = time.perf_counter()
     try:
         msg = _parse_invoke(payload_bytes)
@@ -409,6 +438,7 @@ async def _run_daemon(db_path: str, redis_url: str) -> None:
 
 
 async def _serve_sessions(params: tuple, redis_url: str, stop: asyncio.Event) -> None:
+    params = _validate_params(params)
     import redis.asyncio as aioredis
     from redis.exceptions import RedisError
 
@@ -442,8 +472,18 @@ async def _serve_sessions(params: tuple, redis_url: str, stop: asyncio.Event) ->
             log.info("[kernel] DAEMON PRONTO. Protocolo %s", protocol.PROTOCOL_VERSION)
 
             async def listen() -> None:
+                deferred = 0
                 async for message in pubsub.listen():
                     if message["type"] != "message":
+                        continue
+                    if len(invocations) >= protocol.POLL_LIMIT:
+                        # Pub/Sub is only a wake-up. Registration already saved
+                        # the request in the durable pending index; recovery
+                        # processes it in bounded batches without queuing an
+                        # unbounded number of in-memory tasks or payloads.
+                        deferred += 1
+                        if deferred == 1:
+                            log.warning("[kernel] limite de notificações concorrentes; recuperação durável ativa")
                         continue
                     task = asyncio.create_task(_handle_invoke(client, message["data"], params))
                     invocations.add(task)
@@ -497,32 +537,11 @@ async def _serve_sessions(params: tuple, redis_url: str, stop: asyncio.Event) ->
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Kernel Python Daemon — Zona 3")
-    parser.add_argument("--db", default=os.environ.get("SPORTS_DB_PATH"))
-    parser.add_argument("--redis", default=os.environ.get("REDIS_URL"))
-    parser.add_argument("--healthcheck", action="store_true")
-    args = parser.parse_args()
+    # Preserve python -m kernel_daemon and callers while the installed entry
+    # point avoids numerical imports for --help and --healthcheck.
+    from brasileirao_predictor.kernel_cli import main as cli_main
 
-    if not args.db or not Path(args.db).is_absolute():
-        parser.error("--db or SPORTS_DB_PATH must be an absolute path")
-    if not args.redis:
-        parser.error("--redis or REDIS_URL is required")
-
-    if args.healthcheck:
-        import redis
-
-        client = redis.from_url(args.redis)
-        try:
-            return 0 if client.eval(protocol.HEALTHCHECK_SCRIPT, 1, protocol.HEALTH_KEY) == 1 else 1
-        finally:
-            client.close()
-
-    try:
-        import redis.asyncio  # noqa: F401
-    except ImportError:
-        sys.exit("[kernel] redis[hiredis] não instalado. Execute: pip install -r requirements-kernel.txt")
-
-    asyncio.run(_run_daemon(args.db, args.redis))
+    return cli_main()
 
 
 if __name__ == "__main__":

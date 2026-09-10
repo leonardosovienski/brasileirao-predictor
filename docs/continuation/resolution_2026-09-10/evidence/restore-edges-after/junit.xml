@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="11" skipped="0" tests="11" time="22.585" timestamp="2026-09-10T18:49:54.915623-03:00" hostname="Leo"><testcase classname="tests.test_resolution_restore" name="test_restored_copy_keeps_manifest_and_is_independently_verifiable" time="0.280"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:20: in test_restored_copy_keeps_manifest_and_is_independently_verifiable
+    source = fixture(tmp_path)
+             ^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:16: in fixture
+    return backup.create_backup(tmp_path / "backup", root=source)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_resolution_restore" name="test_restore_detects_copy_corruption_before_reporting_success" time="0.277"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:28: in test_restore_detects_copy_corruption_before_reporting_success
+    source = fixture(tmp_path)
+             ^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:16: in fixture
+    return backup.create_backup(tmp_path / "backup", root=source)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_resolution_restore" name="test_backup_restore_accepts_literal_uri_characters_in_paths" time="0.428"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:45: in test_backup_restore_accepts_literal_uri_characters_in_paths
+    source = fixture(directory)
+             ^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:16: in fixture
+    return backup.create_backup(tmp_path / "backup", root=source)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_resolution_restore" name="test_backup_restore_does_not_decode_literal_percent_sequences" time="0.417"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:52: in test_backup_restore_does_not_decode_literal_percent_sequences
+    source = fixture(directory)
+             ^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:16: in fixture
+    return backup.create_backup(tmp_path / "backup", root=source)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_resolution_restore" name="test_create_refuses_destination_inside_a_copied_tree_before_copying" time="0.619"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:58: in test_create_refuses_destination_inside_a_copied_tree_before_copying
+    fixture(tmp_path)
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:16: in fixture
+    return backup.create_backup(tmp_path / "backup", root=source)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_resolution_restore" name="test_create_checks_source_links_before_copying_external_content" time="1.260"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:71: in test_create_checks_source_links_before_copying_external_content
+    fixture(tmp_path)
+..\..\..\brasileirao-predictor\tests\test_resolution_restore.py:16: in fixture
+    return backup.create_backup(tmp_path / "backup", root=source)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_backup_restore" name="test_backup_verify_restore_roundtrip" time="0.840"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_backup_restore.py:24: in test_backup_verify_restore_roundtrip
+    backup = create_backup(tmp_path / "backup", root=source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_backup_restore" name="test_backup_includes_research_and_runtime" time="0.303"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_backup_restore.py:40: in test_backup_includes_research_and_runtime
+    backup = create_backup(tmp_path / "backup", root=source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_backup_restore" name="test_backup_includes_operational_odds_and_audit_files" time="0.430"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_backup_restore.py:58: in test_backup_includes_operational_odds_and_audit_files
+    backup = create_backup(tmp_path / "backup", root=source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_backup_restore" name="test_backup_includes_trial_v2_paper_capital_and_reports" time="0.193"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_backup_restore.py:73: in test_backup_includes_trial_v2_paper_capital_and_reports
+    backup = create_backup(tmp_path / "backup", root=source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase><testcase classname="tests.test_backup_restore" name="test_backup_rejeita_tamper_e_overwrite" time="0.052"><failure message="PermissionError: only_synthetic_sqlite_inside_test_output">..\..\..\brasileirao-predictor\tests\test_backup_restore.py:82: in test_backup_rejeita_tamper_e_overwrite
+    backup = create_backup(tmp_path / "backup", root=source)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_predictor\backup_restore.py:87: in create_backup
+    source = sqlite3.connect(f"{source_db.resolve().as_uri()}?mode=ro", uri=True, timeout=30)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\run_isolated.py:62: in guard
+    deny(event, 'only_synthetic_sqlite_inside_test_output')
+..\run_isolated.py:49: in deny
+    raise PermissionError(reason)
+E   PermissionError: only_synthetic_sqlite_inside_test_output</failure></testcase></testsuite></testsuites>

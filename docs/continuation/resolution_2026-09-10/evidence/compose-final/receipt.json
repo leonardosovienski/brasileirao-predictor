@@ -1,0 +1,26 @@
+{
+  "command": [
+    "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\compose-check\\docker-compose-windows-x86_64.exe",
+    "--env-file",
+    "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\compose-final\\empty.env",
+    "-f",
+    "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\compose-final\\compose.yaml",
+    "config",
+    "--no-env-resolution",
+    "--format",
+    "json"
+  ],
+  "exit_code": 0,
+  "compose_sha256": "c53920a771f7b034fef7a875a12890b1e69ba948999cfe26b18fdc6ac9e6a549",
+  "model_sha256": "ba0533da744b9896a4076a5e0e400d5fb6a52ba3603f797e8a7917a88fb37b5f",
+  "services": [
+    "init-data",
+    "kernel",
+    "redis",
+    "worker"
+  ],
+  "feed_disabled_by_default": true,
+  "synthetic_inputs_disabled_by_default": true,
+  "daemon_started": false,
+  "containers_executed": false
+}

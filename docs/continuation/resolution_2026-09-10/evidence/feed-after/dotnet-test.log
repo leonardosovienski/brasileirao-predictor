@@ -1,0 +1,15 @@
+Execução de teste para C:\BRASILEIRAO\work\resolution-2026-09-10\feed-after\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:28.70]     LineupWorker.Tests.WorkerRuntimeTests.MarketStateInvokesVersionedKernelAndProcessesFairOdds [FAIL]
+  Com falha LineupWorker.Tests.WorkerRuntimeTests.MarketStateInvokesVersionedKernelAndProcessesFairOdds [7 s]
+  Mensagem de erro:
+   System.TimeoutException : The operation has timed out.
+  Rastreamento de pilha:
+     at LineupWorker.Tests.WorkerRuntimeTests.MarketStateInvokesVersionedKernelAndProcessesFairOdds() in C:\BRASILEIRAO\work\resolution-2026-09-10\feed-after\source\dotnet\LineupWorker.Tests\WorkerRuntimeTests.cs:line 276
+--- End of stack trace from previous location ---
+Arquivo de resultados: C:\BRASILEIRAO\work\resolution-2026-09-10\feed-after\dotnet-results\_LEO_2026-09-10_17_24_47_net10.0.trx
+
+Com falha! – Com falha:     1, Aprovado:    10, Ignorado:     0, Total:    11, Duração: 19 s - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\resolution-2026-09-10\feed-after\dotnet-results\49ca7210-8a0f-4fff-82c7-21b5fe955ea6\coverage.cobertura.xml

@@ -1,0 +1,28 @@
+{
+  "tests": [
+    "test_resolution_kernel_lifecycle.py",
+    "test_resolution_kernel_params.py",
+    "test_kernel_runtime.py",
+    "test_kernel_v2_runtime.py",
+    "test_redis_contract.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

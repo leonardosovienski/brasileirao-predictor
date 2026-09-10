@@ -1,0 +1,20 @@
+{
+  "tests": [
+    "test_resolution_historical_import.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 1
+}

@@ -1,0 +1,7 @@
+{
+  "tests": [
+    "test_core_integrity.py"
+  ],
+  "blocked_attempts": [],
+  "exit_code": 1
+}

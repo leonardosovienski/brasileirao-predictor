@@ -1,0 +1,13 @@
+{
+  "baseline_files": 458,
+  "depth": {
+    "semantic_read_with_recorded_findings": 399,
+    "protected_contract_only_no_execution": 59
+  },
+  "remaining_files": 0,
+  "allowed_semantic_review_complete": true,
+  "all_sources_semantically_reviewed": false,
+  "protected_contract_status_preserved": true,
+  "new_changed_files_reviewed_separately": true,
+  "execution_not_implied": true
+}

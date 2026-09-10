@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="69.307" timestamp="2026-09-10T18:44:45.500200-03:00" hostname="Leo"><testcase classname="tests.test_resolution_kernel_lifecycle" name="test_installed_health_entrypoint_needs_no_numeric_or_database_import" time="0.031"><failure message="AssertionError: healthcheck attempted an expensive model dependency import">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_lifecycle.py:29: in test_installed_health_entrypoint_needs_no_numeric_or_database_import
+    entrypoint = getattr(importlib.import_module(module_name), function)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen importlib._bootstrap&gt;:1387: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1360: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1331: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:935: in _load_unlocked
+    ???
+&lt;frozen importlib._bootstrap_external&gt;:1023: in exec_module
+    ???
+&lt;frozen importlib._bootstrap&gt;:488: in _call_with_frames_removed
+    ???
+..\..\..\brasileirao-predictor\brasileirao_predictor\kernel_daemon.py:34: in &lt;module&gt;
+    import numpy as np
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_lifecycle.py:21: in lightweight_import
+    raise AssertionError("healthcheck attempted an expensive model dependency import")
+E   AssertionError: healthcheck attempted an expensive model dependency import</failure></testcase><testcase classname="tests.test_resolution_kernel_lifecycle" name="test_pubsub_burst_has_bounded_handlers_and_cancels_them_on_shutdown" time="0.497"><failure message="assert 128 &lt;= 32&#10; +  where 32 = protocol.POLL_LIMIT">..\..\..\brasileirao-predictor\tests\test_resolution_kernel_lifecycle.py:88: in test_pubsub_burst_has_bounded_handlers_and_cancels_them_on_shutdown
+    asyncio.run(exercise())
+..\..\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\price-feasibility-2026-09-09\managed-python\cpython-3.13-windows-x86_64-none\Lib\asyncio\base_events.py:725: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\tests\test_resolution_kernel_lifecycle.py:85: in exercise
+    assert 0 &lt; maximum &lt;= protocol.POLL_LIMIT
+E   assert 128 &lt;= 32
+E    +  where 32 = protocol.POLL_LIMIT</failure></testcase></testsuite></testsuites>

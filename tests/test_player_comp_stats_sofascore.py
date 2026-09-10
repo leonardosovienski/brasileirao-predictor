@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import UTC, datetime
 
 from brasileirao_predictor import db
 from brasileirao_scripts import backfill_player_comp_stats_from_sofascore as backfill
@@ -33,8 +34,11 @@ def test_aggregate_and_persist_player_stats_with_provenance(tmp_path) -> None:
     }
     (tmp_path / "event_1_lineups.json").write_text(json.dumps(payload), encoding="utf-8")
 
+    observed = datetime.now(UTC)
     rows = backfill.aggregate(conn, tmp_path)
     assert backfill.persist(conn, rows) == 1
-    assert conn.execute(
+    persisted = conn.execute(
         "SELECT position,minutes,games,goals,assists,xg,xag,source,available_at FROM player_comp_stats"
-    ).fetchone() == ("F", 90, 1, 1, 1, 0.7, 0.2, backfill.SOURCE, "2024-05-01T20:00:00+00:00")
+    ).fetchone()
+    assert persisted[:-1] == ("F", 90, 1, 1, 1, 0.7, 0.2, backfill.SOURCE)
+    assert observed <= datetime.fromisoformat(persisted[-1]) <= datetime.now(UTC)

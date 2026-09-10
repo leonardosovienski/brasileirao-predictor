@@ -1,0 +1,13 @@
+{
+  "tests": [
+    "test_resolution_promotions.py",
+    "test_promotions_dataset.py::test_promotion_dataset_rejects_empty_file"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

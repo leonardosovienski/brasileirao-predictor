@@ -1,0 +1,7 @@
+Using Python 3.13.12 environment at: C:\BRASILEIRAO\work\resolution-2026-09-10\installed-cross-environment\venv
+Resolved 1 package in 35ms
+Prepared 1 package in 577ms
+Uninstalled 1 package in 345ms
+Installed 1 package in 535ms
+ - brasileirao-predictor==0.1.0 (from file:///C:/BRASILEIRAO/work/resolution-2026-09-10/package-runtime-02/dist/brasileirao_predictor-0.1.0-py3-none-any.whl)
+ + brasileirao-predictor==0.1.0 (from file:///C:/BRASILEIRAO/work/resolution-2026-09-10/package-final/dist/brasileirao_predictor-0.1.0-py3-none-any.whl)

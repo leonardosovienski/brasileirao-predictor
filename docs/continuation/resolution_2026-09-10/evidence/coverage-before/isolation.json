@@ -1,0 +1,7 @@
+{
+  "tests": [
+    "test_resolution_coverage.py"
+  ],
+  "blocked_attempts": [],
+  "exit_code": 1
+}

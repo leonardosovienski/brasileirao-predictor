@@ -1,0 +1,58 @@
+Execução de teste para C:\BRASILEIRAO\work\resolution-2026-09-10\feed-before\source\dotnet\LineupWorker.Tests\bin\Release\net10.0\LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+1 arquivos de teste no total corresponderam ao padrão especificado.
+[xUnit.net 00:00:01.15]     LineupWorker.Tests.MarketFeedContractTests.ConflictingRevisionAbstainsInsteadOfPickingLastArrival [FAIL]
+  Com falha LineupWorker.Tests.MarketFeedContractTests.ConflictingRevisionAbstainsInsteadOfPickingLastArrival [150 ms]
+  Mensagem de erro:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   MarketOdds { MatchId = m, OddsHome = 9, OddsDraw = 3,2, OddsAway = 3,5, OddsOver25 = , OddsUnder25 = , LastUpdated = 10/09/2026 20:18:58 +00:00, Source = synthetic-provider, Overround = 0,7093253968253967 }
+  Rastreamento de pilha:
+     at LineupWorker.Tests.MarketFeedContractTests.ConflictingRevisionAbstainsInsteadOfPickingLastArrival() in C:\BRASILEIRAO\work\resolution-2026-09-10\feed-before\source\dotnet\LineupWorker.Tests\MarketFeedContractTests.cs:line 56
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[xUnit.net 00:00:01.35]     LineupWorker.Tests.MarketFeedContractTests.SuspensionCannotBeResurrectedByDelayedRevision [FAIL]
+[xUnit.net 00:00:01.35]     LineupWorker.Tests.MarketFeedContractTests.DuplicateJsonKeysDoNotOverrideQuotedPrice [FAIL]
+[xUnit.net 00:00:01.35]     LineupWorker.Tests.MarketFeedContractTests.OldObservationCannotBecomeFreshByReceiptAlone [FAIL]
+[xUnit.net 00:00:01.36]     LineupWorker.Tests.MarketFeedContractTests.LegacyPayloadCannotBecomeFreshCommercialQuote [FAIL]
+  Com falha LineupWorker.Tests.MarketFeedContractTests.SuspensionCannotBeResurrectedByDelayedRevision [2 ms]
+  Mensagem de erro:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   MarketOdds { MatchId = m, OddsHome = 2,2, OddsDraw = 3,2, OddsAway = 3,5, OddsOver25 = , OddsUnder25 = , LastUpdated = 10/09/2026 20:18:59 +00:00, Source = synthetic-provider, Overround = 1,0527597402597402 }
+  Rastreamento de pilha:
+     at LineupWorker.Tests.MarketFeedContractTests.SuspensionCannotBeResurrectedByDelayedRevision() in C:\BRASILEIRAO\work\resolution-2026-09-10\feed-before\source\dotnet\LineupWorker.Tests\MarketFeedContractTests.cs:line 39
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Com falha LineupWorker.Tests.MarketFeedContractTests.DuplicateJsonKeysDoNotOverrideQuotedPrice [1 ms]
+  Mensagem de erro:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   MarketOdds { MatchId = m, OddsHome = 9, OddsDraw = 3,2, OddsAway = 3,5, OddsOver25 = , OddsUnder25 = , LastUpdated = 10/09/2026 20:18:59 +00:00, Source = synthetic-provider, Overround = 0,7093253968253967 }
+  Rastreamento de pilha:
+     at LineupWorker.Tests.MarketFeedContractTests.DuplicateJsonKeysDoNotOverrideQuotedPrice() in C:\BRASILEIRAO\work\resolution-2026-09-10\feed-before\source\dotnet\LineupWorker.Tests\MarketFeedContractTests.cs:line 64
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Com falha LineupWorker.Tests.MarketFeedContractTests.OldObservationCannotBecomeFreshByReceiptAlone [1 ms]
+  Mensagem de erro:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   MarketOdds { MatchId = m, OddsHome = 2,2, OddsDraw = 3,2, OddsAway = 3,5, OddsOver25 = , OddsUnder25 = , LastUpdated = 10/09/2026 20:18:59 +00:00, Source = synthetic-provider, Overround = 1,0527597402597402 }
+  Rastreamento de pilha:
+     at LineupWorker.Tests.MarketFeedContractTests.OldObservationCannotBecomeFreshByReceiptAlone() in C:\BRASILEIRAO\work\resolution-2026-09-10\feed-before\source\dotnet\LineupWorker.Tests\MarketFeedContractTests.cs:line 47
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Com falha LineupWorker.Tests.MarketFeedContractTests.LegacyPayloadCannotBecomeFreshCommercialQuote [< 1 ms]
+  Mensagem de erro:
+   Assert.Null() Failure: Value is not null
+Expected: null
+Actual:   MarketOdds { MatchId = m, OddsHome = 2,2, OddsDraw = 3,2, OddsAway = 3,5, OddsOver25 = , OddsUnder25 = , LastUpdated = 10/09/2026 20:18:59 +00:00, Source = synthetic, Overround = 1,0527597402597402 }
+  Rastreamento de pilha:
+     at LineupWorker.Tests.MarketFeedContractTests.LegacyPayloadCannotBecomeFreshCommercialQuote() in C:\BRASILEIRAO\work\resolution-2026-09-10\feed-before\source\dotnet\LineupWorker.Tests\MarketFeedContractTests.cs:line 28
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+Arquivo de resultados: C:\BRASILEIRAO\work\resolution-2026-09-10\feed-before\dotnet-results\_LEO_2026-09-10_17_18_59_net10.0.trx
+
+Com falha! – Com falha:     5, Aprovado:     0, Ignorado:     0, Total:     5, Duração: 386 ms - LineupWorker.Tests.dll (net10.0)
+
+Anexos:
+  C:\BRASILEIRAO\work\resolution-2026-09-10\feed-before\dotnet-results\c8007633-882d-4a9b-a0ed-28581a154967\coverage.cobertura.xml

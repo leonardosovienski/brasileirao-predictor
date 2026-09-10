@@ -1,0 +1,14 @@
+{
+  "tests": [
+    "test_resolution_gate_dependence.py",
+    "test_residual_gate.py",
+    "test_reconciliation_gate_contracts.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

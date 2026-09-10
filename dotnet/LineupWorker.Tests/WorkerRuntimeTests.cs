@@ -139,7 +139,9 @@ public sealed partial class WorkerRuntimeTests : IAsyncLifetime
     }
 
     private IConfiguration Config(params (string Key, string Value)[] values) =>
-        new ConfigurationBuilder().AddInMemoryCollection(values.ToDictionary(v => v.Key, v => (string?)v.Value)).Build();
+        new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?>
+        { ["Exchange:AllowSyntheticPayloads"] = "true", ["Worker:AllowSyntheticInputs"] = "true" })
+        .AddInMemoryCollection(values.ToDictionary(v => v.Key, v => (string?)v.Value)).Build();
 
     private OperationalSettings CreateSettings(string vorp, string titularidade) => new(
         _redisUrl,
@@ -222,13 +224,13 @@ public sealed partial class WorkerRuntimeTests : IAsyncLifetime
     }
 
     [RedisRuntimeFact]
-    public async Task MarketCacheRetriesInvalidEndpointAndStopsGracefully()
+    public async Task MarketCacheRejectsUnconfiguredProtocolAndStopsGracefully()
     {
         var cache = new MarketOddsCache(
             NullLogger<MarketOddsCache>.Instance,
             Config(("Exchange:WebSocketUrl", "ws://127.0.0.1:1/odds")));
         await cache.StartAsync(default);
-        await Task.Delay(1200);
+        await Assert.ThrowsAsync<InvalidOperationException>(() => cache.ExecuteTask!.WaitAsync(TimeSpan.FromSeconds(5)));
         await cache.StopAsync(default);
     }
 
@@ -238,7 +240,7 @@ public sealed partial class WorkerRuntimeTests : IAsyncLifetime
         var cache = new MarketOddsCache(NullLogger<MarketOddsCache>.Instance, Config());
         var parse = typeof(MarketOddsCache).GetMethod("ParseAndUpdate", BindingFlags.Instance | BindingFlags.NonPublic)!;
         var market = Encoding.UTF8.GetBytes(
-            """{"match_id":"m-edge","home":2.4,"draw":3.8,"away":4.0,"over25":2.2,"under25":2.2}""");
+            """{"match_id":"m-edge","home":2.4,"draw":3.8,"away":4.0,"over25":2.2,"under25":2.2,"source":"synthetic"}""");
         parse.Invoke(cache, [new ReadOnlyMemory<byte>(market)]);
         var audit = new LatencyAuditService(_redis, NullLogger<LatencyAuditService>.Instance, Config());
         var mse = new MarketStateEngine(

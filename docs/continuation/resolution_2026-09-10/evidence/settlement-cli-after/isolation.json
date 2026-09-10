@@ -1,0 +1,13 @@
+{
+  "tests": [
+    "test_resolution_live_settlement.py",
+    "test_settle_live_prediction.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

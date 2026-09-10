@@ -5,17 +5,9 @@ descarta essas casas; None desliga (modo --from-file, onde o snapshot inteiro
 é velho por definição).
 """
 
-import importlib.util
-import sys
 from datetime import UTC, datetime, timedelta
-from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-
-_spec = importlib.util.spec_from_file_location("odds_shop", ROOT / "brasileirao_scripts" / "odds_shop.py")
-odds_shop = importlib.util.module_from_spec(_spec)
-_spec.loader.exec_module(_spec and odds_shop)
+from brasileirao_scripts import odds_shop
 
 
 def _iso(dt):
@@ -53,8 +45,8 @@ def test_filtro_descarta_feed_morto():
     # melhor under vem da casa viva (1.90), não da morta (2.50)
     assert c["Under"]["best"][0] == 1.90
     assert c["Under"]["best"][1] == "CasaViva"
-    # casa sem last_update é mantida (não dá pra julgar)
-    assert c["Under"]["n_books"] == 2
+    # Horário desconhecido não confirma frescor; somente a casa viva entra.
+    assert c["Under"]["n_books"] == 1
 
 
 def test_none_desliga_o_filtro():
@@ -68,4 +60,4 @@ def test_last_update_ilegivel_nao_trava():
     ev = _event(datetime.now(UTC))
     ev["bookmakers"][0]["last_update"] = "ontem de manhã"
     c = odds_shop.consensus(ev, "totals", point=2.5, max_stale_s=15 * 60)
-    assert c["Under"]["n_books"] == 2  # ilegível = mantida; morta = fora
+    assert c == {}  # ilegível, ausente e antigo não confirmam preço atual

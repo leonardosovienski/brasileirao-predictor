@@ -44,6 +44,7 @@ public sealed class LineupWorkerService : BackgroundService
     private readonly double _widenFactor;
     private readonly int    _watchdogIntervalSec;
     private readonly int    _redisStateTtlHours;
+    private readonly bool _allowSyntheticInputs;
 
     // Fila interna desacoplada: receptor (pub/sub callback) → processador
     // BoundedChannel com DropOldest garante que GC pause nunca bloqueia o receptor Redis.
@@ -68,6 +69,7 @@ public sealed class LineupWorkerService : BackgroundService
         _widenFactor        = cfg.GetValue<double>("Worker:VarianceWideningFactor", 1.35);
         _watchdogIntervalSec = cfg.GetValue<int>("Worker:WatchdogIntervalSeconds",  60);
         _redisStateTtlHours = cfg.GetValue<int>("Worker:RedisStateTtlHours",        6);
+        _allowSyntheticInputs = cfg.GetValue<bool>("Worker:AllowSyntheticInputs", false);
 
         var cap = cfg.GetValue<int>("Worker:QueueCapacity", 512);
         _queue = Channel.CreateBounded<(LineupEvent Event, DateTimeOffset T1_Received)>(
@@ -190,8 +192,23 @@ public sealed class LineupWorkerService : BackgroundService
         if (!LineupStreamConsumer.IsValid(ev))
             throw new ArgumentException("Lineup requires valid identity, side, players and declared capture timestamp");
         // T2: VORP calculado em O(1) — lookup em ConcurrentDictionary em memória
-        var starters = ev.Starters.Select(p => (Player: p, Position: "UNKNOWN"));
-        var delta    = _vorp.ComputeDeltaVorp(starters);
+        double eloHome, eloAway, delta;
+        string inputIdentity;
+        if (ev.ModelInputs is { } inputs)
+        {
+            inputIdentity = inputs.Validate(ev, t1, _vorp.ArtifactSha256);
+            eloHome = inputs.EloHome;
+            eloAway = inputs.EloAway;
+            delta = _vorp.ComputeDeclaredDelta(ev.Starters.Select(p => (p, inputs.Positions[p])));
+        }
+        else
+        {
+            if (!_allowSyntheticInputs)
+                throw new ArgumentException("Declared model inputs are required; synthetic Elo and positions are disabled");
+            inputIdentity = "SYNTHETIC_ONLY";
+            eloHome = eloAway = 1500;
+            delta = _vorp.ComputeDeltaVorp(ev.Starters.Select(p => (p, "UNKNOWN")));
+        }
         var t2       = DateTimeOffset.UtcNow;
 
         var sourceEvent = JsonSerializer.Serialize(ev);
@@ -208,6 +225,12 @@ public sealed class LineupWorkerService : BackgroundService
                     ?? throw new JsonException("Invalid lineup state")
                 : new LineupState(ev.MatchId, 0, 0, false, false, ev.CapturedAt, t2, "none");
             if (current.MatchId != ev.MatchId) throw new JsonException("Lineup state identity mismatch");
+            if (raw.HasValue && current.ModelInputIdentity != inputIdentity &&
+                !(_allowSyntheticInputs && inputIdentity == "SYNTHETIC_ONLY" && current.ModelInputIdentity is null))
+                throw new ArgumentException("Model context changed; reconcile both lineup sides before registration");
+            if ((current.HomeTeamIdentity is not null && current.HomeTeamIdentity != ev.HomeTeam) ||
+                (current.AwayTeamIdentity is not null && current.AwayTeamIdentity != ev.AwayTeam))
+                throw new ArgumentException("Lineup team identity changed within the same event");
             var previousCapture = ev.Side == "home" ? current.HomeCapturedAt : current.AwayCapturedAt;
             var previousIdentity = ev.Side == "home" ? current.HomeEventIdentity : current.AwayEventIdentity;
             if (previousCapture.HasValue && ev.CapturedAt <= previousCapture.Value)
@@ -228,14 +251,16 @@ public sealed class LineupWorkerService : BackgroundService
                 ? current with { DeltaVorpHome = delta, HomeLineupComplete = true,
                     LineupCapturedAt = ev.CapturedAt, ComputedAt = t2,
                     HomeCapturedAt = ev.CapturedAt, HomeEventIdentity = eventIdentity,
-                    WatchdogDeadlineUnixMs = deadline }
+                    WatchdogDeadlineUnixMs = deadline, ModelInputIdentity = inputIdentity,
+                    HomeTeamIdentity = ev.HomeTeam, AwayTeamIdentity = ev.AwayTeam }
                 : current with { DeltaVorpAway = delta, AwayLineupComplete = true,
                     LineupCapturedAt = ev.CapturedAt, ComputedAt = t2,
                     AwayCapturedAt = ev.CapturedAt, AwayEventIdentity = eventIdentity,
-                    WatchdogDeadlineUnixMs = deadline };
+                    WatchdogDeadlineUnixMs = deadline, ModelInputIdentity = inputIdentity,
+                    HomeTeamIdentity = ev.HomeTeam, AwayTeamIdentity = ev.AwayTeam };
             // Commit state, version, current request and wakeup in one Redis script.
             // CAS failure rereads and merges the other side; invocation is awaited.
-            var registration = await _mse.InvokeKernelAsync(ev.MatchId, 1500.0, 1500.0,
+            var registration = await _mse.InvokeKernelAsync(ev.MatchId, eloHome, eloAway,
                 updated, raw.HasValue ? raw.ToString() : null, sourceEvent,
                 TimeSpan.FromHours(_redisStateTtlHours), ct);
             if (registration.Status == "conflict") continue;
@@ -343,8 +368,8 @@ public sealed class LineupWorkerService : BackgroundService
         var signals = new List<VarianceWideningSignal>();
         foreach (var (side, needed, team) in new[]
         {
-            ("home", needH, matchId.Split('_').ElementAtOrDefault(0) ?? ""),
-            ("away", needA, matchId.Split('_').ElementAtOrDefault(1) ?? ""),
+            ("home", needH, state.HomeTeamIdentity ?? ""),
+            ("away", needA, state.AwayTeamIdentity ?? ""),
         })
         {
             if (!needed) continue;

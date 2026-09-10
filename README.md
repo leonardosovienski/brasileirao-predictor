@@ -1,11 +1,9 @@
 # brasileirao-predictor
 
-Sistema de previsão e pesquisa do Brasileirão, com CLI Python e laboratório Redis/.NET. **Revisão integral incompleta, sistema global não pronto e lucro executável não demonstrado.**
+Pesquisa e previsão do Brasileirão com Python e laboratório Redis/.NET. Estado corrente: RES-20260910. Correções de caixa, causalidade, persistência, runtime e entradas validadas; leitura semântica permitida concluída; validação global ainda limitada e lucro executável não demonstrado.
 
-Estado corrente: RCA-20260910. [Resultado da conferência](docs/continuation/reconciliation_2026-09-10/RESULTADO.md), [matriz do mandato](docs/continuation/reconciliation_2026-09-10/MATRIZ_MANDATO.md), [registro central](docs/continuation/reconciliation_2026-09-10/REGISTROS.md) e [arquitetura](docs/continuation/reconciliation_2026-09-10/MAPA_SISTEMA.md).
+[Resultado e limites](docs/continuation/resolution_2026-09-10/RESULTADO.md), [registro central](docs/continuation/resolution_2026-09-10/REGISTROS.md), [contratos](docs/continuation/resolution_2026-09-10/CONTRATOS.md), [reprodução](docs/continuation/resolution_2026-09-10/REPRODUZIR.md). 336 casos Python distintos e 160 testes .NET passaram em ambientes isolados. Compose config validado; execução Linux/CI global e conexão comercial não homologadas.
 
-RCA corrigiu entradas inválidas nos gates A10/residual e o descarte silencioso de registros incompletos. 49 testes direcionados, qualidade dos três arquivos e pacote offline passaram. Python/extras/SDK estão no ambiente isolado; Docker/Compose e feed comercial não homologados. Isso não aprova todos os módulos ou dados.
+Capital desabilitado. Trabalho em C:/BRASILEIRAO, solo; H14/H15/H9/A1 e operação protegida preservados. [Estado](docs/ESTADO_ATUAL.md), [dados](docs/DATA_MAP.md), [retomada](docs/continuation/RETOMADA.md). Guias anteriores preservados no Git e em work/resolution-2026-09-10/previous-guides. Código demonstrativo não comprova oferta aceita.
 
-[Estado](docs/ESTADO_ATUAL.md), [dados](docs/DATA_MAP.md), [retomada](docs/continuation/RETOMADA.md), [índice](docs/INDICE_DOCUMENTACAO.md) e [reprodução](docs/continuation/reconciliation_2026-09-10/REPRODUZIR.md). Trabalhe somente em C:/BRASILEIRAO. H14/H15/H9/A1 e estados operacionais permanecem protegidos; capital desabilitado.
-
-Históricos e evidências estão em docs/continuation e no Git. Guias da base 6c85045 preservados em C:/BRASILEIRAO/work/reconciliation-2026-09-10/previous-guides; não são estado vigente.
+Inventário base: 399 arquivos com leitura semântica e 59 protegidos limitados a contratos/metadados. Registro RES: 52 itens validados, sete bloqueados por requisitos especificados. Não significa zero bugs, CI global aprovado ou lucro demonstrado.

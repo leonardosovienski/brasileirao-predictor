@@ -9,7 +9,10 @@ public record LineupEvent(
     string[] Starters,       // 11 jogadores titulares
     string[] Subs,           // até 9 reservas (opcional)
     DateTimeOffset CapturedAt
-);
+)
+{
+    public LineupModelInputs? ModelInputs { get; init; }
+}
 
 /// <summary>Resultado publicado no Redis após cálculo do Delta VORP.</summary>
 public record LineupState(
@@ -33,6 +36,9 @@ public record LineupState(
     // Original accepted timeout, persisted before acknowledging the first lineup.
     // Corrections retain this deadline. Legacy snapshots may omit it.
     public long? WatchdogDeadlineUnixMs { get; init; }
+    public string? ModelInputIdentity { get; init; }
+    public string? HomeTeamIdentity { get; init; }
+    public string? AwayTeamIdentity { get; init; }
 }
 
 /// <summary>Sinal de widening emitido quando o timeout de escalação expira.</summary>

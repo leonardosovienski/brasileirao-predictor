@@ -21,6 +21,7 @@ public sealed class RedisCrossProcessFactAttribute : FactAttribute
     }
 }
 
+[Collection("IsolatedRedisRuntime")]
 public sealed class KernelCrossProcessTests
 {
     [RedisCrossProcessFact]
@@ -46,11 +47,10 @@ public sealed class KernelCrossProcessTests
             if (document.RootElement.GetProperty("MatchId").GetString() == match)
                 signals.Enqueue(message.Message.ToString());
         });
-        var configuration = new ConfigurationBuilder().Build();
+        var configuration = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?>
+        { ["Exchange:AllowSyntheticPayloads"] = "true", ["Worker:AllowSyntheticInputs"] = "true" }).Build();
         var cache = new MarketOddsCache(NullLogger<MarketOddsCache>.Instance, configuration);
         var parse = typeof(MarketOddsCache).GetMethod("ParseAndUpdate", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        parse.Invoke(cache, [new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(
-            new { match_id = match, home = 2.4, draw = 3.0, away = 4.0, source = "synthetic-cross-process" })))]);
         var audit = new LatencyAuditService(redis, NullLogger<LatencyAuditService>.Instance, configuration);
         var engine = new MarketStateEngine(redis, cache, audit, NullLogger<MarketStateEngine>.Instance, configuration);
         var now = DateTimeOffset.UtcNow;
@@ -84,15 +84,26 @@ public sealed class KernelCrossProcessTests
             python = Process.Start(start)!;
             stdout = python.StandardOutput.ReadToEndAsync();
             stderr = python.StandardError.ReadToEndAsync();
-            var bootDeadline = DateTimeOffset.UtcNow.AddSeconds(120);
-            while (!File.Exists(readyFile) && DateTimeOffset.UtcNow < bootDeadline)
+            var bootClock = Stopwatch.StartNew();
+            while (!File.Exists(readyFile) && bootClock.Elapsed < TimeSpan.FromSeconds(120))
             {
                 if (python.HasExited)
                     Assert.Fail("Synthetic kernel exited during initialization: " + await stderr);
                 await Task.Delay(50);
             }
-            Assert.True(File.Exists(readyFile), "Synthetic kernel did not finish isolated initialization.");
+            if (!File.Exists(readyFile))
+            {
+                var lab = Environment.GetEnvironmentVariable("BRASILEIRAO_LAB_OUTPUT")!;
+                var phaseFile = Path.Combine(lab, $"kernel-startup-{python.Id}.log");
+                var phases = File.Exists(phaseFile) ? await File.ReadAllTextAsync(phaseFile) : "no startup phase was recorded";
+                Assert.Fail($"Synthetic initialization exceeded 120s ({bootClock.Elapsed.TotalSeconds:F1}s monotonic). {phases}");
+            }
 
+            // A synthetic quote is observed at decision time, after cold JIT.
+            // Creating it before startup made this protocol test fail once the
+            // 30s market freshness window elapsed during imports/compilation.
+            parse.Invoke(cache, [new ReadOnlyMemory<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(
+                new { match_id = match, home = 2.4, draw = 3.0, away = 4.0, source = "synthetic-cross-process" })))]);
             // No kernel subscriber yet: recovery must use the durable request.
             var registration = await engine.InvokeKernelAsync(match, 1600, 1500, lineup, null,
                 "synthetic-event", TimeSpan.FromMinutes(2));
