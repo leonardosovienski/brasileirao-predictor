@@ -1,0 +1,563 @@
+{
+  "created_at_utc": "2026-09-09T23:57:35.231991+00:00",
+  "base_commit": "f7d1f7db3f0a1a69207ccdb0dd700c6cdf0b8399",
+  "scope": "Authored code, instructions and sanitized receipts; no raw provider data or private inputs",
+  "source_file_count": 52,
+  "entries": [
+    {
+      "source_relative_to_root": "work/consolidation-2026-09-09/audit_docs.py",
+      "sha256": "cc52c3cf49f38b6864055ab222a7f7855ad73d3a5d72201e05c528be64621ba6",
+      "bytes": 7703,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/consolidation-2026-09-09/audit_docs.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/consolidation-2026-09-09/prepare.py",
+      "sha256": "1151cfcc0b5ef40aa1caf95045260416b7c957e98b29a119256c22ef101e8041",
+      "bytes": 3192,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/consolidation-2026-09-09/prepare.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/consolidation-2026-09-09/seal.py",
+      "sha256": "287b2a1ebb541deaa161ebb26b3868955cd134b9ec9099bf613e4a7d54ea58e7",
+      "bytes": 5153,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/consolidation-2026-09-09/seal.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/consolidation-2026-09-09/update_docs.py",
+      "sha256": "54a167a29bbd41433a857facedab511bafc729cc01a18e4e61efe334c139500f",
+      "bytes": 22984,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/consolidation-2026-09-09/update_docs.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/consolidation-2026-09-09/verify_disk.py",
+      "sha256": "c6d832862a3e0fd518616393bcd3034e497b24bf3e2736aecbcb9ebbcf17d4b3",
+      "bytes": 3318,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/consolidation-2026-09-09/verify_disk.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/price-feasibility-2026-09-09/acquire.py",
+      "sha256": "7cd31d4924421eaade8afb776e37fe1d31975983c7a468d58ce41242faa94bd8",
+      "bytes": 2625,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/price-feasibility-2026-09-09/acquire.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/account_recheck.py",
+      "sha256": "5f2628e014913263666d3385ed196583440c4da4bca19fcf8cac49d12e2db0a5",
+      "bytes": 1754,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/account_recheck.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/acquire_history.py",
+      "sha256": "9320337f9509e2c94a7a171b1d03a4c816bf29347970f0417599f3a964ab47cd",
+      "bytes": 8033,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/acquire_history.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/audit_followup.py",
+      "sha256": "9b721572618a4cb9a37365cc613ea6cab8b36befb74b54bf702284a93859d080",
+      "bytes": 4488,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/audit_followup.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/audit_results.py",
+      "sha256": "0d13151d4889e39134cc9914e55867dc3fccf9bf56fe072ec4c2f733b2c14e46",
+      "bytes": 7198,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/audit_results.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/capture_pilot.py",
+      "sha256": "355d6925c8a58c3b748949f7814743224d4186644d38ee2153bc2d44d9289c80",
+      "bytes": 8169,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/capture_pilot.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/check_account.py",
+      "sha256": "d82114c0ba383d080c91e8af664f49101eadcbf516ae2e7a909555e7a73590dc",
+      "bytes": 2962,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/check_account.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/fetch_public.py",
+      "sha256": "18712bf4c13d3e1b9a119edbf858156ba0b3cca353742f135371b06add67d4cf",
+      "bytes": 3586,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/fetch_public.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/fetch_public_extra.py",
+      "sha256": "5c161c6bdf7bf5b0883372e0e354a1e75b17959c36311361b084d09a9ae28619",
+      "bytes": 839,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/fetch_public_extra.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/final_backup_and_delivery.py",
+      "sha256": "f4eabf056f9645ac4197638115e0fd64a817258ff4d7559809053585dae97ea9",
+      "bytes": 9731,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/data-completion-2026-09-09/final_backup_and_delivery.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/finalize_checks.py",
+      "sha256": "f5f934f039cd83db4b3699a89a38714a9613c2bbb6e4dd7a968ed107190e05f6",
+      "bytes": 5918,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/data-completion-2026-09-09/finalize_checks.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/followup_capture.py",
+      "sha256": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88",
+      "bytes": 6211,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/followup_capture.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/package_documentation.py",
+      "sha256": "93a1678f6acfe9984e139c85e2693a360eefe0fcc37390086ce037456e0e6c64",
+      "bytes": 8623,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/data-completion-2026-09-09/package_documentation.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/repair_transport.py",
+      "sha256": "6365316bedee0162460ba24a17910a1929bc1fa941a5f2eebde774dc769ddd8f",
+      "bytes": 3718,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/repair_transport.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/revalidate_changed_module.py",
+      "sha256": "5191d4865b135d1d4589567795d9ad73bc25713667a6ad084954ce548d83c1c3",
+      "bytes": 2639,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/data-completion-2026-09-09/revalidate_changed_module.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/run_closing.py",
+      "sha256": "6419b17af714242beec00c9f66e9699e597d2720b6c950c6b1347f1178a355aa",
+      "bytes": 8401,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/run_closing.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/seal_artifacts.py",
+      "sha256": "c6203d47eb3c98ef1aa93adafaa9abf97328013bd4a83dd1d3d711930ff422a1",
+      "bytes": 6370,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/data-completion-2026-09-09/seal_artifacts.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/update_documentation.py",
+      "sha256": "1d9fc857afbfd84022ac3ed4543646327ebb67baae315360079844f8ba6c1178",
+      "bytes": 20403,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/data-completion-2026-09-09/update_documentation.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/validate_offline.py",
+      "sha256": "ea488b771b6c2c7e562b98511d7c461eae15e01e99a76c78d16d9b09c60c0bb7",
+      "bytes": 2530,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/validate_offline.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/verify_closing_independently.py",
+      "sha256": "6eee560d83b49f307e1b133386bf4bbcf3a879b46b503d24781ceaaab2efe2f4",
+      "bytes": 3817,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/data_completion_2026-09-09/reproducao/verify_closing_independently.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/verify_pilot_after_fix.py",
+      "sha256": "43e2239f75534e7e16615a2abc9e52c216e299aef9df725a4f34a51396e003a4",
+      "bytes": 2501,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/data-completion-2026-09-09/verify_pilot_after_fix.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/data-completion-2026-09-09/verify_types.py",
+      "sha256": "253db664767f08f973c75f87eb7ac03c7d2096b9ca3706c09b1ee0edfb00f42d",
+      "bytes": 1655,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/data-completion-2026-09-09/verify_types.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/execution-readiness-2026-09-09/activate_and_document.py",
+      "sha256": "f5ffe4b80df21da9908c88fb627fe099a0e7a5b881bec9bae62a6628c493889c",
+      "bytes": 15234,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/execution-readiness-2026-09-09/activate_and_document.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/execution-readiness-2026-09-09/fetch_contract_sources.py",
+      "sha256": "c346cf909e82318cddea53f18df841ec00b51bba049d7d301b9791977f153a63",
+      "bytes": 2224,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/execution-readiness-2026-09-09/fetch_contract_sources.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/execution-readiness-2026-09-09/final_delivery.py",
+      "sha256": "beaac4c5f3313761714b198ca1d740228c72cc1e18d0cb0e48d62c6cbe9ea4b6",
+      "bytes": 8080,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/execution-readiness-2026-09-09/final_delivery.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/execution-readiness-2026-09-09/seal_review.py",
+      "sha256": "a73c0df7db0b820e2fac23b21eab9fbd6bf10552105e381fa0d4e8337b5b37a8",
+      "bytes": 3599,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/execution-readiness-2026-09-09/seal_review.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/execution-readiness-2026-09-09/validate_offline.py",
+      "sha256": "2a2237c2128e3f34ad93716b9ac2132f7eed3683e9e32e6a6f246a45e8c8af0b",
+      "bytes": 1817,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/execution-readiness-2026-09-09/validate_offline.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/execution-readiness-2026-09-09/verify_engineering.py",
+      "sha256": "7a5742c99e751e9fc95cfaf32f246803b29fd8209202b9c6f9ed5a241e8846a1",
+      "bytes": 4188,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/execution-readiness-2026-09-09/verify_engineering.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "work/publication-2026-09-09/prepare_publication.py",
+      "sha256": "e865688afa5086be5a8d77928f56a16d13aeaf7f68b36367fc15f80c08b0fc14",
+      "bytes": 4655,
+      "category": "AUTHORED_SUPPORT_SCRIPT_ARCHIVE_NOT_RUNTIME",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/work/publication-2026-09-09/prepare_publication.py"
+      ]
+    },
+    {
+      "source_relative_to_root": "INSTRUCOES/MANDATO_RECEBIDO_2026-09-09.txt",
+      "sha256": "547757f185088a9b96fd4086ca939864aeaa044a08f131ee5e50350900778445",
+      "bytes": 22492,
+      "category": "USER_MANDATE",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/INSTRUCOES/MANDATO_RECEBIDO_2026-09-09.txt"
+      ]
+    },
+    {
+      "source_relative_to_root": "INSTRUCOES/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md",
+      "sha256": "57dedfa59223e91365137e3ed31318a7ca8c7df1ace2ce84ef34e4278d1c2844",
+      "bytes": 23591,
+      "category": "USER_MANDATE",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md"
+      ]
+    },
+    {
+      "source_relative_to_root": "INSTRUCOES/REVISAO_INTEGRAL_2026-09-09.md",
+      "sha256": "f51ddb7d66c8dc53e1c593c182a2e35fa070f3a91d551c9bd5738c0b6ab93c2c",
+      "bytes": 18137,
+      "category": "USER_MANDATE",
+      "status": "ALREADY_VERSIONED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/REVISAO_INTEGRAL_2026-09-09.md"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/CONSOLIDACAO_2026-09-09.md",
+      "sha256": "52ec16df7429656a0d30c8743b5503986019c8c89663e967f900bea38b91a920",
+      "bytes": 5056,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/CONSOLIDACAO_2026-09-09.md.txt"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.md",
+      "sha256": "0abd02a5c2820056642d445ac9c97a0f7e9da08978f0a28f2be94b5d290380fc",
+      "bytes": 2058,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.md.txt"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.json",
+      "sha256": "7171ee4c646e74dc6bf84141a5c560e7563bf0452371d04ddff9143829137df7",
+      "bytes": 8294,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/EXECUTION_READINESS_2026-09-09.md",
+      "sha256": "6f3e0339661bcffb81d82bdb46c50b473e9874c7493b30ada55a31b2a9c6ae23",
+      "bytes": 1523,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/EXECUTION_READINESS_2026-09-09.md.txt"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/EXECUTION_READINESS_2026-09-09.json",
+      "sha256": "3075bbdf66b42347d18eb4dc18d661fdf81350ec3fe96948e3fe2a0f4bf83779",
+      "bytes": 5061,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/EXECUTION_READINESS_2026-09-09.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/ENTREGA_CONSOLIDACAO.json",
+      "sha256": "d65741b1c35f9084409f792d206ef999143c88bbfd3a29a4bd2245c9d3205dc2",
+      "bytes": 1714,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/ENTREGA_CONSOLIDACAO.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/HANDOFF_REVISAO_INTEGRAL_2026-09-09.json",
+      "sha256": "226620c4eb7c99523223531d593a31a75010ceab5f882835a3b1c205ff09a770",
+      "bytes": 2312,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/HANDOFF_REVISAO_INTEGRAL_2026-09-09.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/PROMPT_FINAL_REVISAO_2026-09-09.json",
+      "sha256": "0bc4224eb58273ef633a747272c52f63ab1f6c584a07e22d8312347df79e5922",
+      "bytes": 2419,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/PROMPT_FINAL_REVISAO_2026-09-09.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/verificacao_migracao_2026-09-09.json",
+      "sha256": "56f2be2e1fe3a28e12b4c4361ab0604c602392612b3866947041ce13f8e693a3",
+      "bytes": 340,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/verificacao_migracao_2026-09-09.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/verificacao_disco_2026-09-09.json",
+      "sha256": "6df1a7fd835aec5834c14471dc154d36c7408ac0edac6ddf2ebedbd79a8b27ca",
+      "bytes": 347,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/verificacao_disco_2026-09-09.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/verificacao_disco_tentativa_01.json",
+      "sha256": "ed159bd65743ef0e8f3e9d08ac7615478bd73cb690e09fff8ac8ae702f312ae2",
+      "bytes": 274,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/verificacao_disco_tentativa_01.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/backup_git_2026-09-09.json",
+      "sha256": "cac69d5c0ea833c76ad6bc95acef3c62c40b1e59a8300a6b4af2889be0dbe751",
+      "bytes": 454,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/backup_git_2026-09-09.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/consolidacao_copias_2026-09-09.json",
+      "sha256": "5e24671624eb9a617e5c5911696322fc6e39fd869059df3a49d3be57d8333534",
+      "bytes": 3812,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/consolidacao_copias_2026-09-09.json"
+      ]
+    },
+    {
+      "source_relative_to_root": "AUDITORIA/automacao_dados_2026-09-09.toml",
+      "sha256": "ce94ada6c028a2610804b8d70c58d5dabdd7ad6c545986b760d6e920ba450320",
+      "bytes": 2126,
+      "category": "HISTORICAL_SESSION_RECEIPT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/AUDITORIA/automacao_dados_2026-09-09.toml"
+      ]
+    },
+    {
+      "source_relative_to_root": "LEIA_PRIMEIRO.md",
+      "sha256": "35bc91f4f9b91d5b37de2101db643677eb513b40bff10e72a7f415a6d3e47147",
+      "bytes": 3335,
+      "category": "ROOT_GUIDE_SNAPSHOT",
+      "status": "ADDED_IDENTICAL",
+      "git_paths": [
+        "docs/continuation/publication_2026-09-09/archive/LEIA_PRIMEIRO.md.txt"
+      ]
+    }
+  ],
+  "local_inventory_receipts": [
+    {
+      "relative_path": "AUDITORIA/inventario_dados_preservados.json",
+      "sha256": "434ede78d22d29b0fc492370b6a6c7927b09360edc6e5e6e4773a7a1006f5bd4",
+      "bytes": 3092954,
+      "publication": "LOCAL_METADATA_INVENTORY_ONLY"
+    },
+    {
+      "relative_path": "AUDITORIA/inventario_backup_DC_20260909.json",
+      "sha256": "df82a81fc3cb2ca125927aa465e159cb995adbc23582ed3cad5d912e65844987",
+      "bytes": 56258,
+      "publication": "LOCAL_METADATA_INVENTORY_ONLY"
+    },
+    {
+      "relative_path": "AUDITORIA/markdown_fora_do_git.json",
+      "sha256": "676b71bb9c5fd0251f46108106f65be4e44e763dfcb96e9895cdc2e4169b9c48",
+      "bytes": 80633,
+      "publication": "LOCAL_METADATA_INVENTORY_ONLY"
+    },
+    {
+      "relative_path": "AUDITORIA/markdown_projeto.json",
+      "sha256": "e5322629dd110ac74471bac96f6094d32c790ba9fef4f0746ad7ebde066e5556",
+      "bytes": 68933,
+      "publication": "LOCAL_METADATA_INVENTORY_ONLY"
+    }
+  ],
+  "local_only_categories": [
+    "DADOS_PRESERVADOS and MIGRACAO_DADOS: received originals, private configuration and protected data",
+    "Raw provider timelines, odds captures, CSV inputs and copied public-page bodies",
+    "Operational databases, private settings and financial credentials",
+    "Virtual environments, generated caches and binary backup copies",
+    "Future observations or work after this snapshot"
+  ],
+  "previous_false_push_flags_are_dated_history": true,
+  "financial_or_protected_operations_performed": false
+}

@@ -1,0 +1,49 @@
+{
+  "scope": "Consolidacao final do prompt; revisao integral do projeto ainda nao executada",
+  "base_commit": "194a7b1e1b72753678c7d85bbb47e354645694a8",
+  "checked_current_docs": [
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\README.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\ESTADO_ATUAL.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\INDICE_DOCUMENTACAO.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\PROMPT_PROXIMA_SESSAO.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\continuation\\RETOMADA.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\continuation\\PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md",
+    "C:\\BRASILEIRAO\\LEIA_PRIMEIRO.md"
+  ],
+  "checked_local_links": 215,
+  "broken_local_links": 0,
+  "markdown_files_indexed": 161,
+  "index_complete": true,
+  "previous_mandate_unchanged": true,
+  "final_prompt_copies_sha256": {
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\continuation\\PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md": "57dedfa59223e91365137e3ed31318a7ca8c7df1ace2ce84ef34e4278d1c2844",
+    "C:\\BRASILEIRAO\\INSTRUCOES\\PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md": "57dedfa59223e91365137e3ed31318a7ca8c7df1ace2ce84ef34e4278d1c2844",
+    "C:\\Users\\leona\\Documents\\Codex\\2026-09-09\\le\\outputs\\PROMPT_FINAL_BRASILEIRAO_20260909\\PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md": "57dedfa59223e91365137e3ed31318a7ca8c7df1ace2ce84ef34e4278d1c2844"
+  },
+  "word_count": 2930,
+  "sections": 13,
+  "code_changed": false,
+  "application_tests_run": false,
+  "automation_changed": false,
+  "completed_at_utc": "2026-09-09T23:47:45.160706+00:00",
+  "commit": "f7d1f7db3f0a1a69207ccdb0dd700c6cdf0b8399",
+  "branch": "main",
+  "git_clean": true,
+  "pushed": false,
+  "changed_git_files": [
+    "README.md",
+    "docs/ESTADO_ATUAL.md",
+    "docs/INDICE_DOCUMENTACAO.md",
+    "docs/PROMPT_PROXIMA_SESSAO.md",
+    "docs/continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md",
+    "docs/continuation/RETOMADA.md"
+  ],
+  "full_project_review_executed": false,
+  "backup": {
+    "path": "C:\\BRASILEIRAO\\BACKUPS\\brasileirao-predictor-prompt-final-2026-09-09.bundle",
+    "sha256": "428a43c08afcc1485445faced4574af74216fec8635393c5cf9b86f93125e7bf",
+    "bytes": 9308953,
+    "git_bundle_verify": "PASS"
+  },
+  "root_guide_sha256": "35bc91f4f9b91d5b37de2101db643677eb513b40bff10e72a7f415a6d3e47147"
+}

@@ -1,0 +1,24 @@
+# Correções e prontidão da coleta — ER-20260909
+
+Cinco falhas da rotina futura foram corrigidas e reproduzidas em regressões.
+**153 testes passaram**, incluindo 15 novos. Ruff e tipagem explícita dos dois
+executores passaram. As versões testadas estão nos caminhos ativos da coleta.
+
+Cinco fontes públicas foram preservadas com HTTP 200 e SHA-256. O campo
+bookmakerIsActive indica principalmente coleta no agregador; false não prova
+suspensão da oferta na casa. Limites/moeda e regras fiscais foram documentados
+sem preencher condições pessoais desconhecidas. Nenhuma API de odds foi
+consumida nesta etapa.
+
+O projeto ainda depende de observação ativa antes do corte, capacidade,
+custos reais e validação futura. A coleta de 11/09 antes das 20:00 de São Paulo
+permanece agendada no acompanhamento diário às 19:57. O aplicativo e o
+computador precisam estar em execução. Não houve aposta ou compra.
+
+Tudo desta etapa está em `C:/BRASILEIRAO`; commit local `60c95aa6b1b6b87f00da3ac5b59d67f0bf9bb369` em main,
+sem push. Há bundle Git com restauração bare verificada e ZIP dos novos
+arquivos conferido por CRC/SHA-256. Os 159 Markdown estão indexados e os
+218 links locais dos guias conferidos não apresentaram falha.
+
+[Resultado completo e fontes](../brasileirao-predictor/docs/continuation/execution_readiness_2026-09-09/RESULTADO.md),
+[reprodução](../brasileirao-predictor/docs/continuation/execution_readiness_2026-09-09/REPRODUZIR.md) e [recibo final](EXECUTION_READINESS_2026-09-09.json).

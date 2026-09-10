@@ -1,0 +1,52 @@
+# BRASILEIRAO — leia primeiro
+
+Esta pasta reúne o código, o histórico Git, os dados recebidos, os artefatos e
+a documentação do projeto. Estado verificado em 09/09/2026.
+
+- [Prompt final para o novo chat: revisão integral e resolução](INSTRUCOES/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md)
+- [Estado atual](brasileirao-predictor/docs/ESTADO_ATUAL.md)
+- [Auditoria dos novos dados](AUDITORIA/DADOS_COMPLEMENTARES_2026-09-09.md)
+- [Conferência de completude desta pasta](AUDITORIA/CONSOLIDACAO_2026-09-09.md)
+- [Retomada e sequência de trabalho](brasileirao-predictor/docs/continuation/RETOMADA.md)
+- [Mandato vigente](brasileirao-predictor/docs/continuation/MANDATO_LUCRO_2026-09-09.md)
+- [Mapa de dados e caminhos antigos](brasileirao-predictor/docs/DATA_MAP.md)
+- [Índice de todos os Markdown do código](brasileirao-predictor/docs/INDICE_DOCUMENTACAO.md)
+- [Resultado econômico mais recente](brasileirao-predictor/docs/continuation/execution_readiness_2026-09-09/RESULTADO.md)
+
+| Pasta | Conteúdo |
+| --- | --- |
+| `brasileirao-predictor` | Repositório principal e documentação atual |
+| `MIGRACAO_DADOS/MIGRACAO_DADOS` | Pacotes originais e recibos da origem |
+| `DADOS_PRESERVADOS` | Extração integral verificada de 12.423 arquivos mais o manifesto |
+| `ENTREGAS` | Relatórios e entregas completas desta máquina |
+| `INSTRUCOES` | Mandato original, prompt final de revisão e versão anterior preservada |
+| `AUDITORIA` | Inventários, hashes e verificação de completude |
+| `BACKUPS` | Bundle Git completo do estado consolidado |
+| `work` | Ambientes e trabalho técnico isolado |
+
+A etapa ER corrigiu cinco falhas das rotinas futuras e documentou condições
+públicas de limite/coleta/tributação. As versões novas estão nos caminhos ativos.
+
+O usuário solicitou revisão integral em um novo chat, começando por conferir
+o existente e suas premissas antes de resolver lacunas. O roteiro foi salvo em
+INSTRUCOES e nos guias do repositório. Essa revisão ainda não foi executada.
+
+A rodada DC obteve 177/177 históricos verificados, CSV oficial de 380 jogos
+de 2025 e três capturas atuais. Passaram 153 testes delimitados após as correções da etapa ER. Zero pares
+admitidos para execução; faltam condições temporais, capacidade, custos reais
+e validação futura. [Pendências](brasileirao-predictor/docs/continuation/data_completion_2026-09-09/PENDENCIAS.md).
+
+As coletas pontuais independentes foram encerradas. Está ativo um
+[acompanhamento nesta tarefa do Codex](brasileirao-predictor/docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md),
+diário às 19:57 de São Paulo, preparando uma captura antes de T−60 em 11/09.
+Sua definição foi copiada para AUDITORIA; a agenda ativa pertence ao aplicativo,
+que precisa estar em execução com o computador ligado.
+
+Os dados da migração permanecem preservados. Nenhum banco operacional,
+serviço ou tarefa Windows do projeto foi iniciado. H14/H15/H9/A1 continuam
+protegidos; capital bloqueado. Lucro executável não foi demonstrado.
+
+A garantia de completude cobre o pacote recebido e os artefatos conhecidos
+destas sessões. Não atesta arquivos posteriores à captura de 08/09 nem conteúdo
+que permaneça somente no computador antigo. A omissão registrada na origem foi
+o cache `.pytest_cache`, sem acesso naquele momento.

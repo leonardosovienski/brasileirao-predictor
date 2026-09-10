@@ -1,0 +1,7 @@
+{
+  "status": "RETRY_REQUIRED",
+  "attempt": 1,
+  "reason": "Ordinary Windows path API failed on a preserved 264-character path",
+  "resolution": "Use extended Windows paths for stat/open/enumeration, matching the verified extractor",
+  "originals_modified": false
+}

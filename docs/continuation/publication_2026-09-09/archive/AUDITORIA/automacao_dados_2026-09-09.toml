@@ -1,0 +1,10 @@
+version = 1
+id = "completar-dados-do-brasileir-o"
+kind = "heartbeat"
+name = "Completar dados do Brasileirão"
+prompt = "Continue a pesquisa autorizada em C:/BRASILEIRAO, trabalhando sozinho. Leia docs/ESTADO_ATUAL.md e docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md no repositório C:/BRASILEIRAO/brasileirao-predictor. Execute primeiro C:/BRASILEIRAO/work/price-feasibility-2026-09-09/venv/Scripts/python.exe -I C:/BRASILEIRAO/work/data-completion-2026-09-09/followup_capture.py. Fora da janela, WAITING não faz requisição de dados. A captura única é para o fixture id1000032566887012 antes da decisão congelada de 11/09/2026 23:00 UTC; o script deve preservar reserva20, permitir no máximo uma consulta da cota gratuita e impedir repetição. Após obter captura, execute audit_followup.py no mesmo diretório, em processo separado sem credenciais. Antes disso, verifique no máximo duas fontes oficiais públicas por rodada diária quando puderem resolver procedência, estado ativo, limites ou custos; preserve fontes, hashes e tentativas em C:/BRASILEIRAO. Não substitua casas, horários ou filtros por desempenho. Não leia coortes H14/H15/H9/A1, não altere observadores/agendas/claims, não consulte seus resultados, não use banco operacional ou Redis, não autentique bookmaker, não aposte, não compre serviço e não contorne restrições. Atualize os guias atuais com resultados verificáveis, preservando estudos encerrados. Mantenha silêncio quando não houver mudança relevante ou ação útil; notifique somente avanço material, falha, conclusão delimitada ou informação indispensável. Após auditar a captura ou em 12/09/2026, reavalie a próxima ação autorizada antes de continuar; se não houver ação útil, pause este acompanhamento e explique o bloqueio real. Não arquive esta tarefa e nunca declare todos os dados completos ou lucro validado sem satisfazer os critérios do mandato."
+status = "ACTIVE"
+rrule = "FREQ=DAILY;BYHOUR=19;BYMINUTE=57;BYSECOND=0"
+target_thread_id = "01a08756-2962-7c43-9773-c790cc81329d"
+created_at = 1788986108229
+updated_at = 1788986108229

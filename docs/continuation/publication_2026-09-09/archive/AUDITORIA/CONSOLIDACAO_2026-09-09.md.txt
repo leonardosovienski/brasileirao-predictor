@@ -1,0 +1,85 @@
+# Consolidação do projeto em C:/BRASILEIRAO — 09/09/2026
+
+Todos os arquivos recebidos no pacote verificado, o código e histórico Git
+recuperados e os artefatos conhecidos destas sessões estão sob C:/BRASILEIRAO.
+A documentação de entrada foi atualizada e os textos históricos preservados.
+
+## Conferências realizadas
+
+- ZIP: SHA-256, CRC e conteúdo integral conferidos; 12.423 entradas mais o manifesto.
+- Disco: os 12.423 arquivos foram relidos e comparados individualmente ao manifesto;
+  conjunto exato, nenhum arquivo ausente, adicional ou com hash divergente.
+- Extração: 9.477.623.208 bytes incluindo o manifesto, em DADOS_PRESERVADOS.
+- Cinco snapshots SQLite, configurações privadas e 27 definições de tarefas preservados;
+  nenhum banco consultado, payload executado ou tarefa importada.
+- Entregas externas: 21 arquivos copiados para ENTREGAS/BRASILEIRAO_PF_20260909,
+  todos com SHA-256 igual à origem. O mandato original está em INSTRUCOES.
+- Git: integridade verificada; código de pesquisa e contratos operacionais sem mudanças.
+  A consolidação desta etapa altera documentação e acrescenta cópias históricas.
+- Markdown: 149 documentos do checkout indexados; 131 anteriores não revisados
+  permanecem byte a byte iguais ao Git de origem. Seis guias substituídos têm
+  cópias integrais em docs/history/antes_consolidacao_2026-09-09.
+- Links locais dos guias atuais e do índice: conferidos; o recibo final informa
+  a contagem e exige zero destinos ausentes. Links históricos congelados não
+  são reescritos para alterar os artefatos; DATA_MAP resolve seus prefixos antigos.
+- Outros Markdown da migração e das entregas: inventário separado por caminho
+  e hash; sem análise de resultados protegidos ou de conteúdo privado.
+
+## Documentos atualizados
+
+Comece em C:/BRASILEIRAO/LEIA_PRIMEIRO.md. No repositório, as entradas atuais são:
+README.md, docs/ESTADO_ATUAL.md, docs/INDICE_DOCUMENTACAO.md,
+docs/DATA_MAP.md, docs/MIGRACAO_WINDOWS.md, docs/PROMPT_PROXIMA_SESSAO.md,
+docs/continuation/RETOMADA.md e docs/continuation/PROMPT_MELHORIA_LUCRO.md.
+O mandato vigente completo está em docs/continuation/MANDATO_LUCRO_2026-09-09.md.
+HANDOFF recebeu o checkpoint de consolidação; o estado antigo e o README da
+pesquisa receberam contexto e referências atuais.
+
+Documentos científicos, contratos e relatórios datados mantêm resultados e
+regras originais. Sua categoria consta do índice. Não foi feita substituição
+em massa de datas, parâmetros, resultados ou caminhos em artefatos congelados.
+
+## Incidente resolvido na conferência
+
+A primeira leitura no disco falhou ao usar a API comum do Windows em um caminho
+de 264 caracteres. O arquivo estava presente. O verificador foi adaptado para
+caminhos estendidos, como o extrator, e a conferência completa passou depois.
+Não houve renomeação, exclusão, alteração de conteúdo ou mudança de registro.
+A tentativa inicial está preservada no recibo correspondente.
+
+## Recibos e reprodução
+
+Em C:/BRASILEIRAO/AUDITORIA:
+
+- verificacao_migracao_2026-09-09.json: leitura integral e extração do ZIP.
+- verificacao_disco_2026-09-09.json: conferência de cada arquivo gravado no disco.
+- inventario_dados_preservados.json: caminhos, tamanhos e hashes de todos os dados.
+- consolidacao_copias_2026-09-09.json: cópias das entregas e do mandato.
+- markdown_projeto.json: índice, categorias, hashes, preservação e links ativos.
+- markdown_fora_do_git.json: inventário dos Markdown preservados fora do checkout.
+- ENTREGA_CONSOLIDACAO.json: SHA final, estado Git e verificação do backup.
+
+Os verificadores usados estão em C:/BRASILEIRAO/work/consolidation-2026-09-09.
+O verificador original de ZIP está em scripts/migration/verify_archive.py.
+Nenhum teste de aplicação, modelo, coorte ou operação foi necessário para uma
+alteração documental; não houve nova alegação de rentabilidade ou prontidão.
+
+## Limite preciso da garantia
+
+A completude foi demonstrada para o material recebido e o trabalho destas sessões.
+O pacote reflete a captura de 08/09/2026. O manifesto de origem registra que o
+cache .pytest_cache não pôde ser lido; arquivos posteriores à captura ou nunca
+entregues, ainda em outro computador, não podem ser atestados nesta máquina.
+
+Reunir os arquivos não instala a aplicação operacional nem torna ferramentas
+externas e ambientes virtuais automaticamente portáveis. O ambiente de pesquisa
+Python 3.13.12 e seu Python gerenciado ficam sob C:/BRASILEIRAO. H14/H15/H9/A1
+continuam protegidos, nenhum serviço/agenda foi ativado e o capital segue bloqueado.
+
+## Fechamento verificado
+
+Commit local: `5dec2521bab581d5dda104d954f4cc6274b74702`, branch main, árvore limpa; sem push.
+Links locais conferidos: 208; destinos ausentes: 0.
+Backup Git completo: `C:\BRASILEIRAO\BACKUPS\brasileirao-predictor-consolidado-2026-09-09.bundle`.
+SHA-256: `c9ba94ab49a93a5729908456da594f03eba071c959c7e7adb0191169504481b9`.
+A recuperação em repositório bare separado reproduziu o SHA final e passou no git fsck.

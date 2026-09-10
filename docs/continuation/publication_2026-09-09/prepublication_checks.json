@@ -1,0 +1,10 @@
+{
+  "base": "f00304574044ab9d18aa3603abc538fbb3102c64",
+  "unique_contents_scanned": 162,
+  "recognizable_secret_pattern_findings": [],
+  "scan_limit": "Pattern detection only; private inputs not read",
+  "source_mapping_hashes_verified": 52,
+  "largest_outgoing_blob_or_public_file_bytes": 132874,
+  "protected_runtime_paths_unchanged": true,
+  "archived_scripts_executed": false
+}

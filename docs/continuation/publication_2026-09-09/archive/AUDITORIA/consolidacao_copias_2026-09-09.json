@@ -1,0 +1,114 @@
+{
+  "status": "PASS",
+  "copied_delivery_files": 21,
+  "files": [
+    {
+      "source_relative": "alteracoes.patch",
+      "sha256": "d239bf2eb2e9aa9d8990ffb8d5a18f2e353ff20c761569ac3aa850d10ff62cc1",
+      "bytes": 69336
+    },
+    {
+      "source_relative": "decimal-verification.json",
+      "sha256": "9d20e6cd9ea74afaa6dc1dbca246168398c53856dba97b3eafcdc000df741647",
+      "bytes": 404
+    },
+    {
+      "source_relative": "ENTREGA.json",
+      "sha256": "79174e445fb32531e572391c6b97d0a99bce11a3fdac6ae03bc89eb857e48afd",
+      "bytes": 933
+    },
+    {
+      "source_relative": "format-final.log",
+      "sha256": "c6054335d9571c0c59ef2b8af5223d2f5d56a9db5aba43b6f39217add8928601",
+      "bytes": 27
+    },
+    {
+      "source_relative": "junit.xml",
+      "sha256": "6dc1b61549d945cc91c4aa2392f472a8857f2f9bdb80f64e3e249d60800fb0da",
+      "bytes": 11258
+    },
+    {
+      "source_relative": "lint-final.log",
+      "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+      "bytes": 20
+    },
+    {
+      "source_relative": "manifest.json",
+      "sha256": "fbd90a93f06e67450ed4f64939c37f1d65b54fc5b95d367a579ef1b9fae820c0",
+      "bytes": 1551
+    },
+    {
+      "source_relative": "MANIFESTO_ENTREGA.json",
+      "sha256": "0552c407f8b9134046f55655aa5d9053ca5a63e9a499d7d05f33d814a1c51be6",
+      "bytes": 2943
+    },
+    {
+      "source_relative": "MEASUREMENT_ADDENDUM.md",
+      "sha256": "6ead15aaac9462f089469aaa80ac612ceefba6a06a9e4ed3d7599382ae6cb8ed",
+      "bytes": 2226
+    },
+    {
+      "source_relative": "migration-final-integrity.json",
+      "sha256": "ba85e0bf838241d39ca1b12a357b544b3050ed51af07470ceafc42d3579711b4",
+      "bytes": 253
+    },
+    {
+      "source_relative": "PROTOCOL.md",
+      "sha256": "f69d6aa1fbca0b64adabe0dd61cfddef409e3f47061c4baaedf9e203f46702e5",
+      "bytes": 6176
+    },
+    {
+      "source_relative": "pyright-relative-final.log",
+      "sha256": "e1454b1f844bea57d7ab2ebc675daa61848a252502168a6e7b73c3534d7ee21b",
+      "bytes": 788
+    },
+    {
+      "source_relative": "pyrightconfig-relative.json",
+      "sha256": "5a67361e35fa1fa215168fccb08d69a60eadc25a1b125a8fb4c893470c2130f4",
+      "bytes": 676
+    },
+    {
+      "source_relative": "REPRODUZIR.md",
+      "sha256": "d8228ac6d8843525bede58324e1ff7de8f399cf4e17e338ebc56da2759708890",
+      "bytes": 3931
+    },
+    {
+      "source_relative": "RESULTADO.md",
+      "sha256": "6588c4e85de0e45613881c48d4c12abe5511b6dc3f111d2251e7a10bc877a5e0",
+      "bytes": 12366
+    },
+    {
+      "source_relative": "run_offline.py",
+      "sha256": "f3593315b302bfe7ffa99fd902d972e54382651859ebf5e3bc6bf04b0e32e736",
+      "bytes": 6413
+    },
+    {
+      "source_relative": "source_attempts.json",
+      "sha256": "13592abf638ecaef8ec4b76d2363a80dbca614fa6518a83390d8013e43a7c830",
+      "bytes": 1449
+    },
+    {
+      "source_relative": "summary.json",
+      "sha256": "67d5eb3ae6f73801e247f59d9f29a1ce3e2eaa2aaf14d961ceb767a47ec93da3",
+      "bytes": 4696
+    },
+    {
+      "source_relative": "validate_offline.py",
+      "sha256": "8d10d3708e4533aad686331fafacafadfe0666558672179632a1ce3f41f2e235",
+      "bytes": 2108
+    },
+    {
+      "source_relative": "validation.json",
+      "sha256": "c4347e053c95d822115c77935be5d24bd4affd0440b3e25c896436728c94c1e9",
+      "bytes": 1650
+    },
+    {
+      "source_relative": "verify_decimal.py",
+      "sha256": "5e192465ac8caa061e060be74d32d9335cc8f04b565582722cf161d42b5f7cd6",
+      "bytes": 3262
+    }
+  ],
+  "instruction_sha256": "547757f185088a9b96fd4086ca939864aeaa044a08f131ee5e50350900778445",
+  "external_originals_deleted": false,
+  "old_documentation_base": "f33f92b37bd2c56cf0db978e7f5ad58d9cbae3ec"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "disk_files_hash_verified": 12423,
+  "manifest_itself_verified": true,
+  "file_set_exact_match": true,
+  "data_bytes_excluding_manifest": 9470851413,
+  "markdown_outside_git_count": 262,
+  "database_queries": 0,
+  "payloads_executed": 0,
+  "protected_outcomes_read": false,
+  "credential_values_emitted": false
+}

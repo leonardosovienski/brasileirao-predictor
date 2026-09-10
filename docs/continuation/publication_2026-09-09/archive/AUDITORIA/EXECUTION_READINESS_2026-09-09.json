@@ -1,0 +1,105 @@
+{
+  "completed_at": "2026-09-09T21:46:33.829241+00:00",
+  "round": "ER-20260909",
+  "root": "C:\\BRASILEIRAO",
+  "base": "7f18d543891cb3e68bb82c0a0d9fb58f9a8f12c0",
+  "commit": "60c95aa6b1b6b87f00da3ac5b59d67f0bf9bb369",
+  "branch": "main",
+  "worktree_clean": true,
+  "push_performed": false,
+  "changes": [
+    "M\tHANDOFF.md",
+    "M\tREADME.md",
+    "M\tdocs/DATA_MAP.md",
+    "M\tdocs/ESTADO_ATUAL.md",
+    "M\tdocs/HISTORICAL_SOURCE_REGISTER.md",
+    "M\tdocs/INDICE_DOCUMENTACAO.md",
+    "M\tdocs/PROMPT_PROXIMA_SESSAO.md",
+    "M\tdocs/continuation/RETOMADA.md",
+    "M\tdocs/continuation/data_completion_2026-09-09/CONTINUIDADE.md",
+    "M\tdocs/continuation/data_completion_2026-09-09/reproducao/audit_followup.py",
+    "M\tdocs/continuation/data_completion_2026-09-09/reproducao/followup_capture.py",
+    "M\tdocs/continuation/data_completion_2026-09-09/reproducao/manifest.json",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/.gitattributes",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/PROTOCOL.md",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/REPRODUZIR.md",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/RESULTADO.md",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/evidencias/activation.json",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/evidencias/engineering_checks.json",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/evidencias/execution_contract.json",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/evidencias/manifest.json",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/evidencias/previous_reproduction_manifest.json",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/evidencias/public_sources_manifest.json",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/evidencias/tests_before_fix.xml",
+    "A\tdocs/continuation/execution_readiness_2026-09-09/evidencias/tests_final.xml",
+    "A\ttests/test_followup_capture_contract.py"
+  ],
+  "tests": {
+    "passed": 153,
+    "new_rehearsal_cases": 15,
+    "demonstrated_failures_before_fix": 5,
+    "ruff": "PASS",
+    "pyright": "PASS",
+    "explicit_typechecked_executors": 2,
+    "real_API_calls_during_checks": 0,
+    "full_operational_stack_tested": false
+  },
+  "public_sources": {
+    "logical_GETs": 5,
+    "successful": 5,
+    "authenticated_calls": 0,
+    "odds_quota_consumed": 0
+  },
+  "documentation": {
+    "markdown_indexed": 159,
+    "local_links_checked": 218,
+    "broken_links": 0
+  },
+  "active_helpers": {
+    "activated_at": "2026-09-09T21:38:46.243477+00:00",
+    "scripts": [
+      {
+        "active_path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\followup_capture.py",
+        "old_sha256": "4a3af660d040c3f7ddc76aa1f3203d45199740d169e6641c0c25d1dab6cd9d98",
+        "new_sha256": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88"
+      },
+      {
+        "active_path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\audit_followup.py",
+        "old_sha256": "0a720918a5253ba5cc5394597d1c4806f90195b478682761387bc4605ba14bcc",
+        "new_sha256": "9b721572618a4cb9a37365cc613ea6cab8b36befb74b54bf702284a93859d080"
+      }
+    ],
+    "protected_collectors_or_agendas_changed": false,
+    "fixture_cutoff_quota_and_bookmakers_unchanged": true
+  },
+  "backup": {
+    "git_bundle": "C:\\BRASILEIRAO\\BACKUPS\\brasileirao-predictor-execution-readiness-2026-09-09.bundle",
+    "git_sha256": "afd06a5e45545ff5882464c6b1ac0a7bc698e6b41de16f9a80121f7602ceef65",
+    "bundle_verify": "The bundle contains these 3 refs:\n60c95aa6b1b6b87f00da3ac5b59d67f0bf9bb369 refs/heads/main\nf00304574044ab9d18aa3603abc538fbb3102c64 refs/remotes/origin/main\n60c95aa6b1b6b87f00da3ac5b59d67f0bf9bb369 HEAD\nThe bundle records a complete history.\nThe bundle uses this hash algorithm: sha1\nC:/BRASILEIRAO/BACKUPS/brasileirao-predictor-execution-readiness-2026-09-09.bundle is okay",
+    "bare_restore": "C:\\BRASILEIRAO\\work\\backup-verification-er-20260909.git",
+    "restored_HEAD": "60c95aa6b1b6b87f00da3ac5b59d67f0bf9bb369",
+    "git_fsck": "PASS",
+    "data_zip": "C:\\BRASILEIRAO\\BACKUPS\\ER-20260909-fontes-ensaios-rotinas.zip",
+    "data_sha256": "08e338cac840841f05d0ee2820f48bd4614e05e65ed98e01923d240413313a5f",
+    "data_entries": 313,
+    "all_data_entries_CRC_SHA256_verified": true,
+    "data_manifest_additional_entry": 1
+  },
+  "cohort_or_operational_changes": false,
+  "new_automation_created": false,
+  "existing_schedule_changed": false,
+  "next_decision_at": "2026-09-11T23:00:00+00:00",
+  "quota_budget_for_future_capture": 1,
+  "remaining": [
+    "active_contemporaneous_feed",
+    "personal_offer_capacity_and_currency",
+    "actual_total_costs",
+    "acceptance_and_fill_evidence",
+    "independent_future_validation"
+  ],
+  "profitability_established": false,
+  "all_economic_requirements_met": false,
+  "real_capital_enabled": false,
+  "delivery": "C:\\BRASILEIRAO\\ENTREGAS\\BRASILEIRAO_ER_20260909",
+  "display_copy": "C:\\Users\\leona\\Documents\\Codex\\2026-09-09\\le\\outputs\\BRASILEIRAO_ER_20260909"
+}

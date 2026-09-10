@@ -4,6 +4,8 @@ Pesquisa quantitativa e software de previsão para o Brasileirão Série A.
 **Raiz local: `C:/BRASILEIRAO`. Rentabilidade executável não demonstrada;
 capital bloqueado.**
 
+[Publicação desta sessão e mapa do que está no Git](docs/continuation/publication_2026-09-09/README.md).
+
 ## Comece aqui
 
 Próxima sessão: [prompt final de revisão integral e resolução das lacunas](docs/continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md).

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "zip_sha256": "3860235c920fb0d6f7abfe916cf7ebdf5b1fa2a6e7679d7455bdf2d4fd415129",
+  "manifest_files_checked": 12423,
+  "uncompressed_bytes_read": 9477623208,
+  "crc_and_sha256_checked": true,
+  "extracted_to": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS",
+  "application_started": false,
+  "tasks_imported": false
+}

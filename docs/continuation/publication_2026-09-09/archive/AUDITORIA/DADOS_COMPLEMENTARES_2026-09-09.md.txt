@@ -1,0 +1,31 @@
+# Auditoria dos dados complementares — DC-20260909
+
+Todos os novos dados, código, scripts, relatórios e recibos desta rodada estão
+sob `C:/BRASILEIRAO`. Foram verificados 177/177 históricos, 623.271.596 bytes;
+recuperou-se o CSV oficial de 380 jogos de 2025 e coletaram-se três capturas
+atuais de um evento. Isso não completa a evidência econômica exigida.
+
+Passaram 138 testes (80 anteriores e 58 novos), Ruff e tipagem explícita de três
+módulos. A regressão de status booleano falhou antes da correção. Os três
+resultados do piloto permaneceram idênticos. Contabilidade closing conferida
+com Fraction: −9,24u condicional; referência comprometida em todas as 32 seleções.
+
+- [Resultado completo](../brasileirao-predictor/docs/continuation/data_completion_2026-09-09/RESULTADO.md)
+- [Pendências](../brasileirao-predictor/docs/continuation/data_completion_2026-09-09/PENDENCIAS.md)
+- [Reprodução](../brasileirao-predictor/docs/continuation/data_completion_2026-09-09/REPRODUZIR.md)
+- [Continuidade agendada](../brasileirao-predictor/docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md)
+
+Cinco consultas de quota gratuita, contador final 67/250, reserva 20 preservada.
+Nenhuma compra, aposta, ativação operacional ou alteração de coorte protegida.
+Faltam procedência temporal suficiente, oferta ativa, capacidade, custos reais
+e validação futura. Acompanhamento diário às 19:57 de São Paulo na tarefa atual,
+com janela fixa em 11/09 antes das 20:00; o aplicativo precisa estar em execução.
+
+O recibo JSON de mesmo nome identifica base, commit final, inventários, checks,
+manifestos e backups. O bundle Git cobre código/histórico; o ZIP DC cobre os
+novos dados e recibos até sua captura. A agenda ativa reside no aplicativo e
+possui uma cópia documental em `automacao_dados_2026-09-09.toml`.
+
+A garantia cobre o material recebido e produzido nesta máquina. Não atesta
+arquivos nunca entregues ou posteriores ao snapshot do computador antigo.
+Documentos históricos e contratos congelados foram preservados.

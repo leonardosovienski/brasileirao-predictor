@@ -13,6 +13,7 @@ coortes protegidas não foi examinado para produzir este inventário.
 
 ## Navegação
 
+- [Publicação desta sessão e arquivos preservados no Git](continuation/publication_2026-09-09/README.md)
 - [Prompt final de revisão integral para a próxima sessão](continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md)
 - [Retomada](continuation/RETOMADA.md)
 - [Mandato vigente](continuation/MANDATO_LUCRO_2026-09-09.md)
@@ -20,10 +21,11 @@ coortes protegidas não foi examinado para produzir este inventário.
 - [Migração verificada](MIGRACAO_WINDOWS.md)
 - [Último resultado econômico](continuation/execution_readiness_2026-09-09/RESULTADO.md)
 
-## Inventário completo: 161 documentos
+## Inventário completo: 162 documentos
 
 | Documento | Categoria |
 | --- | --- |
+| [docs/continuation/publication_2026-09-09/README.md](continuation/publication_2026-09-09/README.md) | Publicação no GitHub — escopo, arquivos e limites |
 | [docs/continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md](continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md) | Prompt final consolidado — revisão ainda não executada |
 | [docs/continuation/REVISAO_INTEGRAL_2026-09-09.md](continuation/REVISAO_INTEGRAL_2026-09-09.md) | Versão anterior do mandato de revisão — preservada como contexto |
 | [brasileirao_predictor/research/price_strength/README.md](../brasileirao_predictor/research/price_strength/README.md) | Referência técnica — não atesta operação local |

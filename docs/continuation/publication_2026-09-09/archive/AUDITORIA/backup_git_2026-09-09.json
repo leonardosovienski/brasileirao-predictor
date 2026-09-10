@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "bundle": "C:\\BRASILEIRAO\\BACKUPS\\brasileirao-predictor-consolidado-2026-09-09.bundle",
+  "sha256": "c9ba94ab49a93a5729908456da594f03eba071c959c7e7adb0191169504481b9",
+  "bytes": 9186833,
+  "commit": "5dec2521bab581d5dda104d954f4cc6274b74702",
+  "restored_commit": "5dec2521bab581d5dda104d954f4cc6274b74702",
+  "complete_history": true,
+  "bare_restore": true,
+  "fsck_pass": true,
+  "application_started": false
+}

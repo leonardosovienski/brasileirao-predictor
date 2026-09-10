@@ -1,0 +1,49 @@
+{
+  "scope": "Handoff documental; revisao integral ainda nao executada",
+  "base_commit": "60c95aa6b1b6b87f00da3ac5b59d67f0bf9bb369",
+  "checked_docs": [
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\README.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\ESTADO_ATUAL.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\INDICE_DOCUMENTACAO.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\PROMPT_PROXIMA_SESSAO.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\continuation\\RETOMADA.md",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\continuation\\REVISAO_INTEGRAL_2026-09-09.md",
+    "C:\\BRASILEIRAO\\LEIA_PRIMEIRO.md"
+  ],
+  "checked_local_links": 214,
+  "broken_local_links": [],
+  "markdown_files_indexed": 160,
+  "index_complete": true,
+  "mandate_copies_sha256": {
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\continuation\\REVISAO_INTEGRAL_2026-09-09.md": "f51ddb7d66c8dc53e1c593c182a2e35fa070f3a91d551c9bd5738c0b6ab93c2c",
+    "C:\\BRASILEIRAO\\INSTRUCOES\\REVISAO_INTEGRAL_2026-09-09.md": "f51ddb7d66c8dc53e1c593c182a2e35fa070f3a91d551c9bd5738c0b6ab93c2c",
+    "C:\\Users\\leona\\Documents\\Codex\\2026-09-09\\le\\outputs\\REVISAO_INTEGRAL_BRASILEIRAO_20260909\\REVISAO_INTEGRAL_2026-09-09.md": "f51ddb7d66c8dc53e1c593c182a2e35fa070f3a91d551c9bd5738c0b6ab93c2c"
+  },
+  "code_changed": false,
+  "application_tests_run": false,
+  "automation_changed": false,
+  "completed_at_utc": "2026-09-09T22:34:45.265333+00:00",
+  "commit": "194a7b1e1b72753678c7d85bbb47e354645694a8",
+  "branch": "main",
+  "git_clean": true,
+  "pushed": false,
+  "changed_git_files": [
+    "README.md",
+    "docs/ESTADO_ATUAL.md",
+    "docs/INDICE_DOCUMENTACAO.md",
+    "docs/PROMPT_PROXIMA_SESSAO.md",
+    "docs/continuation/RETOMADA.md",
+    "docs/continuation/REVISAO_INTEGRAL_2026-09-09.md"
+  ],
+  "backup": {
+    "path": "C:\\BRASILEIRAO\\BACKUPS\\brasileirao-predictor-handoff-revisao-2026-09-09.bundle",
+    "sha256": "4a557bf18029f7831b3e833b0981acb25c74b406fb37860f9fdee35311c026d9",
+    "bytes": 9298914,
+    "git_bundle_verify": "PASS"
+  },
+  "root_guide": {
+    "path": "C:\\BRASILEIRAO\\LEIA_PRIMEIRO.md",
+    "sha256": "84e9782f5ceeb8dccd0b570dc89c43cb2925e5fe6f2fa00ae07f549bc4b9e6ae"
+  },
+  "full_project_review_executed": false
+}
