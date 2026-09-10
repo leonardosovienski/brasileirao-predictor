@@ -1,0 +1,43 @@
+{
+  "README.md": {
+    "path": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\previous-guides\\README.md",
+    "bytes": 3338,
+    "sha256": "e239871d0d0dd17a3f3e41981b62a19a41e1dab619fc7fd5fe49838df7288b5c",
+    "git_commit": "6c850454418a1c7e878fdb6a461dea509571caec"
+  },
+  "HANDOFF.md": {
+    "path": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\previous-guides\\HANDOFF.md",
+    "bytes": 139242,
+    "sha256": "33b82aacb5012623e87134193945c1ff9e913cdd789fb94f9fa0cfe944bb7e04",
+    "git_commit": "6c850454418a1c7e878fdb6a461dea509571caec"
+  },
+  "docs/ESTADO_ATUAL.md": {
+    "path": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\previous-guides\\docs\\ESTADO_ATUAL.md",
+    "bytes": 6044,
+    "sha256": "cf1501bcbd595aa0ed11fa36d75347a146a5d68cacbf9f6635b3a2c3f28e2c87",
+    "git_commit": "6c850454418a1c7e878fdb6a461dea509571caec"
+  },
+  "docs/DATA_MAP.md": {
+    "path": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\previous-guides\\docs\\DATA_MAP.md",
+    "bytes": 11673,
+    "sha256": "9e09255b585bb82f726c7fdd3749b663288d1c73af4b91f3aa370eae0e979ab2",
+    "git_commit": "6c850454418a1c7e878fdb6a461dea509571caec"
+  },
+  "docs/INDICE_DOCUMENTACAO.md": {
+    "path": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\previous-guides\\docs\\INDICE_DOCUMENTACAO.md",
+    "bytes": 33119,
+    "sha256": "b2e7faff7bc5de44ba0b7cc7be7bafa68bcc4cfb680e650ad2feaa1f4b6414e3",
+    "git_commit": "6c850454418a1c7e878fdb6a461dea509571caec"
+  },
+  "docs/continuation/RETOMADA.md": {
+    "path": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\previous-guides\\docs\\continuation\\RETOMADA.md",
+    "bytes": 3678,
+    "sha256": "23f6c33d2bb5ee24f7342639f6ea8d397194f2ecfffd53a662dfc0ed2c421f2c",
+    "git_commit": "6c850454418a1c7e878fdb6a461dea509571caec"
+  },
+  "C:/BRASILEIRAO/LEIA_PRIMEIRO.md": {
+    "path": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\previous-guides\\LEIA_PRIMEIRO_ROOT.md",
+    "bytes": 3572,
+    "sha256": "4b9b13ca7bc3a958a4b07afc5103a495069e0d31f89a4f4659adf67dd9c895ef"
+  }
+}

@@ -1,0 +1,5 @@
+Using CPython 3.13.12 interpreter at: C:\BRASILEIRAO\work\revisao-integral-2026-09-09\venv\Scripts\python.exe
+Resolved 1 package in 63ms
+Prepared 1 package in 619ms
+Installed 1 package in 849ms
+ + brasileirao-predictor==0.1.0 (from file:///C:/BRASILEIRAO/work/reconciliation-2026-09-10/package-smoke-final/dist/brasileirao_predictor-0.1.0-py3-none-any.whl)

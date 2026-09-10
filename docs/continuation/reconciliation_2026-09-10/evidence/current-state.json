@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-09-10T19:16:53.198863+00:00",
+  "base": "6c850454418a1c7e878fdb6a461dea509571caec",
+  "branch": "main",
+  "worktrees": "worktree C:/BRASILEIRAO/brasileirao-predictor\nHEAD 6c850454418a1c7e878fdb6a461dea509571caec\nbranch refs/heads/main",
+  "git_executable": "C:\\Users\\leona\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\git\\cmd\\git.EXE",
+  "docker_in_path": null,
+  "podman_in_path": null,
+  "source_changes": [
+    "brasileirao_predictor/research/calibration_gate.py",
+    "brasileirao_predictor/research/residual_gate.py"
+  ],
+  "operational_apps_started": false
+}

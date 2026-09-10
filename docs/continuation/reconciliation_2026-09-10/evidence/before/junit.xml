@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="42" skipped="0" tests="46" time="2.822" timestamp="2026-09-10T16:06:43.200217-03:00" hostname="Leo"><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[rps-nan]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[rps-inf]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[rps--inf]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[rps-True]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[rps--0.01]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[rps-None]" time="0.001"><failure message="TypeError: float() argument must be a string or a real number, not 'NoneType'">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:27: in test_calibration_rejects_invalid_numeric_evidence
+    assess_a10(report)
+..\..\..\brasileirao-predictor\brasileirao_predictor\research\calibration_gate.py:11: in assess_a10
+    deltas = {name: float(metrics[name]["delta_treatment_minus_control"]) for name in required}
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: float() argument must be a string or a real number, not 'NoneType'</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win-nan]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win-inf]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win--inf]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win-True]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win--0.01]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:26: in test_calibration_rejects_invalid_numeric_evidence
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_invalid_numeric_evidence[log_loss_home_win-None]" time="0.002"><failure message="TypeError: float() argument must be a string or a real number, not 'NoneType'">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:27: in test_calibration_rejects_invalid_numeric_evidence
+    assess_a10(report)
+..\..\..\brasileirao-predictor\brasileirao_predictor\research\calibration_gate.py:14: in assess_a10
+    float(home_metric["delta_treatment_minus_control"])
+E   TypeError: float() argument must be a string or a real number, not 'NoneType'</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_malformed_report[None]" time="0.001"><failure message="AttributeError: 'NoneType' object has no attribute 'get'">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:33: in test_calibration_rejects_malformed_report
+    assess_a10(bad)
+..\..\..\brasileirao-predictor\brasileirao_predictor\research\calibration_gate.py:8: in assess_a10
+    metrics = report.get("metrics")
+              ^^^^^^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'get'</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_malformed_report[bad1]" time="0.001"><failure message="AttributeError: 'list' object has no attribute 'get'">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:33: in test_calibration_rejects_malformed_report
+    assess_a10(bad)
+..\..\..\brasileirao-predictor\brasileirao_predictor\research\calibration_gate.py:8: in assess_a10
+    metrics = report.get("metrics")
+              ^^^^^^^^^^
+E   AttributeError: 'list' object has no attribute 'get'</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_malformed_report[bad2]" time="0.001" /><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_rejects_malformed_report[bad3]" time="0.001" /><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_marks_report_only_and_does_not_mutate" time="0.001"><failure message="AssertionError: assert 'a10-promotion-gate/v1' == 'a10-promotion-gate/v2'&#10;  &#10;  - a10-promotion-gate/v2&#10;  ?                     ^&#10;  + a10-promotion-gate/v1&#10;  ?                     ^">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:41: in test_calibration_marks_report_only_and_does_not_mutate
+    assert result["schema_version"] == "a10-promotion-gate/v2"
+E   AssertionError: assert 'a10-promotion-gate/v1' == 'a10-promotion-gate/v2'
+E     
+E     - a10-promotion-gate/v2
+E     ?                     ^
+E     + a10-promotion-gate/v1
+E     ?                     ^</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_calibration_missing_home_guardrail_still_abstains" time="0.002" /><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[nan-pnl]" time="0.004"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[nan-clv]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[inf-pnl]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[inf-clv]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[-inf-pnl]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[-inf-clv]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[True-pnl]" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[True-clv]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[0.2-pnl]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_rejects_invalid_values_before_any_statistics[0.2-clv]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:63: in test_residual_rejects_invalid_values_before_any_statistics
+    with pytest.raises(ValueError, match="finite number"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_requires_an_event_identity[True]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:71: in test_residual_requires_an_event_identity
+    with pytest.raises(ValueError, match="event_id"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_requires_an_event_identity[ ]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:71: in test_residual_requires_an_event_identity
+    with pytest.raises(ValueError, match="event_id"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_requires_an_event_identity[bad2]" time="0.003"><failure message="TypeError: unhashable type: 'list'">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:72: in test_residual_requires_an_event_identity
+    evaluate_economic_gate(sample, dsr=0.99, minimum_sample=2, n_boot=20)
+..\..\..\brasileirao-predictor\brasileirao_predictor\research\residual_gate.py:37: in evaluate_economic_gate
+    roi_lo, roi_hi, _ = bootstrap_ci(
+..\..\revisao-integral-2026-09-09\venv\Lib\site-packages\predictor_core\measurement\bootstrap.py:106: in bootstrap_ci
+    groups.setdefault(cluster_key(u), []).append(u)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: unhashable type: 'list'</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_requires_an_event_identity[bad3]" time="0.002"><failure message="TypeError: unhashable type: 'dict'">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:72: in test_residual_requires_an_event_identity
+    evaluate_economic_gate(sample, dsr=0.99, minimum_sample=2, n_boot=20)
+..\..\..\brasileirao-predictor\brasileirao_predictor\research\residual_gate.py:37: in evaluate_economic_gate
+    roi_lo, roi_hi, _ = bootstrap_ci(
+..\..\revisao-integral-2026-09-09\venv\Lib\site-packages\predictor_core\measurement\bootstrap.py:106: in bootstrap_ci
+    groups.setdefault(cluster_key(u), []).append(u)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: unhashable type: 'dict'</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[dsr-inf]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[dsr-True]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[dsr-1.01]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[minimum_psr--0.01]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[minimum_dsr-nan]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[minimum_sample-0]" time="0.002" /><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[minimum_sample-True]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[minimum_sample-2.5]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[n_boot-0]" time="0.002"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[n_boot-True]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_validates_configuration_even_below_sample_floor[n_boot-2.5]" time="0.001"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:87: in test_residual_validates_configuration_even_below_sample_floor
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_does_not_promote_a_selected_complete_subset" time="0.004"><failure message="AssertionError: assert 'GO_CANDIDATE' == 'PENDING_DATA'&#10;  &#10;  - PENDING_DATA&#10;  + GO_CANDIDATE">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:94: in test_residual_does_not_promote_a_selected_complete_subset
+    assert result["verdict"] == "PENDING_DATA"
+E   AssertionError: assert 'GO_CANDIDATE' == 'PENDING_DATA'
+E     
+E     - PENDING_DATA
+E     + GO_CANDIDATE</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_labels_unit_assumption_and_declared_dsr" time="0.002"><failure message="KeyError: 'roi_scope'">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:106: in test_residual_labels_unit_assumption_and_declared_dsr
+    assert result["roi_scope"] == "mean_pnl_assuming_one_unit_staked_per_row"
+           ^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'roi_scope'</failure></testcase><testcase classname="tests.test_reconciliation_gate_contracts" name="test_residual_cannot_call_variable_stake_pnl_roi" time="0.003"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_reconciliation_gate_contracts.py:116: in test_residual_cannot_call_variable_stake_pnl_roi
+    with pytest.raises(ValueError, match="unit stake"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

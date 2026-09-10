@@ -1,0 +1,9 @@
+{
+  "source": "C:\\Users\\leona\\.codex\\sessions\\2026\\09\\09\\rollout-2026-09-09T21-05-07-01a088a1-e7c6-7e93-9ae6-dacd3b43b2a5.jsonl",
+  "source_snapshot_bytes": 28563880,
+  "source_snapshot_sha256": "5ee8c23ddbd30bfababdb63277208cb327ba4c72eb0bb243c42dbdead2b46bef",
+  "messages": 85,
+  "visible_text_characters": 38382,
+  "app_tool_limitation": "8 turns, but 5 returned with no items; local exact-thread record used for missing messages",
+  "excluded": "tool payloads, system/developer content and internal reasoning"
+}

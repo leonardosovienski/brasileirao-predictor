@@ -1,0 +1,29 @@
+{
+  "python": {
+    "before": {
+      "tests": 46,
+      "failures": 42,
+      "errors": 0,
+      "skips": 0
+    },
+    "after": {
+      "tests": 49,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "final": {
+      "tests": 49,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    }
+  },
+  "unique_final_tests": 49,
+  "scope": "Two pure gates, synthetic cases only. No frozen A10 report or protected outcomes.",
+  "quality_files": 3,
+  "offline_package_commands": 7,
+  "dotnet_redis_rerun": false,
+  "new_economic_evaluation": false,
+  "capital_enabled": false
+}

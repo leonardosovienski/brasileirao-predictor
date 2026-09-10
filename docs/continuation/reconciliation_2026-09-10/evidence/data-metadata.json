@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-09-10T19:17:04.561403+00:00",
+  "helper_hashes": {
+    "followup_capture.py": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88",
+    "audit_followup.py": "ebce7ddeb384b347be4985b7a3812a1b83c7dfaceafdb3e2a6cb00f7e2d09a24"
+  },
+  "attempt_exists": false,
+  "receipt_exists": false,
+  "decision_utc": "2026-09-11T23:00:00Z",
+  "csv": {
+    "path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\public_sources\\football_data_bra_origin_csv.csv",
+    "bytes": 640594,
+    "sha256": "ba3e9ea79ab4091b117a901f3914940cea07f1fe06de0deb57af5076f664ccb6"
+  },
+  "automation_view_return": "Rendered automation card in the app.",
+  "automation_state": "NOT_VERIFIABLE_FROM_TEXT_RESPONSE",
+  "expected_local_automation_definition_exists": false,
+  "scope": "Hash/existence only. No API, quota, outcome reading, schedule mutation or protected evaluator execution."
+}

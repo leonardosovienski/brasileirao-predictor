@@ -1,0 +1,67 @@
+{
+  "files": [
+    "brasileirao_predictor/research/calibration_gate.py",
+    "brasileirao_predictor/research/residual_gate.py",
+    "tests/test_reconciliation_gate_contracts.py"
+  ],
+  "commands": [
+    {
+      "name": "ruff-fix",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "check",
+        "--fix",
+        "brasileirao_predictor/research/calibration_gate.py",
+        "brasileirao_predictor/research/residual_gate.py",
+        "tests/test_reconciliation_gate_contracts.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "ruff-format",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "format",
+        "brasileirao_predictor/research/calibration_gate.py",
+        "brasileirao_predictor/research/residual_gate.py",
+        "tests/test_reconciliation_gate_contracts.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "ruff-check",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "check",
+        "brasileirao_predictor/research/calibration_gate.py",
+        "brasileirao_predictor/research/residual_gate.py",
+        "tests/test_reconciliation_gate_contracts.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "ruff-format-check",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\ruff.exe",
+        "format",
+        "--check",
+        "brasileirao_predictor/research/calibration_gate.py",
+        "brasileirao_predictor/research/residual_gate.py",
+        "tests/test_reconciliation_gate_contracts.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "pyright",
+      "argv": [
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\tools\\node.exe",
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Lib\\site-packages\\pyright\\dist\\index.js",
+        "--pythonpath",
+        "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+        "--project",
+        "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\pyright.json"
+      ],
+      "exit_code": 0
+    }
+  ]
+}

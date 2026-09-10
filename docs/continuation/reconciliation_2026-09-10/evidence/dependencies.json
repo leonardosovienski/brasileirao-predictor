@@ -1,0 +1,156 @@
+{
+  "python": "3.13.12 (main, Mar  3 2026, 15:00:12) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\venv\\Scripts\\python.exe",
+  "installed_distribution_count": 59,
+  "requirements": [
+    {
+      "group": "base",
+      "requirement": "predictor-core>=3.2,<4",
+      "installed": "3.2.0",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "predictor-ops>=4.0,<5",
+      "installed": "4.1.0",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "pydantic>=2.11,<3",
+      "installed": "2.13.5",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "pydantic-settings>=2.10,<3",
+      "installed": "2.15.0",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "numpy>=2.2,<3",
+      "installed": "2.5.2",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "pandas>=2.2,<4",
+      "installed": "3.0.5",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "scipy>=1.15,<2",
+      "installed": "1.18.1",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "PyYAML>=6.0,<7",
+      "installed": "6.0.3",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "truststore>=0.10,<1",
+      "installed": "0.10.4",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "requests>=2.32,<3",
+      "installed": "2.34.2",
+      "satisfied": true
+    },
+    {
+      "group": "base",
+      "requirement": "jsonschema>=4.25,<5",
+      "installed": "4.26.0",
+      "satisfied": true
+    },
+    {
+      "group": "providers",
+      "requirement": "beautifulsoup4>=4.13,<5",
+      "installed": "4.15.0",
+      "satisfied": true
+    },
+    {
+      "group": "providers",
+      "requirement": "lxml>=5.3,<7",
+      "installed": "6.1.3",
+      "satisfied": true
+    },
+    {
+      "group": "providers",
+      "requirement": "html5lib>=1.1,<2",
+      "installed": "1.1",
+      "satisfied": true
+    },
+    {
+      "group": "providers",
+      "requirement": "curl-cffi>=0.13,<1",
+      "installed": "0.16.3",
+      "satisfied": true
+    },
+    {
+      "group": "kernel",
+      "requirement": "redis[hiredis]>=6.2,<9",
+      "installed": "8.1.0",
+      "satisfied": true
+    },
+    {
+      "group": "kernel",
+      "requirement": "numba>=0.61,<1",
+      "installed": "0.67.0",
+      "satisfied": true
+    },
+    {
+      "group": "dev",
+      "requirement": "build>=1.3,<2",
+      "installed": "1.6.0",
+      "satisfied": true
+    },
+    {
+      "group": "dev",
+      "requirement": "coverage[toml]>=7.10,<8",
+      "installed": "7.15.4",
+      "satisfied": true
+    },
+    {
+      "group": "dev",
+      "requirement": "pre-commit>=4.3,<5",
+      "installed": "4.6.2",
+      "satisfied": true
+    },
+    {
+      "group": "dev",
+      "requirement": "pyright>=1.1.400,<2",
+      "installed": "1.1.411",
+      "satisfied": true
+    },
+    {
+      "group": "dev",
+      "requirement": "pytest>=8.4,<10",
+      "installed": "9.1.1",
+      "satisfied": true
+    },
+    {
+      "group": "dev",
+      "requirement": "ruff>=0.12,<1",
+      "installed": "0.16.6",
+      "satisfied": true
+    },
+    {
+      "group": "build",
+      "requirement": "hatchling>=1.27,<2",
+      "installed": null,
+      "satisfied": false
+    }
+  ],
+  "transitive_base_conflicts": [],
+  "missing_import_distribution_candidates": {},
+  "dotnet_sdk": "10.0.401 [C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\dotnet-sdk\\sdk]",
+  "dotnet_exit_code": 0,
+  "scope": "RI isolated venv and public allowed-source import inventory; no operational imports, secret config or API calls"
+}

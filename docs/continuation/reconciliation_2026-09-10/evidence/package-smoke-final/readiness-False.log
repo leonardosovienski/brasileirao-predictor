@@ -1,0 +1,24 @@
+{
+  "protocol_version": "prediction-readiness/2",
+  "ready": true,
+  "designation": "CONTRACT_PRE_MATCH",
+  "evidence_scope": "CALLER_DECLARATIONS_ONLY",
+  "provenance_verified": false,
+  "blockers": [],
+  "warnings": [
+    {
+      "code": "LINEUP_UNAVAILABLE",
+      "message": "prediction may run, but must declare that no point-in-time lineup was available"
+    },
+    {
+      "code": "MARKET_UNAVAILABLE",
+      "message": "prediction may run, but no point-in-time market comparison is possible"
+    },
+    {
+      "code": "PROVENANCE_UNVERIFIED",
+      "message": "only caller declarations were checked; artifacts and source receipts were not authenticated"
+    }
+  ],
+  "pre_match_evidence_eligible": false,
+  "economic_evidence_eligible": false
+}

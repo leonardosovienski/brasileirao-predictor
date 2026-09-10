@@ -1,151 +1,17 @@
-**Atualização ARI-20260910:** artefatos e otimização residual corrigidos; 54 testes aprovados, com dados sintéticos. [Resultado atual](continuation/artifact_integrity_2026-09-10/RESULTADO.md). Revisão integral aberta; lucro executável não comprovado.
+# Mapa atual de dados — RCA-20260910
 
-**Atualização LGC-20260910:** integridade e concorrência do livro manual corrigidas; 95 testes aprovados e trava entre processos Windows verificada. [Resultado LGC](continuation/ledger_consistency_2026-09-10/RESULTADO.md). Revisão integral ainda aberta; lucro executável não demonstrado.
+**Dados, datas e fontes não estão universalmente completos ou validados para a decisão econômica.** O [mapa por requisito](continuation/reconciliation_2026-09-10/MAPA_DADOS.md) informa períodos, finalidade, admissibilidade e lacunas. O [registro central](continuation/reconciliation_2026-09-10/REGISTROS.json) acompanha as ações.
 
-**Atualização CLO-20260910:** oito grupos adicionais de falhas corrigidos;275 testes Python,27 Redis e127.NET aprovados. Mandato integral permanece aberto; dados comerciais insuficientes e lucro executável não demonstrado. [Resultado atual](continuation/closeout_2026-09-10/RESULTADO.md), [registro central](continuation/closeout_2026-09-10/REGISTROS.md), [continuação](continuation/closeout_2026-09-10/PROXIMO_PROMPT.md).
-
-# Estado vigente — CPL-20260910
-
-Correções verificadas em previsão, temporalidade, preços, contabilidade e infraestrutura.196 testes Python aprovados;27 com Redis real;119 casos.NET aprovados entre execuções separadas, com falha intermitente de inicialização preservada. Prontidão técnica delimitada; dados comerciais insuficientes; lucro executável não demonstrado. Mandato integral ainda em andamento:78 leituras semânticas registradas de450 arquivos inventariados,58 protegidos por contrato.
-
-[Mapa de campos/fontes e lacunas](continuation/completion_2026-09-10/MAPA_DADOS.md).
-
-Os estados datados anteriores abaixo permanecem como histórico, com seus escopos próprios.
-
----
-
-# Dados vigentes — BE-20260910
-
-CSV público congelado DC reinterpretado apenas para temporadas2012–2024: 4.940 jogos, 4.939 trios Pinnacle, 4.939 trios máximos, 1 label inválido preservado. Temporadas2025/2026 excluídas antes dos demais campos. Base não é holdout independente. Output completo em C:/BRASILEIRAO/work/economic-search-2026-09-10/run-01; hashes e limites em [resultado BE](continuation/economic_search_2026-09-10/RESULTADO.md) e evidence/manifest.json na mesma pasta documental. Documentos Football-Data recuperados; tentativas OddsPortal/Betfair não recuperaram casas/clocks. Nenhuma API autenticada ou nova captura operacional. Mapas anteriores abaixo preservados.
-
----
-
-# Atualização de dados IE-20260910
-
-Novo consumidor em brasileirao_predictor/research/price_strength/capture_decision.py. Diagnóstico controlado dos3 payloads DC/1 fixture no último recibo: par API rejeitado,1 abstenção,zero apostas/exposição; PnL total desconhecido. Inputs/hash e saída em continuation/implementation_2026-09-10/evidence/capture-manifest.json e decision.json. Sem novos labels, coleta autenticada ou reutilização do CSV como holdout. Mapa histórico RI abaixo preservado.
-
----
-
-# Mapa de dados — C:/BRASILEIRAO
-
-Atualizado em 09/09/2026. [Estado atual](ESTADO_ATUAL.md) e
-[migração](MIGRACAO_WINDOWS.md) distinguem preservação, ambiente e operação.
-O detalhamento anterior do schema e das coletas está
-[arquivado](history/antes_consolidacao_2026-09-09/docs/DATA_MAP.md); seus números
-de linhas e estados datados não foram recalculados nesta etapa.
-
-
-## Revisão RI-20260909: situação mais recente
-
-A [revisão de campos/fontes](continuation/integral_review_2026-09-09/MAPA_DADOS.md) reconferiu os 177 históricos, CSV 2025 e piloto, sem reabrir bancos protegidos. Estado: arquivos íntegros, execução histórica inadmissível/insuficiente; lucro executável não mensurável. [Resultado](continuation/integral_review_2026-09-09/RESULTADO.md).
-
-- `C:/BRASILEIRAO/work/revisao-integral-2026-09-09`: venv completo, SDK10 portátil, inventário, contratos públicos, ensaios, logs, conta independente e backups dos guias/helpers anteriores.
-- `C:/BRASILEIRAO/brasileirao-predictor/docs/continuation/integral_review_2026-09-09`: registros centrais, mapas, protocolo, relatório, próximo prompt e evidências sanitizadas.
-- `C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_RI_20260909`: cópia conferida da entrega RI.
-- `C:/BRASILEIRAO/AUDITORIA/REVISAO_INTEGRAL_2026-09-09.json`: integração, hashes, diff, cópias e recuperação Git. Não é recuperação operacional dos dados protegidos.
-
-Nenhum rawDC foi reescrito; apenas o auditor futuro independente foi atualizado com backup/hash. O estado atual da agenda não pôde ser lido pela ferramenta; TOML antigo é documental. O restante deste mapa descreve locais e recibos anteriores, com seu escopo/datamento preservado.
-
-## Armazenamento atual
-
-| Área | Conteúdo e regra |
+| Área canônica | Conteúdo / limite |
 | --- | --- |
-| `C:/BRASILEIRAO/brasileirao-predictor` | Checkout e histórico Git atual; código, contratos, testes e documentação |
-| `C:/BRASILEIRAO/MIGRACAO_DADOS/MIGRACAO_DADOS` | ZIP e bundle originais, checksums, manifesto e recibos da origem; preservar |
-| `C:/BRASILEIRAO/DADOS_PRESERVADOS` | Extração integral verificada, sem execução ou ajuste dos arquivos |
-| `C:/BRASILEIRAO/DADOS_PRESERVADOS/projetos/brasileirao-predictor` | Dados, relatórios e configurações recebidos do projeto na origem |
-| `C:/BRASILEIRAO/DADOS_PRESERVADOS/projetos/brasileirao-predictor-sessoes` | Insumos, saídas e evidências das sessões antigas |
-| `C:/BRASILEIRAO/DADOS_PRESERVADOS/externos` | Dados externos e backups incluídos; não são novas fontes de pesquisa autorizadas |
-| `C:/BRASILEIRAO/DADOS_PRESERVADOS/tarefa` | Evidências selecionadas da tarefa anterior |
-| `C:/BRASILEIRAO/DADOS_PRESERVADOS/dados_recuperados_de_zips_mistos` | Dados únicos separados de ZIPs mistos na origem |
-| `C:/BRASILEIRAO/DADOS_PRESERVADOS/migracao` | Configurações privadas e 27 definições de tarefas; não importadas |
-| `C:/BRASILEIRAO/DADOS_PRESERVADOS/snapshots_sqlite` | Cinco snapshots consistentes, sem consultas de conteúdo nesta etapa |
-| `C:/BRASILEIRAO/work` | Ambientes, scripts e insumos de pesquisa/organização desta máquina |
-| `C:/BRASILEIRAO/ENTREGAS` | Entregas completas copiadas com igualdade de hash |
-| `C:/BRASILEIRAO/INSTRUCOES` | Mandato original recebido, com hash preservado |
-| `C:/BRASILEIRAO/AUDITORIA` | Completude, integridade, mapa dos Markdown e verificação de backup |
+| C:/BRASILEIRAO/brasileirao-predictor | Código e evidências versionadas; presença de data/ não prova banco operacional instalado. |
+| C:/BRASILEIRAO/work/data-completion-2026-09-09 | Raw OddsPapi, CSV, piloto, recibos e helpers da captura futura. Contagens/recibos históricos em DC; metadados atuais em RCA. |
+| C:/BRASILEIRAO/work/economic-search-2026-09-10 | Protocolo e experimento BE congelados. Máximos anônimos, sem certificado de execução. |
+| C:/BRASILEIRAO/work/reconciliation-2026-09-10 | Histórico visível recuperado, verificação de dependências, testes sintéticos, pacote e recibos desta etapa. |
+| C:/BRASILEIRAO/DADOS_PRESERVADOS | Acervo recebido e manifesto; cinco snapshots preservados, sem consultas de resultados ou restauração operacional. |
+| C:/BRASILEIRAO/AUDITORIA, BACKUPS, ENTREGAS | Recibos, bundles e pacotes. Recuperação de Git distinta de operação. |
+| C:/BRASILEIRAO/INSTRUCOES | Mandatos originais preservados e próximo prompt datado. |
 
-O banco operacional não foi instalado em `brasileirao-predictor/data/matches.db`.
-A presença de arquivos versionados em `data/` não significa existência de
-serving ou de banco populado no checkout. Credenciais e dados privados não
-devem ser copiados para o Git, para a área executável de pesquisa ou para logs.
+Mapeamento de caminhos da máquina anterior e inventário de snapshots preservados em C:/BRASILEIRAO/work/reconciliation-2026-09-10/previous-guides/docs/DATA_MAP.md e no Git 6c85045. Não supor arquivo recebido apenas trocando prefixos. Não copiar configurações privadas para pesquisa/Git.
 
-## Continuação ER-20260909
-
-`C:/BRASILEIRAO/work/execution-readiness-2026-09-09` contém cinco novas fontes
-públicas, contrato de condições, ensaios isolados, hashes de ativação e versões
-anteriores das duas rotinas futuras. Os 177 históricos e payloads DC não foram
-reescritos. Ensaios sintéticos não são novas observações de mercado.
-[Resultado ER](continuation/execution_readiness_2026-09-09/RESULTADO.md) e
-[reprodução](continuation/execution_readiness_2026-09-09/REPRODUZIR.md).
-
-## Aquisição DC-20260909
-
-Área canônica `C:/BRASILEIRAO/work/data-completion-2026-09-09`:
-
-| Subárea | Conteúdo e limite |
-| --- | --- |
-| `raw` | 177 timelines OddsPapi Jan–Jun/2026, 623.271.596 bytes; exploração sem recibo PIT da época |
-| `universe.json`, `acquisition.json`, `transport_repair.json` | Universo congelado, tentativas, reaproveitamento verificado, hashes e um reparo de conexão |
-| `public_sources`, `extra_docs/public_sources` | CSV Football-Data, páginas oficiais e recibos HTTP; não versionar os corpos das páginas |
-| `prospective_pilot` | Catálogos, fixture escolhido antes das odds, três capturas reais e recibos sanitizados |
-| `closing-01` | Escolhas congeladas antes dos labels 2025 e liquidação exclusivamente condicional |
-| `admission-01` | Auditoria de identidade/estado/clocks, qualidade closing e manifestos |
-| `tests-05` | JUnit e log da execução de 138 testes isolados |
-| `followup`, `followup_audit` | Saídas futuras, criadas somente quando houver tentativa/captura na janela |
-
-Os 22 históricos reutilizados vieram de entradas antigas explicitamente
-permitidas de Jan–Jun/2026; os demais 155 foram adquiridos. O universo de 177
-fixtures tem SHA-256 `6264b2a1b795928fdf0dc6476e311535a42fbc96c12caf5cf881777b7779caba`.
-O CSV bruto tem SHA-256 `ba3e9ea79ab4091b117a901f3914940cea07f1fe06de0deb57af5076f664ccb6`.
-Somente linhas de 2025 foram usadas no replay de preços e labels; nenhum
-resultado de 2026 ou de coorte protegida foi avaliado.
-
-A configuração privada preservada foi consultada apenas pelos processos de
-aquisição da API existente. Não há cópia de credenciais no checkout, nos
-scripts, nos recibos públicos ou no processo de pesquisa offline. O fato de
-um arquivo ter hash válido não comprova disponibilidade passada, autenticidade
-da oferta, capacidade ou aceite.
-
-Código, protocolos, resumos e recibos sanitizados ficam em
-`docs/continuation/data_completion_2026-09-09`; entrega em
-`C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_DC_20260909`. A automação do aplicativo
-tem cópia de sua definição em `C:/BRASILEIRAO/AUDITORIA`.
-[Resultado e lacunas](continuation/data_completion_2026-09-09/RESULTADO.md),
-[reprodução](continuation/data_completion_2026-09-09/REPRODUZIR.md).
-
-## Como resolver caminhos antigos
-
-| Prefixo histórico | Local preservado nesta máquina |
-| --- | --- |
-| `C:/Users/Superleo13/projetos/brasileirao-predictor` | Código atual: `C:/BRASILEIRAO/brasileirao-predictor`; dados da captura: `C:/BRASILEIRAO/DADOS_PRESERVADOS/projetos/brasileirao-predictor` |
-| `C:/Users/Superleo13/projetos/brasileirao-predictor-sessoes` | `C:/BRASILEIRAO/DADOS_PRESERVADOS/projetos/brasileirao-predictor-sessoes` |
-| `C:/Users/Superleo13/Documents/Codex/2026-09-07/le` | Consulte o sufixo de sessão sob `DADOS_PRESERVADOS/projetos/brasileirao-predictor-sessoes/2026-09-07`; entradas selecionadas também estão sob `DADOS_PRESERVADOS/tarefa` |
-| `C:/predictor/data` | `C:/BRASILEIRAO/DADOS_PRESERVADOS/externos/predictor-data` |
-| Entrega da conversa atual `...le/outputs/BRASILEIRAO_PF_20260909` | `C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_PF_20260909` |
-
-O manifesto é a referência para cada arquivo exato; não assumir que a troca
-de prefixo basta para um insumo excluído do pacote. Código histórico excluído
-do ZIP permanece no Git/bundle e nas fontes arquivadas versionadas.
-
-## Snapshots SQLite
-
-O campo `snapshot_restore_map` de
-`C:/BRASILEIRAO/DADOS_PRESERVADOS/MANIFESTO_SHA256.json` associa os cinco snapshots
-a `matches.db`, `odds_operational.db`, `research/prospective.db`,
-`binance_spot_microstructure.sqlite3` e `feature_store.db`.
-O recibo de extração conferiu seus hashes sem consultar tabelas.
-
-Em eventual restauração operacional, usar o snapshot correspondente e nunca
-misturá-lo com WAL/SHM brutos antigos. Dados de pesquisa protegida, ledgers,
-travas/claims e calendários mantêm seus contratos; ter cópia não autoriza
-consultar resultados ou avaliar coortes. Nenhum snapshot foi promovido a banco
-operacional por esta consolidação.
-
-## Verificação e limites
-
-O recibo `AUDITORIA/verificacao_migracao_2026-09-09.json` confirma 12.423
-entradas mais o manifesto, SHA-256/CRC e 9.477.623.208 bytes descompactados.
-O inventário final confere também as cópias da entrega e arquivos Markdown.
-Os dados refletem a captura de 08/09: alterações posteriores em outro PC
-precisariam ser fornecidas para serem incluídas e verificadas.
+[DC](continuation/data_completion_2026-09-09/RESULTADO.md), [BE](continuation/economic_search_2026-09-10/RESULTADO.md), [fontes CPL](continuation/completion_2026-09-10/MAPA_DADOS.md). Os documentos são evidência datada, não provas de funcionamento atual. Hash não autentica fonte, disponibilidade, aceitação ou calendário.

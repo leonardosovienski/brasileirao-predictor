@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-09-10T19:16:59.862255+00:00",
+  "commit": "6c850454418a1c7e878fdb6a461dea509571caec",
+  "manifest_entries_verified": 40,
+  "artifacts": {
+    "zip": {
+      "path": "C:\\BRASILEIRAO\\ENTREGAS\\BRASILEIRAO_ARI_20260910_entrega.zip",
+      "bytes": 20248918,
+      "sha256": "63fb3228757483505de52deba5fef14d77a4554f3a821f62152422988ab29907"
+    },
+    "bundle": {
+      "path": "C:\\BRASILEIRAO\\BACKUPS\\brasileirao-predictor-ARI-20260910.bundle",
+      "bytes": 10106179,
+      "sha256": "83dc30a1fbfd1f9c95cb7ea8bbd42ae47ef5259ac5611e21f6db033e6af4c801"
+    }
+  },
+  "tree_matches_prior_restore": true,
+  "scope": "Fresh byte/hash checks; previous test executions and restore are historical, not rerun here."
+}

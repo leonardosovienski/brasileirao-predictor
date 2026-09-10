@@ -1,0 +1,393 @@
+{
+  "checked_at": "2026-09-10T19:17:03.883317+00:00",
+  "conflicts": [],
+  "requirements_checked": [
+    {
+      "requirement": "ruff<1,>=0.12",
+      "installed": "0.16.6",
+      "satisfied": true
+    },
+    {
+      "requirement": "pytest<10,>=8.4",
+      "installed": "9.1.1",
+      "satisfied": true
+    },
+    {
+      "requirement": "pygments>=2.7.2",
+      "installed": "2.21.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "pluggy<2,>=1.5",
+      "installed": "1.6.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "packaging>=22",
+      "installed": "26.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "iniconfig>=1.0.1",
+      "installed": "2.3.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "colorama>=0.4; sys_platform == \"win32\"",
+      "installed": "0.4.6",
+      "satisfied": true
+    },
+    {
+      "requirement": "pyright<2,>=1.1.400",
+      "installed": "1.1.411",
+      "satisfied": true
+    },
+    {
+      "requirement": "typing-extensions>=4.1",
+      "installed": "4.16.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "nodeenv>=1.6.0",
+      "installed": "1.10.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "pre-commit<5,>=4.3",
+      "installed": "4.6.2",
+      "satisfied": true
+    },
+    {
+      "requirement": "virtualenv>=20.10.0",
+      "installed": "21.7.5",
+      "satisfied": true
+    },
+    {
+      "requirement": "python-discovery>=1.4.2",
+      "installed": "1.5.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "filelock>=3.15.4",
+      "installed": "3.32.4",
+      "satisfied": true
+    },
+    {
+      "requirement": "platformdirs<5,>=3.9.1",
+      "installed": "4.11.4",
+      "satisfied": true
+    },
+    {
+      "requirement": "filelock<4,>=3.24.2; python_version >= \"3.10\"",
+      "installed": "3.32.4",
+      "satisfied": true
+    },
+    {
+      "requirement": "distlib<1,>=0.3.7",
+      "installed": "0.4.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "pyyaml>=5.1",
+      "installed": "6.0.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "nodeenv>=0.11.1",
+      "installed": "1.10.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "identify>=1.0.0",
+      "installed": "2.6.19",
+      "satisfied": true
+    },
+    {
+      "requirement": "cfgv>=2.0.0",
+      "installed": "3.5.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "coverage[toml]<8,>=7.10",
+      "installed": "7.15.4",
+      "satisfied": true
+    },
+    {
+      "requirement": "build<2,>=1.3",
+      "installed": "1.6.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "colorama; os_name == \"nt\"",
+      "installed": "0.4.6",
+      "satisfied": true
+    },
+    {
+      "requirement": "pyproject_hooks",
+      "installed": "1.2.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "packaging>=24.0",
+      "installed": "26.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "numba<1,>=0.61",
+      "installed": "0.67.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "numpy<2.6,>=1.22",
+      "installed": "2.5.2",
+      "satisfied": true
+    },
+    {
+      "requirement": "llvmlite<0.50,>=0.49.0dev0",
+      "installed": "0.49.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "redis[hiredis]<9,>=6.2",
+      "installed": "8.1.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "hiredis>=3.2.0; extra == \"hiredis\"",
+      "installed": "3.4.1",
+      "satisfied": true
+    },
+    {
+      "requirement": "curl-cffi<1,>=0.13",
+      "installed": "0.16.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "certifi>=2024.2.2",
+      "installed": "2026.7.22",
+      "satisfied": true
+    },
+    {
+      "requirement": "cffi>=2.0.0",
+      "installed": "2.1.1",
+      "satisfied": true
+    },
+    {
+      "requirement": "pycparser; implementation_name != \"PyPy\"",
+      "installed": "3.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "html5lib<2,>=1.1",
+      "installed": "1.1",
+      "satisfied": true
+    },
+    {
+      "requirement": "webencodings",
+      "installed": "0.6.1",
+      "satisfied": true
+    },
+    {
+      "requirement": "six>=1.9",
+      "installed": "1.17.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "lxml<7,>=5.3",
+      "installed": "6.1.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "beautifulsoup4<5,>=4.13",
+      "installed": "4.15.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "typing-extensions>=4.0.0",
+      "installed": "4.16.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "soupsieve>=1.6.1",
+      "installed": "2.9.2",
+      "satisfied": true
+    },
+    {
+      "requirement": "jsonschema<5,>=4.25",
+      "installed": "4.26.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "rpds-py>=0.25.0",
+      "installed": "2026.6.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "referencing>=0.28.4",
+      "installed": "0.37.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "rpds-py>=0.7.0",
+      "installed": "2026.6.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "attrs>=22.2.0",
+      "installed": "26.1.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "jsonschema-specifications>=2023.03.6",
+      "installed": "2025.9.1",
+      "satisfied": true
+    },
+    {
+      "requirement": "referencing>=0.31.0",
+      "installed": "0.37.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "requests<3,>=2.32",
+      "installed": "2.34.2",
+      "satisfied": true
+    },
+    {
+      "requirement": "certifi>=2023.5.7",
+      "installed": "2026.7.22",
+      "satisfied": true
+    },
+    {
+      "requirement": "urllib3<3,>=1.26",
+      "installed": "2.7.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "idna<4,>=2.5",
+      "installed": "3.19",
+      "satisfied": true
+    },
+    {
+      "requirement": "charset_normalizer<4,>=2",
+      "installed": "3.5.1",
+      "satisfied": true
+    },
+    {
+      "requirement": "truststore<1,>=0.10",
+      "installed": "0.10.4",
+      "satisfied": true
+    },
+    {
+      "requirement": "PyYAML<7,>=6.0",
+      "installed": "6.0.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "scipy<2,>=1.15",
+      "installed": "1.18.1",
+      "satisfied": true
+    },
+    {
+      "requirement": "numpy<2.8,>=2.0.0",
+      "installed": "2.5.2",
+      "satisfied": true
+    },
+    {
+      "requirement": "pandas<4,>=2.2",
+      "installed": "3.0.5",
+      "satisfied": true
+    },
+    {
+      "requirement": "tzdata; sys_platform == \"win32\"",
+      "installed": "2026.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "python-dateutil>=2.8.2",
+      "installed": "2.9.0.post0",
+      "satisfied": true
+    },
+    {
+      "requirement": "six>=1.5",
+      "installed": "1.17.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "numpy>=1.26.0; python_version < \"3.14\"",
+      "installed": "2.5.2",
+      "satisfied": true
+    },
+    {
+      "requirement": "numpy<3,>=2.2",
+      "installed": "2.5.2",
+      "satisfied": true
+    },
+    {
+      "requirement": "pydantic-settings<3,>=2.10",
+      "installed": "2.15.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "typing-inspection>=0.4.0",
+      "installed": "0.4.4",
+      "satisfied": true
+    },
+    {
+      "requirement": "typing-extensions>=4.15.0",
+      "installed": "4.16.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "python-dotenv>=0.21.0",
+      "installed": "1.2.3",
+      "satisfied": true
+    },
+    {
+      "requirement": "pydantic>=2.7.0",
+      "installed": "2.13.5",
+      "satisfied": true
+    },
+    {
+      "requirement": "typing-inspection>=0.4.2",
+      "installed": "0.4.4",
+      "satisfied": true
+    },
+    {
+      "requirement": "typing-extensions>=4.14.1",
+      "installed": "4.16.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "pydantic-core==2.46.5",
+      "installed": "2.46.5",
+      "satisfied": true
+    },
+    {
+      "requirement": "annotated-types>=0.6.0",
+      "installed": "0.8.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "pydantic<3,>=2.11",
+      "installed": "2.13.5",
+      "satisfied": true
+    },
+    {
+      "requirement": "predictor-ops<5,>=4.0",
+      "installed": "4.1.0",
+      "satisfied": true
+    },
+    {
+      "requirement": "predictor-core<4,>=3.2",
+      "installed": "3.2.0",
+      "satisfied": true
+    }
+  ],
+  "hiredis": "3.4.1",
+  "hatchling_cached_metadata": {
+    "path": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\uv-cache\\archive-v0\\Myxg33JoTOLihE8rOwRs4\\hatchling-1.32.0.dist-info\\METADATA",
+    "bytes": 3850,
+    "sha256": "ea7fcb0a3f2d8003354a0be2dd231c0e3524cb3a729b8f3e532559baca217fc5"
+  },
+  "build_scope": "Hatchling 1.32.0 is cached for isolated uv builds; not installed in the runtime venv. Current offline build verifies availability."
+}
