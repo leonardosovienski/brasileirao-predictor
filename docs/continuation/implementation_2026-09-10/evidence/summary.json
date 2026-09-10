@@ -1,0 +1,118 @@
+{
+  "round": "IE-20260910",
+  "base": "a7ded8800536a2b9ad845ebdb9f3ee1758d97861",
+  "created_at": "2026-09-10T02:12:17.497925+00:00",
+  "python_unit": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "4",
+    "tests": "286",
+    "time": "68.496",
+    "timestamp": "2026-09-09T23:00:06.532043-03:00",
+    "hostname": "Leo"
+  },
+  "python_redis": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "27",
+    "time": "35.663",
+    "timestamp": "2026-09-09T23:00:26.748410-03:00",
+    "hostname": "Leo"
+  },
+  "dotnet": {
+    "total": "110",
+    "executed": "110",
+    "passed": "110",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "dotnet_coverage": {
+    "line-rate": "0.8658",
+    "branch-rate": "0.8239",
+    "version": "1.9",
+    "timestamp": "1789005862",
+    "lines-covered": "839",
+    "lines-valid": "969",
+    "branches-covered": "351",
+    "branches-valid": "426"
+  },
+  "skips": [
+    {
+      "test": "test_healthcheck_module_process_returns_status[missing-1]",
+      "reason": "explicit disposable Redis DB14 URL and run_id are required"
+    },
+    {
+      "test": "test_healthcheck_module_process_returns_status[healthy-0]",
+      "reason": "explicit disposable Redis DB14 URL and run_id are required"
+    },
+    {
+      "test": "test_healthcheck_module_process_returns_status[expired-1]",
+      "reason": "explicit disposable Redis DB14 URL and run_id are required"
+    },
+    {
+      "test": "test_symlink_input_resolved_into_repository_data_is_rejected",
+      "reason": "platform does not permit creating a synthetic symlink"
+    }
+  ],
+  "guard_tests": [
+    {
+      "case": "foreign_redis",
+      "exit_code": 1,
+      "denied_before_operation": true
+    },
+    {
+      "case": "external_network",
+      "exit_code": 1,
+      "denied_before_operation": true
+    },
+    {
+      "case": "protected_file",
+      "exit_code": 1,
+      "denied_before_operation": true
+    },
+    {
+      "case": "external_write",
+      "exit_code": 1,
+      "denied_before_operation": true
+    },
+    {
+      "case": "external_sqlite",
+      "exit_code": 1,
+      "denied_before_operation": true
+    },
+    {
+      "case": "subprocess",
+      "exit_code": 1,
+      "denied_before_operation": true
+    },
+    {
+      "case": "guard_startup_failure",
+      "exit_code": 70,
+      "denied_before_operation": true
+    }
+  ],
+  "frozen_capture": {
+    "fixture": "id1000032566887012",
+    "decision_at": "2026-09-11T23:00:00Z",
+    "collector_changed": false,
+    "auditor_changed": false,
+    "new_api_requests": 0
+  },
+  "global_ready": false,
+  "profitability_established": false,
+  "real_capital_enabled": false
+}

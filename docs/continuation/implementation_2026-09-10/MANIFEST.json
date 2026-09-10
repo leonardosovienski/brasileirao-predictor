@@ -1,0 +1,173 @@
+{
+  "round": "IE-20260910",
+  "files": {
+    "ERRATA_UTF8.json": {
+      "sha256": "86a6e674908717cfb28f6bae0b8b8a2467d0d00e4787a1f604617b8d53483f85",
+      "bytes": 42264
+    },
+    "evidence/before-bootstrap-failure.log": {
+      "sha256": "9875715f26a221b894d78b1f364d711c730f3f0fbfaa02e6b6bbb6d599c37fd2",
+      "bytes": 2274
+    },
+    "evidence/before-cold-start.xml": {
+      "sha256": "930cb178f6ba1ee27ffc2cb3a34778103290e2bd1b7b64131b1a02f524ef9037",
+      "bytes": 1137
+    },
+    "evidence/before-intermittent-cross-pass.log": {
+      "sha256": "385bed27267beeeffef4dae13a6295286b8e5ee99740aaa77ec94036fbd7861a",
+      "bytes": 701
+    },
+    "evidence/before-parser.xml": {
+      "sha256": "ca8656cee8ee5acce633e39bfc6bdd8ea463be2d7d14ed8254255463fae69fae",
+      "bytes": 1693
+    },
+    "evidence/before-receipt-universe.xml": {
+      "sha256": "198712788681b492d265787db53f8df6466734f966251bfd444f3f126bc7c834",
+      "bytes": 2017
+    },
+    "evidence/before-runtime-smoke-failure.log": {
+      "sha256": "93eb6b82641c451015c0cfec1dda639fdedf7396f2811f029c91d37939be9628",
+      "bytes": 1778
+    },
+    "evidence/build-python-final-02.log": {
+      "sha256": "f56ce8d09c00f69906ab511c7d13ff5ef8d82e670d9640e53a611dc9731b89ae",
+      "bytes": 315
+    },
+    "evidence/capture-contract.json": {
+      "sha256": "b9772195bab969a6ca0f9429eb390cf4b2c7765208ab54b77e4c0dfa63551f49",
+      "bytes": 563
+    },
+    "evidence/capture-manifest.json": {
+      "sha256": "afa6451f696066be3ad16a52b97dc0bb81d7a163312e11c3a78e353af83c8136",
+      "bytes": 3653
+    },
+    "evidence/CHECKPOINT_E_PROTOCOLO.md": {
+      "sha256": "ab336b2b0c073bb3c6aa831f49dcfd6de178ff6c1201a095617742bdf1cf48b2",
+      "bytes": 4031
+    },
+    "evidence/decision.json": {
+      "sha256": "27384ab83f92910b828e7b0a4522e443dac2670172820e780b274c3aefb64ea2",
+      "bytes": 4654
+    },
+    "evidence/dotnet-build.log": {
+      "sha256": "112d12981d7a979551540c92461e4b092a9504bb1f93696662689f880ac5e70f",
+      "bytes": 398
+    },
+    "evidence/dotnet-coverage.xml": {
+      "sha256": "7618dcfcb07fb2222ec30e6d3a26fc93782c65f915ca037200710a344246723c",
+      "bytes": 226352
+    },
+    "evidence/dotnet-test.log": {
+      "sha256": "172c547151e7f314d161c3fb7557f99a30f4025e63f453ed4e2ddcc227ecf01a",
+      "bytes": 686
+    },
+    "evidence/dotnet-tests.trx": {
+      "sha256": "4d7056b2e32aaba2a5c0b7316be7c41cec57858d38391f1afbe6beafb1c82ac1",
+      "bytes": 161948
+    },
+    "evidence/package-smoke-final.log": {
+      "sha256": "9da6e08a4a4d1522832cd081ecfc602cd682b8f8790e4f0bd596b4773545fe04",
+      "bytes": 879
+    },
+    "evidence/package-smoke.json": {
+      "sha256": "6cb1345ba0592989b4dccf7646f9609712363e05cf5ce2a996ba85c5f177ec9f",
+      "bytes": 519
+    },
+    "evidence/pyright-default.log": {
+      "sha256": "94b0b492c9093b52ee7210852d8f102cca33cfe54ea793b33a893926516b8561",
+      "bytes": 124
+    },
+    "evidence/pyright-explicit.log": {
+      "sha256": "c584b21ee012de391dc2799d5455db619d3fefbb192ab07ea4ba83fb0d704c14",
+      "bytes": 38
+    },
+    "evidence/python-redis.log": {
+      "sha256": "d618d83be77ad29b381674961c17912f2eeee77f62f4526667e3353a32a3da26",
+      "bytes": 102
+    },
+    "evidence/python-redis.xml": {
+      "sha256": "a6e36032a056b461638844306aa51835a8b5b225d411b06a2eb7ca65b0891d35",
+      "bytes": 3932
+    },
+    "evidence/python-unit.xml": {
+      "sha256": "e7167a4d8dcb6c217f3dbdf3941acc5c676977804db543de613089e64b875e1a",
+      "bytes": 41862
+    },
+    "evidence/redis-container-tag.json": {
+      "sha256": "66dcb09c4373df3f2a07d5095c2e6af41fbf8c0df3369a47e42919578f5da92e",
+      "bytes": 5524
+    },
+    "evidence/redis-windows-release.json": {
+      "sha256": "454353e486212567a213f070f60ce82f70f894ddec96a2df9beea77b2bce4c83",
+      "bytes": 11157
+    },
+    "evidence/ruff-final.log": {
+      "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+      "bytes": 20
+    },
+    "evidence/ruff-format-final.log": {
+      "sha256": "ce09bda9ca2547d862571cd8af5adc6007e9cb4f608d31b24ad1e2a6f64601f5",
+      "bytes": 29
+    },
+    "evidence/runtime-receipt.json": {
+      "sha256": "90159e8a4b8d7e727918ebc38ded9b1c78ca5b09fb97a3d4cc418730f0adee39",
+      "bytes": 1968
+    },
+    "evidence/seal.json": {
+      "sha256": "bd52bbae8c178bf1eb252fec86a1a2266f5358d80df4603f2eb9bdddd719962f",
+      "bytes": 3331
+    },
+    "evidence/summary.json": {
+      "sha256": "ade6d7edce98594f19d6a95d5ae0f30c822e6780aae28ecf6a0ad8d15aa690f1",
+      "bytes": 3053
+    },
+    "evidence/unit-isolation.json": {
+      "sha256": "8fb403ee7a9a1549922071258fc9b52fa873e2f46ab35dc36923135438879d3a",
+      "bytes": 851
+    },
+    "PROXIMO_PROMPT.md": {
+      "sha256": "4349da05533f1f60d765eedb740695cea9200ca46c591d90ed72bfe07d34a68e",
+      "bytes": 2141
+    },
+    "REGISTROS.json": {
+      "sha256": "2f056ffe12238ec0a28cd9389e5a9ab06c0d1c920d42eacae4d10a64d5251594",
+      "bytes": 2989
+    },
+    "REGISTROS_RI_UTF8.json": {
+      "sha256": "5fc39454e71c4ad67ce6870e1ed1e06dc78b2ad905c13fa240fa61480669112a",
+      "bytes": 22703
+    },
+    "reproducao/capture_decision_before_universe.py": {
+      "sha256": "fbcbdcd9c1719308e2feb2e00c14dd5ef91057ed6449ad6a380d364cbb429b76",
+      "bytes": 10212
+    },
+    "reproducao/check_lab_boundaries.py": {
+      "sha256": "030bc8fe7f99b57cdd609ce7dbfd09489a5f888a5d7f69809c40d5aafa20ed33",
+      "bytes": 2120
+    },
+    "reproducao/repair_register.py": {
+      "sha256": "862c4dac57a74247a611f0eb3daaaf9c7214469e77dac363aab341b9e55b1bb6",
+      "bytes": 1718
+    },
+    "reproducao/run_capture_experiment.py": {
+      "sha256": "d26ca48c3d0400aba9acd24e524e8e87abe1f849faa756f6cdba2f189320428d",
+      "bytes": 3243
+    },
+    "reproducao/run_isolated.py": {
+      "sha256": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579",
+      "bytes": 4839
+    },
+    "reproducao/test_cold_start_preload_variant.py": {
+      "sha256": "b8f975a4d021a06cf11697231582cd2080e98c60665845129daaa7e310137e70",
+      "bytes": 1490
+    },
+    "REPRODUZIR.md": {
+      "sha256": "a078dd622fbb4daac7665136387674b67b122d2e2b9e16ca3c541d1519834482",
+      "bytes": 4028
+    },
+    "RESULTADO.md": {
+      "sha256": "8ef848b2db7000937a2f1b3ab80ee61356ee3c4a075a8cc9b761450404ad249f",
+      "bytes": 11174
+    }
+  }
+}

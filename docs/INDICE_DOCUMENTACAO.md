@@ -1,3 +1,9 @@
+# Índice atual IE-20260910
+
+[Resultado](continuation/implementation_2026-09-10/RESULTADO.md), [registros](continuation/implementation_2026-09-10/REGISTROS.json), [reprodução](continuation/implementation_2026-09-10/REPRODUZIR.md), [próximo prompt](continuation/implementation_2026-09-10/PROXIMO_PROMPT.md), [errata UTF8](continuation/implementation_2026-09-10/ERRATA_UTF8.json) e [registros RI com texto corrigido](continuation/implementation_2026-09-10/REGISTROS_RI_UTF8.json). Últimos preservam datas/conclusões RI; não são novas avaliações. Índice anterior abaixo preservado.
+
+---
+
 # Índice da documentação — RI-20260909
 
 Estado vigente: [ESTADO_ATUAL.md](ESTADO_ATUAL.md). [Resultado RI](continuation/integral_review_2026-09-09/RESULTADO.md), [retomada](continuation/RETOMADA.md) e [próximo prompt](continuation/integral_review_2026-09-09/PROXIMO_PROMPT.md).

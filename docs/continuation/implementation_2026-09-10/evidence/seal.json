@@ -1,0 +1,84 @@
+{
+  "created_at": "2026-09-10T02:38:23.152809+00:00",
+  "base_commit": "a7ded8800536a2b9ad845ebdb9f3ee1758d97861",
+  "protected_collectors_unchanged": {
+    "followup_capture.py": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88",
+    "audit_followup.py": "ebce7ddeb384b347be4985b7a3812a1b83c7dfaceafdb3e2a6cb00f7e2d09a24"
+  },
+  "followup_attempt_present": false,
+  "sources": {
+    "brasileirao_predictor/kernel_daemon.py": {
+      "sha256": "4524843607c49fbac7d977d1d94611a35d7f0d5be4a707d23bc046405ebc68ff",
+      "bytes": 19552
+    },
+    "brasileirao_predictor/kernel_message.py": {
+      "sha256": "6072e95705d0d2624b2a5c74a5d628cda7ac7bc7be26e8c11ce7a6c2af44ec92",
+      "bytes": 2271
+    },
+    "brasileirao_scripts/hotpath_smoke.py": {
+      "sha256": "62e2260066c05b9897132f334d767135447d562b1684cea480f6074124f8ea77",
+      "bytes": 7050
+    },
+    "brasileirao_scripts/coverage_report.py": {
+      "sha256": "9ebd2f15be24464ed116cd59d4c2fabab5a3ff4642e819fdbd6f3d77f1d9b46a",
+      "bytes": 6715
+    },
+    "brasileirao_predictor/research/price_strength/capture_decision.py": {
+      "sha256": "157d1d29422779f7e2d0f5bbd09204f7971b86c201bb2485239a943debec40b6",
+      "bytes": 11377
+    },
+    "dotnet/LineupWorker.Tests/KernelCrossProcessTests.cs": {
+      "sha256": "27656be696b380d53178c0bd0a9c96ea93f77988ae5eff7355aa6b8327c86ffd",
+      "bytes": 11572
+    },
+    ".github/workflows/ci.yml": {
+      "sha256": "1d9468d829cc1c95c05507c7d29047e0f5a1d86f4915bab823d160abcc392486",
+      "bytes": 8695
+    },
+    "tests/test_capture_decision.py": {
+      "sha256": "d7a810c2f82dd2710791d5aeb9bafd6e26d23831fc2a049a0944e5c08c1eca25",
+      "bytes": 8855
+    },
+    "tests/test_hotpath_cold_start.py": {
+      "sha256": "4916405ad46ec559ca918488bf1fc7a2c0a3219cba5a1128ee5f66094fe6d57d",
+      "bytes": 1126
+    },
+    "tools/runtime_lab/kernel_synthetic.py": {
+      "sha256": "c86aedbf6066274eb313314c74f088e89fe468ea246089face75adf6ac9ecbdd",
+      "bytes": 1545
+    },
+    "tools/runtime_lab/lab_guard.py": {
+      "sha256": "7ec5c7acaf10c2d05ae3c340ac64997d797b4ef4dfdc5a9337d98b67a2d19753",
+      "bytes": 3140
+    },
+    "tools/runtime_lab/python_tests.py": {
+      "sha256": "21c2e991b9218f72ab927f687bd465f5101c7348611c04827ebbb45836f9467f",
+      "bytes": 1056
+    },
+    "tools/runtime_lab/run.py": {
+      "sha256": "b32424342b92bb91d7b52bb2189d942c1e89eb4a6b554cc1fcb664c0cacae2b0",
+      "bytes": 9687
+    },
+    "tools/runtime_lab/sitecustomize.py": {
+      "sha256": "90a9997848ff28c439a275079e3c1aad981016f8174adf4d2d0e96bd13ecb307",
+      "bytes": 171
+    }
+  },
+  "packages": {
+    ".gitignore": {
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+      "bytes": 1
+    },
+    "brasileirao_predictor-0.1.0-py3-none-any.whl": {
+      "sha256": "90847167f8c40258607572fc2ec987b493ea0ef9d956d4da3100ab44f72e88cd",
+      "bytes": 606750
+    },
+    "brasileirao_predictor-0.1.0.tar.gz": {
+      "sha256": "860ace2e4c4740136d57def9f2d6ff1f2a25e95ce1e3329100d9b6a579a8e17c",
+      "bytes": 8840463
+    }
+  },
+  "workflow_configuration_parsed": true,
+  "remote_main_last_verified": "ac22c56c3318623e07a722f34d44dc6cd877ea37",
+  "remote_ci_for_new_revision_executed": false
+}

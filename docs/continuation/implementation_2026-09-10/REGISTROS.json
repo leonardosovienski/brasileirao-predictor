@@ -1,0 +1,66 @@
+{
+  "round": "IE-20260910",
+  "base": "a7ded8800536a2b9ad845ebdb9f3ee1758d97861",
+  "issues": [
+    {
+      "id": "IE01",
+      "problem": "Cold import durante TTL do resultado no smoke",
+      "before": "cold-before e parser-before falham; runtime01 falha intermitente compatível com janela curta",
+      "change": "Parser puro compartilhado; sem import numérico na verificação",
+      "status": "corrigido no escopo testado",
+      "evidence": "unit-final; runtime04"
+    },
+    {
+      "id": "IE02",
+      "problem": "Chaves JSON duplicadas na invocação",
+      "before": "parser-before aceita valor contraditório anterior",
+      "change": "object_pairs_hook rejeita duplicatas antes de coerção",
+      "status": "corrigido",
+      "evidence": "parser-before; unit-final"
+    },
+    {
+      "id": "IE03",
+      "problem": "Ausência de prova local Redis real/Python/.NET e CI pulando teste cross-process",
+      "change": "Instância própria por PID/run_id, barreiras, bootstrap e configuração CI; serviço de teste atualizado por digest",
+      "status": "validado localmente; CI remota pendente",
+      "evidence": "runtime04; guard-boundaries; ci.yml"
+    },
+    {
+      "id": "IE04",
+      "problem": "Inicialização/JIT confundida com recuperação de notificação perdida",
+      "before": "runtime03 expira espera antes da prontidão",
+      "change": "Barreira de prontidão antes da medição, inscrição só após registro",
+      "status": "corrigido no harness; 110.NET aprovados",
+      "evidence": "runtime03; runtime04"
+    },
+    {
+      "id": "IE05",
+      "problem": "Consumidor podia omitir falha sem payload ou captura salva mais recente",
+      "before": "Duas regressões cli-universe-before falham",
+      "change": "Universo de recibos completo, falhas preservadas e recusa de arquivos omitidos",
+      "status": "corrigido",
+      "evidence": "cli-universe-before; unit-final; capture-experiment02"
+    },
+    {
+      "id": "IE06",
+      "problem": "Mojibake em177campos dos registros RI",
+      "change": "Sucessor UTF8 reversível; originais/hash preservados",
+      "status": "corrigido por errata, sem reescrever resultados",
+      "evidence": "ERRATA_UTF8.json"
+    },
+    {
+      "id": "IE07",
+      "problem": "Ausência de preço/custos/capacidade/validação para lucro executável",
+      "change": "Diagnóstico real rejeita par e mantém exposição zero, custos desconhecidos explícitos",
+      "status": "dependência econômica externa aberta; hipótese de suficiência refutada neste piloto",
+      "evidence": "capture-experiment02; protocolo DC"
+    }
+  ],
+  "states": {
+    "technical": "ready_in_tested_lab_not_globally_ready",
+    "data": "insufficient_for_execution",
+    "economic": "executable_profit_not_measurable"
+  },
+  "previous_frozen_register": "../integral_review_2026-09-09/REGISTROS.json",
+  "previous_text_erratum": "REGISTROS_RI_UTF8.json"
+}

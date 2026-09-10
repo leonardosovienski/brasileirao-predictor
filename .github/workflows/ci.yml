@@ -18,7 +18,7 @@ jobs:
           - python-version: "3.14"
     services:
       redis:
-        image: redis:8.2.1-alpine3.22
+        image: redis:8.2.9-alpine3.22@sha256:30abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d
         ports:
           - 26380:6379
         options: >-
@@ -79,7 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       redis:
-        image: redis:8.2.1-alpine3.22
+        image: redis:8.2.9-alpine3.22@sha256:30abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d
         ports:
           - 26380:6379
         options: >-
@@ -99,9 +99,30 @@ jobs:
       - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: "10.0.x"
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.12.1"
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Prepare the synthetic cross-process kernel
+        run: uv sync --all-extras --locked
       - run: dotnet restore dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --locked-mode
       - run: dotnet build dotnet/LineupWorker/LineupWorker.csproj --configuration Release --no-restore --warnaserror
-      - run: dotnet test dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --configuration Release --no-restore --collect:"XPlat Code Coverage" --results-directory artifacts/dotnet-coverage
+      - name: Test Worker and Python processes against this job's Redis
+        run: |
+          export BRASILEIRAO_LAB_OUTPUT="$RUNNER_TEMP/brasileirao-runtime-lab"
+          mkdir -p "$BRASILEIRAO_LAB_OUTPUT"
+          export BRASILEIRAO_LAB_REPO="$GITHUB_WORKSPACE"
+          export PYTHONPATH="$GITHUB_WORKSPACE/tools/runtime_lab:$GITHUB_WORKSPACE"
+          export PYTHONDONTWRITEBYTECODE=1
+          export NUMBA_CACHE_DIR="$BRASILEIRAO_LAB_OUTPUT/numba"
+          export TMPDIR="$BRASILEIRAO_LAB_OUTPUT"
+          export LINEUP_E2E_PYTHON="$GITHUB_WORKSPACE/.venv/bin/python"
+          export LINEUP_E2E_KERNEL_SCRIPT="$GITHUB_WORKSPACE/tools/runtime_lab/kernel_synthetic.py"
+          export LINEUP_E2E_REDIS_URL=redis://127.0.0.1:26380/13
+          export LINEUP_E2E_REDIS_RUN_ID="$LINEUP_TEST_REDIS_RUN_ID"
+          dotnet test dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --configuration Release --no-restore --collect:"XPlat Code Coverage" --results-directory artifacts/dotnet-coverage
       - name: Enforce Worker line and branch coverage
         run: |
           python - <<'PY'

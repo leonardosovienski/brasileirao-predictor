@@ -66,8 +66,34 @@ public sealed class KernelCrossProcessTests
         await engine.StartAsync(CancellationToken.None);
         try
         {
-            // Register before the Python process exists: Pub/Sub wakeup is lost,
-            // and the real daemon must recover the persisted pending request.
+            // Finish cold imports/JIT before measuring protocol recovery. The
+            // bootstrap waits for our file barrier before any subscription, so
+            // registration below still loses its Pub/Sub wakeup deliberately.
+            Directory.CreateDirectory(fixtureDirectory);
+            var readyFile = Path.Combine(fixtureDirectory, "python-ready");
+            var startFile = Path.Combine(fixtureDirectory, "python-start");
+            var start = new ProcessStartInfo(Environment.GetEnvironmentVariable("LINEUP_E2E_PYTHON")!)
+            {
+                UseShellExecute = false, CreateNoWindow = true,
+                RedirectStandardOutput = true, RedirectStandardError = true,
+                WorkingDirectory = Environment.CurrentDirectory,
+            };
+            start.Environment["LINEUP_E2E_READY_FILE"] = readyFile;
+            start.Environment["LINEUP_E2E_START_FILE"] = startFile;
+            start.ArgumentList.Add(Environment.GetEnvironmentVariable("LINEUP_E2E_KERNEL_SCRIPT")!);
+            python = Process.Start(start)!;
+            stdout = python.StandardOutput.ReadToEndAsync();
+            stderr = python.StandardError.ReadToEndAsync();
+            var bootDeadline = DateTimeOffset.UtcNow.AddSeconds(120);
+            while (!File.Exists(readyFile) && DateTimeOffset.UtcNow < bootDeadline)
+            {
+                if (python.HasExited)
+                    Assert.Fail("Synthetic kernel exited during initialization: " + await stderr);
+                await Task.Delay(50);
+            }
+            Assert.True(File.Exists(readyFile), "Synthetic kernel did not finish isolated initialization.");
+
+            // No kernel subscriber yet: recovery must use the durable request.
             var registration = await engine.InvokeKernelAsync(match, 1600, 1500, lineup, null,
                 "synthetic-event", TimeSpan.FromMinutes(2));
             Assert.Equal("registered", registration.Status);
@@ -77,16 +103,7 @@ public sealed class KernelCrossProcessTests
             Assert.Equal("1", payload.state_version);
             Assert.Equal("pending", (string?)await db.HashGetAsync(KernelRedisProtocolV2.RequestPrefix + run, "status"));
 
-            var start = new ProcessStartInfo(Environment.GetEnvironmentVariable("LINEUP_E2E_PYTHON")!)
-            {
-                UseShellExecute = false, CreateNoWindow = true,
-                RedirectStandardOutput = true, RedirectStandardError = true,
-                WorkingDirectory = Environment.CurrentDirectory,
-            };
-            start.ArgumentList.Add(Environment.GetEnvironmentVariable("LINEUP_E2E_KERNEL_SCRIPT")!);
-            python = Process.Start(start)!;
-            stdout = python.StandardOutput.ReadToEndAsync();
-            stderr = python.StandardError.ReadToEndAsync();
+            await File.WriteAllTextAsync(startFile, "start-synthetic-session");
             var until = DateTimeOffset.UtcNow.AddSeconds(40);
             while (signals.IsEmpty && DateTimeOffset.UtcNow < until)
             {

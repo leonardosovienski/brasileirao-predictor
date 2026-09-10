@@ -1,0 +1,23 @@
+{
+  "schema_version": "api-capture-decision/1",
+  "fixture_id": "id1000032566887012",
+  "identity": {
+    "participant1Id": 1982,
+    "participant2Id": 1967,
+    "sportId": 10,
+    "tournamentId": 325,
+    "seasonId": 137706
+  },
+  "kickoff_at": "2026-09-12T00:00:00Z",
+  "decision_at": "2026-09-09T20:17:30.413563+00:00",
+  "initial_bankroll_units": 100,
+  "policy": {
+    "reference_books": [
+      "pinnacle"
+    ],
+    "max_age_seconds": 120,
+    "max_skew_seconds": 15,
+    "cost_per_unit": 0.02,
+    "commission_on_profit": 0.0
+  }
+}

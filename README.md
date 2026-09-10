@@ -1,42 +1,21 @@
 # brasileirao-predictor
 
-Pesquisa quantitativa e software de previsão para o Brasileirão Série A.
-**Raiz local: C:/BRASILEIRAO. Projeto globalmente não pronto; lucro executável não demonstrado; capital bloqueado.**
+Pesquisa quantitativa e software para o Brasileirão Série A, em C:/BRASILEIRAO.
 
-## Comece aqui
+**Correções e integração local validadas; lucro executável ainda não demonstrado.** O projeto não está globalmente pronto para operação financeira. [Estado atual](docs/ESTADO_ATUAL.md) · [Resultado IE](docs/continuation/implementation_2026-09-10/RESULTADO.md) · [Reproduzir](docs/continuation/implementation_2026-09-10/REPRODUZIR.md).
 
-A [revisão RI-20260909](docs/continuation/integral_review_2026-09-09/RESULTADO.md) conferiu o existente, corrigiu defeitos e validou o escopo permitido. Seus mapas distinguem software testado, dados admissíveis e bloqueios. H14/H15/H9/A1 permanecem protegidos; conclusão da revisão não significa realização do objetivo econômico.
+## Implementação atual
 
-1. [Estado atual](docs/ESTADO_ATUAL.md) e [retomada](docs/continuation/RETOMADA.md).
-2. [Matriz de alegações](docs/continuation/integral_review_2026-09-09/ALEGACOES.md) e [problemas/correções](docs/continuation/integral_review_2026-09-09/PROBLEMAS.md).
-3. [Mapa do sistema](docs/continuation/integral_review_2026-09-09/MAPA_SISTEMA.md), [dados](docs/DATA_MAP.md) e [índice documental](docs/INDICE_DOCUMENTACAO.md).
-4. [Próximo prompt](docs/continuation/integral_review_2026-09-09/PROXIMO_PROMPT.md), [mandato](docs/continuation/MANDATO_LUCRO_2026-09-09.md) e [histórico](HANDOFF.md).
+O parser de mensagens do kernel é compartilhado e leve, recusando duplicatas JSON. O smoke verifica resultados sem iniciar NumPy/Numba e consumir sua validade durante o import. Um laboratório descartável comprova a integração Python/.NET/Redis, incluindo recuperação de notificação perdida e um único sinal para a requisição corrente.
 
-## Resultado e evidência
+O comando offline `python -m brasileirao_predictor.research.price_strength.capture_decision --help` audita arquivos explícitos de captura e recibo, exige identidade/kickoff congelados, preserva tentativas fracassadas e recusa preços antigos após um estado posterior inválido. Seu resultado separa comparação API condicional e execução; faltando evidência comercial, mantém abstenção. Não envia ordens ou liquida partidas.
 
-A RI corrigiu admissão de identidade/estado/clocks, JSON ambíguo, concorrência de publicação, agrupamento temporal e backtest de eventos. O simulador de Copa recusa liga antes de abrir banco; importar helpers de backtest não cria log operacional. O auditor independente da captura futura recebeu a versão testada, mantendo coletor, fixture, horário e agenda.
+Foram aprovados282 testes Python do escopo afetado,27 com Redis real,110 .NET e7 ensaios de isolamento. Quatro testes Python foram pulados com motivos registrados. [Logs, cobertura e limites](docs/continuation/implementation_2026-09-10/REPRODUZIR.md). Instalação, testes sintéticos e vantagem hipotética de preço não demonstram rentabilidade.
 
-Foram reconferidos 177 históricos íntegros, 380 jogos de 2025 e três capturas de um evento. Zero execuções admitidas. A perda condicional já conhecida de 9,24 u foi reproduzida, sem novo holdout ou otimização de filtros. Hash/recibo atual não comprova oferta executável no passado. Referência independente sem margem não é probabilidade verdadeira.
+## Dados e continuidade
 
-Nos lotes isolados, 1.291 casos únicos têm último resultado aprovado e um foi pulado; não se trata da suíte integral. O pacote Python foi construído e sua ajuda da CLI funcionou; .NET 10 compilou, com 69 testes aprovados e 41 pulados. Ruff no escopo CI e tipagem padrão/explicitamente ampliada passaram. [Evidências e limites](docs/continuation/integral_review_2026-09-09/REPRODUZIR.md).
+As3 capturas permitidas de1 fixture voltaram a ser rejeitadas como par API. Zero apostas/exposição; custos fixos e lucro líquido total seguem desconhecidos. A [revisão RI](docs/continuation/integral_review_2026-09-09/RESULTADO.md) preserva a auditoria dos177 históricos,380 jogos2025 e o resultado condicional negativo já conhecido, sem nova escolha de filtro.
 
-## Instalação e operação são estados diferentes
+Leia [registros atuais](docs/continuation/implementation_2026-09-10/REGISTROS.json), [mapa de dados](docs/DATA_MAP.md), [índice](docs/INDICE_DOCUMENTACAO.md), [retomada](docs/continuation/RETOMADA.md), [próximo prompt](docs/continuation/implementation_2026-09-10/PROXIMO_PROMPT.md) e [mandato](docs/continuation/MANDATO_LUCRO_2026-09-09.md). A errata UTF8 dos registros RI é sucessora, sem reescrever evidências congeladas.
 
-| Componente | Estado conferido na RI |
-| --- | --- |
-| Repo e histórico | C:/BRASILEIRAO/brasileirao-predictor, main; base inicial ac22c56, integração no recibo de auditoria |
-| Ambiente de pesquisa completo | C:/BRASILEIRAO/work/revisao-integral-2026-09-09/venv; Python 3.13.12, Core 3.2.0/Ops 4.1.0 e extras fixados |
-| SDK .NET portátil | C:/BRASILEIRAO/work/revisao-integral-2026-09-09/dotnet-sdk; 10.0.401, build em cópia isolada |
-| Ambiente mínimo da captura | C:/BRASILEIRAO/work/price-feasibility-2026-09-09/venv; preservado |
-| Dados e recibos DC | C:/BRASILEIRAO/work/data-completion-2026-09-09; sem reescrever raws |
-| Entrega RI | C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_RI_20260909 |
-| Redis/Compose/serving operacional | Não iniciados ou integralmente validados; Docker não localizado no host |
-| Agenda independente | Existente na tarefa anterior; estado atual não legível na consulta RI. Não duplicar; protocolo DC preservado |
-
-## Desenvolvimento e continuidade
-
-Use a [reprodução isolada RI](docs/continuation/integral_review_2026-09-09/REPRODUZIR.md). O serving legado aproxima odds/cache e não é caminho admissível para decisão financeira. O simulador implementa Copa, não temporada de liga. Mocks de WebSocket/Redis, testes e melhora preditiva não demonstram execução comercial.
-
-A captura fixa de 11/09/2026, antes da decisão às 23:00 UTC, é descrita em [CONTINUIDADE DC](docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md), com atualização RI no estado/retomada. Não repetir lotes, mudar janela, buscar resultado do fixture ou acionar coortes para preencher a revisão.
-
-Nenhuma aposta, login/cadastro de apostas, compra, movimentação de capital, avaliação protegida ou alteração de dependência da coleta está autorizada. Dados e configurações privados permanecem fora do Git e dos processos de pesquisa. [Migração](docs/MIGRACAO_WINDOWS.md) e [documentos históricos](docs/history/antes_consolidacao_2026-09-09/README.md) mantêm seu escopo datado. [Publicação anterior](docs/continuation/publication_2026-09-09/README.md) não é CI ou recibo das alterações RI.
+H14/H15/H9/A1 permanecem protegidos. O [protocolo DC](docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md) conserva fixture, casas, janela e decisão de 11/09 23:00UTC; a automação existente não foi duplicada. O serving legado, Compose operacional e feed comercial não estão homologados pelo laboratório. Código/entrega: C:/BRASILEIRAO/brasileirao-predictor e C:/BRASILEIRAO/ENTREGAS/BRASILEIRAO_IE_20260910.

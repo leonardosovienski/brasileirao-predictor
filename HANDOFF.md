@@ -1,3 +1,9 @@
+# Handoff IE-20260910
+
+Parser puro, consumidor offline e laboratório real integrados localmente.282 Python/4 pulos,27 Redis,110 .NET/0 pulos e7 barreiras; nenhuma rentabilidade demonstrada. Resultado e limites em docs/continuation/implementation_2026-09-10/RESULTADO.md. Recibo em C:/BRASILEIRAO/AUDITORIA/IMPLEMENTACAO_2026-09-10.json. Guias atuais atualizados; histórico RI abaixo preservado.
+
+---
+
 # HANDOFF.md — brasileirao-predictor
 
 

@@ -1,0 +1,99 @@
+{
+  "artifacts": {
+    "decision.json": {
+      "bytes": 4654,
+      "sha256": "27384ab83f92910b828e7b0a4522e443dac2670172820e780b274c3aefb64ea2"
+    }
+  },
+  "inputs": {
+    "capture_0": {
+      "bytes": 195028,
+      "path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\prospective_pilot\\capture_01.json",
+      "sha256": "7cb65d22fd3af658da0b923a5f95a4036db9375ad5136ac4cc7b6a5d09781564"
+    },
+    "capture_1": {
+      "bytes": 195028,
+      "path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\prospective_pilot\\capture_02.json",
+      "sha256": "7cb65d22fd3af658da0b923a5f95a4036db9375ad5136ac4cc7b6a5d09781564"
+    },
+    "capture_2": {
+      "bytes": 195024,
+      "path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\prospective_pilot\\capture_03.json",
+      "sha256": "aaa14f99317c48cd9ad1253b1ee718f33b34f7c058b7416e82045e2c062fa3da"
+    },
+    "contract": {
+      "bytes": 563,
+      "path": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\capture-experiment-contract.json",
+      "sha256": "b9772195bab969a6ca0f9429eb390cf4b2c7765208ab54b77e4c0dfa63551f49"
+    },
+    "receipt": {
+      "bytes": 5161,
+      "path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\prospective_pilot\\receipt.json",
+      "sha256": "076bdeb19847a75164d3efef6e5100cc09e7bf902c560b95c568855a22edc3bc"
+    }
+  },
+  "metadata": {
+    "input_hashes_used": {
+      "capture_0": "7cb65d22fd3af658da0b923a5f95a4036db9375ad5136ac4cc7b6a5d09781564",
+      "capture_1": "7cb65d22fd3af658da0b923a5f95a4036db9375ad5136ac4cc7b6a5d09781564",
+      "capture_2": "aaa14f99317c48cd9ad1253b1ee718f33b34f7c058b7416e82045e2c062fa3da",
+      "contract": "b9772195bab969a6ca0f9429eb390cf4b2c7765208ab54b77e4c0dfa63551f49",
+      "receipt": "076bdeb19847a75164d3efef6e5100cc09e7bf902c560b95c568855a22edc3bc"
+    },
+    "profitability_established": false,
+    "real_capital_enabled": false,
+    "status": "RESEARCH_ONLY"
+  },
+  "schema_version": "price-strength-artifacts/v1",
+  "source_code": {
+    "__init__.py": {
+      "bytes": 120,
+      "sha256": "931f821e5316968cbd90d982f636463313e2622681d74ffd5759384719ef2a8e"
+    },
+    "__main__.py": {
+      "bytes": 4524,
+      "sha256": "6d65c28142f583a1cf2aaa1be17e52f1fefa1253c67eea2f9ab3554dd3040119"
+    },
+    "artifacts.py": {
+      "bytes": 8572,
+      "sha256": "6e32f2e80f36559264abaf87b945989a852e8b243f379716f88c0e50e6fce4b7"
+    },
+    "capture_decision.py": {
+      "bytes": 11377,
+      "sha256": "157d1d29422779f7e2d0f5bbd09204f7971b86c201bb2485239a943debec40b6"
+    },
+    "closing_scenario.py": {
+      "bytes": 8221,
+      "sha256": "f2a223528262fb48dea39b440ec32bbe399b000e056a96e1986c4a25cc735a8a"
+    },
+    "demo.py": {
+      "bytes": 4147,
+      "sha256": "01a643b5739101a9fd9ca1f08a9b2cdbac190c35f5e886ce4d8a0ef84eeb92a3"
+    },
+    "dynamic_xg.py": {
+      "bytes": 16398,
+      "sha256": "e780a459b08dd778877ceddb029fbc2855d02490b692a3bd456239754ba75d06"
+    },
+    "historical_admission.py": {
+      "bytes": 6816,
+      "sha256": "fc68028218a303bcfb78978fd4c07fa04219ef20405814c4ca9c10f5f073fa5c"
+    },
+    "live_capture_admission.py": {
+      "bytes": 6922,
+      "sha256": "2b5e3dfd1375f4f745804d550b7ed12d7035e826f3920df0fbf453379b15085b"
+    },
+    "price_hurdle.py": {
+      "bytes": 10333,
+      "sha256": "6ab8bbe3b634fea83a19fe6aba28bd0a38b3fe7482bb2bd854e9dff2e2e55387"
+    },
+    "quotes.py": {
+      "bytes": 19630,
+      "sha256": "31e04a5b5739e1f13aa8c3339a0bb527dc3616decb2697aa9995ce69e0ee8889"
+    },
+    "study.py": {
+      "bytes": 17031,
+      "sha256": "ff513cada2f69394a89c5d3067a952a556f71f036ce978124d8de54a4d7da998"
+    }
+  },
+  "status": "COMPLETE"
+}

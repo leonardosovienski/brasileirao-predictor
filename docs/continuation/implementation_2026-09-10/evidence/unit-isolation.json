@@ -1,0 +1,34 @@
+{
+  "tests": [
+    "test_hotpath_cold_start.py",
+    "test_hotpath_smoke.py",
+    "test_capture_decision.py",
+    "test_kernel_protocol.py",
+    "test_kernel_runtime.py",
+    "test_kernel_v2_runtime.py",
+    "test_redis_contract.py",
+    "test_kernel_cli_redis.py",
+    "test_live_capture_admission.py",
+    "test_price_strength_quotes.py",
+    "test_price_strength_artifacts.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    }
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,144 @@
+{
+  "action": "ABSTAIN",
+  "api_audit": {
+    "bookmakers": {
+      "bet365.bet.br": {
+        "api_state_admitted": false,
+        "bookmakerIsActive": false,
+        "legs": {
+          "away": {
+            "change_clocks": {
+              "bookmakerChangedAt": null,
+              "changedAt": "2026-09-09T09:20:31.187000+00:00"
+            },
+            "limit_currency": null,
+            "price": 2.65,
+            "reported_limit": null
+          },
+          "draw": {
+            "change_clocks": {
+              "bookmakerChangedAt": null,
+              "changedAt": "2026-09-09T03:14:21.543000+00:00"
+            },
+            "limit_currency": null,
+            "price": 3.1,
+            "reported_limit": null
+          },
+          "home": {
+            "change_clocks": {
+              "bookmakerChangedAt": null,
+              "changedAt": "2026-09-09T09:20:31.187000+00:00"
+            },
+            "limit_currency": null,
+            "price": 2.65,
+            "reported_limit": null
+          }
+        },
+        "marketActive": true,
+        "reasons": [
+          "bookmaker_not_active"
+        ],
+        "suspended": false
+      },
+      "pinnacle": {
+        "api_state_admitted": true,
+        "bookmakerIsActive": true,
+        "legs": {
+          "away": {
+            "change_clocks": {
+              "bookmakerChangedAt": "2026-09-09T07:47:22.910000+00:00",
+              "changedAt": "2026-09-09T07:47:23.357000+00:00"
+            },
+            "limit_currency": null,
+            "price": 2.63,
+            "reported_limit": 450.0
+          },
+          "draw": {
+            "change_clocks": {
+              "bookmakerChangedAt": "2026-09-09T07:47:22.910000+00:00",
+              "changedAt": "2026-09-09T07:47:23.357000+00:00"
+            },
+            "limit_currency": null,
+            "price": 3.12,
+            "reported_limit": 450.0
+          },
+          "home": {
+            "change_clocks": {
+              "bookmakerChangedAt": "2026-09-09T07:47:22.910000+00:00",
+              "changedAt": "2026-09-09T07:47:23.357000+00:00"
+            },
+            "limit_currency": null,
+            "price": 2.92,
+            "reported_limit": 450.0
+          }
+        },
+        "marketActive": true,
+        "reasons": [],
+        "suspended": false
+      }
+    },
+    "clock_semantics": "actual_collector_API_receipt_not_bookmaker_publication",
+    "execution_admitted": false,
+    "fixture_id": "id1000032566887012",
+    "fixture_identity_scope": "frozen_participants_and_competition",
+    "frozen_identity_admitted": true,
+    "kickoff_at": "2026-09-12T00:00:00+00:00",
+    "missing_execution_evidence": [
+      "accepted_price_and_stake",
+      "offer_capacity",
+      "costs",
+      "future_validation"
+    ],
+    "pair_api_state_admitted": false,
+    "reason": "INACTIVE_OR_UNVERIFIED_PAIR",
+    "received_at": "2026-09-09T20:17:30.413563+00:00",
+    "round_trip_seconds": 1.819256
+  },
+  "capture_reviews": [
+    {
+      "reason": "superseded_by_later_receipt",
+      "sha256": "7cb65d22fd3af658da0b923a5f95a4036db9375ad5136ac4cc7b6a5d09781564"
+    },
+    {
+      "reason": "superseded_by_later_receipt",
+      "sha256": "7cb65d22fd3af658da0b923a5f95a4036db9375ad5136ac4cc7b6a5d09781564"
+    },
+    {
+      "reason": "latest_at_cutoff",
+      "sha256": "aaa14f99317c48cd9ad1253b1ee718f33b34f7c058b7416e82045e2c062fa3da"
+    }
+  ],
+  "clock_semantics": "local_API_response_availability_only_not_bookmaker_publication",
+  "conditional_scan": null,
+  "cost_semantics": "explicit_hypothetical_policy_not_verified_costs",
+  "decision_at": "2026-09-09T20:17:30.413563+00:00",
+  "execution_admitted": false,
+  "fixture_id": "id1000032566887012",
+  "kickoff_at": "2026-09-12T00:00:00+00:00",
+  "labels_accessed": false,
+  "latest_capture_sha256": "aaa14f99317c48cd9ad1253b1ee718f33b34f7c058b7416e82045e2c062fa3da",
+  "missing_execution_evidence": [
+    "bookmaker_publication_and_personal_offer_availability",
+    "accepted_price_and_stake",
+    "offer_capacity_and_currency",
+    "actual_variable_and_fixed_costs",
+    "independent_future_economic_validation"
+  ],
+  "portfolio": {
+    "abstentions": 1,
+    "actual_fixed_costs_units": null,
+    "bankroll_before_unknown_fixed_costs_units": 100.0,
+    "bets": 0,
+    "betting_pnl_units": 0.0,
+    "initial_bankroll_units": 100.0,
+    "locked_capital_units": 0.0,
+    "return_on_bankroll_after_all_costs": null,
+    "roi_on_stakes": null,
+    "stakes_units": 0.0,
+    "total_net_pnl_units": null
+  },
+  "profitability_established": false,
+  "real_capital_enabled": false,
+  "reason": "LATEST_API_PAIR_REJECTED",
+  "schema_version": "api-capture-decision/1"
+}

@@ -67,7 +67,7 @@ def register_synthetic_lineup(client, *, timeout: float = 10.0) -> str:
 
 def verify_registered_request(client, match_id: str, *, timeout: float = 5.0) -> dict:
     """Read the current registered result or wake a still-pending request."""
-    from brasileirao_predictor.kernel_daemon import _parse_invoke
+    from brasileirao_predictor.kernel_message import parse_invoke as _parse_invoke
 
     current_key = f"kernel:v2:current:{match_id}"
     current = client.get(current_key)

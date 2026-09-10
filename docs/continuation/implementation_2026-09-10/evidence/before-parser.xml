@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="53.038" timestamp="2026-09-09T22:57:12.909780-03:00" hostname="Leo"><testcase classname="tests.test_hotpath_cold_start" name="test_verification_has_no_cold_numeric_import_inside_the_result_lifetime" time="0.053"><failure message="AssertionError: verification must use a pure protocol parser">..\..\..\brasileirao-predictor\tests\test_hotpath_cold_start.py:20: in test_verification_has_no_cold_numeric_import_inside_the_result_lifetime
+    assert hotpath_smoke.verify_registered_request(RegisteredRedis(), "synthetic")["status"] == "VERIFIED_CURRENT_RESULT"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\brasileirao-predictor\brasileirao_scripts\hotpath_smoke.py:70: in verify_registered_request
+    from brasileirao_predictor.kernel_daemon import _parse_invoke
+..\..\..\brasileirao-predictor\tests\test_hotpath_cold_start.py:16: in no_numeric_startup
+    raise AssertionError("verification must use a pure protocol parser")
+E   AssertionError: verification must use a pure protocol parser</failure></testcase><testcase classname="tests.test_hotpath_cold_start" name="test_ambiguous_duplicate_protocol_field_cannot_be_a_valid_request" time="40.290"><failure message="Failed: DID NOT RAISE ValueError">..\..\..\brasileirao-predictor\tests\test_hotpath_cold_start.py:27: in test_ambiguous_duplicate_protocol_field_cannot_be_a_valid_request
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase></testsuite></testsuites>

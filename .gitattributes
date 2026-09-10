@@ -18,3 +18,5 @@ docs/continuation/whole_chat_review_2026-09-08/** -text whitespace=cr-at-eol
 docs/continuation/migration_source_history_2026-09-08/** -text whitespace=cr-at-eol
 # Linhas vazias de contexto em patches preservados contem um espaco significativo.
 docs/continuation/migration_source_history_2026-09-08/files/*.patch whitespace=cr-at-eol,-blank-at-eol
+docs/continuation/implementation_2026-09-10/** -text whitespace=cr-at-eol
+docs/continuation/implementation_2026-09-10/evidence/before-receipt-universe.xml whitespace=cr-at-eol,-blank-at-eol

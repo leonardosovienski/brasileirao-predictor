@@ -1,0 +1,894 @@
+{
+  "kind": "text_encoding_erratum_only",
+  "source_path": "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\continuation\\integral_review_2026-09-09\\REGISTROS.json",
+  "source_sha256": "017a3cb2636f0303978809d43bafbaad09b06dd44a1a005c86b82a0084faadc5",
+  "successor_sha256": "5fc39454e71c4ad67ce6870e1ed1e06dc78b2ad905c13fa240fa61480669112a",
+  "fields_repaired": 177,
+  "changes": [
+    {
+      "path": "$.claims[0].claim",
+      "before": "O ambiente mÃ­nimo instalado representa a aplicaÃ§Ã£o completa.",
+      "after": "O ambiente mínimo instalado representa a aplicação completa."
+    },
+    {
+      "path": "$.claims[0].origin",
+      "before": "InferÃªncia de prontidÃ£o a testar, contraposta aos guias ER/README que jÃ¡ indicavam ambiente mÃ­nimo, 09/09",
+      "after": "Inferência de prontidão a testar, contraposta aos guias ER/README que já indicavam ambiente mínimo, 09/09"
+    },
+    {
+      "path": "$.claims[0].scope",
+      "before": "InstalaÃ§Ã£o local",
+      "after": "Instalação local"
+    },
+    {
+      "path": "$.claims[0].required",
+      "before": "Importar dependÃªncias fixadas e construir Python/.NET.",
+      "after": "Importar dependências fixadas e construir Python/.NET."
+    },
+    {
+      "path": "$.claims[0].found",
+      "before": "RI instalou 59 dependÃªncias, construiu wheel/sdist e .NET; Redis/Compose nÃ£o executados.",
+      "after": "RI instalou 59 dependências, construiu wheel/sdist e .NET; Redis/Compose não executados."
+    },
+    {
+      "path": "$.claims[0].impact",
+      "before": "NÃ£o confundir ambiente mÃ­nimo, instalaÃ§Ã£o de pesquisa e operaÃ§Ã£o; P01/P12.",
+      "after": "Não confundir ambiente mínimo, instalação de pesquisa e operação; P01/P12."
+    },
+    {
+      "path": "$.claims[1].claim",
+      "before": "177/177 arquivos completos bastam para admitir execuÃ§Ã£o histÃ³rica.",
+      "after": "177/177 arquivos completos bastam para admitir execução histórica."
+    },
+    {
+      "path": "$.claims[1].origin",
+      "before": "InferÃªncia de suficiÃªncia a testar; DC distingue completude do universo e admissÃ£o, 09/09",
+      "after": "Inferência de suficiência a testar; DC distingue completude do universo e admissão, 09/09"
+    },
+    {
+      "path": "$.claims[1].scope",
+      "before": "177 timelines Janâ€“Jun/2026",
+      "after": "177 timelines Jan–Jun/2026"
+    },
+    {
+      "path": "$.claims[1].required",
+      "before": "Hashes, schema, identidade, clocks de recebimento da Ã©poca e condiÃ§Ãµes comerciais.",
+      "after": "Hashes, schema, identidade, clocks de recebimento da época e condições comerciais."
+    },
+    {
+      "path": "$.claims[1].found",
+      "before": "177 hashes/bytes conferidos; todos os recibos sÃ£o posteriores Ã s decisÃµes; 154 mudanÃ§as antigas e 23 pares incompletos.",
+      "after": "177 hashes/bytes conferidos; todos os recibos são posteriores às decisões; 154 mudanças antigas e 23 pares incompletos."
+    },
+    {
+      "path": "$.claims[1].impact",
+      "before": "Integridade confirmada, conclusÃ£o de execuÃ§Ã£o impedida; P02.",
+      "after": "Integridade confirmada, conclusão de execução impedida; P02."
+    },
+    {
+      "path": "$.claims[2].claim",
+      "before": "MudanÃ§a antiga prova preÃ§o indisponÃ­vel; flag de agregador prova suspensÃ£o na casa.",
+      "after": "Mudança antiga prova preço indisponível; flag de agregador prova suspensão na casa."
+    },
+    {
+      "path": "$.claims[2].origin",
+      "before": "VocabulÃ¡rio histÃ³rico PF/DC, revisto ER",
+      "after": "Vocabulário histórico PF/DC, revisto ER"
+    },
+    {
+      "path": "$.claims[2].scope",
+      "before": "SemÃ¢ntica OddsPapi vigente consultada em RI",
+      "after": "Semântica OddsPapi vigente consultada em RI"
+    },
+    {
+      "path": "$.claims[2].required",
+      "before": "Contrato primÃ¡rio de cada timestamp/flag.",
+      "after": "Contrato primário de cada timestamp/flag."
+    },
+    {
+      "path": "$.claims[2].found",
+      "before": "changedAt Ã© mudanÃ§a registrada; bookmakerChangedAt opcional; bookmakerIsActive Ã© coleta do agregador. Nenhum prova disponibilidade contÃ­nua ou aceite.",
+      "after": "changedAt é mudança registrada; bookmakerChangedAt opcional; bookmakerIsActive é coleta do agregador. Nenhum prova disponibilidade contínua ou aceite."
+    },
+    {
+      "path": "$.claims[2].impact",
+      "before": "NÃ£o inverter indevidamente os significados; P02.",
+      "after": "Não inverter indevidamente os significados; P02."
+    },
+    {
+      "path": "$.claims[3].claim",
+      "before": "Hash e fixtureId bastam para a identidade e estado do preÃ§o recebido.",
+      "after": "Hash e fixtureId bastam para a identidade e estado do preço recebido."
+    },
+    {
+      "path": "$.claims[3].required",
+      "before": "Adversariais de participantes, competiÃ§Ã£o, pais/filhos e JSON.",
+      "after": "Adversariais de participantes, competição, pais/filhos e JSON."
+    },
+    {
+      "path": "$.claims[3].found",
+      "before": "8 regressÃµes falharam antes; nova versÃ£o rejeita participantes trocados, JSON ambÃ­guo, clocks ausentes e estado contraditÃ³rio.",
+      "after": "8 regressões falharam antes; nova versão rejeita participantes trocados, JSON ambíguo, clocks ausentes e estado contraditório."
+    },
+    {
+      "path": "$.claims[3].impact",
+      "before": "CorreÃ§Ã£o validada; observaÃ§Ã£o ainda nÃ£o Ã© execuÃ§Ã£o; P03/P04.",
+      "after": "Correção validada; observação ainda não é execução; P03/P04."
+    },
+    {
+      "path": "$.claims[4].claim",
+      "before": "O auditor nÃ£o pode sobrescrever uma conclusÃ£o concorrente.",
+      "after": "O auditor não pode sobrescrever uma conclusão concorrente."
+    },
+    {
+      "path": "$.claims[4].scope",
+      "before": "PublicaÃ§Ã£o offline",
+      "after": "Publicação offline"
+    },
+    {
+      "path": "$.claims[4].found",
+      "before": "RegressÃ£o falhou antes; hard link atÃ´mico de temporÃ¡rio Ãºnico preserva a conclusÃ£o concorrente.",
+      "after": "Regressão falhou antes; hard link atômico de temporário único preserva a conclusão concorrente."
+    },
+    {
+      "path": "$.claims[4].impact",
+      "before": "IdempotÃªncia corrigida e testada no NTFS local; P05.",
+      "after": "Idempotência corrigida e testada no NTFS local; P05."
+    },
+    {
+      "path": "$.claims[5].claim",
+      "before": "TemporalPolicy nÃ£o permite treinar com um jogo simultÃ¢neo sem horÃ¡rio.",
+      "after": "TemporalPolicy não permite treinar com um jogo simultâneo sem horário."
+    },
+    {
+      "path": "$.claims[5].scope",
+      "before": "Replay nÃ£o protegido",
+      "after": "Replay não protegido"
+    },
+    {
+      "path": "$.claims[5].required",
+      "before": "Dia parcialmente sem kickoff, incluindo conversÃ£o UTC.",
+      "after": "Dia parcialmente sem kickoff, incluindo conversão UTC."
+    },
+    {
+      "path": "$.claims[5].found",
+      "before": "2 regressÃµes falharam antes; v2 agrupa todo o dia UTC quando hÃ¡ horÃ¡rio desconhecido.",
+      "after": "2 regressões falharam antes; v2 agrupa todo o dia UTC quando há horário desconhecido."
+    },
+    {
+      "path": "$.claims[5].impact",
+      "before": "Nova semÃ¢ntica recebe nova versÃ£o/fingerprint; P06.",
+      "after": "Nova semântica recebe nova versão/fingerprint; P06."
+    },
+    {
+      "path": "$.claims[6].required",
+      "before": "Dia de fronteira e vÃ¡rias linhas de preÃ§o do mesmo jogo.",
+      "after": "Dia de fronteira e várias linhas de preço do mesmo jogo."
+    },
+    {
+      "path": "$.claims[6].found",
+      "before": "Split por linha incluÃ­a alvos do primeiro dia de teste e multiplicava alvos no fit; regressÃµes antes/depois preservadas.",
+      "after": "Split por linha incluía alvos do primeiro dia de teste e multiplicava alvos no fit; regressões antes/depois preservadas."
+    },
+    {
+      "path": "$.claims[7].required",
+      "before": "Linha inteira, chave ausente e odds invÃ¡lidas.",
+      "after": "Linha inteira, chave ausente e odds inválidas."
+    },
+    {
+      "path": "$.claims[7].found",
+      "before": "Inteiro podia perder no empate; fallback inventava probabilidade. v2 abstÃ©m nesses casos e registra razÃ£o.",
+      "after": "Inteiro podia perder no empate; fallback inventava probabilidade. v2 abstém nesses casos e registra razão."
+    },
+    {
+      "path": "$.claims[7].impact",
+      "before": "NÃ£o declara push/asiÃ¡ticos implementados; P08.",
+      "after": "Não declara push/asiáticos implementados; P08."
+    },
+    {
+      "path": "$.claims[8].origin",
+      "before": "Premissa matemÃ¡tica explicitamente posta Ã  prova no mandato",
+      "after": "Premissa matemática explicitamente posta à prova no mandato"
+    },
+    {
+      "path": "$.claims[8].scope",
+      "before": "NormalizaÃ§Ã£o proporcional com S>1",
+      "after": "Normalização proporcional com S>1"
+    },
+    {
+      "path": "$.claims[8].required",
+      "before": "DerivaÃ§Ã£o algÃ©brica e testes analÃ­ticos.",
+      "after": "Derivação algébrica e testes analíticos."
+    },
+    {
+      "path": "$.claims[8].found",
+      "before": "q_i=(1/o_i)/S implica q_i*o_i-1=1/S-1<0; price_hurdle e scanner verificam exclusÃ£o da oferta.",
+      "after": "q_i=(1/o_i)/S implica q_i*o_i-1=1/S-1<0; price_hurdle e scanner verificam exclusão da oferta."
+    },
+    {
+      "path": "$.claims[8].impact",
+      "before": "ReferÃªncia independente necessÃ¡ria; nÃ£o significa probabilidade verdadeira; P02.",
+      "after": "Referência independente necessária; não significa probabilidade verdadeira; P02."
+    },
+    {
+      "path": "$.claims[9].claim",
+      "before": "A conta condicional DC de 2025 Ã© -9,24u.",
+      "after": "A conta condicional DC de 2025 é -9,24u."
+    },
+    {
+      "path": "$.claims[9].required",
+      "before": "Reproduzir escolhas e reconciliar com cÃ¡lculo independente.",
+      "after": "Reproduzir escolhas e reconciliar com cálculo independente."
+    },
+    {
+      "path": "$.claims[9].found",
+      "before": "CSV/hash e 380 pares dirigidos Ãºnicos; escolhas idÃªnticas; 100-32-0,64+23,40=90,76.",
+      "after": "CSV/hash e 380 pares dirigidos únicos; escolhas idênticas; 100-32-0,64+23,40=90,76."
+    },
+    {
+      "path": "$.claims[9].impact",
+      "before": "ReproduÃ§Ã£o aritmÃ©tica, sem nova validaÃ§Ã£o econÃ´mica; P02/P14.",
+      "after": "Reprodução aritmética, sem nova validação econômica; P02/P14."
+    },
+    {
+      "path": "$.claims[10].claim",
+      "before": "O simulador disponÃ­vel implementa o BrasileirÃ£o.",
+      "after": "O simulador disponível implementa o Brasileirão."
+    },
+    {
+      "path": "$.claims[10].origin",
+      "before": "Premissa de capacidade a testar pelo nome do projeto; simulator.py jÃ¡ descrevia heranÃ§a de Copa",
+      "after": "Premissa de capacidade a testar pelo nome do projeto; simulator.py já descrevia herança de Copa"
+    },
+    {
+      "path": "$.claims[10].scope",
+      "before": "monte_carlo; configuraÃ§Ã£o liga",
+      "after": "monte_carlo; configuração liga"
+    },
+    {
+      "path": "$.claims[10].found",
+      "before": "Implementa grupos/mata-mata da Copa. A rejeiÃ§Ã£o vinha apÃ³s abrir banco; agora recusa antes.",
+      "after": "Implementa grupos/mata-mata da Copa. A rejeição vinha após abrir banco; agora recusa antes."
+    },
+    {
+      "path": "$.claims[11].claim",
+      "before": "Importar helpers numÃ©ricos nÃ£o escreve no banco/pasta operacional.",
+      "after": "Importar helpers numéricos não escreve no banco/pasta operacional."
+    },
+    {
+      "path": "$.claims[11].scope",
+      "before": "Import do mÃ³dulo",
+      "after": "Import do módulo"
+    },
+    {
+      "path": "$.claims[11].required",
+      "before": "Guard de escrita fora da pasta sintÃ©tica.",
+      "after": "Guard de escrita fora da pasta sintética."
+    },
+    {
+      "path": "$.claims[11].found",
+      "before": "2 testes detectaram tentativa de criar log em data; setup_logging passou Ã  entrada explÃ­cita do script.",
+      "after": "2 testes detectaram tentativa de criar log em data; setup_logging passou à entrada explícita do script."
+    },
+    {
+      "path": "$.claims[12].claim",
+      "before": "PrevisÃ£o exibida equivale a oferta identificada e executÃ¡vel.",
+      "after": "Previsão exibida equivale a oferta identificada e executável."
+    },
+    {
+      "path": "$.claims[12].origin",
+      "before": "HipÃ³tese de uso econÃ´mico do serving, confrontada com predict.py/display.py e nÃ£o atribuÃ­da como promessa ao README",
+      "after": "Hipótese de uso econômico do serving, confrontada com predict.py/display.py e não atribuída como promessa ao README"
+    },
+    {
+      "path": "$.claims[12].found",
+      "before": "_market_probs permite aproximaÃ§Ã£o de data; display chama sem data; cache e odds nÃ£o tÃªm contrato do scanner estrito.",
+      "after": "_market_probs permite aproximação de data; display chama sem data; cache e odds não têm contrato do scanner estrito."
+    },
+    {
+      "path": "$.claims[12].conclusion",
+      "before": "nÃ£o verificada",
+      "after": "não verificada"
+    },
+    {
+      "path": "$.claims[12].impact",
+      "before": "Serving retirado da interpretaÃ§Ã£o de oportunidade; dependÃªncia compartilhada preservada; P11.",
+      "after": "Serving retirado da interpretação de oportunidade; dependência compartilhada preservada; P11."
+    },
+    {
+      "path": "$.claims[13].claim",
+      "before": "Worker e Compose jÃ¡ conectam uma casa real e provam execuÃ§Ã£o.",
+      "after": "Worker e Compose já conectam uma casa real e provam execução."
+    },
+    {
+      "path": "$.claims[13].origin",
+      "before": "Premissa de integraÃ§Ã£o comercial a testar; contratos/runtime genÃ©ricos",
+      "after": "Premissa de integração comercial a testar; contratos/runtime genéricos"
+    },
+    {
+      "path": "$.claims[13].found",
+      "before": "69 testes passam; 41 dependem de Redis/processo separado. WS usa placeholder e contrato genÃ©rico; UtcNow Ã© clock de parsing.",
+      "after": "69 testes passam; 41 dependem de Redis/processo separado. WS usa placeholder e contrato genérico; UtcNow é clock de parsing."
+    },
+    {
+      "path": "$.claims[13].impact",
+      "before": "Infraestrutura parcial; sem feed comercial/execuÃ§Ã£o; P12.",
+      "after": "Infraestrutura parcial; sem feed comercial/execução; P12."
+    },
+    {
+      "path": "$.claims[14].origin",
+      "before": "InferÃªncia de abrangÃªncia a testar; CI da base ac22c56",
+      "after": "Inferência de abrangência a testar; CI da base ac22c56"
+    },
+    {
+      "path": "$.claims[14].required",
+      "before": "SHA correspondente e distinÃ§Ã£o de host/escopo.",
+      "after": "SHA correspondente e distinção de host/escopo."
+    },
+    {
+      "path": "$.claims[14].found",
+      "before": "Run remoto confirmado success da base; RI tem checks locais e exclusÃµes declaradas.",
+      "after": "Run remoto confirmado success da base; RI tem checks locais e exclusões declaradas."
+    },
+    {
+      "path": "$.claims[14].impact",
+      "before": "NÃ£o atribuir CI da base ao commit novo; P13.",
+      "after": "Não atribuir CI da base ao commit novo; P13."
+    },
+    {
+      "path": "$.claims[15].claim",
+      "before": "O acompanhamento continua ativo e executarÃ¡ a captura no horÃ¡rio.",
+      "after": "O acompanhamento continua ativo e executará a captura no horário."
+    },
+    {
+      "path": "$.claims[15].origin",
+      "before": "CÃ³pia TOML histÃ³rica / CONTINUIDADE DC",
+      "after": "Cópia TOML histórica / CONTINUIDADE DC"
+    },
+    {
+      "path": "$.claims[15].scope",
+      "before": "AutomaÃ§Ã£o completar-dados-do-brasileir-o",
+      "after": "Automação completar-dados-do-brasileir-o"
+    },
+    {
+      "path": "$.claims[15].found",
+      "before": "Consulta view retorna cartÃ£o sem estado legÃ­vel ao modelo; nÃ£o hÃ¡ tentativa followup em RI. CÃ³pia documental nÃ£o confirma agenda ativa.",
+      "after": "Consulta view retorna cartão sem estado legível ao modelo; não há tentativa followup em RI. Cópia documental não confirma agenda ativa."
+    },
+    {
+      "path": "$.claims[15].conclusion",
+      "before": "nÃ£o verificÃ¡vel com os dados/permissÃµes atuais",
+      "after": "não verificável com os dados/permissões atuais"
+    },
+    {
+      "path": "$.claims[15].impact",
+      "before": "NÃ£o duplicar nem forÃ§ar; janela permanece congelada; P15.",
+      "after": "Não duplicar nem forçar; janela permanece congelada; P15."
+    },
+    {
+      "path": "$.claims[16].claim",
+      "before": "O backup da pasta garante recuperaÃ§Ã£o operacional integral.",
+      "after": "O backup da pasta garante recuperação operacional integral."
+    },
+    {
+      "path": "$.claims[16].origin",
+      "before": "HipÃ³tese de alcance da recuperaÃ§Ã£o; recibos de consolidaÃ§Ã£o/migraÃ§Ã£o jÃ¡ limitam a garantia",
+      "after": "Hipótese de alcance da recuperação; recibos de consolidação/migração já limitam a garantia"
+    },
+    {
+      "path": "$.claims[16].required",
+      "before": "Restauro verificÃ¡vel e dependÃªncias externas.",
+      "after": "Restauro verificável e dependências externas."
+    },
+    {
+      "path": "$.claims[16].impact",
+      "before": "PreservaÃ§Ã£o recebida nÃ£o garante mÃ¡quina antiga inteira; P16.",
+      "after": "Preservação recebida não garante máquina antiga inteira; P16."
+    },
+    {
+      "path": "$.claims[17].claim",
+      "before": "Mais sofisticaÃ§Ã£o de modelo resolve o gargalo econÃ´mico atual.",
+      "after": "Mais sofisticação de modelo resolve o gargalo econômico atual."
+    },
+    {
+      "path": "$.claims[17].required",
+      "before": "Features PIT, comparaÃ§Ã£o temporal independente e preÃ§os/custos admitidos.",
+      "after": "Features PIT, comparação temporal independente e preços/custos admitidos."
+    },
+    {
+      "path": "$.claims[17].found",
+      "before": "Kernels tÃªm testes sintÃ©ticos, mas disponibilidade/capacidade nÃ£o recuperadas. Ajustar outro modelo nÃ£o cria esses campos.",
+      "after": "Kernels têm testes sintéticos, mas disponibilidade/capacidade não recuperadas. Ajustar outro modelo não cria esses campos."
+    },
+    {
+      "path": "$.claims[17].conclusion",
+      "before": "nÃ£o verificada",
+      "after": "não verificada"
+    },
+    {
+      "path": "$.claims[18].claim",
+      "before": "H14/H15/H9/A1 podem ser usados para preencher a revisÃ£o.",
+      "after": "H14/H15/H9/A1 podem ser usados para preencher a revisão."
+    },
+    {
+      "path": "$.claims[18].origin",
+      "before": "InterpretaÃ§Ã£o ampla rejeitada pelo mandato",
+      "after": "Interpretação ampla rejeitada pelo mandato"
+    },
+    {
+      "path": "$.claims[18].required",
+      "before": "AutorizaÃ§Ã£o especÃ­fica inexistente.",
+      "after": "Autorização específica inexistente."
+    },
+    {
+      "path": "$.claims[18].found",
+      "before": "Somente metadados/contratos permitidos; resultados e avaliadores excluÃ­dos.",
+      "after": "Somente metadados/contratos permitidos; resultados e avaliadores excluídos."
+    },
+    {
+      "path": "$.claims[18].conclusion",
+      "before": "nÃ£o verificÃ¡vel com os dados/permissÃµes atuais",
+      "after": "não verificável com os dados/permissões atuais"
+    },
+    {
+      "path": "$.claims[18].impact",
+      "before": "Limite obrigatÃ³rio de cobertura, sem aprovaÃ§Ã£o implÃ­cita; P17.",
+      "after": "Limite obrigatório de cobertura, sem aprovação implícita; P17."
+    },
+    {
+      "path": "$.claims[19].claim",
+      "before": "Disponibilidade temporal das features, transformaÃ§Ãµes e artefatos aprendidos estÃ¡ demonstrada em todas as rotas.",
+      "after": "Disponibilidade temporal das features, transformações e artefatos aprendidos está demonstrada em todas as rotas."
+    },
+    {
+      "path": "$.claims[19].origin",
+      "before": "Premissa de causalidade integral a testar, cÃ³digo de features/ratings/xG/cache e armazenamento bitemporal",
+      "after": "Premissa de causalidade integral a testar, código de features/ratings/xG/cache e armazenamento bitemporal"
+    },
+    {
+      "path": "$.claims[19].required",
+      "before": "PublicaÃ§Ã£o/recebimento/revisÃµes por campo, split e estado aprendido por decisÃ£o; conflitos resolvidos explicitamente.",
+      "after": "Publicação/recebimento/revisões por campo, split e estado aprendido por decisão; conflitos resolvidos explicitamente."
+    },
+    {
+      "path": "$.claims[19].found",
+      "before": "CalendÃ¡rio Ã© respeitado em rotas testadas, mas nÃ£o substitui proveniÃªncia de publicaÃ§Ã£o; fallback xG por gols Ã© proxy, cache nÃ£o comprova frescor. OrdenaÃ§Ã£o determinÃ­stica de versÃµes por hash nÃ£o comprova verdade de uma revisÃ£o conflitante.",
+      "after": "Calendário é respeitado em rotas testadas, mas não substitui proveniência de publicação; fallback xG por gols é proxy, cache não comprova frescor. Ordenação determinística de versões por hash não comprova verdade de uma revisão conflitante."
+    },
+    {
+      "path": "$.claims[19].impact",
+      "before": "NÃ£o promover features/cache legados a dados PIT; P11/P18.",
+      "after": "Não promover features/cache legados a dados PIT; P11/P18."
+    },
+    {
+      "path": "$.problems[0].problem",
+      "before": "Ambiente incompleto em comparaÃ§Ã£o ao cÃ³digo declarado.",
+      "after": "Ambiente incompleto em comparação ao código declarado."
+    },
+    {
+      "path": "$.problems[0].cause",
+      "before": "Core/Ops sÃ³ no lock e SDK10 ausente.",
+      "after": "Core/Ops só no lock e SDK10 ausente."
+    },
+    {
+      "path": "$.problems[0].action",
+      "before": "Instalar extras fixados em venv RI; SDK10 portÃ¡til; wheel/sdist e smoke.",
+      "after": "Instalar extras fixados em venv RI; SDK10 portátil; wheel/sdist e smoke."
+    },
+    {
+      "path": "$.problems[0].closure",
+      "before": "Logs instalaÃ§Ã£o/build, package-smoke e dotnet-build-03.",
+      "after": "Logs instalação/build, package-smoke e dotnet-build-03."
+    },
+    {
+      "path": "$.problems[1].problem",
+      "before": "HistÃ³rico nÃ£o estabelece oferta executÃ¡vel em T-60.",
+      "after": "Histórico não estabelece oferta executável em T-60."
+    },
+    {
+      "path": "$.problems[1].severity",
+      "before": "dados/economia / crÃ­tica",
+      "after": "dados/economia / crítica"
+    },
+    {
+      "path": "$.problems[1].cause",
+      "before": "Recibos atuais, sem capacidade/aceite; mudouAt nÃ£o Ã© recebeuAt.",
+      "after": "Recibos atuais, sem capacidade/aceite; mudouAt não é recebeuAt."
+    },
+    {
+      "path": "$.problems[1].dependencies",
+      "before": "Fonte com coleta temporal e condiÃ§Ãµes comerciais; nÃ£o recuperÃ¡veis por hash.",
+      "after": "Fonte com coleta temporal e condições comerciais; não recuperáveis por hash."
+    },
+    {
+      "path": "$.problems[1].action",
+      "before": "Conferir 177, contratos primÃ¡rios e alternativa The Odds API; preservar dados e nÃ£o abrir novos candidatos.",
+      "after": "Conferir 177, contratos primários e alternativa The Odds API; preservar dados e não abrir novos candidatos."
+    },
+    {
+      "path": "$.problems[1].closure",
+      "before": "SÃ³ fecha para lucro com dados temporais e condiÃ§Ãµes de execuÃ§Ã£o verificÃ¡veis.",
+      "after": "Só fecha para lucro com dados temporais e condições de execução verificáveis."
+    },
+    {
+      "path": "$.problems[2].problem",
+      "before": "Identidade/estado contraditÃ³rio podiam admitir observaÃ§Ã£o.",
+      "after": "Identidade/estado contraditório podiam admitir observação."
+    },
+    {
+      "path": "$.problems[2].severity",
+      "before": "correÃ§Ã£o / crÃ­tica",
+      "after": "correção / crítica"
+    },
+    {
+      "path": "$.problems[2].cause",
+      "before": "Apenas fixtureId; pregame podia contradizer inÃ­cio/fim e hasOdds.",
+      "after": "Apenas fixtureId; pregame podia contradizer início/fim e hasOdds."
+    },
+    {
+      "path": "$.problems[2].dependencies",
+      "before": "CatÃ¡logo congelado anterior Ã s odds, mÃ³dulo de pesquisa independente.",
+      "after": "Catálogo congelado anterior às odds, módulo de pesquisa independente."
+    },
+    {
+      "path": "$.problems[2].action",
+      "before": "Exigir IDs inteiros de participantes/competiÃ§Ã£o e todos os estados; checar changedAt e updatedAt.",
+      "after": "Exigir IDs inteiros de participantes/competição e todos os estados; checar changedAt e updatedAt."
+    },
+    {
+      "path": "$.problems[3].problem",
+      "before": "JSON duplicado ou nÃ£o finito apagava conflito no parse.",
+      "after": "JSON duplicado ou não finito apagava conflito no parse."
+    },
+    {
+      "path": "$.problems[3].severity",
+      "before": "correÃ§Ã£o / crÃ­tica",
+      "after": "correção / crítica"
+    },
+    {
+      "path": "$.problems[3].cause",
+      "before": "json.loads normal retÃ©m Ãºltima chave; aceita NaN.",
+      "after": "json.loads normal retém última chave; aceita NaN."
+    },
+    {
+      "path": "$.problems[3].closure",
+      "before": "Casos de corpo e recibo ambÃ­guos rejeitados.",
+      "after": "Casos de corpo e recibo ambíguos rejeitados."
+    },
+    {
+      "path": "$.problems[4].problem",
+      "before": "PublicaÃ§Ã£o final podia substituir auditoria concorrente.",
+      "after": "Publicação final podia substituir auditoria concorrente."
+    },
+    {
+      "path": "$.problems[4].severity",
+      "before": "concorrÃªncia / alta",
+      "after": "concorrência / alta"
+    },
+    {
+      "path": "$.problems[4].cause",
+      "before": "Path.replace apÃ³s exists tinha corrida.",
+      "after": "Path.replace após exists tinha corrida."
+    },
+    {
+      "path": "$.problems[4].dependencies",
+      "before": "Filesystem com link atÃ´mico; NTFS testado.",
+      "after": "Filesystem com link atômico; NTFS testado."
+    },
+    {
+      "path": "$.problems[4].action",
+      "before": "TemporÃ¡rio UUID e os.link que falha se destino existe; remover sÃ³ prÃ³prio temporÃ¡rio.",
+      "after": "Temporário UUID e os.link que falha se destino existe; remover só próprio temporário."
+    },
+    {
+      "path": "$.problems[4].closure",
+      "before": "concurrency-before falha; teste passa apÃ³s mudanÃ§a.",
+      "after": "concurrency-before falha; teste passa após mudança."
+    },
+    {
+      "path": "$.problems[5].severity",
+      "before": "temporal / crÃ­tica",
+      "after": "temporal / crítica"
+    },
+    {
+      "path": "$.problems[6].severity",
+      "before": "temporal/modelagem / crÃ­tica",
+      "after": "temporal/modelagem / crítica"
+    },
+    {
+      "path": "$.problems[6].cause",
+      "before": "80% das linhas, nÃ£o eventos; mesmo dia nos dois lados.",
+      "after": "80% das linhas, não eventos; mesmo dia nos dois lados."
+    },
+    {
+      "path": "$.problems[6].dependencies",
+      "before": "Backtest legado de eventos; sem execuÃ§Ã£o de dados protegidos.",
+      "after": "Backtest legado de eventos; sem execução de dados protegidos."
+    },
+    {
+      "path": "$.problems[6].action",
+      "before": "v2 usa eventos Ãºnicos, dia integral fora do treino e rejeita alvos/identidade conflitantes.",
+      "after": "v2 usa eventos únicos, dia integral fora do treino e rejeita alvos/identidade conflitantes."
+    },
+    {
+      "path": "$.problems[6].closure",
+      "before": "4 regressÃµes antes + casos adicionais; final-corrections.",
+      "after": "4 regressões antes + casos adicionais; final-corrections."
+    },
+    {
+      "path": "$.problems[7].problem",
+      "before": "Fallback 0,5, linha inteira e odds invÃ¡lidas podiam gerar conta falsa.",
+      "after": "Fallback 0,5, linha inteira e odds inválidas podiam gerar conta falsa."
+    },
+    {
+      "path": "$.problems[7].severity",
+      "before": "matemÃ¡tica/contabilidade / alta",
+      "after": "matemática/contabilidade / alta"
+    },
+    {
+      "path": "$.problems[7].cause",
+      "before": "Probabilidade inventada, igualdade tratada como derrota, odds sem domÃ­nio.",
+      "after": "Probabilidade inventada, igualdade tratada como derrota, odds sem domínio."
+    },
+    {
+      "path": "$.problems[7].action",
+      "before": "AbstenÃ§Ã£o explÃ­cita sem probabilidade vÃ¡lida, linha suportada ou odds finitas >1.",
+      "after": "Abstenção explícita sem probabilidade válida, linha suportada ou odds finitas >1."
+    },
+    {
+      "path": "$.problems[7].closure",
+      "before": "Testes de inteiro, ausÃªncia, NaN, infinito, bool e odds <=1.",
+      "after": "Testes de inteiro, ausência, NaN, infinito, bool e odds <=1."
+    },
+    {
+      "path": "$.problems[8].severity",
+      "before": "domÃ­nio/efeito colateral / alta",
+      "after": "domínio/efeito colateral / alta"
+    },
+    {
+      "path": "$.problems[8].cause",
+      "before": "ValidaÃ§Ã£o tardia no monte_carlo.",
+      "after": "Validação tardia no monte_carlo."
+    },
+    {
+      "path": "$.problems[8].dependencies",
+      "before": "NÃ£o existe motor de classificaÃ§Ã£o do BrasileirÃ£o neste caminho.",
+      "after": "Não existe motor de classificação do Brasileirão neste caminho."
+    },
+    {
+      "path": "$.problems[8].action",
+      "before": "Recusar configuraÃ§Ã£o de liga antes de db.connect; retirar simulaÃ§Ã£o de liga das capacidades atuais.",
+      "after": "Recusar configuração de liga antes de db.connect; retirar simulação de liga das capacidades atuais."
+    },
+    {
+      "path": "$.problems[9].cause",
+      "before": "setup_logging(ROOT/data) no topo do mÃ³dulo.",
+      "after": "setup_logging(ROOT/data) no topo do módulo."
+    },
+    {
+      "path": "$.problems[9].action",
+      "before": "Inicializar log sÃ³ na execuÃ§Ã£o explÃ­cita; testes continuam sem dados operacionais.",
+      "after": "Inicializar log só na execução explícita; testes continuam sem dados operacionais."
+    },
+    {
+      "path": "$.problems[10].problem",
+      "before": "Serving usa associaÃ§Ã£o aproximada de odds/cache sem admissÃ£o estrita.",
+      "after": "Serving usa associação aproximada de odds/cache sem admissão estrita."
+    },
+    {
+      "path": "$.problems[10].severity",
+      "before": "arquitetura/dados / crÃ­tica",
+      "after": "arquitetura/dados / crítica"
+    },
+    {
+      "path": "$.problems[10].dependencies",
+      "before": "predict/display/config/modelos sÃ£o compartilhados; mudanÃ§a poderia afetar coleta vedada.",
+      "after": "predict/display/config/modelos são compartilhados; mudança poderia afetar coleta vedada."
+    },
+    {
+      "path": "$.problems[10].action",
+      "before": "Marcar serving como legado e nÃ£o admissÃ­vel para decisÃ£o; scanner isolado permanece caminho de pesquisa.",
+      "after": "Marcar serving como legado e não admissível para decisão; scanner isolado permanece caminho de pesquisa."
+    },
+    {
+      "path": "$.problems[10].closure",
+      "before": "SÃ³ fecha com separaÃ§Ã£o segura de consumidor e contrato fixture+clocks; sem alterar coleta protegida.",
+      "after": "Só fecha com separação segura de consumidor e contrato fixture+clocks; sem alterar coleta protegida."
+    },
+    {
+      "path": "$.problems[11].problem",
+      "before": "IntegraÃ§Ã£o local real Redis/Compose e feed comercial ausentes.",
+      "after": "Integração local real Redis/Compose e feed comercial ausentes."
+    },
+    {
+      "path": "$.problems[11].severity",
+      "before": "integraÃ§Ã£o / crÃ­tica",
+      "after": "integração / crítica"
+    },
+    {
+      "path": "$.problems[11].cause",
+      "before": "Docker nÃ£o encontrado no PATH nem local padrÃ£o; 41 testes .NET pulados.",
+      "after": "Docker não encontrado no PATH nem local padrão; 41 testes .NET pulados."
+    },
+    {
+      "path": "$.problems[11].dependencies",
+      "before": "Runtime descartÃ¡vel Redis identificado por run_id e fornecedor legÃ­timo.",
+      "after": "Runtime descartável Redis identificado por run_id e fornecedor legítimo."
+    },
+    {
+      "path": "$.problems[11].action",
+      "before": "Recuperar SDK/build; manter .NET parcial; nÃ£o apontar testes a serviÃ§os existentes nem inventar adaptador.",
+      "after": "Recuperar SDK/build; manter .NET parcial; não apontar testes a serviços existentes nem inventar adaptador."
+    },
+    {
+      "path": "$.problems[11].closure",
+      "before": "Build+69 testes nÃ£o fecham integraÃ§Ã£o; requer host isolado e dados admitidos.",
+      "after": "Build+69 testes não fecham integração; requer host isolado e dados admitidos."
+    },
+    {
+      "path": "$.problems[12].severity",
+      "before": "validaÃ§Ã£o / mÃ©dia",
+      "after": "validação / média"
+    },
+    {
+      "path": "$.problems[12].cause",
+      "before": "CI sÃ³ da base; ruff . inclui cÃ³pias histÃ³ricas fora da CI.",
+      "after": "CI só da base; ruff . inclui cópias históricas fora da CI."
+    },
+    {
+      "path": "$.problems[12].dependencies",
+      "before": "Base Git, escopo CI e relatÃ³rios de execuÃ§Ã£o.",
+      "after": "Base Git, escopo CI e relatórios de execução."
+    },
+    {
+      "path": "$.problems[12].action",
+      "before": "CI da base confirmado; Ruff CI passou, format390, tipagem explÃ­cita; 805 achados globais preservados fora do escopo ativo.",
+      "after": "CI da base confirmado; Ruff CI passou, format390, tipagem explícita; 805 achados globais preservados fora do escopo ativo."
+    },
+    {
+      "path": "$.problems[12].closure",
+      "before": "Recibos com versÃµes, escopos e ausÃªncia de aprovaÃ§Ã£o global.",
+      "after": "Recibos com versões, escopos e ausência de aprovação global."
+    },
+    {
+      "path": "$.problems[13].problem",
+      "before": "MÃ©tricas condicionais e testes podem ser promovidos indevidamente a lucro.",
+      "after": "Métricas condicionais e testes podem ser promovidos indevidamente a lucro."
+    },
+    {
+      "path": "$.problems[13].severity",
+      "before": "economia / crÃ­tica",
+      "after": "economia / crítica"
+    },
+    {
+      "path": "$.problems[13].cause",
+      "before": "Closing sem clock e referÃªncia comprometida; 3 snapshots=1 evento.",
+      "after": "Closing sem clock e referência comprometida; 3 snapshots=1 evento."
+    },
+    {
+      "path": "$.problems[13].dependencies",
+      "before": "Capacidade, custos, unidade monetÃ¡ria e avaliaÃ§Ã£o futura independente.",
+      "after": "Capacidade, custos, unidade monetária e avaliação futura independente."
+    },
+    {
+      "path": "$.problems[13].action",
+      "before": "Conta decimal reproduzida; abstenÃ§Ãµes preservadas; nenhuma otimizaÃ§Ã£o/novo holdout.",
+      "after": "Conta decimal reproduzida; abstenções preservadas; nenhuma otimização/novo holdout."
+    },
+    {
+      "path": "$.problems[13].closure",
+      "before": "Somente fecha com validaÃ§Ã£o futura prÃ©-especificada e custos prÃ³prios verificÃ¡veis.",
+      "after": "Somente fecha com validação futura pré-especificada e custos próprios verificáveis."
+    },
+    {
+      "path": "$.problems[14].problem",
+      "before": "Estado atual da agenda nÃ£o Ã© comprovado pelo TOML histÃ³rico.",
+      "after": "Estado atual da agenda não é comprovado pelo TOML histórico."
+    },
+    {
+      "path": "$.problems[14].severity",
+      "before": "operaÃ§Ã£o / alta",
+      "after": "operação / alta"
+    },
+    {
+      "path": "$.problems[14].cause",
+      "before": "view sem estado modelÃ¡vel; nenhuma tentativa followup.",
+      "after": "view sem estado modelável; nenhuma tentativa followup."
+    },
+    {
+      "path": "$.problems[14].action",
+      "before": "NÃ£o duplicar nem mudar agenda; conferir estado pelo aplicativo antes da janela e manter auditor corrigido.",
+      "after": "Não duplicar nem mudar agenda; conferir estado pelo aplicativo antes da janela e manter auditor corrigido."
+    },
+    {
+      "path": "$.problems[14].closure",
+      "before": "Recibo da execuÃ§Ã£o na janela ou motivo explÃ­cito de nÃ£o execuÃ§Ã£o.",
+      "after": "Recibo da execução na janela ou motivo explícito de não execução."
+    },
+    {
+      "path": "$.problems[15].problem",
+      "before": "RecuperaÃ§Ã£o de dados operacionais e mÃ¡quina antiga nÃ£o comprovada nesta rodada.",
+      "after": "Recuperação de dados operacionais e máquina antiga não comprovada nesta rodada."
+    },
+    {
+      "path": "$.problems[15].severity",
+      "before": "preservaÃ§Ã£o / alta",
+      "after": "preservação / alta"
+    },
+    {
+      "path": "$.problems[15].cause",
+      "before": "Manifesto recebido tem escopo limitado; dados protegidos nÃ£o podem ser abertos.",
+      "after": "Manifesto recebido tem escopo limitado; dados protegidos não podem ser abertos."
+    },
+    {
+      "path": "$.problems[15].dependencies",
+      "before": "Pacote recebido, computador antigo, autorizaÃ§Ã£o especÃ­fica para operaÃ§Ã£o.",
+      "after": "Pacote recebido, computador antigo, autorização específica para operação."
+    },
+    {
+      "path": "$.problems[15].action",
+      "before": "Preservar; verificar recuperaÃ§Ã£o Git separadamente; explicitar instalaÃ§Ã£o externa e limites.",
+      "after": "Preservar; verificar recuperação Git separadamente; explicitar instalação externa e limites."
+    },
+    {
+      "path": "$.problems[15].closure",
+      "before": "Bundle/clone bare/fsck no recibo final; nÃ£o Ã© restauro de bancos/serviÃ§os.",
+      "after": "Bundle/clone bare/fsck no recibo final; não é restauro de bancos/serviços."
+    },
+    {
+      "path": "$.problems[16].severity",
+      "before": "permissÃµes / crÃ­tica",
+      "after": "permissões / crítica"
+    },
+    {
+      "path": "$.problems[16].cause",
+      "before": "Mandato proÃ­be ler resultados e executar avaliadores.",
+      "after": "Mandato proíbe ler resultados e executar avaliadores."
+    },
+    {
+      "path": "$.problems[16].dependencies",
+      "before": "AutorizaÃ§Ã£o nÃ£o concedida.",
+      "after": "Autorização não concedida."
+    },
+    {
+      "path": "$.problems[16].action",
+      "before": "Somente metadados/documentaÃ§Ã£o permitida; excluir conteÃºdos, avaliaÃ§Ãµes e dependÃªncias operacionais de mudanÃ§as.",
+      "after": "Somente metadados/documentação permitida; excluir conteúdos, avaliações e dependências operacionais de mudanças."
+    },
+    {
+      "path": "$.problems[16].closure",
+      "before": "PreservaÃ§Ã£o do diff; nenhuma conclusÃ£o empÃ­rica dessas coortes.",
+      "after": "Preservação do diff; nenhuma conclusão empírica dessas coortes."
+    },
+    {
+      "path": "$.problems[17].problem",
+      "before": "Disponibilidade histÃ³rica por feature e artefato aprendido nÃ£o demonstrada integralmente.",
+      "after": "Disponibilidade histórica por feature e artefato aprendido não demonstrada integralmente."
+    },
+    {
+      "path": "$.problems[17].severity",
+      "before": "causalidade/modelagem / crÃ­tica",
+      "after": "causalidade/modelagem / crítica"
+    },
+    {
+      "path": "$.problems[17].cause",
+      "before": "Data da partida, cache e desempate por hash nÃ£o comprovam publicaÃ§Ã£o, disponibilidade ou validade da revisÃ£o.",
+      "after": "Data da partida, cache e desempate por hash não comprovam publicação, disponibilidade ou validade da revisão."
+    },
+    {
+      "path": "$.problems[17].dependencies",
+      "before": "ProveniÃªncia por campo e artefato; dependÃªncias compartilhadas cuja alteraÃ§Ã£o pode afetar coleta protegida.",
+      "after": "Proveniência por campo e artefato; dependências compartilhadas cuja alteração pode afetar coleta protegida."
+    },
+    {
+      "path": "$.problems[17].action",
+      "before": "Mapear e manter rotas nÃ£o demonstradas fora da inferÃªncia econÃ´mica; manter ensemble xG desligado; nÃ£o consultar coortes para completar campos.",
+      "after": "Mapear e manter rotas não demonstradas fora da inferência econômica; manter ensemble xG desligado; não consultar coortes para completar campos."
+    },
+    {
+      "path": "$.problems[17].closure",
+      "before": "Dataset/artefatos permitidos com clocks e polÃ­tica de conflito verificÃ¡veis, em estudo futuro separado e prÃ©-especificado.",
+      "after": "Dataset/artefatos permitidos com clocks e política de conflito verificáveis, em estudo futuro separado e pré-especificado."
+    }
+  ]
+}

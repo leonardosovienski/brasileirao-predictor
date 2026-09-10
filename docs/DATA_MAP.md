@@ -1,3 +1,9 @@
+# Atualização de dados IE-20260910
+
+Novo consumidor em brasileirao_predictor/research/price_strength/capture_decision.py. Diagnóstico controlado dos3 payloads DC/1 fixture no último recibo: par API rejeitado,1 abstenção,zero apostas/exposição; PnL total desconhecido. Inputs/hash e saída em continuation/implementation_2026-09-10/evidence/capture-manifest.json e decision.json. Sem novos labels, coleta autenticada ou reutilização do CSV como holdout. Mapa histórico RI abaixo preservado.
+
+---
+
 # Mapa de dados — C:/BRASILEIRAO
 
 Atualizado em 09/09/2026. [Estado atual](ESTADO_ATUAL.md) e

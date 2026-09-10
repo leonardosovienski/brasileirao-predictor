@@ -1,0 +1,14 @@
+{
+  "wheel_sha256": "90847167f8c40258607572fc2ec987b493ea0ef9d956d4da3100ab44f72e88cd",
+  "members": 234,
+  "changed_modules_exact": [
+    "brasileirao_scripts/coverage_report.py",
+    "brasileirao_predictor/kernel_daemon.py",
+    "brasileirao_predictor/kernel_message.py",
+    "brasileirao_scripts/hotpath_smoke.py",
+    "brasileirao_predictor/research/price_strength/capture_decision.py"
+  ],
+  "cli_help_passed": 2,
+  "numeric_runtime_imported": false,
+  "network_and_operational_data_forbidden": true
+}

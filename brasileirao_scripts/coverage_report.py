@@ -42,7 +42,7 @@ MIGRATION = {
 # The homologated Redis integration surface is the versioned kernel protocol.
 # The operator smoke is executed as an E2E container gate and reported separately.
 REDIS_INTEGRATION: set[str] = set()
-KERNEL = {"brasileirao_predictor/kernel_daemon.py"}
+KERNEL = {"brasileirao_predictor/kernel_daemon.py", "brasileirao_predictor/kernel_message.py"}
 # Código que produz EVIDÊNCIA publicada: os artefatos de reports/ que sustentam
 # vereditos fechados no registro de tentativas, e a régua que os desconta.
 # Auditoria adversarial 2026-09-05, achado 6 (issue #57): estes arquivos caíam
