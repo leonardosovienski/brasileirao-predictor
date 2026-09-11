@@ -1,0 +1,185 @@
+name: Scoped synthetic publication validation
+
+on:
+  push:
+    branches: ['publication-validation-*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Synthetic Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.13', '3.14']
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: '0.12.1'
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install the locked dependency graph
+        run: uv sync --locked --all-extras
+      - name: Validate the reviewed synthetic allowlist
+        run: .venv/bin/python -I -B tools/publication_validation/run.py "$RUNNER_TEMP/python-synthetic"
+      - name: Validate publication tools
+        run: |
+          uv run ruff check tools/publication_validation
+          uv run ruff format --check tools/publication_validation
+      - name: Build distribution and verify wheel installation
+        run: |
+          uv build
+          uv venv "$RUNNER_TEMP/installed"
+          uv pip install --python "$RUNNER_TEMP/installed/bin/python" --no-deps dist/*.whl
+          test -f "$RUNNER_TEMP/installed/lib/python${{ matrix.python-version }}/site-packages/brasileirao_predictor/kernel_cli.py"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: python-validation-${{ matrix.python-version }}
+          path: |
+            ${{ runner.temp }}/python-synthetic
+            dist
+
+  dotnet:
+    name: Synthetic .NET 10 build and test
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:8.2.9-alpine3.22@sha256:30abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d
+        ports:
+          - 26380:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Identify this job's disposable Redis
+        run: |
+          run_id=$(docker exec "${{ job.services.redis.id }}" redis-cli INFO server | tr -d '\r' | sed -n 's/^run_id://p')
+          test -n "$run_id"
+          echo "LINEUP_TEST_REDIS_RUN_ID=$run_id" >> "$GITHUB_ENV"
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "10.0.x"
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.12.1"
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Prepare the synthetic cross-process kernel
+        run: uv sync --all-extras --locked
+      - run: dotnet restore dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --locked-mode
+      - run: dotnet build dotnet/LineupWorker/LineupWorker.csproj --configuration Release --no-restore --warnaserror
+      - name: Test Worker and Python processes against this job's Redis
+        run: |
+          export BRASILEIRAO_LAB_OUTPUT="$RUNNER_TEMP/brasileirao-runtime-lab"
+          mkdir -p "$BRASILEIRAO_LAB_OUTPUT"
+          export BRASILEIRAO_LAB_REPO="$GITHUB_WORKSPACE"
+          export PYTHONDONTWRITEBYTECODE=1
+          export NUMBA_CACHE_DIR="$BRASILEIRAO_LAB_OUTPUT/numba"
+          export TMPDIR="$BRASILEIRAO_LAB_OUTPUT"
+          export LINEUP_E2E_PYTHON="$GITHUB_WORKSPACE/.venv/bin/python"
+          export LINEUP_E2E_KERNEL_SCRIPT="$GITHUB_WORKSPACE/tools/runtime_lab/kernel_synthetic.py"
+          export LINEUP_E2E_REDIS_URL=redis://127.0.0.1:26380/13
+          export LINEUP_E2E_REDIS_RUN_ID="$LINEUP_TEST_REDIS_RUN_ID"
+          dotnet test dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --configuration Release --no-restore --collect:"XPlat Code Coverage" --results-directory artifacts/dotnet-coverage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dotnet-validation
+          path: |
+            artifacts/dotnet-coverage
+            ${{ runner.temp }}/brasileirao-runtime-lab
+      - name: Enforce Worker line and branch coverage
+        run: |
+          python - <<'PY'
+          import glob, xml.etree.ElementTree as ET
+          report = glob.glob("artifacts/dotnet-coverage/**/coverage.cobertura.xml", recursive=True)[0]
+          root = ET.parse(report).getroot()
+          rates = {"line": float(root.attrib["line-rate"]), "branch": float(root.attrib["branch-rate"])}
+          print(rates)
+          assert min(rates.values()) >= 0.80, rates
+          PY
+
+  containers:
+    name: Synthetic Compose build and health
+    timeout-minutes: 25
+    runs-on: ubuntu-latest
+    needs: [python, dotnet]
+    env:
+      COMPOSE_PROJECT_NAME: brasileirao-ci-${{ github.run_id }}-${{ github.run_attempt }}
+      EXCHANGE_WEBSOCKET_URL: ""
+      EXCHANGE_API_KEY: ""
+      LINEUP_ALLOW_SYNTHETIC_INPUTS: "true"
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Verify canonical shared wheel hashes
+        run: |
+          mkdir .wheelhouse-e2e
+          curl --fail --silent --show-error --location \
+            "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl" \
+            --output .wheelhouse-e2e/predictor_core-3.2.0-py3-none-any.whl
+          curl --fail --silent --show-error --location \
+            "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl" \
+            --output .wheelhouse-e2e/predictor_ops-4.1.0-py3-none-any.whl
+          cd .wheelhouse-e2e
+          sha256sum --check ../constraints/shared-wheels.sha256
+      - name: Isolate Compose configuration from operational paths
+        run: |
+          python tools/publication_validation/compose_config.py "$RUNNER_TEMP/compose-synthetic"
+          echo "COMPOSE_FILE=$RUNNER_TEMP/compose-synthetic/compose.json" >> "$GITHUB_ENV"
+      - run: docker compose config --quiet
+      - run: docker compose build
+      - run: docker compose up --detach --wait --wait-timeout 180
+      - name: Versioned Python Redis .NET smoke
+        run: docker compose run --rm --no-deps --entrypoint python kernel -m brasileirao_scripts.hotpath_smoke --synthetic-lineup --n 3
+      - name: Redis loss and reconnection
+        run: |
+          docker compose stop redis
+          sleep 3
+          kernel_id=$(docker compose ps --all --quiet kernel)
+          test -n "$kernel_id"
+          test "$(docker inspect "$kernel_id" --format '{{.State.Status}}')" = running
+          docker compose start redis
+          for attempt in $(seq 1 30); do
+            if docker compose exec -T kernel brasileirao-kernel --healthcheck; then break; fi
+            if [ "$attempt" = 30 ]; then exit 1; fi
+            sleep 1
+          done
+          docker compose run --rm --no-deps --entrypoint python kernel -m brasileirao_scripts.hotpath_smoke --synthetic-lineup --n 1
+      - name: Graceful shutdown
+        run: |
+          docker compose stop --timeout 20 worker kernel
+          worker_id=$(docker compose ps --all --quiet worker)
+          kernel_id=$(docker compose ps --all --quiet kernel)
+          test -n "$worker_id" && test -n "$kernel_id"
+          test "$(docker inspect "$worker_id" --format '{{.State.ExitCode}}')" = 0
+          test "$(docker inspect "$kernel_id" --format '{{.State.ExitCode}}')" = 0
+      - if: always()
+        run: docker compose logs --no-color > compose-validation.log
+      - if: always()
+        run: docker compose down --volumes
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compose-validation
+          path: compose-validation.log
