@@ -1,0 +1,63 @@
+{
+  "run_id": "OSR-20260911-03",
+  "frozen_at_utc": "2026-09-11T06:25:46.105661+00:00",
+  "scope": "offline engineering, no fitting or real fixture samples",
+  "targets": {
+    "T1": "K02/K03/K04: joint FT1X2 -> strict devig -> ordered probabilities -> coverage/scoring; positive controls and semantic mutants.",
+    "T2": "K10: extend native artifact receipt interface with explicit run comparison and exclusion/probability change report; no service or new framework.",
+    "T3": "K01: cache invariant NB/DC parameters outside support probes; extend alpha boundaries without claiming unbounded caller coverage."
+  },
+  "market": {
+    "classes": [
+      "1",
+      "X",
+      "2"
+    ],
+    "period": "FT",
+    "rules": "90_MIN_PLUS_STOPPAGE_NO_EXTRA_TIME",
+    "snapshot": "one common snapshot_id and captured_at; latest received snapshot, no fallback from incomplete/suspended latest",
+    "max_age_seconds": 300,
+    "clock_skew_seconds": 0,
+    "method": "proportional",
+    "underround": "reject",
+    "valid_controls": [
+      "complete",
+      "permuted",
+      "exact_retry",
+      "late_revision_ignored"
+    ],
+    "invalid": [
+      "missing_selection",
+      "conflicting_duplicate",
+      "mixed_fixture",
+      "mixed_period",
+      "mixed_rules",
+      "mixed_book",
+      "mixed_snapshot",
+      "mando",
+      "suspended",
+      "stale",
+      "missing_clock",
+      "future_publication",
+      "inconsistent_clock"
+    ]
+  },
+  "numeric": {
+    "domain": "finite positive means with representable NB probabilities, alpha 1e-4..3; strict positive DC factors. Caller means have no finite global bound; support fail expected for extremes.",
+    "cases": "means pairs (0.0001,0.0002),(.05,.1),(.2,1),(1.4,1.1),(5,4),(10,.1),(100,80); alpha 0.0001,.01,.5,3; rho fractions -.5,0,.5 of strict allowed bounds",
+    "mass_tolerance": 1e-06,
+    "market_tolerance": 1.0001e-06,
+    "mass_identity_tolerance": 1e-10,
+    "reference_tail": 1e-12,
+    "max_support": 1024,
+    "reference_max_support": 2048,
+    "invariants": 1e-12,
+    "conditional": "DNB non-draw conditional probabilities; report denominator and conservative error bound 2*(candidate_tail+reference_tail)/reference_denominator capped at 1; no unconditional tolerance claim.",
+    "cost": "interleaved old/new 3 repetitions on fixed 3 interior cases after warmup; report median ratio, experimental goal >=2x without accuracy regression; operational latency budget UNKNOWN."
+  },
+  "workflow": {
+    "inputs": "explicit own SYNTHETIC fixtures only in demonstration; no recursive reading of result directories",
+    "acceptance": "same ordered probabilities as formula for controls; every excluded fixture retained; no score from excluded fixture; compare refuses different universe or policy; changed input/code hashes visible; duplicate JSON keys and overwrites rejected",
+    "resources": "existing managed Python/numpy/scipy; JobObject 768MiB one process; 120sec timeout; sanitized env + Python audit hook, not native-code OS sandbox"
+  }
+}

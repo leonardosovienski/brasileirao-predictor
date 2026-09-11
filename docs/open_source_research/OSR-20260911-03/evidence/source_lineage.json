@@ -1,0 +1,50 @@
+[
+  {
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\runner.py",
+    "sha256": "103b40af80c6c321113acf91b44a6904e83dedfdfea101d5c272b6494138ceae",
+    "target": "research\\runner.py",
+    "change": "only scratch path"
+  },
+  {
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+    "sha256": "03ee225cdba6568a89aa9c82d29f8d8ecc3bcac22eb037199594afbf872ddc65",
+    "target": "research\\child_boot.py",
+    "change": "unchanged"
+  },
+  {
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\strict_math.py",
+    "sha256": "898e86b0ddd5c14627575d1013262e56928baa7c2f029b055f320113fc58f629",
+    "target": "research\\strict_math.py",
+    "change": "unchanged"
+  },
+  {
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\strict_pit.py",
+    "sha256": "a7c53b794c2b25824572c1fc8b0f38610ca9acc194d6699de7f2bc10a9c8678c",
+    "target": "research\\strict_pit.py",
+    "change": "unchanged"
+  },
+  {
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\adaptive_goals.py",
+    "sha256": "056ee48dd9d441e332a15bc69d0743b08684fa61f0d04be6e6d404b3b4f45dca",
+    "target": "research\\previous_goals.py",
+    "change": "unchanged"
+  },
+  {
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\research\\price_strength\\artifacts.py",
+    "sha256": "6e32f2e80f36559264abaf87b945989a852e8b243f379716f88c0e50e6fce4b7",
+    "target": "research/artifacts.py",
+    "change": "exact copy; module globals constrained by consumer to local research roots; no original package import"
+  },
+  {
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\references\\baseline_goal.py",
+    "sha256": "ace188728ad9e97945fa1a19b89521da09ad155a9de8c04251907aec79e1c314",
+    "target": "research/references/baseline_goal.py",
+    "change": "exact prior extraction; origin listed in parent extractions.json"
+  },
+  {
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\references\\market_pricer.py",
+    "sha256": "eda10c10ff6bca26e18287c8bbf01c8ec3ef43c7c64396196091723a049dad39",
+    "target": "research/references/market_pricer.py",
+    "change": "exact prior extraction; origin listed in parent extractions.json"
+  }
+]

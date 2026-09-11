@@ -1,0 +1,37 @@
+{
+  "at_utc": "2026-09-11T06:30:57.060205+00:00",
+  "command": [
+    "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-03\\research\\child_boot.py",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-03\\research\\test_goals.py"
+  ],
+  "cwd": "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-03\\tmp",
+  "env_keys": [
+    "MKL_NUM_THREADS",
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "PATH",
+    "PYTHONHASHSEED",
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "environment_policy": "explicit allowlist; no inherited secret values",
+  "job_memory_mib": 768,
+  "job_active_process_limit": 1,
+  "job_assigned": true,
+  "timeout_seconds": 120,
+  "timed_out": false,
+  "exit_code": 0,
+  "elapsed_wall_seconds": 13.640008100002888,
+  "stdout": "{\"cases\": 84, \"passed\": 81, \"support_failures\": 3, \"max_market_error\": 8.71370884714771e-07, \"max_conditional_error\": 4.442593485970425e-05, \"median_speed_ratio\": 2.3110282137545957, \"official_latency_budget\": \"UNKNOWN\"}\n",
+  "stderr": "",
+  "protocol_sha256": "0da6308b6754dc1c9307f6f28c20747fd555b55de3eebe5f3d8063054abce5b3",
+  "script_sha256": "b4fb80178f51dd6dbf29d90bcb581a1fa0b9bda45538b75aabc6555437af7b5c"
+}

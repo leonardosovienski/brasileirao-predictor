@@ -1,0 +1,37 @@
+{
+  "at_utc": "2026-09-11T04:55:15.035089+00:00",
+  "command": [
+    "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\test_n03.py"
+  ],
+  "cwd": "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-02\\tmp",
+  "env_keys": [
+    "MKL_NUM_THREADS",
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "PATH",
+    "PYTHONHASHSEED",
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "environment_policy": "explicit allowlist; no inherited secret values",
+  "job_memory_mib": 768,
+  "job_active_process_limit": 1,
+  "job_assigned": true,
+  "timeout_seconds": 120,
+  "timed_out": false,
+  "exit_code": 0,
+  "elapsed_wall_seconds": 0.8677547999977833,
+  "stdout": "{\"adapter_cases\": 18, \"baseline_assertions\": 15, \"mutants\": 15, \"killed\": 15, \"survived\": [], \"invalid_mutants\": 0}\n",
+  "stderr": "",
+  "protocol_sha256": "e51cb8d3dd7d5a83f6978c05031701c3aa50671e31f9766ec9c4a84ad3164d54",
+  "script_sha256": "bc2da17fd20cd6b93258f4f06e628c97b2c046bc4878bb37df67c0e1c52d91ce"
+}

@@ -1,0 +1,21 @@
+{
+  "status": "TEMPLATE_NOT_APPROVED_NOT_A_COHORT",
+  "cohort_id": null,
+  "competition": "Brasileirão Série A",
+  "seasons": null,
+  "fixture_allowlist": null,
+  "source_paths_and_hashes": null,
+  "history_manifest_ref": null,
+  "validation_split": null,
+  "test_split": null,
+  "information_contract": "PENDING_DECISION_RECEIVED_VS_SOURCE_AVAILABLE",
+  "included": "A definir no manifesto real antes de labels",
+  "excluded": "Interseções protegidas sem decisão específica; não é permissão automática para o restante",
+  "lineage_relations": {
+    "BE": "Conceptual overlap; data intersection pending actual allowlist",
+    "H14_H15_H9_A1": "Must remain protected; no actual comparison without metadata authorization"
+  },
+  "lineage_review_ref": null,
+  "specific_authorization_ref": null,
+  "labels_in_this_template": false
+}

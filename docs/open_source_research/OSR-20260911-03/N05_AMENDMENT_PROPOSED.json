@@ -1,0 +1,20 @@
+{
+  "status": "PROPOSED_NOT_APPROVED",
+  "parent": "OSR-20260911-02/N05_PROTOCOL.json",
+  "change": "Estimando alternativo: informação historicamente disponível na fonte no cutoff, em lugar de comprovadamente recebida por nosso sistema.",
+  "keep": [
+    "T−60 sobre kickoff congelado; identidade e mercado completo nominal",
+    "model-only/market-only/composição e orçamento de ajuste do protocolo 02",
+    "splits congelados antes de labels, comparação pareada, incerteza e multiplicidade",
+    "gates BE/H14/H15/H9/A1 e licenças/permissões"
+  ],
+  "replace_only_if_approved": "Receipt local atual permanece registrado como atual. source_available_at deve ser sustentado por arquivo/versionamento documental; não renomear timestamp nem exigir ingestion pessoal antiga como condição do novo estimando.",
+  "required_evidence": [
+    "Semântica do timestamp do provedor, incluindo correções retrospectivas",
+    "Versão raw e hash com provenance; hash não basta para autenticidade",
+    "Mesma disponibilidade temporal para as entradas do modelo e do mercado",
+    "Manifesto candidato e decisão BE assinada antes de leitura de desfechos"
+  ],
+  "authority": "Responsável científico N05 e responsável pela família BE; nenhum agente autoaprova.",
+  "decision_now": "Histórico plausível R051 com pendências específicas; produtos de fechamento/janela curta não habilitam arquivo T−60. Alternativa prospectiva só proposta, sem coleta ativada."
+}

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "checks": [
+    "overwrite",
+    "outside_explicit_development_roots",
+    "model_scores_have_paired_market_panel",
+    "comparison_different_universe",
+    "corrupt_artifact_hash",
+    "comparison_different_policy",
+    "input_changed_before_publish"
+  ],
+  "failure_files_are_intentional_test_artifacts": true
+}

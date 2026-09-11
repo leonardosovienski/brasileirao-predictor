@@ -1,0 +1,1399 @@
+{
+  "status": "PASS_WITH_SCOPE_LIMITS",
+  "fixtures": [
+    {
+      "id": "valid",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null
+    },
+    {
+      "id": "late_publication",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T18:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "before_cutoff"
+    },
+    {
+      "id": "late_receipt",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T18:01:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "ABSTAIN",
+      "expected_rule": "no_received_version"
+    },
+    {
+      "id": "future_revision_ignored",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        },
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T19:00:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "SUSPENDED",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null
+    },
+    {
+      "id": "revision_known_suspended",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        },
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:30:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "SUSPENDED",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "ABSTAIN",
+      "expected_rule": "latest_status"
+    },
+    {
+      "id": "kickoff_rescheduled",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-02T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "kickoff_frozen"
+    },
+    {
+      "id": "inverted_home_away",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-A",
+          "away_id": "SYN-H",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "identity"
+    },
+    {
+      "id": "conflicting_source_id",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-OTHER",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "identity"
+    },
+    {
+      "id": "mapping_version",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "SYN-V2",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "identity"
+    },
+    {
+      "id": "identical_duplicate",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        },
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null
+    },
+    {
+      "id": "conflicting_duplicate",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        },
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 3.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "conflict"
+    },
+    {
+      "id": "missing_publication",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": null,
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "required_clock"
+    },
+    {
+      "id": "missing_receipt",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": null,
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "required_clock"
+    },
+    {
+      "id": "naive_timestamp",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "required_clock"
+    },
+    {
+      "id": "clock_chain",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:00:30Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "clock_chain"
+    },
+    {
+      "id": "at_kickoff",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T20:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "REJECT",
+      "expected_rule": "decision_before_kickoff"
+    },
+    {
+      "id": "same_instant_offset",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-1",
+          "canonical_match_id": "OSR-SYN-1",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T14:01:00-03:00",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-1",
+        "canonical_match_id": "OSR-SYN-1",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null
+    },
+    {
+      "id": "simultaneous_other_fixture",
+      "rows": [
+        {
+          "source": "SYNTH",
+          "source_match_id": "SYN-2",
+          "canonical_match_id": "OSR-SYN-2",
+          "mapping_version": "brasileirao-club-aliases/1.0",
+          "home_id": "SYN-H",
+          "away_id": "SYN-A",
+          "kickoff_at": "2030-01-01T20:00:00Z",
+          "observed_at": "2030-01-01T17:00:00Z",
+          "published_at": "2030-01-01T17:01:00Z",
+          "available_at": "2030-01-01T17:02:00Z",
+          "captured_at": "2030-01-01T17:03:00Z",
+          "bookmaker": "SYN-BOOK",
+          "market": "1X2",
+          "selection": "1",
+          "period": "FT",
+          "line": null,
+          "status": "ACTIVE",
+          "raw_odds": 2.0,
+          "data_quality_status": "OK"
+        }
+      ],
+      "context": {
+        "source": "SYNTH",
+        "source_match_id": "SYN-2",
+        "canonical_match_id": "OSR-SYN-2",
+        "mapping_version": "brasileirao-club-aliases/1.0",
+        "home_id": "SYN-H",
+        "away_id": "SYN-A",
+        "bookmaker": "SYN-BOOK",
+        "market": "1X2",
+        "selection": "1",
+        "period": "FT",
+        "line": null,
+        "predicted_at": "2030-01-01T18:00:00Z",
+        "frozen_kickoff_at": "2030-01-01T20:00:00Z"
+      },
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null
+    }
+  ],
+  "adversarial_results": [
+    {
+      "id": "valid",
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null,
+      "observed": {
+        "status": "ADMIT_SYNTHETIC_CONTRACT",
+        "rule": null,
+        "captured_at": "2030-01-01T17:03:00Z",
+        "identical_copies": 1,
+        "source_authentication": "NOT_ESTABLISHED"
+      },
+      "pass": true
+    },
+    {
+      "id": "late_publication",
+      "expected": "REJECT",
+      "expected_rule": "before_cutoff",
+      "observed": {
+        "status": "REJECT",
+        "rule": "before_cutoff"
+      },
+      "pass": true
+    },
+    {
+      "id": "late_receipt",
+      "expected": "ABSTAIN",
+      "expected_rule": "no_received_version",
+      "observed": {
+        "status": "ABSTAIN",
+        "rule": "no_received_version"
+      },
+      "pass": true
+    },
+    {
+      "id": "future_revision_ignored",
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null,
+      "observed": {
+        "status": "ADMIT_SYNTHETIC_CONTRACT",
+        "rule": null,
+        "captured_at": "2030-01-01T17:03:00Z",
+        "identical_copies": 1,
+        "source_authentication": "NOT_ESTABLISHED"
+      },
+      "pass": true
+    },
+    {
+      "id": "revision_known_suspended",
+      "expected": "ABSTAIN",
+      "expected_rule": "latest_status",
+      "observed": {
+        "status": "ABSTAIN",
+        "rule": "latest_status"
+      },
+      "pass": true
+    },
+    {
+      "id": "kickoff_rescheduled",
+      "expected": "REJECT",
+      "expected_rule": "kickoff_frozen",
+      "observed": {
+        "status": "REJECT",
+        "rule": "kickoff_frozen"
+      },
+      "pass": true
+    },
+    {
+      "id": "inverted_home_away",
+      "expected": "REJECT",
+      "expected_rule": "identity",
+      "observed": {
+        "status": "REJECT",
+        "rule": "identity",
+        "field": "home_id"
+      },
+      "pass": true
+    },
+    {
+      "id": "conflicting_source_id",
+      "expected": "REJECT",
+      "expected_rule": "identity",
+      "observed": {
+        "status": "REJECT",
+        "rule": "identity",
+        "field": "source_match_id"
+      },
+      "pass": true
+    },
+    {
+      "id": "mapping_version",
+      "expected": "REJECT",
+      "expected_rule": "identity",
+      "observed": {
+        "status": "REJECT",
+        "rule": "identity",
+        "field": "mapping_version"
+      },
+      "pass": true
+    },
+    {
+      "id": "identical_duplicate",
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null,
+      "observed": {
+        "status": "ADMIT_SYNTHETIC_CONTRACT",
+        "rule": null,
+        "captured_at": "2030-01-01T17:03:00Z",
+        "identical_copies": 2,
+        "source_authentication": "NOT_ESTABLISHED"
+      },
+      "pass": true
+    },
+    {
+      "id": "conflicting_duplicate",
+      "expected": "REJECT",
+      "expected_rule": "conflict",
+      "observed": {
+        "status": "REJECT",
+        "rule": "conflict"
+      },
+      "pass": true
+    },
+    {
+      "id": "missing_publication",
+      "expected": "REJECT",
+      "expected_rule": "required_clock",
+      "observed": {
+        "status": "REJECT",
+        "rule": "required_clock"
+      },
+      "pass": true
+    },
+    {
+      "id": "missing_receipt",
+      "expected": "REJECT",
+      "expected_rule": "required_clock",
+      "observed": {
+        "status": "REJECT",
+        "rule": "required_clock"
+      },
+      "pass": true
+    },
+    {
+      "id": "naive_timestamp",
+      "expected": "REJECT",
+      "expected_rule": "required_clock",
+      "observed": {
+        "status": "REJECT",
+        "rule": "required_clock"
+      },
+      "pass": true
+    },
+    {
+      "id": "clock_chain",
+      "expected": "REJECT",
+      "expected_rule": "clock_chain",
+      "observed": {
+        "status": "REJECT",
+        "rule": "clock_chain"
+      },
+      "pass": true
+    },
+    {
+      "id": "at_kickoff",
+      "expected": "REJECT",
+      "expected_rule": "decision_before_kickoff",
+      "observed": {
+        "status": "REJECT",
+        "rule": "decision_before_kickoff"
+      },
+      "pass": true
+    },
+    {
+      "id": "same_instant_offset",
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null,
+      "observed": {
+        "status": "ADMIT_SYNTHETIC_CONTRACT",
+        "rule": null,
+        "captured_at": "2030-01-01T17:03:00Z",
+        "identical_copies": 1,
+        "source_authentication": "NOT_ESTABLISHED"
+      },
+      "pass": true
+    },
+    {
+      "id": "simultaneous_other_fixture",
+      "expected": "ADMIT_SYNTHETIC_CONTRACT",
+      "expected_rule": null,
+      "observed": {
+        "status": "ADMIT_SYNTHETIC_CONTRACT",
+        "rule": null,
+        "captured_at": "2030-01-01T17:03:00Z",
+        "identical_copies": 1,
+        "source_authentication": "NOT_ESTABLISHED"
+      },
+      "pass": true
+    }
+  ],
+  "existing_contract_results": [
+    {
+      "id": "pit_late_available",
+      "expected": false,
+      "observed": false,
+      "pass": true
+    },
+    {
+      "id": "pit_equal_cutoff",
+      "expected": true,
+      "observed": true,
+      "pass": true
+    },
+    {
+      "id": "pit_at_kickoff",
+      "expected": false,
+      "observed": false,
+      "pass": true
+    },
+    {
+      "id": "curate_valid",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "pass": true
+    },
+    {
+      "id": "curate_publication_after_capture",
+      "expected": "REJECT",
+      "observed": "REJECT",
+      "pass": true
+    },
+    {
+      "id": "curate_available_after_capture",
+      "expected": "REJECT",
+      "observed": "REJECT",
+      "pass": true
+    },
+    {
+      "id": "curate_observed_after_capture",
+      "expected": "REJECT",
+      "observed": "REJECT",
+      "pass": true
+    },
+    {
+      "id": "closing_suspended_latest",
+      "expected": "ABSTAIN",
+      "observed": "ABSTAIN",
+      "pass": true
+    },
+    {
+      "id": "closing_conflicting_duplicates",
+      "expected": "ABSTAIN",
+      "observed": "ABSTAIN",
+      "pass": true
+    },
+    {
+      "id": "closing_identical_duplicates",
+      "expected": "ACCEPT",
+      "observed": "ACCEPT",
+      "pass": true
+    },
+    {
+      "id": "closing_mixed_source_id",
+      "expected": "REJECT",
+      "observed": "REJECT",
+      "pass": true
+    },
+    {
+      "id": "view_late_revision_ignored",
+      "expected": 1,
+      "observed": 1,
+      "pass": true
+    },
+    {
+      "id": "view_postponed_not_resurrected",
+      "expected": 0,
+      "observed": 0,
+      "pass": true
+    },
+    {
+      "id": "view_tied_conflict",
+      "expected": "REJECT",
+      "observed": "REJECT",
+      "pass": true
+    },
+    {
+      "id": "view_simultaneous_events",
+      "expected": 2,
+      "observed": 2,
+      "pass": true
+    }
+  ],
+  "existing_contract_scope_gaps": [
+    {
+      "case": "curate_missing_published",
+      "observed": "ACCEPT",
+      "required_for_strict_study": "REJECT",
+      "interpretation": "curated schema allows null publication; not proof of predictive admission"
+    },
+    {
+      "case": "curate_receipt_after_decision",
+      "observed": "ACCEPT",
+      "required_for_strict_study": "ABSTAIN",
+      "interpretation": "curate checks kickoff/capture, not study decision cutoff"
+    },
+    {
+      "case": "curate_home_inversion",
+      "observed": "ACCEPT",
+      "required_for_strict_study": "REJECT",
+      "interpretation": "curate_odds does not verify these added identity fields against canonical mapping"
+    },
+    {
+      "case": "closing_missing_published",
+      "observed": "ACCEPT",
+      "required_for_strict_study": "REJECT",
+      "interpretation": "last-observed-state utility has weaker completeness than strict study contract"
+    }
+  ],
+  "mutations": [
+    {
+      "id": "M01",
+      "target": "strict_pit.py",
+      "rule": "decision_before_kickoff",
+      "replacement_from": "if not decision<kickoff:",
+      "replacement_to": "if False:",
+      "source_sha256": "091ddc13bbb059d5b27f452ef514694d2cf2b0a2fa26a9f98689b64579759c09",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "at_kickoff"
+      ]
+    },
+    {
+      "id": "M02",
+      "target": "strict_pit.py",
+      "rule": "cutoff_receipt",
+      "replacement_from": "if utc(row.get('captured_at'))>decision:continue",
+      "replacement_to": "if False:continue",
+      "source_sha256": "79f4d930b06c6e0ef599dac79778ca780e66d2ffc7b159f010ec3ad1834c72de",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "late_receipt",
+        "future_revision_ignored",
+        "missing_receipt"
+      ]
+    },
+    {
+      "id": "M03",
+      "target": "strict_pit.py",
+      "rule": "conflict",
+      "replacement_from": "if len({json.dumps(r,sort_keys=True,allow_nan=False) for r in latest_rows})>1:",
+      "replacement_to": "if False:",
+      "source_sha256": "07b0598dd74d58e0d28ccbf58f5d212ee4d6729f40b697b8a3edf278385a59da",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "conflicting_duplicate"
+      ]
+    },
+    {
+      "id": "M04",
+      "target": "strict_pit.py",
+      "rule": "before_cutoff",
+      "replacement_from": "if not all(clocks[k]<=decision for k in ['observed_at','published_at','available_at','captured_at']):",
+      "replacement_to": "if False:",
+      "source_sha256": "5299ceadbbf4ac298ad573b6f4e7514093aebf22b6c651f35a7d9895cdf4caeb",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "late_publication"
+      ]
+    },
+    {
+      "id": "M05",
+      "target": "strict_pit.py",
+      "rule": "clock_chain",
+      "replacement_from": "if not clocks['observed_at']<=clocks['published_at']<=clocks['available_at']<=clocks['captured_at']:",
+      "replacement_to": "if False:",
+      "source_sha256": "b4e10c5f75672f32699c150772ef146a8fbbe9652b4924ff60a70e042b711624",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "clock_chain"
+      ]
+    },
+    {
+      "id": "M06",
+      "target": "strict_pit.py",
+      "rule": "kickoff_frozen",
+      "replacement_from": "if clocks['kickoff_at']!=kickoff:",
+      "replacement_to": "if False:",
+      "source_sha256": "12ecbc7049fbd6db169dcdb04d38c101ea4dc59c6611eb7e30dca747877e9b80",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "kickoff_rescheduled"
+      ]
+    },
+    {
+      "id": "M07",
+      "target": "strict_pit.py",
+      "rule": "identity",
+      "replacement_from": "if key not in row or key not in context or row[key]!=context[key]:",
+      "replacement_to": "if False:",
+      "source_sha256": "f4408bed9e50233873f58d450fb12005bfba324607e48970073632b4fd68abd6",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "inverted_home_away",
+        "conflicting_source_id",
+        "mapping_version"
+      ]
+    },
+    {
+      "id": "M08",
+      "target": "strict_pit.py",
+      "rule": "latest_status",
+      "replacement_from": "if row.get('status')!='ACTIVE':",
+      "replacement_to": "if False:",
+      "source_sha256": "d41a8061a78b44ad54fd2bbc826f6231454f2ca2300e33b0f24aaf38a7b4c315",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "revision_known_suspended"
+      ]
+    },
+    {
+      "id": "MB01",
+      "target": "references/baseline_pit.py",
+      "rule": "availability",
+      "replacement_from": "return available <= predicted < kickoff",
+      "replacement_to": "return predicted < kickoff",
+      "source_sha256": "1a378edb4b71591625830f16bdf521c69a05e71e69e51f1182768a7d74c86b8f",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "pit_late_available"
+      ]
+    },
+    {
+      "id": "MB02",
+      "target": "references/baseline_pit.py",
+      "rule": "publication",
+      "replacement_from": "if published > captured:",
+      "replacement_to": "if False:",
+      "source_sha256": "d506834a0e2a56ebc9a76bb750c7b30398b8dfe9cd46d46fe68727cbd22fefab",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "curate_publication_after_capture"
+      ]
+    },
+    {
+      "id": "MB03",
+      "target": "references/baseline_pit.py",
+      "rule": "observed_clock",
+      "replacement_from": "if observed > captured:",
+      "replacement_to": "if False:",
+      "source_sha256": "dcff7959549b55400593f40cec60a2f0f3f14aa6fafa93a72d383378515fbf91",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "curate_observed_after_capture"
+      ]
+    },
+    {
+      "id": "MB04",
+      "target": "references/baseline_pit.py",
+      "rule": "latest_state",
+      "replacement_from": "latest = max(captured for captured, _ in candidates)",
+      "replacement_to": "latest = min(captured for captured, _ in candidates)",
+      "source_sha256": "4c2b51652110f57688b6c3f035596b1d3dd4a470b017e63c8cccecb1e77ce22c",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "closing_suspended_latest"
+      ]
+    },
+    {
+      "id": "MB05",
+      "target": "references/baseline_pit.py",
+      "rule": "tied_conflict",
+      "replacement_from": "if len(signatures) != 1:",
+      "replacement_to": "if False:",
+      "source_sha256": "72dbda40ad3137648fe3181a2cfcfedf78a7ea7e71e3954a870bdfb497919fe7",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "closing_conflicting_duplicates"
+      ]
+    },
+    {
+      "id": "MB06",
+      "target": "references/baseline_pit.py",
+      "rule": "identity",
+      "replacement_from": "if len(identities) > 1:",
+      "replacement_to": "if False:",
+      "source_sha256": "fde2a3dab48256dc7f7b9655da2cfb02a89204dbfbfa056470741b1dc43d7951",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "closing_mixed_source_id"
+      ]
+    },
+    {
+      "id": "MB07",
+      "target": "references/baseline_pit.py",
+      "rule": "strict_kickoff",
+      "replacement_from": "return available <= predicted < kickoff",
+      "replacement_to": "return available <= predicted <= kickoff",
+      "source_sha256": "fc0f179fcb1c2e323654babce29f18f97d7d7edd73f2b555a712aba3e047cb7b",
+      "compiled": true,
+      "status": "KILLED",
+      "failed_cases": [
+        "pit_at_kickoff"
+      ]
+    }
+  ],
+  "summary": {
+    "adapter_cases": 18,
+    "baseline_assertions": 15,
+    "mutants": 15,
+    "killed": 15,
+    "survived": [],
+    "invalid_mutants": 0
+  },
+  "uncovered": [
+    "source authenticity",
+    "complete fixture universe",
+    "cross-provider canonical mapping authenticity",
+    "dynamic timezone/kickoff external revisions",
+    "whole-market selection completeness and common vintage",
+    "operational collectors/cache and .NET worker",
+    "mutation of all SQL/window predicates; chosen mutants are not exhaustive"
+  ]
+}

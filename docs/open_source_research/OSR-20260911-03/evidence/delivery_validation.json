@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "parent_files_unchanged": true,
+  "protocol_unchanged": true,
+  "head_unchanged": true,
+  "tracked_and_staged_diff_empty": true,
+  "native_writer_exact_copy": true,
+  "all_run_json_finite": true,
+  "scope": "No automatic global tests or protected result discovery",
+  "intentional_negative_fixtures": [
+    "tampered_copy",
+    "different_policy",
+    "failed_input_change"
+  ],
+  "git_status": "?? docs/open_source_research/\n"
+}

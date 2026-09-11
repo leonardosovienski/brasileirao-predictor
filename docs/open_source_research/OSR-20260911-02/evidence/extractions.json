@@ -1,0 +1,278 @@
+[
+  {
+    "destination": "baseline_goal.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\model.py",
+    "source_sha256": "5b974eab0027275b829c3adfe41125fbad6ff4e0055578d7191167d5d65c4f2e",
+    "symbol": "_all_dc_factors_positive",
+    "lines": [
+      125,
+      127
+    ],
+    "segment_sha256": "af198c277a1f5dffa88b9a019a042b9b7ad535deb761a027c331b3b29038dab1",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_goal.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\model.py",
+    "source_sha256": "5b974eab0027275b829c3adfe41125fbad6ff4e0055578d7191167d5d65c4f2e",
+    "symbol": "_score_grid",
+    "lines": [
+      298,
+      326
+    ],
+    "segment_sha256": "03b5872593080de1e2521cd1492fd9b69a3054a641f2c810926de2c7ff495f0f",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_scores.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\research\\score_metrics.py",
+    "source_sha256": "e6408aaadc107b19eb3b72e3e5df1730debebdd594c4cc5e7f673a7797e823f3",
+    "symbol": "log_loss_matrix",
+    "lines": [
+      20,
+      23
+    ],
+    "segment_sha256": "07ca46a7fffcaa4344960fdca2b1327f4ad9006aa063f6c7632758d2206ad549",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_scores.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\research\\score_metrics.py",
+    "source_sha256": "e6408aaadc107b19eb3b72e3e5df1730debebdd594c4cc5e7f673a7797e823f3",
+    "symbol": "brier_score_multiclass",
+    "lines": [
+      26,
+      29
+    ],
+    "segment_sha256": "3ba26a05ebb311df27dc3d9defac82e61a214e684db63085494829fe5f8f57b6",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_shin.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\math_utils.py",
+    "source_sha256": "0f3c8013b9d8136b8ea1015fc6940e1bc8d5b54805787ba2bc9951b71fd748d8",
+    "symbol": "implied_probabilities",
+    "lines": [
+      15,
+      16
+    ],
+    "segment_sha256": "305a8935de655918b4da969e4008beb6e1b17fbce860923c1407ce73e7e441e3",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_shin.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\math_utils.py",
+    "source_sha256": "0f3c8013b9d8136b8ea1015fc6940e1bc8d5b54805787ba2bc9951b71fd748d8",
+    "symbol": "shin_probabilities",
+    "lines": [
+      19,
+      45
+    ],
+    "segment_sha256": "62c7d901b3a541b4ebeee2ecd51bfbc226ce4d7e3b81f113143cb12df413cdfb",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_power.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\research\\structural_edge.py",
+    "source_sha256": "538eebc5d302cab29a99b71c44bd18bbeb689e67ad79083e379916dda84b6203",
+    "symbol": "_finite",
+    "lines": [
+      31,
+      35
+    ],
+    "segment_sha256": "398f94bcfb00571a0cb647ebeceddba59224d7b3003454cf7f9a50c945a6f4f2",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_power.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\research\\structural_edge.py",
+    "source_sha256": "538eebc5d302cab29a99b71c44bd18bbeb689e67ad79083e379916dda84b6203",
+    "symbol": "power_probabilities",
+    "lines": [
+      119,
+      134
+    ],
+    "segment_sha256": "c34346f1f9fd5f75a566a4f5eba092ddca6b2ee1a29c9c9f34487ebba6f8e622",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "CLOSING_DEFINITION_VERSION",
+    "lines": [
+      27,
+      27
+    ],
+    "segment_sha256": "c005843260ec68e723211e93b18aacd7184a67ab55e1053614ad58555408e4d9",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "MAPPING_VERSION",
+    "lines": [
+      28,
+      28
+    ],
+    "segment_sha256": "7252ca7851a8265df5a489d9457c66e1230e8efbc305689962b12017302f60e5",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "SCHEMA",
+    "lines": [
+      36,
+      119
+    ],
+    "segment_sha256": "140972b1a49e7c89bf81043bf887364486a7442add5917ffe0442606efa16229",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "_utc",
+    "lines": [
+      122,
+      131
+    ],
+    "segment_sha256": "ca3d0ba71cd9354b94487ac5ad478722ec63d89edc1683434d408702b5a63aa3",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "_hash_bytes",
+    "lines": [
+      134,
+      135
+    ],
+    "segment_sha256": "13ec07c25767bae1817c41621874109d36200a83fd0a5c00377af942aec4bbbe",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "_provenance",
+    "lines": [
+      290,
+      294
+    ],
+    "segment_sha256": "2e578fe1788125bcf6f539c39bf5c3d6d70982c22fa876ddfce20002d6d184fe",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "valid_price",
+    "lines": [
+      360,
+      364
+    ],
+    "segment_sha256": "815af1b177a3fcf0d5c6b27a24157076e17f3af6ad07a70b7412519061edb1ec",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "curate_odds",
+    "lines": [
+      367,
+      458
+    ],
+    "segment_sha256": "ff61d126820e0687facb5e1da3a1f15620e6d3b80a741ac55a7737ab6aa84a30",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "choose_closing",
+    "lines": [
+      461,
+      527
+    ],
+    "segment_sha256": "94b3d990adabf337d1ad7c0c56c0fffd048c71d8858357ed56a17dbf492dda39",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "pit_eligible",
+    "lines": [
+      530,
+      534
+    ],
+    "segment_sha256": "02b17f082bfc55978465529eda9a7a50818ee2a53dfb85e95abcef9355195bc4",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "baseline_pit.py",
+    "source": "C:\\BRASILEIRAO\\brasileirao-predictor\\brasileirao_predictor\\data\\pit_backfill.py",
+    "source_sha256": "1989bcc6c113f3b7986fd6995e185c4f9ace9c78f715af096cae1e1514ee6572",
+    "symbol": "evaluation_view",
+    "lines": [
+      537,
+      571
+    ],
+    "segment_sha256": "f0e852101c17ff9fc343885f403832ceae5f9779e8145951d3a9abd3e13f9a79",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "pbmodels.py",
+    "source": "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-01\\sources\\penaltyblog\\penaltyblog\\implied\\models.py",
+    "source_sha256": "a5a485b560a743ec24bf0cc284549786fb2f0474cd174f3b9d5e8140bd288f61",
+    "symbol": "ImpliedMethod",
+    "lines": [
+      20,
+      29
+    ],
+    "segment_sha256": "9e27f0e90829ed2aa0bf98824d58cf0304832547d095de5a967df2eb9cf1e52d",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "pbmodels.py",
+    "source": "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-01\\sources\\penaltyblog\\penaltyblog\\implied\\models.py",
+    "source_sha256": "a5a485b560a743ec24bf0cc284549786fb2f0474cd174f3b9d5e8140bd288f61",
+    "symbol": "ImpliedProbabilities",
+    "lines": [
+      32,
+      135
+    ],
+    "segment_sha256": "bf5fb035681c1b7a0d82aa210e0d8b7502386a3fd4a8f561814c53356bee92df",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "pbmethods.py",
+    "source": "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-01\\sources\\penaltyblog\\penaltyblog\\implied\\implied.py",
+    "source_sha256": "19eff156fdf401cb2ddad732487980c5b868a2a368ca75812fd86c1da60ae250",
+    "symbol": "_power",
+    "lines": [
+      192,
+      236
+    ],
+    "segment_sha256": "1ad0b236ed782bd9f4d1e228ae85e049610c1750e202ce9b0b85f8ff60043746",
+    "transformation": "exact segment; explicit import preamble only"
+  },
+  {
+    "destination": "pbmethods.py",
+    "source": "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-01\\sources\\penaltyblog\\penaltyblog\\implied\\implied.py",
+    "source_sha256": "19eff156fdf401cb2ddad732487980c5b868a2a368ca75812fd86c1da60ae250",
+    "symbol": "_shin",
+    "lines": [
+      239,
+      285
+    ],
+    "segment_sha256": "16196bab5117a27ca581a2b0f9a0c474b77384ce7e537969724046e360e26d76",
+    "transformation": "exact segment; explicit import preamble only"
+  }
+]

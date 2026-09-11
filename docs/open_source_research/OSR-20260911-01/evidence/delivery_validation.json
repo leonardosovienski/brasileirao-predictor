@@ -1,0 +1,28 @@
+{
+  "checked_at_utc": "2026-09-11T03:28:40.891905+00:00",
+  "head": "d9584af6deeec701cf8989349f22ab7e4b398249",
+  "tracked_changes": [],
+  "untracked_scope": "docs/open_source_research/OSR-20260911-01/ only",
+  "untracked_files": 30,
+  "checks_passed": [
+    "58 unique candidates / 12 capabilities / 5 next experiments",
+    "all candidate/capability references resolved",
+    "fixed-SHA external source paths exist in Git inventory",
+    "Markdown local links resolve",
+    "score formulas recomputed",
+    "protocol hash matches recorded execution",
+    "executed module hashes match preserved files",
+    "local module copies equal unchanged HEAD working files",
+    "external copied files byte-identical to reviewed source",
+    "expected synthetic result counts",
+    "no tracked working-tree changes"
+  ],
+  "checks_not_run": [
+    "pytest",
+    "operational import",
+    "CI",
+    "protected evaluator",
+    "economic validation",
+    "fresh benchmark execution"
+  ]
+}

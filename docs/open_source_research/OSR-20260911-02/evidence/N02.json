@@ -1,0 +1,838 @@
+{
+  "status": "PASS",
+  "margin_comparisons": [
+    {
+      "odds": [
+        2.7,
+        2.3,
+        4.4
+      ],
+      "method": "power",
+      "candidate": {
+        "probabilities": [
+          0.359171099853,
+          0.42373075299456386,
+          0.2170981471524358
+        ],
+        "requested_method": "power",
+        "method_used": "power",
+        "regime": "OVERROUND",
+        "status": "OK",
+        "overround": 0.03242570633874986,
+        "detail": ""
+      },
+      "baseline": [
+        0.3591710998530001,
+        0.42373075299456403,
+        0.2170981471524359
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.3591710998526432,
+          0.4237307529942109,
+          0.21709814715211412
+        ]
+      },
+      "baseline_difference": 1.6653345369377348e-16,
+      "external_difference": 3.5677016896329405e-13
+    },
+    {
+      "odds": [
+        2.7,
+        2.3,
+        4.4
+      ],
+      "method": "shin",
+      "candidate": {
+        "probabilities": [
+          0.3593439195919088,
+          0.423243848183119,
+          0.21741223222497044
+        ],
+        "requested_method": "shin",
+        "method_used": "shin",
+        "regime": "OVERROUND",
+        "status": "OK",
+        "overround": 0.03242570633874986,
+        "detail": ""
+      },
+      "baseline": [
+        0.3593439195919094,
+        0.4232438481831197,
+        0.21741223222497086
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.35934391959159157,
+          0.42324384818283234,
+          0.21741223222458853
+        ]
+      },
+      "baseline_difference": 7.216449660063518e-16,
+      "external_difference": 3.8191672047105385e-13
+    },
+    {
+      "odds": [
+        1.9,
+        1.9
+      ],
+      "method": "power",
+      "candidate": {
+        "probabilities": [
+          0.5,
+          0.5
+        ],
+        "requested_method": "power",
+        "method_used": "power",
+        "regime": "OVERROUND",
+        "status": "OK",
+        "overround": 0.05263157894736836,
+        "detail": ""
+      },
+      "baseline": [
+        0.5,
+        0.5
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.50000000000032,
+          0.50000000000032
+        ]
+      },
+      "baseline_difference": 0.0,
+      "external_difference": 3.199662756969701e-13
+    },
+    {
+      "odds": [
+        1.9,
+        1.9
+      ],
+      "method": "shin",
+      "candidate": {
+        "probabilities": [
+          0.5000000000000006,
+          0.5000000000000006
+        ],
+        "requested_method": "shin",
+        "method_used": "shin",
+        "regime": "OVERROUND",
+        "status": "OK",
+        "overround": 0.05263157894736836,
+        "detail": ""
+      },
+      "baseline": [
+        0.5,
+        0.5
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.4999999999997504,
+          0.4999999999997504
+        ]
+      },
+      "baseline_difference": 5.551115123125783e-16,
+      "external_difference": 2.5013324744804777e-13
+    },
+    {
+      "odds": [
+        1.5,
+        4,
+        7
+      ],
+      "method": "power",
+      "candidate": {
+        "probabilities": [
+          0.6481532512306276,
+          0.2270501622891129,
+          0.12479658648025935
+        ],
+        "requested_method": "power",
+        "method_used": "power",
+        "regime": "OVERROUND",
+        "status": "OK",
+        "overround": 0.059523809523809534,
+        "detail": ""
+      },
+      "baseline": [
+        0.6481532512306277,
+        0.22705016228911293,
+        0.12479658648025936
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.6481532512308906,
+          0.22705016228942781,
+          0.12479658648050232
+        ]
+      },
+      "baseline_difference": 1.1102230246251565e-16,
+      "external_difference": 3.1491476093492565e-13
+    },
+    {
+      "odds": [
+        1.5,
+        4,
+        7
+      ],
+      "method": "shin",
+      "candidate": {
+        "probabilities": [
+          0.6422795621513462,
+          0.23152687539931208,
+          0.12619356244934166
+        ],
+        "requested_method": "shin",
+        "method_used": "shin",
+        "regime": "OVERROUND",
+        "status": "OK",
+        "overround": 0.059523809523809534,
+        "detail": ""
+      },
+      "baseline": [
+        0.6422795621513461,
+        0.23152687539931216,
+        0.12619356244934174
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.6422795621515257,
+          0.23152687539968209,
+          0.12619356244974136
+        ]
+      },
+      "baseline_difference": 1.1102230246251565e-16,
+      "external_difference": 3.99708044440672e-13
+    },
+    {
+      "odds": [
+        3,
+        3,
+        3
+      ],
+      "method": "power",
+      "candidate": {
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "requested_method": "power",
+        "method_used": "proportional",
+        "regime": "FAIR",
+        "status": "FAIR_NORMALIZATION",
+        "overround": 0.0,
+        "detail": ""
+      },
+      "baseline": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.33333333333333337,
+          0.33333333333333337,
+          0.33333333333333337
+        ]
+      }
+    },
+    {
+      "odds": [
+        3,
+        3,
+        3
+      ],
+      "method": "shin",
+      "candidate": {
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "requested_method": "shin",
+        "method_used": "proportional",
+        "regime": "FAIR",
+        "status": "FAIR_NORMALIZATION",
+        "overround": 0.0,
+        "detail": ""
+      },
+      "baseline": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ]
+      }
+    },
+    {
+      "odds": [
+        4,
+        4,
+        4
+      ],
+      "method": "power",
+      "candidate": {
+        "probabilities": null,
+        "requested_method": "power",
+        "method_used": null,
+        "regime": "UNDERROUND",
+        "status": "UNSUPPORTED_REGIME",
+        "overround": -0.25,
+        "detail": ""
+      },
+      "baseline": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.33333333333287113,
+          0.33333333333287113,
+          0.33333333333287113
+        ]
+      },
+      "explicit_scenario": {
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "requested_method": "power",
+        "method_used": "proportional",
+        "regime": "UNDERROUND",
+        "status": "EXPLICIT_PROPORTIONAL_SCENARIO",
+        "overround": -0.25,
+        "detail": ""
+      },
+      "comparison": "NOT_DIRECTLY_COMPARABLE: external power may solve k<1; local uses proportional"
+    },
+    {
+      "odds": [
+        4,
+        4,
+        4
+      ],
+      "method": "shin",
+      "candidate": {
+        "probabilities": null,
+        "requested_method": "shin",
+        "method_used": null,
+        "regime": "UNDERROUND",
+        "status": "UNSUPPORTED_REGIME",
+        "overround": -0.25,
+        "detail": ""
+      },
+      "baseline": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": {
+        "status": "ENGINE_OR_OUTPUT_FAILED",
+        "probabilities": null
+      },
+      "explicit_scenario": {
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "requested_method": "shin",
+        "method_used": "proportional",
+        "regime": "UNDERROUND",
+        "status": "EXPLICIT_PROPORTIONAL_SCENARIO",
+        "overround": -0.25,
+        "detail": ""
+      },
+      "comparison": "NOT_DIRECTLY_COMPARABLE: external power may solve k<1; local uses proportional"
+    },
+    {
+      "odds": [
+        1.001,
+        1.001,
+        1.001
+      ],
+      "method": "power",
+      "candidate": {
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "requested_method": "power",
+        "method_used": "power",
+        "regime": "OVERROUND",
+        "status": "OK",
+        "overround": 1.9970029970029977,
+        "detail": ""
+      },
+      "baseline": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": {
+        "status": "ENGINE_OR_OUTPUT_FAILED",
+        "probabilities": null
+      },
+      "baseline_difference": 0.0
+    },
+    {
+      "odds": [
+        1.001,
+        1.001,
+        1.001
+      ],
+      "method": "shin",
+      "candidate": {
+        "probabilities": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ],
+        "requested_method": "shin",
+        "method_used": "shin",
+        "regime": "OVERROUND",
+        "status": "OK",
+        "overround": 1.9970029970029977,
+        "detail": ""
+      },
+      "baseline": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.33333333333349385,
+          0.33333333333349385,
+          0.33333333333349385
+        ]
+      },
+      "baseline_difference": 0.0,
+      "external_difference": 1.6053824936079764e-13
+    },
+    {
+      "odds": [
+        2,
+        4,
+        8
+      ],
+      "method": "power",
+      "candidate": {
+        "probabilities": null,
+        "requested_method": "power",
+        "method_used": null,
+        "regime": "UNDERROUND",
+        "status": "UNSUPPORTED_REGIME",
+        "overround": -0.125,
+        "detail": ""
+      },
+      "baseline": [
+        0.5714285714285714,
+        0.2857142857142857,
+        0.14285714285714285
+      ],
+      "external": {
+        "status": "OK",
+        "probabilities": [
+          0.5436890126920764,
+          0.29559774252208476,
+          0.16071324478583887
+        ]
+      },
+      "explicit_scenario": {
+        "probabilities": [
+          0.5714285714285714,
+          0.2857142857142857,
+          0.14285714285714285
+        ],
+        "requested_method": "power",
+        "method_used": "proportional",
+        "regime": "UNDERROUND",
+        "status": "EXPLICIT_PROPORTIONAL_SCENARIO",
+        "overround": -0.125,
+        "detail": ""
+      },
+      "comparison": "NOT_DIRECTLY_COMPARABLE: external power may solve k<1; local uses proportional"
+    },
+    {
+      "odds": [
+        2,
+        4,
+        8
+      ],
+      "method": "shin",
+      "candidate": {
+        "probabilities": null,
+        "requested_method": "shin",
+        "method_used": null,
+        "regime": "UNDERROUND",
+        "status": "UNSUPPORTED_REGIME",
+        "overround": -0.125,
+        "detail": ""
+      },
+      "baseline": [
+        0.5714285714285714,
+        0.2857142857142857,
+        0.14285714285714285
+      ],
+      "external": {
+        "status": "ENGINE_OR_OUTPUT_FAILED",
+        "probabilities": null
+      },
+      "explicit_scenario": {
+        "probabilities": [
+          0.5714285714285714,
+          0.2857142857142857,
+          0.14285714285714285
+        ],
+        "requested_method": "shin",
+        "method_used": "proportional",
+        "regime": "UNDERROUND",
+        "status": "EXPLICIT_PROPORTIONAL_SCENARIO",
+        "overround": -0.125,
+        "detail": ""
+      },
+      "comparison": "NOT_DIRECTLY_COMPARABLE: external power may solve k<1; local uses proportional"
+    }
+  ],
+  "invalid_inputs": [
+    {
+      "input_repr": "[nan, 2]",
+      "rejected": true
+    },
+    {
+      "input_repr": "[inf, 2]",
+      "rejected": true
+    },
+    {
+      "input_repr": "[0, 2]",
+      "rejected": true
+    },
+    {
+      "input_repr": "[-1, 2]",
+      "rejected": true
+    },
+    {
+      "input_repr": "[1, 2]",
+      "rejected": true
+    },
+    {
+      "input_repr": "[True, 2]",
+      "rejected": true
+    },
+    {
+      "input_repr": "['2', 3]",
+      "rejected": true
+    },
+    {
+      "input_repr": "[2]",
+      "rejected": true
+    },
+    {
+      "input_repr": "[]",
+      "rejected": true
+    },
+    {
+      "input_repr": "nonexhaustive",
+      "rejected": true
+    }
+  ],
+  "invalid_external_outputs": [
+    {
+      "case": "negative",
+      "status": "ENGINE_OR_OUTPUT_FAILED",
+      "probabilities": null
+    },
+    {
+      "case": "nan",
+      "status": "ENGINE_OR_OUTPUT_FAILED",
+      "probabilities": null
+    },
+    {
+      "case": "sum_wrong",
+      "status": "ENGINE_OR_OUTPUT_FAILED",
+      "probabilities": null
+    },
+    {
+      "case": "wrong_length",
+      "status": "ENGINE_OR_OUTPUT_FAILED",
+      "probabilities": null
+    },
+    {
+      "case": "not_converged",
+      "status": "CONVERGENCE_FAILED",
+      "probabilities": null
+    },
+    {
+      "case": "exception",
+      "status": "ENGINE_OR_OUTPUT_FAILED",
+      "probabilities": null
+    }
+  ],
+  "forced_nonconvergence": {
+    "probabilities": null,
+    "requested_method": "shin",
+    "method_used": null,
+    "regime": "OVERROUND",
+    "status": "CONVERGENCE_FAILED",
+    "overround": 0.03242570633874986,
+    "detail": ""
+  },
+  "scores": [
+    {
+      "case": "perfect",
+      "candidate": {
+        "brier_mean": 0.0,
+        "brier_per_match": [
+          0.0
+        ],
+        "log_loss_mean": 0.0,
+        "log_loss_per_match": [
+          -0.0
+        ],
+        "clipped_count": 0,
+        "classes": [
+          "1",
+          "X",
+          "2"
+        ],
+        "brier_scale": "sum 0..2",
+        "log_loss_unit": "nats, lower clipped at 1e-12"
+      },
+      "baseline_tensor_brier": 0.0,
+      "baseline_tensor_log_loss": -0.0
+    },
+    {
+      "case": "uniform",
+      "candidate": {
+        "brier_mean": 0.6666666666666667,
+        "brier_per_match": [
+          0.6666666666666667
+        ],
+        "log_loss_mean": 1.0986122886681098,
+        "log_loss_per_match": [
+          1.0986122886681098
+        ],
+        "clipped_count": 0,
+        "classes": [
+          "1",
+          "X",
+          "2"
+        ],
+        "brier_scale": "sum 0..2",
+        "log_loss_unit": "nats, lower clipped at 1e-12"
+      },
+      "baseline_tensor_brier": 0.6666666666666667,
+      "baseline_tensor_log_loss": 1.0986122886681098
+    },
+    {
+      "case": "wrong",
+      "candidate": {
+        "brier_mean": 2.0,
+        "brier_per_match": [
+          2.0
+        ],
+        "log_loss_mean": 27.631021115928547,
+        "log_loss_per_match": [
+          27.631021115928547
+        ],
+        "clipped_count": 1,
+        "classes": [
+          "1",
+          "X",
+          "2"
+        ],
+        "brier_scale": "sum 0..2",
+        "log_loss_unit": "nats, lower clipped at 1e-12"
+      },
+      "baseline_tensor_brier": 2.0,
+      "baseline_tensor_log_loss": 27.631021115928547
+    },
+    {
+      "case": "mixed",
+      "candidate": {
+        "brier_mean": 0.6199999999999999,
+        "brier_per_match": [
+          0.38,
+          0.8599999999999999
+        ],
+        "log_loss_mean": 0.9485599924429406,
+        "log_loss_per_match": [
+          0.6931471805599453,
+          1.2039728043259361
+        ],
+        "clipped_count": 0,
+        "classes": [
+          "1",
+          "X",
+          "2"
+        ],
+        "brier_scale": "sum 0..2",
+        "log_loss_unit": "nats, lower clipped at 1e-12"
+      },
+      "baseline_tensor_brier": 0.6199999999999999,
+      "baseline_tensor_log_loss": 0.9485599924429406
+    }
+  ],
+  "invalid_scores": [
+    {
+      "case": "negative",
+      "rejected": true
+    },
+    {
+      "case": "nonfinite",
+      "rejected": true
+    },
+    {
+      "case": "sum",
+      "rejected": true
+    },
+    {
+      "case": "class_order",
+      "rejected": true
+    },
+    {
+      "case": "invalid_label",
+      "rejected": true
+    },
+    {
+      "case": "empty",
+      "rejected": true
+    }
+  ],
+  "calibration_formula_fixture": {
+    "bins": {
+      "1": [
+        {
+          "lower": 0.0,
+          "upper": 0.2,
+          "count": 2,
+          "mean_prediction": 0.0,
+          "observed_frequency": 0.0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.4,
+          "count": 0,
+          "mean_prediction": null,
+          "observed_frequency": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.6000000000000001,
+          "count": 0,
+          "mean_prediction": null,
+          "observed_frequency": null
+        },
+        {
+          "lower": 0.6000000000000001,
+          "upper": 0.8,
+          "count": 0,
+          "mean_prediction": null,
+          "observed_frequency": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 1.0,
+          "count": 1,
+          "mean_prediction": 1.0,
+          "observed_frequency": 1.0
+        }
+      ],
+      "X": [
+        {
+          "lower": 0.0,
+          "upper": 0.2,
+          "count": 2,
+          "mean_prediction": 0.0,
+          "observed_frequency": 0.0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.4,
+          "count": 0,
+          "mean_prediction": null,
+          "observed_frequency": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.6000000000000001,
+          "count": 1,
+          "mean_prediction": 0.5,
+          "observed_frequency": 1.0
+        },
+        {
+          "lower": 0.6000000000000001,
+          "upper": 0.8,
+          "count": 0,
+          "mean_prediction": null,
+          "observed_frequency": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 1.0,
+          "count": 0,
+          "mean_prediction": null,
+          "observed_frequency": null
+        }
+      ],
+      "2": [
+        {
+          "lower": 0.0,
+          "upper": 0.2,
+          "count": 1,
+          "mean_prediction": 0.0,
+          "observed_frequency": 0.0
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.4,
+          "count": 0,
+          "mean_prediction": null,
+          "observed_frequency": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.6000000000000001,
+          "count": 1,
+          "mean_prediction": 0.5,
+          "observed_frequency": 0.0
+        },
+        {
+          "lower": 0.6000000000000001,
+          "upper": 0.8,
+          "count": 0,
+          "mean_prediction": null,
+          "observed_frequency": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 1.0,
+          "count": 1,
+          "mean_prediction": 1.0,
+          "observed_frequency": 1.0
+        }
+      ]
+    },
+    "status": "DIAGNOSTIC_ONLY_NO_MODEL_CALIBRATION_CLAIM"
+  },
+  "claim": "mathematical contracts only; no empirical calibration of real model"
+}

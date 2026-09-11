@@ -1,0 +1,37 @@
+{
+  "at_utc": "2026-09-11T04:57:56.439301+00:00",
+  "command": [
+    "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\audit_mutations.py"
+  ],
+  "cwd": "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-02\\tmp",
+  "env_keys": [
+    "MKL_NUM_THREADS",
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "PATH",
+    "PYTHONHASHSEED",
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "environment_policy": "explicit allowlist; no inherited secret values",
+  "job_memory_mib": 768,
+  "job_active_process_limit": 1,
+  "job_assigned": true,
+  "timeout_seconds": 120,
+  "timed_out": false,
+  "exit_code": 0,
+  "elapsed_wall_seconds": 0.29226659999403637,
+  "stdout": "[{\"id\": \"M01\", \"status_changes\": [\"at_kickoff\"], \"reason_only\": [], \"unsafe_admissions\": [\"at_kickoff\"], \"classification\": \"LOSS_OF_ADMISSION_GUARD_DETECTED\"}, {\"id\": \"M02\", \"status_changes\": [\"late_receipt\", \"future_revision_ignored\", \"missing_receipt\"], \"reason_only\": [], \"unsafe_admissions\": [], \"classification\": \"VALID_VINTAGE_OR_STATUS_BEHAVIOR_CHANGED\"}, {\"id\": \"M03\", \"status_changes\": [\"conflicting_duplicate\"], \"reason_only\": [], \"unsafe_admissions\": [\"conflicting_duplicate\"], \"classification\": \"LOSS_OF_ADMISSION_GUARD_DETECTED\"}, {\"id\": \"M04\", \"status_changes\": [], \"reason_only\": [\"late_publication\"], \"unsafe_admissions\": [], \"classification\": \"REASON_ONLY_NO_UNSAFE_ADMISSION_WITNESS\"}, {\"id\": \"M05\", \"status_changes\": [\"clock_chain\"], \"reason_only\": [], \"unsafe_admissions\": [\"clock_chain\"], \"classification\": \"LOSS_OF_ADMISSION_GUARD_DETECTED\"}, {\"id\": \"M06\", \"status_changes\": [\"kickoff_rescheduled\"], \"reason_only\": [], \"unsafe_admissions\": [\"kickoff_rescheduled\"], \"classification\": \"LOSS_OF_ADMISSION_GUARD_DETECTED\"}, {\"id\": \"M07\", \"status_changes\": [\"inverted_home_away\", \"conflicting_source_id\", \"mapping_version\"], \"reason_only\": [], \"unsafe_admissions\": [\"inverted_home_away\", \"conflicting_source_id\", \"mapping_version\"], \"classification\": \"LOSS_OF_ADMISSION_GUARD_DETECTED\"}, {\"id\": \"M08\", \"status_changes\": [\"revision_known_suspended\"], \"reason_only\": [], \"unsafe_admissions\": [\"revision_known_suspended\"], \"classification\": \"LOSS_OF_ADMISSION_GUARD_DETECTED\"}]\n",
+  "stderr": "",
+  "protocol_sha256": "e51cb8d3dd7d5a83f6978c05031701c3aa50671e31f9766ec9c4a84ad3164d54",
+  "script_sha256": "a71820d0872dabee218341899f8866979cc3b3b0b457c088c67db9b00d3ebac7"
+}

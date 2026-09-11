@@ -1,0 +1,10 @@
+{
+  "parent_all_files_unchanged": true,
+  "protocol_hash_unchanged": true,
+  "head": "d9584af6deeec701cf8989349f22ab7e4b398249",
+  "tracked_diff_empty": true,
+  "staged_diff_empty": true,
+  "json_parsed_without_nonfinite_constants": true,
+  "tests_not_rerun_during_packaging": true,
+  "status": "?? docs/open_source_research/\n"
+}

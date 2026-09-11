@@ -1,0 +1,2498 @@
+{
+  "status": "PASS",
+  "summary": {
+    "cases": 84,
+    "passed": 81,
+    "support_failures": 3,
+    "max_market_error": 8.71370884714771e-07,
+    "max_conditional_error": 4.442593485970425e-05,
+    "median_speed_ratio": 2.3110282137545957,
+    "official_latency_budget": "UNKNOWN"
+  },
+  "cases": [
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        0.0001,
+        -2500.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 2.499949925356013e-08,
+        "raw_retained_mass": 0.9999999750005008,
+        "retained_probability_before_conditional_renormalization": 0.9999999750005008,
+        "omitted_mass": 2.499949925356013e-08,
+        "raw_matrix_sum": 0.9999999750005032,
+        "mass_identity_error": 2.4424906541753444e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.4994500802399955e-08,
+      "reference_tail": 0.0,
+      "reference_support": 64,
+      "conditional_denominator": 0.00019996500506387413,
+      "conditional_error": 6.249635432942213e-06,
+      "conditional_bound": 0.00025003874298480005
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        0.0001,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 2.499949925356013e-08,
+        "raw_retained_mass": 0.9999999750005008,
+        "retained_probability_before_conditional_renormalization": 0.9999999750005008,
+        "omitted_mass": 2.499949925356013e-08,
+        "raw_matrix_sum": 0.999999975000503,
+        "mass_identity_error": 2.220446049250313e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.499200146832692e-08,
+      "reference_tail": 0.0,
+      "reference_support": 64,
+      "conditional_denominator": 0.0002999350078462346,
+      "conditional_error": 1.1112407321489659e-05,
+      "conditional_bound": 0.00016669944220966987
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        0.0001,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 2.499949925356013e-08,
+        "raw_retained_mass": 0.9999999750005008,
+        "retained_probability_before_conditional_renormalization": 0.9999999750005008,
+        "omitted_mass": 2.499949925356013e-08,
+        "raw_matrix_sum": 0.999999975000503,
+        "mass_identity_error": 2.220446049250313e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.499200102423771e-08,
+      "reference_tail": 0.0,
+      "reference_support": 64,
+      "conditional_denominator": 0.0002999550018467911,
+      "conditional_error": 1.1112592589845871e-05,
+      "conditional_bound": 0.0001666883305805262
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        0.01,
+        -2500.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.0000000000000002,
+        "raw_tail_mass": 2.5246909524532232e-08,
+        "raw_retained_mass": 0.9999999747530907,
+        "retained_probability_before_conditional_renormalization": 0.9999999747530904,
+        "omitted_mass": 2.5246909524532225e-08,
+        "raw_matrix_sum": 0.9999999747530895,
+        "mass_identity_error": 1.1102230246251565e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.5241861489888606e-08,
+      "reference_tail": 0.0,
+      "reference_support": 64,
+      "conditional_denominator": 0.00019996490606865602,
+      "conditional_error": 6.311485363258429e-06,
+      "conditional_bound": 0.00025251340368558415
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        0.01,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 2.5246909524532232e-08,
+        "raw_retained_mass": 0.9999999747530904,
+        "retained_probability_before_conditional_renormalization": 0.9999999747530904,
+        "omitted_mass": 2.5246909524532232e-08,
+        "raw_matrix_sum": 0.9999999747530893,
+        "mass_identity_error": 1.1102230246251565e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.5239337508864423e-08,
+      "reference_tail": 0.0,
+      "reference_support": 64,
+      "conditional_denominator": 0.0002999347606416084,
+      "conditional_error": 1.122239238227074e-05,
+      "conditional_bound": 0.0001683493401733434
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        0.01,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 2.5246909524532232e-08,
+        "raw_retained_mass": 0.9999999747530904,
+        "retained_probability_before_conditional_renormalization": 0.9999999747530904,
+        "omitted_mass": 2.5246909524532232e-08,
+        "raw_matrix_sum": 0.9999999747530893,
+        "mass_identity_error": 1.1102230246251565e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.5239337064775214e-08,
+      "reference_tail": 0.0,
+      "reference_support": 64,
+      "conditional_denominator": 0.00029995475461252303,
+      "conditional_error": 1.12225794852705e-05,
+      "conditional_bound": 0.00016833811857488843
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        0.5,
+        -2500.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.00000000000025,
+        "raw_tail_mass": 3.7491001368643884e-08,
+        "raw_retained_mass": 0.9999999625092486,
+        "retained_probability_before_conditional_renormalization": 0.9999999625089986,
+        "omitted_mass": 3.7491001368634514e-08,
+        "raw_matrix_sum": 0.9999999625092496,
+        "mass_identity_error": 9.992007221626409e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.74835059657741e-08,
+      "reference_tail": 6.556595530093901e-259,
+      "reference_support": 64,
+      "conditional_denominator": 0.0001999600093728071,
+      "conditional_error": 9.372383403705165e-06,
+      "conditional_bound": 0.00037498499311165744
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        0.5,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 3.7491001368643884e-08,
+        "raw_retained_mass": 0.9999999625089986,
+        "retained_probability_before_conditional_renormalization": 0.9999999625089986,
+        "omitted_mass": 3.7491001368643884e-08,
+        "raw_matrix_sum": 0.9999999625089996,
+        "mass_identity_error": 9.992007221626409e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.747975807488757e-08,
+      "reference_tail": 6.55659553009554e-259,
+      "reference_support": 64,
+      "conditional_denominator": 0.0002999225179964287,
+      "conditional_error": 1.6665694475670456e-05,
+      "conditional_bound": 0.0002500045786431435
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        0.5,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 0.9999999999999999,
+        "raw_tail_mass": 3.7491001368643884e-08,
+        "raw_retained_mass": 0.9999999625089985,
+        "retained_probability_before_conditional_renormalization": 0.9999999625089986,
+        "omitted_mass": 3.749100136864389e-08,
+        "raw_matrix_sum": 0.9999999625089994,
+        "mass_identity_error": 8.881784197001252e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.747975751977606e-08,
+      "reference_tail": 6.556595530095541e-259,
+      "reference_support": 64,
+      "conditional_denominator": 0.0002999425104981534,
+      "conditional_error": 1.66659723853102e-05,
+      "conditional_bound": 0.00024998791472657694
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        3,
+        -2500.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.0000000000089893,
+        "raw_tail_mass": 9.991605786221818e-08,
+        "raw_retained_mass": 0.9999999000929314,
+        "retained_probability_before_conditional_renormalization": 0.9999999000839421,
+        "omitted_mass": 9.991605786132001e-08,
+        "raw_matrix_sum": 0.9999999000929314,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 9.989608940053074e-08,
+      "reference_tail": 8.428595996735618e-212,
+      "reference_support": 64,
+      "conditional_denominator": 0.00019993502997981148,
+      "conditional_error": 2.4977932432057592e-05,
+      "conditional_bound": 0.0009994852615012894
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        3,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.991605786221818e-08,
+        "raw_retained_mass": 0.9999999000839421,
+        "retained_probability_before_conditional_renormalization": 0.9999999000839421,
+        "omitted_mass": 9.991605786221818e-08,
+        "raw_matrix_sum": 0.9999999000839419,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 9.98861054979372e-08,
+      "reference_tail": 8.428595996811385e-212,
+      "reference_support": 64,
+      "conditional_denominator": 0.00029986007795192773,
+      "conditional_error": 4.4425193305108746e-05,
+      "conditional_bound": 0.0006664178742609165
+    },
+    {
+      "params": [
+        0.0001,
+        0.0002,
+        3,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 1,
+        "dc_total_mass": 0.9999999999999981,
+        "raw_tail_mass": 9.991605786221818e-08,
+        "raw_retained_mass": 0.9999999000839402,
+        "retained_probability_before_conditional_renormalization": 0.9999999000839421,
+        "omitted_mass": 9.991605786221837e-08,
+        "raw_matrix_sum": 0.9999999000839402,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 2,
+        "bytes_grid": 32,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 9.988610383260266e-08,
+      "reference_tail": 8.428595996811401e-212,
+      "reference_support": 64,
+      "conditional_denominator": 0.00029988006296152237,
+      "conditional_error": 4.442593485970425e-05,
+      "conditional_bound": 0.0006663734619466091
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        0.0001,
+        -5.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 4,
+        "dc_total_mass": 1.0000000000010758,
+        "raw_tail_mass": 7.925195682746029e-08,
+        "raw_retained_mass": 0.999999920749119,
+        "retained_probability_before_conditional_renormalization": 0.9999999207480432,
+        "omitted_mass": 7.925195682737503e-08,
+        "raw_matrix_sum": 0.9999999207491196,
+        "mass_identity_error": 5.551115123125783e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 5,
+        "bytes_grid": 200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.921210436222844e-08,
+      "reference_tail": 1.3513276643481928e-156,
+      "reference_support": 64,
+      "conditional_denominator": 0.09194752132684966,
+      "conditional_error": 1.857979010921884e-07,
+      "conditional_bound": 1.7238519469307894e-06
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        0.0001,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 4,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 7.925195682746029e-08,
+        "raw_retained_mass": 0.9999999207480432,
+        "retained_probability_before_conditional_renormalization": 0.9999999207480432,
+        "omitted_mass": 7.925195682746029e-08,
+        "raw_matrix_sum": 0.9999999207480439,
+        "mass_identity_error": 6.661338147750939e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 5,
+        "bytes_grid": 200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.921210436244528e-08,
+      "reference_tail": 1.3513276643496465e-156,
+      "reference_support": 64,
+      "conditional_denominator": 0.13498262428190144,
+      "conditional_error": 1.7389978546056284e-07,
+      "conditional_bound": 1.1742542012214596e-06
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        0.0001,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 4,
+        "dc_total_mass": 0.9999999999998924,
+        "raw_tail_mass": 7.925195682746029e-08,
+        "raw_retained_mass": 0.9999999207479356,
+        "retained_probability_before_conditional_renormalization": 0.9999999207480432,
+        "omitted_mass": 7.925195682746882e-08,
+        "raw_matrix_sum": 0.9999999207479363,
+        "mass_identity_error": 6.661338147750939e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 5,
+        "bytes_grid": 200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.921210436233686e-08,
+      "reference_tail": 1.351327664349792e-156,
+      "reference_support": 64,
+      "conditional_denominator": 0.13928613457741168,
+      "conditional_error": 1.7155520426470616e-07,
+      "conditional_bound": 1.1379733821735515e-06
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        0.01,
+        -5.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 4,
+        "dc_total_mass": 1.0000000107434013,
+        "raw_tail_mass": 8.702112113686161e-08,
+        "raw_retained_mass": 0.9999999237222802,
+        "retained_probability_before_conditional_renormalization": 0.9999999129788798,
+        "omitted_mass": 8.70211202019588e-08,
+        "raw_matrix_sum": 0.9999999237222795,
+        "mass_identity_error": 6.661338147750939e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 5,
+        "bytes_grid": 200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 8.697671698360346e-08,
+      "reference_tail": 3.6304283516405105e-149,
+      "reference_support": 64,
+      "conditional_denominator": 0.09192958846732453,
+      "conditional_error": 2.0405678147206174e-07,
+      "conditional_bound": 1.8932124390590435e-06
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        0.01,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 4,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 8.702112113686161e-08,
+        "raw_retained_mass": 0.9999999129788789,
+        "retained_probability_before_conditional_renormalization": 0.9999999129788789,
+        "omitted_mass": 8.702112113686161e-08,
+        "raw_matrix_sum": 0.9999999129788782,
+        "mass_identity_error": 6.661338147750939e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 5,
+        "bytes_grid": 200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 8.697671791742679e-08,
+      "reference_tail": 3.630428390643659e-149,
+      "reference_support": 64,
+      "conditional_denominator": 0.13493542476927323,
+      "conditional_error": 1.9101203652116538e-07,
+      "conditional_bound": 1.2898187601315144e-06
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        0.01,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 4,
+        "dc_total_mass": 0.9999999989256599,
+        "raw_tail_mass": 8.702112113686161e-08,
+        "raw_retained_mass": 0.9999999119045389,
+        "retained_probability_before_conditional_renormalization": 0.9999999129788788,
+        "omitted_mass": 8.702112123035189e-08,
+        "raw_matrix_sum": 0.9999999119045381,
+        "mass_identity_error": 7.771561172376096e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 5,
+        "bytes_grid": 200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 8.69767180107766e-08,
+      "reference_tail": 3.6304283945439737e-149,
+      "reference_support": 64,
+      "conditional_denominator": 0.13923600845029127,
+      "conditional_error": 1.884388924899838e-07,
+      "conditional_bound": 1.2499801193513724e-06
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        0.5,
+        -5.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 5,
+        "dc_total_mass": 1.0000250674714102,
+        "raw_tail_mass": 7.972883397668757e-08,
+        "raw_retained_mass": 1.0000249877425762,
+        "retained_probability_before_conditional_renormalization": 0.9999999202731645,
+        "omitted_mass": 7.972683542651989e-08,
+        "raw_matrix_sum": 1.0000249877425762,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 7,
+        "bytes_grid": 288,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.972682407185789e-08,
+      "reference_tail": 7.151851341803201e-85,
+      "reference_support": 64,
+      "conditional_denominator": 0.09104070165227154,
+      "conditional_error": 2.0347221940664184e-07,
+      "conditional_bound": 1.751454766485329e-06
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        0.5,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 5,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 7.972883397668757e-08,
+        "raw_retained_mass": 0.999999920271166,
+        "retained_probability_before_conditional_renormalization": 0.999999920271166,
+        "omitted_mass": 7.972883397668757e-08,
+        "raw_matrix_sum": 0.999999920271166,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 7,
+        "bytes_grid": 288,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.972882262145645e-08,
+      "reference_tail": 7.152030620632242e-85,
+      "reference_support": 64,
+      "conditional_denominator": 0.1326549863534028,
+      "conditional_error": 1.8783121186194407e-07,
+      "conditional_bound": 1.202048052144591e-06
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        0.5,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 5,
+        "dc_total_mass": 0.999997493252859,
+        "raw_tail_mass": 7.972883397668757e-08,
+        "raw_retained_mass": 0.999997413524025,
+        "retained_probability_before_conditional_renormalization": 0.9999999202709662,
+        "omitted_mass": 7.972903383721519e-08,
+        "raw_matrix_sum": 0.999997413524025,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 7,
+        "bytes_grid": 288,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.972902248192714e-08,
+      "reference_tail": 7.152048549009494e-85,
+      "reference_support": 64,
+      "conditional_denominator": 0.13681652957194168,
+      "conditional_error": 1.8522733763459698e-07,
+      "conditional_bound": 1.1654883234747099e-06
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        3,
+        -5.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 7,
+        "dc_total_mass": 1.0006581086497193,
+        "raw_tail_mass": 8.713358915890968e-07,
+        "raw_retained_mass": 1.0006572373138276,
+        "retained_probability_before_conditional_renormalization": 0.9999991292371649,
+        "omitted_mass": 8.707628350355059e-07,
+        "raw_matrix_sum": 1.0006572373138278,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 7,
+        "bytes_grid": 512,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 8.707405133504581e-07,
+      "reference_tail": 1.1056488085393439e-43,
+      "reference_support": 64,
+      "conditional_denominator": 0.08659459470107526,
+      "conditional_error": 2.57050517038504e-06,
+      "conditional_bound": 2.011125147109658e-05
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        3,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 7,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 8.713358915890968e-07,
+        "raw_retained_mass": 0.9999991286641084,
+        "retained_probability_before_conditional_renormalization": 0.9999991286641084,
+        "omitted_mass": 8.713358915890968e-07,
+        "raw_matrix_sum": 0.9999991286641084,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 7,
+        "bytes_grid": 512,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 8.713135405141753e-07,
+      "reference_tail": 1.1063764455837955e-43,
+      "reference_support": 64,
+      "conditional_denominator": 0.12248194317091954,
+      "conditional_error": 2.3708186677184884e-06,
+      "conditional_bound": 1.422798935142915e-05
+    },
+    {
+      "params": [
+        0.05,
+        0.1,
+        3,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 7,
+        "dc_total_mass": 0.9999341891350281,
+        "raw_tail_mass": 8.713358915890968e-07,
+        "raw_retained_mass": 0.9999333177991365,
+        "retained_probability_before_conditional_renormalization": 0.9999991286067613,
+        "omitted_mass": 8.713932387318684e-07,
+        "raw_matrix_sum": 0.9999333177991366,
+        "mass_identity_error": 1.1102230246251565e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 7,
+        "bytes_grid": 512,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 8.71370884714771e-07,
+      "reference_tail": 1.1064492619667731e-43,
+      "reference_support": 64,
+      "conditional_denominator": 0.12607327614407765,
+      "conditional_error": 2.340317098892264e-06,
+      "conditional_bound": 1.3823599503133916e-05
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        0.0001,
+        -0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 9,
+        "dc_total_mass": 1.0000000000602347,
+        "raw_tail_mass": 1.1183159699520031e-07,
+        "raw_retained_mass": 0.9999998882286377,
+        "retained_probability_before_conditional_renormalization": 0.999999888168403,
+        "omitted_mass": 1.1183159698846416e-07,
+        "raw_matrix_sum": 0.9999998882286376,
+        "mass_identity_error": 1.1102230246251565e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.1166372187640904e-07,
+      "reference_tail": 5.538417099294426e-92,
+      "reference_support": 64,
+      "conditional_denominator": 0.5752372458093197,
+      "conditional_error": 1.4609790016661961e-08,
+      "conditional_bound": 3.888190405025833e-07
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        0.0001,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 9,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 1.1183159699520031e-07,
+        "raw_retained_mass": 0.999999888168403,
+        "retained_probability_before_conditional_renormalization": 0.999999888168403,
+        "omitted_mass": 1.1183159699520031e-07,
+        "raw_matrix_sum": 0.9999998881684029,
+        "mass_identity_error": 1.1102230246251565e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.1166372188291425e-07,
+      "reference_tail": 5.538417099628031e-92,
+      "reference_support": 64,
+      "conditional_denominator": 0.6354756063200846,
+      "conditional_error": 2.031244297762136e-08,
+      "conditional_bound": 3.5196188770421986e-07
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        0.0001,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 9,
+        "dc_total_mass": 0.9999999999397653,
+        "raw_tail_mass": 1.1183159699520031e-07,
+        "raw_retained_mass": 0.9999998881081683,
+        "retained_probability_before_conditional_renormalization": 0.999999888168403,
+        "omitted_mass": 1.1183159700193646e-07,
+        "raw_matrix_sum": 0.9999998881081682,
+        "mass_identity_error": 1.1102230246251565e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.1166372188941946e-07,
+      "reference_tail": 5.5384170999616354e-92,
+      "reference_support": 64,
+      "conditional_denominator": 0.6957139668381062,
+      "conditional_error": 2.3906487151004185e-08,
+      "conditional_bound": 3.2148728452352565e-07
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        0.01,
+        -0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 9,
+        "dc_total_mass": 1.0000005983170364,
+        "raw_tail_mass": 1.5823649896830013e-07,
+        "raw_retained_mass": 1.0000004400805373,
+        "retained_probability_before_conditional_renormalization": 0.9999998417635957,
+        "omitted_mass": 1.5823640429276367e-07,
+        "raw_matrix_sum": 1.000000440080537,
+        "mass_identity_error": 4.440892098500626e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.5798248856097215e-07,
+      "reference_tail": 8.479112197600665e-85,
+      "reference_support": 64,
+      "conditional_denominator": 0.5741375853036746,
+      "conditional_error": 2.0844713871648324e-08,
+      "conditional_bound": 5.512142327664153e-07
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        0.01,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 9,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 1.5823649896830013e-07,
+        "raw_retained_mass": 0.999999841763501,
+        "retained_probability_before_conditional_renormalization": 0.999999841763501,
+        "omitted_mass": 1.5823649896830013e-07,
+        "raw_matrix_sum": 0.9999998417635007,
+        "mass_identity_error": 3.3306690738754696e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.5798258293318185e-07,
+      "reference_tail": 8.479117270797947e-85,
+      "reference_support": 64,
+      "conditional_denominator": 0.6343286226681671,
+      "conditional_error": 2.8958841699622262e-08,
+      "conditional_bound": 4.9891016521598e-07
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        0.01,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 9,
+        "dc_total_mass": 0.9999994016829638,
+        "raw_tail_mass": 1.5823649896830013e-07,
+        "raw_retained_mass": 0.9999992434464647,
+        "retained_probability_before_conditional_renormalization": 0.9999998417634064,
+        "omitted_mass": 1.5823659364394986e-07,
+        "raw_matrix_sum": 0.9999992434464644,
+        "mass_identity_error": 3.3306690738754696e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.5798267730452419e-07,
+      "reference_tail": 8.479122344001297e-85,
+      "reference_support": 64,
+      "conditional_denominator": 0.6945197320593492,
+      "conditional_error": 3.4068881826776476e-08,
+      "conditional_bound": 4.556719883962288e-07
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        0.5,
+        -0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 14,
+        "dc_total_mass": 1.0011130589642987,
+        "raw_tail_mass": 7.66608916642647e-07,
+        "raw_retained_mass": 1.0011122923553821,
+        "retained_probability_before_conditional_renormalization": 0.9999992342434156,
+        "omitted_mass": 7.657565844118966e-07,
+        "raw_matrix_sum": 1.0011122923553821,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 1800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.58379365636136e-07,
+      "reference_tail": 4.298982754425436e-30,
+      "reference_support": 64,
+      "conditional_denominator": 0.5264958504304835,
+      "conditional_error": 1.4095378808587355e-07,
+      "conditional_bound": 2.908879846957138e-06
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        0.5,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 14,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 7.66608916642647e-07,
+        "raw_retained_mass": 0.9999992333910833,
+        "retained_probability_before_conditional_renormalization": 0.9999992333910833,
+        "omitted_mass": 7.66608916642647e-07,
+        "raw_matrix_sum": 0.9999992333910834,
+        "mass_identity_error": 1.1102230246251565e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 1800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.592152661637513e-07,
+      "reference_tail": 4.303767775717615e-30,
+      "reference_support": 64,
+      "conditional_denominator": 0.5849609375,
+      "conditional_error": 1.8925041525563735e-07,
+      "conditional_bound": 2.621060202477698e-06
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        0.5,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 14,
+        "dc_total_mass": 0.9988869410357014,
+        "raw_tail_mass": 7.66608916642647e-07,
+        "raw_retained_mass": 0.9988861744267847,
+        "retained_probability_before_conditional_renormalization": 0.9999992325368516,
+        "omitted_mass": 7.674631483797199e-07,
+        "raw_matrix_sum": 0.998886174426785,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 1800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.600530112349818e-07,
+      "reference_tail": 4.30856346090102e-30,
+      "reference_support": 64,
+      "conditional_denominator": 0.6435563197742851,
+      "conditional_error": 2.1865092869610692e-07,
+      "conditional_bound": 2.3850691067687525e-06
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        3,
+        -0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 39,
+        "dc_total_mass": 1.0151483689142868,
+        "raw_tail_mass": 7.711540170015483e-07,
+        "raw_retained_mass": 1.0151475977602697,
+        "retained_probability_before_conditional_renormalization": 0.99999924035339,
+        "omitted_mass": 7.596466099101421e-07,
+        "raw_matrix_sum": 1.0151475977602695,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 13,
+        "bytes_grid": 12800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.255609635048454e-07,
+      "reference_tail": 2.7281046707018057e-18,
+      "reference_support": 128,
+      "conditional_denominator": 0.388988152130666,
+      "conditional_error": 3.2049348400176036e-07,
+      "conditional_bound": 3.905757055848299e-06
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        3,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 39,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 7.711540170015483e-07,
+        "raw_retained_mass": 0.999999228845983,
+        "retained_probability_before_conditional_renormalization": 0.999999228845983,
+        "omitted_mass": 7.711540170015483e-07,
+        "raw_matrix_sum": 0.9999992288459827,
+        "mass_identity_error": 3.3306690738754696e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 13,
+        "bytes_grid": 12800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.360278645590634e-07,
+      "reference_tail": 2.7694310066903855e-18,
+      "reference_support": 128,
+      "conditional_denominator": 0.4420089470068755,
+      "conditional_error": 3.8866496798739547e-07,
+      "conditional_bound": 3.4893140612935256e-06
+    },
+    {
+      "params": [
+        0.2,
+        1,
+        3,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 39,
+        "dc_total_mass": 0.9848516310857134,
+        "raw_tail_mass": 7.711540170015483e-07,
+        "raw_retained_mass": 0.9848508599316964,
+        "retained_probability_before_conditional_renormalization": 0.9999992169845765,
+        "omitted_mass": 7.830154235023381e-07,
+        "raw_matrix_sum": 0.9848508599316961,
+        "mass_identity_error": 3.3306690738754696e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 13,
+        "bytes_grid": 12800,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.468003834221193e-07,
+      "reference_tail": 2.812028654140856e-18,
+      "reference_support": 128,
+      "conditional_denominator": 0.4966608069807343,
+      "conditional_error": 4.2587844467645297e-07,
+      "conditional_bound": 3.153119442885791e-06
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.0001,
+        -0.35714285714285715
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 10,
+        "dc_total_mass": 1.0000000006951963,
+        "raw_tail_mass": 3.1032507424104305e-07,
+        "raw_retained_mass": 0.9999996903701222,
+        "retained_probability_before_conditional_renormalization": 0.999999689674926,
+        "omitted_mass": 3.103250740253062e-07,
+        "raw_matrix_sum": 0.9999996903701218,
+        "mass_identity_error": 3.3306690738754696e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 968,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.972816989382787e-07,
+      "reference_tail": 1.1737578448962811e-82,
+      "reference_support": 64,
+      "conditional_denominator": 0.6433636569374148,
+      "conditional_error": 1.4692137728644639e-07,
+      "conditional_bound": 9.64695691710463e-07
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.0001,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 10,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 3.1032507424104305e-07,
+        "raw_retained_mass": 0.9999996896749258,
+        "retained_probability_before_conditional_renormalization": 0.9999996896749258,
+        "omitted_mass": 3.1032507424104305e-07,
+        "raw_matrix_sum": 0.9999996896749254,
+        "mass_identity_error": 4.440892098500626e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 968,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.9728169913256774e-07,
+      "reference_tail": 1.1737578457122733e-82,
+      "reference_support": 64,
+      "conditional_denominator": 0.7336601802531497,
+      "conditional_error": 1.3460134273834967e-07,
+      "conditional_bound": 8.459640650906398e-07
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.0001,
+        0.3246753246753247
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 10,
+        "dc_total_mass": 0.9999999993680033,
+        "raw_tail_mass": 3.1032507424104305e-07,
+        "raw_retained_mass": 0.9999996890429291,
+        "retained_probability_before_conditional_renormalization": 0.9999996896749256,
+        "omitted_mass": 3.1032507443716744e-07,
+        "raw_matrix_sum": 0.9999996890429289,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 968,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.97281699312979e-07,
+      "reference_tail": 1.1737578464540843e-82,
+      "reference_support": 64,
+      "conditional_denominator": 0.8157479288309459,
+      "conditional_error": 1.2477246225106597e-07,
+      "conditional_bound": 7.608357029649992e-07
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.01,
+        -0.35714285714285715
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 10,
+        "dc_total_mass": 1.000006889429192,
+        "raw_tail_mass": 4.6248217134152817e-07,
+        "raw_retained_mass": 1.0000064269470206,
+        "retained_probability_before_conditional_renormalization": 0.9999995375210149,
+        "omitted_mass": 4.624789851253073e-07,
+        "raw_matrix_sum": 1.0000064269470201,
+        "mass_identity_error": 4.440892098500626e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 968,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 4.4255793008735056e-07,
+      "reference_tail": 1.4054061113876247e-75,
+      "reference_support": 64,
+      "conditional_denominator": 0.6435482333903491,
+      "conditional_error": 2.1792605653381258e-07,
+      "conditional_bound": 1.437278392293518e-06
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.01,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 10,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 4.6248217134152817e-07,
+        "raw_retained_mass": 0.9999995375178287,
+        "retained_probability_before_conditional_renormalization": 0.9999995375178287,
+        "omitted_mass": 4.6248217134152817e-07,
+        "raw_matrix_sum": 0.9999995375178281,
+        "mass_identity_error": 5.551115123125783e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 968,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 4.425608418068272e-07,
+      "reference_tail": 1.405415793833515e-75,
+      "reference_support": 64,
+      "conditional_denominator": 0.7341441872887291,
+      "conditional_error": 1.9964253727966508e-07,
+      "conditional_bound": 1.2599219045771456e-06
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.01,
+        0.3246753246753247
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 10,
+        "dc_total_mass": 0.9999937368825528,
+        "raw_tail_mass": 4.6248217134152817e-07,
+        "raw_retained_mass": 0.9999932744003814,
+        "retained_probability_before_conditional_renormalization": 0.9999995375149321,
+        "omitted_mass": 4.6248506793982626e-07,
+        "raw_matrix_sum": 0.9999932744003809,
+        "mass_identity_error": 5.551115123125783e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 9,
+        "bytes_grid": 968,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 4.4256348885607366e-07,
+      "reference_tail": 1.405424596172824e-75,
+      "reference_support": 64,
+      "conditional_denominator": 0.8165052286281402,
+      "conditional_error": 1.8505145804592615e-07,
+      "conditional_bound": 1.1328404319391203e-06
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.5,
+        -0.35714285714285715
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 18,
+        "dc_total_mass": 1.0115739488939646,
+        "raw_tail_mass": 6.179870952380584e-07,
+        "raw_retained_mass": 1.0115733309068693,
+        "retained_probability_before_conditional_renormalization": 0.9999993890836197,
+        "omitted_mass": 6.109163802742781e-07,
+        "raw_matrix_sum": 1.0115733309068695,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 2888,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 5.604477501114369e-07,
+      "reference_tail": 3.4745771598086014e-24,
+      "reference_support": 64,
+      "conditional_denominator": 0.6298773502500408,
+      "conditional_error": 3.417843338349158e-07,
+      "conditional_bound": 1.939794723629177e-06
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.5,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 18,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 6.179870952380584e-07,
+        "raw_retained_mass": 0.9999993820129047,
+        "retained_probability_before_conditional_renormalization": 0.9999993820129047,
+        "omitted_mass": 6.179870952380584e-07,
+        "raw_matrix_sum": 0.9999993820129051,
+        "mass_identity_error": 3.3306690738754696e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 2888,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 5.663434614333607e-07,
+      "reference_tail": 3.514791738284363e-24,
+      "reference_support": 64,
+      "conditional_denominator": 0.734869684499314,
+      "conditional_error": 3.0865757816300743e-07,
+      "conditional_bound": 1.681895738178693e-06
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.5,
+        0.3246753246753247
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 18,
+        "dc_total_mass": 0.989478228278214,
+        "raw_tail_mass": 6.179870952380584e-07,
+        "raw_retained_mass": 0.9894776102911187,
+        "retained_probability_before_conditional_renormalization": 0.9999993754414422,
+        "omitted_mass": 6.245585578102256e-07,
+        "raw_matrix_sum": 0.9894776102911189,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 2888,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 5.718107627394886e-07,
+      "reference_tail": 3.552166826753161e-24,
+      "reference_support": 64,
+      "conditional_denominator": 0.8324486702762594,
+      "conditional_error": 2.831002244851888e-07,
+      "conditional_bound": 1.500533498607085e-06
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        3,
+        -0.35714285714285715
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 52,
+        "dc_total_mass": 1.121012487280726,
+        "raw_tail_mass": 9.713518695097784e-07,
+        "raw_retained_mass": 1.1210115159288565,
+        "retained_probability_before_conditional_renormalization": 0.9999991335048624,
+        "omitted_mass": 8.664951376822001e-07,
+        "raw_matrix_sum": 1.1210115159288563,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 13,
+        "bytes_grid": 22472,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.559608987406374e-07,
+      "reference_tail": 4.155241457329421e-14,
+      "reference_support": 128,
+      "conditional_denominator": 0.4694693749582866,
+      "conditional_error": 7.19866115161949e-07,
+      "conditional_bound": 3.691381058931074e-06
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        3,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 52,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.713518695097784e-07,
+        "raw_retained_mass": 0.9999990286481305,
+        "retained_probability_before_conditional_renormalization": 0.9999990286481305,
+        "omitted_mass": 9.713518695097784e-07,
+        "raw_matrix_sum": 0.9999990286481304,
+        "mass_identity_error": 1.1102230246251565e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 13,
+        "bytes_grid": 22472,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 8.324469094600495e-07,
+      "reference_tail": 4.658077561332844e-14,
+      "reference_support": 128,
+      "conditional_denominator": 0.609226098763582,
+      "conditional_error": 6.43876171935176e-07,
+      "conditional_bound": 3.1888059886531543e-06
+    },
+    {
+      "params": [
+        1.4,
+        1.1,
+        3,
+        0.3246753246753247
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 53,
+        "dc_total_mass": 0.8899886479266127,
+        "raw_tail_mass": 7.733173877732829e-07,
+        "raw_retained_mass": 0.8899878746092249,
+        "retained_probability_before_conditional_renormalization": 0.9999991310929757,
+        "omitted_mass": 8.68907024347854e-07,
+        "raw_matrix_sum": 0.8899878746092249,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 13,
+        "bytes_grid": 23328,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 7.292925056912036e-07,
+      "reference_tail": 5.233861771366035e-14,
+      "reference_support": 128,
+      "conditional_denominator": 0.7692577953191502,
+      "conditional_error": 4.700366456056315e-07,
+      "conditional_bound": 2.2590790290944765e-06
+    },
+    {
+      "params": [
+        5,
+        4,
+        0.0001,
+        -0.1
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 19,
+        "dc_total_mass": 1.0000000000494207,
+        "raw_tail_mass": 3.5925285577134883e-07,
+        "raw_retained_mass": 0.9999996407965649,
+        "retained_probability_before_conditional_renormalization": 0.9999996407471442,
+        "omitted_mass": 3.5925285575359433e-07,
+        "raw_matrix_sum": 0.9999996407965654,
+        "mass_identity_error": 5.551115123125783e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 3200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.4607096909813322e-07,
+      "reference_tail": 2.858930088172166e-48,
+      "reference_support": 64,
+      "conditional_denominator": 0.8714727366182665,
+      "conditional_error": 1.3328368686504888e-07,
+      "conditional_bound": 8.244729654944072e-07
+    },
+    {
+      "params": [
+        5,
+        4,
+        0.0001,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 19,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 3.5925285577134883e-07,
+        "raw_retained_mass": 0.9999996407471442,
+        "retained_probability_before_conditional_renormalization": 0.9999996407471442,
+        "omitted_mass": 3.5925285577134883e-07,
+        "raw_matrix_sum": 0.9999996407471448,
+        "mass_identity_error": 5.551115123125783e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 3200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.4598216069305892e-07,
+      "reference_tail": 2.8589300883134567e-48,
+      "reference_support": 64,
+      "conditional_denominator": 0.8719671660725226,
+      "conditional_error": 1.33242678446166e-07,
+      "conditional_bound": 8.240054666037031e-07
+    },
+    {
+      "params": [
+        5,
+        4,
+        0.0001,
+        0.025
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 19,
+        "dc_total_mass": 0.9999999999876448,
+        "raw_tail_mass": 3.5925285577134883e-07,
+        "raw_retained_mass": 0.999999640734789,
+        "retained_probability_before_conditional_renormalization": 0.9999996407471442,
+        "omitted_mass": 3.592528557757875e-07,
+        "raw_matrix_sum": 0.9999996407347895,
+        "mass_identity_error": 5.551115123125783e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 3200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.4595995878607937e-07,
+      "reference_tail": 2.8589300883487796e-48,
+      "reference_support": 64,
+      "conditional_denominator": 0.8720907734360943,
+      "conditional_error": 1.3323242764595733e-07,
+      "conditional_bound": 8.238886747082712e-07
+    },
+    {
+      "params": [
+        5,
+        4,
+        0.01,
+        -0.1
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 19,
+        "dc_total_mass": 1.0000005515355568,
+        "raw_tail_mass": 9.486064368356524e-07,
+        "raw_retained_mass": 0.9999996029291199,
+        "retained_probability_before_conditional_renormalization": 0.9999990513940864,
+        "omitted_mass": 9.486059136457617e-07,
+        "raw_matrix_sum": 0.9999996029291199,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 3200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.834940679459109e-07,
+      "reference_tail": 4.190717833740917e-42,
+      "reference_support": 64,
+      "conditional_denominator": 0.8734024774688027,
+      "conditional_error": 3.504701271417332e-07,
+      "conditional_bound": 2.1722079753996237e-06
+    },
+    {
+      "params": [
+        5,
+        4,
+        0.01,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 19,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.486064368356524e-07,
+        "raw_retained_mass": 0.9999990513935632,
+        "retained_probability_before_conditional_renormalization": 0.9999990513935632,
+        "omitted_mass": 9.486064368356524e-07,
+        "raw_matrix_sum": 0.999999051393563,
+        "mass_identity_error": 1.1102230246251565e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 3200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.832219258592673e-07,
+      "reference_tail": 4.1907201450708106e-42,
+      "reference_support": 64,
+      "conditional_denominator": 0.8739793138381706,
+      "conditional_error": 3.503441102781224e-07,
+      "conditional_bound": 2.1707754904855793e-06
+    },
+    {
+      "params": [
+        5,
+        4,
+        0.01,
+        0.025
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 19,
+        "dc_total_mass": 0.9999998621161108,
+        "raw_tail_mass": 9.486064368356524e-07,
+        "raw_retained_mass": 0.999998913509674,
+        "retained_probability_before_conditional_renormalization": 0.9999990513934324,
+        "omitted_mass": 9.486065676332153e-07,
+        "raw_matrix_sum": 0.999998913509674,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 3200,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.8315389028209523e-07,
+      "reference_tail": 4.190720722903683e-42,
+      "reference_support": 64,
+      "conditional_denominator": 0.8741235230299331,
+      "conditional_error": 3.503126103643339e-07,
+      "conditional_bound": 2.170417664416821e-06
+    },
+    {
+      "params": [
+        5,
+        4,
+        0.5,
+        -0.1
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 49,
+        "dc_total_mass": 1.0086383759853148,
+        "raw_tail_mass": 7.825976059066457e-07,
+        "raw_retained_mass": 1.008637593387709,
+        "retained_probability_before_conditional_renormalization": 0.999999224104868,
+        "omitted_mass": 7.758951320309866e-07,
+        "raw_matrix_sum": 1.0086375933877092,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 13,
+        "bytes_grid": 20000,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.507380891276668e-07,
+      "reference_tail": 5.296202438177871e-18,
+      "reference_support": 128,
+      "conditional_denominator": 0.8879367444574949,
+      "conditional_error": 3.3847838609712966e-07,
+      "conditional_bound": 1.7476360492555884e-06
+    },
+    {
+      "params": [
+        5,
+        4,
+        0.5,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 49,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 7.825976059066457e-07,
+        "raw_retained_mass": 0.9999992174023941,
+        "retained_probability_before_conditional_renormalization": 0.9999992174023941,
+        "omitted_mass": 7.825976059066457e-07,
+        "raw_matrix_sum": 0.9999992174023945,
+        "mass_identity_error": 4.440892098500626e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 13,
+        "bytes_grid": 20000,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.4624661959803404e-07,
+      "reference_tail": 5.341953026133193e-18,
+      "reference_support": 128,
+      "conditional_denominator": 0.9068369646882043,
+      "conditional_error": 3.3552331690778203e-07,
+      "conditional_bound": 1.7259940571149223e-06
+    },
+    {
+      "params": [
+        5,
+        4,
+        0.5,
+        0.025
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 49,
+        "dc_total_mass": 0.9978404060036713,
+        "raw_tail_mass": 7.825976059066457e-07,
+        "raw_retained_mass": 0.9978396234060654,
+        "retained_probability_before_conditional_renormalization": 0.9999992157086431,
+        "omitted_mass": 7.842913568121898e-07,
+        "raw_matrix_sum": 0.9978396234060658,
+        "mass_identity_error": 4.440892098500626e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 13,
+        "bytes_grid": 20000,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.450912094971059e-07,
+      "reference_tail": 5.35351444378525e-18,
+      "reference_support": 128,
+      "conditional_denominator": 0.9116131511716762,
+      "conditional_error": 3.347911944340254e-07,
+      "conditional_bound": 1.7206670522677541e-06
+    },
+    {
+      "params": [
+        5,
+        4,
+        3,
+        -0.1
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 170,
+        "dc_total_mass": 1.292113338010215,
+        "raw_tail_mass": 1.2480459349591135e-06,
+        "raw_retained_mass": 1.29211208996428,
+        "retained_probability_before_conditional_renormalization": 0.9999990341049053,
+        "omitted_mass": 9.65895094683441e-07,
+        "raw_matrix_sum": 1.2921120899642797,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 17,
+        "bytes_grid": 233928,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 6.135459506007024e-07,
+      "reference_tail": 1.174623289436045e-16,
+      "reference_support": 512,
+      "conditional_denominator": 0.5817904588896049,
+      "conditional_error": 6.716304578047172e-07,
+      "conditional_bound": 3.3204226024757907e-06
+    },
+    {
+      "params": [
+        5,
+        4,
+        3,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 174,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.470413943585333e-07,
+        "raw_retained_mass": 0.9999990529586057,
+        "retained_probability_before_conditional_renormalization": 0.9999990529586057,
+        "omitted_mass": 9.470413943585333e-07,
+        "raw_matrix_sum": 0.9999990529586055,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 17,
+        "bytes_grid": 245000,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 5.006527876161293e-07,
+      "reference_tail": 1.517746419417747e-16,
+      "reference_support": 512,
+      "conditional_denominator": 0.7988019163155428,
+      "conditional_error": 4.897662553293713e-07,
+      "conditional_bound": 2.371154538232749e-06
+    },
+    {
+      "params": [
+        5,
+        4,
+        3,
+        0.025
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 175,
+        "dc_total_mass": 0.9269716654974463,
+        "raw_tail_mass": 8.839714272662037e-07,
+        "raw_retained_mass": 0.926970781526019,
+        "retained_probability_before_conditional_renormalization": 0.9999990463878669,
+        "omitted_mass": 9.536121331085487e-07,
+        "raw_matrix_sum": 0.926970781526019,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 17,
+        "bytes_grid": 247808,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 4.687151198279338e-07,
+      "reference_tail": 1.6373169492761895e-16,
+      "reference_support": 512,
+      "conditional_denominator": 0.874425424853589,
+      "conditional_error": 4.527126132858328e-07,
+      "conditional_bound": 2.181117122553819e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        0.0001,
+        -0.05
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 28,
+        "dc_total_mass": 1.0000000000000207,
+        "raw_tail_mass": 7.779647415975671e-07,
+        "raw_retained_mass": 0.999999222035279,
+        "retained_probability_before_conditional_renormalization": 0.9999992220352584,
+        "omitted_mass": 7.77964741597551e-07,
+        "raw_matrix_sum": 0.9999992220352788,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 6728,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 4.939053588337572e-08,
+      "reference_tail": 7.523088745771379e-31,
+      "reference_support": 64,
+      "conditional_denominator": 0.999901823477553,
+      "conditional_error": 3.729905273530676e-12,
+      "conditional_bound": 1.5560822539394355e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        0.0001,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 28,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 7.779647415975671e-07,
+        "raw_retained_mass": 0.9999992220352584,
+        "retained_probability_before_conditional_renormalization": 0.9999992220352584,
+        "omitted_mass": 7.779647415975671e-07,
+        "raw_matrix_sum": 0.9999992220352582,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 6728,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 4.9390535772353417e-08,
+      "reference_tail": 7.523088745771534e-31,
+      "reference_support": 64,
+      "conditional_denominator": 0.9999059499297738,
+      "conditional_error": 5.336175945558352e-12,
+      "conditional_bound": 1.5560758322364334e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        0.0001,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 28,
+        "dc_total_mass": 0.9999999999997938,
+        "raw_tail_mass": 7.779647415975671e-07,
+        "raw_retained_mass": 0.9999992220350522,
+        "retained_probability_before_conditional_renormalization": 0.9999992220352584,
+        "omitted_mass": 7.779647415977275e-07,
+        "raw_matrix_sum": 0.999999222035052,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 6728,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 4.939053588337572e-08,
+      "reference_tail": 7.523088745773085e-31,
+      "reference_support": 64,
+      "conditional_denominator": 0.9999472144519825,
+      "conditional_error": 2.1396662219785867e-11,
+      "conditional_bound": 1.5560116181214391e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        0.01,
+        -0.05
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 30,
+        "dc_total_mass": 1.0000000002981722,
+        "raw_tail_mass": 5.036525082053092e-07,
+        "raw_retained_mass": 0.9999994966456639,
+        "retained_probability_before_conditional_renormalization": 0.999999496347492,
+        "omitted_mass": 5.03652508055134e-07,
+        "raw_matrix_sum": 0.9999994966456636,
+        "mass_identity_error": 3.3306690738754696e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 7688,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.647708679554995e-08,
+      "reference_tail": 8.172296373276604e-26,
+      "reference_support": 64,
+      "conditional_denominator": 0.9998530844471443,
+      "conditional_error": 3.6561864646955655e-12,
+      "conditional_bound": 1.0074530266286515e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        0.01,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 30,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 5.036525082053092e-07,
+        "raw_retained_mass": 0.9999994963474917,
+        "retained_probability_before_conditional_renormalization": 0.9999994963474917,
+        "omitted_mass": 5.036525082053092e-07,
+        "raw_matrix_sum": 0.9999994963474915,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 7688,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.647708679554995e-08,
+      "reference_tail": 8.172296375713356e-26,
+      "reference_support": 64,
+      "conditional_denominator": 0.9998593493407174,
+      "conditional_error": 5.3084203699427235e-12,
+      "conditional_bound": 1.0074467144551986e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        0.01,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 30,
+        "dc_total_mass": 0.9999999970182791,
+        "raw_tail_mass": 5.036525082053092e-07,
+        "raw_retained_mass": 0.9999994933657709,
+        "retained_probability_before_conditional_renormalization": 0.9999994963474903,
+        "omitted_mass": 5.036525097070604e-07,
+        "raw_matrix_sum": 0.9999994933657707,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11,
+        "bytes_grid": 7688,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.647708546328232e-08,
+      "reference_tail": 8.172296400080862e-26,
+      "reference_support": 64,
+      "conditional_denominator": 0.9999219982766527,
+      "conditional_error": 2.182976022169214e-11,
+      "conditional_bound": 1.007383597070764e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        0.5,
+        -0.05
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 91,
+        "dc_total_mass": 1.0000499906017668,
+        "raw_tail_mass": 8.480084677913967e-07,
+        "raw_retained_mass": 1.000049142593299,
+        "retained_probability_before_conditional_renormalization": 0.9999991520339225,
+        "omitted_mass": 8.479660774569068e-07,
+        "raw_matrix_sum": 1.0000491425932991,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 15,
+        "bytes_grid": 67712,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.743522606873938e-07,
+      "reference_tail": 1.9597584864243064e-19,
+      "reference_support": 256,
+      "conditional_denominator": 0.9689633920322988,
+      "conditional_error": 1.547463157614004e-09,
+      "conditional_bound": 1.7502541054282415e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        0.5,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 91,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 8.480084677913967e-07,
+        "raw_retained_mass": 0.9999991519915322,
+        "retained_probability_before_conditional_renormalization": 0.9999991519915322,
+        "omitted_mass": 8.480084677913967e-07,
+        "raw_matrix_sum": 0.9999991519915322,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 15,
+        "bytes_grid": 67712,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.7433729887782476e-07,
+      "reference_tail": 1.9598564559303604e-19,
+      "reference_support": 256,
+      "conditional_denominator": 0.9704215660651823,
+      "conditional_error": 2.623357198139331e-09,
+      "conditional_bound": 1.7477115048670153e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        0.5,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 91,
+        "dc_total_mass": 0.9995000939823313,
+        "raw_tail_mass": 8.480084677913967e-07,
+        "raw_retained_mass": 0.9994992459738635,
+        "retained_probability_before_conditional_renormalization": 0.9999991515673956,
+        "omitted_mass": 8.484326043559006e-07,
+        "raw_matrix_sum": 0.9994992459738635,
+        "mass_identity_error": 0.0,
+        "requested_tolerance": 1e-06,
+        "support_probes": 15,
+        "bytes_grid": 67712,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 2.7418744130702777e-07,
+      "reference_tail": 1.9608366899913526e-19,
+      "reference_support": 256,
+      "conditional_denominator": 0.9850113288542048,
+      "conditional_error": 1.3045449276383181e-08,
+      "conditional_bound": 1.7226859823897038e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        3,
+        -0.05
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 340,
+        "dc_total_mass": 1.0032569102096565,
+        "raw_tail_mass": 9.969898105404807e-07,
+        "raw_retained_mass": 1.003255913219846,
+        "retained_probability_before_conditional_renormalization": 0.9999990062467545,
+        "omitted_mass": 9.937532454494971e-07,
+        "raw_matrix_sum": 1.0032559132198455,
+        "mass_identity_error": 4.440892098500626e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 19,
+        "bytes_grid": 930248,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 6.050233555821016e-07,
+      "reference_tail": 8.975548079021256e-17,
+      "reference_support": 1024,
+      "conditional_denominator": 0.6863304708366785,
+      "conditional_error": 3.5722776736690776e-08,
+      "conditional_bound": 2.8958447504969638e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        3,
+        0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 340,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.969898105404807e-07,
+        "raw_retained_mass": 0.9999990030101895,
+        "retained_probability_before_conditional_renormalization": 0.9999990030101895,
+        "omitted_mass": 9.969898105404807e-07,
+        "raw_matrix_sum": 0.9999990030101891,
+        "mass_identity_error": 4.440892098500626e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 19,
+        "bytes_grid": 930248,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 6.057236787149201e-07,
+      "reference_tail": 9.004780633197082e-17,
+      "reference_support": 1024,
+      "conditional_denominator": 0.7002544764178885,
+      "conditional_error": 5.734906527443684e-08,
+      "conditional_bound": 2.8475071397774496e-06
+    },
+    {
+      "params": [
+        10,
+        0.1,
+        3,
+        0.5
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 341,
+        "dc_total_mass": 0.9674308979034361,
+        "raw_tail_mass": 9.630833469585974e-07,
+        "raw_retained_mass": 0.9674299348200891,
+        "retained_probability_before_conditional_renormalization": 0.9999990044939137,
+        "omitted_mass": 9.955060863217617e-07,
+        "raw_matrix_sum": 0.9674299348200889,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 19,
+        "bytes_grid": 935712,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 5.916696136920585e-07,
+      "reference_tail": 9.307931608047414e-17,
+      "reference_support": 1024,
+      "conditional_denominator": 0.8446508859952682,
+      "conditional_error": 2.0248948495726893e-07,
+      "conditional_bound": 2.357201307477035e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        0.0001,
+        -0.005
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 151,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.183109170616324e-07,
+        "raw_retained_mass": 0.9999990816890829,
+        "retained_probability_before_conditional_renormalization": 0.9999990816890829,
+        "omitted_mass": 9.183109170616324e-07,
+        "raw_matrix_sum": 0.9999990816890904,
+        "mass_identity_error": 7.438494264988549e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 17,
+        "bytes_grid": 184832,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 6.763754190064475e-08,
+      "reference_tail": 9.236604669287859e-39,
+      "reference_support": 256,
+      "conditional_denominator": 0.9901533507673839,
+      "conditional_error": 5.976645955918514e-08,
+      "conditional_bound": 1.8548862483774407e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        0.0001,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 151,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.183109170616324e-07,
+        "raw_retained_mass": 0.9999990816890829,
+        "retained_probability_before_conditional_renormalization": 0.9999990816890829,
+        "omitted_mass": 9.183109170616324e-07,
+        "raw_matrix_sum": 0.9999990816890904,
+        "mass_identity_error": 7.438494264988549e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 17,
+        "bytes_grid": 184832,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 6.763754190064475e-08,
+      "reference_tail": 9.236604669287859e-39,
+      "reference_support": 256,
+      "conditional_denominator": 0.9901533507673839,
+      "conditional_error": 5.976645955918514e-08,
+      "conditional_bound": 1.8548862483774407e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        0.0001,
+        6.25e-05
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 151,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.183109170616324e-07,
+        "raw_retained_mass": 0.9999990816890829,
+        "retained_probability_before_conditional_renormalization": 0.9999990816890829,
+        "omitted_mass": 9.183109170616324e-07,
+        "raw_matrix_sum": 0.9999990816890904,
+        "mass_identity_error": 7.438494264988549e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 17,
+        "bytes_grid": 184832,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 6.763754190064475e-08,
+      "reference_tail": 9.236604669287859e-39,
+      "reference_support": 256,
+      "conditional_denominator": 0.9901533507673839,
+      "conditional_error": 5.976645955918514e-08,
+      "conditional_bound": 1.8548862483774407e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        0.01,
+        -0.005
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 178,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.234494812849702e-07,
+        "raw_retained_mass": 0.9999990765505187,
+        "retained_probability_before_conditional_renormalization": 0.9999990765505187,
+        "omitted_mass": 9.234494812849702e-07,
+        "raw_matrix_sum": 0.9999990765505211,
+        "mass_identity_error": 2.4424906541753444e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 17,
+        "bytes_grid": 256328,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.3456465286498798e-07,
+      "reference_tail": 1.2889226860876942e-17,
+      "reference_support": 256,
+      "conditional_denominator": 0.9878750404743222,
+      "conditional_error": 1.2641504110177948e-07,
+      "conditional_bound": 1.8695673915487747e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        0.01,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 178,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.234494812849702e-07,
+        "raw_retained_mass": 0.9999990765505187,
+        "retained_probability_before_conditional_renormalization": 0.9999990765505187,
+        "omitted_mass": 9.234494812849702e-07,
+        "raw_matrix_sum": 0.9999990765505211,
+        "mass_identity_error": 2.4424906541753444e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 17,
+        "bytes_grid": 256328,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.3456465286498798e-07,
+      "reference_tail": 1.2889226860876942e-17,
+      "reference_support": 256,
+      "conditional_denominator": 0.9878750404743222,
+      "conditional_error": 1.2641504110177948e-07,
+      "conditional_bound": 1.8695673915487747e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        0.01,
+        6.25e-05
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 178,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.234494812849702e-07,
+        "raw_retained_mass": 0.9999990765505187,
+        "retained_probability_before_conditional_renormalization": 0.9999990765505187,
+        "omitted_mass": 9.234494812849702e-07,
+        "raw_matrix_sum": 0.9999990765505211,
+        "mass_identity_error": 2.4424906541753444e-15,
+        "requested_tolerance": 1e-06,
+        "support_probes": 17,
+        "bytes_grid": 256328,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 1.3456465286498798e-07,
+      "reference_tail": 1.2889226860876942e-17,
+      "reference_support": 256,
+      "conditional_denominator": 0.9878750404743222,
+      "conditional_error": 1.2641504110177948e-07,
+      "conditional_bound": 1.8695673915487747e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        0.5,
+        -0.005
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 843,
+        "dc_total_mass": 1.0000087503996475,
+        "raw_tail_mass": 9.868230675862234e-07,
+        "raw_retained_mass": 1.00000776357658,
+        "retained_probability_before_conditional_renormalization": 0.9999990131855674,
+        "omitted_mass": 9.868144325655606e-07,
+        "raw_matrix_sum": 1.0000077635765796,
+        "mass_identity_error": 4.440892098500626e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 21,
+        "bytes_grid": 5698688,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.958885511634591e-07,
+      "reference_tail": 9.838237749532875e-17,
+      "reference_support": 2048,
+      "conditional_denominator": 0.9945620764126175,
+      "conditional_error": 3.9491001679881066e-07,
+      "conditional_bound": 1.9844199895965865e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        0.5,
+        0.0
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 843,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 9.868230675862234e-07,
+        "raw_retained_mass": 0.9999990131769324,
+        "retained_probability_before_conditional_renormalization": 0.9999990131769324,
+        "omitted_mass": 9.868230675862234e-07,
+        "raw_matrix_sum": 0.9999990131769321,
+        "mass_identity_error": 3.3306690738754696e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 21,
+        "bytes_grid": 5698688,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.9588683531377455e-07,
+      "reference_tail": 9.83832383804501e-17,
+      "reference_support": 2048,
+      "conditional_denominator": 0.9945711817466436,
+      "conditional_error": 3.9490991199375713e-07,
+      "conditional_bound": 1.984419186471038e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        0.5,
+        6.25e-05
+      ],
+      "status": "PASS",
+      "diagnostic": {
+        "max_goals": 843,
+        "dc_total_mass": 0.9999998906200044,
+        "raw_tail_mass": 9.868230675862234e-07,
+        "raw_retained_mass": 0.9999989037969368,
+        "retained_probability_before_conditional_renormalization": 0.9999990131768245,
+        "omitted_mass": 9.86823175524938e-07,
+        "raw_matrix_sum": 0.9999989037969366,
+        "mass_identity_error": 2.220446049250313e-16,
+        "requested_tolerance": 1e-06,
+        "support_probes": 21,
+        "bytes_grid": 5698688,
+        "status": "TOLERANCE_MET"
+      },
+      "market_error": 3.958868138864702e-07,
+      "reference_tail": 9.838324914160946e-17,
+      "reference_support": 2048,
+      "conditional_denominator": 0.9945712955643269,
+      "conditional_error": 3.949099107725118e-07,
+      "conditional_bound": 1.9844191764319738e-06
+    },
+    {
+      "params": [
+        100,
+        80,
+        3,
+        -0.005
+      ],
+      "status": "SUPPORT_LIMIT",
+      "diagnostic": {
+        "max_goals": 1024,
+        "dc_total_mass": 1.9519506546605618,
+        "raw_tail_mass": 0.006453091242664952,
+        "raw_retained_mass": 1.9454975634178968,
+        "retained_probability_before_conditional_renormalization": 0.9966940295200305,
+        "omitted_mass": 0.003305970479969497,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11
+      }
+    },
+    {
+      "params": [
+        100,
+        80,
+        3,
+        0.0
+      ],
+      "status": "SUPPORT_LIMIT",
+      "diagnostic": {
+        "max_goals": 1024,
+        "dc_total_mass": 1.0,
+        "raw_tail_mass": 0.006453091242664952,
+        "raw_retained_mass": 0.9935469087573351,
+        "retained_probability_before_conditional_renormalization": 0.9935469087573351,
+        "omitted_mass": 0.006453091242664952,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11
+      }
+    },
+    {
+      "params": [
+        100,
+        80,
+        3,
+        6.25e-05
+      ],
+      "status": "SUPPORT_LIMIT",
+      "diagnostic": {
+        "max_goals": 1024,
+        "dc_total_mass": 0.988100616816743,
+        "raw_tail_mass": 0.006453091242664952,
+        "raw_retained_mass": 0.9816475255740781,
+        "retained_probability_before_conditional_renormalization": 0.9934691962206701,
+        "omitted_mass": 0.006530803779329861,
+        "requested_tolerance": 1e-06,
+        "support_probes": 11
+      }
+    }
+  ],
+  "cost": [
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.1,
+        -0.05
+      ],
+      "old_seconds": [
+        0.011651600012555718,
+        0.009141900009126402,
+        0.009725500000058673
+      ],
+      "new_seconds": [
+        0.004208299986203201,
+        0.004158099996857345,
+        0.005037599999923259
+      ],
+      "median_ratio": 2.3110282137545957
+    },
+    {
+      "params": [
+        2.5,
+        2,
+        0.5,
+        -0.05
+      ],
+      "old_seconds": [
+        0.012476000003516674,
+        0.020879599993349984,
+        0.01453320001019165
+      ],
+      "new_seconds": [
+        0.006169100000988692,
+        0.005826299995533191,
+        0.024116100001265295
+      ],
+      "median_ratio": 2.355805548274867
+    },
+    {
+      "params": [
+        5,
+        4,
+        1,
+        -0.02
+      ],
+      "old_seconds": [
+        0.028560999999172054,
+        0.018106400006217882,
+        0.033291100000496954
+      ],
+      "new_seconds": [
+        0.019727799997781403,
+        0.018020300005446188,
+        0.012132699994253926
+      ],
+      "median_ratio": 1.584934767486679
+    }
+  ],
+  "invalid": [
+    "(0, 1, 0.1, 0)",
+    "(1, 1, 0, 0)",
+    "(1, 1, 3.01, 0)",
+    "(1, 1, 0.1, 1)",
+    "(True, 1, 0.1, 0)",
+    "(1e-30, 1, 0.1, 0)",
+    "(inf, 1, 0.1, 0)"
+  ],
+  "forced_support_failure": {
+    "max_goals": 2,
+    "dc_total_mass": 1.0,
+    "raw_tail_mass": 0.9998836704696562,
+    "raw_retained_mass": 0.00011632953034379501,
+    "retained_probability_before_conditional_renormalization": 0.00011632953034379501,
+    "omitted_mass": 0.9998836704696562,
+    "requested_tolerance": 1e-06,
+    "support_probes": 2
+  }
+}

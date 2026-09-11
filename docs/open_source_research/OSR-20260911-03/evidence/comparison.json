@@ -1,0 +1,67 @@
+{
+  "status": "DIAGNOSTIC_COMPARISON",
+  "changes": [
+    {
+      "fixture_id": "SYN-1",
+      "before_status": "ADMIT",
+      "after_status": "ADMIT",
+      "before_reason": null,
+      "after_reason": null,
+      "probability_delta": [
+        -0.014147023199478304,
+        0.008161744153545092,
+        0.005985279045933073
+      ],
+      "snapshot_changed": true
+    },
+    {
+      "fixture_id": "SYN-2",
+      "before_status": "REJECT",
+      "after_status": "ADMIT",
+      "before_reason": "selection_completeness",
+      "after_reason": null,
+      "probability_delta": null,
+      "snapshot_changed": true
+    },
+    {
+      "fixture_id": "SYN-3",
+      "before_status": "ABSTAIN",
+      "after_status": "ABSTAIN",
+      "before_reason": "stale",
+      "after_reason": "stale",
+      "probability_delta": null,
+      "snapshot_changed": false
+    }
+  ],
+  "before_coverage": {
+    "admitted": 1,
+    "by_reason": {
+      "selection_completeness": 1,
+      "stale": 1
+    },
+    "by_status": {
+      "ABSTAIN": 1,
+      "ADMIT": 1,
+      "REJECT": 1
+    },
+    "fraction": 0.3333333333333333,
+    "scored": 1,
+    "total": 3
+  },
+  "after_coverage": {
+    "admitted": 2,
+    "by_reason": {
+      "stale": 1
+    },
+    "by_status": {
+      "ABSTAIN": 1,
+      "ADMIT": 2
+    },
+    "fraction": 0.6666666666666666,
+    "scored": 2,
+    "total": 3
+  },
+  "input_changed": true,
+  "code_changed": false,
+  "warning": "Probability changes are observations, not causal attribution. Different coverage has no paired performance claim."
+}

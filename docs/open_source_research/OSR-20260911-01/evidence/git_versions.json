@@ -1,0 +1,92 @@
+[
+  {
+    "repo": "martineastwood/penaltyblog",
+    "sha": "15ebb8a299fa75524ac57e32f3778f174bd5b42b",
+    "commit_date": "2026-09-10T13:41:50+01:00",
+    "observed_utc": "2026-09-11T02:51:32.617588+00:00"
+  },
+  {
+    "repo": "opisthokonta/goalmodel",
+    "sha": "84ecd6c2bbad3ccb967abf88ef49e5bcd074e545",
+    "commit_date": "2024-03-30T20:51:18+01:00",
+    "observed_utc": "2026-09-11T02:51:34.501303+00:00"
+  },
+  {
+    "repo": "LeoEgidi/footBayes",
+    "sha": "00540f5ae12b9dd6a4d97c5be228fb72c4be4b0d",
+    "commit_date": "2026-09-09T17:36:49+02:00",
+    "observed_utc": "2026-09-11T02:51:34.476043+00:00"
+  },
+  {
+    "repo": "probberechts/soccerdata",
+    "sha": "e120471e424a173e83e8aeeaaf4d954ab9d38ee4",
+    "commit_date": "2026-08-06T01:07:55Z",
+    "observed_utc": "2026-09-11T02:51:34.787170+00:00"
+  },
+  {
+    "repo": "ML-KULeuven/socceraction",
+    "sha": "93a1242d46c104889205753accaabadb00c45c6d",
+    "commit_date": "2026-01-07T09:40:04+01:00",
+    "observed_utc": "2026-09-11T02:51:36.833809+00:00"
+  },
+  {
+    "repo": "PySport/kloppy",
+    "sha": "51dbd38c4fb48c0815119e23ff9a3a68ea06be52",
+    "commit_date": "2026-08-06T14:46:36+02:00",
+    "observed_utc": "2026-09-11T02:51:36.795801+00:00"
+  },
+  {
+    "repo": "andrewRowlinson/mplsoccer",
+    "sha": "ad40c4ccbade56263ccd1d038ad49044fa9928d8",
+    "commit_date": "2026-07-31T13:40:36-07:00",
+    "observed_utc": "2026-09-11T02:51:36.942669+00:00"
+  },
+  {
+    "repo": "floodlight-sports/floodlight",
+    "sha": "699b7fa1e37f6de2351079d64508551bf5fb9ad7",
+    "commit_date": "2026-05-04T17:33:58+02:00",
+    "observed_utc": "2026-09-11T02:51:39.298893+00:00"
+  },
+  {
+    "repo": "Alek050/databallpy",
+    "sha": "3a8ebc17c6c752fb6e087069eeb707f60d2b9841",
+    "commit_date": "2026-08-11T13:17:25+02:00",
+    "observed_utc": "2026-09-11T02:51:39.401612+00:00"
+  },
+  {
+    "repo": "mberk/shin",
+    "sha": "ae460853fabeca7d512bbf7de8aaa55dc17f3485",
+    "commit_date": "2025-10-23T20:12:20+09:00",
+    "observed_utc": "2026-09-11T02:51:39.310962+00:00"
+  },
+  {
+    "repo": "opisthokonta/implied",
+    "sha": "1d1c5cd548dd71bc1b9addd733db5c2db8566b71",
+    "commit_date": "2026-05-23T20:59:40+02:00",
+    "observed_utc": "2026-09-11T02:51:42.333623+00:00"
+  },
+  {
+    "repo": "betcode-org/flumine",
+    "sha": "54854495b45accae614b23d10859047d582c3ecf",
+    "commit_date": "2026-09-07T17:58:51+01:00",
+    "observed_utc": "2026-09-11T02:51:42.333623+00:00"
+  },
+  {
+    "repo": "betcode-org/betfair",
+    "sha": "b00072113e9a1017d5b9cc705e9d1d3444a91036",
+    "commit_date": "2026-09-04T08:42:05+01:00",
+    "observed_utc": "2026-09-11T02:51:42.377525+00:00"
+  },
+  {
+    "repo": "frazane/scoringrules",
+    "sha": "e48aa74fdbf2d916ade569e1b7516286dbc8b303",
+    "commit_date": "2026-06-20T21:53:41+02:00",
+    "observed_utc": "2026-09-11T02:51:45.067305+00:00"
+  },
+  {
+    "repo": "UnravelSports/unravelsports",
+    "sha": "2bd24d7e2b3cc19cbdba6486c7abb70270a732ad",
+    "commit_date": "2026-01-16T11:14:35+01:00",
+    "observed_utc": "2026-09-11T02:51:45.085598+00:00"
+  }
+]

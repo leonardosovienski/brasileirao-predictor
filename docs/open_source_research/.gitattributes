@@ -1,0 +1,2 @@
+# Preserve evidence bytes and SHA-256 manifests across Windows/Linux checkouts.
+* -text

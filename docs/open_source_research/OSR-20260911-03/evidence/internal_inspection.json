@@ -1,0 +1,173 @@
+[
+  {
+    "path": "README.md",
+    "sha256": "6a56bfeb95a1bab68b77d6a4a8f769941408ba12cf4da6b55963e0c57e4f67df",
+    "lines": [
+      1,
+      11
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "HANDOFF.md",
+    "sha256": "600999602841541754f8c21d45c081c3fa39cafc755742b70bc3aed9b694485f",
+    "lines": [
+      1,
+      7
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "docs/ESTADO_ATUAL.md",
+    "sha256": "62055dc2afcf1151ada770591cf9b681a843a75aba5477bcb835cb9470399fe8",
+    "lines": [
+      1,
+      7
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "docs/DATA_MAP.md",
+    "sha256": "d29570247457bf5ba45ec3e34634482e0092c0ea78934744f7465f98211194fa",
+    "lines": [
+      1,
+      5
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "docs/INDICE_DOCUMENTACAO.md",
+    "sha256": "d0e649eb72238e48de34fb3b9a3bc3e6a10a9b3d006d52008a056902e7be130c",
+    "lines": [
+      1,
+      17
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "docs/continuation/publication_2026-09-10/DADOS_E_FONTES.md",
+    "sha256": "15244b702dcfada509f476401dda3e658468e27cdd2d907248dddf0bb44373a1",
+    "lines": [
+      1,
+      19
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "docs/continuation/resolution_2026-09-10/CONTRATOS.md",
+    "sha256": "558cd3cd103b7ccc937e3bd5e0b43bd30ff96711a2b5910bf54d90f385d5019b",
+    "lines": [
+      1,
+      59
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "brasileirao_predictor/model.py",
+    "sha256": "5b974eab0027275b829c3adfe41125fbad6ff4e0055578d7191167d5d65c4f2e",
+    "lines": [
+      264,
+      328
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "brasileirao_scripts/odds_shop.py",
+    "sha256": "1bd02c3ad30a8cc570d0866250515973fe4b863431d596e23c808fbe83ed9b71",
+    "lines": [
+      74,
+      158
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "brasileirao_predictor/research/price_strength/artifacts.py",
+    "sha256": "6e32f2e80f36559264abaf87b945989a852e8b243f379716f88c0e50e6fce4b7",
+    "lines": [
+      1,
+      212
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "brasileirao_predictor/research/pit_features/contextual.py",
+    "sha256": "87921f0da26b839ce60561f1d4de279eb47058f2d177a3982a3f23b2e10bf513",
+    "lines": [
+      1,
+      60
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "brasileirao_scripts/coverage_report.py",
+    "sha256": "ad20c905505a5b00aba16a1df3213f8eadcddd37a1a36b61aea6666a5de863d9",
+    "lines": [
+      1,
+      150
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "brasileirao_predictor/kernel_cli.py",
+    "sha256": "2f0cc6049322a6a1280e33c35a91499eb8a200986b30da99d50efe909ffb181d",
+    "lines": [
+      1,
+      40
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "brasileirao_predictor/kernel_redis_v2.py",
+    "sha256": "94cdf57f41aabad4558ad011e3197bcb4a5affd0e9c7a8c32d17c337c94af691",
+    "lines": [
+      1,
+      18
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "dotnet/LineupWorker/Program.cs",
+    "sha256": "1c2dc98d5ceba65d5bbc3fc344c46839209d2714c1dcfd1eb4d76223f5afde02",
+    "lines": [
+      1,
+      32
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "brasileirao_predictor/ecosystem_plugin.py",
+    "sha256": "1d4f994ae754ef0508bc9aa507bdc7c980a3be43e8a8a48b94f22cdde7c47861",
+    "lines": [
+      1,
+      44
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "pyproject.toml",
+    "sha256": "35ed178551891522e0e0798d77d7033944c8febbde1aaddc653c4fa5b538896a",
+    "lines": [
+      1,
+      48
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "brasileirao_predictor/__init__.py",
+    "sha256": "ad0e6216a7a9d28a51a09edc843088544821d635ed564114e5bc1c1dfd1c18fc",
+    "lines": [
+      1,
+      13
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  },
+  {
+    "path": "config.yaml",
+    "sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009",
+    "lines": [
+      1,
+      45
+    ],
+    "scope": "CODE_OR_DOCUMENT_INSPECTED_NOT_OPERATIONALLY_EXECUTED"
+  }
+]

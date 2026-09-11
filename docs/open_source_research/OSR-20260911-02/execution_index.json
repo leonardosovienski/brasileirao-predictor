@@ -1,0 +1,140 @@
+[
+  {
+    "file": "N01-receipt.json",
+    "command": [
+      "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+      "-I",
+      "-S",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\test_n01.py"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 19.979320300000836
+  },
+  {
+    "file": "N02-receipt.json",
+    "command": [
+      "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+      "-I",
+      "-S",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\test_n02.py"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 4.422519900006591
+  },
+  {
+    "file": "N03-audit-receipt-02.json",
+    "command": [
+      "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+      "-I",
+      "-S",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\audit_mutations.py"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 0.29226659999403637
+  },
+  {
+    "file": "N03-audit-receipt.json",
+    "command": [
+      "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+      "-I",
+      "-S",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\audit_mutations.py"
+    ],
+    "exit_code": 1,
+    "timeout": false,
+    "seconds": 0.2967011000000639
+  },
+  {
+    "file": "N03-receipt.json",
+    "command": [
+      "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+      "-I",
+      "-S",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\test_n03.py"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 0.8677547999977833
+  },
+  {
+    "file": "reproduction-receipt-02.json",
+    "command": [
+      "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+      "-I",
+      "-S",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\reproduce.py"
+    ],
+    "exit_code": 0,
+    "timeout": false,
+    "seconds": 10.155394700006582
+  },
+  {
+    "file": "reproduction-receipt.json",
+    "command": [
+      "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-01\\venv\\Scripts\\python.exe",
+      "-I",
+      "-B",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\reproduce.py"
+    ],
+    "exit_code": 101,
+    "timeout": false,
+    "seconds": 0.06461319999652915
+  },
+  {
+    "file": "timeout-receipt-02.json",
+    "command": [
+      "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+      "-I",
+      "-S",
+      "-B",
+      "-X",
+      "utf8",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\timeout_probe.py"
+    ],
+    "exit_code": 124,
+    "timeout": true,
+    "seconds": 0.39441269999952056
+  },
+  {
+    "file": "timeout-receipt.json",
+    "command": [
+      "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-01\\venv\\Scripts\\python.exe",
+      "-I",
+      "-B",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\timeout_probe.py"
+    ],
+    "exit_code": 101,
+    "timeout": false,
+    "seconds": 0.19517110000015236
+  }
+]

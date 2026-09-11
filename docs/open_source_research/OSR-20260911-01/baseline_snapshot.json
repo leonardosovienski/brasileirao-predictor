@@ -1,0 +1,13 @@
+{
+  "run_id": "OSR-20260911-01",
+  "observed_at_utc": "2026-09-11T02:48:22.2743782Z",
+  "head": "d9584af6deeec701cf8989349f22ab7e4b398249",
+  "branch": "main",
+  "initial_status": [],
+  "remote_main": "d9584af6deeec701cf8989349f22ab7e4b398249",
+  "mode": "RESEARCH_AND_BENCHMARK",
+  "protected": "PROTECTED_PATHS.txt plus all private datasets, historical outcomes, cohorts and operational stores; names only; no global tests",
+  "automation": "DC existing capture and quotas untouched",
+  "inspection": "Entry documents and RES contracts read; runtime not executed; baseline code inspection pending",
+  "prompt_sha256": "27C46C5C02DC8C1F5A63B24CC8510AFE29D98D6B815827A051092AD2A1C3294A"
+}

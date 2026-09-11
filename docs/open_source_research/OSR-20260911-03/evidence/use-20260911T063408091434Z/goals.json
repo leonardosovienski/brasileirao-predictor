@@ -1,0 +1,86 @@
+[
+  {
+    "parameters": [
+      1.4,
+      1.1,
+      0.1,
+      -0.05
+    ],
+    "status": "TOLERANCE_MET",
+    "diagnostic": {
+      "max_goals": 12,
+      "dc_total_mass": 1.000089023633216,
+      "raw_tail_mass": 2.6110515458945736e-07,
+      "raw_retained_mass": 1.0000887625280614,
+      "retained_probability_before_conditional_renormalization": 0.9999997389180879,
+      "omitted_mass": 2.6108191212907263e-07,
+      "raw_matrix_sum": 1.0000887625280606,
+      "mass_identity_error": 8.881784197001252e-16,
+      "requested_tolerance": 1e-06,
+      "support_probes": 9,
+      "bytes_grid": 1352,
+      "status": "TOLERANCE_MET"
+    },
+    "probabilities_1X2": [
+      0.42881242932190655,
+      0.2757122119628474,
+      0.29547535871524605
+    ],
+    "non_draw_mass_in_grid": 0.7242877880371525,
+    "home_given_non_draw": 0.5920470238549852,
+    "conditional_error_bound": 7.209341823548193e-07,
+    "conditional_bound_note": "conservative bound; not an assertion of 1e-6 conditional accuracy"
+  },
+  {
+    "parameters": [
+      0.0001,
+      0.0002,
+      3,
+      0
+    ],
+    "status": "TOLERANCE_MET",
+    "diagnostic": {
+      "max_goals": 1,
+      "dc_total_mass": 1.0,
+      "raw_tail_mass": 9.991605786221818e-08,
+      "raw_retained_mass": 0.9999999000839421,
+      "retained_probability_before_conditional_renormalization": 0.9999999000839421,
+      "omitted_mass": 9.991605786221818e-08,
+      "raw_matrix_sum": 0.9999999000839419,
+      "mass_identity_error": 2.220446049250313e-16,
+      "requested_tolerance": 1e-06,
+      "support_probes": 2,
+      "bytes_grid": 32,
+      "status": "TOLERANCE_MET"
+    },
+    "probabilities_1X2": [
+      9.99400399712286e-05,
+      0.9997002398081536,
+      0.00019982015187529022
+    ],
+    "non_draw_mass_in_grid": 0.00029976019184651886,
+    "home_given_non_draw": 0.333399973344023,
+    "conditional_error_bound": 0.0006666399380567284,
+    "conditional_bound_note": "conservative bound; not an assertion of 1e-6 conditional accuracy"
+  },
+  {
+    "parameters": [
+      1000000,
+      1000000,
+      3,
+      0
+    ],
+    "status": "SUPPORT_LIMIT",
+    "diagnostic": {
+      "max_goals": 1024,
+      "dc_total_mass": 1.0,
+      "raw_tail_mass": 0.9938734350100408,
+      "raw_retained_mass": 0.006126564989959227,
+      "retained_probability_before_conditional_renormalization": 0.006126564989959227,
+      "omitted_mass": 0.9938734350100408,
+      "requested_tolerance": 1e-06,
+      "support_probes": 11
+    },
+    "probabilities_1X2": null
+  }
+]

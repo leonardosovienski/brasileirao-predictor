@@ -1,0 +1,34 @@
+{
+  "at_utc": "2026-09-11T04:46:08.987395+00:00",
+  "command": [
+    "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-01\\venv\\Scripts\\python.exe",
+    "-I",
+    "-B",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\reproduce.py"
+  ],
+  "cwd": "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-02\\tmp",
+  "env_keys": [
+    "MKL_NUM_THREADS",
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "PATH",
+    "PYTHONHASHSEED",
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "environment_policy": "explicit allowlist; no inherited secret values",
+  "job_memory_mib": 768,
+  "job_active_process_limit": 1,
+  "job_assigned": true,
+  "timeout_seconds": 120,
+  "timed_out": false,
+  "exit_code": 101,
+  "elapsed_wall_seconds": 0.06461319999652915,
+  "stdout": "",
+  "stderr": null,
+  "protocol_sha256": "e51cb8d3dd7d5a83f6978c05031701c3aa50671e31f9766ec9c4a84ad3164d54",
+  "script_sha256": "fa8f46720772b3d29d6f0d2bb837eb506b019f0e26aaad78e15a0aebd414b31b"
+}

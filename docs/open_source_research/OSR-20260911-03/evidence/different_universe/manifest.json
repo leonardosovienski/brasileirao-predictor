@@ -1,0 +1,97 @@
+{
+  "artifacts": {
+    "diagnostic.json": {
+      "bytes": 6461,
+      "sha256": "c9ecc325ec239fc8a08ebf66858393abca02abcd87ae302d403b88e8dffd79dc"
+    }
+  },
+  "inputs": {
+    "fixture": {
+      "bytes": 4045,
+      "path": "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-03\\evidence\\smaller-universe.json",
+      "sha256": "55725a2b45c372ba3ac4d12198dcbe6de2956c5026f1018509cfc002109c928b"
+    }
+  },
+  "metadata": {
+    "command": [
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-03\\research\\test_receipts.py",
+      "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-03\\research\\test_receipts.py"
+    ],
+    "elapsed_compute_seconds": 0.017873899996629916,
+    "input_hashes_used": {
+      "fixture": "55725a2b45c372ba3ac4d12198dcbe6de2956c5026f1018509cfc002109c928b"
+    },
+    "policy_sha256": "1dc8044be1e88a53e90e46259a95d62d3939c8bc40c23421448924d61c5b42e3",
+    "purpose": "ENGINEERING_SYNTHETIC",
+    "python": "3.13.12 (main, Mar  3 2026, 15:00:12) [MSC v.1944 64 bit (AMD64)]",
+    "scope": "research-only, no source authentication or predictive/economic test"
+  },
+  "schema_version": "price-strength-artifacts/v1",
+  "source_code": {
+    "artifacts.py": {
+      "bytes": 8572,
+      "sha256": "6e32f2e80f36559264abaf87b945989a852e8b243f379716f88c0e50e6fce4b7"
+    },
+    "child_boot.py": {
+      "bytes": 1658,
+      "sha256": "7825c93916248a84c438613b8d1ec905f76a86ee6df091c10ba046d5dfae7c36"
+    },
+    "demo.py": {
+      "bytes": 570,
+      "sha256": "35fd91e16d88e25c834faa83b701e62de2c578b64ec762853787f0ec178e84f5"
+    },
+    "fast_goals.py": {
+      "bytes": 4374,
+      "sha256": "1a584f7437221dee3cf97b1aa1dac6886ae13abd23dd1ae026525139011e0771"
+    },
+    "goals_demo.py": {
+      "bytes": 1887,
+      "sha256": "4454e4d07edb329177ebf407f3d0c39d699fbcad2380eefdc98eea2e7a0bbd66"
+    },
+    "joint_market.py": {
+      "bytes": 3855,
+      "sha256": "ec03649fcb85e562a215ef4192b8768e74b6430e9643e7c47785c79894006308"
+    },
+    "previous_goals.py": {
+      "bytes": 3992,
+      "sha256": "f45e6c0b6ff145895a2f04acab638a4eedba768639b714a061818d12a4b0e31c"
+    },
+    "references/baseline_goal.py": {
+      "bytes": 1656,
+      "sha256": "ace188728ad9e97945fa1a19b89521da09ad155a9de8c04251907aec79e1c314"
+    },
+    "references/market_pricer.py": {
+      "bytes": 6169,
+      "sha256": "eda10c10ff6bca26e18287c8bbf01c8ec3ef43c7c64396196091723a049dad39"
+    },
+    "runner.py": {
+      "bytes": 4553,
+      "sha256": "7a380871d172a23f6fee9545554fa26ba6ddfab1c00bc4818d578df01d2a7755"
+    },
+    "strict_math.py": {
+      "bytes": 5527,
+      "sha256": "ff5dc05c825883d21d22c2cd4d3c5054117d5b9dd0e77e8b8628c172a1d33655"
+    },
+    "strict_pit.py": {
+      "bytes": 2997,
+      "sha256": "6627201ee5e3a12172ba472ffff237ef1f003ab5325819516b2513a9bec3770d"
+    },
+    "test_goals.py": {
+      "bytes": 3882,
+      "sha256": "b4fb80178f51dd6dbf29d90bcb581a1fa0b9bda45538b75aabc6555437af7b5c"
+    },
+    "test_market_workflow.py": {
+      "bytes": 5633,
+      "sha256": "cf8baff050212149a9c0820d645ba9c2896e674bfd5e2a524695763350082df1"
+    },
+    "test_receipts.py": {
+      "bytes": 2666,
+      "sha256": "ff239ae421f86d7521abe421552cc1a3199898fd3df12015dc6e8c2fd72d4b13"
+    },
+    "workflow.py": {
+      "bytes": 6432,
+      "sha256": "9b76a9c5c3a99589b89973e45f1d9eb6419f184466f4443b75244b6848af3cd4"
+    }
+  },
+  "status": "COMPLETE"
+}

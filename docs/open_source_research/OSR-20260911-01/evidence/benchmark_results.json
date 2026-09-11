@@ -1,0 +1,400 @@
+{
+  "protocol_sha256": "0aa29df183486655ceb098b8d30bd8836bdddb995122527bcdcc87ef78f70f76",
+  "python": "3.13.12 (main, Mar  3 2026, 15:00:12) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "scope": "synthetic engineering only",
+  "T01": [
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.1,
+        -0.05
+      ],
+      "lost_mass": 2.610819122006447e-07,
+      "identity_error": 8.881784197001252e-16,
+      "max_1x2_difference": 1.3054352687724702e-07,
+      "p12": {
+        "1": 0.42881242932190655,
+        "X": 0.2757122119628474,
+        "2": 0.29547535871524605
+      },
+      "p100": {
+        "1": 0.42881255986543343,
+        "X": 0.2757121399793791,
+        "2": 0.29547530015518764
+      },
+      "diagnostic_triggered": false
+    },
+    {
+      "params": [
+        2.5,
+        2.0,
+        0.5,
+        -0.05
+      ],
+      "lost_mass": 0.004153257628506046,
+      "identity_error": 1.1102230246251565e-16,
+      "max_1x2_difference": 0.0013014330909317806,
+      "p12": {
+        "1": 0.4672533693162531,
+        "X": 0.18272434673582794,
+        "2": 0.35002228394791907
+      },
+      "p100": {
+        "1": 0.4685548024071849,
+        "X": 0.1819662741493947,
+        "2": 0.34947892344342046
+      },
+      "diagnostic_triggered": true
+    },
+    {
+      "params": [
+        5.0,
+        4.0,
+        1.0,
+        -0.02
+      ],
+      "lost_mass": 0.14203866339298032,
+      "identity_error": 1.1102230246251565e-16,
+      "max_1x2_difference": 0.02332642880629554,
+      "p12": {
+        "1": 0.4700656367052905,
+        "X": 0.13085209038403045,
+        "2": 0.39908227291067905
+      },
+      "p100": {
+        "1": 0.49339206551158604,
+        "X": 0.1127753315394651,
+        "2": 0.3938326029489489
+      },
+      "diagnostic_triggered": true
+    }
+  ],
+  "T02": [
+    {
+      "odds": [
+        2.7,
+        2.3,
+        4.4
+      ],
+      "method": "shin",
+      "overround": 0.03242570633874986,
+      "local": [
+        0.3593439195919094,
+        0.4232438481831197,
+        0.21741223222497086
+      ],
+      "external": [
+        0.35934391959159157,
+        0.42324384818283234,
+        0.21741223222458853
+      ],
+      "max_abs_diff": 3.823330541052883e-13
+    },
+    {
+      "odds": [
+        2.7,
+        2.3,
+        4.4
+      ],
+      "method": "power",
+      "overround": 0.03242570633874986,
+      "local": [
+        0.3591710998530001,
+        0.42373075299456403,
+        0.2170981471524359
+      ],
+      "external": [
+        0.3591710998526432,
+        0.4237307529942109,
+        0.21709814715211412
+      ],
+      "max_abs_diff": 3.5688119126575657e-13
+    },
+    {
+      "odds": [
+        1.9,
+        1.9
+      ],
+      "method": "shin",
+      "overround": 0.05263157894736836,
+      "local": [
+        0.5,
+        0.5
+      ],
+      "external": [
+        0.4999999999997504,
+        0.4999999999997504
+      ],
+      "max_abs_diff": 2.495781359357352e-13
+    },
+    {
+      "odds": [
+        1.9,
+        1.9
+      ],
+      "method": "power",
+      "overround": 0.05263157894736836,
+      "local": [
+        0.5,
+        0.5
+      ],
+      "external": [
+        0.50000000000032,
+        0.50000000000032
+      ],
+      "max_abs_diff": 3.199662756969701e-13
+    },
+    {
+      "odds": [
+        1.5,
+        4.0,
+        7.0
+      ],
+      "method": "shin",
+      "overround": 0.059523809523809534,
+      "local": [
+        0.6422795621513461,
+        0.23152687539931216,
+        0.12619356244934174
+      ],
+      "external": [
+        0.6422795621515257,
+        0.23152687539968209,
+        0.12619356244974136
+      ],
+      "max_abs_diff": 3.996247777138251e-13
+    },
+    {
+      "odds": [
+        1.5,
+        4.0,
+        7.0
+      ],
+      "method": "power",
+      "overround": 0.059523809523809534,
+      "local": [
+        0.6481532512306277,
+        0.22705016228911293,
+        0.12479658648025936
+      ],
+      "external": [
+        0.6481532512308906,
+        0.22705016228942781,
+        0.12479658648050232
+      ],
+      "max_abs_diff": 3.1488700535931e-13
+    },
+    {
+      "odds": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "method": "shin",
+      "overround": 0.0,
+      "local": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "max_abs_diff": 0.0
+    },
+    {
+      "odds": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "method": "power",
+      "overround": 0.0,
+      "local": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": [
+        0.33333333333333337,
+        0.33333333333333337,
+        0.33333333333333337
+      ],
+      "max_abs_diff": 5.551115123125783e-17
+    },
+    {
+      "odds": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "method": "shin",
+      "overround": -0.25,
+      "local": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external_error": "ValueError: f(a) and f(b) must have different signs"
+    },
+    {
+      "odds": [
+        4.0,
+        4.0,
+        4.0
+      ],
+      "method": "power",
+      "overround": -0.25,
+      "local": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": [
+        0.33333333333287113,
+        0.33333333333287113,
+        0.33333333333287113
+      ],
+      "max_abs_diff": 4.621858451514527e-13
+    },
+    {
+      "odds": [
+        1.001,
+        1.001,
+        1.001
+      ],
+      "method": "shin",
+      "overround": 1.9970029970029977,
+      "local": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external": [
+        0.33333333333349385,
+        0.33333333333349385,
+        0.33333333333349385
+      ],
+      "max_abs_diff": 1.6053824936079764e-13
+    },
+    {
+      "odds": [
+        1.001,
+        1.001,
+        1.001
+      ],
+      "method": "power",
+      "overround": 1.9970029970029977,
+      "local": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "external_error": "ValueError: f(a) and f(b) must have different signs"
+    }
+  ],
+  "T02_negative_control": {
+    "accepted": true,
+    "probabilities": [
+      -0.1,
+      0.5,
+      0.6
+    ]
+  },
+  "T03": {
+    "atomic_payoff_cases": 450,
+    "max_abs_error": 0.0,
+    "pending": {
+      "schema_version": "shadow-portfolio/v1",
+      "execution_assumption": "hypothetical_full_fill_if_cash_available",
+      "cost_scope": "caller_declared_flat_cost_per_staked_unit_only",
+      "unit": "symbolic_reference_units",
+      "stake_basis": "fraction_of_initial_reference_bankroll",
+      "initial_bankroll": 100.0,
+      "final_cash": 40.0,
+      "open_stakes": 60.0,
+      "total_stakes": 60.0,
+      "total_costs": 0.0,
+      "returns_including_principal": 0.0,
+      "net_pnl": 0.0,
+      "roi": null,
+      "return_on_bankroll": null,
+      "maximum_simultaneous_stakes": 60.0,
+      "open_positions": 1,
+      "receipts": [
+        {
+          "event_id": "SYN-A",
+          "action": "SIMULATED_FILL",
+          "at": "2030-01-01T10:00:00+00:00",
+          "stake": 60.0,
+          "cost": 0.0
+        },
+        {
+          "event_id": "SYN-B",
+          "action": "NO_CAPITAL"
+        }
+      ],
+      "capital_enabled": false,
+      "economic_evidence": false
+    },
+    "final": {
+      "schema_version": "shadow-portfolio/v1",
+      "execution_assumption": "hypothetical_full_fill_if_cash_available",
+      "cost_scope": "caller_declared_flat_cost_per_staked_unit_only",
+      "unit": "symbolic_reference_units",
+      "stake_basis": "fraction_of_initial_reference_bankroll",
+      "initial_bankroll": 100.0,
+      "final_cash": 160.0,
+      "open_stakes": 0.0,
+      "total_stakes": 60.0,
+      "total_costs": 0.0,
+      "returns_including_principal": 120.0,
+      "net_pnl": 60.0,
+      "roi": 1.0,
+      "return_on_bankroll": 0.6,
+      "maximum_simultaneous_stakes": 60.0,
+      "open_positions": 0,
+      "receipts": [
+        {
+          "event_id": "SYN-A",
+          "action": "SIMULATED_FILL",
+          "at": "2030-01-01T10:00:00+00:00",
+          "stake": 60.0,
+          "cost": 0.0
+        },
+        {
+          "event_id": "SYN-B",
+          "action": "NO_CAPITAL"
+        },
+        {
+          "event_id": "SYN-A",
+          "action": "SETTLED",
+          "at": "2030-01-01T14:00:00+00:00",
+          "return": 120.0
+        }
+      ],
+      "capital_enabled": false,
+      "economic_evidence": false
+    }
+  },
+  "elapsed_seconds": 0.2681841000012355,
+  "module_hashes": {
+    "lab\\brasileirao_predictor\\dixon_coles.py": "b823877715decdf659a5ebd22e1f2f1f8a189b0bce774468c90d09adc8ddcf22",
+    "lab\\brasileirao_predictor\\market_pricer.py": "eda10c10ff6bca26e18287c8bbf01c8ec3ef43c7c64396196091723a049dad39",
+    "lab\\brasileirao_predictor\\math_utils.py": "0f3c8013b9d8136b8ea1015fc6940e1bc8d5b54805787ba2bc9951b71fd748d8",
+    "lab\\brasileirao_predictor\\model.py": "5b974eab0027275b829c3adfe41125fbad6ff4e0055578d7191167d5d65c4f2e",
+    "lab\\brasileirao_predictor\\__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "lab\\pbref\\implied.py": "19eff156fdf401cb2ddad732487980c5b868a2a368ca75812fd86c1da60ae250",
+    "lab\\pbref\\models.py": "a5a485b560a743ec24bf0cc284549786fb2f0474cd174f3b9d5e8140bd288f61",
+    "lab\\pbref\\__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
+    "lab\\brasileirao_predictor\\research\\shadow_portfolio.py": "d0f07e465464fd22c9394279938cccba3085e17004d73f237f569dec21e07e32",
+    "lab\\brasileirao_predictor\\research\\structural_edge.py": "538eebc5d302cab29a99b71c44bd18bbeb689e67ad79083e379916dda84b6203",
+    "lab\\brasileirao_predictor\\research\\__init__.py": "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"
+  }
+}

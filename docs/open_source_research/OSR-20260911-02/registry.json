@@ -1,0 +1,217 @@
+{
+  "run_id": "OSR-20260911-02",
+  "parent_run": "OSR-20260911-01",
+  "head": "d9584af6deeec701cf8989349f22ab7e4b398249",
+  "status": {
+    "ENGINEERING_STATUS": "SYNTHETIC_TESTS_PASSED_WITH_LIMITATIONS",
+    "DATA_ADMISSIBILITY": "NO_REAL_COHORT_ADMITTED",
+    "PREDICTIVE_EVIDENCE": "NONE_THIS_RUN",
+    "ECONOMIC_EVIDENCE": "NONE_THIS_RUN"
+  },
+  "fronts": [
+    {
+      "id": "N01",
+      "baseline": "Grade NB/DC fixa em 12; renormalização oculta massa omitida.",
+      "change": "Diagnóstico analítico e suporte adaptativo mínimo com falha explícita no limite.",
+      "reference": "Cauda NB por survival function; referência ampliada certificada; baseline extraída.",
+      "result": {
+        "case_count": 147,
+        "maximum_market_error": 9.382467890395318e-07,
+        "maximum_candidate_tail": 9.941970383213497e-07,
+        "support_min": 5,
+        "support_max": 79,
+        "maximum_reference_tail": 2.0617257199979766e-13,
+        "median_baseline_seconds": 0.0007063999946694821,
+        "median_candidate_seconds": 0.01674930000444874
+      },
+      "limitation": "Domínio de pesquisa alpha [0.01,2] não cobre fitter operacional [0.0001,3]. Mediana de custo aproximadamente 23.7 vezes maior; não é benchmark estável de produção.",
+      "artifacts": [
+        "research/adaptive_goals.py",
+        "research/test_n01.py",
+        "evidence/N01.json"
+      ],
+      "decision": "Conservar diagnóstico e protótipo; corrigir custo e validar domínio completo em pesquisa antes de revisão de integração.",
+      "next_gate": "Cobertura dos limites operacionais, orçamento de latência e revisão de chamadas/mercados condicionais."
+    },
+    {
+      "id": "N02",
+      "baseline": "Funções de margem com regimes e falhas pouco explícitos; métricas existentes em tensor.",
+      "change": "Adapter estrito de odds/probabilidades, regimes explícitos, scoring 1X2 e bins fixos.",
+      "reference": "Funções locais e segmentos penaltyblog fixados; identidades analíticas.",
+      "result": {
+        "status": "PASS",
+        "comparisons": 14,
+        "score_cases": 4,
+        "invalid_odds": 10,
+        "invalid_external_outputs": 6
+      },
+      "limitation": "Concordância matemática não comprova odds contemporâneas nem calibração empírica. Bibliotecas completas não executadas.",
+      "artifacts": [
+        "research/strict_math.py",
+        "research/test_n02.py",
+        "evidence/N02.json"
+      ],
+      "decision": "Merece revisão do contrato para futura integração; manter implementação isolada.",
+      "next_gate": "Revisão da API, chamadores e semântica de mercados reais completos."
+    },
+    {
+      "id": "N03",
+      "baseline": "Curadoria/closing/PIT têm escopos distintos; alguns registros aceitos não são admissíveis ao cutoff de decisão.",
+      "change": "Admissão estrita de uma seleção, casos adversariais e mutação efetiva de código extraído.",
+      "reference": "Contratos locais extraídos e fixtures sintéticas identificadas.",
+      "result": {
+        "adapter_cases": 18,
+        "baseline_assertions": 15,
+        "mutants": 15,
+        "killed": 15,
+        "survived": [],
+        "invalid_mutants": 0
+      },
+      "limitation": "15 mutantes detectados não representam 15 perdas independentes de segurança: M04 muda somente motivo de recusa; M02 altera vintage/status. Autenticidade e mercado completo não cobertos.",
+      "artifacts": [
+        "research/strict_pit.py",
+        "research/test_n03.py",
+        "evidence/N03.json",
+        "evidence/N03-mutation-audit.json"
+      ],
+      "decision": "Conservar suite e adapter de pesquisa; tratar lacunas como escopo de admissão, sem declarar defeito global.",
+      "next_gate": "Completar admissão conjunta 1X2 e evidência de identidade/relógios reais."
+    },
+    {
+      "id": "N04",
+      "baseline": "Coordenadas/xT toy eram opção habilitadora.",
+      "change": "Não executado.",
+      "reference": "Prioridade e dependências do mandato.",
+      "result": {
+        "status": "DEFERRED"
+      },
+      "limitation": "Não resolve o bloqueio atual de odds e linhagem.",
+      "artifacts": [],
+      "decision": "Adiar; não duplicar descanso/contexto existentes.",
+      "next_gate": "Questão concreta de transferência e fonte admissível."
+    },
+    {
+      "id": "N05",
+      "baseline": "Comparação preditiva não liberada; existe sobreposição conceitual com BE.",
+      "change": "Protocolo A/B separado, ajuste limitado e contrato de dados explícito.",
+      "reference": "Contratos e metadados permitidos; nenhum avaliador ou arquivo de resultados aberto.",
+      "result": {
+        "A": "BLOCKED",
+        "B": "BLOCKED",
+        "fitting_executed": false
+      },
+      "limitation": "Sem manifesto de coorte autorizado, revisão de interseções e odds T−60 admissíveis. Aceite pessoal não é gate de A.",
+      "artifacts": [
+        "N05_PROTOCOL.json",
+        "N05_DATA_CONTRACT.json",
+        "N05_PROTOCOL.md"
+      ],
+      "decision": "Não executar fitting nem consultar desfechos para decidir viabilidade.",
+      "next_gate": "Manifesto imutável aprovado, resolução de linhagem e auditoria de clocks/odds/histórico."
+    }
+  ],
+  "data_finalists": [
+    {
+      "id": "R021",
+      "name": "Football-Data.co.uk",
+      "coverage": "Brasil anunciado desde 2012/13; página Brasil atualizada em 08/09/2026. Inspeção documental, nenhum CSV nesta rodada.",
+      "fields": "Data/hora do jogo, nomes, placar/resultado e odds de fechamento; máximas/médias não são bookmaker nominal.",
+      "identity": "Nomes/data; mapeamento canônico e ID histórico UNKNOWN.",
+      "clocks": "Hora do jogo não é publicação/captura de odds; revisão histórica UNKNOWN.",
+      "access": "Downloads gratuitos; sem chamada nem nova amostra.",
+      "rights": "Uso anunciado para previsão de partidas; licença ampla de redistribuição não estabelecida.",
+      "cost": "Gratuito na página; quota UNKNOWN.",
+      "use": "Descrição/esquema. Fechamento não substitui T−60. BE 2012–24 permanece protegido.",
+      "gap": "Faltam vintage T−60, relógios observados e autorização de coorte. Não resolver redownloadando BE.",
+      "action": "Obter documentação de clocks e autorização de subconjunto independente antes de amostra.",
+      "urls": [
+        "https://football-data.co.uk/brazil.php",
+        "https://football-data.co.uk/data.php",
+        "https://football-data.co.uk/notes.txt"
+      ]
+    },
+    {
+      "id": "R022",
+      "name": "football-data.org",
+      "coverage": "Série A anunciada no free tier; cobertura de odds para Brasil/temporadas não verificada.",
+      "fields": "Fixtures/resultados e IDs na documentação; histórico de revisões/publicação por campo UNKNOWN.",
+      "identity": "IDs de provedor; vínculo canônico e inversão de mando precisam ser auditados.",
+      "clocks": "lastUpdated não prova recebimento histórico nem conhecimento de cada campo.",
+      "access": "Chave/registro requeridos; não autenticado.",
+      "rights": "Termos servidos em /about, datados 01/06/2018: chave para uma aplicação, atribuição; restrições após cancelamento e direitos separados de logos.",
+      "cost": "Free €0/10 chamadas por minuto; ML Light €29/mês, dez temporadas, 20/min; odds add-on €15/mês com plano regular, sujeito a cobertura/VAT.",
+      "use": "Calendário/contexto prospectivo condicionado; histórico PIT não comprovado.",
+      "gap": "Faltam temporadas, odds nominais/vintages, relógios e termos aplicáveis ao uso concreto.",
+      "action": "Solicitar matriz documental Brasil/temporada e esquema histórico; não contratar ou consumir chave nesta autorização.",
+      "urls": [
+        "https://www.football-data.org/coverage",
+        "https://www.football-data.org/pricing",
+        "https://www.football-data.org/documentation/quickstart",
+        "https://www.football-data.org/about"
+      ]
+    },
+    {
+      "id": "R051",
+      "name": "The Odds API",
+      "coverage": "Histórico anunciado desde 06/06/2020; 10 min, desde setembro/2022 5 min. Brasil/bookmaker/temporada exatos UNKNOWN.",
+      "fields": "event id, sport_key, commence_time, home/away, bookmaker, market, outcomes price, last_update e envelope timestamp/previous/next.",
+      "identity": "ID do evento e nomes; mapa canônico/versionado não fornecido nesta rodada.",
+      "clocks": "Consulta devolve snapshot anterior ou igual à data. Timestamp do arquivo não é nosso receipt antigo; revisões e autenticidade precisam de evidência.",
+      "access": "Histórico somente pago; nenhuma API chamada.",
+      "rights": "Termos de 31/08/2026 permitem retenção, pesquisa/ML e derivados; proíbem redistribuição/revenda de feed bruto ou produto de download bruto.",
+      "cost": "Histórico: 10 créditos × mercados × regiões; plano/quotas disponíveis UNKNOWN.",
+      "use": "Possível replay histórico condicionado; não automaticamente admissão temporal estrita.",
+      "gap": "Faltam cobertura nominal brasileira, versão imutável, relógios verificáveis, licença aplicada e coorte autorizada.",
+      "action": "Obter catálogo e metadados de arquivo sem quota; amostra somente após autorização específica de acesso e linhagem.",
+      "urls": [
+        "https://the-odds-api.com/liveapi/guides/v4/",
+        "https://the-odds-api.com/terms-and-conditions.html"
+      ]
+    },
+    {
+      "id": "R052",
+      "name": "Sportmonks",
+      "coverage": "Histórico de odds documentado até sete dias após kickoff; Brasil/temporada/bookmaker UNKNOWN.",
+      "fields": "Odds premium com abertura/mudanças e last_updated; starting_at/fixture ID. Payload real não inspecionado.",
+      "identity": "Mapeamento e revisões de fixture UNKNOWN.",
+      "clocks": "last_updated não é receipt; FAQ do feed padrão admite atrasos até 20 min, não generalizar a todo premium.",
+      "access": "Premium depende de plano pago; não ativado.",
+      "rights": "Licença contratual para o uso pretendido não inspecionada: UNKNOWN.",
+      "cost": "Preço/quota do contrato pretendido UNKNOWN.",
+      "use": "Candidato prospectivo condicionado; não presumir backfill de anos.",
+      "gap": "Janela curta de histórico, cobertura e direitos não comprovados; nenhum arquivo retrospectivo próprio admissível.",
+      "action": "Obter especificação contratual/cobertura; coleta prospectiva só com autorização própria, sem alterar agendamento atual.",
+      "urls": [
+        "https://www.sportmonks.com/faq/",
+        "https://www.sportmonks.com/glossary/premium-odds-feed/",
+        "https://docs.sportmonks.com/v3/endpoints-and-entities/endpoints"
+      ]
+    },
+    {
+      "id": "R058",
+      "name": "CBF / calendário",
+      "coverage": "Referência de calendário 2026 da rodada anterior; não recertificada nesta rodada.",
+      "fields": "Calendário/contexto; clocks históricos, revisão e direitos UNKNOWN.",
+      "identity": "Vínculo canônico precisa de evidência.",
+      "clocks": "Não confundir data de calendário com disponibilidade por revisão.",
+      "access": "Nenhuma consulta de resultado ou amostra.",
+      "rights": "UNKNOWN para redistribuição.",
+      "cost": "UNKNOWN para extração pretendida.",
+      "use": "Documentação contextual; descanso/contexto já possuem implementação local.",
+      "gap": "Faltam versões e disponibilidade históricas, autorização e mapeamento.",
+      "action": "Resolver linhagem de contexto existente antes de adicionar fonte/feature.",
+      "urls": []
+    }
+  ],
+  "numeric_reference": {
+    "name": "penaltyblog",
+    "sha": "15ebb8a299fa75524ac57e32f3778f174bd5b42b",
+    "licence": "MIT; cópia em research/references/PENALTYBLOG-LICENCE",
+    "inspection": "Segmentos _power/_shin e classes; testes de implied e releases/issues consultados. Lista atual de issues vazia não prova ausência de bugs; histórico fechado não auditado. Checkout identifica 1.12.1; página de releases exibiu Latest 1.11.0, não são a mesma evidência. Release 1.9 registra correções de AH/quarter totals e 1.5.1 restrição SciPy; não integrar sem pin e revisão.",
+    "urls": [
+      "https://github.com/martineastwood/penaltyblog/releases",
+      "https://github.com/martineastwood/penaltyblog/issues"
+    ]
+  },
+  "scope": "Delta; não replica o cadastro de 58 candidatos nem revalida K01–K12 em bloco. IDs preservados."
+}

@@ -1,0 +1,16 @@
+{
+  "run_id": "OSR-20260911-01",
+  "baseline_sha": "d9584af6deeec701cf8989349f22ab7e4b398249",
+  "purpose": "ENGINEERING",
+  "registered_before_execution": true,
+  "lineage": "New synthetic differential checks. No H14/H15/H9/A1 or BE observations, fits, thresholds, or economic trials reused.",
+  "data": "Only synthetic odds, fixed goal parameters, point-mass score grids and symbolic cash orders defined in this file. No real matches.",
+  "resources": "Python 3.13 isolated venv; numpy 2.2.6 scipy 1.15.3. One deterministic run, no fitting/tuning, CPU, 120-second subprocess timeout. Only reviewed source modules loaded; no network during benchmark.",
+  "experiments": [
+    {"id":"T01","question":"Does a normalized 0..12 NB+DC grid hide material truncation?","baseline":"Current model._score_grid; analytical NB CDF product and four-cell DC mass correction; expanded grid 0..100","cases":[[1.4,1.1,0.1,-0.05],[2.5,2.0,0.5,-0.05],[5.0,4.0,1.0,-0.02]],"metric":"lost raw probability mass relative to full corrected mass; maximum absolute 1X2 change","threshold":"diagnostic triggers if omitted mass > 1e-6; this is engineering tolerance, not a learned football threshold","success":"Exact mass identity within 1e-10 and truncation explicitly quantified; negative diagnosis is useful","decision":"If material, recommend tail diagnostics/adaptive support; do not change runtime or declare realized forecast error"},
+    {"id":"T02","question":"Do current Shin/power agree with a fixed external implementation on equivalent inputs?","reference":"penaltyblog 15ebb8a299fa75524ac57e32f3778f174bd5b42b implied.py and models.py only; no full package install","cases":[[2.7,2.3,4.4],[1.9,1.9],[1.5,4.0,7.0],[3.0,3.0,3.0],[4.0,4.0,4.0],[1.001,1.001,1.001]],"metric":"maximum absolute probability difference at tolerance 1e-8; solver failures; domain validity","interpretation":"Underround fallback versus solved power is a convention difference. Extreme odds are stress, not commercial observations.","negative_control":"penaltyblog ImpliedProbabilities([-0.1,0.5,0.6]) should be inspected for missing nonnegativity guard; no external output accepted without validation","decision":"Use as bounded differential oracle only; identify divergences without assuming external correctness"},
+    {"id":"T03","question":"Are market settlement fractions and simultaneous cash coherent on atomic scenarios?","baseline":"Current market_pricer and shadow_portfolio copied unchanged","cases":"Every point mass score 0..4 x 0..4; handicap lines -1.25,-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1,1.25; total lines 0,0.5,1,1.5,2,2.5,3.0. Analytical win/push/loss oracle. Two simultaneous synthetic orders each 60% of bankroll 100, odds 2, cost 0, settle later; expected first accepted, second NO_CAPITAL; pending state cash40/open60, mature cash160.","metric":"max absolute payoff-fraction error <=1e-12; accounting exact within1e-10","decision":"Retain correct implementations; no lay/commission/actual fill certification. Lay not implemented in scoped local simulator; future separate protocol required"}
+  ],
+  "gates": {"synthetic_benchmark":"ELIGIBLE","historical_economic_experiment":"BLOCKED_DATA_AND_PROTOCOL_REVIEW","integration":"BLOCKED_PERMISSION","capital":"FORBIDDEN"},
+  "evidence_scope":"C3/C4 ENGINEERING and E5 LOCAL only; no predictive or economic validation"
+}

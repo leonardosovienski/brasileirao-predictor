@@ -1,5 +1,7 @@
 # brasileirao-predictor
 
+Pesquisa de capacidades **OSR-20260911-01 a 03** preservada: [retomada sem o chat, código offline, evidências e decisões](docs/open_source_research/README.md). Integração somente de pesquisa; nenhuma nova evidência preditiva/econômica ou ativação operacional.
+
 Estado **PUB-20260910**: correções de dados temporais, caixa, persistência e runtime validadas em laboratório Windows e Linux. **345 testes Python por versão (3.13/3.14), 160 .NET e Compose Linux aprovados no escopo sintético.** Lucro executável e homologação global ainda não demonstrados; capital desabilitado.
 
 [Resultado e limites](docs/continuation/publication_2026-09-10/RESULTADO.md) · [registro corrente](docs/continuation/publication_2026-09-10/REGISTROS.md) · [reprodução](docs/continuation/publication_2026-09-10/REPRODUZIR.md) · [retomada sem o chat](docs/continuation/publication_2026-09-10/PROXIMO_PROMPT.md) · [CI delimitada](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34552247397).

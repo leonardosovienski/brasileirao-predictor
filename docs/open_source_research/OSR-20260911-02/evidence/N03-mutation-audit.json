@@ -1,0 +1,96 @@
+{
+  "purpose": "semantic refinement of same mutant experiment, not additional independent tests",
+  "rows": [
+    {
+      "id": "M01",
+      "status_changes": [
+        "at_kickoff"
+      ],
+      "reason_only": [],
+      "unsafe_admissions": [
+        "at_kickoff"
+      ],
+      "classification": "LOSS_OF_ADMISSION_GUARD_DETECTED"
+    },
+    {
+      "id": "M02",
+      "status_changes": [
+        "late_receipt",
+        "future_revision_ignored",
+        "missing_receipt"
+      ],
+      "reason_only": [],
+      "unsafe_admissions": [],
+      "classification": "VALID_VINTAGE_OR_STATUS_BEHAVIOR_CHANGED"
+    },
+    {
+      "id": "M03",
+      "status_changes": [
+        "conflicting_duplicate"
+      ],
+      "reason_only": [],
+      "unsafe_admissions": [
+        "conflicting_duplicate"
+      ],
+      "classification": "LOSS_OF_ADMISSION_GUARD_DETECTED"
+    },
+    {
+      "id": "M04",
+      "status_changes": [],
+      "reason_only": [
+        "late_publication"
+      ],
+      "unsafe_admissions": [],
+      "classification": "REASON_ONLY_NO_UNSAFE_ADMISSION_WITNESS"
+    },
+    {
+      "id": "M05",
+      "status_changes": [
+        "clock_chain"
+      ],
+      "reason_only": [],
+      "unsafe_admissions": [
+        "clock_chain"
+      ],
+      "classification": "LOSS_OF_ADMISSION_GUARD_DETECTED"
+    },
+    {
+      "id": "M06",
+      "status_changes": [
+        "kickoff_rescheduled"
+      ],
+      "reason_only": [],
+      "unsafe_admissions": [
+        "kickoff_rescheduled"
+      ],
+      "classification": "LOSS_OF_ADMISSION_GUARD_DETECTED"
+    },
+    {
+      "id": "M07",
+      "status_changes": [
+        "inverted_home_away",
+        "conflicting_source_id",
+        "mapping_version"
+      ],
+      "reason_only": [],
+      "unsafe_admissions": [
+        "inverted_home_away",
+        "conflicting_source_id",
+        "mapping_version"
+      ],
+      "classification": "LOSS_OF_ADMISSION_GUARD_DETECTED"
+    },
+    {
+      "id": "M08",
+      "status_changes": [
+        "revision_known_suspended"
+      ],
+      "reason_only": [],
+      "unsafe_admissions": [
+        "revision_known_suspended"
+      ],
+      "classification": "LOSS_OF_ADMISSION_GUARD_DETECTED"
+    }
+  ],
+  "note": "M04 cutoff guard is redundant for exclusion given received<=cutoff and full ordered clock chain; its deletion changes the diagnostic reason in the witness, not acceptance. M02 changes vintage handling and refusal status without an unsafe acceptance in the supplied witnesses."
+}

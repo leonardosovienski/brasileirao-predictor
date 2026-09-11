@@ -1,0 +1,37 @@
+{
+  "at_utc": "2026-09-11T04:47:12.777108+00:00",
+  "command": [
+    "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\managed-python\\cpython-3.13-windows-x86_64-none\\python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\child_boot.py",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\open_source_research\\OSR-20260911-02\\research\\reproduce.py"
+  ],
+  "cwd": "C:\\BRASILEIRAO\\work\\open-source-research-OSR-20260911-02\\tmp",
+  "env_keys": [
+    "MKL_NUM_THREADS",
+    "OMP_NUM_THREADS",
+    "OPENBLAS_NUM_THREADS",
+    "PATH",
+    "PYTHONHASHSEED",
+    "SystemRoot",
+    "TEMP",
+    "TMP",
+    "WINDIR"
+  ],
+  "environment_policy": "explicit allowlist; no inherited secret values",
+  "job_memory_mib": 768,
+  "job_active_process_limit": 1,
+  "job_assigned": true,
+  "timeout_seconds": 120,
+  "timed_out": false,
+  "exit_code": 0,
+  "elapsed_wall_seconds": 10.155394700006582,
+  "stdout": "{\"python\": \"3.13.12 (main, Mar  3 2026, 15:00:12) [MSC v.1944 64 bit (AMD64)]\", \"numpy\": \"2.2.6\", \"scipy\": \"1.15.3\", \"isolation_controls\": [{\"control\": \"network\", \"blocked\": true}, {\"control\": \"process\", \"blocked\": true}, {\"control\": \"outside_read\", \"blocked\": true}, {\"control\": \"outside_write\", \"blocked\": true}, {\"control\": \"sqlite_disk\", \"blocked\": true}], \"inherited_canary_absent\": true, \"T01_reproduced\": [{\"params\": [1.4, 1.1, 0.1, -0.05], \"lost_mass\": 2.6108191212907263e-07, \"normalized_grid_sum\": 1.0000000000000002, \"dc_total_mass\": 1.000089023633216}, {\"params\": [2.5, 2, 0.5, -0.05], \"lost_mass\": 0.004153257628506182, \"normalized_grid_sum\": 1.0, \"dc_total_mass\": 1.0034293552812072}, {\"params\": [5, 4, 1, -0.02], \"lost_mass\": 0.14203866339298013, \"normalized_grid_sum\": 1.0, \"dc_total_mass\": 1.008888888888889}]}\n",
+  "stderr": "",
+  "protocol_sha256": "e51cb8d3dd7d5a83f6978c05031701c3aa50671e31f9766ec9c4a84ad3164d54",
+  "script_sha256": "fa8f46720772b3d29d6f0d2bb837eb506b019f0e26aaad78e15a0aebd414b31b"
+}

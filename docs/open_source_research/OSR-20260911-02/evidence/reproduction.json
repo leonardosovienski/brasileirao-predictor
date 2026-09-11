@@ -1,0 +1,63 @@
+{
+  "python": "3.13.12 (main, Mar  3 2026, 15:00:12) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.2.6",
+  "scipy": "1.15.3",
+  "isolation_controls": [
+    {
+      "control": "network",
+      "blocked": true
+    },
+    {
+      "control": "process",
+      "blocked": true
+    },
+    {
+      "control": "outside_read",
+      "blocked": true
+    },
+    {
+      "control": "outside_write",
+      "blocked": true
+    },
+    {
+      "control": "sqlite_disk",
+      "blocked": true
+    }
+  ],
+  "inherited_canary_absent": true,
+  "T01_reproduced": [
+    {
+      "params": [
+        1.4,
+        1.1,
+        0.1,
+        -0.05
+      ],
+      "lost_mass": 2.6108191212907263e-07,
+      "normalized_grid_sum": 1.0000000000000002,
+      "dc_total_mass": 1.000089023633216
+    },
+    {
+      "params": [
+        2.5,
+        2,
+        0.5,
+        -0.05
+      ],
+      "lost_mass": 0.004153257628506182,
+      "normalized_grid_sum": 1.0,
+      "dc_total_mass": 1.0034293552812072
+    },
+    {
+      "params": [
+        5,
+        4,
+        1,
+        -0.02
+      ],
+      "lost_mass": 0.14203866339298013,
+      "normalized_grid_sum": 1.0,
+      "dc_total_mass": 1.008888888888889
+    }
+  ]
+}

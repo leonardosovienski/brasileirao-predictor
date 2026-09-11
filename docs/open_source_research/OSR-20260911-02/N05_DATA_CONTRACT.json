@@ -1,0 +1,82 @@
+{
+  "status": "SCHEMA_ONLY_NO_REAL_DATA",
+  "mandatory_A": {
+    "cohort": [
+      "cohort_id",
+      "competition",
+      "season",
+      "fixture_allowlist",
+      "manifest_hash",
+      "lineage_review_ref",
+      "specific_authorization_ref",
+      "protected_intersections_decision"
+    ],
+    "provenance": [
+      "provider",
+      "endpoint_or_file",
+      "version",
+      "raw_sha256",
+      "parser_version",
+      "licence_ref"
+    ],
+    "identity": [
+      "source_event_id",
+      "canonical_fixture_id",
+      "canonical_home_id",
+      "canonical_away_id",
+      "mapping_version",
+      "mapping_evidence"
+    ],
+    "schedule": [
+      "frozen_kickoff_utc",
+      "schedule_published_at",
+      "schedule_received_at",
+      "revision_id",
+      "freeze_at"
+    ],
+    "odds": [
+      "bookmaker_id",
+      "market=FT_1X2",
+      "selection=1/X/2",
+      "decimal_price",
+      "common_vintage",
+      "observed_at",
+      "published_at",
+      "available_at",
+      "received_at",
+      "processed_at",
+      "status",
+      "revision_id"
+    ],
+    "history": [
+      "result_or_feature_value",
+      "valid_time",
+      "published_at",
+      "received_at",
+      "available_at",
+      "revision_id",
+      "source_hash"
+    ]
+  },
+  "rules": [
+    "Amostras reais somente fora de perímetro protegido com autorização demonstrada.",
+    "Todos os clocks devem ser observados e timezone-aware; UNKNOWN implica não admissão, não imputação.",
+    "História e revisão escolhidas pelo conhecimento no cutoff, não versão final retrospectiva.",
+    "Três preços nominais válidos >1 e mercado exaustivo/completo no mesmo vintage.",
+    "Guarde exclusões e universo integral para medir cobertura; nenhuma seleção por desfecho.",
+    "Arquivo de provedor com snapshot antigo e download atual é replay condicionado até demonstrar disponibilidade histórica; não renomear receipt atual."
+  ],
+  "additional_B": [
+    "requested_price_and_time",
+    "accepted_price_and_time",
+    "requested_and_accepted_stake",
+    "fills_and_rejections",
+    "limits",
+    "latency",
+    "fees_commissions_taxes",
+    "settlement_rules_and_time",
+    "cash_and_capital_costs",
+    "execution_authorization"
+  ],
+  "distinction": "Campos B não bloqueiam por si só A; nenhum teste A autoriza operação."
+}

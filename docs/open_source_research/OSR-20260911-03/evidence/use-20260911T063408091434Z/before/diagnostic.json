@@ -1,0 +1,294 @@
+{
+  "calibration": {
+    "bins": {
+      "1": [
+        {
+          "count": 0,
+          "lower": 0.0,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 0.2
+        },
+        {
+          "count": 0,
+          "lower": 0.2,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 0.4
+        },
+        {
+          "count": 1,
+          "lower": 0.4,
+          "mean_prediction": 0.48,
+          "observed_frequency": 1.0,
+          "upper": 0.6000000000000001
+        },
+        {
+          "count": 0,
+          "lower": 0.6000000000000001,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 0.8
+        },
+        {
+          "count": 0,
+          "lower": 0.8,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 1.0
+        }
+      ],
+      "2": [
+        {
+          "count": 0,
+          "lower": 0.0,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 0.2
+        },
+        {
+          "count": 1,
+          "lower": 0.2,
+          "mean_prediction": 0.22,
+          "observed_frequency": 0.0,
+          "upper": 0.4
+        },
+        {
+          "count": 0,
+          "lower": 0.4,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 0.6000000000000001
+        },
+        {
+          "count": 0,
+          "lower": 0.6000000000000001,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 0.8
+        },
+        {
+          "count": 0,
+          "lower": 0.8,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 1.0
+        }
+      ],
+      "X": [
+        {
+          "count": 0,
+          "lower": 0.0,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 0.2
+        },
+        {
+          "count": 1,
+          "lower": 0.2,
+          "mean_prediction": 0.3,
+          "observed_frequency": 0.0,
+          "upper": 0.4
+        },
+        {
+          "count": 0,
+          "lower": 0.4,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 0.6000000000000001
+        },
+        {
+          "count": 0,
+          "lower": 0.6000000000000001,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 0.8
+        },
+        {
+          "count": 0,
+          "lower": 0.8,
+          "mean_prediction": null,
+          "observed_frequency": null,
+          "upper": 1.0
+        }
+      ]
+    },
+    "status": "DIAGNOSTIC_ONLY_NO_MODEL_CALIBRATION_CLAIM"
+  },
+  "claims": {
+    "DATA_ADMISSIBILITY": "SYNTHETIC_ONLY",
+    "ECONOMIC_EVIDENCE": "NOT_EVALUATED",
+    "ENGINEERING_STATUS": "OFFLINE_CONSUMER",
+    "PREDICTIVE_EVIDENCE": "NOT_EVALUATED"
+  },
+  "coverage": {
+    "admitted": 1,
+    "by_reason": {
+      "selection_completeness": 1,
+      "stale": 1
+    },
+    "by_status": {
+      "ABSTAIN": 1,
+      "ADMIT": 1,
+      "REJECT": 1
+    },
+    "fraction": 0.3333333333333333,
+    "scored": 1,
+    "total": 3
+  },
+  "market_scores": {
+    "brier_mean": 0.40880000000000005,
+    "brier_per_match": [
+      0.40880000000000005
+    ],
+    "brier_scale": "sum 0..2",
+    "classes": [
+      "1",
+      "X",
+      "2"
+    ],
+    "clipped_count": 0,
+    "log_loss_mean": 0.7339691750802004,
+    "log_loss_per_match": [
+      0.7339691750802004
+    ],
+    "log_loss_unit": "nats, lower clipped at 1e-12"
+  },
+  "market_scores_on_model_panel": {
+    "brier_mean": 0.40880000000000005,
+    "brier_per_match": [
+      0.40880000000000005
+    ],
+    "brier_scale": "sum 0..2",
+    "classes": [
+      "1",
+      "X",
+      "2"
+    ],
+    "clipped_count": 0,
+    "log_loss_mean": 0.7339691750802004,
+    "log_loss_per_match": [
+      0.7339691750802004
+    ],
+    "log_loss_unit": "nats, lower clipped at 1e-12"
+  },
+  "model_scored_count": 1,
+  "model_scores": {
+    "brier_mean": 0.45780000000000004,
+    "brier_per_match": [
+      0.45780000000000004
+    ],
+    "brier_scale": "sum 0..2",
+    "classes": [
+      "1",
+      "X",
+      "2"
+    ],
+    "clipped_count": 0,
+    "log_loss_mean": 0.7985076962177716,
+    "log_loss_per_match": [
+      0.7985076962177716
+    ],
+    "log_loss_unit": "nats, lower clipped at 1e-12"
+  },
+  "policy": {
+    "clock_skew_seconds": 0,
+    "market": "1X2",
+    "max_age_seconds": 300,
+    "method": "proportional",
+    "period": "FT",
+    "rules": "90_MIN_PLUS_STOPPAGE_NO_EXTRA_TIME",
+    "snapshot": "common_id_and_receipt",
+    "underround": "reject",
+    "version": "joint-1x2/1"
+  },
+  "purpose": "ENGINEERING_SYNTHETIC",
+  "records": [
+    {
+      "captured_at": "2030-01-01T10:59:00Z",
+      "classes": [
+        "1",
+        "X",
+        "2"
+      ],
+      "devig": {
+        "detail": "",
+        "method_used": "proportional",
+        "overround": 0.050000000000000044,
+        "probabilities": [
+          0.48,
+          0.3,
+          0.22
+        ],
+        "regime": "OVERROUND",
+        "requested_method": "proportional",
+        "status": "OK"
+      },
+      "fixture_id": "SYN-1",
+      "model_minus_market": [
+        -0.02999999999999997,
+        0.020000000000000018,
+        0.010000000000000009
+      ],
+      "model_probabilities": [
+        0.45,
+        0.32,
+        0.23
+      ],
+      "odds": [
+        1.9841269841269842,
+        3.1746031746031744,
+        4.329004329004329
+      ],
+      "probabilities": [
+        0.48,
+        0.3,
+        0.22
+      ],
+      "rule": null,
+      "scope": "ENGINEERING_CONTRACT_ONLY",
+      "score": {
+        "brier_mean": 0.40880000000000005,
+        "brier_per_match": [
+          0.40880000000000005
+        ],
+        "brier_scale": "sum 0..2",
+        "classes": [
+          "1",
+          "X",
+          "2"
+        ],
+        "clipped_count": 0,
+        "log_loss_mean": 0.7339691750802004,
+        "log_loss_per_match": [
+          0.7339691750802004
+        ],
+        "log_loss_unit": "nats, lower clipped at 1e-12"
+      },
+      "snapshot_id": "SYN-snapshot-1",
+      "source_authentication": "NOT_ESTABLISHED",
+      "status": "ADMIT"
+    },
+    {
+      "fixture_id": "SYN-2",
+      "probabilities": null,
+      "rule": "selection_completeness",
+      "status": "REJECT"
+    },
+    {
+      "age_seconds": 360.0,
+      "fixture_id": "SYN-3",
+      "probabilities": null,
+      "rule": "stale",
+      "selection": "1",
+      "status": "ABSTAIN"
+    }
+  ],
+  "schema": "offline-market-diagnostic/1",
+  "universe": [
+    "SYN-1",
+    "SYN-2",
+    "SYN-3"
+  ],
+  "universe_sha256": "d04bb45770ada44a812d7ff043a44a7a163c1ff051d626a730166481f79af907"
+}

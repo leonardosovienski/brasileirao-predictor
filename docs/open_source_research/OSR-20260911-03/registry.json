@@ -1,0 +1,2684 @@
+{
+  "run_id": "OSR-20260911-03",
+  "parent_runs": [
+    "OSR-20260911-01",
+    "OSR-20260911-02"
+  ],
+  "baseline_sha": "d9584af6deeec701cf8989349f22ab7e4b398249",
+  "observed_at_utc": "2026-09-11T06:43:35.011702+00:00",
+  "status": {
+    "ENGINEERING_STATUS": "INTEGRATED_RESEARCH_ONLY_SCOPED",
+    "DATA_ADMISSIBILITY": "SYNTHETIC_INPUTS_ONLY; REAL_N05_NOT_ADMITTED",
+    "PREDICTIVE_EVIDENCE": "NOT_EVALUATED_THIS_RUN",
+    "ECONOMIC_EVIDENCE": "NOT_EVALUATED_THIS_RUN"
+  },
+  "capabilities": [
+    {
+      "id": "K01",
+      "name": "Massa de cauda e suporte adaptativo",
+      "internal_state": "PARCIAL",
+      "technical_level": "C4",
+      "references": [
+        "R001",
+        "R002"
+      ],
+      "categories": [
+        "melhorias imediatas",
+        "validação",
+        "referências"
+      ],
+      "claim": "A distribuição normalizada omite massa mensurável em T01; falta diagnóstico no retorno atual.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Adicionar erro de truncamento explícito; custo baixo por usar a mesma família NB/DC.",
+      "action": "IMPROVE",
+      "state": "INTEGRATED_RESEARCH_ONLY",
+      "gate": "SYNTHETIC_ELIGIBLE",
+      "integration": "research-only, explicit offline consumer",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "validation_value": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "external_evidence": {
+          "estimate": 3,
+          "interval": [
+            2.5,
+            3.5
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 4,
+          "interval": [
+            3.5,
+            4.5
+          ]
+        },
+        "domain_fit": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "independent_references": {
+          "estimate": 3,
+          "interval": [
+            2.5,
+            3.5
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.5
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "data_cost": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.5
+          ]
+        },
+        "operational_cost": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.5
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 90.0,
+        "COST_RISK": 12.0,
+        "PRIORITY": 89.4,
+        "interval": [
+          79.4,
+          93.3
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "A distribuição normalizada omite massa mensurável em T01; falta diagnóstico no retorno atual. Adicionar erro de truncamento explícito; custo baixo por usar a mesma família NB/DC.",
+      "confidence": "alta no comportamento sintético, média na priorização",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": 5,
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": 5,
+      "DATA_PIT_QUALITY": "NOT_APPLICABLE_SYNTHETIC",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N01",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "IMPROVE",
+        "state": "BENCHMARKED_ENGINEERING",
+        "technical_level": "C4",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "SYNTHETIC_ELIGIBLE"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "ENGINEERING",
+      "current_target": "T3",
+      "delta": "Suporte com parâmetros NB/DC calculados uma vez; diagnóstico com abstenção e limite de condicionamento."
+    },
+    {
+      "id": "K02",
+      "name": "Admissibilidade temporal e identidade com testes adversariais",
+      "internal_state": "PARCIAL",
+      "technical_level": "C2",
+      "references": [
+        "R004",
+        "R048"
+      ],
+      "categories": [
+        "melhorias imediatas",
+        "filtros/ranking",
+        "fontes/datasets",
+        "validação"
+      ],
+      "claim": "Feature legado corta por data do jogo, enquanto contratos PIT novos têm mais relógios; não confundir caminhos.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Mutation tests determinísticos de revisões, ausência de relógio e suspensão, com recibos de exclusão.",
+      "action": "IMPROVE",
+      "state": "INTEGRATED_RESEARCH_ONLY",
+      "gate": "SYNTHETIC_ELIGIBLE",
+      "integration": "research-only, explicit offline consumer",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 5,
+          "interval": [
+            4.25,
+            5
+          ]
+        },
+        "validation_value": {
+          "estimate": 5,
+          "interval": [
+            4.25,
+            5
+          ]
+        },
+        "external_evidence": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 5,
+          "interval": [
+            4.25,
+            5
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 4,
+          "interval": [
+            3.25,
+            4.75
+          ]
+        },
+        "domain_fit": {
+          "estimate": 5,
+          "interval": [
+            4.25,
+            5
+          ]
+        },
+        "independent_references": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 1,
+          "interval": [
+            0.25,
+            1.75
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "data_cost": {
+          "estimate": 1,
+          "interval": [
+            0.25,
+            1.75
+          ]
+        },
+        "operational_cost": {
+          "estimate": 1,
+          "interval": [
+            0.25,
+            1.75
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 86.0,
+        "COST_RISK": 32.0,
+        "PRIORITY": 80.6,
+        "interval": [
+          65.6,
+          88.25
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "Feature legado corta por data do jogo, enquanto contratos PIT novos têm mais relógios; não confundir caminhos. Mutation tests determinísticos de revisões, ausência de relógio e suspensão, com recibos de exclusão.",
+      "confidence": "média/baixa; intervalos refletem lacunas",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": 5,
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": "UNKNOWN",
+      "DATA_PIT_QUALITY": "UNKNOWN",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N03",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "VALIDATE",
+        "state": "RESEARCH",
+        "technical_level": "C2",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "SYNTHETIC_ELIGIBLE"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "ENGINEERING",
+      "current_target": "T1",
+      "delta": "Mercado conjunto FT 1X2 com snapshot comum e razões de exclusão."
+    },
+    {
+      "id": "K03",
+      "name": "Adapter estrito e diferencial de retirada de margem",
+      "internal_state": "IMPLEMENTADO",
+      "technical_level": "C4",
+      "references": [
+        "R001",
+        "R010",
+        "R011"
+      ],
+      "categories": [
+        "melhorias imediatas",
+        "filtros/ranking",
+        "ferramentas",
+        "referências"
+      ],
+      "claim": "T02 concorda no domínio usual e encontra falhas externas nas bordas; manter política local explícita.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Conferir finitude, não negatividade, soma, domínio e fallback, sem alegar probabilidades verdadeiras.",
+      "action": "KEEP",
+      "state": "INTEGRATED_RESEARCH_ONLY",
+      "gate": "SYNTHETIC_ELIGIBLE",
+      "integration": "research-only, explicit offline consumer",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 4,
+          "interval": [
+            3.5,
+            4.5
+          ]
+        },
+        "validation_value": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "external_evidence": {
+          "estimate": 4,
+          "interval": [
+            3.5,
+            4.5
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 3,
+          "interval": [
+            2.5,
+            3.5
+          ]
+        },
+        "domain_fit": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "independent_references": {
+          "estimate": 3,
+          "interval": [
+            2.5,
+            3.5
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "data_cost": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.5
+          ]
+        },
+        "operational_cost": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.5
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 85.0,
+        "COST_RISK": 15.0,
+        "PRIORITY": 85.0,
+        "interval": [
+          75.0,
+          91.45
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "T02 concorda no domínio usual e encontra falhas externas nas bordas; manter política local explícita. Conferir finitude, não negatividade, soma, domínio e fallback, sem alegar probabilidades verdadeiras.",
+      "confidence": "alta no comportamento sintético, média na priorização",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": 5,
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": 5,
+      "DATA_PIT_QUALITY": "NOT_APPLICABLE_SYNTHETIC",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N02",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "VALIDATE",
+        "state": "BENCHMARKED_ENGINEERING",
+        "technical_level": "C4",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "SYNTHETIC_ELIGIBLE"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "ENGINEERING",
+      "current_target": "T1",
+      "delta": "Adapter estrito 02 reutilizado sem mudar sua matemática; agora consumido pelo fluxo."
+    },
+    {
+      "id": "K04",
+      "name": "Scoring, empate, calibração e convenções",
+      "internal_state": "PARCIAL",
+      "technical_level": "C2",
+      "references": [
+        "R014",
+        "R040",
+        "R050"
+      ],
+      "categories": [
+        "novas análises",
+        "validação",
+        "ferramentas"
+      ],
+      "claim": "Brier local soma classes; referência binária usa outro eixo. DM local eleva entradas ao quadrado.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Fixar redução, classe, clipping e objetos entregues ao teste; empate exige dados novos para diagnóstico estatístico.",
+      "action": "AUGMENT",
+      "state": "INTEGRATED_RESEARCH_ONLY",
+      "gate": "SYNTHETIC_ELIGIBLE",
+      "integration": "research-only, explicit offline consumer",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 4,
+          "interval": [
+            3.5,
+            4.5
+          ]
+        },
+        "validation_value": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "external_evidence": {
+          "estimate": 4,
+          "interval": [
+            3.5,
+            4.5
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 3,
+          "interval": [
+            2.5,
+            3.5
+          ]
+        },
+        "domain_fit": {
+          "estimate": 5,
+          "interval": [
+            4.5,
+            5
+          ]
+        },
+        "independent_references": {
+          "estimate": 3,
+          "interval": [
+            2.5,
+            3.5
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 2,
+          "interval": [
+            1.5,
+            2.5
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 1,
+          "interval": [
+            0.5,
+            1.5
+          ]
+        },
+        "data_cost": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.5
+          ]
+        },
+        "operational_cost": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.5
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 85.0,
+        "COST_RISK": 19.0,
+        "PRIORITY": 83.8,
+        "interval": [
+          73.8,
+          90.25
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "Brier local soma classes; referência binária usa outro eixo. DM local eleva entradas ao quadrado. Fixar redução, classe, clipping e objetos entregues ao teste; empate exige dados novos para diagnóstico estatístico.",
+      "confidence": "média/baixa; intervalos refletem lacunas",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": 5,
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": 5,
+      "DATA_PIT_QUALITY": "NOT_APPLICABLE_SYNTHETIC",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N02",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "VALIDATE",
+        "state": "RESEARCH",
+        "technical_level": "C2",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "SYNTHETIC_ELIGIBLE"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "ENGINEERING",
+      "current_target": "T1",
+      "delta": "Scoring/calibração diagnóstica do conjunto admitido e painel pareado explícito."
+    },
+    {
+      "id": "K05",
+      "name": "Pagamentos, caixa e exposição por partida",
+      "internal_state": "PARCIAL",
+      "technical_level": "C4",
+      "references": [
+        "R012",
+        "R013"
+      ],
+      "categories": [
+        "risco/execução",
+        "validação",
+        "composições"
+      ],
+      "claim": "T03 passa para pagamentos atômicos e caixa back; simulador rejeita event_id repetido e não cobre lay/fills.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Preservar caminho validado; especificar extensão somente se mercado nominal demandar.",
+      "action": "KEEP",
+      "state": "CANDIDATE",
+      "gate": "SYNTHETIC_ELIGIBLE",
+      "integration": "NOT_AUTHORIZED",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 4,
+          "interval": [
+            3.25,
+            4.75
+          ]
+        },
+        "validation_value": {
+          "estimate": 5,
+          "interval": [
+            4.25,
+            5
+          ]
+        },
+        "external_evidence": {
+          "estimate": 3,
+          "interval": [
+            2.25,
+            3.75
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 4,
+          "interval": [
+            3.25,
+            4.75
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 3,
+          "interval": [
+            2.25,
+            3.75
+          ]
+        },
+        "domain_fit": {
+          "estimate": 5,
+          "interval": [
+            4.25,
+            5
+          ]
+        },
+        "independent_references": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 1,
+          "interval": [
+            0.25,
+            1.75
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "data_cost": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.75
+          ]
+        },
+        "operational_cost": {
+          "estimate": 1,
+          "interval": [
+            0.25,
+            1.75
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 79.0,
+        "COST_RISK": 29.0,
+        "PRIORITY": 76.6,
+        "interval": [
+          61.6,
+          87.78
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "T03 passa para pagamentos atômicos e caixa back; simulador rejeita event_id repetido e não cobre lay/fills. Preservar caminho validado; especificar extensão somente se mercado nominal demandar.",
+      "confidence": "alta no comportamento sintético, média na priorização",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": 5,
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": 5,
+      "DATA_PIT_QUALITY": "NOT_APPLICABLE_SYNTHETIC",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N02",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "KEEP",
+        "state": "BENCHMARKED_ENGINEERING",
+        "technical_level": "C4",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "SYNTHETIC_ELIGIBLE"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "HISTORICAL_INSPECTED_NOT_RERUN",
+      "delta": "Decisão anterior preservada; nenhum novo consumidor desta capacidade executado."
+    },
+    {
+      "id": "K06",
+      "name": "Força dinâmica, pooling e controles de gols",
+      "internal_state": "EXPERIMENTAL",
+      "technical_level": "C1",
+      "references": [
+        "R002",
+        "R003",
+        "R023",
+        "R032",
+        "R033",
+        "R036",
+        "R039",
+        "R041",
+        "R042",
+        "R043"
+      ],
+      "categories": [
+        "famílias de features/estratégias",
+        "novas análises",
+        "referências"
+      ],
+      "claim": "NB/Elo e ajuste dinâmico já existem; trocar família sem dados/controle igual não isola ganho.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Comparar baseline simples e atual, treinados só em coorte nova admissível; não portar parâmetros estrangeiros.",
+      "action": "RESEARCH",
+      "state": "DEFER",
+      "gate": "DATA_CONDITIONAL",
+      "integration": "NOT_AUTHORIZED",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "validation_value": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "external_evidence": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        },
+        "domain_fit": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "independent_references": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "data_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "operational_cost": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 65.0,
+        "COST_RISK": 58.0,
+        "PRIORITY": 58.1,
+        "interval": [
+          38.1,
+          78.1
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "NB/Elo e ajuste dinâmico já existem; trocar família sem dados/controle igual não isola ganho. Comparar baseline simples e atual, treinados só em coorte nova admissível; não portar parâmetros estrangeiros.",
+      "confidence": "média/baixa; intervalos refletem lacunas",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": "UNKNOWN",
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": "UNKNOWN",
+      "DATA_PIT_QUALITY": "UNKNOWN",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N05",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "RESEARCH",
+        "state": "RESEARCH",
+        "technical_level": "C1",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "DATA_CONDITIONAL"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "HISTORICAL_INSPECTED_NOT_RERUN",
+      "delta": "Decisão anterior preservada; nenhum novo consumidor desta capacidade executado."
+    },
+    {
+      "id": "K07",
+      "name": "Contexto, elenco e qualidade de chances anteriores",
+      "internal_state": "EXPERIMENTAL",
+      "technical_level": "C1",
+      "references": [
+        "R024",
+        "R029",
+        "R034",
+        "R038",
+        "R058"
+      ],
+      "categories": [
+        "novas análises",
+        "famílias de features/estratégias",
+        "composições"
+      ],
+      "claim": "Descanso/viagem/técnico e envelopes de escalação já têm código; fatos PIT por jogador não demonstrados.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Priorizar calendário/descanso sobre tracking caro; separar contexto, xG observado e expectativa pré-jogo.",
+      "action": "AUGMENT",
+      "state": "DEFER",
+      "gate": "DATA_CONDITIONAL",
+      "integration": "NOT_AUTHORIZED",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "validation_value": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "external_evidence": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "domain_fit": {
+          "estimate": 5,
+          "interval": [
+            4,
+            5
+          ]
+        },
+        "independent_references": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "data_cost": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "operational_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 68.0,
+        "COST_RISK": 60.0,
+        "PRIORITY": 59.6,
+        "interval": [
+          39.6,
+          78.2
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "Descanso/viagem/técnico e envelopes de escalação já têm código; fatos PIT por jogador não demonstrados. Priorizar calendário/descanso sobre tracking caro; separar contexto, xG observado e expectativa pré-jogo.",
+      "confidence": "média/baixa; intervalos refletem lacunas",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": "UNKNOWN",
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": "UNKNOWN",
+      "DATA_PIT_QUALITY": "UNKNOWN",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N05",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "AUGMENT",
+        "state": "RESEARCH",
+        "technical_level": "C1",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "DATA_CONDITIONAL"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "HISTORICAL_INSPECTED_NOT_RERUN",
+      "delta": "Decisão anterior preservada; nenhum novo consumidor desta capacidade executado."
+    },
+    {
+      "id": "K08",
+      "name": "Matriz de fontes e recibos por campo/mercado",
+      "internal_state": "PARCIAL",
+      "technical_level": "C1",
+      "references": [
+        "R004",
+        "R016",
+        "R017",
+        "R021",
+        "R022",
+        "R025",
+        "R026",
+        "R027",
+        "R051",
+        "R052",
+        "R053",
+        "R058"
+      ],
+      "categories": [
+        "fontes/datasets",
+        "filtros/ranking",
+        "composições"
+      ],
+      "claim": "Histórico de preço e API atual não garantem aceitação, publicação ou ingestão no cutoff.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Tabela de elegibilidade por fornecedor/campo antes de coletar; UNKNOWN bloqueia claim dependente.",
+      "action": "AUGMENT",
+      "state": "BLOCKED_DATA",
+      "gate": "METADATA_ELIGIBLE",
+      "integration": "none",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 5,
+          "interval": [
+            4,
+            5
+          ]
+        },
+        "validation_value": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "external_evidence": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 5,
+          "interval": [
+            4,
+            5
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "domain_fit": {
+          "estimate": 5,
+          "interval": [
+            4,
+            5
+          ]
+        },
+        "independent_references": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "data_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "operational_cost": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 85.0,
+        "COST_RISK": 46.0,
+        "PRIORITY": 75.7,
+        "interval": [
+          55.7,
+          88.7
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "Histórico de preço e API atual não garantem aceitação, publicação ou ingestão no cutoff. Tabela de elegibilidade por fornecedor/campo antes de coletar; UNKNOWN bloqueia claim dependente.",
+      "confidence": "média/baixa; intervalos refletem lacunas",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": "UNKNOWN",
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": "UNKNOWN",
+      "DATA_PIT_QUALITY": "UNKNOWN",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N03",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "AUGMENT",
+        "state": "RESEARCH",
+        "technical_level": "C1",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "METADATA_ELIGIBLE"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "HISTORICAL_INSPECTED_NOT_RERUN",
+      "current_target": "N05",
+      "delta": "Documentação de produto revalidada; sem amostra temporal admitida."
+    },
+    {
+      "id": "K09",
+      "name": "Eventos e tracking: coordenadas, xT/VAEP e pressão",
+      "internal_state": "DESCONHECIDO",
+      "technical_level": "C0",
+      "references": [
+        "R005",
+        "R006",
+        "R008",
+        "R009",
+        "R015",
+        "R016",
+        "R018",
+        "R019",
+        "R020",
+        "R028",
+        "R030",
+        "R037"
+      ],
+      "categories": [
+        "novas análises",
+        "ferramentas",
+        "famílias de features/estratégias"
+      ],
+      "claim": "Nenhuma cobertura brasileira admissível foi comprovada. Código externo útil, mas upstream e task não são equivalentes.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Um contrato espacial sintético pode eliminar erros antes de comprar/adotar dados; ganho pré-jogo não testado.",
+      "action": "RESEARCH",
+      "state": "DEFER",
+      "gate": "SYNTHETIC_ONLY_DATA_BLOCKED",
+      "integration": "NOT_AUTHORIZED",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "validation_value": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "external_evidence": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "domain_fit": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "independent_references": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "data_cost": {
+          "estimate": 5,
+          "interval": [
+            4,
+            5
+          ]
+        },
+        "operational_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 69.0,
+        "COST_RISK": 66.0,
+        "PRIORITY": 58.5,
+        "interval": [
+          39.4,
+          78.5
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "Nenhuma cobertura brasileira admissível foi comprovada. Código externo útil, mas upstream e task não são equivalentes. Um contrato espacial sintético pode eliminar erros antes de comprar/adotar dados; ganho pré-jogo não testado.",
+      "confidence": "média/baixa; intervalos refletem lacunas",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": "UNKNOWN",
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": "UNKNOWN",
+      "DATA_PIT_QUALITY": "UNKNOWN",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N04",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "RESEARCH",
+        "state": "RESEARCH",
+        "technical_level": "C0",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "SYNTHETIC_ONLY_DATA_BLOCKED"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "HISTORICAL_INSPECTED_NOT_RERUN",
+      "delta": "Decisão anterior preservada; nenhum novo consumidor desta capacidade executado."
+    },
+    {
+      "id": "K10",
+      "name": "Diagnósticos e registro de experimentos",
+      "internal_state": "PARCIAL",
+      "technical_level": "C1",
+      "references": [
+        "R007",
+        "R031",
+        "R049"
+      ],
+      "categories": [
+        "ferramentas",
+        "novas análises"
+      ],
+      "claim": "Registro em arquivos atende a rodada; novo servidor de tracking ou dashboard não tem necessidade comprovada.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Guardar dados, transformações, tentativas e exclusões em manifesto versionado; não criar outro kernel.",
+      "action": "IMPROVE",
+      "state": "INTEGRATED_RESEARCH_ONLY",
+      "gate": "DOCUMENTATION_ELIGIBLE",
+      "integration": "research-only, explicit offline consumer",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 3,
+          "interval": [
+            2.25,
+            3.75
+          ]
+        },
+        "validation_value": {
+          "estimate": 3,
+          "interval": [
+            2.25,
+            3.75
+          ]
+        },
+        "external_evidence": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 5,
+          "interval": [
+            4.25,
+            5
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "domain_fit": {
+          "estimate": 4,
+          "interval": [
+            3.25,
+            4.75
+          ]
+        },
+        "independent_references": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 1,
+          "interval": [
+            0.25,
+            1.75
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 1,
+          "interval": [
+            0.25,
+            1.75
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 1,
+          "interval": [
+            0.25,
+            1.75
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 2,
+          "interval": [
+            1.25,
+            2.75
+          ]
+        },
+        "data_cost": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.75
+          ]
+        },
+        "operational_cost": {
+          "estimate": 0,
+          "interval": [
+            0,
+            0.75
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 60.0,
+        "COST_RISK": 18.0,
+        "PRIORITY": 66.6,
+        "interval": [
+          51.6,
+          79.42
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "Registro em arquivos atende a rodada; novo servidor de tracking ou dashboard não tem necessidade comprovada. Guardar dados, transformações, tentativas e exclusões em manifesto versionado; não criar outro kernel.",
+      "confidence": "média/baixa; intervalos refletem lacunas",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": 5,
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": "UNKNOWN",
+      "DATA_PIT_QUALITY": "UNKNOWN",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N03",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "KEEP",
+        "state": "RESEARCH",
+        "technical_level": "C1",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "DOCUMENTATION_ELIGIBLE"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "ENGINEERING",
+      "current_target": "T2",
+      "delta": "Writer nativo preservado; comparação de entradas, cobertura e mudança de probabilidades."
+    },
+    {
+      "id": "K11",
+      "name": "Challengers tabulares e modelos complexos",
+      "internal_state": "DESCONHECIDO",
+      "technical_level": "C0",
+      "references": [
+        "R044",
+        "R045",
+        "R046",
+        "R047",
+        "R054",
+        "R055",
+        "R056",
+        "R057"
+      ],
+      "categories": [
+        "famílias de features/estratégias",
+        "referências"
+      ],
+      "claim": "Não há ganho preditivo comprovado nesta rodada; múltiplos READMEs são alegações. Compressão evita campeonato de algoritmos.",
+      "purpose": "SCIENTIFIC_ENABLER",
+      "mechanism": "Primeiro baseline causal linear ou gols; no máximo um challenger com orçamento igual e tuning dentro do treino.",
+      "action": "RESEARCH",
+      "state": "DEFER",
+      "gate": "DATA_CONDITIONAL",
+      "integration": "NOT_AUTHORIZED",
+      "capital": "FORBIDDEN",
+      "value_profile": "ENABLER",
+      "value_inputs": {
+        "scientific_value": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "validation_value": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        },
+        "external_evidence": {
+          "estimate": 1,
+          "interval": [
+            0,
+            2
+          ]
+        },
+        "architectural_fit": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "incremental_capability": {
+          "estimate": 1,
+          "interval": [
+            0,
+            2
+          ]
+        },
+        "domain_fit": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "independent_references": {
+          "estimate": 1,
+          "interval": [
+            0,
+            2
+          ]
+        }
+      },
+      "cost_inputs": {
+        "implementation_complexity": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "methodological_risk": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "dependency_risk": {
+          "estimate": 2,
+          "interval": [
+            1,
+            3
+          ]
+        },
+        "maintenance_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        },
+        "data_cost": {
+          "estimate": 4,
+          "interval": [
+            3,
+            5
+          ]
+        },
+        "operational_cost": {
+          "estimate": 3,
+          "interval": [
+            2,
+            4
+          ]
+        }
+      },
+      "score": {
+        "VALUE": 44.0,
+        "COST_RISK": 64.0,
+        "PRIORITY": 41.6,
+        "interval": [
+          21.6,
+          61.6
+        ],
+        "meaning": "estimativa editorial de utilidade; intervalo de sensibilidade, não IC estatístico"
+      },
+      "scoring_rationale": "Não há ganho preditivo comprovado nesta rodada; múltiplos READMEs são alegações. Compressão evita campeonato de algoritmos. Primeiro baseline causal linear ou gols; no máximo um challenger com orçamento igual e tuning dentro do treino.",
+      "confidence": "média/baixa; intervalos refletem lacunas",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": "UNKNOWN",
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": "UNKNOWN",
+      "DATA_PIT_QUALITY": "UNKNOWN",
+      "edge_decay_risk": "NOT_APPLICABLE_ENABLER",
+      "next_experiment": "N05",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "RESEARCH",
+        "state": "RESEARCH",
+        "technical_level": "C0",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "DATA_CONDITIONAL"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "HISTORICAL_INSPECTED_NOT_RERUN",
+      "delta": "Decisão anterior preservada; nenhum novo consumidor desta capacidade executado."
+    },
+    {
+      "id": "K12",
+      "name": "Ganho esportivo incremental além do preço",
+      "internal_state": "EXPERIMENTAL",
+      "technical_level": "C1",
+      "references": [
+        "R001",
+        "R021",
+        "R035",
+        "R051"
+      ],
+      "categories": [
+        "filtros/ranking",
+        "famílias de features/estratégias",
+        "composições"
+      ],
+      "claim": "Código residual existe, mas nenhuma coorte econômica nova admissível foi usada; relação com famílias BE exige revisão.",
+      "purpose": "ECONOMIC_STRATEGY",
+      "mechanism": "Hipótese: contexto/força acrescenta informação não capturada na odd contemporânea. Persistência e executabilidade UNKNOWN.",
+      "action": "RESEARCH",
+      "state": "BLOCKED_PERMISSION",
+      "gate": "BLOCKED_DATA_PROTOCOL",
+      "integration": "none",
+      "capital": "FORBIDDEN",
+      "value_profile": "ECONOMIC",
+      "value_inputs": {
+        "economic_potential": "UNKNOWN",
+        "scientific_value": "UNKNOWN",
+        "external_evidence": "UNKNOWN",
+        "independent_references": "UNKNOWN",
+        "BRASILEIRAO_TRANSFERABILITY": "UNKNOWN",
+        "EXECUTION_FEASIBILITY": "UNKNOWN",
+        "incremental_capability": "UNKNOWN",
+        "validation_value": "UNKNOWN",
+        "architectural_fit": "UNKNOWN"
+      },
+      "cost_inputs": {
+        "implementation_complexity": "UNKNOWN",
+        "methodological_risk": "UNKNOWN",
+        "dependency_risk": "UNKNOWN",
+        "maintenance_cost": "UNKNOWN",
+        "data_cost": "UNKNOWN",
+        "operational_cost": "UNKNOWN"
+      },
+      "score": null,
+      "scoring_rationale": "Código residual existe, mas nenhuma coorte econômica nova admissível foi usada; relação com famílias BE exige revisão. Hipótese: contexto/força acrescenta informação não capturada na odd contemporânea. Persistência e executabilidade UNKNOWN.",
+      "confidence": "média/baixa; intervalos refletem lacunas",
+      "COMPETITOR_PREVALENCE": "UNKNOWN",
+      "COMPETITIVE_GAP": "UNKNOWN",
+      "DIFFERENTIATION_POTENTIAL": "UNKNOWN",
+      "comparative_class": "NOT_DIRECTLY_COMPARABLE",
+      "REDUNDANCY_PENALTY": 0,
+      "redundancy_note": "Capacidade já comprimida; alternativas de bibliotecas não são novos itens nem novo desconto.",
+      "BRASILEIRAO_TRANSFERABILITY": "UNKNOWN",
+      "transferability_scope": "engenharia matemática/contratual; parâmetros e eficácia não transferidos",
+      "EXECUTION_FEASIBILITY": "UNKNOWN",
+      "DATA_ACCESSIBILITY": "UNKNOWN",
+      "DATA_PIT_QUALITY": "UNKNOWN",
+      "edge_decay_risk": "UNKNOWN; sem evidência de edge persistente",
+      "next_experiment": "N05",
+      "predictive_evidence": "NOT_EVALUATED",
+      "economic_evidence": "NOT_EVALUATED",
+      "historical_state_01": {
+        "action": "RESEARCH",
+        "state": "RESEARCH",
+        "technical_level": "C1",
+        "integration": "NOT_AUTHORIZED",
+        "gate": "BLOCKED_DATA_PROTOCOL"
+      },
+      "score_freshness": "Notas e sensibilidade originais preservadas; ranking de valor estimado, não ganhos medidos.",
+      "current_evidence_scope": "HISTORICAL_INSPECTED_NOT_RERUN",
+      "current_target": "N05",
+      "delta": "Decisão científica de sobreposição BE e contrato de informação pendente; dados também ausentes."
+    }
+  ],
+  "scoring": {
+    "enabler_weights": {
+      "scientific_value": 0.3,
+      "validation_value": 0.2,
+      "external_evidence": 0.15,
+      "architectural_fit": 0.1,
+      "incremental_capability": 0.1,
+      "domain_fit": 0.1,
+      "independent_references": 0.05
+    },
+    "economic_weights": {
+      "economic_potential": 0.2,
+      "scientific_value": 0.15,
+      "external_evidence": 0.15,
+      "independent_references": 0.1,
+      "BRASILEIRAO_TRANSFERABILITY": 0.1,
+      "EXECUTION_FEASIBILITY": 0.1,
+      "incremental_capability": 0.08,
+      "validation_value": 0.07,
+      "architectural_fit": 0.05
+    },
+    "cost_weights": {
+      "implementation_complexity": 0.25,
+      "methodological_risk": 0.2,
+      "dependency_risk": 0.15,
+      "maintenance_cost": 0.15,
+      "data_cost": 0.15,
+      "operational_cost": 0.1
+    },
+    "formula": "PRIORITY = 0.70 * VALUE + 0.30 * (100 - COST_RISK); each raw weighted 0..5 score multiplied by 20",
+    "unknown_policy": "No zero imputation. K12 unranked. Intervals are judgment sensitivity, not statistical confidence intervals.",
+    "rubric": "Value 0 none demonstrated / 3 plausible material / 5 strongly supported in stated scope. Cost 0 low demonstrated / 3 material / 5 high. Independent references measures examined relevant lineages, not count of URLs.",
+    "weight_sensitivity": [
+      {
+        "scenario": "mais_custo",
+        "value_weight": 0.6,
+        "shift_scientific_to_external": 0,
+        "ranking": [
+          {
+            "id": "K01",
+            "priority": 89.2
+          },
+          {
+            "id": "K03",
+            "priority": 85.0
+          },
+          {
+            "id": "K04",
+            "priority": 83.4
+          },
+          {
+            "id": "K02",
+            "priority": 78.8
+          },
+          {
+            "id": "K05",
+            "priority": 75.8
+          },
+          {
+            "id": "K08",
+            "priority": 72.6
+          },
+          {
+            "id": "K10",
+            "priority": 68.8
+          },
+          {
+            "id": "K07",
+            "priority": 56.8
+          },
+          {
+            "id": "K06",
+            "priority": 55.8
+          },
+          {
+            "id": "K09",
+            "priority": 55.0
+          },
+          {
+            "id": "K11",
+            "priority": 40.8
+          }
+        ]
+      },
+      {
+        "scenario": "mais_valor",
+        "value_weight": 0.8,
+        "shift_scientific_to_external": 0,
+        "ranking": [
+          {
+            "id": "K01",
+            "priority": 89.6
+          },
+          {
+            "id": "K03",
+            "priority": 85.0
+          },
+          {
+            "id": "K04",
+            "priority": 84.2
+          },
+          {
+            "id": "K02",
+            "priority": 82.4
+          },
+          {
+            "id": "K08",
+            "priority": 78.8
+          },
+          {
+            "id": "K05",
+            "priority": 77.4
+          },
+          {
+            "id": "K10",
+            "priority": 64.4
+          },
+          {
+            "id": "K07",
+            "priority": 62.4
+          },
+          {
+            "id": "K09",
+            "priority": 62.0
+          },
+          {
+            "id": "K06",
+            "priority": 60.4
+          },
+          {
+            "id": "K11",
+            "priority": 42.4
+          }
+        ]
+      },
+      {
+        "scenario": "mais_evidencia_externa",
+        "value_weight": 0.7,
+        "shift_scientific_to_external": 0.05,
+        "ranking": [
+          {
+            "id": "K01",
+            "priority": 88.0
+          },
+          {
+            "id": "K03",
+            "priority": 85.0
+          },
+          {
+            "id": "K04",
+            "priority": 83.8
+          },
+          {
+            "id": "K02",
+            "priority": 78.5
+          },
+          {
+            "id": "K05",
+            "priority": 75.9
+          },
+          {
+            "id": "K08",
+            "priority": 74.3
+          },
+          {
+            "id": "K10",
+            "priority": 65.9
+          },
+          {
+            "id": "K07",
+            "priority": 58.2
+          },
+          {
+            "id": "K09",
+            "priority": 57.8
+          },
+          {
+            "id": "K06",
+            "priority": 57.4
+          },
+          {
+            "id": "K11",
+            "priority": 40.2
+          }
+        ]
+      },
+      {
+        "scenario": "mais_utilidade_cientifica",
+        "value_weight": 0.7,
+        "shift_scientific_to_external": -0.05,
+        "ranking": [
+          {
+            "id": "K01",
+            "priority": 90.8
+          },
+          {
+            "id": "K03",
+            "priority": 85.0
+          },
+          {
+            "id": "K04",
+            "priority": 83.8
+          },
+          {
+            "id": "K02",
+            "priority": 82.7
+          },
+          {
+            "id": "K05",
+            "priority": 77.3
+          },
+          {
+            "id": "K08",
+            "priority": 77.1
+          },
+          {
+            "id": "K10",
+            "priority": 67.3
+          },
+          {
+            "id": "K07",
+            "priority": 61.0
+          },
+          {
+            "id": "K09",
+            "priority": 59.2
+          },
+          {
+            "id": "K06",
+            "priority": 58.8
+          },
+          {
+            "id": "K11",
+            "priority": 43.0
+          }
+        ]
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "capability_ids": [
+        "K02",
+        "K03",
+        "K04"
+      ],
+      "name": "Mercado conjunto até diagnóstico probabilístico",
+      "reference_ids": [
+        "R001",
+        "R010",
+        "R011",
+        "R014",
+        "R048"
+      ],
+      "before": "A rodada 02 admitia uma seleção por chamada. odds_shop já verifica mercados completos para exibição, mas não implementa este cutoff histórico com recibo e encadeamento até scoring.",
+      "after": "Um consumidor admite o snapshot completo, valida odds, retira margem, ordena 1/X/2, conserva recusas e mede scoring apenas em fixtures sintéticas admitidas.",
+      "transfer": "EXTEND_NATIVE + ADAPTER; métodos externos usados como referência diferencial anteriormente, sem portar parâmetros ou resultados.",
+      "files": [
+        "research/joint_market.py",
+        "research/strict_pit.py",
+        "research/strict_math.py",
+        "research/workflow.py"
+      ],
+      "evidence": [
+        "evidence/market-tests.json",
+        "evidence/demo-receipt.json",
+        "evidence/use-20260911T063408091434Z/COMPARACAO.md"
+      ],
+      "result": {
+        "cases": 21,
+        "mutants": 5,
+        "unsafe_witnesses_each": true
+      },
+      "state": "INTEGRATED_RESEARCH_ONLY",
+      "action": "IMPROVE",
+      "level": "C3",
+      "milestones": [
+        "E1",
+        "E5"
+      ],
+      "limit": "Dados sintéticos de desenvolvimento; clocks declarados não autenticados. Snapshot comum exige contrato de provedor. Sem dados reais, ranking econômico ou N05.",
+      "rollback": "Retirar o diretório isolado de uso; nenhum chamador operacional aponta para ele. Preservar evidências.",
+      "evidence_origin": "LOCAL",
+      "evidence_scope": "ENGINEERING",
+      "result_class": "POSITIVE_WITH_LIMITATIONS",
+      "dependencies": {
+        "python": "3.13.12",
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "new_installs": false
+      },
+      "consumer": "research/use.py via runner.py",
+      "hypothetical_gain": "Nenhum ganho preditivo ou econômico inferido.",
+      "human_independent_review": false
+    },
+    {
+      "id": "T2",
+      "capability_ids": [
+        "K10"
+      ],
+      "name": "Comparação rastreável de execuções offline",
+      "reference_ids": [
+        "R049",
+        "R004",
+        "R059"
+      ],
+      "before": "Writer nativo já guardava hashes e falhas. Faltava, no fluxo da rodada 02, um consumidor para comparar o mesmo universo e explicar mudanças de admissão/probabilidade.",
+      "after": "Um comando cria duas execuções imutáveis, compara política/universo/hashes e gera relatório por partida; corrupção, sobrescrita e painéis incompatíveis são recusados.",
+      "transfer": "EXTEND_NATIVE + CONCEPT_TRANSFER; writer copiado byte a byte em isolamento com globals de caminho definidos pelo consumidor; sem instalar MLflow.",
+      "files": [
+        "research/artifacts.py",
+        "research/workflow.py",
+        "research/use.py"
+      ],
+      "evidence": [
+        "evidence/receipt-tests.json",
+        "evidence/use-20260911T063408091434Z/before/manifest.json",
+        "evidence/use-20260911T063408091434Z/after/manifest.json",
+        "evidence/use-20260911T063408091434Z/COMPARACAO.md"
+      ],
+      "result": {
+        "failure_checks": [
+          "overwrite",
+          "outside_explicit_development_roots",
+          "model_scores_have_paired_market_panel",
+          "comparison_different_universe",
+          "corrupt_artifact_hash",
+          "comparison_different_policy",
+          "input_changed_before_publish"
+        ],
+        "entry_command_count": 1,
+        "elapsed_whole_consumer_seconds": 4.710950399996364,
+        "productivity_ratio": "NOT_MEASURED"
+      },
+      "state": "INTEGRATED_RESEARCH_ONLY",
+      "action": "IMPROVE",
+      "level": "C3",
+      "milestones": [
+        "E1",
+        "E5"
+      ],
+      "limit": "Comparador restrito a este schema de diagnóstico, não catálogo universal de estudos. Mudança observada não atribui causalidade; hashes não autenticam fonte.",
+      "rollback": "Deixar de chamar use.py/workflow.py; nenhum servidor, registry central ou dependência nova para remover.",
+      "evidence_origin": "LOCAL",
+      "evidence_scope": "ENGINEERING",
+      "result_class": "POSITIVE_WITH_LIMITATIONS",
+      "dependencies": {
+        "python": "3.13.12",
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "new_installs": false
+      },
+      "consumer": "research/use.py via runner.py",
+      "hypothetical_gain": "Nenhum ganho preditivo ou econômico inferido.",
+      "human_independent_review": false
+    },
+    {
+      "id": "T3",
+      "capability_ids": [
+        "K01"
+      ],
+      "name": "Cauda NB/DC com menor custo e condicionamento explícito",
+      "reference_ids": [
+        "R001",
+        "R002"
+      ],
+      "before": "O candidato 02 recalculava fatores e PMFs de baixo placar em cada probe; alpha restrito a [0.01,2].",
+      "after": "Parâmetros invariantes calculados uma vez, alpha estendido a [1e-4,3], falha de suporte explícita e consumidor com diagnóstico DNB.",
+      "transfer": "EXTEND_NATIVE; otimização da implementação 02, mesma distribuição/correção; não troca por Poisson.",
+      "files": [
+        "research/fast_goals.py",
+        "research/previous_goals.py",
+        "research/goals_demo.py"
+      ],
+      "evidence": [
+        "evidence/goals-tests.json",
+        "evidence/goals-demo.json",
+        "evidence/use-20260911T063408091434Z/goals.json"
+      ],
+      "result": {
+        "cases": 84,
+        "passed": 81,
+        "support_failures": 3,
+        "max_market_error": 8.71370884714771e-07,
+        "max_conditional_error": 4.442593485970425e-05,
+        "median_speed_ratio": 2.3110282137545957,
+        "official_latency_budget": "UNKNOWN"
+      },
+      "state": "INTEGRATED_RESEARCH_ONLY",
+      "action": "IMPROVE",
+      "level": "C4",
+      "milestones": [
+        "E1",
+        "E5"
+      ],
+      "limit": "As médias dos chamadores não têm limite superior global. Três casos atingiram limite de suporte. Orçamento operacional de latência UNKNOWN; diagnóstico condicionado não promete 1e-6.",
+      "rollback": "Manter uso do candidato 02, que permanece intacto; nenhuma função operacional substituída.",
+      "evidence_origin": "LOCAL",
+      "evidence_scope": "ENGINEERING",
+      "result_class": "POSITIVE_WITH_LIMITATIONS",
+      "dependencies": {
+        "python": "3.13.12",
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "new_installs": false
+      },
+      "consumer": "research/use.py via runner.py",
+      "hypothetical_gain": "Nenhum ganho preditivo ou econômico inferido.",
+      "human_independent_review": false
+    }
+  ],
+  "external_delta": [
+    {
+      "id": "R004",
+      "name": "soccerdata",
+      "version": "e120471e424a173e83e8aeeaaf4d954ab9d38ee4",
+      "C": "C2",
+      "licence": "Apache-2.0; sem código transferido nesta rodada",
+      "claim": "API uniforme, cache e retry; cache sobrescrito não é arquivo PIT.",
+      "inspection": "_common.py 275–312 e 490–534; tests/test_common.py 1–139 (mocks, cache hit, no_cache e no_store); não executado. Página de releases mostra v1.9.1; SHA local não é automaticamente esse tag.",
+      "decision": "Não adotar downloader para resolver relógios. Preservar writer versionado próprio; não executar mecanismos de contorno de acesso.",
+      "maintenance": "Issues abertas relatam CAPTCHA/locale; não reproduzidas. Lista inclui alegação de segurança em workflow, não auditoria nossa.",
+      "urls": [
+        "https://soccerdata.readthedocs.io/en/stable/intro.html",
+        "https://github.com/probberechts/soccerdata/issues",
+        "https://github.com/probberechts/soccerdata/releases"
+      ]
+    },
+    {
+      "id": "R049",
+      "name": "MLflow",
+      "version": "v3.3.0 para código/teste focal; documentação de backend atual observada separadamente",
+      "C": "C2",
+      "licence": "Apache-2.0; nenhuma dependência/código copiado",
+      "claim": "RunData separa métricas, parâmetros e tags; tracking organiza artefatos e comparações.",
+      "inspection": "mlflow/entities/run_data.py e tests/entities/test_run_data.py: serialização/hidratação e dicionários inspecionados, não executados. Não auditado o servidor nem toda UI.",
+      "decision": "Transferir ideia de comparação/linhagem ao writer existente. Sem necessidade demonstrada de instalar servidor/framework. Backend atual documenta SQLite padrão e filesystem legado; não repetir cegamente tutorial de mlruns como default universal.",
+      "maintenance": "Documentação corrente e tag focal têm versões distintas; issues gerais não varridas porque não haverá adoção da dependência.",
+      "urls": [
+        "https://github.com/mlflow/mlflow/blob/v3.3.0/mlflow/entities/run_data.py",
+        "https://github.com/mlflow/mlflow/blob/v3.3.0/tests/entities/test_run_data.py",
+        "https://mlflow.org/docs/latest/self-hosting/architecture/backend-store/",
+        "https://mlflow.org/docs/latest/ml/tracking"
+      ]
+    },
+    {
+      "id": "R059",
+      "name": "Hudl Statsbomb + Wyscout, plataforma comercial",
+      "version": "Página pública observada em 11/09/2026; versão interna UNKNOWN",
+      "C": "C0",
+      "licence": "Produto proprietário; PUBLIC_EVIDENCE_ONLY",
+      "claim": "Filtros salvos, seleção de jogadores, métricas ligadas a vídeo e configurações reutilizáveis.",
+      "inspection": "Somente documentação pública em português; não acessamos produto, dados, preço ou arquitetura. Objeto distinto de R016 (dataset aberto).",
+      "decision": "Padrão útil: contexto, filtro e evidência no mesmo fluxo. Não copiar scouting/vídeo/tracking sem necessidade/dados; não alegar horas poupadas localmente.",
+      "maintenance": "UNKNOWN para produto interno e condições da conta.",
+      "urls": [
+        "https://www.hudl.com/blog/hudl-statsbomb-video-wyscout-pt",
+        "https://pt.hudl.com/pt/products/wyscout/"
+      ]
+    }
+  ],
+  "data_finalists": [
+    {
+      "id": "R021",
+      "name": "Football-Data.co.uk",
+      "coverage": "Brasil anunciado desde 2012/13; página Brasil atualizada em 08/09/2026. Inspeção documental, nenhum CSV nesta rodada.",
+      "fields": "Data/hora do jogo, nomes, placar/resultado e odds de fechamento; máximas/médias não são bookmaker nominal.",
+      "identity": "Nomes/data; mapeamento canônico e ID histórico UNKNOWN.",
+      "clocks": "Hora do jogo não é publicação/captura de odds; revisão histórica UNKNOWN.",
+      "access": "Downloads gratuitos; sem chamada nem nova amostra.",
+      "rights": "Uso anunciado para previsão de partidas; licença ampla de redistribuição não estabelecida.",
+      "cost": "Gratuito na página; quota UNKNOWN.",
+      "use": "Descrição/esquema. Fechamento não substitui T−60. BE 2012–24 permanece protegido.",
+      "gap": "Faltam vintage T−60, relógios observados e autorização de coorte. Não resolver redownloadando BE.",
+      "action": "Obter documentação de clocks e autorização de subconjunto independente antes de amostra.",
+      "urls": [
+        "https://football-data.co.uk/brazil.php",
+        "https://football-data.co.uk/data.php",
+        "https://football-data.co.uk/notes.txt"
+      ],
+      "evidence_freshness": "Documentação do produto relevante reaberta em 03; não payload ou cobertura por partida.",
+      "fitness": {
+        "descriptive": "CONDITIONAL_ON_LICENSE_AND_SCOPE",
+        "technical_benchmark": "DOCUMENTATION_OR_SYNTHETIC_ONLY_THIS_RUN",
+        "historical_replay": "CONDITIONAL_NOT_ADMITTED",
+        "predictive_evaluation": "NOT_ADMITTED",
+        "economic_simulation": "NOT_ADMITTED",
+        "operation": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "R022",
+      "name": "football-data.org",
+      "coverage": "Série A anunciada no free tier; cobertura de odds para Brasil/temporadas não verificada.",
+      "fields": "Fixtures/resultados e IDs na documentação; histórico de revisões/publicação por campo UNKNOWN.",
+      "identity": "IDs de provedor; vínculo canônico e inversão de mando precisam ser auditados.",
+      "clocks": "lastUpdated não prova recebimento histórico nem conhecimento de cada campo.",
+      "access": "Chave/registro requeridos; não autenticado.",
+      "rights": "Termos servidos em /about, datados 01/06/2018: chave para uma aplicação, atribuição; restrições após cancelamento e direitos separados de logos.",
+      "cost": "Free €0/10 chamadas por minuto; ML Light €29/mês, dez temporadas, 20/min; odds add-on €15/mês com plano regular, sujeito a cobertura/VAT.",
+      "use": "Calendário/contexto prospectivo condicionado; histórico PIT não comprovado.",
+      "gap": "Faltam temporadas, odds nominais/vintages, relógios e termos aplicáveis ao uso concreto.",
+      "action": "Solicitar matriz documental Brasil/temporada e esquema histórico; não contratar ou consumir chave nesta autorização.",
+      "urls": [
+        "https://www.football-data.org/coverage",
+        "https://www.football-data.org/pricing",
+        "https://www.football-data.org/documentation/quickstart",
+        "https://www.football-data.org/about"
+      ],
+      "evidence_freshness": "Inspeção documental 02 preservada; nenhum payload/amostra real nesta rodada.",
+      "fitness": {
+        "descriptive": "CONDITIONAL_ON_LICENSE_AND_SCOPE",
+        "technical_benchmark": "DOCUMENTATION_OR_SYNTHETIC_ONLY_THIS_RUN",
+        "historical_replay": "CONDITIONAL_NOT_ADMITTED",
+        "predictive_evaluation": "NOT_ADMITTED",
+        "economic_simulation": "NOT_ADMITTED",
+        "operation": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "R051",
+      "name": "The Odds API",
+      "coverage": "Histórico anunciado desde 06/06/2020; 10 min, desde setembro/2022 5 min. Brasil/bookmaker/temporada exatos UNKNOWN.",
+      "fields": "event id, sport_key, commence_time, home/away, bookmaker, market, outcomes price, last_update e envelope timestamp/previous/next.",
+      "identity": "ID do evento e nomes; mapa canônico/versionado não fornecido nesta rodada.",
+      "clocks": "Consulta devolve snapshot anterior ou igual à data. Timestamp do arquivo não é nosso receipt antigo; revisões e autenticidade precisam de evidência.",
+      "access": "Histórico somente pago; nenhuma API chamada.",
+      "rights": "Termos de 31/08/2026 permitem retenção, pesquisa/ML e derivados; proíbem redistribuição/revenda de feed bruto ou produto de download bruto.",
+      "cost": "Histórico: 10 créditos × mercados × regiões; plano/quotas disponíveis UNKNOWN.",
+      "use": "Histórico plausível para replay de informação disponível na fonte, condicionado a emenda científica, cobertura e autenticidade; não passa automaticamente no contrato recebido-pelo-sistema da rodada 02.",
+      "gap": "Faltam sport/season/bookmaker admitidos, manifesto de eventos, prova de clocks/versionamento e decisão BE. A documentação admite erros históricos persistentes e disponibilidade só desde a inclusão de cada esporte/casa/mercado.",
+      "action": "Obter catálogo e metadados de arquivo sem quota; amostra somente após autorização específica de acesso e linhagem.",
+      "urls": [
+        "https://the-odds-api.com/liveapi/guides/v4/",
+        "https://the-odds-api.com/terms-and-conditions.html"
+      ],
+      "evidence_freshness": "Documentação do produto relevante reaberta em 03; não payload ou cobertura por partida.",
+      "fitness": {
+        "descriptive": "CONDITIONAL_ON_LICENSE_AND_SCOPE",
+        "technical_benchmark": "DOCUMENTATION_OR_SYNTHETIC_ONLY_THIS_RUN",
+        "historical_replay": "CONDITIONAL_NOT_ADMITTED",
+        "predictive_evaluation": "NOT_ADMITTED",
+        "economic_simulation": "NOT_ADMITTED",
+        "operation": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "R052",
+      "name": "Sportmonks",
+      "coverage": "Histórico de odds documentado até sete dias após kickoff; Brasil/temporada/bookmaker UNKNOWN.",
+      "fields": "Odds premium com abertura/mudanças e last_updated; starting_at/fixture ID. Payload real não inspecionado.",
+      "identity": "Mapeamento e revisões de fixture UNKNOWN.",
+      "clocks": "last_updated não é receipt; FAQ do feed padrão admite atrasos até 20 min, não generalizar a todo premium.",
+      "access": "Premium depende de plano pago; não ativado.",
+      "rights": "Licença contratual para o uso pretendido não inspecionada: UNKNOWN.",
+      "cost": "Preço/quota do contrato pretendido UNKNOWN.",
+      "use": "Janela documentada de até sete dias para premium; não sustenta por si só backfill plurianual. Outros produtos/contratos não generalizados.",
+      "gap": "Janela curta de histórico, cobertura e direitos não comprovados; nenhum arquivo retrospectivo próprio admissível.",
+      "action": "Obter especificação contratual/cobertura; coleta prospectiva só com autorização própria, sem alterar agendamento atual.",
+      "urls": [
+        "https://www.sportmonks.com/faq/",
+        "https://www.sportmonks.com/glossary/premium-odds-feed/",
+        "https://docs.sportmonks.com/v3/endpoints-and-entities/endpoints"
+      ],
+      "evidence_freshness": "Documentação do produto relevante reaberta em 03; não payload ou cobertura por partida.",
+      "fitness": {
+        "descriptive": "CONDITIONAL_ON_LICENSE_AND_SCOPE",
+        "technical_benchmark": "DOCUMENTATION_OR_SYNTHETIC_ONLY_THIS_RUN",
+        "historical_replay": "CONDITIONAL_NOT_ADMITTED",
+        "predictive_evaluation": "NOT_ADMITTED",
+        "economic_simulation": "NOT_ADMITTED",
+        "operation": "NOT_AUTHORIZED"
+      }
+    },
+    {
+      "id": "R058",
+      "name": "CBF / calendário",
+      "coverage": "Referência de calendário 2026 da rodada anterior; não recertificada nesta rodada.",
+      "fields": "Calendário/contexto; clocks históricos, revisão e direitos UNKNOWN.",
+      "identity": "Vínculo canônico precisa de evidência.",
+      "clocks": "Não confundir data de calendário com disponibilidade por revisão.",
+      "access": "Nenhuma consulta de resultado ou amostra.",
+      "rights": "UNKNOWN para redistribuição.",
+      "cost": "UNKNOWN para extração pretendida.",
+      "use": "Documentação contextual; descanso/contexto já possuem implementação local.",
+      "gap": "Faltam versões e disponibilidade históricas, autorização e mapeamento.",
+      "action": "Resolver linhagem de contexto existente antes de adicionar fonte/feature.",
+      "urls": [],
+      "evidence_freshness": "Inspeção documental 02 preservada; nenhum payload/amostra real nesta rodada.",
+      "fitness": {
+        "descriptive": "CONDITIONAL_ON_LICENSE_AND_SCOPE",
+        "technical_benchmark": "DOCUMENTATION_OR_SYNTHETIC_ONLY_THIS_RUN",
+        "historical_replay": "CONDITIONAL_NOT_ADMITTED",
+        "predictive_evaluation": "NOT_ADMITTED",
+        "economic_simulation": "NOT_ADMITTED",
+        "operation": "NOT_AUTHORIZED"
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "front": "Dados/ingestão",
+      "capabilities": "K08",
+      "references": "R004/R021/R022/R051/R052",
+      "comparison": "Providers e mapa PUB presentes; clocks/versões não comprovados para nova coorte.",
+      "evidence": "Documentação atual focal + mapa herdado; sem API."
+    },
+    {
+      "front": "Robustez da ingestão",
+      "capabilities": "K08/K10",
+      "references": "R004",
+      "comparison": "Cache/retry externo não substitui persistência imutável própria; manter esta.",
+      "evidence": "Fonte/testes soccerdata inspecionados; writer nativo exercitado."
+    },
+    {
+      "front": "Identidade/modelo de dados",
+      "capabilities": "K02",
+      "references": "R006/R048",
+      "comparison": "Contratos próprios ricos; agrupamento 1X2 completado no consumidor.",
+      "evidence": "Teste atual T1; kloppy/Pandera herdados, sem reexecução."
+    },
+    {
+      "front": "Contexto pré-jogo",
+      "capabilities": "K07",
+      "references": "R024/R029/R034/R038/R058",
+      "comparison": "Descanso, viagem, superfície e técnico já declarados; dados PIT faltam.",
+      "evidence": "contextual.py 1–60 atual; restante herdado. DEFER novos dados."
+    },
+    {
+      "front": "Qualidade de desempenho",
+      "capabilities": "K07/K09",
+      "references": "R005/R009/R016/R029/R059",
+      "comparison": "xG e features existem parcialmente; eventos/vídeos têm finalidade diferente.",
+      "evidence": "Survey herdado + produto público atual; sem amostra brasileira admitida."
+    },
+    {
+      "front": "Ratings/força",
+      "capabilities": "K06",
+      "references": "R002/R003/R023/R032",
+      "comparison": "Elo/NB existentes; parâmetro estrangeiro não transfere evidência.",
+      "evidence": "Chamador/fit inspecionado; sem treinamento."
+    },
+    {
+      "front": "Pipeline de features",
+      "capabilities": "K07/K10",
+      "references": "R004/R048/R049",
+      "comparison": "Declarações PIT e writers existentes favorecem completar interfaces.",
+      "evidence": "Não criar feature store; contracts/contextual e writer inspecionados."
+    },
+    {
+      "front": "Modelos probabilísticos",
+      "capabilities": "K01/K06/K11",
+      "references": "R001/R002/R003/R041–R046",
+      "comparison": "NB/DC preservado; otimização mantém distribuição.",
+      "evidence": "T3 atual; comparação preditiva não executada."
+    },
+    {
+      "front": "Incerteza/avaliação",
+      "capabilities": "K04",
+      "references": "R014/R040/R050",
+      "comparison": "Convenções e painel pareado explícitos; calibração real não medida.",
+      "evidence": "T1/T2 atuais; restantes referências herdadas."
+    },
+    {
+      "front": "Mercados/preços",
+      "capabilities": "K01/K03",
+      "references": "R001/R010/R011",
+      "comparison": "De-vig estrito aproveitado; condicionamento requer seu próprio limite.",
+      "evidence": "T1/T3 atuais; sem preço aceito."
+    },
+    {
+      "front": "Elegibilidade/filtros/ranking",
+      "capabilities": "K02/K03",
+      "references": "R048/R059",
+      "comparison": "Recusas por regra/partida, política fixa e completo 1X2.",
+      "evidence": "T1/T2; ranking de aposta não necessário ou autorizado."
+    },
+    {
+      "front": "Simulação/caixa/risco",
+      "capabilities": "K05",
+      "references": "R012/R013",
+      "comparison": "Pagamentos back/caixa adequados no domínio previamente testado.",
+      "evidence": "Ensaios 01 inspecionados, não rerodados. Lay/fills não certificados."
+    },
+    {
+      "front": "Interfaces de pesquisa",
+      "capabilities": "K10",
+      "references": "R004/R049",
+      "comparison": "Interface write_artifacts preservada; consumidor estreito funcional.",
+      "evidence": "T2 atual; não substitui outros pipelines."
+    },
+    {
+      "front": "Gestão de experimentos",
+      "capabilities": "K10",
+      "references": "R049",
+      "comparison": "Comparação com mesma política/universo e hashes.",
+      "evidence": "T2 atual; MLflow C2 focal, sem execução externa."
+    },
+    {
+      "front": "Observabilidade/análise",
+      "capabilities": "K10",
+      "references": "R007/R049/R059",
+      "comparison": "Relatório por fixture, exclusões e mudanças; ligação à evidência.",
+      "evidence": "use.py executado; sem atribuição causal automática."
+    },
+    {
+      "front": "Fluxo do pesquisador",
+      "capabilities": "K10",
+      "references": "R004/R049/R059",
+      "comparison": "Um comando repetível cria runs, compara e demonstra cauda.",
+      "evidence": "4.71s nesta execução completa; tempo manual anterior não medido."
+    }
+  ],
+  "n05_gates": [
+    {
+      "requirement": "Manifesto N05 com universo e splits reais",
+      "status": "DADO_AUSENTE",
+      "evidence": "OSR-20260911-02/N05_PROTOCOL.json: actual_seasons=UNKNOWN_PENDING_AUTHORIZED_MANIFEST; contrato exige fixture_allowlist e manifest_hash.",
+      "cause": "Não há lista aprovada de IDs/temporadas/arquivos vinculada ao estimando N05. Template não é manifesto admissível.",
+      "effect": "Não define unidade elegível nem denominador antes de resultados.",
+      "action": "Responsável fornecer manifesto candidato sem labels, temporadas, IDs canônicos/provedor, caminhos/hashes, inclusão/exclusão e splits.",
+      "owner": "Leonardo / responsável pelos dados",
+      "this_session": "Template preparado; preenchimento real não resolvido."
+    },
+    {
+      "requirement": "Relação científica com BE Q2",
+      "status": "AUTORIZACAO_AUSENTE",
+      "evidence": "docs/continuation/economic_search_2026-09-10/PROTOCOL.md, Q2 e universo; N05 02 execution_gate.",
+      "cause": "BE Q2 já comparava modelo de gols a preço nominal de fechamento, avaliação 2015–2024 e aquecimento anterior. N05 mantém pergunta de incremento vs mercado; distribuição nova e T−60 não resolvem sozinhos a sobreposição conceitual ou de dados.",
+      "effect": "Sem fitting/abertura de desfechos nem temporadas escolhidas como aparentemente independentes.",
+      "action": "Decisão assinada do responsável BE sobre admissibilidade do protocolo N05 e interseções, com escopo de leitura/execução.",
+      "owner": "Responsável pela família BE, indicado por Leonardo",
+      "this_session": "Não resolvido; nenhuma autoaprovação."
+    },
+    {
+      "requirement": "Contrato de informação de A",
+      "status": "SATISFEITO_COM_LIMITE",
+      "evidence": "N05_PROTOCOL.json e N05_DATA_CONTRACT.json da rodada 02, receipt <= decisão; strict_pit.admit_selection.",
+      "cause": "O protocolo preparado 02 escolheu informação recebida pelo sistema. Isso é um estimando específico, não requisito universal de forecast.",
+      "effect": "Recibo pessoal ausente bloqueia este contrato; não refuta um estudo de informação disponível na fonte.",
+      "action": "Emenda separada preparada abaixo para source-available; requer aprovação antes de amostra/fitting.",
+      "owner": "Responsável científico N05 e responsável BE",
+      "this_session": "Distinção resolvida; emenda apenas proposta."
+    },
+    {
+      "requirement": "Odds contemporâneas ao T−60",
+      "status": "INCOMPATIBILIDADE_DEMONSTRADA_DO_PRODUTO_EXAMINADO",
+      "evidence": "R021 página Brasil/notes e PUB/DADOS_E_FONTES.md; R052 premium glossary.",
+      "cause": "Fechamento CSV não é snapshot T−60; janela premium de sete dias não é arquivo plurianual. Não generalizar a todas as modalidades dos fornecedores.",
+      "effect": "Esses produtos examinados não habilitam a coorte histórica solicitada.",
+      "action": "Usar catálogo de arquivo nominal com snapshot/data anterior ao corte; não substituir por máximas ou atraso inventado.",
+      "owner": "Responsável pelos dados / fornecedor",
+      "this_session": "Decisão negativa desse uso encerrada."
+    },
+    {
+      "requirement": "Clocks e versão de histórico alternativo",
+      "status": "PROPRIEDADE_NAO_VERIFICADA",
+      "evidence": "R051 /liveapi/guides/v4/ e PUB/DADOS_E_FONTES.md: timelines OddsPapi recebidas tarde, sem abrir payloads.",
+      "cause": "Faltam evidência por snapshot de published_at/available_at, política de correções, identificação imutável e cobertura brasileira/casa. last_update/event time não são prova de receipt antigo.",
+      "effect": "Arquivo R051 é plausível sob emenda; acervo recebido tarde é inadequado ao contrato estrito 02, mas isso não refuta universalmente source-available.",
+      "action": "Fornecedor apresentar catálogo/versionamento/clocks e amostra permitida já existente sem desfechos, com autorização de acesso específica.",
+      "owner": "Fornecedor e responsável pelos dados",
+      "this_session": "Sem chamada paga ou quota; não resolvido."
+    },
+    {
+      "requirement": "História causal para Elo/fit e dados de teste",
+      "status": "DADO_AUSENTE",
+      "evidence": "N05_DATA_CONTRACT.json 02 mandatory_A.history; config.yaml e model.py.",
+      "cause": "Não foi demonstrado manifesto autorizado de versões de resultados/labels disponíveis em cada cutoff de treino e avaliação.",
+      "effect": "Nem odds sozinhas nem autorização fabricam histórico causal.",
+      "action": "Acoplar manifesto de história às decisões de linhagem e clocks do estimando aprovado.",
+      "owner": "Responsável pelos dados",
+      "this_session": "Não abrir resultados protegidos para preencher."
+    },
+    {
+      "requirement": "Aceitação pessoal e economia",
+      "status": "NAO_APLICAVEL_A",
+      "evidence": "Mandato atual seção 19; N05 02 separa mandatory_A de additional_B.",
+      "cause": "Aceitação, stakes, custos/caixa pertencem a B.",
+      "effect": "Não são usados para bloquear A; B permanece sem evidência nova.",
+      "action": "Nenhuma ação financeira nesta sessão.",
+      "owner": "Responsável econômico, somente sob mandato específico",
+      "this_session": "Separação encerrada."
+    }
+  ],
+  "n05_decision": "Histórico plausível R051 com pendências específicas; produtos de fechamento/janela curta não habilitam arquivo T−60. Alternativa prospectiva só proposta, sem coleta ativada.",
+  "parent_registry_hashes": {
+    "OSR-20260911-01": "b56a2aa8dd5b4aa988f6292fc8fa2038ccfe77e5a8e8122621900595354a538c",
+    "OSR-20260911-02": "b454bacd598915882bc527c050583eac4bbce734c2e9cf26c18f57b9d6a1aae1"
+  },
+  "current_search_waves": [
+    {
+      "wave": "workflow / ingestão / comparação",
+      "queries": [
+        "site.mlflow.org tracking local experiments artifacts compare",
+        "site.soccerdata.readthedocs.io cache no_cache no_store retry",
+        "site.scipy.org scipy.special.nbdtr"
+      ],
+      "decision": "Writer próprio + comparação estreita; nbdtr não adotado, conservar nbinom.sf e otimizar invariantes."
+    },
+    {
+      "wave": "produto completo e negativos por acesso/manutenção",
+      "queries": [
+        "site.hudl.com wyscout análise futebol plataforma dados relatórios",
+        "site.statsbomb.com IQ analysis platform team player analysis"
+      ],
+      "decision": "Contexto/filtro/evidência útil; scouting/vídeo sem justificativa de integração; issues soccerdata reforçam não depender de scraping para corrigir clocks."
+    }
+  ],
+  "saturation": "Cobertura acumulada de 58 referências preservada; adicionada somente R059 como produto distinto. Duas ondas complementares resolveram escolhas de workflow e acesso. Categorias eventos/tracking, modelos complexos e produtos fechados permanecem menos verificadas e sem adoção. Não alegar survey universal ou superioridade geral.",
+  "finite_backlog": [
+    {
+      "id": "B1",
+      "condition": "Somente quando consumidor operacional for proposto",
+      "action": "Revisar latência, domínios sem limite de médias e callbacks de mercados condicionais; não substituir agora.",
+      "owner": "Mantenedor do runtime"
+    },
+    {
+      "id": "B2",
+      "condition": "Manifesto e decisão científica recebidos",
+      "action": "Resolver gates N05 abaixo antes de qualquer desfecho; não iniciar automaticamente.",
+      "owner": "Responsáveis BE/N05 e dados"
+    },
+    {
+      "id": "B3",
+      "condition": "Fonte de eventos/contexto licenciada, temporalmente adequada e hipótese incremental concreta",
+      "action": "Reavaliar K07/K09; não duplicar descanso nem instalar tracking por paridade visual.",
+      "owner": "Responsável de dados/pesquisa"
+    }
+  ]
+}
