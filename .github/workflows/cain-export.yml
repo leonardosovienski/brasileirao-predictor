@@ -1,0 +1,19 @@
+name: Cain report exporter
+on:
+  push:
+    branches: ["integration/cain-status-20260911"]
+permissions:
+  contents: read
+jobs:
+  report-export:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.12", "3.13", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python tools/test_export_cain_status.py
+      - run: python -m py_compile tools/export_cain_status.py

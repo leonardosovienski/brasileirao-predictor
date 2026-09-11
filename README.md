@@ -1,5 +1,32 @@
 # brasileirao-predictor
 
+## Exportação local de relatos para Cain — 11/09/2026
+
+[tools/export_cain_status.py](tools/export_cain_status.py) é um exportador stdlib
+independente do runtime científico. Lê somente `docs/EVIDENCE_REGISTRY.md`, com SHA-256
+previamente conferido e fonte commitada. Preserva estados literais, offsets, hashes,
+cobertura parcial e tempos desconhecidos. Não abre bancos, usa LLM ou executa pipeline.
+Publicações desta instalação ficam em `C:\BRASILEIRAO\work\cain-l0\publications`.
+Cain recebe cópias autorizadas; este produtor continua independente do consumidor.
+
+```text
+python tools/export_cain_status.py --root CAMINHO_DO_CHECKOUT --expected-sha SHA256_CONFERIDO --output DESTINO_NOVO_FORA_DO_CHECKOUT.json
+python tools/test_export_cain_status.py
+```
+
+O destino deve permanecer na raiz local autorizada do projeto. Não reutilizar um hash
+antigo depois de mudar a fonte. A publicação é ResearchSnapshotV1; o consumidor usa o
+validador canônico do contrato. O exportador não impõe instalações ao ambiente científico.
+No Windows, os checks usam Python auxiliar stdlib; temporários ficam na raiz do projeto.
+
+Integração real Brasileirão → Cain exercitada nesta rodada: exportação, validação
+canônica, importação/reimportação, consulta na interface, referências e recuperação
+sem acesso ao produtor. É integração de relatos públicos selecionados, sem nova
+validação científica/econômica. O estado do runtime e os protocolos anteriores permanecem.
+Mudança restrita a ferramentas de intercâmbio; não altera pacote ou recibos R8/operacionais.
+Branch de continuidade deste incremento: `integration/cain-status-20260911`.
+
+
 Pesquisa de capacidades **OSR-20260911-01 a 03** preservada: [retomada sem o chat, código offline, evidências e decisões](docs/open_source_research/README.md). Integração somente de pesquisa; nenhuma nova evidência preditiva/econômica ou ativação operacional.
 
 Estado **PUB-20260910**: correções de dados temporais, caixa, persistência e runtime validadas em laboratório Windows e Linux. **345 testes Python por versão (3.13/3.14), 160 .NET e Compose Linux aprovados no escopo sintético.** Lucro executável e homologação global ainda não demonstrados; capital desabilitado.
