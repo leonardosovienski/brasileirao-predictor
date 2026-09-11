@@ -1,0 +1,1702 @@
+﻿2026-09-11T01:52:23.6626348Z Current runner version: '2.337.0'
+2026-09-11T01:52:23.6663832Z ##[group]Runner Image Provisioner
+2026-09-11T01:52:23.6665433Z Hosted Compute Agent
+2026-09-11T01:52:23.6666525Z Version: 20260828.587
+2026-09-11T01:52:23.6667613Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-11T01:52:23.6669374Z Build Date: 2026-08-28T16:44:25Z
+2026-09-11T01:52:23.6670571Z Worker ID: {6e08af47-9ca5-450e-876b-4f22e60b86e5}
+2026-09-11T01:52:23.6671796Z Azure Region: eastus
+2026-09-11T01:52:23.6672847Z ##[endgroup]
+2026-09-11T01:52:23.6675692Z ##[group]Operating System
+2026-09-11T01:52:23.6676899Z Ubuntu
+2026-09-11T01:52:23.6677779Z 24.04.5
+2026-09-11T01:52:23.6678565Z LTS
+2026-09-11T01:52:23.6679514Z ##[endgroup]
+2026-09-11T01:52:23.6680466Z ##[group]Runner Image
+2026-09-11T01:52:23.6681484Z Image: ubuntu-24.04
+2026-09-11T01:52:23.6682391Z Version: 20260907.300.1
+2026-09-11T01:52:23.6684576Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-11T01:52:23.6687712Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-11T01:52:23.6689527Z ##[endgroup]
+2026-09-11T01:52:23.6691516Z ##[group]GITHUB_TOKEN Permissions
+2026-09-11T01:52:23.6695021Z Contents: read
+2026-09-11T01:52:23.6695964Z Metadata: read
+2026-09-11T01:52:23.6696967Z ##[endgroup]
+2026-09-11T01:52:23.6700109Z Secret source: Actions
+2026-09-11T01:52:23.6701662Z Cache mode: write
+2026-09-11T01:52:23.6703236Z Prepare workflow directory
+2026-09-11T01:52:23.7526037Z Prepare all required actions
+2026-09-11T01:52:23.7602057Z Getting action download info
+2026-09-11T01:52:23.9329181Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-11T01:52:24.0591822Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-09-11T01:52:24.2694245Z Complete job name: Synthetic Compose build and health
+2026-09-11T01:52:24.3464979Z ##[group]Run actions/checkout@v7
+2026-09-11T01:52:24.3465960Z with:
+2026-09-11T01:52:24.3466414Z   persist-credentials: false
+2026-09-11T01:52:24.3467018Z   repository: leonardosovienski/brasileirao-predictor
+2026-09-11T01:52:24.3470901Z   token: ***
+2026-09-11T01:52:24.3471327Z   ssh-strict: true
+2026-09-11T01:52:24.3471764Z   ssh-user: git
+2026-09-11T01:52:24.3472174Z   clean: true
+2026-09-11T01:52:24.3472614Z   sparse-checkout-cone-mode: true
+2026-09-11T01:52:24.3473124Z   fetch-depth: 1
+2026-09-11T01:52:24.3473546Z   fetch-tags: false
+2026-09-11T01:52:24.3473987Z   show-progress: true
+2026-09-11T01:52:24.3474423Z   lfs: false
+2026-09-11T01:52:24.3475020Z   submodules: false
+2026-09-11T01:52:24.3475468Z   set-safe-directory: true
+2026-09-11T01:52:24.3475964Z   allow-unsafe-pr-checkout: false
+2026-09-11T01:52:24.3476713Z env:
+2026-09-11T01:52:24.3477206Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:52:24.3477830Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:52:24.3478355Z   EXCHANGE_API_KEY: 
+2026-09-11T01:52:24.3478823Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:52:24.3479352Z ##[endgroup]
+2026-09-11T01:52:24.4574003Z Syncing repository: leonardosovienski/brasileirao-predictor
+2026-09-11T01:52:24.4577424Z ##[group]Getting Git version info
+2026-09-11T01:52:24.4578817Z Working directory is '/home/runner/work/brasileirao-predictor/brasileirao-predictor'
+2026-09-11T01:52:24.4580799Z [command]/usr/bin/git version
+2026-09-11T01:52:24.4647526Z git version 2.55.0
+2026-09-11T01:52:24.4670815Z ##[endgroup]
+2026-09-11T01:52:24.4699802Z Temporarily overriding HOME='/home/runner/work/_temp/d51bf222-38fe-4e54-8e7f-f087be911983' before making global git config changes
+2026-09-11T01:52:24.4702287Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-11T01:52:24.4706567Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T01:52:24.4764930Z Deleting the contents of '/home/runner/work/brasileirao-predictor/brasileirao-predictor'
+2026-09-11T01:52:24.4770556Z ##[group]Determining repository object format
+2026-09-11T01:52:24.4772030Z ##[endgroup]
+2026-09-11T01:52:24.4773177Z ##[group]Initializing the repository
+2026-09-11T01:52:24.4784193Z [command]/usr/bin/git init /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T01:52:24.4908344Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-11T01:52:24.4912690Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-11T01:52:24.4914278Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-11T01:52:24.4915813Z hint: call:
+2026-09-11T01:52:24.4916454Z hint:
+2026-09-11T01:52:24.4917261Z hint: 	git config --global init.defaultBranch <name>
+2026-09-11T01:52:24.4918253Z hint:
+2026-09-11T01:52:24.4919200Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-11T01:52:24.4920904Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-11T01:52:24.4922151Z hint:
+2026-09-11T01:52:24.4922807Z hint: 	git branch -m <name>
+2026-09-11T01:52:24.4923556Z hint:
+2026-09-11T01:52:24.4924818Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-11T01:52:24.4926903Z Initialized empty Git repository in /home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/
+2026-09-11T01:52:24.4930168Z [command]/usr/bin/git remote add origin https://github.com/leonardosovienski/brasileirao-predictor
+2026-09-11T01:52:24.4988115Z ##[endgroup]
+2026-09-11T01:52:24.4989865Z ##[group]Disabling automatic garbage collection
+2026-09-11T01:52:24.5007339Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-11T01:52:24.5044604Z ##[endgroup]
+2026-09-11T01:52:24.5046438Z ##[group]Setting up auth
+2026-09-11T01:52:24.5047305Z Removing SSH command configuration
+2026-09-11T01:52:24.5052451Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-11T01:52:24.5093860Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-11T01:52:24.5465928Z Removing HTTP extra header
+2026-09-11T01:52:24.5472222Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-11T01:52:24.5509903Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-11T01:52:24.5739214Z Removing includeIf entries pointing to credentials config files
+2026-09-11T01:52:24.5744384Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-11T01:52:24.5782824Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-11T01:52:24.6020097Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-11T01:52:24.6066388Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path /home/runner/work/_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config
+2026-09-11T01:52:24.6105128Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config
+2026-09-11T01:52:24.6149097Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config
+2026-09-11T01:52:24.6196757Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config
+2026-09-11T01:52:24.6231335Z ##[endgroup]
+2026-09-11T01:52:24.6232202Z ##[group]Fetching the repository
+2026-09-11T01:52:24.6240214Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f:refs/remotes/origin/publication-validation-20260910
+2026-09-11T01:52:25.6867890Z From https://github.com/leonardosovienski/brasileirao-predictor
+2026-09-11T01:52:25.6870389Z  * [new ref]         cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f -> origin/publication-validation-20260910
+2026-09-11T01:52:25.6877096Z [command]/usr/bin/git branch --list --remote origin/publication-validation-20260910
+2026-09-11T01:52:25.6909425Z   origin/publication-validation-20260910
+2026-09-11T01:52:25.6920855Z [command]/usr/bin/git rev-parse refs/remotes/origin/publication-validation-20260910
+2026-09-11T01:52:25.6952325Z cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f
+2026-09-11T01:52:25.6958785Z ##[endgroup]
+2026-09-11T01:52:25.6960131Z ##[group]Determining the checkout info
+2026-09-11T01:52:25.6961520Z ##[endgroup]
+2026-09-11T01:52:25.6965749Z [command]/usr/bin/git sparse-checkout disable
+2026-09-11T01:52:25.7031482Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-11T01:52:25.7075783Z ##[group]Checking out the ref
+2026-09-11T01:52:25.7081589Z [command]/usr/bin/git checkout --progress --force -B publication-validation-20260910 refs/remotes/origin/publication-validation-20260910
+2026-09-11T01:52:25.9900131Z Switched to a new branch 'publication-validation-20260910'
+2026-09-11T01:52:25.9904962Z branch 'publication-validation-20260910' set up to track 'origin/publication-validation-20260910'.
+2026-09-11T01:52:25.9933348Z ##[endgroup]
+2026-09-11T01:52:25.9984156Z [command]/usr/bin/git log -1 --format=%H
+2026-09-11T01:52:26.0016236Z cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f
+2026-09-11T01:52:26.0026544Z ##[group]Removing auth
+2026-09-11T01:52:26.0027780Z Removing SSH command configuration
+2026-09-11T01:52:26.0030931Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-11T01:52:26.0077782Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-11T01:52:26.0335899Z Removing HTTP extra header
+2026-09-11T01:52:26.0338553Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-11T01:52:26.0380168Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-11T01:52:26.0620304Z Removing includeIf entries pointing to credentials config files
+2026-09-11T01:52:26.0623534Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-11T01:52:26.0660013Z includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path
+2026-09-11T01:52:26.0661036Z includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path
+2026-09-11T01:52:26.0661706Z includeif.gitdir:/github/workspace/.git.path
+2026-09-11T01:52:26.0662193Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-11T01:52:26.0670487Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path
+2026-09-11T01:52:26.0703549Z /home/runner/work/_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config
+2026-09-11T01:52:26.0714522Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-af9c5aa1\-0b0b\-4699\-99c2\-fcac4dbe4b0e\.config
+2026-09-11T01:52:26.0760319Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path
+2026-09-11T01:52:26.0793116Z /home/runner/work/_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config
+2026-09-11T01:52:26.0802652Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-af9c5aa1\-0b0b\-4699\-99c2\-fcac4dbe4b0e\.config
+2026-09-11T01:52:26.0842483Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-11T01:52:26.0898942Z /github/runner_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config
+2026-09-11T01:52:26.0907752Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-af9c5aa1\-0b0b\-4699\-99c2\-fcac4dbe4b0e\.config
+2026-09-11T01:52:26.0968045Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-11T01:52:26.0988444Z /github/runner_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config
+2026-09-11T01:52:26.0998209Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-af9c5aa1\-0b0b\-4699\-99c2\-fcac4dbe4b0e\.config
+2026-09-11T01:52:26.1038239Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-11T01:52:26.1273644Z Removing credentials config '/home/runner/work/_temp/git-credentials-af9c5aa1-0b0b-4699-99c2-fcac4dbe4b0e.config'
+2026-09-11T01:52:26.1281449Z ##[endgroup]
+2026-09-11T01:52:26.1482418Z ##[group]Run mkdir .wheelhouse-e2e
+2026-09-11T01:52:26.1482925Z [36;1mmkdir .wheelhouse-e2e[0m
+2026-09-11T01:52:26.1483329Z [36;1mcurl --fail --silent --show-error --location \[0m
+2026-09-11T01:52:26.1484133Z [36;1m  "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl" \[0m
+2026-09-11T01:52:26.1485355Z [36;1m  --output .wheelhouse-e2e/predictor_core-3.2.0-py3-none-any.whl[0m
+2026-09-11T01:52:26.1485918Z [36;1mcurl --fail --silent --show-error --location \[0m
+2026-09-11T01:52:26.1486643Z [36;1m  "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl" \[0m
+2026-09-11T01:52:26.1487404Z [36;1m  --output .wheelhouse-e2e/predictor_ops-4.1.0-py3-none-any.whl[0m
+2026-09-11T01:52:26.1555913Z [36;1mcd .wheelhouse-e2e[0m
+2026-09-11T01:52:26.1556660Z [36;1msha256sum --check ../constraints/shared-wheels.sha256[0m
+2026-09-11T01:52:26.1604117Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:52:26.1604478Z env:
+2026-09-11T01:52:26.1605202Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:52:26.1605624Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:52:26.1605921Z   EXCHANGE_API_KEY: 
+2026-09-11T01:52:26.1606224Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:52:26.1606552Z ##[endgroup]
+2026-09-11T01:52:26.4717649Z predictor_core-3.2.0-py3-none-any.whl: OK
+2026-09-11T01:52:26.4718528Z predictor_ops-4.1.0-py3-none-any.whl: OK
+2026-09-11T01:52:26.4762237Z ##[group]Run python tools/publication_validation/compose_config.py "$RUNNER_TEMP/compose-synthetic"
+2026-09-11T01:52:26.4763065Z [36;1mpython tools/publication_validation/compose_config.py "$RUNNER_TEMP/compose-synthetic"[0m
+2026-09-11T01:52:26.4763760Z [36;1mecho "COMPOSE_FILE=$RUNNER_TEMP/compose-synthetic/compose.json" >> "$GITHUB_ENV"[0m
+2026-09-11T01:52:26.4801366Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:52:26.4801680Z env:
+2026-09-11T01:52:26.4801983Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:52:26.4802367Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:52:26.4802659Z   EXCHANGE_API_KEY: 
+2026-09-11T01:52:26.4802947Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:52:26.4803260Z ##[endgroup]
+2026-09-11T01:52:26.8435433Z ##[group]Run docker compose config --quiet
+2026-09-11T01:52:26.8435889Z [36;1mdocker compose config --quiet[0m
+2026-09-11T01:52:26.8475157Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:52:26.8475779Z env:
+2026-09-11T01:52:26.8476065Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:52:26.8476417Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:52:26.8476668Z   EXCHANGE_API_KEY: 
+2026-09-11T01:52:26.8476924Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:52:26.8477329Z   COMPOSE_FILE: /home/runner/work/_temp/compose-synthetic/compose.json
+2026-09-11T01:52:26.8477720Z ##[endgroup]
+2026-09-11T01:52:26.9363381Z ##[group]Run docker compose build
+2026-09-11T01:52:26.9363733Z [36;1mdocker compose build[0m
+2026-09-11T01:52:26.9403292Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:52:26.9403573Z env:
+2026-09-11T01:52:26.9403859Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:52:26.9404200Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:52:26.9404451Z   EXCHANGE_API_KEY: 
+2026-09-11T01:52:26.9405049Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:52:26.9405575Z   COMPOSE_FILE: /home/runner/work/_temp/compose-synthetic/compose.json
+2026-09-11T01:52:26.9405984Z ##[endgroup]
+2026-09-11T01:52:27.3030938Z #1 [internal] load local bake definitions
+2026-09-11T01:52:27.4550032Z #1 reading from stdin 1.19kB done
+2026-09-11T01:52:27.4551163Z #1 DONE 0.0s
+2026-09-11T01:52:27.6877936Z 
+2026-09-11T01:52:27.6878514Z #2 [worker internal] load build definition from Dockerfile.worker
+2026-09-11T01:52:27.6879287Z #2 transferring dockerfile: 596B 0.0s done
+2026-09-11T01:52:27.6879853Z #2 DONE 0.0s
+2026-09-11T01:52:27.6880061Z 
+2026-09-11T01:52:27.6880420Z #3 [kernel internal] load build definition from Dockerfile.kernel
+2026-09-11T01:52:27.6881189Z #3 transferring dockerfile: 1.42kB 0.0s done
+2026-09-11T01:52:27.6881712Z #3 DONE 0.0s
+2026-09-11T01:52:27.6881966Z 
+2026-09-11T01:52:27.6882349Z #4 [init-data internal] load build definition from Dockerfile.cli
+2026-09-11T01:52:27.6883102Z #4 transferring dockerfile: 1.38kB done
+2026-09-11T01:52:27.6883557Z #4 DONE 0.0s
+2026-09-11T01:52:27.6883755Z 
+2026-09-11T01:52:27.6884023Z #5 [auth] library/python:pull token for registry-1.docker.io
+2026-09-11T01:52:27.6884851Z #5 DONE 0.0s
+2026-09-11T01:52:27.6885052Z 
+2026-09-11T01:52:27.6885394Z #6 [worker internal] load metadata for mcr.microsoft.com/dotnet/sdk:10.0
+2026-09-11T01:52:27.6886033Z #6 DONE 0.1s
+2026-09-11T01:52:27.6886225Z 
+2026-09-11T01:52:27.6886650Z #7 [init-data internal] load metadata for docker.io/library/python:3.14.7-slim-bookworm
+2026-09-11T01:52:27.8159737Z #7 ...
+2026-09-11T01:52:27.8160219Z 
+2026-09-11T01:52:27.8161009Z #8 [worker internal] load metadata for mcr.microsoft.com/dotnet/runtime:10.0
+2026-09-11T01:52:27.8161700Z #8 DONE 0.2s
+2026-09-11T01:52:27.8161939Z 
+2026-09-11T01:52:27.8162154Z #9 [worker internal] load .dockerignore
+2026-09-11T01:52:27.8162508Z #9 transferring context: 824B done
+2026-09-11T01:52:27.8162777Z #9 DONE 0.0s
+2026-09-11T01:52:27.8162903Z 
+2026-09-11T01:52:27.8163135Z #10 [worker internal] load build context
+2026-09-11T01:52:27.8163479Z #10 transferring context: 131.20kB done
+2026-09-11T01:52:27.8163727Z #10 DONE 0.0s
+2026-09-11T01:52:27.9194105Z 
+2026-09-11T01:52:27.9195177Z #9 [init-data internal] load .dockerignore
+2026-09-11T01:52:27.9196245Z #9 transferring context: 824B done
+2026-09-11T01:52:27.9196994Z #9 DONE 0.0s
+2026-09-11T01:52:27.9197199Z 
+2026-09-11T01:52:27.9197614Z #7 [init-data internal] load metadata for docker.io/library/python:3.14.7-slim-bookworm
+2026-09-11T01:52:27.9198141Z #7 DONE 0.4s
+2026-09-11T01:52:27.9198270Z 
+2026-09-11T01:52:27.9198848Z #11 [worker build 1/7] FROM mcr.microsoft.com/dotnet/sdk:10.0@sha256:4ea6fe75dd36706bb6d8c3c293d4c4315840f5d76ea28ac97def77e3ec487fa5
+2026-09-11T01:52:27.9199969Z #11 resolve mcr.microsoft.com/dotnet/sdk:10.0@sha256:4ea6fe75dd36706bb6d8c3c293d4c4315840f5d76ea28ac97def77e3ec487fa5 done
+2026-09-11T01:52:27.9201400Z #11 sha256:a14f725efd809283a875c7efa4080451e8f0d0c63c1a21fde67c343d4495f70f 16.78MB / 16.78MB 0.2s done
+2026-09-11T01:52:27.9202622Z #11 sha256:66d72eead315c2457cb84b3cade223863a735ae0e6a88ac73fac5501910c341e 2.64kB / 2.64kB done
+2026-09-11T01:52:27.9203790Z #11 sha256:dbdf92b5ee0edb675f2afd0f17e447ac6af8d2a4fd53c4e50a2c27446cad9876 5.64kB / 5.64kB done
+2026-09-11T01:52:27.9205490Z #11 sha256:b5736ecd04c1f6396001643b8207a895f9eaaef9924bbc1f41cdaebd3aecca95 1.05MB / 36.60MB 0.2s
+2026-09-11T01:52:27.9206668Z #11 sha256:4ea6fe75dd36706bb6d8c3c293d4c4315840f5d76ea28ac97def77e3ec487fa5 1.08kB / 1.08kB done
+2026-09-11T01:52:27.9208131Z #11 sha256:863e60b8ed79ede9045f46da4ece70df4ef4ea0b78e5556f20898d5cc243022f 3.56kB / 3.56kB 0.1s done
+2026-09-11T01:52:27.9209395Z #11 sha256:e51aee9c82ec5dd5ba2add49c45c6d85d460512757e2615b69bcdf9469c7cb58 29.76MB / 29.76MB 0.1s done
+2026-09-11T01:52:27.9210584Z #11 sha256:67079a0ece606f3bf01578cc153188c5829aa293b5aefd8e1eae9d6ac4bca8be 153B / 153B 0.2s done
+2026-09-11T01:52:27.9211718Z #11 sha256:61319c71cd107d5acff05448fcd9f0845f1dba50c5535c6609500a905e2762c6 0B / 12.74MB 0.2s
+2026-09-11T01:52:27.9212884Z #11 sha256:c897a2d3a3be2e267220d2418ffd28a0783404e21f34ba07f121d8a45b508a8d 0B / 23.82MB 0.2s
+2026-09-11T01:52:28.0306254Z #11 sha256:b5736ecd04c1f6396001643b8207a895f9eaaef9924bbc1f41cdaebd3aecca95 5.24MB / 36.60MB 0.3s
+2026-09-11T01:52:28.0307112Z #11 sha256:61319c71cd107d5acff05448fcd9f0845f1dba50c5535c6609500a905e2762c6 5.24MB / 12.74MB 0.3s
+2026-09-11T01:52:28.0307822Z #11 sha256:c897a2d3a3be2e267220d2418ffd28a0783404e21f34ba07f121d8a45b508a8d 18.87MB / 23.82MB 0.3s
+2026-09-11T01:52:28.0308559Z #11 extracting sha256:e51aee9c82ec5dd5ba2add49c45c6d85d460512757e2615b69bcdf9469c7cb58 0.1s
+2026-09-11T01:52:28.2166185Z #11 ...
+2026-09-11T01:52:28.2171163Z 
+2026-09-11T01:52:28.2195439Z #12 [init-data internal] load build context
+2026-09-11T01:52:28.2205316Z #12 transferring context: 1.90MB 0.1s done
+2026-09-11T01:52:28.2225299Z #12 DONE 0.1s
+2026-09-11T01:52:28.2225755Z 
+2026-09-11T01:52:28.2226778Z #11 [worker build 1/7] FROM mcr.microsoft.com/dotnet/sdk:10.0@sha256:4ea6fe75dd36706bb6d8c3c293d4c4315840f5d76ea28ac97def77e3ec487fa5
+2026-09-11T01:52:28.2228672Z #11 sha256:b5736ecd04c1f6396001643b8207a895f9eaaef9924bbc1f41cdaebd3aecca95 19.92MB / 36.60MB 0.4s
+2026-09-11T01:52:28.2230446Z #11 sha256:61319c71cd107d5acff05448fcd9f0845f1dba50c5535c6609500a905e2762c6 12.74MB / 12.74MB 0.3s done
+2026-09-11T01:52:28.2232098Z #11 sha256:c897a2d3a3be2e267220d2418ffd28a0783404e21f34ba07f121d8a45b508a8d 23.82MB / 23.82MB 0.3s done
+2026-09-11T01:52:28.2233837Z #11 sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0 11.53MB / 189.60MB 0.4s
+2026-09-11T01:52:28.2235737Z #11 sha256:05aaacddcf9b58301e9533a8ee129f40a65cda64b5323805cfef7cef53fb3435 8.39MB / 21.02MB 0.4s
+2026-09-11T01:52:28.3140197Z #11 sha256:b5736ecd04c1f6396001643b8207a895f9eaaef9924bbc1f41cdaebd3aecca95 36.60MB / 36.60MB 0.5s
+2026-09-11T01:52:28.3153357Z #11 sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0 38.80MB / 189.60MB 0.5s
+2026-09-11T01:52:28.3155610Z #11 sha256:05aaacddcf9b58301e9533a8ee129f40a65cda64b5323805cfef7cef53fb3435 21.02MB / 21.02MB 0.4s done
+2026-09-11T01:52:28.3187150Z #11 sha256:3055de81c64907033ac79f47ae7d9777c0038501e8dd048bdfbf244fc6a9dd4a 0B / 20.57MB 0.5s
+2026-09-11T01:52:28.3211612Z #11 sha256:e7b733282e4405a5dd4fd1055009b3dc70f7ed938f0abadb981c0713ce32f8c8 493B / 493B 0.5s done
+2026-09-11T01:52:28.4155468Z #11 sha256:b5736ecd04c1f6396001643b8207a895f9eaaef9924bbc1f41cdaebd3aecca95 36.60MB / 36.60MB 0.5s done
+2026-09-11T01:52:28.4186088Z #11 sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0 88.08MB / 189.60MB 0.7s
+2026-09-11T01:52:28.4215809Z #11 sha256:3055de81c64907033ac79f47ae7d9777c0038501e8dd048bdfbf244fc6a9dd4a 20.57MB / 20.57MB 0.6s done
+2026-09-11T01:52:28.5322173Z #11 sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0 114.29MB / 189.60MB 0.8s
+2026-09-11T01:52:28.6498704Z #11 sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0 140.51MB / 189.60MB 0.9s
+2026-09-11T01:52:28.7652585Z #11 sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0 166.72MB / 189.60MB 1.0s
+2026-09-11T01:52:28.8685209Z #11 sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0 189.60MB / 189.60MB 1.1s
+2026-09-11T01:52:29.1657456Z #11 sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0 189.60MB / 189.60MB 1.3s done
+2026-09-11T01:52:29.3076664Z #11 extracting sha256:e51aee9c82ec5dd5ba2add49c45c6d85d460512757e2615b69bcdf9469c7cb58 1.4s done
+2026-09-11T01:52:29.8000050Z #11 extracting sha256:a14f725efd809283a875c7efa4080451e8f0d0c63c1a21fde67c343d4495f70f 0.4s
+2026-09-11T01:52:31.1394217Z #11 extracting sha256:b5736ecd04c1f6396001643b8207a895f9eaaef9924bbc1f41cdaebd3aecca95 0.4s
+2026-09-11T01:52:31.3455695Z #11 ...
+2026-09-11T01:52:31.3456341Z 
+2026-09-11T01:52:31.3457218Z #13 [worker stage-1 1/3] FROM mcr.microsoft.com/dotnet/runtime:10.0@sha256:399e54a8a7e35c3aba78398b2840455d45185cba20b831b8a2b46f849f4f5001
+2026-09-11T01:52:31.3461043Z #13 resolve mcr.microsoft.com/dotnet/runtime:10.0@sha256:399e54a8a7e35c3aba78398b2840455d45185cba20b831b8a2b46f849f4f5001 done
+2026-09-11T01:52:31.3462405Z #13 sha256:399e54a8a7e35c3aba78398b2840455d45185cba20b831b8a2b46f849f4f5001 1.08kB / 1.08kB done
+2026-09-11T01:52:31.3463704Z #13 sha256:f9a9cef68c1ddd440de58c0c8ebe911a780210b831b39f2b84751922f7b27c42 1.37kB / 1.37kB done
+2026-09-11T01:52:31.3465085Z #13 sha256:79ea99b016e0066b1007a0a1f583eeee6e041ad96d453f49b7e597a9299e7f72 2.75kB / 2.75kB done
+2026-09-11T01:52:31.3466319Z #13 sha256:e51aee9c82ec5dd5ba2add49c45c6d85d460512757e2615b69bcdf9469c7cb58 29.76MB / 29.76MB 0.1s done
+2026-09-11T01:52:31.3467612Z #13 sha256:a14f725efd809283a875c7efa4080451e8f0d0c63c1a21fde67c343d4495f70f 16.78MB / 16.78MB 0.2s done
+2026-09-11T01:52:31.3468855Z #13 sha256:863e60b8ed79ede9045f46da4ece70df4ef4ea0b78e5556f20898d5cc243022f 3.56kB / 3.56kB 0.1s done
+2026-09-11T01:52:31.3470113Z #13 sha256:b5736ecd04c1f6396001643b8207a895f9eaaef9924bbc1f41cdaebd3aecca95 36.60MB / 36.60MB 0.5s done
+2026-09-11T01:52:31.3471368Z #13 sha256:67079a0ece606f3bf01578cc153188c5829aa293b5aefd8e1eae9d6ac4bca8be 153B / 153B 0.2s done
+2026-09-11T01:52:31.3472537Z #13 extracting sha256:a14f725efd809283a875c7efa4080451e8f0d0c63c1a21fde67c343d4495f70f 0.7s done
+2026-09-11T01:52:31.3473703Z #13 extracting sha256:863e60b8ed79ede9045f46da4ece70df4ef4ea0b78e5556f20898d5cc243022f done
+2026-09-11T01:52:31.3475034Z #13 extracting sha256:b5736ecd04c1f6396001643b8207a895f9eaaef9924bbc1f41cdaebd3aecca95 0.5s done
+2026-09-11T01:52:31.3476164Z #13 extracting sha256:67079a0ece606f3bf01578cc153188c5829aa293b5aefd8e1eae9d6ac4bca8be done
+2026-09-11T01:52:31.3476968Z #13 DONE 3.6s
+2026-09-11T01:52:31.3477161Z 
+2026-09-11T01:52:31.3477331Z #14 [worker stage-1 2/3] WORKDIR /app
+2026-09-11T01:52:31.3477779Z #14 DONE 0.0s
+2026-09-11T01:52:31.3477970Z 
+2026-09-11T01:52:31.3478685Z #11 [worker build 1/7] FROM mcr.microsoft.com/dotnet/sdk:10.0@sha256:4ea6fe75dd36706bb6d8c3c293d4c4315840f5d76ea28ac97def77e3ec487fa5
+2026-09-11T01:52:31.3480025Z #11 extracting sha256:61319c71cd107d5acff05448fcd9f0845f1dba50c5535c6609500a905e2762c6
+2026-09-11T01:52:31.6361296Z #11 ...
+2026-09-11T01:52:31.6362188Z 
+2026-09-11T01:52:31.6366557Z #15 [kernel builder 1/8] FROM docker.io/library/python:3.14.7-slim-bookworm@sha256:9ab8d9c8514b44f90cf0029dd42fdd7e9e211e639c8b995304cc04568dee900f
+2026-09-11T01:52:31.6368650Z #15 resolve docker.io/library/python:3.14.7-slim-bookworm@sha256:9ab8d9c8514b44f90cf0029dd42fdd7e9e211e639c8b995304cc04568dee900f done
+2026-09-11T01:52:31.6370321Z #15 sha256:9ab8d9c8514b44f90cf0029dd42fdd7e9e211e639c8b995304cc04568dee900f 6.54kB / 6.54kB done
+2026-09-11T01:52:31.6371753Z #15 sha256:d893452fcd120ea9a7233972c85ea868255bde289a636fe76ff090427fe8fac9 1.75kB / 1.75kB done
+2026-09-11T01:52:31.6373111Z #15 sha256:56e434c6024ebff305bf9baf0a2a7c20e0747ab5b879798c1363a7b532fe5a0b 4.96kB / 4.96kB done
+2026-09-11T01:52:31.6374917Z #15 sha256:a8ac7f6c67abc236e4c745052c404112b8fab6fe8ac3a329d1ef3b867ad67c71 28.23MB / 28.23MB 0.4s done
+2026-09-11T01:52:31.6376458Z #15 sha256:24baaf68708e97dda9f7b41999c83989cd28bf0414f83dbd5a045a6d2e5dfb8e 3.53MB / 3.53MB 0.4s done
+2026-09-11T01:52:31.6378078Z #15 sha256:9596f377abc3c13ac8f2636ecdab04df19c547d843fc949e1ddc5e539eb426d6 13.04MB / 13.04MB 0.5s done
+2026-09-11T01:52:31.6390939Z #15 sha256:99d360fbd25250bb4349859a6556c0836ee8c8c3fc3014c109e4f320bd222dbf 250B / 250B 0.5s done
+2026-09-11T01:52:31.6392702Z #15 extracting sha256:a8ac7f6c67abc236e4c745052c404112b8fab6fe8ac3a329d1ef3b867ad67c71 1.4s done
+2026-09-11T01:52:31.6394201Z #15 extracting sha256:24baaf68708e97dda9f7b41999c83989cd28bf0414f83dbd5a045a6d2e5dfb8e 0.2s done
+2026-09-11T01:52:31.6396269Z #15 extracting sha256:9596f377abc3c13ac8f2636ecdab04df19c547d843fc949e1ddc5e539eb426d6 0.8s done
+2026-09-11T01:52:31.6397651Z #15 extracting sha256:99d360fbd25250bb4349859a6556c0836ee8c8c3fc3014c109e4f320bd222dbf done
+2026-09-11T01:52:31.6398588Z #15 DONE 3.6s
+2026-09-11T01:52:31.6398871Z 
+2026-09-11T01:52:31.6399442Z #11 [worker build 1/7] FROM mcr.microsoft.com/dotnet/sdk:10.0@sha256:4ea6fe75dd36706bb6d8c3c293d4c4315840f5d76ea28ac97def77e3ec487fa5
+2026-09-11T01:52:31.6400373Z #11 extracting sha256:61319c71cd107d5acff05448fcd9f0845f1dba50c5535c6609500a905e2762c6 0.2s done
+2026-09-11T01:52:31.6401751Z #11 extracting sha256:c897a2d3a3be2e267220d2418ffd28a0783404e21f34ba07f121d8a45b508a8d 0.1s
+2026-09-11T01:52:31.8427591Z #11 ...
+2026-09-11T01:52:31.8428106Z 
+2026-09-11T01:52:31.8428774Z #16 [kernel stage-1 2/4] RUN useradd --system --uid 10001 --create-home app
+2026-09-11T01:52:31.8429822Z #16 0.198 useradd warning: app's uid 10001 is greater than SYS_UID_MAX 999
+2026-09-11T01:52:31.8430674Z #16 DONE 0.2s
+2026-09-11T01:52:31.8431073Z 
+2026-09-11T01:52:31.8431984Z #11 [worker build 1/7] FROM mcr.microsoft.com/dotnet/sdk:10.0@sha256:4ea6fe75dd36706bb6d8c3c293d4c4315840f5d76ea28ac97def77e3ec487fa5
+2026-09-11T01:52:32.7319599Z #11 extracting sha256:c897a2d3a3be2e267220d2418ffd28a0783404e21f34ba07f121d8a45b508a8d 1.1s done
+2026-09-11T01:52:32.7320856Z #11 extracting sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0
+2026-09-11T01:52:36.6443766Z #11 extracting sha256:95d3a4df91888ffd40afceccc7da3ae8f5023f09447cb8955559f2a8ef80eca0 3.8s done
+2026-09-11T01:52:36.7980013Z #11 ...
+2026-09-11T01:52:36.7980590Z 
+2026-09-11T01:52:36.7981265Z #17 [kernel builder 2/8] RUN pip install --no-cache-dir uv==0.12.1
+2026-09-11T01:52:36.7982525Z #17 3.168 Collecting uv==0.12.1
+2026-09-11T01:52:36.7983479Z #17 3.264   Downloading uv-0.12.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+2026-09-11T01:52:36.7985279Z #17 3.279 Downloading uv-0.12.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (22.4 MB)
+2026-09-11T01:52:36.7986791Z #17 3.484    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.4/22.4 MB 144.3 MB/s  0:00:00
+2026-09-11T01:52:36.7987909Z #17 3.627 Installing collected packages: uv
+2026-09-11T01:52:36.7988243Z #17 3.912 Successfully installed uv-0.12.1
+2026-09-11T01:52:36.7990524Z #17 3.912 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+2026-09-11T01:52:36.7992771Z #17 DONE 5.1s
+2026-09-11T01:52:36.9043288Z 
+2026-09-11T01:52:36.9044336Z #18 [kernel builder 3/8] WORKDIR /build
+2026-09-11T01:52:36.9045299Z #18 DONE 0.1s
+2026-09-11T01:52:36.9045942Z 
+2026-09-11T01:52:36.9046703Z #19 [kernel builder 4/8] COPY pyproject.toml uv.lock README.md ./
+2026-09-11T01:52:36.9047629Z #19 DONE 0.0s
+2026-09-11T01:52:36.9048084Z 
+2026-09-11T01:52:36.9048815Z #20 [init-data builder 5/8] COPY constraints/shared-wheels.sha256 constraints/shared-wheels.sha256
+2026-09-11T01:52:36.9050164Z #20 DONE 0.0s
+2026-09-11T01:52:36.9050778Z 
+2026-09-11T01:52:36.9051143Z #21 [kernel builder 6/8] COPY brasileirao_predictor brasileirao_predictor
+2026-09-11T01:52:36.9051795Z #21 DONE 0.0s
+2026-09-11T01:52:36.9051987Z 
+2026-09-11T01:52:36.9052327Z #22 [init-data builder 7/8] COPY brasileirao_scripts brasileirao_scripts
+2026-09-11T01:52:37.0110377Z #22 DONE 0.0s
+2026-09-11T01:52:37.0111183Z 
+2026-09-11T01:52:37.0114064Z #11 [worker build 1/7] FROM mcr.microsoft.com/dotnet/sdk:10.0@sha256:4ea6fe75dd36706bb6d8c3c293d4c4315840f5d76ea28ac97def77e3ec487fa5
+2026-09-11T01:52:37.0116332Z #11 extracting sha256:05aaacddcf9b58301e9533a8ee129f40a65cda64b5323805cfef7cef53fb3435 0.1s done
+2026-09-11T01:52:37.0117869Z #11 extracting sha256:e7b733282e4405a5dd4fd1055009b3dc70f7ed938f0abadb981c0713ce32f8c8 done
+2026-09-11T01:52:37.0119749Z #11 extracting sha256:3055de81c64907033ac79f47ae7d9777c0038501e8dd048bdfbf244fc6a9dd4a
+2026-09-11T01:52:37.5296540Z #11 extracting sha256:3055de81c64907033ac79f47ae7d9777c0038501e8dd048bdfbf244fc6a9dd4a 0.4s done
+2026-09-11T01:52:37.5299548Z #11 DONE 9.8s
+2026-09-11T01:52:37.5300679Z 
+2026-09-11T01:52:37.5301190Z #23 [worker build 2/7] WORKDIR /src
+2026-09-11T01:52:37.5301800Z #23 DONE 0.0s
+2026-09-11T01:52:37.5302010Z 
+2026-09-11T01:52:37.5302459Z #24 [worker build 3/7] COPY dotnet/LineupWorker/LineupWorker.csproj dotnet/LineupWorker/
+2026-09-11T01:52:37.6976143Z #24 DONE 0.0s
+2026-09-11T01:52:37.6977811Z 
+2026-09-11T01:52:37.6978714Z #25 [worker build 4/7] COPY dotnet/LineupWorker/packages.lock.json dotnet/LineupWorker/
+2026-09-11T01:52:37.6979742Z #25 DONE 0.0s
+2026-09-11T01:52:37.6980202Z 
+2026-09-11T01:52:37.6980940Z #26 [worker build 5/7] RUN dotnet restore dotnet/LineupWorker/LineupWorker.csproj --locked-mode
+2026-09-11T01:52:38.4998506Z #26 0.954   Determining projects to restore...
+2026-09-11T01:52:41.4906562Z #26 3.794   Restored /src/dotnet/LineupWorker/LineupWorker.csproj (in 2.29 sec).
+2026-09-11T01:52:42.3939287Z #26 ...
+2026-09-11T01:52:42.3939835Z 
+2026-09-11T01:52:42.3945859Z #27 [kernel builder 8/8] RUN python -c "import urllib.request; urllib.request.urlretrieve('https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl', 'predictor_core-3.2.0-py3-none-any.whl'); urllib.request.urlretrieve('https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl', 'predictor_ops-4.1.0-py3-none-any.whl')"     && sha256sum -c constraints/shared-wheels.sha256     && uv export --locked --no-dev --extra kernel --no-emit-project         --format requirements.txt --output-file requirements.lock     && uv build --wheel && uv venv /opt/venv     && uv pip sync --python /opt/venv/bin/python --require-hashes requirements.lock     && uv pip install --python /opt/venv/bin/python --no-deps dist/*.whl
+2026-09-11T01:52:42.3951226Z #27 0.533 predictor_core-3.2.0-py3-none-any.whl: OK
+2026-09-11T01:52:42.3951837Z #27 0.534 predictor_ops-4.1.0-py3-none-any.whl: OK
+2026-09-11T01:52:42.3952467Z #27 0.620 Using CPython 3.14.7 interpreter at: /usr/local/bin/python3
+2026-09-11T01:52:42.3953224Z #27 0.911 # This file was autogenerated by uv via the following command:
+2026-09-11T01:52:42.3954380Z #27 0.911 #    uv export --locked --no-dev --extra kernel --no-emit-project --format requirements.txt --output-file requirements.lock
+2026-09-11T01:52:42.3955682Z #27 0.911 annotated-types==0.8.0 \
+2026-09-11T01:52:42.3956447Z #27 0.911     --hash=sha256:13b2beaad985e05e2d6407ee4c4f35590b11f8d693a258a561055cac8f64cab7 \
+2026-09-11T01:52:42.3957507Z #27 0.911     --hash=sha256:f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0
+2026-09-11T01:52:42.3958254Z #27 0.911     # via pydantic
+2026-09-11T01:52:42.3958645Z #27 0.911 attrs==26.1.0 \
+2026-09-11T01:52:42.3959293Z #27 0.911     --hash=sha256:c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309 \
+2026-09-11T01:52:42.3959889Z #27 0.911     --hash=sha256:d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32
+2026-09-11T01:52:42.3960337Z #27 0.911     # via
+2026-09-11T01:52:42.3960543Z #27 0.911     #   jsonschema
+2026-09-11T01:52:42.3960771Z #27 0.911     #   referencing
+2026-09-11T01:52:42.3960999Z #27 0.911 certifi==2026.7.22 \
+2026-09-11T01:52:42.3961402Z #27 0.911     --hash=sha256:62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775 \
+2026-09-11T01:52:42.3961985Z #27 0.911     --hash=sha256:741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55
+2026-09-11T01:52:42.3962681Z #27 0.911     # via requests
+2026-09-11T01:52:42.3962926Z #27 0.911 charset-normalizer==3.5.1 \
+2026-09-11T01:52:42.3963350Z #27 0.911     --hash=sha256:01e93745f7f219b703b60ba7afead36cfc4242782be5af484673fc500df12da5 \
+2026-09-11T01:52:42.3963932Z #27 0.911     --hash=sha256:09a7bba9f739468c8e78c36a75c33768e53cb1959fc638f510454c14683f00d5 \
+2026-09-11T01:52:42.3964971Z #27 0.911     --hash=sha256:0c6dfb5ca6723eeed15aa8e564a014d69fcb8812f94eef11fe3631e0508199f5 \
+2026-09-11T01:52:42.3965871Z #27 0.911     --hash=sha256:0d929fc574b4d6fd9e7c0f5c2ede8716a41911923aa7fa5fce38e0818aa4a1ac \
+2026-09-11T01:52:42.3966448Z #27 0.911     --hash=sha256:15f024313246a4ed976c60f440bb8d257815513a681d212ff74fd46f7d715a90 \
+2026-09-11T01:52:42.3967015Z #27 0.911     --hash=sha256:1f5883d77fd409a261abb5dc8ccbe335720d798b1de4abb3b1d47ccbbc76b53b \
+2026-09-11T01:52:42.3967592Z #27 0.911     --hash=sha256:256dd4d85d9e4dc595e2bc983c980e73f62ddeb3165c58b4c3dfe78c5c8548c1 \
+2026-09-11T01:52:42.3968167Z #27 0.911     --hash=sha256:26422d45fd13551cf564c58932f7d72b4f58b93b0fcf18c35ba6be12b46bb102 \
+2026-09-11T01:52:42.3968741Z #27 0.911     --hash=sha256:2bced4061f000f7187254a02ad3433ae17eaf991747ceea2f478422590a5bba9 \
+2026-09-11T01:52:42.3969334Z #27 0.911     --hash=sha256:2f06b7eae9dbe77fe1d644ca244dad508de8d302870a43f3c559b521270938a0 \
+2026-09-11T01:52:42.3969956Z #27 0.911     --hash=sha256:2f293479cce755c75f1697e87c409b7ae4c555c7dfecb6e988ad13abba943031 \
+2026-09-11T01:52:42.3970570Z #27 0.911     --hash=sha256:329fc3ccb63ad22d867d84c2adea759a64079a37ba4a343433b02c7a2816871e \
+2026-09-11T01:52:42.3971149Z #27 0.911     --hash=sha256:343fb4f2821043bd87095f7b08a1a181febc8e36ac64212143bbfd0a0e1bc235 \
+2026-09-11T01:52:42.3971721Z #27 0.911     --hash=sha256:3588e376b3ea2eea84976f67273d679f229e24c66dce7b82ae45aef04ff6e072 \
+2026-09-11T01:52:42.3972307Z #27 0.911     --hash=sha256:35fe081843b35aad20ffeccec3eeffbe637b15d14f3fb22cc1b59cd8ec17e93c \
+2026-09-11T01:52:42.3972893Z #27 0.911     --hash=sha256:36047af20e17097c3bb9476c2b7655f2f7aa51322c0ba58c07695bedf755a950 \
+2026-09-11T01:52:42.3973453Z #27 0.911     --hash=sha256:394fea06235c8543390050ed5f529187074b029fb027213f6c46ac11ab5d950e \
+2026-09-11T01:52:42.3974024Z #27 0.911     --hash=sha256:41876ee62a3dddf48ff1121ad8f0798032aa03f2fd35f21f34a4cab14f18d8d2 \
+2026-09-11T01:52:42.3974873Z #27 0.911     --hash=sha256:485a0d363cafefcd2538a73c7c838daa2035f09b2c9f9b5e3133f80c6aeb84c2 \
+2026-09-11T01:52:42.3975464Z #27 0.911     --hash=sha256:496846868fea80e479324862fa877f02411f2fd0f83b79ccee2607aa68b2a032 \
+2026-09-11T01:52:42.3976051Z #27 0.911     --hash=sha256:4b599739b93b2cbeded49645ae3c8d1405c29ddfbceac1545c87a3f9580a9e96 \
+2026-09-11T01:52:42.3976657Z #27 0.911     --hash=sha256:4bea7f8ebe90bbd7f0e4a2de42ca6924ba23e3e76418c408ff82f1d46fabd687 \
+2026-09-11T01:52:42.3977247Z #27 0.911     --hash=sha256:4c4fb141a727957c93edfe5c32a26ceb6b5f6461d67146e2d39f51e16170bea8 \
+2026-09-11T01:52:42.3977819Z #27 0.911     --hash=sha256:4c9548dc78002099910abaebc0a72ac58b7d30931869e0351c09b507dff4ece3 \
+2026-09-11T01:52:42.3978389Z #27 0.911     --hash=sha256:4f298bdadb8f0b9e5672877f647d1be9373ef5320c9e2f049795e26cad28b6a9 \
+2026-09-11T01:52:42.3978954Z #27 0.911     --hash=sha256:52ec005752a56ae79547a05c0139ca2501a0c866390b6115008456b9f0e7cde1 \
+2026-09-11T01:52:42.3979524Z #27 0.911     --hash=sha256:58d3e12c88e0950bca850ae1f7c256055c097639c2edb9eb123af9807d8b15e4 \
+2026-09-11T01:52:42.3980594Z #27 0.911     --hash=sha256:58d4aa13a59c969dbfdf9e6a9560e242cbfd9e8a8f50c2747714df1a423adf65 \
+2026-09-11T01:52:42.3981347Z #27 0.911     --hash=sha256:5c0ea61a470e070686aa30892fed79e297d2c8d0ab46b8bcdf027d38c51da591 \
+2026-09-11T01:52:42.3981927Z #27 0.911     --hash=sha256:6117b84ea48435e5356dc737f5121485c30920ba43375fa7b434fd753df0eac3 \
+2026-09-11T01:52:42.3982481Z #27 0.911     --hash=sha256:62b55f6722735a6c472f88361cde6640608773d9443cebdbb51abf436a1fcdd3 \
+2026-09-11T01:52:42.3983037Z #27 0.911     --hash=sha256:6b7430cf5728e68f6c462254009a6ef4086e1bea43cf2f57aa9c55fb4f50ff96 \
+2026-09-11T01:52:42.3983769Z #27 0.911     --hash=sha256:6c9cdde8becb25a7fde49924511aa2644d6f8081cc8df8e9452724303348d8e3 \
+2026-09-11T01:52:42.3984345Z #27 0.911     --hash=sha256:6df0ec430f9a831772c23ca5a224cba36517a58a84bb32c32bb59a9fa67c47f6 \
+2026-09-11T01:52:42.3985151Z #27 0.911     --hash=sha256:70055ff39b97c99e7ae40ea3e393fb62aa2e44dbd9b29f8d14f42fb0025c3959 \
+2026-09-11T01:52:42.3985843Z #27 0.911     --hash=sha256:774d157f112367ff4abd29019f38f023c24e00e56edc7829c20e358a5a913ad8 \
+2026-09-11T01:52:42.3986425Z #27 0.911     --hash=sha256:7ac76cf9afd34929d76eb7fcb63be476a4853d8a96f0dcf2d0db68a0cbdf9885 \
+2026-09-11T01:52:42.3987010Z #27 0.911     --hash=sha256:823f82903d189af463d7df250ef1f7f696f3cee08cc8d91deb565e8d425f6506 \
+2026-09-11T01:52:42.3987588Z #27 0.911     --hash=sha256:85d5855daafc240cc045c026d7a15fd198a09b0fc8ff6f5ecbb5297b509cb11e \
+2026-09-11T01:52:42.3988161Z #27 0.911     --hash=sha256:87e4f41d375c0b9be2fb5251aee4b8a689169e134535aed81bf085c3b647451e \
+2026-09-11T01:52:42.3988745Z #27 0.911     --hash=sha256:88ca277405c2d3b71c4e1c2ee0e7966e807bcba86a69d11e19ba199d18ae4491 \
+2026-09-11T01:52:42.3989321Z #27 0.911     --hash=sha256:90b7481fb62fbe172c558bc6fd1c4c98d82004a54a7551f20e11ac9bf0b8708c \
+2026-09-11T01:52:42.3989887Z #27 0.911     --hash=sha256:9362dd90aa7dab48c0054a21187791ccf05473f7dba5d92b8033ae62164675e7 \
+2026-09-11T01:52:42.3990479Z #27 0.911     --hash=sha256:94d78ecec2605a8d0398b0f365d5f12a63248438516f5dac536a5eff7337df4a \
+2026-09-11T01:52:42.3991161Z #27 0.911     --hash=sha256:977cdbd483a9cff38179bea4fd754289a6f2195c7abd414aba85410b3e66cc5e \
+2026-09-11T01:52:42.3991744Z #27 0.911     --hash=sha256:9ac4444d8d4fd4c4bd08bf451ed3167aa9e7ec6cdb41b648794f1d1103652e36 \
+2026-09-11T01:52:42.3992324Z #27 0.911     --hash=sha256:9d9a0dc7cbe9bec24c3f767c9122c41fe5a1bc43f47cd099d00d393e09769de4 \
+2026-09-11T01:52:42.3992896Z #27 0.911     --hash=sha256:9eea3ab2597a5e65fe65296e2d6a84570845a6b55532d90333d740d48bbc850a \
+2026-09-11T01:52:42.3993471Z #27 0.911     --hash=sha256:a2028475ba855475b8b4d3cfeb4994269c967aea8b9892dfba907f4263a863a3 \
+2026-09-11T01:52:42.3994055Z #27 0.911     --hash=sha256:a3a370082ce34d0612f421e15fe011c53bb1feff21a26d06ad4fb244dab5a375 \
+2026-09-11T01:52:42.3994899Z #27 0.911     --hash=sha256:a6dac12ff6b846103483683f60c5f8fee205121adc58ffd87e90a90a3af69e99 \
+2026-09-11T01:52:42.3995506Z #27 0.911     --hash=sha256:ab743e9bc90c1f73552ec33e10e3331315acd2c397b36065b591b0181de533cc \
+2026-09-11T01:52:42.3996077Z #27 0.911     --hash=sha256:acaf604462bf330b0d07e7a07c1d6e4adac79e5fb13e9c5140590542cafacc00 \
+2026-09-11T01:52:42.3996651Z #27 0.911     --hash=sha256:ae4a097991662cd4fff0ddc74e0fe7874f82e00042fa0ea00855645ed0c79598 \
+2026-09-11T01:52:42.3997224Z #27 0.911     --hash=sha256:aea996a6aba25260827c9ea511d1addfde2da9eb686ac961838509086188b7e6 \
+2026-09-11T01:52:42.3997793Z #27 0.911     --hash=sha256:b39b69b347e5e47a3b5b8cfc005c68c1ba347474e3960236c4944a8ecd174962 \
+2026-09-11T01:52:42.3998353Z #27 0.911     --hash=sha256:bb57753e36e4855b8ca375069482250a6246372331a3e4f3407eaebb007443f5 \
+2026-09-11T01:52:42.3998916Z #27 0.911     --hash=sha256:c010f5581d9c612804cc59fcf7b524b707fbcb72828551237ab545bb5c7034af \
+2026-09-11T01:52:42.4000068Z #27 0.911     --hash=sha256:c428c6c31eb5f4277d7f8eccaf767fbd548ddd5ce3c8b4f4cbbfab3d96b5904c \
+2026-09-11T01:52:42.4001096Z #27 0.911     --hash=sha256:c658c50ac0c98cd755a2dd50b7977d3bca7df401dcc47fbdfa87db53ef7d4e8b \
+2026-09-11T01:52:42.4002129Z #27 0.911     --hash=sha256:c71fb0d56c920c269cd3e2e3fe7c610e3f1fdb21a6ce60efa6430ff63676cea6 \
+2026-09-11T01:52:42.4003033Z #27 0.911     --hash=sha256:cee5dd7c6fb5dd52a0fe2a740f9bc6e3593f5f8b1788bde49de02086f30182b2 \
+2026-09-11T01:52:42.4003627Z #27 0.911     --hash=sha256:d59b75732e9b6f27388e10c14b0259cc5f2e48c78627d185e6a177b58ad3cffe \
+2026-09-11T01:52:42.4004217Z #27 0.911     --hash=sha256:d63600d620ad0064c3a748b950ac5ea38a80190e5498532efefa4b7b3f1da1f3 \
+2026-09-11T01:52:42.4006048Z #27 0.911     --hash=sha256:dd732602a7009217f658d5863d12d79d373a4de0eebc111094bcdd3bb8e0a6cc \
+2026-09-11T01:52:42.4007343Z #27 0.911     --hash=sha256:e199fb99720074809a7720f1c0b4d919eea8b87e88713e0f8f602f7bef543d9d \
+2026-09-11T01:52:42.4008428Z #27 0.911     --hash=sha256:e71c909f353863b2b89c83de2ebed71ea6d0df8a6ef65a128193c5e650766bef \
+2026-09-11T01:52:42.4009508Z #27 0.911     --hash=sha256:e90251c0c7bdd54a100a0dce3c07b7e637278c93af29dbf78ebb89a58c4bac7d \
+2026-09-11T01:52:42.4010667Z #27 0.911     --hash=sha256:f03ac127268b43ef4fe9e6ab6794a6794b49485a0cc0c1db79876d2f33f75bc7 \
+2026-09-11T01:52:42.4011296Z #27 0.911     --hash=sha256:f6f7deae3feb4edfa2efaf7c574fe88cbf055038a6abdb40188e4fff66d5699f \
+2026-09-11T01:52:42.4011910Z #27 0.911     --hash=sha256:fa48b1b63d639f9483e0633e092f5851e2348c352f1f9bb6c8182f87884ef876 \
+2026-09-11T01:52:42.4012499Z #27 0.911     --hash=sha256:fbc597639158fd7c14d55e808718848319540f51b0e6746e3eefa59723a4a348 \
+2026-09-11T01:52:42.4013087Z #27 0.911     --hash=sha256:fce8cbd4997efeb450bd298b54f755dcdff18d496f7a5ddbb4867c6d7c88fdc3 \
+2026-09-11T01:52:42.4013915Z #27 0.911     --hash=sha256:fd0350afdc3aabd5576f60ea109228bd5538139713c7b094c5cd27c73a98bc6f \
+2026-09-11T01:52:42.4014509Z #27 0.911     --hash=sha256:fd0a274c0e5f9a21565cd9d3dd749b61f96b7aa1e20a93aa1ba4029518f2e5c0 \
+2026-09-11T01:52:42.4015323Z #27 0.911     --hash=sha256:fdb8a068947befafba9952162645dc2fecaeb400e64584829ed5e9b2fbe21a7f
+2026-09-11T01:52:42.4015763Z #27 0.911     # via requests
+2026-09-11T01:52:42.4016073Z #27 0.911 hiredis==3.4.1 \
+2026-09-11T01:52:42.4016472Z #27 0.911     --hash=sha256:00073e9b794229daca1089af62e6d2af8ec0a0f5540ced414eede10de2f43dae \
+2026-09-11T01:52:42.4017056Z #27 0.911     --hash=sha256:026639fa97c4b4fcc0f502454287ef1254cc1d067b610cbb958c392c46ff54ae \
+2026-09-11T01:52:42.4017621Z #27 0.911     --hash=sha256:0a70be2b3a2280d48a0c46823455d83a863b8285563177a76667fcd62c686b5c \
+2026-09-11T01:52:42.4018181Z #27 0.911     --hash=sha256:0ebfbff143596d0b8957e67972ab14591b7427891e2d22b5939ddb1185fe14d2 \
+2026-09-11T01:52:42.4018771Z #27 0.911     --hash=sha256:16fb7453720d846168281619021cd3562e4d6252b39ee0dd29610ab26847a0ee \
+2026-09-11T01:52:42.4019346Z #27 0.911     --hash=sha256:1bca03bec5515ab7367fb84d5bdc3cd7bae901320eda89e059f1639e3f9e0793 \
+2026-09-11T01:52:42.4019934Z #27 0.911     --hash=sha256:1e52aee6e7c9f97ae6df104388292568ce34ad5f1aae8acc843f4686b4745362 \
+2026-09-11T01:52:42.4020547Z #27 0.911     --hash=sha256:23667bce8ea8e5c300d4b13e369ef3f8d836b07cfea0dba46b839f1f1bd52548 \
+2026-09-11T01:52:42.4021151Z #27 0.911     --hash=sha256:279258dfc81ee6e2235f45e2fc9af00177bdaea5c72eaca6f6bbed56812c1018 \
+2026-09-11T01:52:42.4021745Z #27 0.911     --hash=sha256:28c6f40eab7dd56dc63ff0e100e9d5d2759b191615d3134abcb48de5ff1f037a \
+2026-09-11T01:52:42.4022328Z #27 0.911     --hash=sha256:2b5b4cc3e1806f44f022389ade780aa1054336357defcb87613fe5267470e6f4 \
+2026-09-11T01:52:42.4022907Z #27 0.911     --hash=sha256:2bbb55435506e481d270df8d0b29dd94acb85d11d71df4b8efce23849a4d0bb7 \
+2026-09-11T01:52:42.4023493Z #27 0.911     --hash=sha256:464f27b0521375a8179e24f19889d7953a88d22ec00808714a0c78ac8ebffbe7 \
+2026-09-11T01:52:42.4024075Z #27 0.911     --hash=sha256:4e1e92095b511e2a778302b9acd160eceb1f20d49a1c9716a864358fc4ffc236 \
+2026-09-11T01:52:42.4024942Z #27 0.911     --hash=sha256:54d077e062804fa1eb49d25032bc0cadb085c50a5adc6f6fc43262dde6428471 \
+2026-09-11T01:52:42.4025551Z #27 0.911     --hash=sha256:5b59b49cbe1ee36e88a629a6653258cca4a89c3711b5836efde0ef1e011f0ab2 \
+2026-09-11T01:52:42.4026128Z #27 0.911     --hash=sha256:5ba1921fc110294a80e28e2cc145edf69f038c263deb22543e787b07394ef5d2 \
+2026-09-11T01:52:42.4026696Z #27 0.911     --hash=sha256:6fd1472d5e5d82929411ea08d002eb4a8e200558d05b66458b9fcd058214aa33 \
+2026-09-11T01:52:42.4027269Z #27 0.911     --hash=sha256:718b86c425c8e2b3505d428ca632f9c9f5ea1c1582edcb76a77aa9c0d0a82580 \
+2026-09-11T01:52:42.4027842Z #27 0.911     --hash=sha256:7b72464f56c3f40f1ae1c784933686c3f0135d15e84fa7eb90166df18577b645 \
+2026-09-11T01:52:42.4028417Z #27 0.911     --hash=sha256:7c3632721df2a3addca9a9707f7baa062bb0c004a585873f461b3b7a629c2516 \
+2026-09-11T01:52:42.4029892Z #27 0.911     --hash=sha256:7cf4cf0735806049d2ada98ef0ac605e70b6bd303277857f459a8183b38b88c0 \
+2026-09-11T01:52:42.4030945Z #27 0.911     --hash=sha256:7eb8b46d2f453030a3514d8ba76edeb92b920b627f883ec3685873c018a96494 \
+2026-09-11T01:52:42.4031539Z #27 0.911     --hash=sha256:885220a6a495365961b8124865ccd5ea5ff7d39772fc79265d947befe418cc1b \
+2026-09-11T01:52:42.4032571Z #27 0.911     --hash=sha256:9186f49f2f45220d1dde7981f7766b7195497d6f3b85617dc0bc519f1e456482 \
+2026-09-11T01:52:42.4033218Z #27 0.911     --hash=sha256:98788950e4a973b925a1b5cfe6d74736726732d8785437fcc4b80bbc563d2a47 \
+2026-09-11T01:52:42.4033799Z #27 0.911     --hash=sha256:a5e68f33bfdd542f659066ae7fb4ad37d4634d67fd330903feb0088f01808298 \
+2026-09-11T01:52:42.4034376Z #27 0.911     --hash=sha256:b6bef7f8753b0ab1e2a29781b589e4a64645bbe2753581cd57f32659756ccae2 \
+2026-09-11T01:52:42.4035269Z #27 0.911     --hash=sha256:b980b63a189ed8e2a42274f260430dae2f33a4a61e2f18ce31248909e36bd14a \
+2026-09-11T01:52:42.4035891Z #27 0.911     --hash=sha256:ba678bbf5bd590e5c5b23560e5dcc73b9bbc4ccb4639d1eda1dba669bd8c6cb7 \
+2026-09-11T01:52:42.4036490Z #27 0.911     --hash=sha256:bfb1f5806a54f643b13065c2c5d05be993401421b8fef309d36f511ed3d13e06 \
+2026-09-11T01:52:42.4037090Z #27 0.911     --hash=sha256:bfd850dbf9c221d4a9e3eae819a91ecc8cdf9843a9ccdbc49cc94fe3f49dec59 \
+2026-09-11T01:52:42.4037683Z #27 0.911     --hash=sha256:c4eba0bacd389e350470a883aad5f6733c721c65d408b32ba50b6624025660c4 \
+2026-09-11T01:52:42.4038259Z #27 0.911     --hash=sha256:c54721b67df1cbdd0f78e0421b0b9768818109fcadbfa6b4a8d761c2506dd846 \
+2026-09-11T01:52:42.4038838Z #27 0.911     --hash=sha256:c874e1f25fff64a0cd0ac990813950d59c9586094df0ce95cfc0372a6bc750ab \
+2026-09-11T01:52:42.4039418Z #27 0.911     --hash=sha256:d151dd3d715cb62dcc09132e4a8f16c9ec0b0874ab9c6fca3b2cbdc09d52660f \
+2026-09-11T01:52:42.4040003Z #27 0.911     --hash=sha256:d856ba70bd97db7cc136ca1dfa72b98044647d08913335949aa70477c8ebfe9a \
+2026-09-11T01:52:42.4040620Z #27 0.911     --hash=sha256:d94c41779ae3eaee75c1668f23d26d9eda526055e37cd9052e980c64fb4127cc \
+2026-09-11T01:52:42.4041189Z #27 0.911     --hash=sha256:da1c8485246d0ec238d76c6689440c0e1bc28409a46592cda89f2ef1c008f26d \
+2026-09-11T01:52:42.4041865Z #27 0.911     --hash=sha256:e238e434d22c767b638d591f32532b7b34077267055481fce10bab1a4fa82d39 \
+2026-09-11T01:52:42.4043361Z #27 0.911     --hash=sha256:e5377c51a30a09f0e302221dfe93e6f137b0a95f0d45c7756d995408a842627a \
+2026-09-11T01:52:42.4044375Z #27 0.911     --hash=sha256:fd46a3fdec76283264e5a564fe38ba813e962bd3af1860970585c242eace683d \
+2026-09-11T01:52:42.4045576Z #27 0.911     --hash=sha256:fd69048bb3870b962a2e09aff2ebfd0a3a4ee868bd280404c553235c36d43f7f
+2026-09-11T01:52:42.4046285Z #27 0.911     # via redis
+2026-09-11T01:52:42.4046708Z #27 0.911 idna==3.19 \
+2026-09-11T01:52:42.4047408Z #27 0.911     --hash=sha256:5e0811a4383b21dc5838069f801c4fb62113b7447663d2530d2bd6e77b49bf15 \
+2026-09-11T01:52:42.4048505Z #27 0.911     --hash=sha256:815e7be7a7806d54abb586dc943addc79e8b2ee16915059658cbeff4b1b43bf4
+2026-09-11T01:52:42.4049328Z #27 0.911     # via requests
+2026-09-11T01:52:42.4049749Z #27 0.911 jsonschema==4.26.0 \
+2026-09-11T01:52:42.4050507Z #27 0.911     --hash=sha256:0c26707e2efad8aa1bfc5b7ce170f3fccc2e4918ff85989ba9ffa9facb2be326 \
+2026-09-11T01:52:42.4051595Z #27 0.911     --hash=sha256:d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce
+2026-09-11T01:52:42.4052380Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4052911Z #27 0.911 jsonschema-specifications==2025.9.1 \
+2026-09-11T01:52:42.4053722Z #27 0.911     --hash=sha256:98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe \
+2026-09-11T01:52:42.4054542Z #27 0.911     --hash=sha256:b540987f239e745613c7a9176f3edb72b832a4ac465cf02712288397832b5e8d
+2026-09-11T01:52:42.4055338Z #27 0.911     # via jsonschema
+2026-09-11T01:52:42.4055590Z #27 0.911 llvmlite==0.49.0 \
+2026-09-11T01:52:42.4055990Z #27 0.911     --hash=sha256:00f16db782f4a13c78c5804aedc434e46794a77e89999a168f9401106270e50a \
+2026-09-11T01:52:42.4056758Z #27 0.911     --hash=sha256:039fa4054a06f537fb39248d4472284ca96be311a142ec09e69f95630ab469cc \
+2026-09-11T01:52:42.4057333Z #27 0.911     --hash=sha256:294e2f0b70aef8f92d0ae7b203e2609f08beb39437eee73de59a21669331aae9 \
+2026-09-11T01:52:42.4057907Z #27 0.911     --hash=sha256:4281a0171d66d2098adce4ba706b8c550b1b10718650f682d64cde16e84e4de5 \
+2026-09-11T01:52:42.4058594Z #27 0.911     --hash=sha256:80a84683d04516bb51da1bbeebddaf2c2f558809c93078a8f91807909ae331f8 \
+2026-09-11T01:52:42.4059175Z #27 0.911     --hash=sha256:95d1071023ed858b79f6971954fd7cc1f5dbcbab987718a4ccbe1411e47d0b81 \
+2026-09-11T01:52:42.4059747Z #27 0.911     --hash=sha256:a1b414dc6b164738ec39dd8987cea73829057b7dd92fc6d91b52838385fc1dd2 \
+2026-09-11T01:52:42.4060320Z #27 0.911     --hash=sha256:b095f15fb12c4d90495df5b1a3772b4732cc408398b204a787dbedd370e09c69 \
+2026-09-11T01:52:42.4060892Z #27 0.911     --hash=sha256:be637e465010bc9c50f070468f7f1cf5385e92fee364d192dd5e6cea790ecba9 \
+2026-09-11T01:52:42.4061490Z #27 0.911     --hash=sha256:d3dee64784201b64c13a8df62c48a4f4218858faaa65889866bb29bdc243c038 \
+2026-09-11T01:52:42.4062069Z #27 0.911     --hash=sha256:d5555ea1d63928481cbf7fcb1d67452b216c7e5b393a4eb7aa1401e67f2a4fc4 \
+2026-09-11T01:52:42.4062649Z #27 0.911     --hash=sha256:ddc7aecd4f56397ed6e8f120ec5dcd5a1a8f0e6032ca4af413462792d4dca2e3 \
+2026-09-11T01:52:42.4063460Z #27 0.911     --hash=sha256:e32adb84fdaae28aeb86fdb6253084ee707ee157289a2e98fe3caf48a62bee82 \
+2026-09-11T01:52:42.4064772Z #27 0.911     --hash=sha256:f3f2ff0aeb17d34fcce9f79b99baac441cfd3efa41b83e233ca4530a72381f72
+2026-09-11T01:52:42.4083691Z #27 0.911     # via numba
+2026-09-11T01:52:42.4084098Z #27 0.911 numba==0.67.0 \
+2026-09-11T01:52:42.4084952Z #27 0.911     --hash=sha256:00c964a5b94d3ae82d83ac162cd610755875b98dadb779fdde06e6bfcdbca47e \
+2026-09-11T01:52:42.4085653Z #27 0.911     --hash=sha256:4a2ed006635bbd0fe45681ed49f3b4f4bad1abf0c233bcc5842c9e3a34cabd61 \
+2026-09-11T01:52:42.4086262Z #27 0.911     --hash=sha256:4d576e62bf2c9370f61312b51573c4bb1f3fe96798bbab56730847a368a316c4 \
+2026-09-11T01:52:42.4086859Z #27 0.911     --hash=sha256:5269245a675abdd3e2c35ec6bb2f250355effa9032514d8f2354f0d2d10854bd \
+2026-09-11T01:52:42.4087444Z #27 0.911     --hash=sha256:77e1c7173fee57a0d84e006c7e70346689d6cb3e7db503489bae58646b4eff7b \
+2026-09-11T01:52:42.4088027Z #27 0.911     --hash=sha256:7930748ce8355d2a5a28602abab056a61fdc676d17377f27d17993905428171f \
+2026-09-11T01:52:42.4088612Z #27 0.911     --hash=sha256:83ab968b0e0fa744eba03351282dd8000796e6ec8e4518f47bd3ed86c0a20c7b \
+2026-09-11T01:52:42.4089203Z #27 0.911     --hash=sha256:88f6e0f5cb6c545e158b6ef0496c01b6d6958a7ccc6634a1576a94bbbab29ff2 \
+2026-09-11T01:52:42.4089790Z #27 0.911     --hash=sha256:9c4953387c77864b596d8296e2cfbdef82b0eea4166ab4864b05d226c51143e0 \
+2026-09-11T01:52:42.4090384Z #27 0.911     --hash=sha256:aa5f002f665bec321b950dacaa26ee009e1d720f6ac9d9856eed5efe1caa03a6 \
+2026-09-11T01:52:42.4090968Z #27 0.911     --hash=sha256:b68ad5125fe245339cc8dcc036081fc1ea482c5063387b9612a76ccd83dc91cd \
+2026-09-11T01:52:42.4091555Z #27 0.911     --hash=sha256:cd75aa535b33fa05d9d930b1ae8af9f97a2881e96d72dfb38ec9b78284d9f851 \
+2026-09-11T01:52:42.4092135Z #27 0.911     --hash=sha256:f074a8e23db78490f11a3930c940be758316c10ac5985be83d2f298dc080acf7 \
+2026-09-11T01:52:42.4092723Z #27 0.911     --hash=sha256:f99f880ff25f418a67f9a1d00d0ddfbc63430f627b523e515085a592a7567f4b
+2026-09-11T01:52:42.4093191Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4093473Z #27 0.911 numpy==2.5.2 \
+2026-09-11T01:52:42.4093868Z #27 0.911     --hash=sha256:0aadf13b60048d501e05fa699efaf7734e2494f3498a4c2a5521d822640324f3 \
+2026-09-11T01:52:42.4094459Z #27 0.911     --hash=sha256:1ab3d4a901f844ea836c3e80bf463c6a27d7f3c14e8e292fcf28d348b25b9bce \
+2026-09-11T01:52:42.4095299Z #27 0.911     --hash=sha256:24b9dc2e3d84aa58523798805194e23e736f3f6ce2d1a5b92583ae734e6dbda8 \
+2026-09-11T01:52:42.4095898Z #27 0.911     --hash=sha256:29b86ff8a6cc556b47ec6b64b194815cc80e6bf5eedcc6cddfd65318cb0b4eee \
+2026-09-11T01:52:42.4096722Z #27 0.911     --hash=sha256:29d81e97f668489cba8ebfd796b9bdd453525d35dd9e162e2daec94bf3fc7740 \
+2026-09-11T01:52:42.4097318Z #27 0.911     --hash=sha256:2cc779226e476d1e1f08c74068c419e60f41a9e0e069c92f6671d31d5c985e98 \
+2026-09-11T01:52:42.4097905Z #27 0.911     --hash=sha256:318b9a4c845dbea06708a29c84ee429cc3065048db34cdb799047643492050ee \
+2026-09-11T01:52:42.4098588Z #27 0.911     --hash=sha256:34c319e2963be042673fb46570501b2f06c41924e17e3563d58646b4380dfb68 \
+2026-09-11T01:52:42.4099175Z #27 0.911     --hash=sha256:3a2f061cebd9e3d23bdcfaaded5e2293a4c6a5b60fa42df85d410a725ce621bf \
+2026-09-11T01:52:42.4099757Z #27 0.911     --hash=sha256:3e4c367352d3747784248a227fbec218e193b56f7e6692e3b64fc805478ecfdf \
+2026-09-11T01:52:42.4100320Z #27 0.911     --hash=sha256:44ef9675d908e65f9953063837c3277730f3f4437615a4cdab67b366cabaf884 \
+2026-09-11T01:52:42.4100896Z #27 0.911     --hash=sha256:4f9744f9fbdcea0bc552e8f19e1f141f811a3f9bc2be2cc6e86d982cab23e3f4 \
+2026-09-11T01:52:42.4101488Z #27 0.911     --hash=sha256:50e500dc868e9313530ce12ba470fe50ff3afe3d62993ed6eff652dacd555b65 \
+2026-09-11T01:52:42.4102067Z #27 0.911     --hash=sha256:52c808f96484f5571a5cc863775ce50247c17dfb3b0361f8ed6b4b0456f80080 \
+2026-09-11T01:52:42.4102638Z #27 0.911     --hash=sha256:60e902ac295855348a5ca2ea4c89108989a9f5fddfad3dfc0a8f36b10358567e \
+2026-09-11T01:52:42.4103229Z #27 0.911     --hash=sha256:6950c4b7dd562453090548ba7f5da7e59f57f85663f15d5dcc60e249192f7e59 \
+2026-09-11T01:52:42.4103815Z #27 0.911     --hash=sha256:6df895598c0edcb41030126c89e0f353b07d93238116143b7405e937359736c4 \
+2026-09-11T01:52:42.4104401Z #27 0.911     --hash=sha256:7587f53dfbd5edc0f7b87c6217b4c6d2d1f2ef9c3da70bc1315e7db5f8d7ec9d \
+2026-09-11T01:52:42.4105224Z #27 0.911     --hash=sha256:85aaccb24182c25df891ad0ec333585967e115269d5f1b17f2c9ae005bc96657 \
+2026-09-11T01:52:42.4105811Z #27 0.911     --hash=sha256:8e4cb9a754c8a0c62eaa88273a5fba3391f4a610d1dee893c0755da31c083f15 \
+2026-09-11T01:52:42.4106393Z #27 0.911     --hash=sha256:9e9413326d726c2545bfa65d2c0876871e8d8386e77f992c1d426e180bbd4323 \
+2026-09-11T01:52:42.4106971Z #27 0.911     --hash=sha256:afb3f0632d6b2e3ba04dbce8d1e48d321b369138b73830b5ca371a0e8d479d56 \
+2026-09-11T01:52:42.4107551Z #27 0.911     --hash=sha256:b879fb674276e331513fb136b78dbc6bd3c848309e0d841cfd63be3896c4cfc1 \
+2026-09-11T01:52:42.4108140Z #27 0.911     --hash=sha256:b9727f472d2f3888053b8a75ab0cb94745a9de224bb5846dbadc0092101bc71d \
+2026-09-11T01:52:42.4108723Z #27 0.911     --hash=sha256:bd68ece1553d2023c09a4226d9e41c586ad2d20594d1a456186c33513d2cb3f2 \
+2026-09-11T01:52:42.4109305Z #27 0.911     --hash=sha256:cebc2d6dbb605a7703d59751dea4bd6b0ab127a5a4338a6f432df1936fef8b26 \
+2026-09-11T01:52:42.4109895Z #27 0.911     --hash=sha256:d482d171c406ae88c5b19cad3b6a1c4c5209f886ab74bc44c2c865c23f52d860 \
+2026-09-11T01:52:42.4110478Z #27 0.911     --hash=sha256:d787cf769c3baeb5f6235e778edb52c08dfa923789b5958f28e6450f96107cb1 \
+2026-09-11T01:52:42.4111064Z #27 0.911     --hash=sha256:ddf47472af2e4280d79bac82304f5e80150211f1b9e614b760061d5fdfbb6eba \
+2026-09-11T01:52:42.4111654Z #27 0.911     --hash=sha256:eaa088384c46f519dacb93b7ec483a6d6b19a4a2085ae4f25ab9b1c43d387d1e \
+2026-09-11T01:52:42.4112250Z #27 0.911     --hash=sha256:eaca7ff36f0f52e2111ec71f169d8fd3e889e7ddc0d2592e0d703fd8d3ce8fac \
+2026-09-11T01:52:42.4112836Z #27 0.911     --hash=sha256:f06571a052127dc1b4e8b83029b4d1b20daa2b64a31cdd181fc6bc774e9000eb \
+2026-09-11T01:52:42.4113429Z #27 0.911     --hash=sha256:fd0d703772bba096843785bd38371e31bb4a0c1151497ad5739d182114a73f7f
+2026-09-11T01:52:42.4113839Z #27 0.911     # via
+2026-09-11T01:52:42.4114059Z #27 0.911     #   brasileirao-predictor
+2026-09-11T01:52:42.4114456Z #27 0.911     #   numba
+2026-09-11T01:52:42.4114992Z #27 0.911     #   pandas
+2026-09-11T01:52:42.4115292Z #27 0.911     #   scipy
+2026-09-11T01:52:42.4115678Z #27 0.911 pandas==3.0.5 \
+2026-09-11T01:52:42.4116187Z #27 0.911     --hash=sha256:0d298e951f23016ce4699951d044ae6418dbc91bf68cefca0f77666fcbb4e5c6 \
+2026-09-11T01:52:42.4116786Z #27 0.911     --hash=sha256:1c10461f6eeb35d8f05b6184c65c8b9991663b66c46b1d559b682cb34ae7c6ea \
+2026-09-11T01:52:42.4117537Z #27 0.911     --hash=sha256:2f264fc46911cc8131a7322a16199bbf8e353d27c10bb211f5bd0c814324dc36 \
+2026-09-11T01:52:42.4118117Z #27 0.911     --hash=sha256:303da736987d481074ca720ada325f8bd80c64ebc2d45ed79b29df3aaa4a26ca \
+2026-09-11T01:52:42.4118800Z #27 0.911     --hash=sha256:3b2801bbb049d0136f6c213eae02b5fca969384fc2064dd728d8620552aa49da \
+2026-09-11T01:52:42.4119383Z #27 0.911     --hash=sha256:3c5015fd1730fbf883647e88068176c839c102cea883ba1769a6f4593bfc1f8c \
+2026-09-11T01:52:42.4119961Z #27 0.911     --hash=sha256:3c5ed2e7c06e91d340dfd091d7934f9bc82e4a36b95f647f090b9d1c9ac649da \
+2026-09-11T01:52:42.4120537Z #27 0.911     --hash=sha256:4b11c36e218331d0387cbe3a0a5f75162357a1d92d57b2b08a336ff94b19b2be \
+2026-09-11T01:52:42.4121107Z #27 0.911     --hash=sha256:5183427f5a8156d480f30333777bc978be93650a49a7c01db26adffe95b31e85 \
+2026-09-11T01:52:42.4121686Z #27 0.911     --hash=sha256:53730687fcd161883b24e10411c06d6a4c0f2275d2faf3bb2bc25deb4ba8007c \
+2026-09-11T01:52:42.4122270Z #27 0.911     --hash=sha256:66266d3442a5e8b3c90274c2b8b230bee42dd1c286bc822cc2f9f2c7e12b883e \
+2026-09-11T01:52:42.4122855Z #27 0.911     --hash=sha256:960d3ebcf249f75206899fcd2c6de53f736b7265759ced0d3e559df0b8b709b0 \
+2026-09-11T01:52:42.4123439Z #27 0.911     --hash=sha256:9e94c2c5ca43bd3ca32bf64d32308887b65e5f9bfd8023ea52755107a999f93b \
+2026-09-11T01:52:42.4124014Z #27 0.911     --hash=sha256:b58b1b39d46a5862e3fb18f50d1a201398619d16a0f9f73f57eea5583cf0e63c \
+2026-09-11T01:52:42.4124872Z #27 0.911     --hash=sha256:b86765f268b56f7e665b93bce9d5df69dee7f99e595cf8fb839483ab315942a3 \
+2026-09-11T01:52:42.4125476Z #27 0.911     --hash=sha256:c1c05a767fe8e5b4fe9e1c29806829c582052eaedb9120a3da83ba3f69e24a5b \
+2026-09-11T01:52:42.4126072Z #27 0.911     --hash=sha256:c597ecf5616b5c420372c1d4d4c00dbbfba7398bea857dcc984347e1ea48417b \
+2026-09-11T01:52:42.4126664Z #27 0.911     --hash=sha256:cce3a9d11d2b1f82c69a27ec1f4948a170e2c403c4bbfa8cca62e3fdebe2ef3a \
+2026-09-11T01:52:42.4127253Z #27 0.911     --hash=sha256:cd8f7c6dc98527058ee6264219343f5392240a6f1bfa654fc5d79023020d0c92 \
+2026-09-11T01:52:42.4127838Z #27 0.911     --hash=sha256:cf52e1f61d229496da17dc7ab54acdee627357e7008fd4fecba3d0ba2937fa58 \
+2026-09-11T01:52:42.4128425Z #27 0.911     --hash=sha256:db172144bb56422bd157812f3b021eacc255451470b31e2c633c349490a1cfee \
+2026-09-11T01:52:42.4129003Z #27 0.911     --hash=sha256:dca3734d6ab7c906e6730f0788b0a1dbb9f2467731f9711f77995c8e9d62d712 \
+2026-09-11T01:52:42.4129592Z #27 0.911     --hash=sha256:e2759e890db96dfcffdbd9b86c3c2cb6afaf58def482820317e06163ec1066cd \
+2026-09-11T01:52:42.4130187Z #27 0.911     --hash=sha256:e819dd5f62966b481a8cb649d3299ebd886a1ea91ed5a99bf7ce77c98d18ab94 \
+2026-09-11T01:52:42.4130768Z #27 0.911     --hash=sha256:ef01af4d8dc6cd2c8d6c7736f149574ef93fe043811eeb5e445f2647154b5040
+2026-09-11T01:52:42.4131213Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4131886Z #27 0.911 predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl \
+2026-09-11T01:52:42.4132697Z #27 0.911     --hash=sha256:9166dd6bd3be99668c0eb8bd3c59a92061e765186608465c0caf48a2417e3009
+2026-09-11T01:52:42.4133139Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4133773Z #27 0.911 predictor-ops @ https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl \
+2026-09-11T01:52:42.4134553Z #27 0.911     --hash=sha256:6d428a4d3d4fbd3f692725bf684024131f0fa65cc11d0e739e9ccb82ba9834e4
+2026-09-11T01:52:42.4135443Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4135724Z #27 0.911 pydantic==2.13.5 \
+2026-09-11T01:52:42.4136130Z #27 0.911     --hash=sha256:346a034f080da3755d8e9cb5e00e8b07de1d39e4f6e2c87d8ab7cafa0b269a73 \
+2026-09-11T01:52:42.4136719Z #27 0.911     --hash=sha256:51a9c5f7b2f8e636f04c6cada605d9b6a3bf1348fdf945a3d8869b19bba0ee08
+2026-09-11T01:52:42.4137138Z #27 0.911     # via
+2026-09-11T01:52:42.4137519Z #27 0.911     #   brasileirao-predictor
+2026-09-11T01:52:42.4137790Z #27 0.911     #   predictor-ops
+2026-09-11T01:52:42.4138032Z #27 0.911     #   pydantic-settings
+2026-09-11T01:52:42.4138288Z #27 0.911 pydantic-core==2.46.5 \
+2026-09-11T01:52:42.4138715Z #27 0.911     --hash=sha256:03b9666e41e35d8909852ba191a0607520f81b74eaf12ccf8737005dbb313821 \
+2026-09-11T01:52:42.4139459Z #27 0.911     --hash=sha256:045ab3b6d308439e32b81cc173bba5b9018bc6ed896afd0c65b3b009b1699af5 \
+2026-09-11T01:52:42.4140064Z #27 0.911     --hash=sha256:0cdbada856a1c69a7624a64d3d9aefe79300bd6ef827b43a4f265010b9b55184 \
+2026-09-11T01:52:42.4140713Z #27 0.911     --hash=sha256:10416c15b8839ecc4ef4d0885da76da6fd0f67333a0eb8aff6d93c4b8f2910fc \
+2026-09-11T01:52:42.4141311Z #27 0.911     --hash=sha256:15f4a94963c95accac15b7b657bb177d3ad82bb90b0d0526d9a9b85079925db5 \
+2026-09-11T01:52:42.4141929Z #27 0.911     --hash=sha256:193375f3548919d3f0b60936ca113ada3e38f264f91b9b8e0508efaad57be931 \
+2026-09-11T01:52:42.4142527Z #27 0.911     --hash=sha256:1a353f84de772f423b5ffb11d7ae352fbbef0f446f3c0b0af0f8236d7233606e \
+2026-09-11T01:52:42.4143136Z #27 0.911     --hash=sha256:24922243639cbdac66c75fcb6fd6495a9cb52b213d62f9a0d16f0310b1ff8038 \
+2026-09-11T01:52:42.4143734Z #27 0.911     --hash=sha256:2cbd9a5eff05e51c447c34dfa4632145b26b09120cf04bd0c871e44c1a5e1c9a \
+2026-09-11T01:52:42.4144325Z #27 0.911     --hash=sha256:2d5d76654becf5efd62c9e51c3756c67b49498b0c9a40884934c40807adbd074 \
+2026-09-11T01:52:42.4145064Z #27 0.911     --hash=sha256:37ae34309d7bd8c0d61ab839668058f2a7962ea1fc51d105d2db228fe0618034 \
+2026-09-11T01:52:42.4145660Z #27 0.911     --hash=sha256:37ea7b83c935e5b0d68c9449b82651accf78a10828b2c02b2f2d9e9496446c21 \
+2026-09-11T01:52:42.4146248Z #27 0.911     --hash=sha256:46c25dda9d092a06c08db76ffe0a197107904d0dfac653f7d5306bbcd6d6119c \
+2026-09-11T01:52:42.4146827Z #27 0.911     --hash=sha256:5086029a57366b8cf81b130a43908738095c270c21a8d7f0e8bdfdb89718e2f3 \
+2026-09-11T01:52:42.4147407Z #27 0.911     --hash=sha256:52e24eacdb536cade636aa90fb851835222becff8484b7001fdc78cb0290f2aa \
+2026-09-11T01:52:42.4147987Z #27 0.911     --hash=sha256:545f26c504b27c3758439a5e6d9349931f0a04f855668d5fe323c89e82300a38 \
+2026-09-11T01:52:42.4148568Z #27 0.911     --hash=sha256:54d510bac3ee52247af28ed4bb18a1e799f040ac60fd2bf5ccd4c92f1fbe786f \
+2026-09-11T01:52:42.4149163Z #27 0.911     --hash=sha256:5ee239d575f80b08eca11f6e20f90c4c695de7825c67eefe6091fbf20dda648e \
+2026-09-11T01:52:42.4149747Z #27 0.911     --hash=sha256:5f194189415698233dd1114a093a9b56e61e2c57e11b469be3b0506f46f0771c \
+2026-09-11T01:52:42.4150323Z #27 0.911     --hash=sha256:6f7b393a8b3da82f5c1fc0751e6d01ac6c55b93c18226a60bdfba4a724efafd1 \
+2026-09-11T01:52:42.4150903Z #27 0.911     --hash=sha256:79bdfa52f843137045b2d081cc05c120ba6665d29b7559c2c47690906f39279f \
+2026-09-11T01:52:42.4151480Z #27 0.911     --hash=sha256:7ac031912d54f3d83ef3b3eb98dfabc1608802e2202263d25957eeed40b94761 \
+2026-09-11T01:52:42.4152063Z #27 0.911     --hash=sha256:82a36973cf8a2ef5406f4fe2edbf8ed0c99629535d959e0b100c76a32535a111 \
+2026-09-11T01:52:42.4152650Z #27 0.911     --hash=sha256:837b396ca3d7b74091ca623f6cbd8351bd42d670a79c2683e79fb089f06a2de5 \
+2026-09-11T01:52:42.4153228Z #27 0.911     --hash=sha256:8816f3d218beb4b787de5c9759c259b8fa61f9dec42dc7811f320a33771778b7 \
+2026-09-11T01:52:42.4153821Z #27 0.911     --hash=sha256:976e1128455aa595ea04c79ccfedff1aaeab96ee013fcc916bed120c4f0ad94f \
+2026-09-11T01:52:42.4154421Z #27 0.911     --hash=sha256:97bf8de4d541598c94a59344eeb988a94c08ff76b5723c41f6567ec18c7892ea \
+2026-09-11T01:52:42.4155133Z #27 0.911     --hash=sha256:97cf3eb53a8cccacf9d46686a0926186c9bfb5574f2ed66d3639d5fe117cd3a9 \
+2026-09-11T01:52:42.4155725Z #27 0.911     --hash=sha256:9c4b71f10dd532fb7a5cbc8f58707779e64f03a258c2bf8bfbaecfcd9970b519 \
+2026-09-11T01:52:42.4156318Z #27 0.911     --hash=sha256:a2a5e1d0ff29adddc9f6d6821a66302e4493f8ca898b715b6b1182c2c201ea0a \
+2026-09-11T01:52:42.4156910Z #27 0.911     --hash=sha256:a91c17edf6eea2402cb5457b4c89e99bc5ed1004aa34c4adf1d4258c1a5c22c2 \
+2026-09-11T01:52:42.4157643Z #27 0.911     --hash=sha256:acf8a67ba51f4ca9ddbd0e6b3000a65ac51ab734661778b3e7ba64d99a710f2f \
+2026-09-11T01:52:42.4158232Z #27 0.911     --hash=sha256:b49924c73a235e969511bf2aabdff3beebf9820931f646c80274d5d780010c47 \
+2026-09-11T01:52:42.4158815Z #27 0.911     --hash=sha256:b7ca9034437b6022f941f4857459562ee00a560b97e7cce8a0ec5a74fc6766e0 \
+2026-09-11T01:52:42.4159506Z #27 0.911     --hash=sha256:bce57638e08ac148e5778cce7feb968307a727d66f8e2274a543d0cf0c9ad6a3 \
+2026-09-11T01:52:42.4160094Z #27 0.911     --hash=sha256:c1c43ad4339643d70ebb8124e1305a7dab423001eff58bb41a0f731adbc98355 \
+2026-09-11T01:52:42.4160682Z #27 0.911     --hash=sha256:c76fe65e607be28c7fd4d56fc3c42b1583aa058ce3408b7ad0fd540171d31f9f \
+2026-09-11T01:52:42.4161269Z #27 0.911     --hash=sha256:cdbb78909f52b981d3b2d56b97328d71eb0b974c36bd77c920123a7ebb192829 \
+2026-09-11T01:52:42.4161853Z #27 0.911     --hash=sha256:d22a945598fb91236b4dd793a6e42e4f3dd7740bb5aace5ebd7d4c08d13bb575 \
+2026-09-11T01:52:42.4162438Z #27 0.911     --hash=sha256:d2f9fc07a8042a8f95925b35c4f04f469707c981fc33245b6ca187cf5d2dd290 \
+2026-09-11T01:52:42.4163040Z #27 0.911     --hash=sha256:e64e88d5585bea9ce95861079de72006c7fa6d3df4e3a3b65ba31eb979c15c9f \
+2026-09-11T01:52:42.4163631Z #27 0.911     --hash=sha256:e7b891faeedeafba41b2983e5001a81b6a915b69544c7e7570d1989ce1c36ac7 \
+2026-09-11T01:52:42.4164223Z #27 0.911     --hash=sha256:e80675d75ae2cd14372cb65cad5400d9347a3d3f6c13000183f22dfd027283ed \
+2026-09-11T01:52:42.4164933Z #27 0.911     --hash=sha256:f332f0e72a5a0400141f830744e141bf9f97917878dbe968669e8a7fefea78ff \
+2026-09-11T01:52:42.4165509Z #27 0.911     --hash=sha256:fa10ef4112775900e7a0661068635eb67b2ab824fbde764de6e0e21982a93db0 \
+2026-09-11T01:52:42.4166083Z #27 0.911     --hash=sha256:ff218293c9c806138dca139765e3b067621be52bcd93cdc14c7711be7ddc90a9
+2026-09-11T01:52:42.4166505Z #27 0.911     # via pydantic
+2026-09-11T01:52:42.4166748Z #27 0.911 pydantic-settings==2.15.0 \
+2026-09-11T01:52:42.4167169Z #27 0.911     --hash=sha256:0ba092c291c94baceb5eff768aa0d56400a457585bc0175925a5a5510303da42 \
+2026-09-11T01:52:42.4167757Z #27 0.911     --hash=sha256:694b793e84f766ba76a90ebdefc01d0a9a045dab0382bee70393da93712ad117
+2026-09-11T01:52:42.4168169Z #27 0.911     # via
+2026-09-11T01:52:42.4168383Z #27 0.911     #   brasileirao-predictor
+2026-09-11T01:52:42.4168650Z #27 0.911     #   predictor-ops
+2026-09-11T01:52:42.4168898Z #27 0.911 python-dateutil==2.9.0.post0 \
+2026-09-11T01:52:42.4169321Z #27 0.911     --hash=sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3 \
+2026-09-11T01:52:42.4169902Z #27 0.911     --hash=sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427
+2026-09-11T01:52:42.4170330Z #27 0.911     # via pandas
+2026-09-11T01:52:42.4170568Z #27 0.911 python-dotenv==1.2.3 \
+2026-09-11T01:52:42.4170968Z #27 0.911     --hash=sha256:904552145e8bfed22162c09dab1c2b9b54fefa7b23ba780f4f26ca0316b0f0d9 \
+2026-09-11T01:52:42.4171549Z #27 0.911     --hash=sha256:a20a594dabeaa385725aa239d5244871c143ecb356add8a20fcf23773a6c3a35
+2026-09-11T01:52:42.4171982Z #27 0.911     # via pydantic-settings
+2026-09-11T01:52:42.4172235Z #27 0.911 pyyaml==6.0.3 \
+2026-09-11T01:52:42.4172619Z #27 0.911     --hash=sha256:00c4bdeba853cc34e7dd471f16b4114f4162dc03e6b7afcc2128711f0eca823c \
+2026-09-11T01:52:42.4173204Z #27 0.911     --hash=sha256:02893d100e99e03eda1c8fd5c441d8c60103fd175728e23e431db1b589cf5ab3 \
+2026-09-11T01:52:42.4173790Z #27 0.911     --hash=sha256:0f29edc409a6392443abf94b9cf89ce99889a1dd5376d94316ae5145dfedd5d6 \
+2026-09-11T01:52:42.4174374Z #27 0.911     --hash=sha256:16249ee61e95f858e83976573de0f5b2893b3677ba71c9dd36b9cf8be9ac6d65 \
+2026-09-11T01:52:42.4175237Z #27 0.911     --hash=sha256:2283a07e2c21a2aa78d9c4442724ec1eb15f5e42a723b99cb3d822d48f5f7ad1 \
+2026-09-11T01:52:42.4175818Z #27 0.911     --hash=sha256:34d5fcd24b8445fadc33f9cf348c1047101756fd760b4dacb5c3e99755703310 \
+2026-09-11T01:52:42.4176410Z #27 0.911     --hash=sha256:4a2e8cebe2ff6ab7d1050ecd59c25d4c8bd7e6f400f5f82b96557ac0abafd0ac \
+2026-09-11T01:52:42.4177141Z #27 0.911     --hash=sha256:4ad1906908f2f5ae4e5a8ddfce73c320c2a1429ec52eafd27138b7f1cbe341c9 \
+2026-09-11T01:52:42.4177731Z #27 0.911     --hash=sha256:501a031947e3a9025ed4405a168e6ef5ae3126c59f90ce0cd6f2bfc477be31b7 \
+2026-09-11T01:52:42.4178311Z #27 0.911     --hash=sha256:5190d403f121660ce8d1d2c1bb2ef1bd05b5f68533fc5c2ea899bd15f4399b35 \
+2026-09-11T01:52:42.4179003Z #27 0.911     --hash=sha256:5498cd1645aa724a7c71c8f378eb29ebe23da2fc0d7a08071d89469bf1d2defb \
+2026-09-11T01:52:42.4179588Z #27 0.911     --hash=sha256:66e1674c3ef6f541c35191caae2d429b967b99e02040f5ba928632d9a7f0f065 \
+2026-09-11T01:52:42.4180174Z #27 0.911     --hash=sha256:6adc77889b628398debc7b65c073bcb99c4a0237b248cacaf3fe8a557563ef6c \
+2026-09-11T01:52:42.4180762Z #27 0.911     --hash=sha256:79005a0d97d5ddabfeeea4cf676af11e647e41d81c9a7722a193022accdb6b7c \
+2026-09-11T01:52:42.4181471Z #27 0.911     --hash=sha256:7c6610def4f163542a622a73fb39f534f8c101d690126992300bf3207eab9764 \
+2026-09-11T01:52:42.4182227Z #27 0.911     --hash=sha256:8d1fab6bb153a416f9aeb4b8763bc0f22a5586065f86f7664fc23339fc1c1fac \
+2026-09-11T01:52:42.4182829Z #27 0.911     --hash=sha256:8da9669d359f02c0b91ccc01cac4a67f16afec0dac22c2ad09f46bee0697eba8 \
+2026-09-11T01:52:42.4183423Z #27 0.911     --hash=sha256:93dda82c9c22deb0a405ea4dc5f2d0cda384168e466364dec6255b293923b2f3 \
+2026-09-11T01:52:42.4184024Z #27 0.911     --hash=sha256:a33284e20b78bd4a18c8c2282d549d10bc8408a2a7ff57653c0cf0b9be0afce5 \
+2026-09-11T01:52:42.4184737Z #27 0.911     --hash=sha256:a80cb027f6b349846a3bf6d73b5e95e782175e52f22108cfa17876aaeff93702 \
+2026-09-11T01:52:42.4185325Z #27 0.911     --hash=sha256:b3bc83488de33889877a0f2543ade9f70c67d66d9ebb4ac959502e12de895788 \
+2026-09-11T01:52:42.4185899Z #27 0.911     --hash=sha256:c1ff362665ae507275af2853520967820d9124984e0f7466736aea23d8611fba \
+2026-09-11T01:52:42.4186472Z #27 0.911     --hash=sha256:c458b6d084f9b935061bc36216e8a69a7e293a2f1e68bf956dcd9e6cbcd143f5 \
+2026-09-11T01:52:42.4187059Z #27 0.911     --hash=sha256:d0eae10f8159e8fdad514efdc92d74fd8d682c933a6dd088030f3834bc8e6b26 \
+2026-09-11T01:52:42.4187647Z #27 0.911     --hash=sha256:d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f \
+2026-09-11T01:52:42.4188238Z #27 0.911     --hash=sha256:ebc55a14a21cb14062aa4162f906cd962b28e2e9ea38f9b4391244cd8de4ae0b \
+2026-09-11T01:52:42.4188832Z #27 0.911     --hash=sha256:eda16858a3cab07b80edaf74336ece1f986ba330fdb8ee0d6c0d68fe82bc96be \
+2026-09-11T01:52:42.4189427Z #27 0.911     --hash=sha256:ee2922902c45ae8ccada2c5b501ab86c36525b883eff4255313a253a3160861c \
+2026-09-11T01:52:42.4190003Z #27 0.911     --hash=sha256:f7057c9a337546edc7973c0d3ba84ddcdf0daa14533c2065749c9075001090e6
+2026-09-11T01:52:42.4190437Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4190706Z #27 0.911 redis==8.1.0 \
+2026-09-11T01:52:42.4191084Z #27 0.911     --hash=sha256:6e1a19beef9225c83efd689c7e6b7da2d5215b1f42cd13b7fc3714d0a09c7b25 \
+2026-09-11T01:52:42.4191671Z #27 0.911     --hash=sha256:a4fe1aac3d3b3cc791d4b3d5931c5a956045dc951ee74d1c913ee3ac4d2ee9fb
+2026-09-11T01:52:42.4192118Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4192389Z #27 0.911 referencing==0.37.0 \
+2026-09-11T01:52:42.4192775Z #27 0.911     --hash=sha256:381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231 \
+2026-09-11T01:52:42.4193342Z #27 0.911     --hash=sha256:44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8
+2026-09-11T01:52:42.4193753Z #27 0.911     # via
+2026-09-11T01:52:42.4193952Z #27 0.911     #   jsonschema
+2026-09-11T01:52:42.4194201Z #27 0.911     #   jsonschema-specifications
+2026-09-11T01:52:42.4194474Z #27 0.911 requests==2.34.2 \
+2026-09-11T01:52:42.4194983Z #27 0.911     --hash=sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0 \
+2026-09-11T01:52:42.4195571Z #27 0.911     --hash=sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed
+2026-09-11T01:52:42.4196003Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4196267Z #27 0.911 rpds-py==2026.6.3 \
+2026-09-11T01:52:42.4196822Z #27 0.911     --hash=sha256:0be972be84cfcaf46c8c6edf690ca0f154ac17babf1f6a955a51579b34ad2dc5 \
+2026-09-11T01:52:42.4197417Z #27 0.911     --hash=sha256:166cf54d9f44fc6ceb53c7860258dde44a81406646de79f8ed3234fca3b6e538 \
+2026-09-11T01:52:42.4197997Z #27 0.911     --hash=sha256:1cebd1337c242e4ec2293e541f712b2da849b29f48f0c293684b71c0632625d4 \
+2026-09-11T01:52:42.4198698Z #27 0.911     --hash=sha256:1cf01971c4f2c5553b772a542e4aaf191789cd331bc2cd4ff0e6e65ba49e1e97 \
+2026-09-11T01:52:42.4199297Z #27 0.911     --hash=sha256:29dfa0533a5d4c94d4dfa1b694fcb56c9c63aad8330ffdd816fd225d0a7a162f \
+2026-09-11T01:52:42.4199891Z #27 0.911     --hash=sha256:2a9c6f195058cb45335e8cc3802745c603d716eb96bc9625950c1aac71c0c703 \
+2026-09-11T01:52:42.4200465Z #27 0.911     --hash=sha256:3cfe765c1da0072636ca06628261e0ea05688e160d5c8a03e0217c3854037223 \
+2026-09-11T01:52:42.4201030Z #27 0.911     --hash=sha256:425560c6fa0415f27261727bb20bd097568485e5eb0c121f1949417d1c516885 \
+2026-09-11T01:52:42.4201596Z #27 0.911     --hash=sha256:4470ce197d4090875cf6affbf1f853338387428df97c4fb7b7106317b8214698 \
+2026-09-11T01:52:42.4202177Z #27 0.911     --hash=sha256:4f4bca01b63096f606e095734dd56e74e175f94cfbf24ff3d63281cec61f7bb7 \
+2026-09-11T01:52:42.4202758Z #27 0.911     --hash=sha256:536bceea4fa4acf7e1c61da2b5786304367c816c8895be71b8f537c480b0ea1f \
+2026-09-11T01:52:42.4203342Z #27 0.911     --hash=sha256:539d75de9e0d536c84ff18dfeb805398e58227001ce09231a26a08b9aed1ee0e \
+2026-09-11T01:52:42.4203926Z #27 0.911     --hash=sha256:54f45a148e28767bf343d33a684693c70e451c6f4c0e9904709a723fafbdfc1f \
+2026-09-11T01:52:42.4204510Z #27 0.911     --hash=sha256:639c8929aa0afe81be836b04de888460d6bed38b9c54cfc18da8f6bfabf5af5d \
+2026-09-11T01:52:42.4205224Z #27 0.911     --hash=sha256:6de4744d05bd1aa1be4ed7ea1189e3979196808008113bbbf899a460966b925e \
+2026-09-11T01:52:42.4205806Z #27 0.911     --hash=sha256:8020133a74bd81b4572dd8e4be028a6b1ebcd70e6726edc3918008c08bee6ee6 \
+2026-09-11T01:52:42.4206381Z #27 0.911     --hash=sha256:842e7b070435622248c7a2c44ae53fa1440e073cc3023bc919fed570884097a7 \
+2026-09-11T01:52:42.4206959Z #27 0.911     --hash=sha256:847927daf4cffbd4e90e42bc890069897101edd015f956cb8721b3473372edda \
+2026-09-11T01:52:42.4207531Z #27 0.911     --hash=sha256:882076c00c0a608b131187055ddc5ae29f2e7eaf870d6168980420d58528a5c8 \
+2026-09-11T01:52:42.4208118Z #27 0.911     --hash=sha256:8c3d1e9c15b9d51ca0391e13da1a25a0a4df3c58a37c9dc368e0736cf7f69df0 \
+2026-09-11T01:52:42.4208707Z #27 0.911     --hash=sha256:8c6e5a2f750cc71c3e3b11d71661f21d6f9bc6cebc6564b1466417a1ec03ec77 \
+2026-09-11T01:52:42.4209292Z #27 0.911     --hash=sha256:900a67df3fd1660b035a4761c4ce73c382ea6b35f90f9863c36c6fd8bf8b09bb \
+2026-09-11T01:52:42.4209876Z #27 0.911     --hash=sha256:9250a9a0a6fd4648b3f868da8d91a4c52b5811a62df58e753d50ae4454a36f80 \
+2026-09-11T01:52:42.4210455Z #27 0.911     --hash=sha256:931908d9fc855d8f74783377822be318edb6dcb19e47169dc038f9a1bf60b06e \
+2026-09-11T01:52:42.4211021Z #27 0.911     --hash=sha256:9826217f048f620d9a712672818bf231442c1b35d96b227a07eabd11b4bb6945 \
+2026-09-11T01:52:42.4211601Z #27 0.911     --hash=sha256:a550fb4950a06dde3beb4721f5ad4b25bf4513784665b0a8522c792e2bd822a4 \
+2026-09-11T01:52:42.4212188Z #27 0.911     --hash=sha256:aca6c1ef08a82bfe327cc156da694660f599923e2e6665b6d81c9c2d0ac9ffc8 \
+2026-09-11T01:52:42.4212782Z #27 0.911     --hash=sha256:acac386b453c2516111b50985d60ce46e7fadb5ea71ae7b25f4c946935bf27cf \
+2026-09-11T01:52:42.4213370Z #27 0.911     --hash=sha256:ae50181a047c871561212bb97f7932a2d45fb53e947bd9b57ebad85b529cbc53 \
+2026-09-11T01:52:42.4213953Z #27 0.911     --hash=sha256:af05d726809bff6b141be124d4c7ce998f9c9c7f30edb1f46c07aa103d540b41 \
+2026-09-11T01:52:42.4214534Z #27 0.911     --hash=sha256:afd70d95892096cdb26f15a00c45907b17817577aa8d1c76b2dcc2788391f9e9 \
+2026-09-11T01:52:42.4215646Z #27 0.911     --hash=sha256:bc0011654b91cc4fb2ae701bec0a0ba1e552c0714247fa7af6c59e0ccfa3a4e1 \
+2026-09-11T01:52:42.4216252Z #27 0.911     --hash=sha256:bcfbcf66006befb9fd2aeaa9e01feaf881b4dc330a02ba07d2322b1c11be7b5d \
+2026-09-11T01:52:42.4217008Z #27 0.911     --hash=sha256:c7b9a2f8f4d8e90af72571d3d495deebdd7e3c75451f5b41719aee166e940fc2 \
+2026-09-11T01:52:42.4217608Z #27 0.911     --hash=sha256:ccffae9a092a00deb7efd545fe5e2c33c33b88e7c054337e9a74c179347d0b7d \
+2026-09-11T01:52:42.4218209Z #27 0.911     --hash=sha256:cdc7e35386f3847df728fbcb5e887e2d79c19e2fa1eba9e51b6621d23e3243af \
+2026-09-11T01:52:42.4218905Z #27 0.911     --hash=sha256:d34c20167764fbcf927194d532dd7e0c56772f0a5f943fa5ef9e9afbba8fb9db \
+2026-09-11T01:52:42.4219501Z #27 0.911     --hash=sha256:d7469697dce35be237db177d42e2a2ee26e6dcc5fc052078a6fefabd288c6edd \
+2026-09-11T01:52:42.4220091Z #27 0.911     --hash=sha256:dc319e5a1de4b6913aac94bf6a2f9e847371e0a140a43dd4991db1a09bc2d504 \
+2026-09-11T01:52:42.4220685Z #27 0.911     --hash=sha256:e4316bf32babbed84e691e352faf967ce2f0f024174a8643c37c94a1080374fc \
+2026-09-11T01:52:42.4221275Z #27 0.911     --hash=sha256:ea7bb13b7c9a29791f87a0387ba7d3ad3a6d783d827e4d3f27b40a0ff44495e2 \
+2026-09-11T01:52:42.4221875Z #27 0.911     --hash=sha256:ea964164cc9afa72d4d9b23cc28dafae93693c0a53e0b42acbff15b22c3f9ddd \
+2026-09-11T01:52:42.4222472Z #27 0.911     --hash=sha256:ec829541c45bca16e61c7ae50c20501f213605beb75d1aba91a6ee37fbbb56a4 \
+2026-09-11T01:52:42.4223053Z #27 0.911     --hash=sha256:f4d78253f6996be4901669ad25319f842f740eccf4d58e3c7f3dd39e6dde1d8f \
+2026-09-11T01:52:42.4223626Z #27 0.911     --hash=sha256:f90938e92afda60266da758ee7d363447f7f0138c9559f9e1811629580582d90
+2026-09-11T01:52:42.4224034Z #27 0.911     # via
+2026-09-11T01:52:42.4224230Z #27 0.911     #   jsonschema
+2026-09-11T01:52:42.4224457Z #27 0.911     #   referencing
+2026-09-11T01:52:42.4224849Z #27 0.911 scipy==1.18.1 \
+2026-09-11T01:52:42.4225225Z #27 0.911     --hash=sha256:011413b7426b75012840e35649e00fe0a2c3bae89fed433876e3a99251572efc \
+2026-09-11T01:52:42.4225801Z #27 0.911     --hash=sha256:0e82073ecc7acc6436fac4b31674109c7e1d3e596789767eda01258a8c9e8123 \
+2026-09-11T01:52:42.4226390Z #27 0.911     --hash=sha256:0fcb3c93519f27bb4f0c4b0f7802cdcaca7fcf93267b75edda2e9f4e8a55cbd7 \
+2026-09-11T01:52:42.4226982Z #27 0.911     --hash=sha256:11c423f1049c5755ad4409af52a9ada1cff96fe9b50795d4af3619f292901239 \
+2026-09-11T01:52:42.4227564Z #27 0.911     --hash=sha256:2d3ab0e8c69a17dd3559eab8cbb88f258e285c94d572c2719033f90f83290c89 \
+2026-09-11T01:52:42.4228149Z #27 0.911     --hash=sha256:3ab3523da44749156e1f68b464dc56af11ae4cbc5c739a49d05f32b982eca9f3 \
+2026-09-11T01:52:42.4228734Z #27 0.911     --hash=sha256:52c4b7422442aba924d03ad4019852b08a92e64ea187b933135687bfe2747307 \
+2026-09-11T01:52:42.4229307Z #27 0.911     --hash=sha256:559ed65f60c1af5a03f3912605a1b5114f522c7c32fb23c3376ae8f03219fe28 \
+2026-09-11T01:52:42.4229883Z #27 0.911     --hash=sha256:75b00eb8fb802090aa903f4ea1c7f5a584779f967361e68b7e98e531cc2d7174 \
+2026-09-11T01:52:42.4230454Z #27 0.911     --hash=sha256:78a0d7c918e74a232394117160e7e3db503377572a45bcef8826e4ab8a35feba \
+2026-09-11T01:52:42.4231029Z #27 0.911     --hash=sha256:7f4b8bc363b6d65ee2152bec57568e3c52639bb34c46057b09857a307ed5e21d \
+2026-09-11T01:52:42.4231607Z #27 0.911     --hash=sha256:83de5453a7799afc9048b4616bd085cef126e36412f0ea2f6370c36a2a3a51e7 \
+2026-09-11T01:52:42.4232077Z #27 0.911     --hash=sha256:Resolved 60 packages in 285ms
+2026-09-11T01:52:42.4232502Z #27 0.911 88f0e784020649f88ea48c9f5ddfa403bf9205820667c0914740b392035afb82 \
+2026-09-11T01:52:42.4233052Z #27 0.911     --hash=sha256:8bcf3c1ba5d6456e2effd30fcbd3459b044d683fcdac79a2e6830f0bdf7de487 \
+2026-09-11T01:52:42.4233644Z #27 0.911     --hash=sha256:911de823097db8b63f034299d12662db93344e6ffa0b881cbb57748974b70168 \
+2026-09-11T01:52:42.4234218Z #27 0.911     --hash=sha256:95298364e251be3e60249facbeeca03631d3bb7584f85879516ec55ac717b81f \
+2026-09-11T01:52:42.4234937Z #27 0.911     --hash=sha256:9554bcc6d715ee87a633a3cc8e7703c6628b100dd29cb8a2efc4c0533c7ff729 \
+2026-09-11T01:52:42.4235521Z #27 0.911     --hash=sha256:9f2897bf7737392ad0d5213ea7b6add72a4edf5679b3153106aeb88b6507b3b9 \
+2026-09-11T01:52:42.4236104Z #27 0.911     --hash=sha256:a1d33a7836f7ddc1993427966a0823468ec41bcbdb1a9f9942d1d7e57f803ba3 \
+2026-09-11T01:52:42.4236834Z #27 0.911     --hash=sha256:ac0333bdf38309aa3dcbe7e3fa7ea29e7a2c37c6ea306a757b700ded8e4596ad \
+2026-09-11T01:52:42.4237426Z #27 0.911     --hash=sha256:c24acac1e18912761c4700239bbc1fd32f615af690f1584d49b35859be51324d \
+2026-09-11T01:52:42.4238007Z #27 0.911     --hash=sha256:c825cef2f49e46753726a7181a8e199804a912b29519ada542c6ebc654951899 \
+2026-09-11T01:52:42.4238716Z #27 0.911     --hash=sha256:cbf38d043c1aa4ab306e1ada6ab6eddacc3322a20b7af1b30bc93254b366fe09 \
+2026-09-11T01:52:42.4239312Z #27 0.911     --hash=sha256:cd479fc04dd9401e3b4f49e76518768ef99c4f517a98c284eb091fd725719adf \
+2026-09-11T01:52:42.4239935Z #27 0.911     --hash=sha256:cfbf154f2ba187f2ed6cce2639efff7d105f1140573642c0161615b6d91d6a87 \
+2026-09-11T01:52:42.4240523Z #27 0.911     --hash=sha256:d416b16cccfd70fbf62400e84d0bb2f4e6af519a45557f1692c749b37f14b315 \
+2026-09-11T01:52:42.4241111Z #27 0.911     --hash=sha256:ddef79fb382df40104a19bb7151b3b23e57c1778fcf857c71ceecd9bd264513f \
+2026-09-11T01:52:42.4241709Z #27 0.911     --hash=sha256:e3b417bf8c2c7c16e8f58ad91db17783ec911ac16e7b50eb6eab6e809b4f5b07 \
+2026-09-11T01:52:42.4242308Z #27 0.911     --hash=sha256:e6fb6a55cc0ba97b59a1f288fb86dc6fce8bdfc0fffcbfd015e3a954bf2a2d93 \
+2026-09-11T01:52:42.4242908Z #27 0.911     --hash=sha256:ea324d9dd34c38bfb9bec8ca4d1b407db97dbb74029f566b8e322b1b6fe56fe6 \
+2026-09-11T01:52:42.4243494Z #27 0.911     --hash=sha256:fdaf5ea890a6183d0565f51a61799d67081bd5b1cf03c5f4b3fd3732108625c9
+2026-09-11T01:52:42.4243934Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4244192Z #27 0.911 six==1.17.0 \
+2026-09-11T01:52:42.4244680Z #27 0.911     --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
+2026-09-11T01:52:42.4245267Z #27 0.911     --hash=sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81
+2026-09-11T01:52:42.4245696Z #27 0.911     # via python-dateutil
+2026-09-11T01:52:42.4245950Z #27 0.911 truststore==0.10.4 \
+2026-09-11T01:52:42.4246344Z #27 0.911     --hash=sha256:9d91bd436463ad5e4ee4aba766628dd6cd7010cf3e2461756b3303710eebc301 \
+2026-09-11T01:52:42.4246937Z #27 0.911     --hash=sha256:adaeaecf1cbb5f4de3b1959b42d41f6fab57b2b1666adb59e89cb0b53361d981
+2026-09-11T01:52:42.4247382Z #27 0.911     # via brasileirao-predictor
+2026-09-11T01:52:42.4247661Z #27 0.911 typing-extensions==4.16.0 \
+2026-09-11T01:52:42.4248082Z #27 0.911     --hash=sha256:481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8 \
+2026-09-11T01:52:42.4248663Z #27 0.911     --hash=sha256:dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5
+2026-09-11T01:52:42.4249080Z #27 0.911     # via
+2026-09-11T01:52:42.4249273Z #27 0.911     #   pydantic
+2026-09-11T01:52:42.4249495Z #27 0.911     #   pydantic-core
+2026-09-11T01:52:42.4249734Z #27 0.911     #   typing-inspection
+2026-09-11T01:52:42.4249992Z #27 0.911 typing-inspection==0.4.4 \
+2026-09-11T01:52:42.4250401Z #27 0.911     --hash=sha256:547274fa6b0a561ccf549cc9524b999a578e737d015d8709d021f9d0d13bea47 \
+2026-09-11T01:52:42.4250982Z #27 0.911     --hash=sha256:65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147
+2026-09-11T01:52:42.4251401Z #27 0.911     # via
+2026-09-11T01:52:42.4251592Z #27 0.911     #   pydantic
+2026-09-11T01:52:42.4251810Z #27 0.911     #   pydantic-settings
+2026-09-11T01:52:42.4252180Z #27 0.911 tzdata==2026.3 ; sys_platform == 'emscripten' or sys_platform == 'win32' \
+2026-09-11T01:52:42.4252727Z #27 0.911     --hash=sha256:4a1518b8993086a7982523e071643f3c0e5f213e75b21318e78bcabfff9d1415 \
+2026-09-11T01:52:42.4253297Z #27 0.911     --hash=sha256:dc096730c87af6cab1b171c9d532be840741ff5d459015e7f6947bd7d7e54931
+2026-09-11T01:52:42.4253708Z #27 0.911     # via pandas
+2026-09-11T01:52:42.4253935Z #27 0.911 urllib3==2.7.0 \
+2026-09-11T01:52:42.4254317Z #27 0.911     --hash=sha256:231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c \
+2026-09-11T01:52:42.4255218Z #27 0.911     --hash=sha256:9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897
+2026-09-11T01:52:42.4255653Z #27 0.911     # via requests
+2026-09-11T01:52:42.4256032Z #27 0.930 Building wheel...
+2026-09-11T01:52:42.4256387Z #27 1.638 Successfully built dist/brasileirao_predictor-0.1.0-py3-none-any.whl
+2026-09-11T01:52:42.4256871Z #27 1.654 Using CPython 3.14.7 interpreter at: /usr/local/bin/python3
+2026-09-11T01:52:42.4257267Z #27 1.654 Creating virtual environment at: /opt/venv
+2026-09-11T01:52:42.4257619Z #27 1.755 Using Python 3.14.7 environment at: /opt/venv
+2026-09-11T01:52:42.4258055Z #27 2.186 Resolved 30 packages in 428ms
+2026-09-11T01:52:42.4258333Z #27 2.215 Downloading numba (3.7MiB)
+2026-09-11T01:52:42.4258614Z #27 2.216 Downloading pydantic-core (2.0MiB)
+2026-09-11T01:52:42.4258899Z #27 2.218 Downloading scipy (33.7MiB)
+2026-09-11T01:52:42.4259164Z #27 2.220 Downloading llvmlite (57.1MiB)
+2026-09-11T01:52:42.4259428Z #27 2.226 Downloading numpy (15.9MiB)
+2026-09-11T01:52:42.4259684Z #27 2.227 Downloading pandas (10.5MiB)
+2026-09-11T01:52:42.4259944Z #27 2.570  Downloaded pydantic-core
+2026-09-11T01:52:42.4260191Z #27 3.336  Downloaded numba
+2026-09-11T01:52:42.4260420Z #27 4.037  Downloaded numpy
+2026-09-11T01:52:42.4260652Z #27 4.373  Downloaded llvmlite
+2026-09-11T01:52:42.4260883Z #27 4.786  Downloaded scipy
+2026-09-11T01:52:42.4261105Z #27 4.848  Downloaded pandas
+2026-09-11T01:52:42.4261349Z #27 4.870 Prepared 28 packages in 2.68s
+2026-09-11T01:52:42.4261618Z #27 5.175 Installed 30 packages in 305ms
+2026-09-11T01:52:42.4261888Z #27 5.177  + annotated-types==0.8.0
+2026-09-11T01:52:42.4262134Z #27 5.177  + attrs==26.1.0
+2026-09-11T01:52:42.4262348Z #27 5.177  + certifi==2026.7.22
+2026-09-11T01:52:42.4262588Z #27 5.177  + charset-normalizer==3.5.1
+2026-09-11T01:52:42.4262834Z #27 5.177  + hiredis==3.4.1
+2026-09-11T01:52:42.4263045Z #27 5.177  + idna==3.19
+2026-09-11T01:52:42.4263261Z #27 5.177  + jsonschema==4.26.0
+2026-09-11T01:52:42.4263529Z #27 5.177  + jsonschema-specifications==2025.9.1
+2026-09-11T01:52:42.4263827Z #27 5.177  + llvmlite==0.49.0
+2026-09-11T01:52:42.4264052Z #27 5.177  + numba==0.67.0
+2026-09-11T01:52:42.4264268Z #27 5.177  + numpy==2.5.2
+2026-09-11T01:52:42.4264486Z #27 5.177  + pandas==3.0.5
+2026-09-11T01:52:42.4265271Z #27 5.177  + predictor-core==3.2.0 (from https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl)
+2026-09-11T01:52:42.4266333Z #27 5.177  + predictor-ops==4.1.0 (from https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl)
+2026-09-11T01:52:42.4266983Z #27 5.177  + pydantic==2.13.5
+2026-09-11T01:52:42.4267230Z #27 5.177  + pydantic-core==2.46.5
+2026-09-11T01:52:42.4267490Z #27 5.177  + pydantic-settings==2.15.0
+2026-09-11T01:52:42.4267765Z #27 5.177  + python-dateutil==2.9.0.post0
+2026-09-11T01:52:42.4268067Z #27 5.177  + python-dotenv==1.2.3
+2026-09-11T01:52:42.4268311Z #27 5.177  + pyyaml==6.0.3
+2026-09-11T01:52:42.4268524Z #27 5.177  + redis==8.1.0
+2026-09-11T01:52:42.4268746Z #27 5.177  + referencing==0.37.0
+2026-09-11T01:52:42.4268981Z #27 5.177  + requests==2.34.2
+2026-09-11T01:52:42.4269216Z #27 5.177  + rpds-py==2026.6.3
+2026-09-11T01:52:42.4269445Z #27 5.177  + scipy==1.18.1
+2026-09-11T01:52:42.4269664Z #27 5.177  + six==1.17.0
+2026-09-11T01:52:42.4269878Z #27 5.177  + truststore==0.10.4
+2026-09-11T01:52:42.4270114Z #27 5.177  + typing-extensions==4.16.0
+2026-09-11T01:52:42.4270376Z #27 5.177  + typing-inspection==0.4.4
+2026-09-11T01:52:42.4270627Z #27 5.177  + urllib3==2.7.0
+2026-09-11T01:52:42.4270897Z #27 5.192 Using Python 3.14.7 environment at: /opt/venv
+2026-09-11T01:52:42.4271207Z #27 5.195 Resolved 1 package in 1ms
+2026-09-11T01:52:42.4271459Z #27 5.235 Prepared 1 package in 39ms
+2026-09-11T01:52:42.4271715Z #27 5.285 Installed 1 package in 49ms
+2026-09-11T01:52:42.4272200Z #27 5.285  + brasileirao-predictor==0.1.0 (from file:///build/dist/brasileirao_predictor-0.1.0-py3-none-any.whl)
+2026-09-11T01:52:42.4272695Z #27 DONE 5.3s
+2026-09-11T01:52:42.5450142Z 
+2026-09-11T01:52:42.5467494Z #28 [init-data builder 8/8] RUN python -c "import urllib.request; urllib.request.urlretrieve('https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl', 'predictor_core-3.2.0-py3-none-any.whl'); urllib.request.urlretrieve('https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl', 'predictor_ops-4.1.0-py3-none-any.whl')"     && sha256sum -c constraints/shared-wheels.sha256     && uv export --locked --no-dev --no-emit-project         --format requirements.txt --output-file requirements.lock     && uv build --wheel && uv venv /opt/venv     && uv pip sync --python /opt/venv/bin/python --require-hashes requirements.lock     && uv pip install --python /opt/venv/bin/python --no-deps dist/*.whl
+2026-09-11T01:52:42.5473868Z #28 0.531 predictor_core-3.2.0-py3-none-any.whl: OK
+2026-09-11T01:52:42.5475046Z #28 0.531 predictor_ops-4.1.0-py3-none-any.whl: OK
+2026-09-11T01:52:42.5475952Z #28 0.616 Using CPython 3.14.7 interpreter at: /usr/local/bin/python3
+2026-09-11T01:52:42.5476983Z #28 0.947 # This file was autogenerated by uv via the following command:
+2026-09-11T01:52:42.5478305Z #28 0.947 #    uv export --locked --no-dev --no-emit-project --format requirements.txt --output-file requirements.lock
+2026-09-11T01:52:42.5479472Z #28 0.947 annotated-types==0.8.0 \
+2026-09-11T01:52:42.5480465Z #28 0.947     --hash=sha256:13b2beaad985e05e2d6407ee4c4f35590b11f8d693a258a561055cac8f64cab7 \
+2026-09-11T01:52:42.5482201Z #28 0.947     --hash=sha256:f072f4d804ea359e4eaf198b1af7a8b0943881a87f31bb764f8bf219bb9419e0
+2026-09-11T01:52:42.5483205Z #28 0.947     # via pydantic
+2026-09-11T01:52:42.5483912Z #28 0.947 attrs==26.1.0 \
+2026-09-11T01:52:42.5485021Z #28 0.947     --hash=sha256:c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309 \
+2026-09-11T01:52:42.5487656Z #28 0.947     --hash=sha256:d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32
+2026-09-11T01:52:42.5488653Z #28 0.947     # via
+2026-09-11T01:52:42.5489192Z #28 0.947     #   jsonschema
+2026-09-11T01:52:42.5489794Z #28 0.947     #   referencing
+2026-09-11T01:52:42.5490410Z #28 0.947 certifi==2026.7.22 \
+2026-09-11T01:52:42.5491320Z #28 0.947     --hash=sha256:62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775 \
+2026-09-11T01:52:42.5492837Z #28 0.947     --hash=sha256:741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55
+2026-09-11T01:52:42.5493963Z #28 0.947     # via requests
+2026-09-11T01:52:42.5494848Z #28 0.947 charset-normalizer==3.5.1 \
+2026-09-11T01:52:42.5495875Z #28 0.947     --hash=sha256:01e93745f7f219b703b60ba7afead36cfc4242782be5af484673fc500df12da5 \
+2026-09-11T01:52:42.5497144Z #28 0.947     --hash=sha256:09a7bba9f739468c8e78c36a75c33768e53cb1959fc638f510454c14683f00d5 \
+2026-09-11T01:52:42.5498421Z #28 0.947     --hash=sha256:0c6dfb5ca6723eeed15aa8e564a014d69fcb8812f94eef11fe3631e0508199f5 \
+2026-09-11T01:52:42.5499644Z #28 0.947     --hash=sha256:0d929fc574b4d6fd9e7c0f5c2ede8716a41911923aa7fa5fce38e0818aa4a1ac \
+2026-09-11T01:52:42.5500820Z #28 0.947     --hash=sha256:15f024313246a4ed976c60f440bb8d257815513a681d212ff74fd46f7d715a90 \
+2026-09-11T01:52:42.5502028Z #28 0.947     --hash=sha256:1f5883d77fd409a261abb5dc8ccbe335720d798b1de4abb3b1d47ccbbc76b53b \
+2026-09-11T01:52:42.5503256Z #28 0.947     --hash=sha256:256dd4d85d9e4dc595e2bc983c980e73f62ddeb3165c58b4c3dfe78c5c8548c1 \
+2026-09-11T01:52:42.5505692Z #28 0.947     --hash=sha256:26422d45fd13551cf564c58932f7d72b4f58b93b0fcf18c35ba6be12b46bb102 \
+2026-09-11T01:52:42.5506909Z #28 0.947     --hash=sha256:2bced4061f000f7187254a02ad3433ae17eaf991747ceea2f478422590a5bba9 \
+2026-09-11T01:52:42.5507978Z #28 0.947     --hash=sha256:2f06b7eae9dbe77fe1d644ca244dad508de8d302870a43f3c559b521270938a0 \
+2026-09-11T01:52:42.5509093Z #28 0.947     --hash=sha256:2f293479cce755c75f1697e87c409b7ae4c555c7dfecb6e988ad13abba943031 \
+2026-09-11T01:52:42.5510120Z #28 0.947     --hash=sha256:329fc3ccb63ad22d867d84c2adea759a64079a37ba4a343433b02c7a2816871e \
+2026-09-11T01:52:42.5511146Z #28 0.947     --hash=sha256:343fb4f2821043bd87095f7b08a1a181febc8e36ac64212143bbfd0a0e1bc235 \
+2026-09-11T01:52:42.5512412Z #28 0.947     --hash=sha256:3588e376b3ea2eea84976f67273d679f229e24c66dce7b82ae45aef04ff6e072 \
+2026-09-11T01:52:42.5513483Z #28 0.947     --hash=sha256:35fe081843b35aad20ffeccec3eeffbe637b15d14f3fb22cc1b59cd8ec17e93c \
+2026-09-11T01:52:42.5514814Z #28 0.947     --hash=sha256:36047af20e17097c3bb9476c2b7655f2f7aa51322c0ba58c07695bedf755a950 \
+2026-09-11T01:52:42.5515843Z #28 0.947     --hash=sha256:394fea06235c8543390050ed5f529187074b029fb027213f6c46ac11ab5d950e \
+2026-09-11T01:52:42.5516904Z #28 0.947     --hash=sha256:41876ee62a3dddf48ff1121ad8f0798032aa03f2fd35f21f34a4cab14f18d8d2 \
+2026-09-11T01:52:42.5517934Z #28 0.947     --hash=sha256:485a0d363cafefcd2538a73c7c838daa2035f09b2c9f9b5e3133f80c6aeb84c2 \
+2026-09-11T01:52:42.5518912Z #28 0.947     --hash=sha256:496846868fea80e479324862fa877f02411f2fd0f83b79ccee2607aa68b2a032 \
+2026-09-11T01:52:42.5519899Z #28 0.947     --hash=sha256:4b599739b93b2cbeded49645ae3c8d1405c29ddfbceac1545c87a3f9580a9e96 \
+2026-09-11T01:52:42.5520884Z #28 0.947     --hash=sha256:4bea7f8ebe90bbd7f0e4a2de42ca6924ba23e3e76418c408ff82f1d46fabd687 \
+2026-09-11T01:52:42.5521798Z #28 0.947     --hash=sha256:4c4fb141a727957c93edfe5c32a26ceb6b5f6461d67146e2d39f51e16170bea8 \
+2026-09-11T01:52:42.5522384Z #28 0.947     --hash=sha256:4c9548dc78002099910abaebc0a72ac58b7d30931869e0351c09b507dff4ece3 \
+2026-09-11T01:52:42.5522965Z #28 0.947     --hash=sha256:4f298bdadb8f0b9e5672877f647d1be9373ef5320c9e2f049795e26cad28b6a9 \
+2026-09-11T01:52:42.5523566Z #28 0.947     --hash=sha256:52ec005752a56ae79547a05c0139ca2501a0c866390b6115008456b9f0e7cde1 \
+2026-09-11T01:52:42.5524175Z #28 0.947     --hash=sha256:58d3e12c88e0950bca850ae1f7c256055c097639c2edb9eb123af9807d8b15e4 \
+2026-09-11T01:52:42.5524943Z #28 0.947     --hash=sha256:58d4aa13a59c969dbfdf9e6a9560e242cbfd9e8a8f50c2747714df1a423adf65 \
+2026-09-11T01:52:42.5525542Z #28 0.947     --hash=sha256:5c0ea61a470e070686aa30892fed79e297d2c8d0ab46b8bcdf027d38c51da591 \
+2026-09-11T01:52:42.5526117Z #28 0.947     --hash=sha256:6117b84ea48435e5356dc737f5121485c30920ba43375fa7b434fd753df0eac3 \
+2026-09-11T01:52:42.5526693Z #28 0.947     --hash=sha256:62b55f6722735a6c472f88361cde6640608773d9443cebdbb51abf436a1fcdd3 \
+2026-09-11T01:52:42.5527270Z #28 0.947     --hash=sha256:6b7430cf5728e68f6c462254009a6ef4086e1bea43cf2f57aa9c55fb4f50ff96 \
+2026-09-11T01:52:42.5527877Z #28 0.947     --hash=sha256:6c9cdde8becb25a7fde49924511aa2644d6f8081cc8df8e9452724303348d8e3 \
+2026-09-11T01:52:42.5528484Z #28 0.947     --hash=sha256:6df0ec430f9a831772c23ca5a224cba36517a58a84bb32c32bb59a9fa67c47f6 \
+2026-09-11T01:52:42.5529081Z #28 0.947     --hash=sha256:70055ff39b97c99e7ae40ea3e393fb62aa2e44dbd9b29f8d14f42fb0025c3959 \
+2026-09-11T01:52:42.5529664Z #28 0.947     --hash=sha256:774d157f112367ff4abd29019f38f023c24e00e56edc7829c20e358a5a913ad8 \
+2026-09-11T01:52:42.5530255Z #28 0.947     --hash=sha256:7ac76cf9afd34929d76eb7fcb63be476a4853d8a96f0dcf2d0db68a0cbdf9885 \
+2026-09-11T01:52:42.5530849Z #28 0.947     --hash=sha256:823f82903d189af463d7df250ef1f7f696f3cee08cc8d91deb565e8d425f6506 \
+2026-09-11T01:52:42.5531439Z #28 0.947     --hash=sha256:85d5855daafc240cc045c026d7a15fd198a09b0fc8ff6f5ecbb5297b509cb11e \
+2026-09-11T01:52:42.5532025Z #28 0.947     --hash=sha256:87e4f41d375c0b9be2fb5251aee4b8a689169e134535aed81bf085c3b647451e \
+2026-09-11T01:52:42.5532608Z #28 0.947     --hash=sha256:88ca277405c2d3b71c4e1c2ee0e7966e807bcba86a69d11e19ba199d18ae4491 \
+2026-09-11T01:52:42.5533206Z #28 0.947     --hash=sha256:90b7481fb62fbe172c558bc6fd1c4c98d82004a54a7551f20e11ac9bf0b8708c \
+2026-09-11T01:52:42.5533797Z #28 0.947     --hash=sha256:9362dd90aa7dab48c0054a21187791ccf05473f7dba5d92b8033ae62164675e7 \
+2026-09-11T01:52:42.5534380Z #28 0.947     --hash=sha256:94d78ecec2605a8d0398b0f365d5f12a63248438516f5dac536a5eff7337df4a \
+2026-09-11T01:52:42.5535098Z #28 0.947     --hash=sha256:977cdbd483a9cff38179bea4fd754289a6f2195c7abd414aba85410b3e66cc5e \
+2026-09-11T01:52:42.5535708Z #28 0.947     --hash=sha256:9ac4444d8d4fd4c4bd08bf451ed3167aa9e7ec6cdb41b648794f1d1103652e36 \
+2026-09-11T01:52:42.5536495Z #28 0.947     --hash=sha256:9d9a0dc7cbe9bec24c3f767c9122c41fe5a1bc43f47cd099d00d393e09769de4 \
+2026-09-11T01:52:42.5537081Z #28 0.947     --hash=sha256:9eea3ab2597a5e65fe65296e2d6a84570845a6b55532d90333d740d48bbc850a \
+2026-09-11T01:52:42.5537807Z #28 0.947     --hash=sha256:a2028475ba855475b8b4d3cfeb4994269c967aea8b9892dfba907f4263a863a3 \
+2026-09-11T01:52:42.5538518Z #28 0.947     --hash=sha256:a3a370082ce34d0612f421e15fe011c53bb1feff21a26d06ad4fb244dab5a375 \
+2026-09-11T01:52:42.5539109Z #28 0.947     --hash=sha256:a6dac12ff6b846103483683f60c5f8fee205121adc58ffd87e90a90a3af69e99 \
+2026-09-11T01:52:42.5539692Z #28 0.947     --hash=sha256:ab743e9bc90c1f73552ec33e10e3331315acd2c397b36065b591b0181de533cc \
+2026-09-11T01:52:42.5540280Z #28 0.947     --hash=sha256:acaf604462bf330b0d07e7a07c1d6e4adac79e5fb13e9c5140590542cafacc00 \
+2026-09-11T01:52:42.5540872Z #28 0.947     --hash=sha256:ae4a097991662cd4fff0ddc74e0fe7874f82e00042fa0ea00855645ed0c79598 \
+2026-09-11T01:52:42.5541468Z #28 0.947     --hash=sha256:aea996a6aba25260827c9ea511d1addfde2da9eb686ac961838509086188b7e6 \
+2026-09-11T01:52:42.5542054Z #28 0.947     --hash=sha256:b39b69b347e5e47a3b5b8cfc005c68c1ba347474e3960236c4944a8ecd174962 \
+2026-09-11T01:52:42.5542643Z #28 0.947     --hash=sha256:bb57753e36e4855b8ca375069482250a6246372331a3e4f3407eaebb007443f5 \
+2026-09-11T01:52:42.5543216Z #28 0.947     --hash=sha256:c010f5581d9c612804cc59fcf7b524b707fbcb72828551237ab545bb5c7034af \
+2026-09-11T01:52:42.5543807Z #28 0.947     --hash=sha256:c428c6c31eb5f4277d7f8eccaf767fbd548ddd5ce3c8b4f4cbbfab3d96b5904c \
+2026-09-11T01:52:42.5544413Z #28 0.947     --hash=sha256:c658c50ac0c98cd755a2dd50b7977d3bca7df401dcc47fbdfa87db53ef7d4e8b \
+2026-09-11T01:52:42.5545155Z #28 0.947     --hash=sha256:c71fb0d56c920c269cd3e2e3fe7c610e3f1fdb21a6ce60efa6430ff63676cea6 \
+2026-09-11T01:52:42.5545757Z #28 0.947     --hash=sha256:cee5dd7c6fb5dd52a0fe2a740f9bc6e3593f5f8b1788bde49de02086f30182b2 \
+2026-09-11T01:52:42.5546342Z #28 0.947     --hash=sha256:d59b75732e9b6f27388e10c14b0259cc5f2e48c78627d185e6a177b58ad3cffe \
+2026-09-11T01:52:42.5546931Z #28 0.947     --hash=sha256:d63600d620ad0064c3a748b950ac5ea38a80190e5498532efefa4b7b3f1da1f3 \
+2026-09-11T01:52:42.5547541Z #28 0.947     --hash=sha256:dd732602a7009217f658d5863d12d79d373a4de0eebc111094bcdd3bb8e0a6cc \
+2026-09-11T01:52:42.5548132Z #28 0.947     --hash=sha256:e199fb99720074809a7720f1c0b4d919eea8b87e88713e0f8f602f7bef543d9d \
+2026-09-11T01:52:42.5548720Z #28 0.947     --hash=sha256:e71c909f353863b2b89c83de2ebed71ea6d0df8a6ef65a128193c5e650766bef \
+2026-09-11T01:52:42.5549311Z #28 0.947     --hash=sha256:e90251c0c7bdd54a100a0dce3c07b7e637278c93af29dbf78ebb89a58c4bac7d \
+2026-09-11T01:52:42.5549923Z #28 0.947     --hash=sha256:f03ac127268b43ef4fe9e6ab6794a6794b49485a0cc0c1db79876d2f33f75bc7 \
+2026-09-11T01:52:42.5550537Z #28 0.947     --hash=sha256:f6f7deae3feb4edfa2efaf7c574fe88cbf055038a6abdb40188e4fff66d5699f \
+2026-09-11T01:52:42.5551146Z #28 0.947     --hash=sha256:fa48b1b63d639f9483e0633e092f5851e2348c352f1f9bb6c8182f87884ef876 \
+2026-09-11T01:52:42.5551728Z #28 0.947     --hash=sha256:fbc597639158fd7c14d55e808718848319540f51b0e6746e3eefa59723a4a348 \
+2026-09-11T01:52:42.5552317Z #28 0.947     --hash=sha256:fce8cbd4997efeb450bd298b54f755dcdff18d496f7a5ddbb4867c6d7c88fdc3 \
+2026-09-11T01:52:42.5552920Z #28 0.947     --hash=sha256:fd0350afdc3aabd5576f60ea109228bd5538139713c7b094c5cd27c73a98bc6f \
+2026-09-11T01:52:42.5553512Z #28 0.947     --hash=sha256:fd0a274c0e5f9a21565cd9d3dd749b61f96b7aa1e20a93aa1ba4029518f2e5c0 \
+2026-09-11T01:52:42.5554103Z #28 0.947     --hash=sha256:fdb8a068947befafba9952162645dc2fecaeb400e64584829ed5e9b2fbe21a7f
+2026-09-11T01:52:42.5554659Z #28 0.947     # via requests
+2026-09-11T01:52:42.5554993Z #28 0.947 idna==3.19 \
+2026-09-11T01:52:42.5555374Z #28 0.947     --hash=sha256:5e0811a4383b21dc5838069f801c4fb62113b7447663d2530d2bd6e77b49bf15 \
+2026-09-11T01:52:42.5555962Z #28 0.947     --hash=sha256:815e7be7a7806d54abb586dc943addc79e8b2ee16915059658cbeff4b1b43bf4
+2026-09-11T01:52:42.5556534Z #28 0.947     # via requests
+2026-09-11T01:52:42.5556762Z #28 0.947 jsonschema==4.26.0 \
+2026-09-11T01:52:42.5557163Z #28 0.947     --hash=sha256:0c26707e2efad8aa1bfc5b7ce170f3fccc2e4918ff85989ba9ffa9facb2be326 \
+2026-09-11T01:52:42.5557763Z #28 0.947     --hash=sha256:d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce
+2026-09-11T01:52:42.5558201Z #28 0.947     # via brasileirao-predictor
+2026-09-11T01:52:42.5558620Z #28 0.947 jsonschema-specifications==2025.9.1 \
+2026-09-11T01:52:42.5559089Z #28 0.947     --hash=sha256:98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe \
+2026-09-11T01:52:42.5559666Z #28 0.947     --hash=sha256:b540987f239e745613c7a9176f3edb72b832a4ac465cf02712288397832b5e8d
+2026-09-11T01:52:42.5560075Z #28 0.947     # via jsonschema
+2026-09-11T01:52:42.5560299Z #28 0.947 numpy==2.5.2 \
+2026-09-11T01:52:42.5560672Z #28 0.947     --hash=sha256:0aadf13b60048d501e05fa699efaf7734e2494f3498a4c2a5521d822640324f3 \
+2026-09-11T01:52:42.5561255Z #28 0.947     --hash=sha256:1ab3d4a901f844ea836c3e80bf463c6a27d7f3c14e8e292fcf28d348b25b9bce \
+2026-09-11T01:52:42.5561860Z #28 0.947     --hash=sha256:24b9dc2e3d84aa58523798805194e23e736f3f6ce2d1a5b92583ae734e6dbda8 \
+2026-09-11T01:52:42.5562452Z #28 0.947     --hash=sha256:29b86ff8a6cc556b47ec6b64b194815cc80e6bf5eedcc6cddfd65318cb0b4eee \
+2026-09-11T01:52:42.5563055Z #28 0.947     --hash=sha256:29d81e97f668489cba8ebfd796b9bdd453525d35dd9e162e2daec94bf3fc7740 \
+2026-09-11T01:52:42.5563645Z #28 0.947     --hash=sha256:2cc779226e476d1e1f08c74068c419e60f41a9e0e069c92f6671d31d5c985e98 \
+2026-09-11T01:52:42.5564219Z #28 0.947     --hash=sha256:318b9a4c845dbea06708a29c84ee429cc3065048db34cdb799047643492050ee \
+2026-09-11T01:52:42.5564959Z #28 0.947     --hash=sha256:34c319e2963be042673fb46570501b2f06c41924e17e3563d58646b4380dfb68 \
+2026-09-11T01:52:42.5565540Z #28 0.947     --hash=sha256:3a2f061cebd9e3d23bdcfaaded5e2293a4c6a5b60fa42df85d410a725ce621bf \
+2026-09-11T01:52:42.5566125Z #28 0.947     --hash=sha256:3e4c367352d3747784248a227fbec218e193b56f7e6692e3b64fc805478ecfdf \
+2026-09-11T01:52:42.5566695Z #28 0.947     --hash=sha256:44ef9675d908e65f9953063837c3277730f3f4437615a4cdab67b366cabaf884 \
+2026-09-11T01:52:42.5567282Z #28 0.947     --hash=sha256:4f9744f9fbdcea0bc552e8f19e1f141f811a3f9bc2be2cc6e86d982cab23e3f4 \
+2026-09-11T01:52:42.5567885Z #28 0.947     --hash=sha256:50e500dc868e9313530ce12ba470fe50ff3afe3d62993ed6eff652dacd555b65 \
+2026-09-11T01:52:42.5568471Z #28 0.947     --hash=sha256:52c808f96484f5571a5cc863775ce50247c17dfb3b0361f8ed6b4b0456f80080 \
+2026-09-11T01:52:42.5569052Z #28 0.947     --hash=sha256:60e902ac295855348a5ca2ea4c89108989a9f5fddfad3dfc0a8f36b10358567e \
+2026-09-11T01:52:42.5569632Z #28 0.947     --hash=sha256:6950c4b7dd562453090548ba7f5da7e59f57f85663f15d5dcc60e249192f7e59 \
+2026-09-11T01:52:42.5570196Z #28 0.947     --hash=sha256:6df895598c0edcb41030126c89e0f353b07d93238116143b7405e937359736c4 \
+2026-09-11T01:52:42.5570775Z #28 0.947     --hash=sha256:7587f53dfbd5edc0f7b87c6217b4c6d2d1f2ef9c3da70bc1315e7db5f8d7ec9d \
+2026-09-11T01:52:42.5571372Z #28 0.947     --hash=sha256:85aaccb24182c25df891ad0ec333585967e115269d5f1b17f2c9ae005bc96657 \
+2026-09-11T01:52:42.5571964Z #28 0.947     --hash=sha256:8e4cb9a754c8a0c62eaa88273a5fba3391f4a610d1dee893c0755da31c083f15 \
+2026-09-11T01:52:42.5572545Z #28 0.947     --hash=sha256:9e9413326d726c2545bfa65d2c0876871e8d8386e77f992c1d426e180bbd4323 \
+2026-09-11T01:52:42.5573128Z #28 0.947     --hash=sha256:afb3f0632d6b2e3ba04dbce8d1e48d321b369138b73830b5ca371a0e8d479d56 \
+2026-09-11T01:52:42.5573715Z #28 0.947     --hash=sha256:b879fb674276e331513fb136b78dbc6bd3c848309e0d841cfd63be3896c4cfc1 \
+2026-09-11T01:52:42.5574293Z #28 0.947     --hash=sha256:b9727f472d2f3888053b8a75ab0cb94745a9de224bb5846dbadc0092101bc71d \
+2026-09-11T01:52:42.5574998Z #28 0.947     --hash=sha256:bd68ece1553d2023c09a4226d9e41c586ad2d20594d1a456186c33513d2cb3f2 \
+2026-09-11T01:52:42.5575583Z #28 0.947     --hash=sha256:cebc2d6dbb605a7703d59751dea4bd6b0ab127a5a4338a6f432df1936fef8b26 \
+2026-09-11T01:52:42.5576314Z #28 0.947     --hash=sha256:d482d171c406ae88c5b19cad3b6a1c4c5209f886ab74bc44c2c865c23f52d860 \
+2026-09-11T01:52:42.5576898Z #28 0.947     --hash=sha256:d787cf769c3baeb5f6235e778edb52c08dfa923789b5958f28e6450f96107cb1 \
+2026-09-11T01:52:42.5577478Z #28 0.947     --hash=sha256:ddf47472af2e4280d79bac82304f5e80150211f1b9e614b760061d5fdfbb6eba \
+2026-09-11T01:52:42.5578166Z #28 0.947     --hash=sha256:eaa088384c46f519dacb93b7ec483a6d6b19a4a2085ae4f25ab9b1c43d387d1e \
+2026-09-11T01:52:42.5578760Z #28 0.947     --hash=sha256:eaca7ff36f0f52e2111ec71f169d8fd3e889e7ddc0d2592e0d703fd8d3ce8fac \
+2026-09-11T01:52:42.5579352Z #28 0.947     --hash=sha256:f06571a052127dc1b4e8b83029b4d1b20daa2b64a31cdd181fc6bc774e9000eb \
+2026-09-11T01:52:42.5579925Z #28 0.947     --hash=sha256:fd0d703772bba096843785bd38371e31bb4a0c1151497ad5739d182114a73f7f
+2026-09-11T01:52:42.5580336Z #28 0.947     # via
+2026-09-11T01:52:42.5580561Z #28 0.947     #   brasileirao-predictor
+2026-09-11T01:52:42.5580823Z #28 0.947     #   pandas
+2026-09-11T01:52:42.5581036Z #28 0.947     #   scipy
+2026-09-11T01:52:42.5581257Z #28 0.947 Resolved 60 packages in 325ms
+2026-09-11T01:52:42.5581516Z #28 0.948 pandas==3.0.5 \
+2026-09-11T01:52:42.5581904Z #28 0.948     --hash=sha256:0d298e951f23016ce4699951d044ae6418dbc91bf68cefca0f77666fcbb4e5c6 \
+2026-09-11T01:52:42.5582488Z #28 0.948     --hash=sha256:1c10461f6eeb35d8f05b6184c65c8b9991663b66c46b1d559b682cb34ae7c6ea \
+2026-09-11T01:52:42.5583067Z #28 0.948     --hash=sha256:2f264fc46911cc8131a7322a16199bbf8e353d27c10bb211f5bd0c814324dc36 \
+2026-09-11T01:52:42.5583651Z #28 0.948     --hash=sha256:303da736987d481074ca720ada325f8bd80c64ebc2d45ed79b29df3aaa4a26ca \
+2026-09-11T01:52:42.5584243Z #28 0.948     --hash=sha256:3b2801bbb049d0136f6c213eae02b5fca969384fc2064dd728d8620552aa49da \
+2026-09-11T01:52:42.5584942Z #28 0.948     --hash=sha256:3c5015fd1730fbf883647e88068176c839c102cea883ba1769a6f4593bfc1f8c \
+2026-09-11T01:52:42.5585519Z #28 0.948     --hash=sha256:3c5ed2e7c06e91d340dfd091d7934f9bc82e4a36b95f647f090b9d1c9ac649da \
+2026-09-11T01:52:42.5586104Z #28 0.948     --hash=sha256:4b11c36e218331d0387cbe3a0a5f75162357a1d92d57b2b08a336ff94b19b2be \
+2026-09-11T01:52:42.5586671Z #28 0.948     --hash=sha256:5183427f5a8156d480f30333777bc978be93650a49a7c01db26adffe95b31e85 \
+2026-09-11T01:52:42.5587244Z #28 0.948     --hash=sha256:53730687fcd161883b24e10411c06d6a4c0f2275d2faf3bb2bc25deb4ba8007c \
+2026-09-11T01:52:42.5587824Z #28 0.948     --hash=sha256:66266d3442a5e8b3c90274c2b8b230bee42dd1c286bc822cc2f9f2c7e12b883e \
+2026-09-11T01:52:42.5588414Z #28 0.948     --hash=sha256:960d3ebcf249f75206899fcd2c6de53f736b7265759ced0d3e559df0b8b709b0 \
+2026-09-11T01:52:42.5588996Z #28 0.948     --hash=sha256:9e94c2c5ca43bd3ca32bf64d32308887b65e5f9bfd8023ea52755107a999f93b \
+2026-09-11T01:52:42.5589576Z #28 0.948     --hash=sha256:b58b1b39d46a5862e3fb18f50d1a201398619d16a0f9f73f57eea5583cf0e63c \
+2026-09-11T01:52:42.5590154Z #28 0.948     --hash=sha256:b86765f268b56f7e665b93bce9d5df69dee7f99e595cf8fb839483ab315942a3 \
+2026-09-11T01:52:42.5590748Z #28 0.948     --hash=sha256:c1c05a767fe8e5b4fe9e1c29806829c582052eaedb9120a3da83ba3f69e24a5b \
+2026-09-11T01:52:42.5591337Z #28 0.948     --hash=sha256:c597ecf5616b5c420372c1d4d4c00dbbfba7398bea857dcc984347e1ea48417b \
+2026-09-11T01:52:42.5591930Z #28 0.948     --hash=sha256:cce3a9d11d2b1f82c69a27ec1f4948a170e2c403c4bbfa8cca62e3fdebe2ef3a \
+2026-09-11T01:52:42.5592524Z #28 0.948     --hash=sha256:cd8f7c6dc98527058ee6264219343f5392240a6f1bfa654fc5d79023020d0c92 \
+2026-09-11T01:52:42.5593111Z #28 0.948     --hash=sha256:cf52e1f61d229496da17dc7ab54acdee627357e7008fd4fecba3d0ba2937fa58 \
+2026-09-11T01:52:42.5593695Z #28 0.948     --hash=sha256:db172144bb56422bd157812f3b021eacc255451470b31e2c633c349490a1cfee \
+2026-09-11T01:52:42.5594530Z #28 0.948     --hash=sha256:dca3734d6ab7c906e6730f0788b0a1dbb9f2467731f9711f77995c8e9d62d712 \
+2026-09-11T01:52:42.5595452Z #28 0.948     --hash=sha256:e2759e890db96dfcffdbd9b86c3c2cb6afaf58def482820317e06163ec1066cd \
+2026-09-11T01:52:42.5596060Z #28 0.948     --hash=sha256:e819dd5f62966b481a8cb649d3299ebd886a1ea91ed5a99bf7ce77c98d18ab94 \
+2026-09-11T01:52:42.5596844Z #28 0.948     --hash=sha256:ef01af4d8dc6cd2c8d6c7736f149574ef93fe043811eeb5e445f2647154b5040
+2026-09-11T01:52:42.5597290Z #28 0.948     # via brasileirao-predictor
+2026-09-11T01:52:42.5598076Z #28 0.948 predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl \
+2026-09-11T01:52:42.5598925Z #28 0.948     --hash=sha256:9166dd6bd3be99668c0eb8bd3c59a92061e765186608465c0caf48a2417e3009
+2026-09-11T01:52:42.5599370Z #28 0.948     # via brasileirao-predictor
+2026-09-11T01:52:42.5600007Z #28 0.948 predictor-ops @ https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl \
+2026-09-11T01:52:42.5600794Z #28 0.948     --hash=sha256:6d428a4d3d4fbd3f692725bf684024131f0fa65cc11d0e739e9ccb82ba9834e4
+2026-09-11T01:52:42.5601237Z #28 0.948     # via brasileirao-predictor
+2026-09-11T01:52:42.5601517Z #28 0.948 pydantic==2.13.5 \
+2026-09-11T01:52:42.5601930Z #28 0.948     --hash=sha256:346a034f080da3755d8e9cb5e00e8b07de1d39e4f6e2c87d8ab7cafa0b269a73 \
+2026-09-11T01:52:42.5602522Z #28 0.948     --hash=sha256:51a9c5f7b2f8e636f04c6cada605d9b6a3bf1348fdf945a3d8869b19bba0ee08
+2026-09-11T01:52:42.5602936Z #28 0.948     # via
+2026-09-11T01:52:42.5603147Z #28 0.948     #   brasileirao-predictor
+2026-09-11T01:52:42.5603417Z #28 0.948     #   predictor-ops
+2026-09-11T01:52:42.5603661Z #28 0.948     #   pydantic-settings
+2026-09-11T01:52:42.5603918Z #28 0.948 pydantic-core==2.46.5 \
+2026-09-11T01:52:42.5604319Z #28 0.948     --hash=sha256:03b9666e41e35d8909852ba191a0607520f81b74eaf12ccf8737005dbb313821 \
+2026-09-11T01:52:42.5605260Z #28 0.948     --hash=sha256:045ab3b6d308439e32b81cc173bba5b9018bc6ed896afd0c65b3b009b1699af5 \
+2026-09-11T01:52:42.5605915Z #28 0.948     --hash=sha256:0cdbada856a1c69a7624a64d3d9aefe79300bd6ef827b43a4f265010b9b55184 \
+2026-09-11T01:52:42.5606506Z #28 0.948     --hash=sha256:10416c15b8839ecc4ef4d0885da76da6fd0f67333a0eb8aff6d93c4b8f2910fc \
+2026-09-11T01:52:42.5607110Z #28 0.948     --hash=sha256:15f4a94963c95accac15b7b657bb177d3ad82bb90b0d0526d9a9b85079925db5 \
+2026-09-11T01:52:42.5607690Z #28 0.948     --hash=sha256:193375f3548919d3f0b60936ca113ada3e38f264f91b9b8e0508efaad57be931 \
+2026-09-11T01:52:42.5608281Z #28 0.948     --hash=sha256:1a353f84de772f423b5ffb11d7ae352fbbef0f446f3c0b0af0f8236d7233606e \
+2026-09-11T01:52:42.5608873Z #28 0.948     --hash=sha256:24922243639cbdac66c75fcb6fd6495a9cb52b213d62f9a0d16f0310b1ff8038 \
+2026-09-11T01:52:42.5609463Z #28 0.948     --hash=sha256:2cbd9a5eff05e51c447c34dfa4632145b26b09120cf04bd0c871e44c1a5e1c9a \
+2026-09-11T01:52:42.5610052Z #28 0.948     --hash=sha256:2d5d76654becf5efd62c9e51c3756c67b49498b0c9a40884934c40807adbd074 \
+2026-09-11T01:52:42.5610646Z #28 0.948     --hash=sha256:37ae34309d7bd8c0d61ab839668058f2a7962ea1fc51d105d2db228fe0618034 \
+2026-09-11T01:52:42.5611228Z #28 0.948     --hash=sha256:37ea7b83c935e5b0d68c9449b82651accf78a10828b2c02b2f2d9e9496446c21 \
+2026-09-11T01:52:42.5611817Z #28 0.948     --hash=sha256:46c25dda9d092a06c08db76ffe0a197107904d0dfac653f7d5306bbcd6d6119c \
+2026-09-11T01:52:42.5612404Z #28 0.948     --hash=sha256:5086029a57366b8cf81b130a43908738095c270c21a8d7f0e8bdfdb89718e2f3 \
+2026-09-11T01:52:42.5612987Z #28 0.948     --hash=sha256:52e24eacdb536cade636aa90fb851835222becff8484b7001fdc78cb0290f2aa \
+2026-09-11T01:52:42.5613575Z #28 0.948     --hash=sha256:545f26c504b27c3758439a5e6d9349931f0a04f855668d5fe323c89e82300a38 \
+2026-09-11T01:52:42.5614158Z #28 0.948     --hash=sha256:54d510bac3ee52247af28ed4bb18a1e799f040ac60fd2bf5ccd4c92f1fbe786f \
+2026-09-11T01:52:42.5614900Z #28 0.948     --hash=sha256:5ee239d575f80b08eca11f6e20f90c4c695de7825c67eefe6091fbf20dda648e \
+2026-09-11T01:52:42.5615486Z #28 0.948     --hash=sha256:5f194189415698233dd1114a093a9b56e61e2c57e11b469be3b0506f46f0771c \
+2026-09-11T01:52:42.5616063Z #28 0.948     --hash=sha256:6f7b393a8b3da82f5c1fc0751e6d01ac6c55b93c18226a60bdfba4a724efafd1 \
+2026-09-11T01:52:42.5616807Z #28 0.949     --hash=sha256:79bdfa52f843137045b2d081cc05c120ba6665d29b7559c2c47690906f39279f \
+2026-09-11T01:52:42.5617392Z #28 0.949     --hash=sha256:7ac031912d54f3d83ef3b3eb98dfabc1608802e2202263d25957eeed40b94761 \
+2026-09-11T01:52:42.5617976Z #28 0.949     --hash=sha256:82a36973cf8a2ef5406f4fe2edbf8ed0c99629535d959e0b100c76a32535a111 \
+2026-09-11T01:52:42.5618672Z #28 0.949     --hash=sha256:837b396ca3d7b74091ca623f6cbd8351bd42d670a79c2683e79fb089f06a2de5 \
+2026-09-11T01:52:42.5619267Z #28 0.949     --hash=sha256:8816f3d218beb4b787de5c9759c259b8fa61f9dec42dc7811f320a33771778b7 \
+2026-09-11T01:52:42.5619860Z #28 0.949     --hash=sha256:976e1128455aa595ea04c79ccfedff1aaeab96ee013fcc916bed120c4f0ad94f \
+2026-09-11T01:52:42.5620451Z #28 0.949     --hash=sha256:97bf8de4d541598c94a59344eeb988a94c08ff76b5723c41f6567ec18c7892ea \
+2026-09-11T01:52:42.5621043Z #28 0.949     --hash=sha256:97cf3eb53a8cccacf9d46686a0926186c9bfb5574f2ed66d3639d5fe117cd3a9 \
+2026-09-11T01:52:42.5621677Z #28 0.949     --hash=sha256:9c4b71f10dd532fb7a5cbc8f58707779e64f03a258c2bf8bfbaecfcd9970b519 \
+2026-09-11T01:52:42.5622278Z #28 0.949     --hash=sha256:a2a5e1d0ff29adddc9f6d6821a66302e4493f8ca898b715b6b1182c2c201ea0a \
+2026-09-11T01:52:42.5622882Z #28 0.949     --hash=sha256:a91c17edf6eea2402cb5457b4c89e99bc5ed1004aa34c4adf1d4258c1a5c22c2 \
+2026-09-11T01:52:42.5623494Z #28 0.949     --hash=sha256:acf8a67ba51f4ca9ddbd0e6b3000a65ac51ab734661778b3e7ba64d99a710f2f \
+2026-09-11T01:52:42.5624091Z #28 0.949     --hash=sha256:b49924c73a235e969511bf2aabdff3beebf9820931f646c80274d5d780010c47 \
+2026-09-11T01:52:42.5624803Z #28 0.949     --hash=sha256:b7ca9034437b6022f941f4857459562ee00a560b97e7cce8a0ec5a74fc6766e0 \
+2026-09-11T01:52:42.5625388Z #28 0.949     --hash=sha256:bce57638e08ac148e5778cce7feb968307a727d66f8e2274a543d0cf0c9ad6a3 \
+2026-09-11T01:52:42.5625976Z #28 0.949     --hash=sha256:c1c43ad4339643d70ebb8124e1305a7dab423001eff58bb41a0f731adbc98355 \
+2026-09-11T01:52:42.5626568Z #28 0.949     --hash=sha256:c76fe65e607be28c7fd4d56fc3c42b1583aa058ce3408b7ad0fd540171d31f9f \
+2026-09-11T01:52:42.5627163Z #28 0.949     --hash=sha256:cdbb78909f52b981d3b2d56b97328d71eb0b974c36bd77c920123a7ebb192829 \
+2026-09-11T01:52:42.5627759Z #28 0.949     --hash=sha256:d22a945598fb91236b4dd793a6e42e4f3dd7740bb5aace5ebd7d4c08d13bb575 \
+2026-09-11T01:52:42.5628345Z #28 0.949     --hash=sha256:d2f9fc07a8042a8f95925b35c4f04f469707c981fc33245b6ca187cf5d2dd290 \
+2026-09-11T01:52:42.5628934Z #28 0.949     --hash=sha256:e64e88d5585bea9ce95861079de72006c7fa6d3df4e3a3b65ba31eb979c15c9f \
+2026-09-11T01:52:42.5629528Z #28 0.949     --hash=sha256:e7b891faeedeafba41b2983e5001a81b6a915b69544c7e7570d1989ce1c36ac7 \
+2026-09-11T01:52:42.5630118Z #28 0.949     --hash=sha256:e80675d75ae2cd14372cb65cad5400d9347a3d3f6c13000183f22dfd027283ed \
+2026-09-11T01:52:42.5630701Z #28 0.949     --hash=sha256:f332f0e72a5a0400141f830744e141bf9f97917878dbe968669e8a7fefea78ff \
+2026-09-11T01:52:42.5631279Z #28 0.949     --hash=sha256:fa10ef4112775900e7a0661068635eb67b2ab824fbde764de6e0e21982a93db0 \
+2026-09-11T01:52:42.5631860Z #28 0.949     --hash=sha256:ff218293c9c806138dca139765e3b067621be52bcd93cdc14c7711be7ddc90a9
+2026-09-11T01:52:42.5632286Z #28 0.949     # via pydantic
+2026-09-11T01:52:42.5632529Z #28 0.949 pydantic-settings==2.15.0 \
+2026-09-11T01:52:42.5632963Z #28 0.949     --hash=sha256:0ba092c291c94baceb5eff768aa0d56400a457585bc0175925a5a5510303da42 \
+2026-09-11T01:52:42.5633555Z #28 0.949     --hash=sha256:694b793e84f766ba76a90ebdefc01d0a9a045dab0382bee70393da93712ad117
+2026-09-11T01:52:42.5633971Z #28 0.949     # via
+2026-09-11T01:52:42.5634183Z #28 0.949     #   brasileirao-predictor
+2026-09-11T01:52:42.5634450Z #28 0.949     #   predictor-ops
+2026-09-11T01:52:42.5634929Z #28 0.949 python-dateutil==2.9.0.post0 \
+2026-09-11T01:52:42.5635364Z #28 0.949     --hash=sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3 \
+2026-09-11T01:52:42.5635957Z #28 0.949     --hash=sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427
+2026-09-11T01:52:42.5636567Z #28 0.949     # via pandas
+2026-09-11T01:52:42.5636795Z #28 0.949 python-dotenv==1.2.3 \
+2026-09-11T01:52:42.5637198Z #28 0.949     --hash=sha256:904552145e8bfed22162c09dab1c2b9b54fefa7b23ba780f4f26ca0316b0f0d9 \
+2026-09-11T01:52:42.5637782Z #28 0.949     --hash=sha256:a20a594dabeaa385725aa239d5244871c143ecb356add8a20fcf23773a6c3a35
+2026-09-11T01:52:42.5638214Z #28 0.949     # via pydantic-settings
+2026-09-11T01:52:42.5638580Z #28 0.949 pyyaml==6.0.3 \
+2026-09-11T01:52:42.5638971Z #28 0.949     --hash=sha256:00c4bdeba853cc34e7dd471f16b4114f4162dc03e6b7afcc2128711f0eca823c \
+2026-09-11T01:52:42.5639562Z #28 0.949     --hash=sha256:02893d100e99e03eda1c8fd5c441d8c60103fd175728e23e431db1b589cf5ab3 \
+2026-09-11T01:52:42.5640150Z #28 0.949     --hash=sha256:0f29edc409a6392443abf94b9cf89ce99889a1dd5376d94316ae5145dfedd5d6 \
+2026-09-11T01:52:42.5640731Z #28 0.949     --hash=sha256:16249ee61e95f858e83976573de0f5b2893b3677ba71c9dd36b9cf8be9ac6d65 \
+2026-09-11T01:52:42.5641305Z #28 0.949     --hash=sha256:2283a07e2c21a2aa78d9c4442724ec1eb15f5e42a723b99cb3d822d48f5f7ad1 \
+2026-09-11T01:52:42.5641896Z #28 0.949     --hash=sha256:34d5fcd24b8445fadc33f9cf348c1047101756fd760b4dacb5c3e99755703310 \
+2026-09-11T01:52:42.5642498Z #28 0.949     --hash=sha256:4a2e8cebe2ff6ab7d1050ecd59c25d4c8bd7e6f400f5f82b96557ac0abafd0ac \
+2026-09-11T01:52:42.5643105Z #28 0.949     --hash=sha256:4ad1906908f2f5ae4e5a8ddfce73c320c2a1429ec52eafd27138b7f1cbe341c9 \
+2026-09-11T01:52:42.5643707Z #28 0.949     --hash=sha256:501a031947e3a9025ed4405a168e6ef5ae3126c59f90ce0cd6f2bfc477be31b7 \
+2026-09-11T01:52:42.5644472Z #28 0.949     --hash=sha256:5190d403f121660ce8d1d2c1bb2ef1bd05b5f68533fc5c2ea899bd15f4399b35 \
+2026-09-11T01:52:42.5645311Z #28 0.949     --hash=sha256:5498cd1645aa724a7c71c8f378eb29ebe23da2fc0d7a08071d89469bf1d2defb \
+2026-09-11T01:52:42.5646174Z #28 0.949     --hash=sha256:66e1674c3ef6f541c35191caae2d429b967b99e02040f5ba928632d9a7f0f065 \
+2026-09-11T01:52:42.5646911Z #28 0.949     --hash=sha256:6adc77889b628398debc7b65c073bcb99c4a0237b248cacaf3fe8a557563ef6c \
+2026-09-11T01:52:42.5647683Z #28 0.949     --hash=sha256:79005a0d97d5ddabfeeea4cf676af11e647e41d81c9a7722a193022accdb6b7c \
+2026-09-11T01:52:42.5648384Z #28 0.949     --hash=sha256:7c6610def4f163542a622a73fb39f534f8c101d690126992300bf3207eab9764 \
+2026-09-11T01:52:42.5649057Z #28 0.949     --hash=sha256:8d1fab6bb153a416f9aeb4b8763bc0f22a5586065f86f7664fc23339fc1c1fac \
+2026-09-11T01:52:42.5649798Z #28 0.949     --hash=sha256:8da9669d359f02c0b91ccc01cac4a67f16afec0dac22c2ad09f46bee0697eba8 \
+2026-09-11T01:52:42.5650493Z #28 0.949     --hash=sha256:93dda82c9c22deb0a405ea4dc5f2d0cda384168e466364dec6255b293923b2f3 \
+2026-09-11T01:52:42.5651192Z #28 0.949     --hash=sha256:a33284e20b78bd4a18c8c2282d549d10bc8408a2a7ff57653c0cf0b9be0afce5 \
+2026-09-11T01:52:42.5651972Z #28 0.949     --hash=sha256:a80cb027f6b349846a3bf6d73b5e95e782175e52f22108cfa17876aaeff93702 \
+2026-09-11T01:52:42.5652649Z #28 0.949     --hash=sha256:b3bc83488de33889877a0f2543ade9f70c67d66d9ebb4ac959502e12de895788 \
+2026-09-11T01:52:42.5653367Z #28 0.949     --hash=sha256:c1ff362665ae507275af2853520967820d9124984e0f7466736aea23d8611fba \
+2026-09-11T01:52:42.5654047Z #28 0.949     --hash=sha256:c458b6d084f9b935061bc36216e8a69a7e293a2f1e68bf956dcd9e6cbcd143f5 \
+2026-09-11T01:52:42.5663983Z #28 0.949     --hash=sha256:d0eae10f8159e8fdad514efdc92d74fd8d682c933a6dd088030f3834bc8e6b26 \
+2026-09-11T01:52:42.5664876Z #28 0.949     --hash=sha256:d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f \
+2026-09-11T01:52:42.5665510Z #28 0.949     --hash=sha256:ebc55a14a21cb14062aa4162f906cd962b28e2e9ea38f9b4391244cd8de4ae0b \
+2026-09-11T01:52:42.5666127Z #28 0.949     --hash=sha256:eda16858a3cab07b80edaf74336ece1f986ba330fdb8ee0d6c0d68fe82bc96be \
+2026-09-11T01:52:42.5666728Z #28 0.949     --hash=sha256:ee2922902c45ae8ccada2c5b501ab86c36525b883eff4255313a253a3160861c \
+2026-09-11T01:52:42.5667326Z #28 0.949     --hash=sha256:f7057c9a337546edc7973c0d3ba84ddcdf0daa14533c2065749c9075001090e6
+2026-09-11T01:52:42.5668004Z #28 0.949     # via brasileirao-predictor
+2026-09-11T01:52:42.5668294Z #28 0.949 referencing==0.37.0 \
+2026-09-11T01:52:42.5668693Z #28 0.949     --hash=sha256:381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231 \
+2026-09-11T01:52:42.5669258Z #28 0.949     --hash=sha256:44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8
+2026-09-11T01:52:42.5669666Z #28 0.949     # via
+2026-09-11T01:52:42.5669985Z #28 0.950     #   jsonschema
+2026-09-11T01:52:42.5670244Z #28 0.950     #   jsonschema-specifications
+2026-09-11T01:52:42.5670519Z #28 0.950 requests==2.34.2 \
+2026-09-11T01:52:42.5670929Z #28 0.950     --hash=sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0 \
+2026-09-11T01:52:42.5671508Z #28 0.950     --hash=sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed
+2026-09-11T01:52:42.5671943Z #28 0.950     # via brasileirao-predictor
+2026-09-11T01:52:42.5672216Z #28 0.950 rpds-py==2026.6.3 \
+2026-09-11T01:52:42.5672614Z #28 0.950     --hash=sha256:0be972be84cfcaf46c8c6edf690ca0f154ac17babf1f6a955a51579b34ad2dc5 \
+2026-09-11T01:52:42.5673211Z #28 0.950     --hash=sha256:166cf54d9f44fc6ceb53c7860258dde44a81406646de79f8ed3234fca3b6e538 \
+2026-09-11T01:52:42.5673784Z #28 0.950     --hash=sha256:1cebd1337c242e4ec2293e541f712b2da849b29f48f0c293684b71c0632625d4 \
+2026-09-11T01:52:42.5674361Z #28 0.950     --hash=sha256:1cf01971c4f2c5553b772a542e4aaf191789cd331bc2cd4ff0e6e65ba49e1e97 \
+2026-09-11T01:52:42.5675276Z #28 0.950     --hash=sha256:29dfa0533a5d4c94d4dfa1b694fcb56c9c63aad8330ffdd816fd225d0a7a162f \
+2026-09-11T01:52:42.5675857Z #28 0.950     --hash=sha256:2a9c6f195058cb45335e8cc3802745c603d716eb96bc9625950c1aac71c0c703 \
+2026-09-11T01:52:42.5676418Z #28 0.950     --hash=sha256:3cfe765c1da0072636ca06628261e0ea05688e160d5c8a03e0217c3854037223 \
+2026-09-11T01:52:42.5676972Z #28 0.950     --hash=sha256:425560c6fa0415f27261727bb20bd097568485e5eb0c121f1949417d1c516885 \
+2026-09-11T01:52:42.5677545Z #28 0.950     --hash=sha256:4470ce197d4090875cf6affbf1f853338387428df97c4fb7b7106317b8214698 \
+2026-09-11T01:52:42.5678133Z #28 0.950     --hash=sha256:4f4bca01b63096f606e095734dd56e74e175f94cfbf24ff3d63281cec61f7bb7 \
+2026-09-11T01:52:42.5678711Z #28 0.950     --hash=sha256:536bceea4fa4acf7e1c61da2b5786304367c816c8895be71b8f537c480b0ea1f \
+2026-09-11T01:52:42.5679286Z #28 0.950     --hash=sha256:539d75de9e0d536c84ff18dfeb805398e58227001ce09231a26a08b9aed1ee0e \
+2026-09-11T01:52:42.5679853Z #28 0.950     --hash=sha256:54f45a148e28767bf343d33a684693c70e451c6f4c0e9904709a723fafbdfc1f \
+2026-09-11T01:52:42.5680421Z #28 0.950     --hash=sha256:639c8929aa0afe81be836b04de888460d6bed38b9c54cfc18da8f6bfabf5af5d \
+2026-09-11T01:52:42.5680989Z #28 0.950     --hash=sha256:6de4744d05bd1aa1be4ed7ea1189e3979196808008113bbbf899a460966b925e \
+2026-09-11T01:52:42.5681554Z #28 0.950     --hash=sha256:8020133a74bd81b4572dd8e4be028a6b1ebcd70e6726edc3918008c08bee6ee6 \
+2026-09-11T01:52:42.5682122Z #28 0.950     --hash=sha256:842e7b070435622248c7a2c44ae53fa1440e073cc3023bc919fed570884097a7 \
+2026-09-11T01:52:42.5682693Z #28 0.950     --hash=sha256:847927daf4cffbd4e90e42bc890069897101edd015f956cb8721b3473372edda \
+2026-09-11T01:52:42.5683250Z #28 0.950     --hash=sha256:882076c00c0a608b131187055ddc5ae29f2e7eaf870d6168980420d58528a5c8 \
+2026-09-11T01:52:42.5683815Z #28 0.950     --hash=sha256:8c3d1e9c15b9d51ca0391e13da1a25a0a4df3c58a37c9dc368e0736cf7f69df0 \
+2026-09-11T01:52:42.5684393Z #28 0.950     --hash=sha256:8c6e5a2f750cc71c3e3b11d71661f21d6f9bc6cebc6564b1466417a1ec03ec77 \
+2026-09-11T01:52:42.5685111Z #28 0.950     --hash=sha256:900a67df3fd1660b035a4761c4ce73c382ea6b35f90f9863c36c6fd8bf8b09bb \
+2026-09-11T01:52:42.5685681Z #28 0.950     --hash=sha256:9250a9a0a6fd4648b3f868da8d91a4c52b5811a62df58e753d50ae4454a36f80 \
+2026-09-11T01:52:42.5686254Z #28 0.950     --hash=sha256:931908d9fc855d8f74783377822be318edb6dcb19e47169dc038f9a1bf60b06e \
+2026-09-11T01:52:42.5686808Z #28 0.950     --hash=sha256:9826217f048f620d9a712672818bf231442c1b35d96b227a07eabd11b4bb6945 \
+2026-09-11T01:52:42.5687552Z #28 0.950     --hash=sha256:a550fb4950a06dde3beb4721f5ad4b25bf4513784665b0a8522c792e2bd822a4 \
+2026-09-11T01:52:42.5688126Z #28 0.950     --hash=sha256:aca6c1ef08a82bfe327cc156da694660f599923e2e6665b6d81c9c2d0ac9ffc8 \
+2026-09-11T01:52:42.5688707Z #28 0.950     --hash=sha256:acac386b453c2516111b50985d60ce46e7fadb5ea71ae7b25f4c946935bf27cf \
+2026-09-11T01:52:42.5689385Z #28 0.950     --hash=sha256:ae50181a047c871561212bb97f7932a2d45fb53e947bd9b57ebad85b529cbc53 \
+2026-09-11T01:52:42.5689961Z #28 0.950     --hash=sha256:af05d726809bff6b141be124d4c7ce998f9c9c7f30edb1f46c07aa103d540b41 \
+2026-09-11T01:52:42.5690533Z #28 0.950     --hash=sha256:afd70d95892096cdb26f15a00c45907b17817577aa8d1c76b2dcc2788391f9e9 \
+2026-09-11T01:52:42.5691114Z #28 0.950     --hash=sha256:bc0011654b91cc4fb2ae701bec0a0ba1e552c0714247fa7af6c59e0ccfa3a4e1 \
+2026-09-11T01:52:42.5691706Z #28 0.950     --hash=sha256:bcfbcf66006befb9fd2aeaa9e01feaf881b4dc330a02ba07d2322b1c11be7b5d \
+2026-09-11T01:52:42.5692296Z #28 0.950     --hash=sha256:c7b9a2f8f4d8e90af72571d3d495deebdd7e3c75451f5b41719aee166e940fc2 \
+2026-09-11T01:52:42.5692882Z #28 0.950     --hash=sha256:ccffae9a092a00deb7efd545fe5e2c33c33b88e7c054337e9a74c179347d0b7d \
+2026-09-11T01:52:42.5693460Z #28 0.950     --hash=sha256:cdc7e35386f3847df728fbcb5e887e2d79c19e2fa1eba9e51b6621d23e3243af \
+2026-09-11T01:52:42.5694039Z #28 0.950     --hash=sha256:d34c20167764fbcf927194d532dd7e0c56772f0a5f943fa5ef9e9afbba8fb9db \
+2026-09-11T01:52:42.5694738Z #28 0.950     --hash=sha256:d7469697dce35be237db177d42e2a2ee26e6dcc5fc052078a6fefabd288c6edd \
+2026-09-11T01:52:42.5695675Z #28 0.950     --hash=sha256:dc319e5a1de4b6913aac94bf6a2f9e847371e0a140a43dd4991db1a09bc2d504 \
+2026-09-11T01:52:42.5696260Z #28 0.950     --hash=sha256:e4316bf32babbed84e691e352faf967ce2f0f024174a8643c37c94a1080374fc \
+2026-09-11T01:52:42.5696836Z #28 0.950     --hash=sha256:ea7bb13b7c9a29791f87a0387ba7d3ad3a6d783d827e4d3f27b40a0ff44495e2 \
+2026-09-11T01:52:42.5697415Z #28 0.950     --hash=sha256:ea964164cc9afa72d4d9b23cc28dafae93693c0a53e0b42acbff15b22c3f9ddd \
+2026-09-11T01:52:42.5698004Z #28 0.950     --hash=sha256:ec829541c45bca16e61c7ae50c20501f213605beb75d1aba91a6ee37fbbb56a4 \
+2026-09-11T01:52:42.5698610Z #28 0.950     --hash=sha256:f4d78253f6996be4901669ad25319f842f740eccf4d58e3c7f3dd39e6dde1d8f \
+2026-09-11T01:52:42.5699188Z #28 0.950     --hash=sha256:f90938e92afda60266da758ee7d363447f7f0138c9559f9e1811629580582d90
+2026-09-11T01:52:42.5699600Z #28 0.950     # via
+2026-09-11T01:52:42.5699804Z #28 0.950     #   jsonschema
+2026-09-11T01:52:42.5700028Z #28 0.950     #   referencing
+2026-09-11T01:52:42.5700253Z #28 0.950 scipy==1.18.1 \
+2026-09-11T01:52:42.5700621Z #28 0.950     --hash=sha256:011413b7426b75012840e35649e00fe0a2c3bae89fed433876e3a99251572efc \
+2026-09-11T01:52:42.5701197Z #28 0.950     --hash=sha256:0e82073ecc7acc6436fac4b31674109c7e1d3e596789767eda01258a8c9e8123 \
+2026-09-11T01:52:42.5701776Z #28 0.950     --hash=sha256:0fcb3c93519f27bb4f0c4b0f7802cdcaca7fcf93267b75edda2e9f4e8a55cbd7 \
+2026-09-11T01:52:42.5702354Z #28 0.950     --hash=sha256:11c423f1049c5755ad4409af52a9ada1cff96fe9b50795d4af3619f292901239 \
+2026-09-11T01:52:42.5702931Z #28 0.950     --hash=sha256:2d3ab0e8c69a17dd3559eab8cbb88f258e285c94d572c2719033f90f83290c89 \
+2026-09-11T01:52:42.5703519Z #28 0.950     --hash=sha256:3ab3523da44749156e1f68b464dc56af11ae4cbc5c739a49d05f32b982eca9f3 \
+2026-09-11T01:52:42.5704090Z #28 0.950     --hash=sha256:52c4b7422442aba924d03ad4019852b08a92e64ea187b933135687bfe2747307 \
+2026-09-11T01:52:42.5704790Z #28 0.950     --hash=sha256:559ed65f60c1af5a03f3912605a1b5114f522c7c32fb23c3376ae8f03219fe28 \
+2026-09-11T01:52:42.5705360Z #28 0.951     --hash=sha256:75b00eb8fb802090aa903f4ea1c7f5a584779f967361e68b7e98e531cc2d7174 \
+2026-09-11T01:52:42.5705927Z #28 0.951     --hash=sha256:78a0d7c918e74a232394117160e7e3db503377572a45bcef8826e4ab8a35feba \
+2026-09-11T01:52:42.5706488Z #28 0.951     --hash=sha256:7f4b8bc363b6d65ee2152bec57568e3c52639bb34c46057b09857a307ed5e21d \
+2026-09-11T01:52:42.5707055Z #28 0.951     --hash=sha256:83de5453a7799afc9048b4616bd085cef126e36412f0ea2f6370c36a2a3a51e7 \
+2026-09-11T01:52:42.5707784Z #28 0.951     --hash=sha256:88f0e784020649f88ea48c9f5ddfa403bf9205820667c0914740b392035afb82 \
+2026-09-11T01:52:42.5708373Z #28 0.951     --hash=sha256:8bcf3c1ba5d6456e2effd30fcbd3459b044d683fcdac79a2e6830f0bdf7de487 \
+2026-09-11T01:52:42.5709076Z #28 0.951     --hash=sha256:911de823097db8b63f034299d12662db93344e6ffa0b881cbb57748974b70168 \
+2026-09-11T01:52:42.5709664Z #28 0.951     --hash=sha256:95298364e251be3e60249facbeeca03631d3bb7584f85879516ec55ac717b81f \
+2026-09-11T01:52:42.5710255Z #28 0.951     --hash=sha256:9554bcc6d715ee87a633a3cc8e7703c6628b100dd29cb8a2efc4c0533c7ff729 \
+2026-09-11T01:52:42.5710832Z #28 0.951     --hash=sha256:9f2897bf7737392ad0d5213ea7b6add72a4edf5679b3153106aeb88b6507b3b9 \
+2026-09-11T01:52:42.5711403Z #28 0.951     --hash=sha256:a1d33a7836f7ddc1993427966a0823468ec41bcbdb1a9f9942d1d7e57f803ba3 \
+2026-09-11T01:52:42.5711992Z #28 0.951     --hash=sha256:ac0333bdf38309aa3dcbe7e3fa7ea29e7a2c37c6ea306a757b700ded8e4596ad \
+2026-09-11T01:52:42.5712820Z #28 0.951     --hash=sha256:c24acac1e18912761c4700239bbc1fd32f615af690f1584d49b35859be51324d \
+2026-09-11T01:52:42.5713434Z #28 0.951     --hash=sha256:c825cef2f49e46753726a7181a8e199804a912b29519ada542c6ebc654951899 \
+2026-09-11T01:52:42.5714017Z #28 0.951     --hash=sha256:cbf38d043c1aa4ab306e1ada6ab6eddacc3322a20b7af1b30bc93254b366fe09 \
+2026-09-11T01:52:42.5714848Z #28 0.951     --hash=sha256:cd479fc04dd9401e3b4f49e76518768ef99c4f517a98c284eb091fd725719adf \
+2026-09-11T01:52:42.5715452Z #28 0.951     --hash=sha256:cfbf154f2ba187f2ed6cce2639efff7d105f1140573642c0161615b6d91d6a87 \
+2026-09-11T01:52:42.5716044Z #28 0.951     --hash=sha256:d416b16cccfd70fbf62400e84d0bb2f4e6af519a45557f1692c749b37f14b315 \
+2026-09-11T01:52:42.5716628Z #28 0.951     --hash=sha256:ddef79fb382df40104a19bb7151b3b23e57c1778fcf857c71ceecd9bd264513f \
+2026-09-11T01:52:42.5717210Z #28 0.951     --hash=sha256:e3b417bf8c2c7c16e8f58ad91db17783ec911ac16e7b50eb6eab6e809b4f5b07 \
+2026-09-11T01:52:42.5717807Z #28 0.951     --hash=sha256:e6fb6a55cc0ba97b59a1f288fb86dc6fce8bdfc0fffcbfd015e3a954bf2a2d93 \
+2026-09-11T01:52:42.5718400Z #28 0.951     --hash=sha256:ea324d9dd34c38bfb9bec8ca4d1b407db97dbb74029f566b8e322b1b6fe56fe6 \
+2026-09-11T01:52:42.5718977Z #28 0.951     --hash=sha256:fdaf5ea890a6183d0565f51a61799d67081bd5b1cf03c5f4b3fd3732108625c9
+2026-09-11T01:52:42.5719418Z #28 0.951     # via brasileirao-predictor
+2026-09-11T01:52:42.5719700Z #28 0.951 six==1.17.0 \
+2026-09-11T01:52:42.5720077Z #28 0.951     --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
+2026-09-11T01:52:42.5720650Z #28 0.951     --hash=sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81
+2026-09-11T01:52:42.5721071Z #28 0.951     # via python-dateutil
+2026-09-11T01:52:42.5721326Z #28 0.951 truststore==0.10.4 \
+2026-09-11T01:52:42.5721721Z #28 0.951     --hash=sha256:9d91bd436463ad5e4ee4aba766628dd6cd7010cf3e2461756b3303710eebc301 \
+2026-09-11T01:52:42.5722304Z #28 0.951     --hash=sha256:adaeaecf1cbb5f4de3b1959b42d41f6fab57b2b1666adb59e89cb0b53361d981
+2026-09-11T01:52:42.5722750Z #28 0.951     # via brasileirao-predictor
+2026-09-11T01:52:42.5723029Z #28 0.951 typing-extensions==4.16.0 \
+2026-09-11T01:52:42.5723446Z #28 0.951     --hash=sha256:481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8 \
+2026-09-11T01:52:42.5724019Z #28 0.951     --hash=sha256:dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5
+2026-09-11T01:52:42.5724426Z #28 0.951     # via
+2026-09-11T01:52:42.5724740Z #28 0.951     #   pydantic
+2026-09-11T01:52:42.5724969Z #28 0.951     #   pydantic-core
+2026-09-11T01:52:42.5725222Z #28 0.951     #   typing-inspection
+2026-09-11T01:52:42.5725477Z #28 0.951 typing-inspection==0.4.4 \
+2026-09-11T01:52:42.5725881Z #28 0.951     --hash=sha256:547274fa6b0a561ccf549cc9524b999a578e737d015d8709d021f9d0d13bea47 \
+2026-09-11T01:52:42.5726447Z #28 0.951     --hash=sha256:65b8397ba37ccbce054456aaccddfc91e6e3083c92824df348d96ca832f3f147
+2026-09-11T01:52:42.5727006Z #28 0.951     # via
+2026-09-11T01:52:42.5727200Z #28 0.951     #   pydantic
+2026-09-11T01:52:42.5727424Z #28 0.951     #   pydantic-settings
+2026-09-11T01:52:42.5727795Z #28 0.951 tzdata==2026.3 ; sys_platform == 'emscripten' or sys_platform == 'win32' \
+2026-09-11T01:52:42.5728332Z #28 0.951     --hash=sha256:4a1518b8993086a7982523e071643f3c0e5f213e75b21318e78bcabfff9d1415 \
+2026-09-11T01:52:42.5729005Z #28 0.951     --hash=sha256:dc096730c87af6cab1b171c9d532be840741ff5d459015e7f6947bd7d7e54931
+2026-09-11T01:52:42.5729420Z #28 0.951     # via pandas
+2026-09-11T01:52:42.5729629Z #28 0.951 urllib3==2.7.0 \
+2026-09-11T01:52:42.5730002Z #28 0.951     --hash=sha256:231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c \
+2026-09-11T01:52:42.5730578Z #28 0.951     --hash=sha256:9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897
+2026-09-11T01:52:42.5730998Z #28 0.951     # via requests
+2026-09-11T01:52:42.5731223Z #28 0.969 Building wheel...
+2026-09-11T01:52:42.5731578Z #28 1.804 Successfully built dist/brasileirao_predictor-0.1.0-py3-none-any.whl
+2026-09-11T01:52:42.5732054Z #28 1.821 Using CPython 3.14.7 interpreter at: /usr/local/bin/python3
+2026-09-11T01:52:42.5732443Z #28 1.821 Creating virtual environment at: /opt/venv
+2026-09-11T01:52:42.5732778Z #28 1.922 Using Python 3.14.7 environment at: /opt/venv
+2026-09-11T01:52:42.5733085Z #28 2.326 Resolved 26 packages in 402ms
+2026-09-11T01:52:42.5733371Z #28 2.344 Downloading pydantic-core (2.0MiB)
+2026-09-11T01:52:42.5733657Z #28 2.359 Downloading numpy (15.9MiB)
+2026-09-11T01:52:42.5733910Z #28 2.360 Downloading scipy (33.7MiB)
+2026-09-11T01:52:42.5734162Z #28 2.360 Downloading pandas (10.5MiB)
+2026-09-11T01:52:42.5734422Z #28 2.542  Downloaded pydantic-core
+2026-09-11T01:52:42.5734799Z #28 3.555  Downloaded numpy
+2026-09-11T01:52:42.5735024Z #28 3.957  Downloaded scipy
+2026-09-11T01:52:42.5735386Z #28 4.001  Downloaded pandas
+2026-09-11T01:52:42.5735691Z #28 4.002 Prepared 24 packages in 1.67s
+2026-09-11T01:52:42.5735974Z #28 4.141 Installed 26 packages in 139ms
+2026-09-11T01:52:42.5736244Z #28 4.141  + annotated-types==0.8.0
+2026-09-11T01:52:42.5736484Z #28 4.141  + attrs==26.1.0
+2026-09-11T01:52:42.5736698Z #28 4.141  + certifi==2026.7.22
+2026-09-11T01:52:42.5736938Z #28 4.142  + charset-normalizer==3.5.1
+2026-09-11T01:52:42.5737185Z #28 4.142  + idna==3.19
+2026-09-11T01:52:42.5737393Z #28 4.142  + jsonschema==4.26.0
+2026-09-11T01:52:42.5737662Z #28 4.142  + jsonschema-specifications==2025.9.1
+2026-09-11T01:52:42.5737956Z #28 4.142  + numpy==2.5.2
+2026-09-11T01:52:42.5738178Z #28 4.142  + pandas==3.0.5
+2026-09-11T01:52:42.5738828Z #28 4.142  + predictor-core==3.2.0 (from https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl)
+2026-09-11T01:52:42.5739873Z #28 4.142  + predictor-ops==4.1.0 (from https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl)
+2026-09-11T01:52:42.5740517Z #28 4.142  + pydantic==2.13.5
+2026-09-11T01:52:42.5740761Z #28 4.142  + pydantic-core==2.46.5
+2026-09-11T01:52:42.5741017Z #28 4.142  + pydantic-settings==2.15.0
+2026-09-11T01:52:42.5741289Z #28 4.142  + python-dateutil==2.9.0.post0
+2026-09-11T01:52:42.5741562Z #28 4.142  + python-dotenv==1.2.3
+2026-09-11T01:52:42.5741809Z #28 4.142  + pyyaml==6.0.3
+2026-09-11T01:52:42.5742031Z #28 4.142  + referencing==0.37.0
+2026-09-11T01:52:42.5742268Z #28 4.142  + requests==2.34.2
+2026-09-11T01:52:42.5742496Z #28 4.142  + rpds-py==2026.6.3
+2026-09-11T01:52:42.5742723Z #28 4.142  + scipy==1.18.1
+2026-09-11T01:52:42.5742937Z #28 4.142  + six==1.17.0
+2026-09-11T01:52:42.5743153Z #28 4.142  + truststore==0.10.4
+2026-09-11T01:52:42.5743396Z #28 4.142  + typing-extensions==4.16.0
+2026-09-11T01:52:42.5743662Z #28 4.143  + typing-inspection==0.4.4
+2026-09-11T01:52:42.5744036Z #28 4.143  + urllib3==2.7.0
+2026-09-11T01:52:42.5744481Z #28 4.164 Using Python 3.14.7 environment at: /opt/venv
+2026-09-11T01:52:42.5745214Z #28 4.168 Resolved 1 package in 2ms
+2026-09-11T01:52:42.5745844Z #28 4.204 Prepared 1 package in 35ms
+2026-09-11T01:52:42.5746273Z #28 4.217 Installed 1 package in 12ms
+2026-09-11T01:52:42.5747108Z #28 4.217  + brasileirao-predictor==0.1.0 (from file:///build/dist/brasileirao_predictor-0.1.0-py3-none-any.whl)
+2026-09-11T01:52:42.7446808Z #28 DONE 5.8s
+2026-09-11T01:52:42.7447133Z 
+2026-09-11T01:52:42.7448068Z #26 [worker build 5/7] RUN dotnet restore dotnet/LineupWorker/LineupWorker.csproj --locked-mode
+2026-09-11T01:52:42.9229138Z #26 DONE 5.2s
+2026-09-11T01:52:42.9263588Z 
+2026-09-11T01:52:42.9283961Z #29 [worker build 6/7] COPY dotnet/LineupWorker dotnet/LineupWorker
+2026-09-11T01:52:42.9285316Z #29 DONE 0.0s
+2026-09-11T01:52:42.9285731Z 
+2026-09-11T01:52:42.9286598Z #30 [worker build 7/7] RUN dotnet publish dotnet/LineupWorker/LineupWorker.csproj -c Release --no-restore -o /app/publish
+2026-09-11T01:52:45.4620344Z #30 ...
+2026-09-11T01:52:45.4623252Z 
+2026-09-11T01:52:45.4624078Z #31 [init-data stage-1 3/4] COPY --from=builder /opt/venv /opt/venv
+2026-09-11T01:52:45.4626925Z #31 DONE 1.9s
+2026-09-11T01:52:45.6442699Z 
+2026-09-11T01:52:45.6443926Z #32 [kernel stage-1 3/4] COPY --from=builder /opt/venv /opt/venv
+2026-09-11T01:52:45.6445239Z #32 DONE 2.3s
+2026-09-11T01:52:45.6445795Z 
+2026-09-11T01:52:45.6446209Z #33 [init-data stage-1 4/4] WORKDIR /app
+2026-09-11T01:52:45.6446917Z #33 DONE 0.0s
+2026-09-11T01:52:45.6447316Z 
+2026-09-11T01:52:45.6447724Z #34 [kernel stage-1 4/4] WORKDIR /app
+2026-09-11T01:52:45.6448394Z #34 DONE 0.0s
+2026-09-11T01:52:45.6448802Z 
+2026-09-11T01:52:45.6449154Z #35 [kernel] exporting to image
+2026-09-11T01:52:45.6449821Z #35 exporting layers
+2026-09-11T01:52:47.7917940Z #35 ...
+2026-09-11T01:52:47.7918245Z 
+2026-09-11T01:52:47.7918440Z #36 [init-data] exporting to image
+2026-09-11T01:52:47.7918948Z #36 exporting layers 2.2s done
+2026-09-11T01:52:47.7919748Z #36 writing image sha256:9e07824723746fa97beb475bb4a7a6710bda027013dd4210fced7806148a4184 done
+2026-09-11T01:52:47.7920722Z #36 naming to docker.io/library/brasileirao-ci-34552247397-1-init-data done
+2026-09-11T01:52:47.7921436Z #36 DONE 2.2s
+2026-09-11T01:52:47.7921622Z 
+2026-09-11T01:52:47.7921835Z #37 [init-data] resolving provenance for metadata file
+2026-09-11T01:52:47.7922285Z #37 DONE 0.0s
+2026-09-11T01:52:47.9175663Z 
+2026-09-11T01:52:47.9176803Z #30 [worker build 7/7] RUN dotnet publish dotnet/LineupWorker/LineupWorker.csproj -c Release --no-restore -o /app/publish
+2026-09-11T01:52:47.9178359Z #30 5.020   LineupWorker -> /src/dotnet/LineupWorker/bin/Release/net10.0/LineupWorker.dll
+2026-09-11T01:52:47.9179499Z #30 5.062   LineupWorker -> /app/publish/
+2026-09-11T01:52:47.9180468Z #30 DONE 5.1s
+2026-09-11T01:52:47.9180973Z 
+2026-09-11T01:52:47.9181342Z #35 [kernel] exporting to image
+2026-09-11T01:52:48.1154296Z #35 ...
+2026-09-11T01:52:48.1155942Z 
+2026-09-11T01:52:48.1156267Z #38 [worker stage-1 3/3] COPY --from=build /app/publish .
+2026-09-11T01:52:48.1156888Z #38 DONE 0.0s
+2026-09-11T01:52:48.1575804Z 
+2026-09-11T01:52:48.1576317Z #35 [kernel] exporting to image
+2026-09-11T01:52:48.1576932Z #35 exporting layers 2.7s done
+2026-09-11T01:52:48.2606052Z #35 writing image sha256:9841f00f082ca8e7fde781d42fdd0c946331f4cec6708527f6a897bc62103c77 done
+2026-09-11T01:52:48.2607066Z #35 naming to docker.io/library/brasileirao-ci-34552247397-1-kernel done
+2026-09-11T01:52:48.2607737Z #35 DONE 2.7s
+2026-09-11T01:52:48.2607958Z 
+2026-09-11T01:52:48.2609684Z #39 [kernel] resolving provenance for metadata file
+2026-09-11T01:52:48.2611616Z #39 DONE 0.0s
+2026-09-11T01:52:48.2612161Z 
+2026-09-11T01:52:48.2612595Z #40 [worker] exporting to image
+2026-09-11T01:52:48.2613499Z #40 exporting layers 0.3s done
+2026-09-11T01:52:48.2614951Z #40 writing image sha256:9e7aa48d6f8023b35e3e28eccc7eafaac2c0381182f3ac77b2143d1b959395fe done
+2026-09-11T01:52:48.2615973Z #40 naming to docker.io/library/brasileirao-ci-34552247397-1-worker done
+2026-09-11T01:52:48.2616665Z #40 DONE 0.3s
+2026-09-11T01:52:48.2616879Z 
+2026-09-11T01:52:48.2617526Z #41 [worker] resolving provenance for metadata file
+2026-09-11T01:52:48.2686767Z #41 DONE 0.0s
+2026-09-11T01:52:48.2688768Z  init-data  Built
+2026-09-11T01:52:48.2689149Z  kernel  Built
+2026-09-11T01:52:48.2689476Z  worker  Built
+2026-09-11T01:52:48.2753537Z ##[group]Run docker compose up --detach --wait --wait-timeout 180
+2026-09-11T01:52:48.2754027Z [36;1mdocker compose up --detach --wait --wait-timeout 180[0m
+2026-09-11T01:52:48.2790968Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:52:48.2791218Z env:
+2026-09-11T01:52:48.2791463Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:52:48.2791784Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:52:48.2792010Z   EXCHANGE_API_KEY: 
+2026-09-11T01:52:48.2792231Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:52:48.2792594Z   COMPOSE_FILE: /home/runner/work/_temp/compose-synthetic/compose.json
+2026-09-11T01:52:48.2792969Z ##[endgroup]
+2026-09-11T01:52:48.3658500Z  redis Pulling 
+2026-09-11T01:52:48.5912087Z  f7ee36c9aa34 Pulling fs layer 
+2026-09-11T01:52:48.5913165Z  2fbf79fbbb1b Pulling fs layer 
+2026-09-11T01:52:48.5913704Z  81d5170ddd74 Pulling fs layer 
+2026-09-11T01:52:48.5914159Z  bbabdb856fbf Pulling fs layer 
+2026-09-11T01:52:48.5915086Z  b9047df5a1ae Pulling fs layer 
+2026-09-11T01:52:48.5915406Z  4f4fb700ef54 Pulling fs layer 
+2026-09-11T01:52:48.5915654Z  a4a3c406a253 Pulling fs layer 
+2026-09-11T01:52:48.5915891Z  bbabdb856fbf Waiting 
+2026-09-11T01:52:48.5916314Z  b9047df5a1ae Waiting 
+2026-09-11T01:52:48.5916534Z  4f4fb700ef54 Waiting 
+2026-09-11T01:52:48.5916735Z  a4a3c406a253 Waiting 
+2026-09-11T01:52:48.6904220Z  81d5170ddd74 Downloading [>                                                  ]  3.457kB/196.1kB
+2026-09-11T01:52:48.6916670Z  2fbf79fbbb1b Downloading [==================================================>]     950B/950B
+2026-09-11T01:52:48.6923171Z  2fbf79fbbb1b Download complete 
+2026-09-11T01:52:48.6929476Z  f7ee36c9aa34 Downloading [>                                                  ]  48.49kB/3.788MB
+2026-09-11T01:52:48.6941351Z  81d5170ddd74 Verifying Checksum 
+2026-09-11T01:52:48.6942011Z  81d5170ddd74 Download complete 
+2026-09-11T01:52:48.7170023Z  f7ee36c9aa34 Verifying Checksum 
+2026-09-11T01:52:48.7172367Z  f7ee36c9aa34 Download complete 
+2026-09-11T01:52:48.7176215Z  f7ee36c9aa34 Extracting [>                                                  ]  65.54kB/3.788MB
+2026-09-11T01:52:48.7208682Z  b9047df5a1ae Downloading [==================================================>]     101B/101B
+2026-09-11T01:52:48.7215076Z  b9047df5a1ae Verifying Checksum 
+2026-09-11T01:52:48.7217841Z  b9047df5a1ae Download complete 
+2026-09-11T01:52:48.7281235Z  bbabdb856fbf Downloading [>                                                  ]  245.1kB/23.85MB
+2026-09-11T01:52:48.7469199Z  a4a3c406a253 Downloading [==================================================>]  2.104kB/2.104kB
+2026-09-11T01:52:48.7470005Z  a4a3c406a253 Verifying Checksum 
+2026-09-11T01:52:48.7470395Z  a4a3c406a253 Download complete 
+2026-09-11T01:52:48.7481401Z  4f4fb700ef54 Downloading [==================================================>]      32B/32B
+2026-09-11T01:52:48.7482730Z  4f4fb700ef54 Verifying Checksum 
+2026-09-11T01:52:48.7483250Z  4f4fb700ef54 Download complete 
+2026-09-11T01:52:48.8112922Z  bbabdb856fbf Verifying Checksum 
+2026-09-11T01:52:48.8113707Z  bbabdb856fbf Download complete 
+2026-09-11T01:52:48.8176871Z  f7ee36c9aa34 Extracting [====================================>              ]  2.753MB/3.788MB
+2026-09-11T01:52:48.8284303Z  f7ee36c9aa34 Extracting [==================================================>]  3.788MB/3.788MB
+2026-09-11T01:52:48.8285521Z  f7ee36c9aa34 Extracting [==================================================>]  3.788MB/3.788MB
+2026-09-11T01:52:48.8475429Z  f7ee36c9aa34 Pull complete 
+2026-09-11T01:52:48.8488717Z  2fbf79fbbb1b Extracting [==================================================>]     950B/950B
+2026-09-11T01:52:48.8492840Z  2fbf79fbbb1b Extracting [==================================================>]     950B/950B
+2026-09-11T01:52:48.8780145Z  2fbf79fbbb1b Pull complete 
+2026-09-11T01:52:48.8790798Z  81d5170ddd74 Extracting [========>                                          ]  32.77kB/196.1kB
+2026-09-11T01:52:48.8808914Z  81d5170ddd74 Extracting [==================================================>]  196.1kB/196.1kB
+2026-09-11T01:52:48.8891931Z  81d5170ddd74 Extracting [==================================================>]  196.1kB/196.1kB
+2026-09-11T01:52:49.0153654Z  81d5170ddd74 Pull complete 
+2026-09-11T01:52:49.0396655Z  bbabdb856fbf Extracting [>                                                  ]  262.1kB/23.85MB
+2026-09-11T01:52:49.1413292Z  bbabdb856fbf Extracting [==================>                                ]  8.651MB/23.85MB
+2026-09-11T01:52:49.2433755Z  bbabdb856fbf Extracting [===================================>               ]  17.04MB/23.85MB
+2026-09-11T01:52:49.3196112Z  bbabdb856fbf Extracting [==================================================>]  23.85MB/23.85MB
+2026-09-11T01:52:49.3198369Z  bbabdb856fbf Extracting [==================================================>]  23.85MB/23.85MB
+2026-09-11T01:52:49.3564757Z  bbabdb856fbf Pull complete 
+2026-09-11T01:52:49.3578866Z  b9047df5a1ae Extracting [==================================================>]     101B/101B
+2026-09-11T01:52:49.3581110Z  b9047df5a1ae Extracting [==================================================>]     101B/101B
+2026-09-11T01:52:49.3646717Z  b9047df5a1ae Pull complete 
+2026-09-11T01:52:49.3659501Z  4f4fb700ef54 Extracting [==================================================>]      32B/32B
+2026-09-11T01:52:49.3664303Z  4f4fb700ef54 Extracting [==================================================>]      32B/32B
+2026-09-11T01:52:49.3747067Z  4f4fb700ef54 Pull complete 
+2026-09-11T01:52:49.3763972Z  a4a3c406a253 Extracting [==================================================>]  2.104kB/2.104kB
+2026-09-11T01:52:49.3765420Z  a4a3c406a253 Extracting [==================================================>]  2.104kB/2.104kB
+2026-09-11T01:52:49.3844343Z  a4a3c406a253 Pull complete 
+2026-09-11T01:52:49.3898478Z  redis Pulled 
+2026-09-11T01:52:49.3922500Z  Network brasileirao-ci-34552247397-1_default  Creating
+2026-09-11T01:52:49.4271563Z  Network brasileirao-ci-34552247397-1_default  Created
+2026-09-11T01:52:49.4282366Z  Volume "brasileirao-ci-34552247397-1_redis-data"  Creating
+2026-09-11T01:52:49.4295909Z  Volume "brasileirao-ci-34552247397-1_redis-data"  Created
+2026-09-11T01:52:49.4299764Z  Volume "brasileirao-ci-34552247397-1_app-data"  Creating
+2026-09-11T01:52:49.4307981Z  Volume "brasileirao-ci-34552247397-1_app-data"  Created
+2026-09-11T01:52:49.4312800Z  Container brasileirao-ci-34552247397-1-init-data-1  Creating
+2026-09-11T01:52:49.4313546Z  Container brasileirao-ci-34552247397-1-redis-1  Creating
+2026-09-11T01:52:49.4527388Z  Container brasileirao-ci-34552247397-1-init-data-1  Created
+2026-09-11T01:52:49.4530729Z  Container brasileirao-ci-34552247397-1-redis-1  Created
+2026-09-11T01:52:49.4531567Z  Container brasileirao-ci-34552247397-1-kernel-1  Creating
+2026-09-11T01:52:49.4644430Z  Container brasileirao-ci-34552247397-1-kernel-1  Created
+2026-09-11T01:52:49.4645524Z  Container brasileirao-ci-34552247397-1-worker-1  Creating
+2026-09-11T01:52:49.4748740Z  Container brasileirao-ci-34552247397-1-worker-1  Created
+2026-09-11T01:52:49.4760815Z  Container brasileirao-ci-34552247397-1-init-data-1  Starting
+2026-09-11T01:52:49.4762271Z  Container brasileirao-ci-34552247397-1-redis-1  Starting
+2026-09-11T01:52:49.6769943Z  Container brasileirao-ci-34552247397-1-redis-1  Started
+2026-09-11T01:52:49.6805453Z  Container brasileirao-ci-34552247397-1-init-data-1  Started
+2026-09-11T01:52:49.6806274Z  Container brasileirao-ci-34552247397-1-redis-1  Waiting
+2026-09-11T01:52:49.6806917Z  Container brasileirao-ci-34552247397-1-init-data-1  Waiting
+2026-09-11T01:52:54.6820347Z  Container brasileirao-ci-34552247397-1-init-data-1  Exited
+2026-09-11T01:52:55.1826989Z  Container brasileirao-ci-34552247397-1-redis-1  Healthy
+2026-09-11T01:52:55.1827866Z  Container brasileirao-ci-34552247397-1-kernel-1  Starting
+2026-09-11T01:52:55.2968803Z  Container brasileirao-ci-34552247397-1-kernel-1  Started
+2026-09-11T01:52:55.2969671Z  Container brasileirao-ci-34552247397-1-kernel-1  Waiting
+2026-09-11T01:52:55.2970274Z  Container brasileirao-ci-34552247397-1-redis-1  Waiting
+2026-09-11T01:52:55.7987159Z  Container brasileirao-ci-34552247397-1-redis-1  Healthy
+2026-09-11T01:53:08.2987479Z  Container brasileirao-ci-34552247397-1-kernel-1  Healthy
+2026-09-11T01:53:08.2988350Z  Container brasileirao-ci-34552247397-1-worker-1  Starting
+2026-09-11T01:53:08.4195667Z  Container brasileirao-ci-34552247397-1-worker-1  Started
+2026-09-11T01:53:08.4196835Z  Container brasileirao-ci-34552247397-1-redis-1  Waiting
+2026-09-11T01:53:08.4197697Z  Container brasileirao-ci-34552247397-1-worker-1  Waiting
+2026-09-11T01:53:08.4198489Z  Container brasileirao-ci-34552247397-1-init-data-1  Waiting
+2026-09-11T01:53:08.4199261Z  Container brasileirao-ci-34552247397-1-kernel-1  Waiting
+2026-09-11T01:53:08.9212287Z  Container brasileirao-ci-34552247397-1-init-data-1  Exited
+2026-09-11T01:53:08.9213248Z  Container brasileirao-ci-34552247397-1-redis-1  Healthy
+2026-09-11T01:53:08.9217591Z  Container brasileirao-ci-34552247397-1-kernel-1  Healthy
+2026-09-11T01:53:13.9221389Z  Container brasileirao-ci-34552247397-1-worker-1  Healthy
+2026-09-11T01:53:13.9313138Z ##[group]Run docker compose run --rm --no-deps --entrypoint python kernel -m brasileirao_scripts.hotpath_smoke --synthetic-lineup --n 3
+2026-09-11T01:53:13.9315151Z [36;1mdocker compose run --rm --no-deps --entrypoint python kernel -m brasileirao_scripts.hotpath_smoke --synthetic-lineup --n 3[0m
+2026-09-11T01:53:13.9369669Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:53:13.9370102Z env:
+2026-09-11T01:53:13.9370518Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:53:13.9371083Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:53:13.9371476Z   EXCHANGE_API_KEY: 
+2026-09-11T01:53:13.9371865Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:53:13.9372482Z   COMPOSE_FILE: /home/runner/work/_temp/compose-synthetic/compose.json
+2026-09-11T01:53:13.9373143Z ##[endgroup]
+2026-09-11T01:53:15.8316188Z {"status": "PASS", "verified": 3, "results": [{"status": "VERIFIED_CURRENT_RESULT", "verification_ms": 0.47709599999734564}, {"status": "VERIFIED_CURRENT_RESULT", "verification_ms": 0.4439530000013292}, {"status": "VERIFIED_CURRENT_RESULT", "verification_ms": 0.3447379999954592}]}
+2026-09-11T01:53:15.8318178Z [smoke] Verification timings are not new kernel-compute or economic measurements.
+2026-09-11T01:53:15.9724127Z ##[group]Run docker compose stop redis
+2026-09-11T01:53:15.9725042Z [36;1mdocker compose stop redis[0m
+2026-09-11T01:53:15.9725534Z [36;1msleep 3[0m
+2026-09-11T01:53:15.9726054Z [36;1mkernel_id=$(docker compose ps --all --quiet kernel)[0m
+2026-09-11T01:53:15.9726690Z [36;1mtest -n "$kernel_id"[0m
+2026-09-11T01:53:15.9727372Z [36;1mtest "$(docker inspect "$kernel_id" --format '{{.State.Status}}')" = running[0m
+2026-09-11T01:53:15.9728154Z [36;1mdocker compose start redis[0m
+2026-09-11T01:53:15.9728648Z [36;1mfor attempt in $(seq 1 30); do[0m
+2026-09-11T01:53:15.9729509Z [36;1m  if docker compose exec -T kernel brasileirao-kernel --healthcheck; then break; fi[0m
+2026-09-11T01:53:15.9730365Z [36;1m  if [ "$attempt" = 30 ]; then exit 1; fi[0m
+2026-09-11T01:53:15.9730881Z [36;1m  sleep 1[0m
+2026-09-11T01:53:15.9731242Z [36;1mdone[0m
+2026-09-11T01:53:15.9732249Z [36;1mdocker compose run --rm --no-deps --entrypoint python kernel -m brasileirao_scripts.hotpath_smoke --synthetic-lineup --n 1[0m
+2026-09-11T01:53:15.9785342Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:53:15.9785787Z env:
+2026-09-11T01:53:15.9786206Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:53:15.9786772Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:53:15.9787171Z   EXCHANGE_API_KEY: 
+2026-09-11T01:53:15.9787554Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:53:15.9788253Z   COMPOSE_FILE: /home/runner/work/_temp/compose-synthetic/compose.json
+2026-09-11T01:53:15.9788929Z ##[endgroup]
+2026-09-11T01:53:16.0844657Z  Container brasileirao-ci-34552247397-1-redis-1  Stopping
+2026-09-11T01:53:16.1722936Z  Container brasileirao-ci-34552247397-1-redis-1  Stopped
+2026-09-11T01:53:19.3623452Z  Container brasileirao-ci-34552247397-1-redis-1  Starting
+2026-09-11T01:53:19.5020916Z  Container brasileirao-ci-34552247397-1-redis-1  Started
+2026-09-11T01:53:23.1635161Z {"status": "PASS", "verified": 1, "results": [{"status": "VERIFIED_CURRENT_RESULT", "verification_ms": 759.3651790000138}]}
+2026-09-11T01:53:23.1636666Z [smoke] Verification timings are not new kernel-compute or economic measurements.
+2026-09-11T01:53:23.3059716Z ##[group]Run docker compose stop --timeout 20 worker kernel
+2026-09-11T01:53:23.3060189Z [36;1mdocker compose stop --timeout 20 worker kernel[0m
+2026-09-11T01:53:23.3060574Z [36;1mworker_id=$(docker compose ps --all --quiet worker)[0m
+2026-09-11T01:53:23.3060957Z [36;1mkernel_id=$(docker compose ps --all --quiet kernel)[0m
+2026-09-11T01:53:23.3061312Z [36;1mtest -n "$worker_id" && test -n "$kernel_id"[0m
+2026-09-11T01:53:23.3061748Z [36;1mtest "$(docker inspect "$worker_id" --format '{{.State.ExitCode}}')" = 0[0m
+2026-09-11T01:53:23.3062264Z [36;1mtest "$(docker inspect "$kernel_id" --format '{{.State.ExitCode}}')" = 0[0m
+2026-09-11T01:53:23.3097268Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:53:23.3097518Z env:
+2026-09-11T01:53:23.3097762Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:53:23.3098078Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:53:23.3098306Z   EXCHANGE_API_KEY: 
+2026-09-11T01:53:23.3098529Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:53:23.3098935Z   COMPOSE_FILE: /home/runner/work/_temp/compose-synthetic/compose.json
+2026-09-11T01:53:23.3099295Z ##[endgroup]
+2026-09-11T01:53:23.3897417Z  Container brasileirao-ci-34552247397-1-worker-1  Stopping
+2026-09-11T01:53:23.4998071Z  Container brasileirao-ci-34552247397-1-worker-1  Stopped
+2026-09-11T01:53:23.4998970Z  Container brasileirao-ci-34552247397-1-kernel-1  Stopping
+2026-09-11T01:53:24.0499185Z  Container brasileirao-ci-34552247397-1-kernel-1  Stopped
+2026-09-11T01:53:24.2458378Z ##[group]Run docker compose logs --no-color > compose-validation.log
+2026-09-11T01:53:24.2458927Z [36;1mdocker compose logs --no-color > compose-validation.log[0m
+2026-09-11T01:53:24.2494535Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:53:24.2495055Z env:
+2026-09-11T01:53:24.2495305Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:53:24.2495626Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:53:24.2495856Z   EXCHANGE_API_KEY: 
+2026-09-11T01:53:24.2496079Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:53:24.2496441Z   COMPOSE_FILE: /home/runner/work/_temp/compose-synthetic/compose.json
+2026-09-11T01:53:24.2496797Z ##[endgroup]
+2026-09-11T01:53:24.3422754Z ##[group]Run docker compose down --volumes
+2026-09-11T01:53:24.3423118Z [36;1mdocker compose down --volumes[0m
+2026-09-11T01:53:24.3459035Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:53:24.3459289Z env:
+2026-09-11T01:53:24.3459543Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:53:24.3459876Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:53:24.3460109Z   EXCHANGE_API_KEY: 
+2026-09-11T01:53:24.3460336Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:53:24.3460697Z   COMPOSE_FILE: /home/runner/work/_temp/compose-synthetic/compose.json
+2026-09-11T01:53:24.3461065Z ##[endgroup]
+2026-09-11T01:53:24.4294654Z  Container brasileirao-ci-34552247397-1-worker-1  Stopping
+2026-09-11T01:53:24.4298178Z  Container brasileirao-ci-34552247397-1-worker-1  Stopped
+2026-09-11T01:53:24.4298923Z  Container brasileirao-ci-34552247397-1-worker-1  Removing
+2026-09-11T01:53:24.4338544Z  Container brasileirao-ci-34552247397-1-worker-1  Removed
+2026-09-11T01:53:24.4339386Z  Container brasileirao-ci-34552247397-1-kernel-1  Stopping
+2026-09-11T01:53:24.4342343Z  Container brasileirao-ci-34552247397-1-kernel-1  Stopped
+2026-09-11T01:53:24.4343189Z  Container brasileirao-ci-34552247397-1-kernel-1  Removing
+2026-09-11T01:53:24.4380060Z  Container brasileirao-ci-34552247397-1-kernel-1  Removed
+2026-09-11T01:53:24.4381577Z  Container brasileirao-ci-34552247397-1-init-data-1  Stopping
+2026-09-11T01:53:24.4382554Z  Container brasileirao-ci-34552247397-1-redis-1  Stopping
+2026-09-11T01:53:24.4383979Z  Container brasileirao-ci-34552247397-1-init-data-1  Stopped
+2026-09-11T01:53:24.4384937Z  Container brasileirao-ci-34552247397-1-init-data-1  Removing
+2026-09-11T01:53:24.4875147Z  Container brasileirao-ci-34552247397-1-init-data-1  Removed
+2026-09-11T01:53:24.5490384Z  Container brasileirao-ci-34552247397-1-redis-1  Stopped
+2026-09-11T01:53:24.5500860Z  Container brasileirao-ci-34552247397-1-redis-1  Removing
+2026-09-11T01:53:24.5565549Z  Container brasileirao-ci-34552247397-1-redis-1  Removed
+2026-09-11T01:53:24.5576289Z  Volume brasileirao-ci-34552247397-1_app-data  Removing
+2026-09-11T01:53:24.5577592Z  Network brasileirao-ci-34552247397-1_default  Removing
+2026-09-11T01:53:24.5578969Z  Volume brasileirao-ci-34552247397-1_redis-data  Removing
+2026-09-11T01:53:24.5583446Z  Volume brasileirao-ci-34552247397-1_app-data  Removed
+2026-09-11T01:53:24.5617160Z  Volume brasileirao-ci-34552247397-1_redis-data  Removed
+2026-09-11T01:53:24.6346882Z  Network brasileirao-ci-34552247397-1_default  Removed
+2026-09-11T01:53:24.6449672Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-11T01:53:24.6451670Z ##[group]Run actions/upload-artifact@v4
+2026-09-11T01:53:24.6451950Z with:
+2026-09-11T01:53:24.6452144Z   name: compose-validation
+2026-09-11T01:53:24.6452392Z   path: compose-validation.log
+2026-09-11T01:53:24.6452640Z   if-no-files-found: warn
+2026-09-11T01:53:24.6452867Z   compression-level: 6
+2026-09-11T01:53:24.6453084Z   overwrite: false
+2026-09-11T01:53:24.6453290Z   include-hidden-files: false
+2026-09-11T01:53:24.6453518Z env:
+2026-09-11T01:53:24.6453759Z   COMPOSE_PROJECT_NAME: brasileirao-ci-34552247397-1
+2026-09-11T01:53:24.6454064Z   EXCHANGE_WEBSOCKET_URL: 
+2026-09-11T01:53:24.6454290Z   EXCHANGE_API_KEY: 
+2026-09-11T01:53:24.6454542Z   LINEUP_ALLOW_SYNTHETIC_INPUTS: true
+2026-09-11T01:53:24.6455239Z   COMPOSE_FILE: /home/runner/work/_temp/compose-synthetic/compose.json
+2026-09-11T01:53:24.6455604Z ##[endgroup]
+2026-09-11T01:53:24.8164574Z (node:4891) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-11T01:53:24.8165435Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-11T01:53:24.8213119Z With the provided path, there will be 1 file uploaded
+2026-09-11T01:53:24.8234851Z Artifact name is valid!
+2026-09-11T01:53:24.8238248Z Root directory input is valid!
+2026-09-11T01:53:25.0657467Z Beginning upload of artifact content to blob storage
+2026-09-11T01:53:25.0863156Z (node:4891) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-11T01:53:25.1299109Z Uploaded bytes 5586
+2026-09-11T01:53:25.1473418Z Finished uploading artifact content to blob storage!
+2026-09-11T01:53:25.1474861Z SHA256 digest of uploaded artifact zip is 3ee5812ae80a8e52f5b520a849671106d414ceda6f39e361905c60c103b6807f
+2026-09-11T01:53:25.1476868Z Finalizing artifact upload
+2026-09-11T01:53:25.3242280Z Artifact compose-validation.zip successfully finalized. Artifact ID 10181302645
+2026-09-11T01:53:25.3244039Z Artifact compose-validation has been successfully uploaded! Final size is 5586 bytes. Artifact ID is 10181302645
+2026-09-11T01:53:25.3251230Z Artifact download URL: https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34552247397/artifacts/10181302645
+2026-09-11T01:53:25.3487983Z Post job cleanup.
+2026-09-11T01:53:25.4377761Z [command]/usr/bin/git version
+2026-09-11T01:53:25.4434772Z git version 2.55.0
+2026-09-11T01:53:25.4476246Z Temporarily overriding HOME='/home/runner/work/_temp/6a2886a5-2807-4879-a5bd-36d2ab311f37' before making global git config changes
+2026-09-11T01:53:25.4477994Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-11T01:53:25.4483574Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T01:53:25.4525545Z Removing SSH command configuration
+2026-09-11T01:53:25.4532851Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-11T01:53:25.4573984Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-11T01:53:25.4840274Z Removing HTTP extra header
+2026-09-11T01:53:25.4846890Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-11T01:53:25.4888690Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-11T01:53:25.5150399Z Removing includeIf entries pointing to credentials config files
+2026-09-11T01:53:25.5158772Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-11T01:53:25.5220088Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-11T01:53:25.5636576Z Cleaning up orphan processes
+2026-09-11T01:53:25.6137439Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

@@ -1,0 +1,7 @@
+# ARI-20260910 — integridade numérica do modelo residual
+
+Base main/2220b42810aea6f656ed196507ff14a62349b83e, limpa e com restauração LGC comprovada. Pendência já identificada na revisão CLO: artefatos residuais aceitam valores não finitos/escalas inválidas/covariância inconsistente; sigmoid avalia exponenciais dos dois ramos; fit aceita falha de convergência e pode corromper estado anterior; target multinomial é truncado para inteiro.
+
+Correção necessária à validade de inferência experimental, não novo candidato econômico: validar domínio e estado antes de publicar artefato/previsão, conservar modelo anterior quando fit falha, usar sigmoid estável e verificar convergência. Se necessária, derivada analítica da mesma função objetivo substitui diferença finita; nenhum hyperparâmetro/seleção/dado real será otimizado. Testar apenas amostras sintéticas fixas e injeção de falha do otimizador. Nenhuma avaliação econômica, recalculação de estudo conhecido, rede, dados operacionais ou coorte protegida.
+
+Consumidores encontrados por busca de imports: residual_walkforward e research_market02_1x2, ambos exploratórios; não serão executados sobre arquivos reais. economic_decision importa somente ResidualPrediction. Registros e relatórios congelados permanecem intactos. Encerrar esta etapa quando regressões antes/depois, contratos existentes, qualidade e pacote passarem, ou documentar bloqueio real sem reduzir critérios.

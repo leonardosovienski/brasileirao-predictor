@@ -1,0 +1,8 @@
+{
+  "at": "2026-09-11T02:00:15.184573+00:00",
+  "source_snapshot_sha256": "a449f131cf9367d57abfa130c128ccb85b22130ebcc2e299de3f1e358d75114d",
+  "source_bytes": 59275431,
+  "initial_messages": 134,
+  "additional_visible_messages": 7,
+  "cutoff": "before final Git integration; subsequent execution is described by publication/recovery receipts, not a future final answer"
+}

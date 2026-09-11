@@ -1,0 +1,597 @@
+{
+  "total_count": 4,
+  "jobs": [
+    {
+      "id": 103094673423,
+      "run_id": 34544695904,
+      "workflow_name": "Scoped synthetic publication validation",
+      "head_branch": "publication-validation-20260910",
+      "run_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/runs/34544695904",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTdWgJ88AAAAYAOvgDw",
+      "head_sha": "8672d756730a33089cb4e612643e10560352769e",
+      "url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/jobs/103094673423",
+      "html_url": "https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34544695904/job/103094673423",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-09-11T00:01:30Z",
+      "started_at": "2026-09-11T00:01:33Z",
+      "completed_at": "2026-09-11T00:02:44Z",
+      "name": "Synthetic .NET 10 build and test",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-11T00:01:34Z",
+          "completed_at": "2026-09-11T00:01:35Z"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-11T00:01:35Z",
+          "completed_at": "2026-09-11T00:01:46Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-11T00:01:46Z",
+          "completed_at": "2026-09-11T00:01:48Z"
+        },
+        {
+          "name": "Identify this job's disposable Redis",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-09-11T00:01:48Z",
+          "completed_at": "2026-09-11T00:01:48Z"
+        },
+        {
+          "name": "Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-11T00:01:48Z",
+          "completed_at": "2026-09-11T00:01:55Z"
+        },
+        {
+          "name": "Run astral-sh/setup-uv@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-09-11T00:01:55Z",
+          "completed_at": "2026-09-11T00:01:57Z"
+        },
+        {
+          "name": "Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-09-11T00:01:57Z",
+          "completed_at": "2026-09-11T00:01:57Z"
+        },
+        {
+          "name": "Prepare the synthetic cross-process kernel",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-09-11T00:01:57Z",
+          "completed_at": "2026-09-11T00:02:02Z"
+        },
+        {
+          "name": "Run dotnet restore dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --locked-mode",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-09-11T00:02:02Z",
+          "completed_at": "2026-09-11T00:02:06Z"
+        },
+        {
+          "name": "Run dotnet build dotnet/LineupWorker/LineupWorker.csproj --configuration Release --no-restore --warnaserror",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-09-11T00:02:06Z",
+          "completed_at": "2026-09-11T00:02:09Z"
+        },
+        {
+          "name": "Test Worker and Python processes against this job's Redis",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-09-11T00:02:09Z",
+          "completed_at": "2026-09-11T00:02:40Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-09-11T00:02:40Z",
+          "completed_at": "2026-09-11T00:02:41Z"
+        },
+        {
+          "name": "Enforce Worker line and branch coverage",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-09-11T00:02:41Z",
+          "completed_at": "2026-09-11T00:02:41Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-09-11T00:02:41Z",
+          "completed_at": "2026-09-11T00:02:41Z"
+        },
+        {
+          "name": "Post Run astral-sh/setup-uv@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-09-11T00:02:41Z",
+          "completed_at": "2026-09-11T00:02:42Z"
+        },
+        {
+          "name": "Post Run actions/setup-dotnet@v6",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-09-11T00:02:42Z",
+          "completed_at": "2026-09-11T00:02:42Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-09-11T00:02:42Z",
+          "completed_at": "2026-09-11T00:02:42Z"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-09-11T00:02:42Z",
+          "completed_at": "2026-09-11T00:02:42Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-09-11T00:02:42Z",
+          "completed_at": "2026-09-11T00:02:42Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/check-runs/103094673423",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000007456,
+      "runner_name": "GitHub Actions 1000007456",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 103094673639,
+      "run_id": 34544695904,
+      "workflow_name": "Scoped synthetic publication validation",
+      "head_branch": "publication-validation-20260910",
+      "run_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/runs/34544695904",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTdWgJ88AAAAYAOvg5w",
+      "head_sha": "8672d756730a33089cb4e612643e10560352769e",
+      "url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/jobs/103094673639",
+      "html_url": "https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34544695904/job/103094673639",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-09-11T00:01:30Z",
+      "started_at": "2026-09-11T00:01:33Z",
+      "completed_at": "2026-09-11T00:02:04Z",
+      "name": "Synthetic Python 3.14",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-11T00:01:34Z",
+          "completed_at": "2026-09-11T00:01:35Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-11T00:01:35Z",
+          "completed_at": "2026-09-11T00:01:37Z"
+        },
+        {
+          "name": "Run astral-sh/setup-uv@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-11T00:01:37Z",
+          "completed_at": "2026-09-11T00:01:38Z"
+        },
+        {
+          "name": "Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-09-11T00:01:38Z",
+          "completed_at": "2026-09-11T00:01:38Z"
+        },
+        {
+          "name": "Install the locked dependency graph",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-11T00:01:38Z",
+          "completed_at": "2026-09-11T00:01:42Z"
+        },
+        {
+          "name": "Validate the reviewed synthetic allowlist",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-09-11T00:01:42Z",
+          "completed_at": "2026-09-11T00:01:55Z"
+        },
+        {
+          "name": "Validate publication tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-09-11T00:01:55Z",
+          "completed_at": "2026-09-11T00:01:55Z"
+        },
+        {
+          "name": "Build distribution and verify wheel installation",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-09-11T00:01:55Z",
+          "completed_at": "2026-09-11T00:02:00Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-09-11T00:02:00Z",
+          "completed_at": "2026-09-11T00:02:02Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-09-11T00:02:02Z",
+          "completed_at": "2026-09-11T00:02:02Z"
+        },
+        {
+          "name": "Post Run astral-sh/setup-uv@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-09-11T00:02:02Z",
+          "completed_at": "2026-09-11T00:02:03Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-09-11T00:02:03Z",
+          "completed_at": "2026-09-11T00:02:03Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-09-11T00:02:03Z",
+          "completed_at": "2026-09-11T00:02:03Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/check-runs/103094673639",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000007457,
+      "runner_name": "GitHub Actions 1000007457",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 103094673663,
+      "run_id": 34544695904,
+      "workflow_name": "Scoped synthetic publication validation",
+      "head_branch": "publication-validation-20260910",
+      "run_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/runs/34544695904",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTdWgJ88AAAAYAOvg_w",
+      "head_sha": "8672d756730a33089cb4e612643e10560352769e",
+      "url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/jobs/103094673663",
+      "html_url": "https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34544695904/job/103094673663",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-09-11T00:01:30Z",
+      "started_at": "2026-09-11T00:01:33Z",
+      "completed_at": "2026-09-11T00:02:04Z",
+      "name": "Synthetic Python 3.13",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-11T00:01:34Z",
+          "completed_at": "2026-09-11T00:01:35Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-11T00:01:35Z",
+          "completed_at": "2026-09-11T00:01:36Z"
+        },
+        {
+          "name": "Run astral-sh/setup-uv@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-11T00:01:36Z",
+          "completed_at": "2026-09-11T00:01:38Z"
+        },
+        {
+          "name": "Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-09-11T00:01:38Z",
+          "completed_at": "2026-09-11T00:01:38Z"
+        },
+        {
+          "name": "Install the locked dependency graph",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-11T00:01:38Z",
+          "completed_at": "2026-09-11T00:01:42Z"
+        },
+        {
+          "name": "Validate the reviewed synthetic allowlist",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-09-11T00:01:42Z",
+          "completed_at": "2026-09-11T00:01:54Z"
+        },
+        {
+          "name": "Validate publication tools",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-09-11T00:01:54Z",
+          "completed_at": "2026-09-11T00:01:54Z"
+        },
+        {
+          "name": "Build distribution and verify wheel installation",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-09-11T00:01:54Z",
+          "completed_at": "2026-09-11T00:02:00Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-09-11T00:02:00Z",
+          "completed_at": "2026-09-11T00:02:02Z"
+        },
+        {
+          "name": "Post Run actions/setup-python@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-09-11T00:02:02Z",
+          "completed_at": "2026-09-11T00:02:02Z"
+        },
+        {
+          "name": "Post Run astral-sh/setup-uv@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-09-11T00:02:02Z",
+          "completed_at": "2026-09-11T00:02:03Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-09-11T00:02:03Z",
+          "completed_at": "2026-09-11T00:02:03Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-09-11T00:02:03Z",
+          "completed_at": "2026-09-11T00:02:03Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/check-runs/103094673663",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000007458,
+      "runner_name": "GitHub Actions 1000007458",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 103094945133,
+      "run_id": 34544695904,
+      "workflow_name": "Scoped synthetic publication validation",
+      "head_branch": "publication-validation-20260910",
+      "run_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/runs/34544695904",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOTdWgJ88AAAAYAPAFbQ",
+      "head_sha": "8672d756730a33089cb4e612643e10560352769e",
+      "url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/jobs/103094945133",
+      "html_url": "https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34544695904/job/103094945133",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-09-11T00:02:44Z",
+      "started_at": "2026-09-11T00:02:47Z",
+      "completed_at": "2026-09-11T00:03:43Z",
+      "name": "Synthetic Compose build and health",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-09-11T00:02:47Z",
+          "completed_at": "2026-09-11T00:02:48Z"
+        },
+        {
+          "name": "Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-09-11T00:02:48Z",
+          "completed_at": "2026-09-11T00:02:50Z"
+        },
+        {
+          "name": "Verify canonical shared wheel hashes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-09-11T00:02:50Z",
+          "completed_at": "2026-09-11T00:02:50Z"
+        },
+        {
+          "name": "Isolate Compose configuration from operational paths",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-09-11T00:02:50Z",
+          "completed_at": "2026-09-11T00:02:50Z"
+        },
+        {
+          "name": "Run docker compose config --quiet",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-09-11T00:02:50Z",
+          "completed_at": "2026-09-11T00:02:51Z"
+        },
+        {
+          "name": "Run docker compose build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-09-11T00:02:51Z",
+          "completed_at": "2026-09-11T00:03:11Z"
+        },
+        {
+          "name": "Run docker compose up --detach --wait --wait-timeout 180",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-09-11T00:03:11Z",
+          "completed_at": "2026-09-11T00:03:30Z"
+        },
+        {
+          "name": "Versioned Python Redis .NET smoke",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-09-11T00:03:30Z",
+          "completed_at": "2026-09-11T00:03:32Z"
+        },
+        {
+          "name": "Redis loss and reconnection",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-09-11T00:03:32Z",
+          "completed_at": "2026-09-11T00:03:39Z"
+        },
+        {
+          "name": "Graceful shutdown",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-09-11T00:03:39Z",
+          "completed_at": "2026-09-11T00:03:40Z"
+        },
+        {
+          "name": "Run docker compose logs --no-color > compose-validation.log",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-09-11T00:03:40Z",
+          "completed_at": "2026-09-11T00:03:40Z"
+        },
+        {
+          "name": "Run docker compose down --volumes",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-09-11T00:03:40Z",
+          "completed_at": "2026-09-11T00:03:40Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-09-11T00:03:40Z",
+          "completed_at": "2026-09-11T00:03:41Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v7",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-09-11T00:03:41Z",
+          "completed_at": "2026-09-11T00:03:41Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-09-11T00:03:41Z",
+          "completed_at": "2026-09-11T00:03:41Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/check-runs/103094945133",
+      "labels": [
+        "ubuntu-latest"
+      ],
+      "runner_id": 1000007459,
+      "runner_name": "GitHub Actions 1000007459",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

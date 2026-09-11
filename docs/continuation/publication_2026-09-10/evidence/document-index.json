@@ -1,0 +1,995 @@
+{
+  "at": "2026-09-11T02:00:16.002246+00:00",
+  "markdown_files": 247,
+  "indexed_excluding_self": 247,
+  "files": [
+    {
+      "path": "HANDOFF.md",
+      "classification": "atual"
+    },
+    {
+      "path": "README.md",
+      "classification": "atual"
+    },
+    {
+      "path": "brasileirao_predictor/research/price_strength/README.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "contracts/redis-protocol-v2.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/A1_OU25_PHASE0_RUNBOOK.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/AUDITORIA_ADVERSARIAL_2026-09-05.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/AUDITORIA_DOCS_VS_CODIGO_2026-09-06.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/AUDITORIA_MATEMATICA_E_CORRECOES_2026-08-26.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/BACKFILL_POINT_IN_TIME.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/BOOKMAKER_STABILITY.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/CAUSA_RAIZ.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/CLOSING_LINE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/COLLECTION_ONLY_HANDOFF.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/COMPARACAO_HIPOTESES_VS_ERROS_ATUAIS_2026-08-26.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/CONCLUSOES.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/COPA_2026_PLAYBOOK.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/COVERAGE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/DATA_MAP.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/DOSSIE_ANALISE_PREDICTOR_2026-08-26.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/DRAW_VARIABLE_CATALOG.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ESTADO_ATUAL.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/ESTADO_LOCAL_E_OPERACAO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/EVIDENCE_REGISTRY.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/FINAL_DELIVERY_ROADMAP_V2.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/HANDOFF_OU25_RODADA_2026_08_29.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/HISTORICAL_SOURCE_REGISTER.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/HYPERPARAMETERS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/INDICE_DOCUMENTACAO.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/KIMI_STRUCTURAL_EDGE_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/MAHER_RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/MARKET_RESIDUAL_ENGINE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/MIGRACAO_WINDOWS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/MODERNIZATION.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/OU25_NESTED_REPLAY.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/PAST_ATTEMPT_LEDGER.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/PREDICTION_PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/PREDICTION_REQUIREMENTS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/PROJECT_LOGIC_REGISTER.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/PROMPT_PROXIMA_SESSAO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/PROTOCOL_DRAW_CALIBRATION_A10_2026-08-26.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/READINESS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_BACKTEST_2026-07-10.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_DIAGNOSTICOS_RESIDUAIS_2026-08-24.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_FINAL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_FINAL_CONSOLIDADO_2026-08-26.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_FORWARD_18JOGOS_2026-07-12.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_GATE_A1_IMPLEMENTACAO_2026-08-24.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_LIVE_FEASIBILITY_L0_2026-08-24.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_RETESTE_2026-08-24.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_SESSAO_0B_2026-08-24.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RELATORIO_VIABILIDADE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RUFF_BASELINE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/RUNBOOK_P0-P2.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/SHADOW_PROSPECTIVE_RUNBOOK.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/SIMULACAO_2025_2026.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/V2_BLUEPRINT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/V3_READINESS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/VIES_ZEBRA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/MANDATO_LUCRO_2026-09-09.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/PROMPT_MELHORIA_LUCRO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/RETOMADA.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/continuation/REVISAO_INTEGRAL_2026-09-09.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/artifact_integrity_2026-09-10/MAPA_DADOS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/artifact_integrity_2026-09-10/MAPA_SISTEMA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/artifact_integrity_2026-09-10/PLANO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/artifact_integrity_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/artifact_integrity_2026-09-10/REGISTROS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/artifact_integrity_2026-09-10/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/artifact_integrity_2026-09-10/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/closeout_2026-09-10/MAPA_DADOS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/closeout_2026-09-10/MAPA_SISTEMA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/closeout_2026-09-10/NOTAS_DE_VERIFICACAO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/closeout_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/closeout_2026-09-10/REGISTROS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/closeout_2026-09-10/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/closeout_2026-09-10/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/completion_2026-09-10/CHECKPOINT_INICIAL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/completion_2026-09-10/CHECKPOINT_TRABALHO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/completion_2026-09-10/MAPA_DADOS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/completion_2026-09-10/MAPA_SISTEMA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/completion_2026-09-10/NOTAS_DE_VERIFICACAO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/completion_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/completion_2026-09-10/REGISTROS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/completion_2026-09-10/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/completion_2026-09-10/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/data_completion_2026-09-09/ACQUISITION_ADDENDUM.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/data_completion_2026-09-09/CONTINUIDADE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/data_completion_2026-09-09/PENDENCIAS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/data_completion_2026-09-09/PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/data_completion_2026-09-09/REPARO_TRANSPORTE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/data_completion_2026-09-09/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/data_completion_2026-09-09/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/docker_completion_2026-09-08/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/docker_completion_2026-09-08/evidencias/work/compose_completion/FINAL_DOCUMENT_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/docker_completion_2026-09-08/evidencias/work/compose_completion/HARNESS_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/docker_completion_2026-09-08/evidencias/work/host_completion/PRODUCER_AUDIT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/economic_search_2026-09-10/PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/economic_search_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/economic_search_2026-09-10/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/economic_search_2026-09-10/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/execution_readiness_2026-09-09/PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/execution_readiness_2026-09-09/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/execution_readiness_2026-09-09/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/implementation_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/implementation_2026-09-10/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/implementation_2026-09-10/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/implementation_2026-09-10/evidence/CHECKPOINT_E_PROTOCOLO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/integral_review_2026-09-09/ALEGACOES.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/integral_review_2026-09-09/CHECKPOINT_INICIAL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/integral_review_2026-09-09/MAPA_DADOS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/integral_review_2026-09-09/MAPA_SISTEMA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/integral_review_2026-09-09/PROBLEMAS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/integral_review_2026-09-09/PROTOCOLO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/integral_review_2026-09-09/PROXIMO_PROMPT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/integral_review_2026-09-09/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/integral_review_2026-09-09/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/ledger_consistency_2026-09-10/MAPA_DADOS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/ledger_consistency_2026-09-10/MAPA_SISTEMA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/ledger_consistency_2026-09-10/PLANO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/ledger_consistency_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/ledger_consistency_2026-09-10/REGISTROS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/ledger_consistency_2026-09-10/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/ledger_consistency_2026-09-10/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/main_consolidation_2026-09-08/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/migration_source_history_2026-09-08/README.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/model_research_2026-09-07/PESQUISA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_feasibility_2026-09-09/MEASUREMENT_ADDENDUM.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_feasibility_2026-09-09/PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_feasibility_2026-09-09/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_feasibility_2026-09-09/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_2026-09-07/GUIA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_2026-09-07/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_diagnosis_2026-09-07/ACHADOS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_diagnosis_2026-09-07/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_diagnosis_2026-09-07/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_diagnosis_2026-09-07/correcao/AUDITORIA_INDEPENDENTE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_diagnosis_2026-09-07/reproducao/METHODOLOGY_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_diagnosis_2026-09-07/reproducao/MODEL_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_evaluation_2026-09-07/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/price_strength_evaluation_2026-09-07/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-09/README.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/DADOS_E_FONTES.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/REGISTROS.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/REPRODUZIR.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/RESULTADO.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/REVISAO_DO_CHAT.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/instructions/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/local-helpers/artifact-integrity-2026-09-10/PLANO.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/CHECKPOINT_E_PROTOCOLO.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/PLANO.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/PLANO.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/PLANO.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/CHECKPOINT_INICIAL.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/PROTOCOLO.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/previous-guides/HANDOFF.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/previous-guides/LEIA_PRIMEIRO.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/previous-guides/README.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/previous-guides/docs/DATA_MAP.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/previous-guides/docs/ESTADO_ATUAL.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/previous-guides/docs/INDICE_DOCUMENTACAO.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/previous-guides/docs/continuation/RETOMADA.md",
+      "classification": "arquivo preservado"
+    },
+    {
+      "path": "docs/continuation/reconciliation_2026-09-10/HISTORICO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/reconciliation_2026-09-10/MAPA_DADOS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/reconciliation_2026-09-10/MAPA_SISTEMA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/reconciliation_2026-09-10/MATRIZ_MANDATO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/reconciliation_2026-09-10/PLANO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/reconciliation_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/reconciliation_2026-09-10/REGISTROS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/reconciliation_2026-09-10/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/reconciliation_2026-09-10/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/resolution_2026-09-10/CONTRATOS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/resolution_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/resolution_2026-09-10/REGISTROS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/resolution_2026-09-10/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/resolution_2026-09-10/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/resolution_2026-09-10/evidence/PLANO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/review_2026-09-07/DIAGNOSTICO_QUALIDADE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/review_2026-09-07/METHODOLOGY_FINDINGS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/review_2026-09-07/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/review_2026-09-07/data_audit.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/review_2026-09-07/operational_code_review.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_contracts_2026-09-07/REPRODUZIR.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_contracts_2026-09-07/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/codigo/contracts/redis-protocol-v2.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/evidencias/work/pending_closure/DOTNET.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/evidencias/work/pending_closure/ENVIRONMENT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/evidencias/work/pending_closure/ENVIRONMENT_CLEANUP_ADDENDUM.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/evidencias/work/pending_closure/ENVIRONMENT_FINAL_ACL_ADDENDUM.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/evidencias/work/pending_closure/FINAL_DOCUMENT_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/evidencias/work/pending_closure/PYTHON.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/evidencias/work/pending_closure/PYTHON_ENTRYPOINT.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/evidencias/work/pending_closure/PYTHON_INBOX_TESTS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_recovery_2026-09-08/evidencias/work/pending_closure/WATCHDOG.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_v2_2026-09-08/RESOLUCAO_DA_REVISAO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_v2_2026-09-08/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_v2_2026-09-08/codigo/contracts/redis-protocol-v2.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_v2_2026-09-08/evidencias/work/runtime_fencing/DOTNET_RUNTIME_V2.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_v2_2026-09-08/evidencias/work/runtime_fix/PYTHON_IMPLEMENTATION.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_v2_2026-09-08/evidencias/work/runtime_fix/ROOT_COMPAT_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/runtime_v2_2026-09-08/evidencias/work/runtime_fix/RUNTIME_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/whole_chat_review_2026-09-08/CODE_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/whole_chat_review_2026-09-08/METHODOLOGY_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/whole_chat_review_2026-09-08/RESEARCH_CODE_REVIEW.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/continuation/whole_chat_review_2026-09-08/RESULTADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/decisions/2026-09-07-price-discovery-historical-first-half.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/decisions/2026-09-07-price-discovery-pinnacle-exploratory.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/decisions/2026-09-07-price-extension-51.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/decisions/2026-09-07-season-turn-split-paper.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/LIVE_BACKTEST_ENGINE_BLOCKED.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/LIVE_FEASIBILITY_01.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/MARKET_02_1X2_PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/MARKET_03_EDGE_ORDERING_PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/MARKET_04_0B_RESOLUTION_PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/MARKET_05_A1_COLLECTOR_SPEC.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/PIT_FEATURE_ARCHITECTURE_SCAFFOLD.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/PROMOTED_COLD_START_PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/PROSPECTIVE_VALIDATION_SCAFFOLD.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/STRUCTURAL_EDGE_SHADOW_PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/experiments/TRACK_A02_DYNAMIC_STRENGTH_PROTOCOL.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/history/antes_consolidacao_2026-09-09/README.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/history/antes_consolidacao_2026-09-09/docs/DATA_MAP.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/history/antes_consolidacao_2026-09-09/docs/MIGRACAO_WINDOWS.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/history/antes_consolidacao_2026-09-09/docs/PROMPT_PROXIMA_SESSAO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/history/antes_consolidacao_2026-09-09/docs/continuation/PROMPT_MELHORIA_LUCRO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/history/antes_consolidacao_2026-09-09/docs/continuation/RETOMADA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ou25_v2/AUDITORIA_INTEGRAL_2026-08-28.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ou25_v2/ERRATA_OU25_V1.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ou25_v2/RELATORIO_ANCORA_MERCADO_OU25.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ou25_v2/RELATORIO_AUDITORIA_OU25_V2.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ou25_v2/RELATORIO_OU25_ANUAL_2021_2026.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ou25_v2/RELATORIO_OU25_REPLAY_ANINHADO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ou25_v2/RELATORIO_POLITICA_CERTEZA_OU25.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ou25_v2/RELATORIO_RECALIBRACAO_OU25_MANUSCRITO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "docs/ou25_v2/RELEASE_VALIDATION_2026-08-27.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "research/kimi_market05/MARKET_05_A1_COLLECTOR_SPEC.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "research/kimi_market05/PLANO_IMPLEMENTACAO_PIVOT_LUCRO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "research/kimi_market05/PROMPT_CODEX_COLETOR_MARKET05.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "research/kimi_market05/PROMPT_CODEX_L0_VIABILIDADE_LIVE.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "research/kimi_market05/PROMPT_CODEX_RETESTE_COMPLETO.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "research/kimi_market05/PROMPT_SESSAO_CIENTIFICA_COMPLETA.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "research/kimi_market05/bet_engine/README.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "tools/publication_validation/README.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    },
+    {
+      "path": "tools/runtime_lab/README.md",
+      "classification": "histórico ou contrato: conferir data/escopo"
+    }
+  ]
+}

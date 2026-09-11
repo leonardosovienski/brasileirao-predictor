@@ -1,0 +1,8 @@
+{
+  "at": "2026-09-11T01:58:38.886893+00:00",
+  "tested_head": "cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f",
+  "integration": "fast-forward the reviewed branch into main, commit documentation with [skip ci], push main without force",
+  "verification": "fresh clone started at old remote ac22c56; pull --ff-only after publication, compare HEAD/tree and versioned evidence, build final package, bundle/fsck/restore",
+  "archive_notes": "historical records immutable; final local Git/audit receipt cannot contain its own commit hash recursively",
+  "no_operational_or_financial_change": true
+}

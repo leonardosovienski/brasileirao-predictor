@@ -1,7 +1,7 @@
-# Estado — RES-20260910
+# Estado atual — PUB-20260910
 
-Software: correções delimitadas validadas e leitura semântica permitida concluída; homologação global ainda limitada. Dados: parciais, relógios históricos/comerciais insuficientes. Economia: lucro executável não demonstrado; capital false.
+Correções RES mantidas e reprodução ampliada para Linux. 345 testes Python por versão 3.13/3.14, 160 .NET e Compose com recuperação/desligamento aprovados. [Resultado](continuation/publication_2026-09-10/RESULTADO.md), [registro corrente](continuation/publication_2026-09-10/REGISTROS.json) e [recibos CI](continuation/publication_2026-09-10/evidence/ci-34552247397/summary.json).
 
-Leia [resultado](continuation/resolution_2026-09-10/RESULTADO.md), [registro único](continuation/resolution_2026-09-10/REGISTROS.json) e [contratos](continuation/resolution_2026-09-10/CONTRATOS.md). Contagens/status derivam desse registro, sem apagar pendências externas. Recibo Git/ZIP em C:/BRASILEIRAO/AUDITORIA/RESOLUCAO_2026-09-10.json.
+O sistema não está integralmente homologado: CI global protegida não executada, dados comerciais insuficientes e sete requisitos ainda bloqueados. A parcela Linux de RCA-P09 foi fechada. Não há lucro executável comprovado; capital false. Conteúdo e cobertura anteriores foram preservados, com 399 leituras semânticas e 59 arquivos restritos a contratos/metadados.
 
-Inventário base: 399 arquivos com leitura semântica e 59 protegidos limitados a contratos/metadados. Registro RES: 52 itens validados, sete bloqueados por requisitos especificados. Não significa zero bugs, CI global aprovado ou lucro demonstrado.
+Publicação/clone/pull/backup: consultar C:/BRASILEIRAO/AUDITORIA/PUBLICACAO_2026-09-10.json e a evidência de recuperação na entrega. Guias históricos são fotografias de suas datas, não estados concorrentes.

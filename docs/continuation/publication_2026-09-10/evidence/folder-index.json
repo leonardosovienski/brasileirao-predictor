@@ -1,0 +1,51 @@
+{
+  "at": "2026-09-11T00:03:18.924812+00:00",
+  "root": "C:\\BRASILEIRAO",
+  "items": [
+    {
+      "name": "AUDITORIA",
+      "kind": "directory",
+      "bytes": null
+    },
+    {
+      "name": "BACKUPS",
+      "kind": "directory",
+      "bytes": null
+    },
+    {
+      "name": "brasileirao-predictor",
+      "kind": "directory",
+      "bytes": null
+    },
+    {
+      "name": "DADOS_PRESERVADOS",
+      "kind": "directory",
+      "bytes": null
+    },
+    {
+      "name": "ENTREGAS",
+      "kind": "directory",
+      "bytes": null
+    },
+    {
+      "name": "INSTRUCOES",
+      "kind": "directory",
+      "bytes": null
+    },
+    {
+      "name": "LEIA_PRIMEIRO.md",
+      "kind": "file",
+      "bytes": 859
+    },
+    {
+      "name": "MIGRACAO_DADOS",
+      "kind": "directory",
+      "bytes": null
+    },
+    {
+      "name": "work",
+      "kind": "directory",
+      "bytes": null
+    }
+  ]
+}

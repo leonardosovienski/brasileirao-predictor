@@ -1,0 +1,1007 @@
+{
+  "at": "2026-09-11T00:03:18.893438+00:00",
+  "items": [
+    {
+      "source": "C:\\BRASILEIRAO\\INSTRUCOES\\PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md",
+      "archive": "docs/continuation/publication_2026-09-10/archive/instructions/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md",
+      "bytes": 23591,
+      "sha256": "57dedfa59223e91365137e3ed31318a7ca8c7df1ace2ce84ef34e4278d1c2844"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\INSTRUCOES\\MANDATO_RECEBIDO_2026-09-09.txt",
+      "archive": "docs/continuation/publication_2026-09-10/archive/instructions/MANDATO_RECEBIDO_2026-09-09.txt",
+      "bytes": 22492,
+      "sha256": "547757f185088a9b96fd4086ca939864aeaa044a08f131ee5e50350900778445"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\chat-visible.txt",
+      "archive": "docs/continuation/publication_2026-09-10/archive/chat/chat-visible.txt",
+      "bytes": 54779,
+      "sha256": "7adf2fd715917d36018bf739ff0e21f1224c4c66e8435fec6e67f7c239a0bd0f"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\chat-visible.json",
+      "archive": "docs/continuation/publication_2026-09-10/archive/chat/chat-visible.json",
+      "bytes": 70724,
+      "sha256": "540f72105bc2d61b507af233f9f909ef41f5b8e8c879975169abb505d339c25e"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\chat-receipt.json",
+      "archive": "docs/continuation/publication_2026-09-10/archive/chat/chat-receipt.json",
+      "bytes": 589,
+      "sha256": "08356868d25265343861fcb218bef06488fce1c87c5d2569d889a48c9dba2af2"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\checkpoint.json",
+      "archive": "docs/continuation/publication_2026-09-10/archive/chat/checkpoint.json",
+      "bytes": 1026,
+      "sha256": "9393030a51c40d3960594af4d598c362514e0b19dfa23ae05071042880821ec1"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\backup_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/artifact-integrity-2026-09-10/backup_delivery.py",
+      "bytes": 5526,
+      "sha256": "ac531e7b86888c7b9cd4ba7af9c36b0e0b7b583ec322b268b02aca1e47ffdc13"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\build_package.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/artifact-integrity-2026-09-10/build_package.py",
+      "bytes": 3929,
+      "sha256": "a00c79f518a0c8061e6ba102d9738966cf2d563f81d0f741e92475790ecde882"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\check_changed.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/artifact-integrity-2026-09-10/check_changed.py",
+      "bytes": 2313,
+      "sha256": "85eda543e57dc01886580a77690f95bcbe836d282cce4ce833177a1249099fd4"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\PLANO.md",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/artifact-integrity-2026-09-10/PLANO.md",
+      "bytes": 1477,
+      "sha256": "0151b7bbb8ab4d9d5e504a999f54d33dfcd49c261f7e0c9d09147f49f27fa7ff"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\prepare_integration.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/artifact-integrity-2026-09-10/prepare_integration.py",
+      "bytes": 2841,
+      "sha256": "c9ea0280f3db2163757396814eec4e508f4873f0ba6f7ed5be53d9facf8b4aa1"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\run_isolated.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/artifact-integrity-2026-09-10/run_isolated.py",
+      "bytes": 4839,
+      "sha256": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\artifact-integrity-2026-09-10\\write_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/artifact-integrity-2026-09-10/write_docs.py",
+      "bytes": 19267,
+      "sha256": "dbbb6435d387925a5d746bd2fddf0a7324aec687e9be1f185976d05354b70e88"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\closeout-2026-09-10\\backup_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/closeout-2026-09-10/backup_delivery.py",
+      "bytes": 5531,
+      "sha256": "dbc9892c45a77b52a52833907bfc884d0e75f366b790b2d56f49e9260a83da3e"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\closeout-2026-09-10\\build_package.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/closeout-2026-09-10/build_package.py",
+      "bytes": 3929,
+      "sha256": "a00c79f518a0c8061e6ba102d9738966cf2d563f81d0f741e92475790ecde882"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\closeout-2026-09-10\\check_changed.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/closeout-2026-09-10/check_changed.py",
+      "bytes": 2313,
+      "sha256": "85eda543e57dc01886580a77690f95bcbe836d282cce4ce833177a1249099fd4"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\closeout-2026-09-10\\integrate_tests.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/closeout-2026-09-10/integrate_tests.py",
+      "bytes": 819,
+      "sha256": "1daeb09c2c7588f8b861b351c4ce3876d155228eaa7d4e02a9b1ac8afe81203d"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\closeout-2026-09-10\\prepare_integration-first.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/closeout-2026-09-10/prepare_integration-first.py",
+      "bytes": 6811,
+      "sha256": "e84165a173bb966a578c57de5fcf5761122e7a47382882664d53261bc71da9ac"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\closeout-2026-09-10\\prepare_integration.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/closeout-2026-09-10/prepare_integration.py",
+      "bytes": 7659,
+      "sha256": "0246445dc25f4130cdfc54839372badcc089cf9dc03a29877e3498ab1db494e9"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\closeout-2026-09-10\\run_isolated.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/closeout-2026-09-10/run_isolated.py",
+      "bytes": 4839,
+      "sha256": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\closeout-2026-09-10\\write_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/closeout-2026-09-10/write_docs.py",
+      "bytes": 26247,
+      "sha256": "baaeac311abcf3b7fc4441d9e0f4ec3b4ba0cfdf5b7edc31e1a6279c519c08ca"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\backup_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/backup_delivery.py",
+      "bytes": 4567,
+      "sha256": "348636512cb11bc3a5e8ec6168993de45e8ae0ab0babe6a8419d00636653f6ee"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\build_package.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/build_package.py",
+      "bytes": 3929,
+      "sha256": "a00c79f518a0c8061e6ba102d9738966cf2d563f81d0f741e92475790ecde882"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\check_changed.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/check_changed.py",
+      "bytes": 2313,
+      "sha256": "85eda543e57dc01886580a77690f95bcbe836d282cce4ce833177a1249099fd4"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\final_inventory.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/final_inventory.py",
+      "bytes": 5599,
+      "sha256": "b42343ec9e80b8df67a35438acbc2ef33cd993d55f76acaa262ac1284fd9f65e"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\finalize_notes.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/finalize_notes.py",
+      "bytes": 2173,
+      "sha256": "bb7a71c53db4eb3d2ab944e730fa2bf09091affdf8c42afa3994ee89de5529e6"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\inventory.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/inventory.py",
+      "bytes": 3045,
+      "sha256": "84020d40eaff87044b168562a94b776c2cfd8bb0917f486578ed0af69c516379"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\prepare_integration.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/prepare_integration.py",
+      "bytes": 6224,
+      "sha256": "a98e6400d682bfc0580946759400707bdc33f5ff3fb17e6a3b52f1699a5e1906"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\run_isolated.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/run_isolated.py",
+      "bytes": 4839,
+      "sha256": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\sources.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/sources.py",
+      "bytes": 1911,
+      "sha256": "e2b3138b387aa36fed67109739ece99cc9c3d026327607df1c98dd402ff4e50e"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\sources_followup.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/sources_followup.py",
+      "bytes": 1790,
+      "sha256": "d98c2bd236294b77a348e650b3fc6a7e51c6b30c53c70244ccd68fc249fe1bda"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\completion-2026-09-10\\write_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/completion-2026-09-10/write_docs.py",
+      "bytes": 41981,
+      "sha256": "90b930abfd3f6abfe7ab8c2f1c7a79f8c42c69ac8432092284dc4e65aa8dd85d"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\consolidation-2026-09-09\\audit_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/consolidation-2026-09-09/audit_docs.py",
+      "bytes": 7703,
+      "sha256": "cc52c3cf49f38b6864055ab222a7f7855ad73d3a5d72201e05c528be64621ba6"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\consolidation-2026-09-09\\prepare.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/consolidation-2026-09-09/prepare.py",
+      "bytes": 3192,
+      "sha256": "1151cfcc0b5ef40aa1caf95045260416b7c957e98b29a119256c22ef101e8041"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\consolidation-2026-09-09\\seal.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/consolidation-2026-09-09/seal.py",
+      "bytes": 5153,
+      "sha256": "287b2a1ebb541deaa161ebb26b3868955cd134b9ec9099bf613e4a7d54ea58e7"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\consolidation-2026-09-09\\update_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/consolidation-2026-09-09/update_docs.py",
+      "bytes": 22984,
+      "sha256": "54a167a29bbd41433a857facedab511bafc729cc01a18e4e61efe334c139500f"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\consolidation-2026-09-09\\verify_disk.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/consolidation-2026-09-09/verify_disk.py",
+      "bytes": 3318,
+      "sha256": "c6d832862a3e0fd518616393bcd3034e497b24bf3e2736aecbcb9ebbcf17d4b3"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\account_recheck.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/account_recheck.py",
+      "bytes": 1754,
+      "sha256": "5f2628e014913263666d3385ed196583440c4da4bca19fcf8cac49d12e2db0a5"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\acquire_history.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/acquire_history.py",
+      "bytes": 8033,
+      "sha256": "9320337f9509e2c94a7a171b1d03a4c816bf29347970f0417599f3a964ab47cd"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\audit_followup.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/audit_followup.py",
+      "bytes": 5269,
+      "sha256": "ebce7ddeb384b347be4985b7a3812a1b83c7dfaceafdb3e2a6cb00f7e2d09a24"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\audit_results.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/audit_results.py",
+      "bytes": 7198,
+      "sha256": "0d13151d4889e39134cc9914e55867dc3fccf9bf56fe072ec4c2f733b2c14e46"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\capture_pilot.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/capture_pilot.py",
+      "bytes": 8169,
+      "sha256": "355d6925c8a58c3b748949f7814743224d4186644d38ee2153bc2d44d9289c80"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\check_account.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/check_account.py",
+      "bytes": 2962,
+      "sha256": "d82114c0ba383d080c91e8af664f49101eadcbf516ae2e7a909555e7a73590dc"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\fetch_public.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/fetch_public.py",
+      "bytes": 3586,
+      "sha256": "18712bf4c13d3e1b9a119edbf858156ba0b3cca353742f135371b06add67d4cf"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\fetch_public_extra.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/fetch_public_extra.py",
+      "bytes": 839,
+      "sha256": "5c161c6bdf7bf5b0883372e0e354a1e75b17959c36311361b084d09a9ae28619"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\final_backup_and_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/final_backup_and_delivery.py",
+      "bytes": 9731,
+      "sha256": "f4eabf056f9645ac4197638115e0fd64a817258ff4d7559809053585dae97ea9"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\finalize_checks.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/finalize_checks.py",
+      "bytes": 5918,
+      "sha256": "f5f934f039cd83db4b3699a89a38714a9613c2bbb6e4dd7a968ed107190e05f6"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\followup_capture.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/followup_capture.py",
+      "bytes": 6211,
+      "sha256": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\package_documentation.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/package_documentation.py",
+      "bytes": 8623,
+      "sha256": "93a1678f6acfe9984e139c85e2693a360eefe0fcc37390086ce037456e0e6c64"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\repair_transport.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/repair_transport.py",
+      "bytes": 3718,
+      "sha256": "6365316bedee0162460ba24a17910a1929bc1fa941a5f2eebde774dc769ddd8f"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\revalidate_changed_module.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/revalidate_changed_module.py",
+      "bytes": 2639,
+      "sha256": "5191d4865b135d1d4589567795d9ad73bc25713667a6ad084954ce548d83c1c3"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\run_closing.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/run_closing.py",
+      "bytes": 8401,
+      "sha256": "6419b17af714242beec00c9f66e9699e597d2720b6c950c6b1347f1178a355aa"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\seal_artifacts.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/seal_artifacts.py",
+      "bytes": 6370,
+      "sha256": "c6203d47eb3c98ef1aa93adafaa9abf97328013bd4a83dd1d3d711930ff422a1"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\update_documentation.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/update_documentation.py",
+      "bytes": 20403,
+      "sha256": "1d9fc857afbfd84022ac3ed4543646327ebb67baae315360079844f8ba6c1178"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\validate_offline.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/validate_offline.py",
+      "bytes": 2530,
+      "sha256": "ea488b771b6c2c7e562b98511d7c461eae15e01e99a76c78d16d9b09c60c0bb7"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\verify_closing_independently.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/verify_closing_independently.py",
+      "bytes": 3817,
+      "sha256": "6eee560d83b49f307e1b133386bf4bbcf3a879b46b503d24781ceaaab2efe2f4"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\verify_pilot_after_fix.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/verify_pilot_after_fix.py",
+      "bytes": 2501,
+      "sha256": "43e2239f75534e7e16615a2abc9e52c216e299aef9df725a4f34a51396e003a4"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\verify_types.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/data-completion-2026-09-09/verify_types.py",
+      "bytes": 1655,
+      "sha256": "253db664767f08f973c75f87eb7ac03c7d2096b9ca3706c09b1ee0edfb00f42d"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\economic-search-2026-09-10\\audit_results.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/economic-search-2026-09-10/audit_results.py",
+      "bytes": 4686,
+      "sha256": "12d0e00902a5f7c6f28eb5423cbe334ecf31e34d3928bda2e25e1a58bf2549d1"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\economic-search-2026-09-10\\finalize_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/economic-search-2026-09-10/finalize_delivery.py",
+      "bytes": 5227,
+      "sha256": "93ed0612ccb0949b0d32e7b03404eff40700901d6812ead0aa0d3f5b199f4001"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\economic-search-2026-09-10\\run_isolated.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/economic-search-2026-09-10/run_isolated.py",
+      "bytes": 4839,
+      "sha256": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\economic-search-2026-09-10\\run_study.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/economic-search-2026-09-10/run_study.py",
+      "bytes": 2883,
+      "sha256": "ac869a9c3fa44bc9bb8727e6cca621e632cbc969051f06296affa7fe72c67268"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\activate_and_document.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/execution-readiness-2026-09-09/activate_and_document.py",
+      "bytes": 15234,
+      "sha256": "f5ffe4b80df21da9908c88fb627fe099a0e7a5b881bec9bae62a6628c493889c"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\fetch_contract_sources.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/execution-readiness-2026-09-09/fetch_contract_sources.py",
+      "bytes": 2224,
+      "sha256": "c346cf909e82318cddea53f18df841ec00b51bba049d7d301b9791977f153a63"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\final_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/execution-readiness-2026-09-09/final_delivery.py",
+      "bytes": 8080,
+      "sha256": "beaac4c5f3313761714b198ca1d740228c72cc1e18d0cb0e48d62c6cbe9ea4b6"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\seal_review.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/execution-readiness-2026-09-09/seal_review.py",
+      "bytes": 3599,
+      "sha256": "a73c0df7db0b820e2fac23b21eab9fbd6bf10552105e381fa0d4e8337b5b37a8"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\validate_offline.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/execution-readiness-2026-09-09/validate_offline.py",
+      "bytes": 1817,
+      "sha256": "2a2237c2128e3f34ad93716b9ac2132f7eed3683e9e32e6a6f246a45e8c8af0b"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\execution-readiness-2026-09-09\\verify_engineering.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/execution-readiness-2026-09-09/verify_engineering.py",
+      "bytes": 4188,
+      "sha256": "7a5742c99e751e9fc95cfaf32f246803b29fd8209202b9c6f9ed5a241e8846a1"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\capture_decision_before_universe.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/capture_decision_before_universe.py",
+      "bytes": 10212,
+      "sha256": "fbcbdcd9c1719308e2feb2e00c14dd5ef91057ed6449ad6a380d364cbb429b76"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\check_lab_boundaries.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/check_lab_boundaries.py",
+      "bytes": 2120,
+      "sha256": "030bc8fe7f99b57cdd609ce7dbfd09489a5f888a5d7f69809c40d5aafa20ed33"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\CHECKPOINT_E_PROTOCOLO.md",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/CHECKPOINT_E_PROTOCOLO.md",
+      "bytes": 4031,
+      "sha256": "ab336b2b0c073bb3c6aa831f49dcfd6de178ff6c1201a095617742bdf1cf48b2"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\final_backup.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/final_backup.py",
+      "bytes": 7146,
+      "sha256": "8a3913b74040d103398a5c95105ddaeecedba9e3d361153250a59925b53b2b26"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\inspect_memurai.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/inspect_memurai.py",
+      "bytes": 1074,
+      "sha256": "516e7a460a3d621b6c00f1864732f2ff436343d3767f161fb8597850c84c61de"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\package_smoke.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/package_smoke.py",
+      "bytes": 2865,
+      "sha256": "42f21245d1aa800d1ae2e37c3b91b0ec07e4ab5b04d6cce3ccea4a26c9ea9dd3"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\package_smoke_final.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/package_smoke_final.py",
+      "bytes": 2972,
+      "sha256": "a9c295897685bc59ae487ae1b18c7e4665b16d9e5132c06677a4b70ed5ead5ab"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\repair_register.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/repair_register.py",
+      "bytes": 1718,
+      "sha256": "862c4dac57a74247a611f0eb3daaaf9c7214469e77dac363aab341b9e55b1bb6"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\run_capture_experiment.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/run_capture_experiment.py",
+      "bytes": 3243,
+      "sha256": "d26ca48c3d0400aba9acd24e524e8e87abe1f849faa756f6cdba2f189320428d"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\run_isolated.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/run_isolated.py",
+      "bytes": 4839,
+      "sha256": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\seal_before_commit.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/seal_before_commit.py",
+      "bytes": 4213,
+      "sha256": "1e6702cd1393098ebe8fcb9c50ca3d7d7e6cca3fc8e2e0a62569e8c1ddf5f383"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\test_cold_start_preload_variant.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/test_cold_start_preload_variant.py",
+      "bytes": 1490,
+      "sha256": "b8f975a4d021a06cf11697231582cd2080e98c60665845129daaa7e310137e70"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\implementacao-2026-09-10\\write_delivery_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/implementacao-2026-09-10/write_delivery_docs.py",
+      "bytes": 36506,
+      "sha256": "6ee6d4efa530b6cf5b8610c78b7ba981f6a2c3461c451f55a5693b4d37b52749"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\ledger-consistency-2026-09-10\\backup_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/backup_delivery.py",
+      "bytes": 5572,
+      "sha256": "878d8cd1226fd317a72f17c34733b08e7c499a5c33590367e9d44629fd4238c7"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\ledger-consistency-2026-09-10\\build_package.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/build_package.py",
+      "bytes": 3929,
+      "sha256": "a00c79f518a0c8061e6ba102d9738966cf2d563f81d0f741e92475790ecde882"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\ledger-consistency-2026-09-10\\check_changed.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/check_changed.py",
+      "bytes": 2313,
+      "sha256": "85eda543e57dc01886580a77690f95bcbe836d282cce4ce833177a1249099fd4"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\ledger-consistency-2026-09-10\\PLANO.md",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/PLANO.md",
+      "bytes": 1812,
+      "sha256": "713c71d294ea888b89a4282c96b324fe4a566362c1dd09b4c43940b3e9a40fef"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\ledger-consistency-2026-09-10\\prepare_integration.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/prepare_integration.py",
+      "bytes": 2830,
+      "sha256": "2bf248120c23c86fbac214d341f31d37a79adea09188cf691cde5480bad53064"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\ledger-consistency-2026-09-10\\process_lock_lab-first.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/process_lock_lab-first.py",
+      "bytes": 4121,
+      "sha256": "12a35fbd7f08b3ff8ff72e1c4a02464a0232384f489287fc6edfffa710677633"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\ledger-consistency-2026-09-10\\process_lock_lab.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/process_lock_lab.py",
+      "bytes": 4235,
+      "sha256": "3df7e464f43858ba1186eeb14432bb5fe5e25256db3753c9537bbba8c758fcdd"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\ledger-consistency-2026-09-10\\run_isolated.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/run_isolated.py",
+      "bytes": 4839,
+      "sha256": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\ledger-consistency-2026-09-10\\write_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/ledger-consistency-2026-09-10/write_docs.py",
+      "bytes": 19235,
+      "sha256": "e9af3ef16ea0c38c1ae64f070a056555ea6410ed6dc410bfbe63975cf6561057"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\price-feasibility-2026-09-09\\acquire.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/price-feasibility-2026-09-09/acquire.py",
+      "bytes": 2625,
+      "sha256": "7cd31d4924421eaade8afb776e37fe1d31975983c7a468d58ce41242faa94bd8"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-09\\prepare_publication.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/publication-2026-09-09/prepare_publication.py",
+      "bytes": 4655,
+      "sha256": "e865688afa5086be5a8d77928f56a16d13aeaf7f68b36367fc15f80c08b0fc14"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\backup_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/backup_delivery.py",
+      "bytes": 6029,
+      "sha256": "8803ff450e591951feaaa6a329d2cbf6d3942380c9695eb2177b5792313f2cb1"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\build_package.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/build_package.py",
+      "bytes": 3929,
+      "sha256": "a00c79f518a0c8061e6ba102d9738966cf2d563f81d0f741e92475790ecde882"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\build_package_after_guides.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/build_package_after_guides.py",
+      "bytes": 3996,
+      "sha256": "0a9945387c1bed06c4a33183e6be9af5a9ac51e4a42a525f82404995acb71513"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\check_changed.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/check_changed.py",
+      "bytes": 2313,
+      "sha256": "85eda543e57dc01886580a77690f95bcbe836d282cce4ce833177a1249099fd4"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\check_dependencies.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/check_dependencies.py",
+      "bytes": 4016,
+      "sha256": "e68f1ad0eb37ae6b534f9f7faf48db454cd7d2e851b749463ec69ff3e0edc1d9"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\finalize_staging.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/finalize_staging.py",
+      "bytes": 2514,
+      "sha256": "674105d0151097e401a9a26e3cc059aad79bb4e06373103dd9ddbfe3e7197698"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\PLANO.md",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/PLANO.md",
+      "bytes": 2483,
+      "sha256": "58dc74b463a467e244d84605d8c707d71a46e8324dad7c6384ecc6c5a1c91e69"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\prepare_helpers.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/prepare_helpers.py",
+      "bytes": 2814,
+      "sha256": "84430a3dcf65954ef0c1265887fee162f92e9abbf9c694f7b17174d7bb3112ef"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\prepare_integration.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/prepare_integration.py",
+      "bytes": 2938,
+      "sha256": "12970a8e8e5df560b26df534388c8192e033a79bf0d53b0b7c5a6c034ee48fdb"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\recover_chat.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/recover_chat.py",
+      "bytes": 2137,
+      "sha256": "b7cf9c97bdcd35493a9e7c340eee5697e26a3427ba95608edcbfed4cbbaf8309"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\run_isolated.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/run_isolated.py",
+      "bytes": 4839,
+      "sha256": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\validate_documents.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/validate_documents.py",
+      "bytes": 3287,
+      "sha256": "2eddb194d564f4e1967be9f56a1ddf91f606e36550dff2d8e81d3007f4f181d4"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\verify_current_evidence.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/verify_current_evidence.py",
+      "bytes": 7221,
+      "sha256": "4a3f009c09c2219c9746d93d72eb0d9be1a932571260185cbd769032fd8c6fef"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\reconciliation-2026-09-10\\write_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/reconciliation-2026-09-10/write_docs.py",
+      "bytes": 56416,
+      "sha256": "af516aa752269d0d1d9045033444a10af23b3ddb9ad7bf480da5d2fd659bf658"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\append_review_02.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/append_review_02.py",
+      "bytes": 8640,
+      "sha256": "8ccee927634d56fc3eaded70231d4e2c43bbb17217ad297b74d63e3b8c892433"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\append_review_03.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/append_review_03.py",
+      "bytes": 4817,
+      "sha256": "a7b8885c92ba841657081c6c4b5e7c89a57f5d6664f981295ee74a0589f87119"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\append_review_04.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/append_review_04.py",
+      "bytes": 7208,
+      "sha256": "f1c22750ccf15fe59ec58e2c1a55ebdfd1765818dd32e84978888c2691a166a5"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\append_review_05.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/append_review_05.py",
+      "bytes": 7283,
+      "sha256": "9f8a050508b9418d6cc44a9a9ef37d71e13cbff5010620bdcad9c6127268a317"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\backup_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/backup_delivery.py",
+      "bytes": 6498,
+      "sha256": "34a323b2cadbe44ecbc117ceb6082b01018bac913a8139c9d29598c3450f6a13"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\build_package_final.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/build_package_final.py",
+      "bytes": 3927,
+      "sha256": "015f3f55300ce3f9fcbe3e530a50aa9b3f6ddfb0375e0cfd6d0af72bee61dd3c"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\build_package_final_02.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/build_package_final_02.py",
+      "bytes": 3999,
+      "sha256": "87b7e73cec84cc71595bd5da6623571121ff23c1bdf24a27c4049c9b50312b26"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\build_package_runtime.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/build_package_runtime.py",
+      "bytes": 3983,
+      "sha256": "fd0d5158275acf3b837572e6e18b9938db82df94f0ad8b979b707fa040fb185d"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\build_package_runtime_02.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/build_package_runtime_02.py",
+      "bytes": 4004,
+      "sha256": "0f74f0ca25dbe1505f412bcf6b9c088f4f95a55a86a1c1f1c96def1a866c76cb"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\check_changed.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/check_changed.py",
+      "bytes": 2488,
+      "sha256": "607c815edda96e0ef57955191999cebf0f9d530f6fca7fe8cc53b23e63335f0f"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\close_import_connection.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/close_import_connection.py",
+      "bytes": 589,
+      "sha256": "de8088e2237fbeb26bbbec3b17168ca3739bc8c2c0599143422f19420e2c7e35"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\complete_source_review.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/complete_source_review.py",
+      "bytes": 18751,
+      "sha256": "5b13cc0ba7d15b83d59dd29f03c8e478d6594c1e028ef0422296db348f48a330"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\final_evidence.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/final_evidence.py",
+      "bytes": 8695,
+      "sha256": "2841560fa512ad7719821bce90ce06493e365c268d4d8e16756069a31f89e089"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\finalize_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/finalize_docs.py",
+      "bytes": 11844,
+      "sha256": "700c92095e1e9b289a2feed1c3839613694bdfb5bb805d07ed7ca840d1f12aa6"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\finish_package_checks.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/finish_package_checks.py",
+      "bytes": 1809,
+      "sha256": "61ff8c3725268785557dd5f105f8c06950469a34e144f72ce468411cce9e3990"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\install_compose_check.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/install_compose_check.py",
+      "bytes": 3515,
+      "sha256": "27ed68e6759e654f00b020f9cb925638645393e7815a7d4dac7afb7b256d1853"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\invoke_installed_lab.ps1",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/invoke_installed_lab.ps1",
+      "bytes": 918,
+      "sha256": "8d65f5638c47a903f07f7f8e51ae713483e84d01591b0ccf9d08814ad8b51eae"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\invoke_lab.ps1",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/invoke_lab.ps1",
+      "bytes": 890,
+      "sha256": "ae59f0494d3b46a42d8837cd42abdffc3f84098db889919563a8d88fe85bea6f"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\PLANO.md",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/PLANO.md",
+      "bytes": 2093,
+      "sha256": "6ba1d48948036b99b78010d8d6be430c64716654d68fc02e23afe76d6db5503a"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\prepare_installed_cross.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/prepare_installed_cross.py",
+      "bytes": 2273,
+      "sha256": "f24ca7a8ae960d4e36bf5be7fd5982c90a3c3a0fdc2e83729c70211acde8e952"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\prepare_integration.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/prepare_integration.py",
+      "bytes": 5998,
+      "sha256": "133deafb7dbeaf4948d8fd268bd289154c3dd6abe6d9cade2234370060a34334"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\prepare_lab.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/prepare_lab.py",
+      "bytes": 1524,
+      "sha256": "5cd99268d2cc0064d503b75b93230e85c301ef91d4cb98d9cbe3754d57314390"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\probe_public_catalog.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/probe_public_catalog.py",
+      "bytes": 2745,
+      "sha256": "fff3ef555f3daf3e28b55f74884b56273e3333094564b1c6f58babcad6addd69"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\replace_bank_state.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/replace_bank_state.py",
+      "bytes": 6243,
+      "sha256": "c956a3af44fd52fb894cdd745e016985ce7a3aa81bd815150690cad8d460ff0b"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\replace_odds_claims.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/replace_odds_claims.py",
+      "bytes": 3049,
+      "sha256": "59a67f5d3bedc60b91b2f406049f98e4a9d5e638d99c1b613e6cbac7670babdf"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\replace_residual_dataset.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/replace_residual_dataset.py",
+      "bytes": 9118,
+      "sha256": "1601f17489f8be6b283c480d1e3c3bafa97957db90cadb5690deaaa11a7557c5"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\run_dotnet_cases.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/run_dotnet_cases.py",
+      "bytes": 10745,
+      "sha256": "0c60b060749dc1f1eb7606333f69988d35892fbc4b2e39fe959c5f5f146d1998"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\run_dotnet_installed.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/run_dotnet_installed.py",
+      "bytes": 10626,
+      "sha256": "aa8063844d6d7dc67a4f286857f096b40135c0142271601a94f323afc0a1aa0a"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\run_isolated.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/run_isolated.py",
+      "bytes": 5080,
+      "sha256": "6e78d330674c42f699735702c9cba1b46ed9213594d116c250e6115be9f33296"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\run_isolated_before_uri_guard.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/run_isolated_before_uri_guard.py",
+      "bytes": 5052,
+      "sha256": "ad16a086d63e579e478c4117109a88875ac336d080dc55b42d258a5c17751514"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\update_review_notes.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/update_review_notes.py",
+      "bytes": 4397,
+      "sha256": "32873c81bc760ead98b853a8deb60265ed70f7b9de433ecd38167da670a87c94"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\validate_compose_final.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/validate_compose_final.py",
+      "bytes": 1873,
+      "sha256": "f37f0137fe7ea0e40dc419e7a48262bcdd3002c98f0dadaafc644612b342f36d"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\resolution-2026-09-10\\write_delivery_docs.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/resolution-2026-09-10/write_delivery_docs.py",
+      "bytes": 28769,
+      "sha256": "5b45114bc2535c9d53c41e747d865eba4524fb9287c4da27caa736f8914d895b"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\audit_data.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/audit_data.py",
+      "bytes": 7572,
+      "sha256": "1134b8be7b726f5c44c3d55dc464db381d9c98e338e82601cbdf4c9a91175086"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\CHECKPOINT_INICIAL.md",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/CHECKPOINT_INICIAL.md",
+      "bytes": 5490,
+      "sha256": "918d997e32c2d4f31d5de0be6c63a57d46b9c01cf655811f97219e88b0a795e9"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\close_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/close_delivery.py",
+      "bytes": 8942,
+      "sha256": "963efc9a63357593470e7716978c1f1d9cf1f86c9f8893f7f10839284b41c2c8"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\consolidate_evidence.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/consolidate_evidence.py",
+      "bytes": 4032,
+      "sha256": "bcb09e7a28c21029cd6ac7a77ab6e5109b36ea8b476008fd801fce66dd293ffe"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\final_wording.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/final_wording.py",
+      "bytes": 1758,
+      "sha256": "1b0a3057cba72dd27457de34f2a9183ea81b33bd08da25fe7878ff615bbc7733"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\finish_review_artifacts.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/finish_review_artifacts.py",
+      "bytes": 5464,
+      "sha256": "9efca871b914f6b1bf25ee55a8155a90aa760f13c4a04f4869bf2dcc924523ee"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\inventory.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/inventory.py",
+      "bytes": 3250,
+      "sha256": "7bd3158ab474e3a90b9d5957709046ab791998b2fbdc6f760931b62b7c554188"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\normalize_delivery.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/normalize_delivery.py",
+      "bytes": 2163,
+      "sha256": "02132f7e06598404608e172213ba221411e18aa55ba9cc4dd8dd0c4f6e4eb80b"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\package_smoke.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/package_smoke.py",
+      "bytes": 2235,
+      "sha256": "6b6c36e4c4cceafb24abb758188f5cc7d834d7391980dfe0570211307149e817"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\package_smoke_final.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/package_smoke_final.py",
+      "bytes": 2529,
+      "sha256": "c0222dae82b2c9372eeceaaf7640e958e4b5712799211c093d2f93f27dcdb136"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\preintegration_check.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/preintegration_check.py",
+      "bytes": 3667,
+      "sha256": "7c8dc474e531a05a62f14e547c925dcf6aa99685208277c6c32da123a0ce1d7c"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\prepare_dotnet.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/prepare_dotnet.py",
+      "bytes": 2146,
+      "sha256": "2f18ddbab935bbe780f29bce217de846ec6df629cb462d54eaf6182be3bcc56e"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\prepare_package_smoke_final.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/prepare_package_smoke_final.py",
+      "bytes": 703,
+      "sha256": "00b2ac1753023e7ee151c0c250c4252db8c6f54d424a27af521df02e11e293aa"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\PROTOCOLO.md",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/PROTOCOLO.md",
+      "bytes": 5288,
+      "sha256": "4823f597947d7e5c90ca1401e4e7490d16ee905154472aef9d2800320c406184"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\reconcile_final_records.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/reconcile_final_records.py",
+      "bytes": 6987,
+      "sha256": "23cafa6d8092dbe6ead6bcf45cee6077df05a02ec08f6a57be75014c8b118c2b"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\recover_public.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/recover_public.py",
+      "bytes": 2548,
+      "sha256": "0bc2acd057cd7c41a3cff597435b2a4090790f4f441b2e085bddde2d45649c7b"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\run_dotnet.ps1",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/run_dotnet.ps1",
+      "bytes": 2246,
+      "sha256": "4a416bb50375750be1b02bb95f24bffd5396188273d32ea2eb1fd7eb3cf7c11e"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\run_isolated.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/run_isolated.py",
+      "bytes": 4839,
+      "sha256": "bafb6578351481d74239ef566ea18a0b23c39a3c64cacb15051be0e79a955579"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\test_isolation_boundary.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/test_isolation_boundary.py",
+      "bytes": 955,
+      "sha256": "a177ad0eb063817121fb1aec01662132a68b840d6bad3d9ee304d2a0743f86ca"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\update_guides.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/update_guides.py",
+      "bytes": 22716,
+      "sha256": "cabc3d372a365b5c1a9afe54bb3e0a072cd9af8fe9badafdd05f2d46943704c9"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\verify_staging.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/verify_staging.py",
+      "bytes": 1708,
+      "sha256": "c9996a55a05b65eb3f2a0160e017a2935b246b34a5cde728ea0cbd3edc2f61bd"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\revisao-integral-2026-09-09\\write_reports.py",
+      "archive": "docs/continuation/publication_2026-09-10/archive/local-helpers/revisao-integral-2026-09-09/write_reports.py",
+      "bytes": 49233,
+      "sha256": "de74080e673e9a48e3d32fb2cc8425887e86ab8dffaf2fd211eee82e18896f40"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\python-portable-first\\isolation.json",
+      "archive": "docs/continuation/publication_2026-09-10/evidence/python-portable-first/isolation.json",
+      "bytes": 2240,
+      "sha256": "5d8718b4b49beab9504f2a7ba62f4ee6fac2f4c41adf4fa1a2cc8ecd0255ea33"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\python-portable-first\\junit.xml",
+      "archive": "docs/continuation/publication_2026-09-10/evidence/python-portable-first/junit.xml",
+      "bytes": 45593,
+      "sha256": "99a76c265a9a4196e52ebb4195a84e1d945c5abf50afaba0b511a2724d20d6be"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\python-portable-first.log",
+      "archive": "docs/continuation/publication_2026-09-10/evidence/python-portable-first.log",
+      "bytes": 427,
+      "sha256": "f3b0bea135f4e6659fe6fc693aefe4458c5a4f4876750036915973ed20474a87"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\python-portable-final\\isolation.json",
+      "archive": "docs/continuation/publication_2026-09-10/evidence/python-portable-final/isolation.json",
+      "bytes": 2471,
+      "sha256": "94e45baf5ba8a218b49905b7062ecd085dcef4bb48d66b1c14eab16161e098dd"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\python-portable-final\\junit.xml",
+      "archive": "docs/continuation/publication_2026-09-10/evidence/python-portable-final/junit.xml",
+      "bytes": 45674,
+      "sha256": "3b6d749da34cc9302e87efdd77e1ed1c803a7c3fdd1c753cce250f54b6766b68"
+    },
+    {
+      "source": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\python-portable-final.log",
+      "archive": "docs/continuation/publication_2026-09-10/evidence/python-portable-final.log",
+      "bytes": 427,
+      "sha256": "0e2c846a943d98c56269e84547e4ad17eef7af46655019c6aa5b685a78b3c8ee"
+    }
+  ]
+}

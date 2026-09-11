@@ -1,0 +1,20 @@
+{
+  "at": "2026-09-10T23:48:44.931944+00:00",
+  "base": "ec493c8ec263ca9c11213cf3378d436b32279c44",
+  "branch": "main",
+  "initial_worktree_clean": true,
+  "remote": "https://github.com/leonardosovienski/brasileirao-predictor.git",
+  "remote_visibility": "public",
+  "remote_main": "ac22c56c3318623e07a722f34d44dc6cd877ea37",
+  "authorized": "review, correct, validate, archive under C:/BRASILEIRAO, commit/push and fresh remote clone/pull verification",
+  "protected_operation": "no change or reads of protected results",
+  "financial_execution": false,
+  "plan": [
+    "recover and read visible chat; reconcile decisions against artifacts",
+    "inspect CI effects before any push; isolate protected data/evaluators",
+    "verify source/data/documentation inventories and recovered dependencies",
+    "test corrections and publish authorized text/code/public evidence",
+    "fetch/clone/pull and verify hashes, indexes, local backup and Explorer organization"
+  ],
+  "no_chat_deletion_performed": true
+}

@@ -1,0 +1,85 @@
+{
+  "total_count": 4,
+  "artifacts": [
+    {
+      "id": 10181302645,
+      "node_id": "MDg6QXJ0aWZhY3QxMDE4MTMwMjY0NQ==",
+      "name": "compose-validation",
+      "size_in_bytes": 5586,
+      "url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/artifacts/10181302645",
+      "archive_download_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/artifacts/10181302645/zip",
+      "expired": false,
+      "digest": "sha256:3ee5812ae80a8e52f5b520a849671106d414ceda6f39e361905c60c103b6807f",
+      "created_at": "2026-09-11T01:53:25Z",
+      "updated_at": "2026-09-11T01:53:25Z",
+      "expires_at": "2026-12-10T01:50:10Z",
+      "workflow_run": {
+        "id": 34552247397,
+        "repository_id": 1305845799,
+        "head_repository_id": 1305845799,
+        "head_branch": "publication-validation-20260910",
+        "head_sha": "cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f"
+      }
+    },
+    {
+      "id": 10181263843,
+      "node_id": "MDg6QXJ0aWZhY3QxMDE4MTI2Mzg0Mw==",
+      "name": "dotnet-validation",
+      "size_in_bytes": 45028,
+      "url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/artifacts/10181263843",
+      "archive_download_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/artifacts/10181263843/zip",
+      "expired": false,
+      "digest": "sha256:5709e31f0285d168cc85e5b3489b589c428c383297682d8254b349c932cf925b",
+      "created_at": "2026-09-11T01:51:39Z",
+      "updated_at": "2026-09-11T01:51:39Z",
+      "expires_at": "2026-12-10T01:50:10Z",
+      "workflow_run": {
+        "id": 34552247397,
+        "repository_id": 1305845799,
+        "head_repository_id": 1305845799,
+        "head_branch": "publication-validation-20260910",
+        "head_sha": "cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f"
+      }
+    },
+    {
+      "id": 10181244805,
+      "node_id": "MDg6QXJ0aWZhY3QxMDE4MTI0NDgwNQ==",
+      "name": "python-validation-3.13",
+      "size_in_bytes": 10607449,
+      "url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/artifacts/10181244805",
+      "archive_download_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/artifacts/10181244805/zip",
+      "expired": false,
+      "digest": "sha256:4a5027cecd796229d8c6c8528bcba1836a48a9bb70c9f32cd04b87cba216f5b4",
+      "created_at": "2026-09-11T01:50:47Z",
+      "updated_at": "2026-09-11T01:50:47Z",
+      "expires_at": "2026-12-10T01:50:10Z",
+      "workflow_run": {
+        "id": 34552247397,
+        "repository_id": 1305845799,
+        "head_repository_id": 1305845799,
+        "head_branch": "publication-validation-20260910",
+        "head_sha": "cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f"
+      }
+    },
+    {
+      "id": 10181243863,
+      "node_id": "MDg6QXJ0aWZhY3QxMDE4MTI0Mzg2Mw==",
+      "name": "python-validation-3.14",
+      "size_in_bytes": 10607414,
+      "url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/artifacts/10181243863",
+      "archive_download_url": "https://api.github.com/repos/leonardosovienski/brasileirao-predictor/actions/artifacts/10181243863/zip",
+      "expired": false,
+      "digest": "sha256:fca3bd213828a7e6d34287e3f3c10e1e5975911314d8abe18d3b650b93cecf95",
+      "created_at": "2026-09-11T01:50:45Z",
+      "updated_at": "2026-09-11T01:50:45Z",
+      "expires_at": "2026-12-10T01:50:10Z",
+      "workflow_run": {
+        "id": 34552247397,
+        "repository_id": 1305845799,
+        "head_repository_id": 1305845799,
+        "head_branch": "publication-validation-20260910",
+        "head_sha": "cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f"
+      }
+    }
+  ]
+}

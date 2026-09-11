@@ -1,0 +1,434 @@
+﻿2026-09-11T00:01:34.1067838Z Current runner version: '2.337.0'
+2026-09-11T00:01:34.1101552Z ##[group]Runner Image Provisioner
+2026-09-11T00:01:34.1103041Z Hosted Compute Agent
+2026-09-11T00:01:34.1103997Z Version: 20260828.587
+2026-09-11T00:01:34.1104985Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-11T00:01:34.1106351Z Build Date: 2026-08-28T16:44:25Z
+2026-09-11T00:01:34.1107783Z Worker ID: {f4a81903-363b-4fbe-abac-ffe12aebe7ce}
+2026-09-11T00:01:34.1109134Z Azure Region: eastus
+2026-09-11T00:01:34.1110111Z ##[endgroup]
+2026-09-11T00:01:34.1112365Z ##[group]Operating System
+2026-09-11T00:01:34.1113532Z Ubuntu
+2026-09-11T00:01:34.1114407Z 24.04.5
+2026-09-11T00:01:34.1115350Z LTS
+2026-09-11T00:01:34.1116244Z ##[endgroup]
+2026-09-11T00:01:34.1117389Z ##[group]Runner Image
+2026-09-11T00:01:34.1118532Z Image: ubuntu-24.04
+2026-09-11T00:01:34.1119510Z Version: 20260907.300.1
+2026-09-11T00:01:34.1121699Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-11T00:01:34.1124465Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-11T00:01:34.1126189Z ##[endgroup]
+2026-09-11T00:01:34.1128363Z ##[group]GITHUB_TOKEN Permissions
+2026-09-11T00:01:34.1131241Z Contents: read
+2026-09-11T00:01:34.1132189Z Metadata: read
+2026-09-11T00:01:34.1133233Z ##[endgroup]
+2026-09-11T00:01:34.1136170Z Secret source: Actions
+2026-09-11T00:01:34.1138146Z Cache mode: write
+2026-09-11T00:01:34.1139735Z Prepare workflow directory
+2026-09-11T00:01:34.1615819Z Prepare all required actions
+2026-09-11T00:01:34.1686543Z Getting action download info
+2026-09-11T00:01:34.3707928Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-11T00:01:34.4828367Z Download action repository 'astral-sh/setup-uv@v7' (SHA:37802adc94f370d6bfd71619e3f0bf239e1f3b78)
+2026-09-11T00:01:34.6746680Z Download action repository 'actions/setup-python@v7' (SHA:5fda3b95a4ea91299a34e894583c3862153e4b97)
+2026-09-11T00:01:34.7569586Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-09-11T00:01:34.9821591Z Complete job name: Synthetic Python 3.13
+2026-09-11T00:01:35.0642088Z ##[group]Run actions/checkout@v7
+2026-09-11T00:01:35.0643042Z with:
+2026-09-11T00:01:35.0643536Z   persist-credentials: false
+2026-09-11T00:01:35.0644349Z   repository: leonardosovienski/brasileirao-predictor
+2026-09-11T00:01:35.0648787Z   token: ***
+2026-09-11T00:01:35.0649239Z   ssh-strict: true
+2026-09-11T00:01:35.0649672Z   ssh-user: git
+2026-09-11T00:01:35.0650093Z   clean: true
+2026-09-11T00:01:35.0650538Z   sparse-checkout-cone-mode: true
+2026-09-11T00:01:35.0651083Z   fetch-depth: 1
+2026-09-11T00:01:35.0651518Z   fetch-tags: false
+2026-09-11T00:01:35.0651956Z   show-progress: true
+2026-09-11T00:01:35.0652404Z   lfs: false
+2026-09-11T00:01:35.0652851Z   submodules: false
+2026-09-11T00:01:35.0653315Z   set-safe-directory: true
+2026-09-11T00:01:35.0653833Z   allow-unsafe-pr-checkout: false
+2026-09-11T00:01:35.0654719Z ##[endgroup]
+2026-09-11T00:01:35.1712582Z Syncing repository: leonardosovienski/brasileirao-predictor
+2026-09-11T00:01:35.1715431Z ##[group]Getting Git version info
+2026-09-11T00:01:35.1717119Z Working directory is '/home/runner/work/brasileirao-predictor/brasileirao-predictor'
+2026-09-11T00:01:35.1719106Z [command]/usr/bin/git version
+2026-09-11T00:01:35.1801454Z git version 2.55.0
+2026-09-11T00:01:35.1824634Z ##[endgroup]
+2026-09-11T00:01:35.1843296Z Temporarily overriding HOME='/home/runner/work/_temp/1d9be31c-ad33-40a3-b6bd-e3f00b1d4455' before making global git config changes
+2026-09-11T00:01:35.1845798Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-11T00:01:35.1852567Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T00:01:35.1908600Z Deleting the contents of '/home/runner/work/brasileirao-predictor/brasileirao-predictor'
+2026-09-11T00:01:35.1916491Z ##[group]Determining repository object format
+2026-09-11T00:01:35.1919002Z ##[endgroup]
+2026-09-11T00:01:35.1920431Z ##[group]Initializing the repository
+2026-09-11T00:01:35.1922127Z [command]/usr/bin/git init /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T00:01:35.2024226Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-11T00:01:35.2028393Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-11T00:01:35.2029791Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-11T00:01:35.2030564Z hint: call:
+2026-09-11T00:01:35.2031208Z hint:
+2026-09-11T00:01:35.2032074Z hint: 	git config --global init.defaultBranch <name>
+2026-09-11T00:01:35.2032718Z hint:
+2026-09-11T00:01:35.2033309Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-11T00:01:35.2034241Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-11T00:01:35.2034984Z hint:
+2026-09-11T00:01:35.2035449Z hint: 	git branch -m <name>
+2026-09-11T00:01:35.2035934Z hint:
+2026-09-11T00:01:35.2036586Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-11T00:01:35.2037969Z Initialized empty Git repository in /home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/
+2026-09-11T00:01:35.2044885Z [command]/usr/bin/git remote add origin https://github.com/leonardosovienski/brasileirao-predictor
+2026-09-11T00:01:35.2091845Z ##[endgroup]
+2026-09-11T00:01:35.2092673Z ##[group]Disabling automatic garbage collection
+2026-09-11T00:01:35.2095967Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-11T00:01:35.2128365Z ##[endgroup]
+2026-09-11T00:01:35.2129507Z ##[group]Setting up auth
+2026-09-11T00:01:35.2130529Z Removing SSH command configuration
+2026-09-11T00:01:35.2134832Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-11T00:01:35.2170019Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-11T00:01:35.2530745Z Removing HTTP extra header
+2026-09-11T00:01:35.2621891Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-11T00:01:35.2626144Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-11T00:01:35.2833519Z Removing includeIf entries pointing to credentials config files
+2026-09-11T00:01:35.2839588Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-11T00:01:35.2878011Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-11T00:01:35.3103080Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-11T00:01:35.3143833Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path /home/runner/work/_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config
+2026-09-11T00:01:35.3182866Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config
+2026-09-11T00:01:35.3221097Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config
+2026-09-11T00:01:35.3256181Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config
+2026-09-11T00:01:35.3286480Z ##[endgroup]
+2026-09-11T00:01:35.3287816Z ##[group]Fetching the repository
+2026-09-11T00:01:35.3294878Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +8672d756730a33089cb4e612643e10560352769e:refs/remotes/origin/publication-validation-20260910
+2026-09-11T00:01:36.4472222Z From https://github.com/leonardosovienski/brasileirao-predictor
+2026-09-11T00:01:36.4473970Z  * [new ref]         8672d756730a33089cb4e612643e10560352769e -> origin/publication-validation-20260910
+2026-09-11T00:01:36.4479804Z [command]/usr/bin/git branch --list --remote origin/publication-validation-20260910
+2026-09-11T00:01:36.4510179Z   origin/publication-validation-20260910
+2026-09-11T00:01:36.4517600Z [command]/usr/bin/git rev-parse refs/remotes/origin/publication-validation-20260910
+2026-09-11T00:01:36.4544883Z 8672d756730a33089cb4e612643e10560352769e
+2026-09-11T00:01:36.4549653Z ##[endgroup]
+2026-09-11T00:01:36.4550689Z ##[group]Determining the checkout info
+2026-09-11T00:01:36.4551485Z ##[endgroup]
+2026-09-11T00:01:36.4554956Z [command]/usr/bin/git sparse-checkout disable
+2026-09-11T00:01:36.4607937Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-11T00:01:36.4641824Z ##[group]Checking out the ref
+2026-09-11T00:01:36.4646323Z [command]/usr/bin/git checkout --progress --force -B publication-validation-20260910 refs/remotes/origin/publication-validation-20260910
+2026-09-11T00:01:36.7340484Z Switched to a new branch 'publication-validation-20260910'
+2026-09-11T00:01:36.7346284Z branch 'publication-validation-20260910' set up to track 'origin/publication-validation-20260910'.
+2026-09-11T00:01:36.7370437Z ##[endgroup]
+2026-09-11T00:01:36.7426161Z [command]/usr/bin/git log -1 --format=%H
+2026-09-11T00:01:36.7458586Z 8672d756730a33089cb4e612643e10560352769e
+2026-09-11T00:01:36.7469429Z ##[group]Removing auth
+2026-09-11T00:01:36.7469925Z Removing SSH command configuration
+2026-09-11T00:01:36.7474703Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-11T00:01:36.7522184Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-11T00:01:36.7748221Z Removing HTTP extra header
+2026-09-11T00:01:36.7752247Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-11T00:01:36.7786641Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-11T00:01:36.8009797Z Removing includeIf entries pointing to credentials config files
+2026-09-11T00:01:36.8013126Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-11T00:01:36.8043568Z includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path
+2026-09-11T00:01:36.8044611Z includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path
+2026-09-11T00:01:36.8045227Z includeif.gitdir:/github/workspace/.git.path
+2026-09-11T00:01:36.8045650Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-11T00:01:36.8052706Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path
+2026-09-11T00:01:36.8079258Z /home/runner/work/_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config
+2026-09-11T00:01:36.8088085Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-7de961c8\-f1a7\-45ed\-9bd4\-46635b4ac85d\.config
+2026-09-11T00:01:36.8125583Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path
+2026-09-11T00:01:36.8151991Z /home/runner/work/_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config
+2026-09-11T00:01:36.8162824Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-7de961c8\-f1a7\-45ed\-9bd4\-46635b4ac85d\.config
+2026-09-11T00:01:36.8206221Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-11T00:01:36.8257811Z /github/runner_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config
+2026-09-11T00:01:36.8286734Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-7de961c8\-f1a7\-45ed\-9bd4\-46635b4ac85d\.config
+2026-09-11T00:01:36.8314207Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-11T00:01:36.8342229Z /github/runner_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config
+2026-09-11T00:01:36.8351925Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-7de961c8\-f1a7\-45ed\-9bd4\-46635b4ac85d\.config
+2026-09-11T00:01:36.8388157Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-11T00:01:36.8609890Z Removing credentials config '/home/runner/work/_temp/git-credentials-7de961c8-f1a7-45ed-9bd4-46635b4ac85d.config'
+2026-09-11T00:01:36.8618105Z ##[endgroup]
+2026-09-11T00:01:36.8889441Z ##[group]Run astral-sh/setup-uv@v7
+2026-09-11T00:01:36.8889751Z with:
+2026-09-11T00:01:36.8889955Z   version: 0.12.1
+2026-09-11T00:01:36.8890182Z   activate-environment: false
+2026-09-11T00:01:36.8890613Z   working-directory: /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T00:01:36.8893548Z   github-token: ***
+2026-09-11T00:01:36.8893775Z   enable-cache: auto
+2026-09-11T00:01:36.8894398Z   cache-dependency-glob: **/*requirements*.txt
+**/*requirements*.in
+**/*constraints*.txt
+**/*constraints*.in
+**/pyproject.toml
+**/uv.lock
+**/*.py.lock
+
+2026-09-11T00:01:36.8895034Z   restore-cache: true
+2026-09-11T00:01:36.8895253Z   save-cache: true
+2026-09-11T00:01:36.8895459Z   prune-cache: true
+2026-09-11T00:01:36.8895666Z   cache-python: false
+2026-09-11T00:01:36.8895896Z   ignore-nothing-to-cache: false
+2026-09-11T00:01:36.8896156Z   ignore-empty-workdir: false
+2026-09-11T00:01:36.8896411Z   add-problem-matchers: true
+2026-09-11T00:01:36.8896689Z   resolution-strategy: highest
+2026-09-11T00:01:36.8897234Z ##[endgroup]
+2026-09-11T00:01:37.0613602Z Fetching version data from https://raw.githubusercontent.com/astral-sh/versions/main/v1/uv.ndjson ...
+2026-09-11T00:01:37.1358510Z Downloading uv from "https://releases.astral.sh/github/uv/releases/download/0.12.1/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+2026-09-11T00:01:37.3264079Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/1f8952cc-8ca1-4320-9f63-970224133299 -f /home/runner/work/_temp/1cb37713-d528-49f1-a742-08cc3932c98f
+2026-09-11T00:01:37.7540224Z Added /home/runner/.local/bin to the path
+2026-09-11T00:01:37.7540874Z Added /opt/hostedtoolcache/uv/0.12.1/x86_64 to the path
+2026-09-11T00:01:37.7541596Z Set UV_PYTHON_INSTALL_DIR to /home/runner/work/_temp/uv-python-dir
+2026-09-11T00:01:37.7542320Z Added /home/runner/work/_temp/uv-python-dir to the path
+2026-09-11T00:01:37.7564088Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:01:37.7564785Z Successfully installed uv version 0.12.1
+2026-09-11T00:01:37.8611758Z Searching files using cache dependency glob: /home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*requirements*.txt,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*requirements*.in,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*constraints*.txt,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*constraints*.in,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/pyproject.toml,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/uv.lock,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*.py.lock
+2026-09-11T00:01:38.1683581Z /home/runner/work/brasileirao-predictor/brasileirao-predictor/pyproject.toml
+2026-09-11T00:01:38.2046678Z /home/runner/work/brasileirao-predictor/brasileirao-predictor/uv.lock
+2026-09-11T00:01:38.2056871Z Found 2 files to hash.
+2026-09-11T00:01:38.2141063Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-pruned-5f30cb0e72f2eed540b5a45603843fe755586a8d2e9bf05b531a79f7a68c6d70
+2026-09-11T00:01:38.2787747Z No GitHub Actions cache found for key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-pruned-5f30cb0e72f2eed540b5a45603843fe755586a8d2e9bf05b531a79f7a68c6d70
+2026-09-11T00:01:38.3496455Z ##[group]Run actions/setup-python@v7
+2026-09-11T00:01:38.3496744Z with:
+2026-09-11T00:01:38.3497187Z   python-version: 3.13
+2026-09-11T00:01:38.3497434Z   check-latest: false
+2026-09-11T00:01:38.3500102Z   token: ***
+2026-09-11T00:01:38.3500325Z   update-environment: true
+2026-09-11T00:01:38.3500575Z   allow-prereleases: false
+2026-09-11T00:01:38.3500807Z   freethreaded: false
+2026-09-11T00:01:38.3501009Z env:
+2026-09-11T00:01:38.3501269Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T00:01:38.3501648Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:01:38.3501947Z ##[endgroup]
+2026-09-11T00:01:38.4659432Z ##[group]Installed versions
+2026-09-11T00:01:38.4738421Z Successfully set up CPython (3.13.15)
+2026-09-11T00:01:38.4739240Z ##[endgroup]
+2026-09-11T00:01:38.4824352Z ##[group]Run uv sync --locked --all-extras
+2026-09-11T00:01:38.4824735Z [36;1muv sync --locked --all-extras[0m
+2026-09-11T00:01:38.4870379Z shell: /usr/bin/bash -e {0}
+2026-09-11T00:01:38.4870642Z env:
+2026-09-11T00:01:38.4870921Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T00:01:38.4871331Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:01:38.4871709Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:38.4872154Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T00:01:38.4872590Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:38.4872966Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:38.4873351Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:38.4873731Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T00:01:38.4874051Z ##[endgroup]
+2026-09-11T00:01:39.1900916Z Using CPython 3.13.15 interpreter at: /opt/hostedtoolcache/Python/3.13.15/x64/bin/python3
+2026-09-11T00:01:39.1901859Z Creating virtual environment at: .venv
+2026-09-11T00:01:39.4369807Z Resolved 60 packages in 243ms
+2026-09-11T00:01:39.4495121Z    Building brasileirao-predictor @ file:///home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T00:01:39.4751923Z Downloading curl-cffi (12.9MiB)
+2026-09-11T00:01:39.4756595Z Downloading pandas (10.4MiB)
+2026-09-11T00:01:39.4764504Z Downloading scipy (33.7MiB)
+2026-09-11T00:01:39.4780108Z Downloading ruff (9.8MiB)
+2026-09-11T00:01:39.4784043Z Downloading numpy (15.9MiB)
+2026-09-11T00:01:39.4786021Z Downloading pyright (5.9MiB)
+2026-09-11T00:01:39.4789626Z Downloading pygments (1.2MiB)
+2026-09-11T00:01:39.4791732Z Downloading lxml (5.0MiB)
+2026-09-11T00:01:39.4800423Z Downloading pydantic-core (2.0MiB)
+2026-09-11T00:01:39.4842858Z Downloading llvmlite (57.1MiB)
+2026-09-11T00:01:39.4845061Z Downloading numba (3.7MiB)
+2026-09-11T00:01:39.4849041Z Downloading virtualenv (5.1MiB)
+2026-09-11T00:01:39.9061386Z  Downloaded pydantic-core
+2026-09-11T00:01:40.1459878Z  Downloaded pygments
+2026-09-11T00:01:40.2857853Z  Downloaded virtualenv
+2026-09-11T00:01:40.3062224Z  Downloaded lxml
+2026-09-11T00:01:40.5315378Z  Downloaded numba
+2026-09-11T00:01:40.7272117Z       Built brasileirao-predictor @ file:///home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T00:01:40.7328407Z  Downloaded ruff
+2026-09-11T00:01:40.9047121Z  Downloaded curl-cffi
+2026-09-11T00:01:41.0254797Z  Downloaded numpy
+2026-09-11T00:01:41.6809171Z  Downloaded llvmlite
+2026-09-11T00:01:41.6809627Z  Downloaded scipy
+2026-09-11T00:01:41.6997172Z  Downloaded pandas
+2026-09-11T00:01:42.1689547Z  Downloaded pyright
+2026-09-11T00:01:42.1693006Z Prepared 56 packages in 2.73s
+2026-09-11T00:01:42.3286973Z Installed 58 packages in 159ms
+2026-09-11T00:01:42.3288146Z  + annotated-types==0.8.0
+2026-09-11T00:01:42.3288832Z  + attrs==26.1.0
+2026-09-11T00:01:42.3289259Z  + beautifulsoup4==4.15.0
+2026-09-11T00:01:42.3290130Z  + brasileirao-predictor==0.1.0 (from file:///home/runner/work/brasileirao-predictor/brasileirao-predictor)
+2026-09-11T00:01:42.3291038Z  + build==1.6.0
+2026-09-11T00:01:42.3291383Z  + certifi==2026.7.22
+2026-09-11T00:01:42.3291737Z  + cffi==2.1.1
+2026-09-11T00:01:42.3292053Z  + cfgv==3.5.0
+2026-09-11T00:01:42.3292428Z  + charset-normalizer==3.5.1
+2026-09-11T00:01:42.3292828Z  + coverage==7.15.4
+2026-09-11T00:01:42.3293181Z  + curl-cffi==0.16.3
+2026-09-11T00:01:42.3293525Z  + distlib==0.4.3
+2026-09-11T00:01:42.3293866Z  + filelock==3.32.4
+2026-09-11T00:01:42.3294195Z  + hiredis==3.4.1
+2026-09-11T00:01:42.3294526Z  + html5lib==1.1
+2026-09-11T00:01:42.3294856Z  + identify==2.6.19
+2026-09-11T00:01:42.3295189Z  + idna==3.19
+2026-09-11T00:01:42.3295513Z  + iniconfig==2.3.0
+2026-09-11T00:01:42.3295859Z  + jsonschema==4.26.0
+2026-09-11T00:01:42.3296265Z  + jsonschema-specifications==2025.9.1
+2026-09-11T00:01:42.3296727Z  + llvmlite==0.49.0
+2026-09-11T00:01:42.3297270Z  + lxml==6.1.3
+2026-09-11T00:01:42.3297879Z  + nodeenv==1.10.0
+2026-09-11T00:01:42.3298225Z  + numba==0.67.0
+2026-09-11T00:01:42.3298552Z  + numpy==2.5.2
+2026-09-11T00:01:42.3298888Z  + packaging==26.3
+2026-09-11T00:01:42.3299224Z  + pandas==3.0.5
+2026-09-11T00:01:42.3299571Z  + platformdirs==4.11.4
+2026-09-11T00:01:42.3299938Z  + pluggy==1.6.0
+2026-09-11T00:01:42.3300279Z  + pre-commit==4.6.2
+2026-09-11T00:01:42.3301465Z  + predictor-core==3.2.0 (from https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl)
+2026-09-11T00:01:42.3303288Z  + predictor-ops==4.1.0 (from https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl)
+2026-09-11T00:01:42.3304475Z  + pycparser==3.0
+2026-09-11T00:01:42.3304829Z  + pydantic==2.13.5
+2026-09-11T00:01:42.3305202Z  + pydantic-core==2.46.5
+2026-09-11T00:01:42.3305608Z  + pydantic-settings==2.15.0
+2026-09-11T00:01:42.3306017Z  + pygments==2.21.0
+2026-09-11T00:01:42.3306392Z  + pyproject-hooks==1.2.0
+2026-09-11T00:01:42.3306790Z  + pyright==1.1.411
+2026-09-11T00:01:42.3307335Z  + pytest==9.1.1
+2026-09-11T00:01:42.3307690Z  + python-dateutil==2.9.0.post0
+2026-09-11T00:01:42.3308125Z  + python-discovery==1.5.3
+2026-09-11T00:01:42.3308540Z  + python-dotenv==1.2.3
+2026-09-11T00:01:42.3308916Z  + pyyaml==6.0.3
+2026-09-11T00:01:42.3309260Z  + redis==8.1.0
+2026-09-11T00:01:42.3309591Z  + referencing==0.37.0
+2026-09-11T00:01:42.3309945Z  + requests==2.34.2
+2026-09-11T00:01:42.3310297Z  + rpds-py==2026.6.3
+2026-09-11T00:01:42.3310645Z  + ruff==0.16.6
+2026-09-11T00:01:42.3310960Z  + scipy==1.18.1
+2026-09-11T00:01:42.3311276Z  + six==1.17.0
+2026-09-11T00:01:42.3311602Z  + soupsieve==2.9.2
+2026-09-11T00:01:42.3311956Z  + truststore==0.10.4
+2026-09-11T00:01:42.3312330Z  + typing-extensions==4.16.0
+2026-09-11T00:01:42.3312760Z  + typing-inspection==0.4.4
+2026-09-11T00:01:42.3313148Z  + urllib3==2.7.0
+2026-09-11T00:01:42.3313509Z  + virtualenv==21.7.5
+2026-09-11T00:01:42.3313874Z  + webencodings==0.6.1
+2026-09-11T00:01:42.3451473Z ##[group]Run .venv/bin/python -I -B tools/publication_validation/run.py "$RUNNER_TEMP/python-synthetic"
+2026-09-11T00:01:42.3452249Z [36;1m.venv/bin/python -I -B tools/publication_validation/run.py "$RUNNER_TEMP/python-synthetic"[0m
+2026-09-11T00:01:42.3489515Z shell: /usr/bin/bash -e {0}
+2026-09-11T00:01:42.3489947Z env:
+2026-09-11T00:01:42.3490231Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T00:01:42.3490640Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:01:42.3491036Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:42.3491509Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T00:01:42.3491937Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:42.3492315Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:42.3492695Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:42.3493106Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T00:01:42.3493428Z ##[endgroup]
+2026-09-11T00:01:52.0047598Z ........................................................................ [ 20%]
+2026-09-11T00:01:52.1935302Z ........................................................................ [ 41%]
+2026-09-11T00:01:52.4939146Z ........................................................................ [ 62%]
+2026-09-11T00:01:54.0754448Z ........................................................................ [ 83%]
+2026-09-11T00:01:54.3642585Z .........................................................                [100%]
+2026-09-11T00:01:54.3643282Z 345 passed in 10.28s
+2026-09-11T00:01:54.6845732Z ##[group]Run uv run ruff check tools/publication_validation
+2026-09-11T00:01:54.6846192Z [36;1muv run ruff check tools/publication_validation[0m
+2026-09-11T00:01:54.6846598Z [36;1muv run ruff format --check tools/publication_validation[0m
+2026-09-11T00:01:54.6883160Z shell: /usr/bin/bash -e {0}
+2026-09-11T00:01:54.6883407Z env:
+2026-09-11T00:01:54.6883682Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T00:01:54.6884081Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:01:54.6884460Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:54.6884905Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T00:01:54.6885348Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:54.6885726Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:54.6886111Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:54.6886537Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T00:01:54.6887017Z ##[endgroup]
+2026-09-11T00:01:54.8341122Z All checks passed!
+2026-09-11T00:01:54.9323596Z 4 files already formatted
+2026-09-11T00:01:54.9396136Z ##[group]Run uv build
+2026-09-11T00:01:54.9396439Z [36;1muv build[0m
+2026-09-11T00:01:54.9396677Z [36;1muv venv "$RUNNER_TEMP/installed"[0m
+2026-09-11T00:01:54.9397476Z [36;1muv pip install --python "$RUNNER_TEMP/installed/bin/python" --no-deps dist/*.whl[0m
+2026-09-11T00:01:54.9398185Z [36;1mtest -f "$RUNNER_TEMP/installed/lib/python3.13/site-packages/brasileirao_predictor/kernel_cli.py"[0m
+2026-09-11T00:01:54.9434926Z shell: /usr/bin/bash -e {0}
+2026-09-11T00:01:54.9435195Z env:
+2026-09-11T00:01:54.9435486Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T00:01:54.9435905Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:01:54.9436297Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:54.9436743Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T00:01:54.9437504Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:54.9437921Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:54.9438311Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:01:54.9438696Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T00:01:54.9439016Z ##[endgroup]
+2026-09-11T00:01:54.9615771Z Building source distribution...
+2026-09-11T00:01:59.8585401Z Building wheel from source distribution...
+2026-09-11T00:02:00.2885240Z Successfully built dist/brasileirao_predictor-0.1.0.tar.gz
+2026-09-11T00:02:00.2886574Z Successfully built dist/brasileirao_predictor-0.1.0-py3-none-any.whl
+2026-09-11T00:02:00.3012305Z Using CPython 3.13.15 interpreter at: /opt/hostedtoolcache/Python/3.13.15/x64/bin/python3
+2026-09-11T00:02:00.3012903Z Creating virtual environment at: /home/runner/work/_temp/installed
+2026-09-11T00:02:00.3019271Z Activate with: /home/runner/work/_temp/installed/bin/activate
+2026-09-11T00:02:00.3642433Z Using Python 3.13.15 environment at: /home/runner/work/_temp/installed
+2026-09-11T00:02:00.3661711Z Resolved 1 package in 1ms
+2026-09-11T00:02:00.3866309Z Prepared 1 package in 20ms
+2026-09-11T00:02:00.3921564Z Installed 1 package in 5ms
+2026-09-11T00:02:00.3922846Z  + brasileirao-predictor==0.1.0 (from file:///home/runner/work/brasileirao-predictor/brasileirao-predictor/dist/brasileirao_predictor-0.1.0-py3-none-any.whl)
+2026-09-11T00:02:00.3999165Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-11T00:02:00.4000477Z ##[group]Run actions/upload-artifact@v4
+2026-09-11T00:02:00.4000748Z with:
+2026-09-11T00:02:00.4000954Z   name: python-validation-3.13
+2026-09-11T00:02:00.4001267Z   path: /home/runner/work/_temp/python-synthetic
+dist
+
+2026-09-11T00:02:00.4001598Z   if-no-files-found: warn
+2026-09-11T00:02:00.4001827Z   compression-level: 6
+2026-09-11T00:02:00.4002040Z   overwrite: false
+2026-09-11T00:02:00.4002251Z   include-hidden-files: false
+2026-09-11T00:02:00.4002476Z env:
+2026-09-11T00:02:00.4002730Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T00:02:00.4003104Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:02:00.4003495Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:02:00.4003914Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T00:02:00.4004336Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:02:00.4004714Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:02:00.4005090Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T00:02:00.4005473Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T00:02:00.4005794Z ##[endgroup]
+2026-09-11T00:02:00.5655261Z (node:2525) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-11T00:02:00.5656593Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-11T00:02:00.8152788Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-11T00:02:00.8155397Z The least common ancestor is /home/runner/work. This will be the root directory of the artifact
+2026-09-11T00:02:00.8156279Z With the provided path, there will be 626 files uploaded
+2026-09-11T00:02:00.8162385Z Artifact name is valid!
+2026-09-11T00:02:00.8163094Z Root directory input is valid!
+2026-09-11T00:02:01.0537760Z Beginning upload of artifact content to blob storage
+2026-09-11T00:02:01.6806781Z (node:2525) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-11T00:02:01.9454612Z Uploaded bytes 8388608
+2026-09-11T00:02:02.0684535Z Uploaded bytes 10607439
+2026-09-11T00:02:02.0852209Z Finished uploading artifact content to blob storage!
+2026-09-11T00:02:02.0853476Z SHA256 digest of uploaded artifact zip is 57385c74607b4b2f771a8648fe399d0194e0be74d91f2b21d4a789fc53ba0e25
+2026-09-11T00:02:02.0855517Z Finalizing artifact upload
+2026-09-11T00:02:02.2997907Z Artifact python-validation-3.13.zip successfully finalized. Artifact ID 10178579218
+2026-09-11T00:02:02.2999094Z Artifact python-validation-3.13 has been successfully uploaded! Final size is 10607439 bytes. Artifact ID is 10178579218
+2026-09-11T00:02:02.3005708Z Artifact download URL: https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34544695904/artifacts/10178579218
+2026-09-11T00:02:02.3223310Z Post job cleanup.
+2026-09-11T00:02:02.4494532Z Post job cleanup.
+2026-09-11T00:02:02.5683926Z UV_CACHE_DIR is already set to /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:02:02.5690687Z UV_PYTHON_INSTALL_DIR is already set to /home/runner/work/_temp/uv-python-dir
+2026-09-11T00:02:02.5702762Z Pruning cache...
+2026-09-11T00:02:02.5719760Z [command]/opt/hostedtoolcache/uv/0.12.1/x86_64/uv cache prune --ci --force
+2026-09-11T00:02:02.5854166Z Pruning cache at: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:02:02.8174958Z Removed 12631 files (513.1MiB)
+2026-09-11T00:02:02.8203373Z Including uv cache path: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T00:02:02.8349447Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/brasileirao-predictor/brasileirao-predictor --files-from manifest.txt --use-compress-program zstdmt
+2026-09-11T00:02:02.9989708Z Sent 84090 of 84090 (100.0%), 1.1 MBs/sec
+2026-09-11T00:02:03.0859498Z uv cache saved with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-pruned-5f30cb0e72f2eed540b5a45603843fe755586a8d2e9bf05b531a79f7a68c6d70
+2026-09-11T00:02:03.1490000Z Post job cleanup.
+2026-09-11T00:02:03.2314764Z [command]/usr/bin/git version
+2026-09-11T00:02:03.2370147Z git version 2.55.0
+2026-09-11T00:02:03.2411480Z Temporarily overriding HOME='/home/runner/work/_temp/3989d058-9080-4a65-8709-4797af9e241b' before making global git config changes
+2026-09-11T00:02:03.2412970Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-11T00:02:03.2418011Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T00:02:03.2449963Z Removing SSH command configuration
+2026-09-11T00:02:03.2457148Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-11T00:02:03.2495760Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-11T00:02:03.2748095Z Removing HTTP extra header
+2026-09-11T00:02:03.2753989Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-11T00:02:03.2790251Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-11T00:02:03.3040165Z Removing includeIf entries pointing to credentials config files
+2026-09-11T00:02:03.3049937Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-11T00:02:03.3096548Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-11T00:02:03.3492971Z Cleaning up orphan processes
+2026-09-11T00:02:03.3763828Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

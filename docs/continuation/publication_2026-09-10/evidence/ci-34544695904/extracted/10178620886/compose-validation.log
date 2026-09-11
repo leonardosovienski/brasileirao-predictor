@@ -1,0 +1,282 @@
+init-data-1  | DEMO_PARAMETERS_ONLY: no trained model, validated market feed or capital permission
+kernel-1     | 2026-09-11 00:03:20,245 [INFO] kernel_daemon — [kernel] Numba disponível — grade será compilada JIT no boot.
+kernel-1     | 2026-09-11 00:03:23,236 [INFO] kernel_daemon — [kernel] params carregados: a=0.2000 b=1.0000 alpha=0.1000 rho=0.0000 theta=0.0000
+kernel-1     | 2026-09-11 00:03:24,187 [INFO] kernel_daemon — [kernel] JIT warm-up concluído em 950.02 ms (2 invocações)
+kernel-1     | 2026-09-11 00:03:24,539 [INFO] kernel_daemon — [kernel] DAEMON PRONTO. Protocolo brasileirao.redis/2
+kernel-1     | 2026-09-11 00:03:31,808 [INFO] kernel_daemon — [kernel] synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 -> lambda=(1.221,1.221) compute=0.91ms write=0.56ms total=1.47ms odds={"1": 2.7379, "X": 3.7105, "2": 2.7379, "o25": 2.3002, "u25": 1.7691, "protocol_version": "brasileirao.redis/2", "job_id": "synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16", "run_id": "55c44853a4d644db9698e734fec9e25d", "match_id": "synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16", "idempotency_key": "kernel:synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16:159B5DC42B04D5650BDC673B7031EA2B88F3537D97C76895245CC35354016A74", "state_version": "1"}
+kernel-1     | 2026-09-11 00:03:31,827 [INFO] kernel_daemon — [kernel] synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 -> lambda=(1.221,1.221) compute=0.96ms write=0.37ms total=1.33ms odds={"1": 2.7379, "X": 3.7105, "2": 2.7379, "o25": 2.3002, "u25": 1.7691, "protocol_version": "brasileirao.redis/2", "job_id": "synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16", "run_id": "d58c6cd3c2c84c48a63a0648b6ed6d84", "match_id": "synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16", "idempotency_key": "kernel:synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16:72D900F2625F57B00917A893844EFB08E7F6117456B424E67C2D2B2919847F55", "state_version": "2"}
+kernel-1     | 2026-09-11 00:03:32,062 [INFO] kernel_daemon — [kernel] tentativa não adquirida run=d58c6cd3c2c84c48a63a0648b6ed6d84 status=COMPLETED
+kernel-1     | 2026-09-11 00:03:32,132 [INFO] kernel_daemon — [kernel] conclusão recusada run=485831b90d6a4f07b251925341eebae0 status=STALE
+kernel-1     | 2026-09-11 00:03:32,135 [INFO] kernel_daemon — [kernel] synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c -> lambda=(1.221,1.221) compute=3.60ms write=0.32ms total=3.92ms odds={"1": 2.7379, "X": 3.7105, "2": 2.7379, "o25": 2.3002, "u25": 1.7691, "protocol_version": "brasileirao.redis/2", "job_id": "synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c", "run_id": "0c2f9706674f4e08876d1e6fa4ea1138", "match_id": "synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c", "idempotency_key": "kernel:synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c:F8C63B03A45D72C4D0BD11120F2DE348EA2659A4F585170B10AC41EFA999CDF5", "state_version": "2"}
+kernel-1     | 2026-09-11 00:03:32,164 [INFO] kernel_daemon — [kernel] tentativa não adquirida run=0c2f9706674f4e08876d1e6fa4ea1138 status=COMPLETED
+kernel-1     | 2026-09-11 00:03:32,234 [INFO] kernel_daemon — [kernel] synthetic-smoke-d6ec281a66a84662aefbf2443476331a -> lambda=(1.221,1.221) compute=0.69ms write=0.44ms total=1.13ms odds={"1": 2.7379, "X": 3.7105, "2": 2.7379, "o25": 2.3002, "u25": 1.7691, "protocol_version": "brasileirao.redis/2", "job_id": "synthetic-smoke-d6ec281a66a84662aefbf2443476331a", "run_id": "ce6f458d3d714bad8e798b4be88a3456", "match_id": "synthetic-smoke-d6ec281a66a84662aefbf2443476331a", "idempotency_key": "kernel:synthetic-smoke-d6ec281a66a84662aefbf2443476331a:281C9D8042D74D8EDF7C8FB71C5457B1D95B105ED9FB016351B52BA51B071C57", "state_version": "1"}
+kernel-1     | 2026-09-11 00:03:32,235 [INFO] kernel_daemon — [kernel] synthetic-smoke-d6ec281a66a84662aefbf2443476331a -> lambda=(1.221,1.221) compute=0.51ms write=0.43ms total=0.94ms odds={"1": 2.7379, "X": 3.7105, "2": 2.7379, "o25": 2.3002, "u25": 1.7691, "protocol_version": "brasileirao.redis/2", "job_id": "synthetic-smoke-d6ec281a66a84662aefbf2443476331a", "run_id": "d590a06f2b5a43a981ce31ce5d547402", "match_id": "synthetic-smoke-d6ec281a66a84662aefbf2443476331a", "idempotency_key": "kernel:synthetic-smoke-d6ec281a66a84662aefbf2443476331a:4412641A3D58CC72907859980AC0FF10125FD16BB65EAAD6B8FF6FB73350DEC3", "state_version": "2"}
+kernel-1     | 2026-09-11 00:03:32,267 [INFO] kernel_daemon — [kernel] tentativa não adquirida run=d590a06f2b5a43a981ce31ce5d547402 status=COMPLETED
+kernel-1     | 2026-09-11 00:03:32,541 [WARNING] kernel_daemon — [kernel] Redis indisponível; reconectando em 1.0s: Error 111 connecting to redis:6379. Connect call failed ('172.18.0.2', 6379).
+kernel-1     | 2026-09-11 00:03:33,568 [WARNING] kernel_daemon — [kernel] Redis indisponível; reconectando em 2.0s: Error -3 connecting to redis:6379. Temporary failure in name resolution.
+kernel-1     | 2026-09-11 00:03:35,595 [WARNING] kernel_daemon — [kernel] Redis indisponível; reconectando em 4.0s: Error -3 connecting to redis:6379. Temporary failure in name resolution.
+kernel-1     | 2026-09-11 00:03:39,607 [INFO] kernel_daemon — [kernel] DAEMON PRONTO. Protocolo brasileirao.redis/2
+kernel-1     | 2026-09-11 00:03:39,609 [INFO] kernel_daemon — [kernel] synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135 -> lambda=(1.221,1.221) compute=0.54ms write=0.44ms total=0.99ms odds={"1": 2.7379, "X": 3.7105, "2": 2.7379, "o25": 2.3002, "u25": 1.7691, "protocol_version": "brasileirao.redis/2", "job_id": "synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135", "run_id": "8dc5a48203a1414a8a453b9919d3f873", "match_id": "synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135", "idempotency_key": "kernel:synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135:EFFA33F705A708A17F666D725395EA6E803254CF8F4A6B103DD061F32AD65A91", "state_version": "2"}
+kernel-1     | 2026-09-11 00:03:39,929 [INFO] kernel_daemon — [kernel] daemon encerrado com sucesso.
+worker-1     | info: LineupWorker.Services.VorpStateService[0]
+worker-1     |       [VorpState] aquecendo de /app/config/vorp.json
+worker-1     | info: LineupWorker.Services.VorpStateService[0]
+worker-1     |       [VorpState] pronto — 0 jogadores, 1 posições
+worker-1     | info: Microsoft.Hosting.Lifetime[0]
+worker-1     |       Application started. Press Ctrl+C to shut down.
+worker-1     | info: Microsoft.Hosting.Lifetime[0]
+worker-1     |       Hosting environment: Production
+worker-1     | info: Microsoft.Hosting.Lifetime[0]
+worker-1     |       Content root path: /app
+worker-1     | info: LineupWorker.Services.MarketOddsCache[0]
+worker-1     |       [MarketOdds] disabled: no normalized market feed configured
+worker-1     | info: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] aguardando fair_odds_ready:* do Kernel Python…
+worker-1     | info: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Worker] escutando lineups:*
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 — market odds ausentes ou stale
+worker-1     | info: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Worker] synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 home ΔVORP=+0.000 E2E=79.6ms (net=54.5 proc=4.92 write=20.2)
+worker-1     | info: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Worker] synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 away ΔVORP=+0.000 E2E=98.6ms (net=92.6 proc=0.01 write=6.0)
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 — market odds ausentes ou stale
+worker-1     | info: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Worker] synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c home ΔVORP=+0.000 E2E=68.0ms (net=67.3 proc=0.03 write=0.6)
+worker-1     | info: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Worker] synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c away ΔVORP=+0.000 E2E=68.9ms (net=68.1 proc=0.01 write=0.7)
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c — market odds ausentes ou stale
+worker-1     | info: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Worker] synthetic-smoke-d6ec281a66a84662aefbf2443476331a home ΔVORP=+0.000 E2E=68.8ms (net=67.6 proc=0.02 write=1.2)
+worker-1     | info: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Worker] synthetic-smoke-d6ec281a66a84662aefbf2443476331a away ΔVORP=+0.000 E2E=69.8ms (net=69.1 proc=0.01 write=0.7)
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-d6ec281a66a84662aefbf2443476331a — fair odds ausentes ou notificação sem correspondência exata
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-d6ec281a66a84662aefbf2443476331a — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c — market odds ausentes ou stale
+redis-1      | Starting Redis Server
+redis-1      | 1:C 11 Sep 2026 00:03:12.795 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+redis-1      | 1:C 11 Sep 2026 00:03:12.795 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+redis-1      | 1:C 11 Sep 2026 00:03:12.795 * Redis version=8.2.9, bits=64, commit=00000000, modified=1, pid=1, just started
+redis-1      | 1:C 11 Sep 2026 00:03:12.795 * Configuration loaded
+redis-1      | 1:M 11 Sep 2026 00:03:12.795 * monotonic clock: POSIX clock_gettime
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * Running mode=standalone, port=6379.
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> RedisBloom version 8.2.16 (Git=unknown)
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> Registering configuration options: [
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> 	{ bf-error-rate       :      0.01 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> 	{ bf-initial-size     :       100 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> 	{ bf-expansion-factor :         2 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> 	{ cf-bucket-size      :         2 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> 	{ cf-initial-size     :      1024 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> 	{ cf-max-iterations   :        20 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> 	{ cf-expansion-factor :         1 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> 	{ cf-max-expansions   :        32 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.796 * <bf> ]
+redis-1      | 1:M 11 Sep 2026 00:03:12.797 * Module 'bf' loaded from /usr/local/lib/redis/modules//redisbloom.so
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Redis version found by RedisSearch : 8.2.9 - oss
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> RediSearch version 8.2.13 (Git=e9cf9bf)
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Low level api version 1 initialized successfully
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> gc: ON, prefix min length: 2, min word length to stem: 4, prefix max expansions: 200, query timeout (ms): 500, timeout policy: return, cursor read size: 1000, cursor max idle (ms): 300000, max doctable size: 1000000, max number of search results:  1000000, default scorer: BM25STD, 
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Initialized thread pools!
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Disabled workers threadpool of size 0
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Subscribe to config changes
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Enabled role change notification
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 # <search> Could not create command: _FT.DROP
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Registered command _FT.DROP with flags: write
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 # <search> Could not create command: _FT.DROPINDEX
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Registered command _FT.DROPINDEX with flags: write
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 # <search> Could not create command: _FT._DROPIFX
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Registered command _FT._DROPIFX with flags: write
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 # <search> Could not create command: _FT._DROPINDEXIFX
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Registered command _FT._DROPINDEXIFX with flags: write
+redis-1      | 1:M 11 Sep 2026 00:03:12.800 * <search> Cluster configuration: AUTO partitions, type: 0, coordinator timeout: 0ms
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <search> Register write commands
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * Module 'search' loaded from /usr/local/lib/redis/modules//redisearch.so
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> RedisTimeSeries version 80210, git_sha=93993a3d3f8ab28dc2c86a3e917f5160a2617f8b
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> Redis version found by RedisTimeSeries : 8.2.9 - oss
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> Registering configuration options: [
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> 	{ ts-compaction-policy   :              }
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> 	{ ts-num-threads         :            3 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> 	{ ts-retention-policy    :            0 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> 	{ ts-duplicate-policy    :        block }
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> 	{ ts-chunk-size-bytes    :         4096 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> 	{ ts-encoding            :   compressed }
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> 	{ ts-ignore-max-time-diff:            0 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> 	{ ts-ignore-max-val-diff :     0.000000 }
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> ]
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> Detected redis oss
+redis-1      | 1:M 11 Sep 2026 00:03:12.801 * <timeseries> Enabled diskless replication
+redis-1      | 1:M 11 Sep 2026 00:03:12.802 * Module 'timeseries' loaded from /usr/local/lib/redis/modules//redistimeseries.so
+redis-1      | 1:M 11 Sep 2026 00:03:12.802 * <ReJSON> Created new data type 'ReJSON-RL'
+redis-1      | 1:M 11 Sep 2026 00:03:12.802 * <ReJSON> version: 80209 git sha: unknown branch: unknown
+redis-1      | 1:M 11 Sep 2026 00:03:12.802 * <ReJSON> Exported RedisJSON_V1 API
+redis-1      | 1:M 11 Sep 2026 00:03:12.802 * <ReJSON> Exported RedisJSON_V2 API
+redis-1      | 1:M 11 Sep 2026 00:03:12.802 * <ReJSON> Exported RedisJSON_V3 API
+redis-1      | 1:M 11 Sep 2026 00:03:12.802 * <ReJSON> Exported RedisJSON_V4 API
+redis-1      | 1:M 11 Sep 2026 00:03:12.802 * <ReJSON> Exported RedisJSON_V5 API
+redis-1      | 1:M 11 Sep 2026 00:03:12.803 * <ReJSON> Enabled diskless replication
+redis-1      | 1:M 11 Sep 2026 00:03:12.803 * <ReJSON> Initialized shared string cache, thread safe: true.
+redis-1      | 1:M 11 Sep 2026 00:03:12.803 * Module 'ReJSON' loaded from /usr/local/lib/redis/modules//rejson.so
+redis-1      | 1:M 11 Sep 2026 00:03:12.803 * <search> Acquired RedisJSON_V5 API
+redis-1      | 1:M 11 Sep 2026 00:03:12.803 * Server initialized
+redis-1      | 1:M 11 Sep 2026 00:03:12.804 * Creating AOF base file appendonly.aof.1.base.rdb on server start
+redis-1      | 1:M 11 Sep 2026 00:03:12.804 * Creating AOF incr file appendonly.aof.1.incr.aof on server start
+redis-1      | 1:M 11 Sep 2026 00:03:12.804 * Ready to accept connections tcp
+redis-1      | 1:signal-handler (1789085012) Received SIGTERM scheduling shutdown...
+redis-1      | 1:M 11 Sep 2026 00:03:32.532 * User requested shutdown...
+redis-1      | 1:M 11 Sep 2026 00:03:32.533 * Calling fsync() on the AOF file.
+redis-1      | 1:M 11 Sep 2026 00:03:32.533 * Saving the final RDB snapshot before exiting.
+redis-1      | 1:M 11 Sep 2026 00:03:32.534 * DB saved on disk
+redis-1      | 1:M 11 Sep 2026 00:03:32.535 # Redis is now ready to exit, bye bye...
+redis-1      | Starting Redis Server
+redis-1      | 1:C 11 Sep 2026 00:03:35.902 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+redis-1      | 1:C 11 Sep 2026 00:03:35.902 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+redis-1      | 1:C 11 Sep 2026 00:03:35.902 * Redis version=8.2.9, bits=64, commit=00000000, modified=1, pid=1, just started
+redis-1      | 1:C 11 Sep 2026 00:03:35.902 * Configuration loaded
+redis-1      | 1:M 11 Sep 2026 00:03:35.902 * monotonic clock: POSIX clock_gettime
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * Running mode=standalone, port=6379.
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * <bf> RedisBloom version 8.2.16 (Git=unknown)
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * <bf> Registering configuration options: [
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * <bf> 	{ bf-error-rate       :      0.01 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * <bf> 	{ bf-initial-size     :       100 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * <bf> 	{ bf-expansion-factor :         2 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * <bf> 	{ cf-bucket-size      :         2 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * <bf> 	{ cf-initial-size     :      1024 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * <bf> 	{ cf-max-iterations   :        20 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.903 * <bf> 	{ cf-expansion-factor :         1 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.904 * <bf> 	{ cf-max-expansions   :        32 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.904 * <bf> ]
+redis-1      | 1:M 11 Sep 2026 00:03:35.904 * Module 'bf' loaded from /usr/local/lib/redis/modules//redisbloom.so
+redis-1      | 1:M 11 Sep 2026 00:03:35.906 * <search> Redis version found by RedisSearch : 8.2.9 - oss
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> RediSearch version 8.2.13 (Git=e9cf9bf)
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Low level api version 1 initialized successfully
+worker-1     |       [MSE] ABORT synthetic-smoke-d6ec281a66a84662aefbf2443476331a — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-d6ec281a66a84662aefbf2443476331a — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-9032ec68bfff4ac9b6a5fe8ae72b6a16 — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-a386c89b0c6b449e83228aab5ebbf95c — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-d6ec281a66a84662aefbf2443476331a — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Inbox] Redis indisponível; entradas não confirmadas serão retomadas (RedisConnectionException)
+worker-1     | warn: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Inbox] Redis indisponível; entradas não confirmadas serão retomadas (RedisConnectionException)
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] recuperação ready temporariamente indisponível
+worker-1     |       StackExchange.Redis.RedisConnectionException: The message timed out in the backlog attempting to send because no connection became available (1000ms) - Last Connection Exception: SocketFailure on redis:6379/Interactive, Idle/Faulted, last: XAUTOCLAIM, origin: ReadAllAsync, outstanding: 1, last-read: 0s ago, last-write: 0s ago, unanswered-write: 0s ago, keep-alive: 60s, state: ConnectedEstablished, in: 0, in-pipe: 0, last-heartbeat: 0s ago, last-mbeat: 0s ago, global: 0s ago, v: 3.0.17.2819, command=EVAL, timeout: 1000, inst: 0, qu: 1, qs: 0, aw: False, bw: CheckingForTimeout, last-in: 0, cur-in: 0, sync-ops: 0, async-ops: 435, serverEndpoint: redis:6379, conn-sec: n/a, aoc: 0, mc: 1/1/0, clientName: 8be7e5de3af7(SE.Redis-v3.0.17.2819), IOCP: (Busy=0,Free=1000,Min=1,Max=1000), WORKER: (Busy=0,Free=32767,Min=4,Max=32767), POOL: (Threads=5,QueuedItems=0,CompletedItems=1345,Timers=4), v: 3.0.17.2819 (Please take a look at this article for some common client-side issues that can cause timeouts: https://stackexchange.github.io/StackExchange.Redis/Timeouts)
+worker-1     |        ---> StackExchange.Redis.RedisConnectionException: SocketFailure on redis:6379/Interactive, Idle/Faulted, last: XAUTOCLAIM, origin: ReadAllAsync, outstanding: 1, last-read: 0s ago, last-write: 0s ago, unanswered-write: 0s ago, keep-alive: 60s, state: ConnectedEstablished, in: 0, in-pipe: 0, last-heartbeat: 0s ago, last-mbeat: 0s ago, global: 0s ago, v: 3.0.17.2819
+worker-1     |        ---> System.IO.IOException: Unable to read data from the transport connection: Connection reset by peer.
+worker-1     |        ---> System.Net.Sockets.SocketException (104): Connection reset by peer
+worker-1     |          --- End of inner exception stack trace ---
+worker-1     |          at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+worker-1     |          at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+worker-1     |          at StackExchange.Redis.PhysicalConnection.ReadAllAsync(CancellationToken cancellationToken) in /_/src/StackExchange.Redis/PhysicalConnection.Read.cs:line 91
+worker-1     |          --- End of inner exception stack trace ---
+worker-1     |          at LineupWorker.Services.LineupStreamConsumer.ReadOnceAsync(CancellationToken ct) in /src/dotnet/LineupWorker/Services/LineupStreamConsumer.cs:line 67
+worker-1     |          at LineupWorker.Services.LineupStreamConsumer.RunAsync(CancellationToken ct) in /src/dotnet/LineupWorker/Services/LineupStreamConsumer.cs:line 42
+worker-1     |          --- End of inner exception stack trace ---
+worker-1     |          at StackExchange.Redis.RedisDatabase.ScriptEvaluateAsync(String script, RedisKey[] keys, RedisValue[] values, CommandFlags flags) in /_/src/StackExchange.Redis/RedisDatabase.cs:line 1976
+worker-1     |          at LineupWorker.Services.MarketStateEngine.PollReadyAsync(CancellationToken ct) in /src/dotnet/LineupWorker/Services/MarketStateEngine.cs:line 135
+worker-1     | warn: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Inbox] Redis indisponível; entradas não confirmadas serão retomadas (RedisConnectionException)
+worker-1     | warn: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Inbox] Redis indisponível; entradas não confirmadas serão retomadas (RedisConnectionException)
+worker-1     | info: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Worker] synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135 home ΔVORP=+0.000 E2E=97.2ms (net=96.1 proc=0.03 write=1.1)
+worker-1     | info: LineupWorker.LineupWorkerService[0]
+worker-1     |       [Worker] synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135 away ΔVORP=+0.000 E2E=97.9ms (net=97.3 proc=0.01 write=0.6)
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135 — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135 — market odds ausentes ou stale
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135 — market odds ausentes ou stale
+worker-1     | info: Microsoft.Hosting.Lifetime[0]
+worker-1     |       Application is shutting down...
+worker-1     | warn: LineupWorker.Services.MarketStateEngine[0]
+worker-1     |       [MSE] ABORT synthetic-smoke-997777a0b58649d0ba48ffeb4d0c4135 — market odds ausentes ou stale
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> gc: ON, prefix min length: 2, min word length to stem: 4, prefix max expansions: 200, query timeout (ms): 500, timeout policy: return, cursor read size: 1000, cursor max idle (ms): 300000, max doctable size: 1000000, max number of search results:  1000000, default scorer: BM25STD, 
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Initialized thread pools!
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Disabled workers threadpool of size 0
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Subscribe to config changes
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Enabled role change notification
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 # <search> Could not create command: _FT.DROP
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Registered command _FT.DROP with flags: write
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 # <search> Could not create command: _FT.DROPINDEX
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Registered command _FT.DROPINDEX with flags: write
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 # <search> Could not create command: _FT._DROPIFX
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Registered command _FT._DROPIFX with flags: write
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 # <search> Could not create command: _FT._DROPINDEXIFX
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Registered command _FT._DROPINDEXIFX with flags: write
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Cluster configuration: AUTO partitions, type: 0, coordinator timeout: 0ms
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <search> Register write commands
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * Module 'search' loaded from /usr/local/lib/redis/modules//redisearch.so
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <timeseries> RedisTimeSeries version 80210, git_sha=93993a3d3f8ab28dc2c86a3e917f5160a2617f8b
+redis-1      | 1:M 11 Sep 2026 00:03:35.907 * <timeseries> Redis version found by RedisTimeSeries : 8.2.9 - oss
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> Registering configuration options: [
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> 	{ ts-compaction-policy   :              }
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> 	{ ts-num-threads         :            3 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> 	{ ts-retention-policy    :            0 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> 	{ ts-duplicate-policy    :        block }
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> 	{ ts-chunk-size-bytes    :         4096 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> 	{ ts-encoding            :   compressed }
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> 	{ ts-ignore-max-time-diff:            0 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> 	{ ts-ignore-max-val-diff :     0.000000 }
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> ]
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> Detected redis oss
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * <timeseries> Enabled diskless replication
+redis-1      | 1:M 11 Sep 2026 00:03:35.908 * Module 'timeseries' loaded from /usr/local/lib/redis/modules//redistimeseries.so
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <ReJSON> Created new data type 'ReJSON-RL'
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <ReJSON> version: 80209 git sha: unknown branch: unknown
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <ReJSON> Exported RedisJSON_V1 API
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <ReJSON> Exported RedisJSON_V2 API
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <ReJSON> Exported RedisJSON_V3 API
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <ReJSON> Exported RedisJSON_V4 API
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <ReJSON> Exported RedisJSON_V5 API
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <ReJSON> Enabled diskless replication
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <ReJSON> Initialized shared string cache, thread safe: true.
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * Module 'ReJSON' loaded from /usr/local/lib/redis/modules//rejson.so
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <search> Acquired RedisJSON_V5 API
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * Server initialized
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <search> Loading event starts
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <search> Changing workers threadpool size from 0 to 4
+redis-1      | 1:M 11 Sep 2026 00:03:35.909 * <search> Enabled workers threadpool of size 4
+redis-1      | 1:M 11 Sep 2026 00:03:35.910 * Reading RDB base file on AOF loading...
+redis-1      | 1:M 11 Sep 2026 00:03:35.910 * Loading RDB produced by version 8.2.9
+redis-1      | 1:M 11 Sep 2026 00:03:35.910 * RDB age 23 seconds
+redis-1      | 1:M 11 Sep 2026 00:03:35.910 * RDB memory usage when created 0.98 Mb
+redis-1      | 1:M 11 Sep 2026 00:03:35.910 * RDB is base AOF
+redis-1      | 1:M 11 Sep 2026 00:03:35.910 * Done loading RDB, keys loaded: 0, keys expired: 0.
+redis-1      | 1:M 11 Sep 2026 00:03:35.910 * <search> Draining workers thread pool with threshold 100
+redis-1      | 1:M 11 Sep 2026 00:03:35.910 * DB loaded from base file appendonly.aof.1.base.rdb: 0.001 seconds
+redis-1      | 1:M 11 Sep 2026 00:03:35.911 * DB loaded from incr file appendonly.aof.1.incr.aof: 0.001 seconds
+redis-1      | 1:M 11 Sep 2026 00:03:35.911 * <search> Changing workers threadpool size from 4 to 0
+redis-1      | 1:M 11 Sep 2026 00:03:35.911 * <search> Scheduling config_reduce_threads_job to remove all 4 threads when empty
+redis-1      | 1:M 11 Sep 2026 00:03:35.911 * <search> Disabled workers threadpool of size 4
+redis-1      | 1:M 11 Sep 2026 00:03:35.911 * <search> Loading event ends
+redis-1      | 1:M 11 Sep 2026 00:03:35.911 * DB loaded from append only file: 0.002 seconds
+redis-1      | 1:M 11 Sep 2026 00:03:35.912 * Opening AOF incr file appendonly.aof.1.incr.aof on server start
+redis-1      | 1:M 11 Sep 2026 00:03:35.912 * Ready to accept connections tcp

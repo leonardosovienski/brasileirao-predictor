@@ -1,0 +1,678 @@
+﻿2026-09-11T01:50:15.1571849Z Current runner version: '2.337.0'
+2026-09-11T01:50:15.1590471Z ##[group]Runner Image Provisioner
+2026-09-11T01:50:15.1591012Z Hosted Compute Agent
+2026-09-11T01:50:15.1591431Z Version: 20260828.587
+2026-09-11T01:50:15.1591829Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-11T01:50:15.1592269Z Build Date: 2026-08-28T16:44:25Z
+2026-09-11T01:50:15.1592669Z Worker ID: {5227022a-7f47-49d5-9661-39dd7d8c28db}
+2026-09-11T01:50:15.1593073Z Azure Region: westus3
+2026-09-11T01:50:15.1593779Z ##[endgroup]
+2026-09-11T01:50:15.1594589Z ##[group]Operating System
+2026-09-11T01:50:15.1594926Z Ubuntu
+2026-09-11T01:50:15.1595291Z 24.04.5
+2026-09-11T01:50:15.1595615Z LTS
+2026-09-11T01:50:15.1595947Z ##[endgroup]
+2026-09-11T01:50:15.1596291Z ##[group]Runner Image
+2026-09-11T01:50:15.1596633Z Image: ubuntu-24.04
+2026-09-11T01:50:15.1597125Z Version: 20260907.300.1
+2026-09-11T01:50:15.1597854Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-11T01:50:15.1598764Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-11T01:50:15.1599284Z ##[endgroup]
+2026-09-11T01:50:15.1599970Z ##[group]GITHUB_TOKEN Permissions
+2026-09-11T01:50:15.1601107Z Contents: read
+2026-09-11T01:50:15.1601499Z Metadata: read
+2026-09-11T01:50:15.1601856Z ##[endgroup]
+2026-09-11T01:50:15.1603245Z Secret source: Actions
+2026-09-11T01:50:15.1603792Z Cache mode: write
+2026-09-11T01:50:15.1604231Z Prepare workflow directory
+2026-09-11T01:50:15.1870140Z Prepare all required actions
+2026-09-11T01:50:15.1899962Z Getting action download info
+2026-09-11T01:50:15.5137852Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-09-11T01:50:16.1001123Z Download action repository 'actions/setup-dotnet@v6' (SHA:a98b56852c35b8e3190ac28c8c2271da59106c68)
+2026-09-11T01:50:16.9261331Z Download action repository 'astral-sh/setup-uv@v7' (SHA:37802adc94f370d6bfd71619e3f0bf239e1f3b78)
+2026-09-11T01:50:17.7512340Z Download action repository 'actions/setup-python@v7' (SHA:5fda3b95a4ea91299a34e894583c3862153e4b97)
+2026-09-11T01:50:18.3932686Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-09-11T01:50:19.4901140Z Complete job name: Synthetic .NET 10 build and test
+2026-09-11T01:50:19.5258319Z ##[group]Checking docker version
+2026-09-11T01:50:19.5266794Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-09-11T01:50:20.2177997Z '1.48'
+2026-09-11T01:50:20.2189636Z Docker daemon API version: '1.48'
+2026-09-11T01:50:20.2190086Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-09-11T01:50:20.2351471Z '1.48'
+2026-09-11T01:50:20.2381623Z Docker client API version: '1.48'
+2026-09-11T01:50:20.2385873Z ##[endgroup]
+2026-09-11T01:50:20.2388034Z ##[group]Clean up resources from previous jobs
+2026-09-11T01:50:20.2391625Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=5252cb"
+2026-09-11T01:50:20.2523143Z ##[command]/usr/bin/docker network prune --force --filter "label=5252cb"
+2026-09-11T01:50:20.2639516Z ##[endgroup]
+2026-09-11T01:50:20.2639750Z ##[group]Create local container network
+2026-09-11T01:50:20.2646437Z ##[command]/usr/bin/docker network create --label 5252cb github_network_52c735b43a5e4348a7dffd763bf565e2
+2026-09-11T01:50:20.4482763Z 15d6ee3bac06e3f8b2d4115ff811da449c5a34dd7ebbea1dda84909fb446255c
+2026-09-11T01:50:20.4500872Z ##[endgroup]
+2026-09-11T01:50:20.4519118Z ##[group]Starting redis service container
+2026-09-11T01:50:20.4533525Z ##[command]/usr/bin/docker pull redis:8.2.9-alpine3.22@sha256:30abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d
+2026-09-11T01:50:21.5613290Z docker.io/library/redis@sha256:30abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d: Pulling from library/redis
+2026-09-11T01:50:21.7798702Z f7ee36c9aa34: Pulling fs layer
+2026-09-11T01:50:21.7799122Z 2fbf79fbbb1b: Pulling fs layer
+2026-09-11T01:50:21.7799380Z 81d5170ddd74: Pulling fs layer
+2026-09-11T01:50:21.7799845Z bbabdb856fbf: Pulling fs layer
+2026-09-11T01:50:21.7799993Z b9047df5a1ae: Pulling fs layer
+2026-09-11T01:50:21.7800161Z 4f4fb700ef54: Pulling fs layer
+2026-09-11T01:50:21.7800340Z a4a3c406a253: Pulling fs layer
+2026-09-11T01:50:21.7800482Z bbabdb856fbf: Waiting
+2026-09-11T01:50:21.7800688Z b9047df5a1ae: Waiting
+2026-09-11T01:50:21.7800859Z 4f4fb700ef54: Waiting
+2026-09-11T01:50:21.7800985Z a4a3c406a253: Waiting
+2026-09-11T01:50:21.9543213Z 81d5170ddd74: Verifying Checksum
+2026-09-11T01:50:21.9543764Z 81d5170ddd74: Download complete
+2026-09-11T01:50:21.9552257Z 2fbf79fbbb1b: Verifying Checksum
+2026-09-11T01:50:21.9552756Z 2fbf79fbbb1b: Download complete
+2026-09-11T01:50:21.9791180Z f7ee36c9aa34: Download complete
+2026-09-11T01:50:22.1287377Z b9047df5a1ae: Verifying Checksum
+2026-09-11T01:50:22.1290606Z b9047df5a1ae: Download complete
+2026-09-11T01:50:22.1456754Z 4f4fb700ef54: Verifying Checksum
+2026-09-11T01:50:22.1456975Z 4f4fb700ef54: Download complete
+2026-09-11T01:50:22.2003139Z f7ee36c9aa34: Pull complete
+2026-09-11T01:50:22.2648270Z bbabdb856fbf: Verifying Checksum
+2026-09-11T01:50:22.2648616Z bbabdb856fbf: Download complete
+2026-09-11T01:50:22.3293538Z a4a3c406a253: Verifying Checksum
+2026-09-11T01:50:30.1146902Z a4a3c406a253: Download complete
+2026-09-11T01:50:30.1147191Z 2fbf79fbbb1b: Pull complete
+2026-09-11T01:50:30.3257111Z 81d5170ddd74: Pull complete
+2026-09-11T01:50:31.2459428Z bbabdb856fbf: Pull complete
+2026-09-11T01:50:31.4694401Z b9047df5a1ae: Pull complete
+2026-09-11T01:50:31.9462905Z 4f4fb700ef54: Pull complete
+2026-09-11T01:50:32.4341550Z a4a3c406a253: Pull complete
+2026-09-11T01:50:32.4412400Z Digest: sha256:30abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d
+2026-09-11T01:50:32.4419851Z Status: Downloaded newer image for redis@sha256:30abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d
+2026-09-11T01:50:32.4428037Z docker.io/library/redis:8.2.9-alpine3.22@sha256:30abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d
+2026-09-11T01:50:32.4455361Z ##[command]/usr/bin/docker create --name 14283c11cd3148fea13687205722ac89_redis829alpine322sha25630abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d_fe4264 --label 5252cb --network github_network_52c735b43a5e4348a7dffd763bf565e2 --network-alias redis -p 26380:6379 --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 3s --health-retries 10 -e GITHUB_ACTIONS=true -e CI=true redis:8.2.9-alpine3.22@sha256:30abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d
+2026-09-11T01:50:33.4355916Z 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:50:33.4377401Z ##[command]/usr/bin/docker start 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:50:36.0129042Z 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:50:36.0152489Z ##[command]/usr/bin/docker ps --all --filter id=1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-09-11T01:50:36.0263384Z 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317 Up 1 second (health: starting)
+2026-09-11T01:50:36.0304126Z ##[command]/usr/bin/docker port 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:50:36.0397116Z 6379/tcp -> 0.0.0.0:26380
+2026-09-11T01:50:36.0397402Z 6379/tcp -> [::]:26380
+2026-09-11T01:50:36.0432829Z ##[endgroup]
+2026-09-11T01:50:36.0439589Z ##[group]Waiting for all services to be ready
+2026-09-11T01:50:36.0448778Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:50:36.0538951Z starting
+2026-09-11T01:50:36.0557656Z redis service is starting, waiting 2 seconds before checking again.
+2026-09-11T01:50:38.0558999Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:50:38.0660885Z starting
+2026-09-11T01:50:38.0674492Z redis service is starting, waiting 4 seconds before checking again.
+2026-09-11T01:50:42.3715395Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:50:42.3811107Z healthy
+2026-09-11T01:50:42.3825488Z redis service is healthy.
+2026-09-11T01:50:42.3825781Z ##[endgroup]
+2026-09-11T01:50:42.3998666Z ##[group]Run actions/checkout@v7
+2026-09-11T01:50:42.3998911Z with:
+2026-09-11T01:50:42.3999031Z   persist-credentials: false
+2026-09-11T01:50:42.3999205Z   repository: leonardosovienski/brasileirao-predictor
+2026-09-11T01:50:42.4000677Z   token: ***
+2026-09-11T01:50:42.4000790Z   ssh-strict: true
+2026-09-11T01:50:42.4000904Z   ssh-user: git
+2026-09-11T01:50:42.4001012Z   clean: true
+2026-09-11T01:50:42.4001133Z   sparse-checkout-cone-mode: true
+2026-09-11T01:50:42.4001281Z   fetch-depth: 1
+2026-09-11T01:50:42.4001410Z   fetch-tags: false
+2026-09-11T01:50:42.4001525Z   show-progress: true
+2026-09-11T01:50:42.4001641Z   lfs: false
+2026-09-11T01:50:42.4001745Z   submodules: false
+2026-09-11T01:50:42.4001862Z   set-safe-directory: true
+2026-09-11T01:50:42.4001998Z   allow-unsafe-pr-checkout: false
+2026-09-11T01:50:42.4002202Z env:
+2026-09-11T01:50:42.4002336Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:50:42.4002507Z ##[endgroup]
+2026-09-11T01:50:42.4691535Z Syncing repository: leonardosovienski/brasileirao-predictor
+2026-09-11T01:50:42.4692886Z ##[group]Getting Git version info
+2026-09-11T01:50:42.4693296Z Working directory is '/home/runner/work/brasileirao-predictor/brasileirao-predictor'
+2026-09-11T01:50:42.4693895Z [command]/usr/bin/git version
+2026-09-11T01:50:42.5027866Z git version 2.55.0
+2026-09-11T01:50:42.5060470Z ##[endgroup]
+2026-09-11T01:50:42.5065092Z Temporarily overriding HOME='/home/runner/work/_temp/20ef07a4-cbb8-4189-8581-4b0b5999978d' before making global git config changes
+2026-09-11T01:50:42.5065821Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-11T01:50:42.5066498Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T01:50:42.5113199Z Deleting the contents of '/home/runner/work/brasileirao-predictor/brasileirao-predictor'
+2026-09-11T01:50:42.5120376Z ##[group]Determining repository object format
+2026-09-11T01:50:42.5120910Z ##[endgroup]
+2026-09-11T01:50:42.5121156Z ##[group]Initializing the repository
+2026-09-11T01:50:42.5121448Z [command]/usr/bin/git init /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T01:50:42.5852229Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-11T01:50:42.5852651Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-11T01:50:42.5852987Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-11T01:50:42.5853313Z hint: call:
+2026-09-11T01:50:42.5853522Z hint:
+2026-09-11T01:50:42.5853834Z hint: 	git config --global init.defaultBranch <name>
+2026-09-11T01:50:42.5854196Z hint:
+2026-09-11T01:50:42.5854458Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-11T01:50:42.5854897Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-11T01:50:42.5855196Z hint:
+2026-09-11T01:50:42.5855344Z hint: 	git branch -m <name>
+2026-09-11T01:50:42.5855514Z hint:
+2026-09-11T01:50:42.5855755Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-11T01:50:42.5856381Z Initialized empty Git repository in /home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/
+2026-09-11T01:50:42.5864614Z [command]/usr/bin/git remote add origin https://github.com/leonardosovienski/brasileirao-predictor
+2026-09-11T01:50:42.5915233Z ##[endgroup]
+2026-09-11T01:50:42.5915689Z ##[group]Disabling automatic garbage collection
+2026-09-11T01:50:42.5918958Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-11T01:50:42.5949269Z ##[endgroup]
+2026-09-11T01:50:42.5949537Z ##[group]Setting up auth
+2026-09-11T01:50:42.5950254Z Removing SSH command configuration
+2026-09-11T01:50:42.5954342Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-11T01:50:42.5985115Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-11T01:50:42.6841593Z Removing HTTP extra header
+2026-09-11T01:50:42.6846199Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-11T01:50:42.6878128Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-11T01:50:42.7065390Z Removing includeIf entries pointing to credentials config files
+2026-09-11T01:50:42.7065921Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-11T01:50:42.7097772Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-11T01:50:42.7285591Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-11T01:50:42.7320142Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path /home/runner/work/_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config
+2026-09-11T01:50:42.7348459Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config
+2026-09-11T01:50:42.7380405Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config
+2026-09-11T01:50:42.7409005Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config
+2026-09-11T01:50:42.7434131Z ##[endgroup]
+2026-09-11T01:50:42.7434391Z ##[group]Fetching the repository
+2026-09-11T01:50:42.7439834Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f:refs/remotes/origin/publication-validation-20260910
+2026-09-11T01:50:44.9580229Z From https://github.com/leonardosovienski/brasileirao-predictor
+2026-09-11T01:50:44.9580845Z  * [new ref]         cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f -> origin/publication-validation-20260910
+2026-09-11T01:50:44.9590209Z [command]/usr/bin/git branch --list --remote origin/publication-validation-20260910
+2026-09-11T01:50:44.9618078Z   origin/publication-validation-20260910
+2026-09-11T01:50:44.9624861Z [command]/usr/bin/git rev-parse refs/remotes/origin/publication-validation-20260910
+2026-09-11T01:50:44.9647962Z cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f
+2026-09-11T01:50:44.9651236Z ##[endgroup]
+2026-09-11T01:50:44.9651547Z ##[group]Determining the checkout info
+2026-09-11T01:50:44.9652167Z ##[endgroup]
+2026-09-11T01:50:44.9655115Z [command]/usr/bin/git sparse-checkout disable
+2026-09-11T01:50:44.9697793Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-11T01:50:44.9823739Z ##[group]Checking out the ref
+2026-09-11T01:50:44.9827981Z [command]/usr/bin/git checkout --progress --force -B publication-validation-20260910 refs/remotes/origin/publication-validation-20260910
+2026-09-11T01:50:45.3893972Z Switched to a new branch 'publication-validation-20260910'
+2026-09-11T01:50:45.3897542Z branch 'publication-validation-20260910' set up to track 'origin/publication-validation-20260910'.
+2026-09-11T01:50:45.3921575Z ##[endgroup]
+2026-09-11T01:50:45.4108856Z [command]/usr/bin/git log -1 --format=%H
+2026-09-11T01:50:45.4137400Z cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f
+2026-09-11T01:50:45.4146138Z ##[group]Removing auth
+2026-09-11T01:50:45.4146431Z Removing SSH command configuration
+2026-09-11T01:50:45.4149971Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-11T01:50:45.4181391Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-11T01:50:45.4364164Z Removing HTTP extra header
+2026-09-11T01:50:45.4367856Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-11T01:50:45.4399021Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-11T01:50:45.4578872Z Removing includeIf entries pointing to credentials config files
+2026-09-11T01:50:45.4581185Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-11T01:50:45.4607612Z includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path
+2026-09-11T01:50:45.4608090Z includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path
+2026-09-11T01:50:45.4608387Z includeif.gitdir:/github/workspace/.git.path
+2026-09-11T01:50:45.4608613Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-11T01:50:45.4614901Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path
+2026-09-11T01:50:45.4637333Z /home/runner/work/_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config
+2026-09-11T01:50:45.4645823Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-f2a232f4\-0c23\-4204\-b7d2\-d428272204aa\.config
+2026-09-11T01:50:45.4676117Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path
+2026-09-11T01:50:45.4700169Z /home/runner/work/_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config
+2026-09-11T01:50:45.4706343Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/brasileirao-predictor/brasileirao-predictor/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-f2a232f4\-0c23\-4204\-b7d2\-d428272204aa\.config
+2026-09-11T01:50:45.4736249Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-09-11T01:50:45.4770092Z /github/runner_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config
+2026-09-11T01:50:45.4771249Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-f2a232f4\-0c23\-4204\-b7d2\-d428272204aa\.config
+2026-09-11T01:50:45.4824366Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-09-11T01:50:45.4847704Z /github/runner_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config
+2026-09-11T01:50:45.4852917Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-f2a232f4\-0c23\-4204\-b7d2\-d428272204aa\.config
+2026-09-11T01:50:45.4882199Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-11T01:50:45.5060325Z Removing credentials config '/home/runner/work/_temp/git-credentials-f2a232f4-0c23-4204-b7d2-d428272204aa.config'
+2026-09-11T01:50:45.5066007Z ##[endgroup]
+2026-09-11T01:50:45.5227011Z ##[group]Run run_id=$(docker exec "1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317" redis-cli INFO server | tr -d '\r' | sed -n 's/^run_id://p')
+2026-09-11T01:50:45.5227837Z [36;1mrun_id=$(docker exec "1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317" redis-cli INFO server | tr -d '\r' | sed -n 's/^run_id://p')[0m
+2026-09-11T01:50:45.5228210Z [36;1mtest -n "$run_id"[0m
+2026-09-11T01:50:45.5228386Z [36;1mecho "LINEUP_TEST_REDIS_RUN_ID=$run_id" >> "$GITHUB_ENV"[0m
+2026-09-11T01:50:45.5259625Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:50:45.5259772Z env:
+2026-09-11T01:50:45.5259911Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:50:45.5260081Z ##[endgroup]
+2026-09-11T01:50:45.5735411Z ##[group]Run actions/setup-dotnet@v6
+2026-09-11T01:50:45.5735569Z with:
+2026-09-11T01:50:45.5735685Z   dotnet-version: 10.0.x
+2026-09-11T01:50:45.5735822Z   cache: false
+2026-09-11T01:50:45.5735931Z env:
+2026-09-11T01:50:45.5736071Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:50:45.5736301Z   LINEUP_TEST_REDIS_RUN_ID: eec43b18734b9948859d5d028d940d45ddf45511
+2026-09-11T01:50:45.5736490Z ##[endgroup]
+2026-09-11T01:50:45.6666869Z [command]/home/runner/work/_actions/actions/setup-dotnet/v6/externals/install-dotnet.sh --skip-non-versioned-files --runtime dotnet --channel LTS
+2026-09-11T01:50:46.1431198Z dotnet-install: Attempting to download using aka.ms link https://builds.dotnet.microsoft.com/dotnet/Runtime/10.0.12/dotnet-runtime-10.0.12-linux-x64.tar.gz
+2026-09-11T01:50:46.4792859Z dotnet-install: Remote file https://builds.dotnet.microsoft.com/dotnet/Runtime/10.0.12/dotnet-runtime-10.0.12-linux-x64.tar.gz size is 36638192 bytes.
+2026-09-11T01:50:46.4793862Z dotnet-install: Extracting archive from https://builds.dotnet.microsoft.com/dotnet/Runtime/10.0.12/dotnet-runtime-10.0.12-linux-x64.tar.gz
+2026-09-11T01:50:46.9662165Z dotnet-install: Downloaded file size is 36638192 bytes.
+2026-09-11T01:50:46.9662583Z dotnet-install: The remote and local file sizes are equal.
+2026-09-11T01:50:46.9918423Z dotnet-install: Installed version is 10.0.12
+2026-09-11T01:50:46.9964599Z dotnet-install: Adding to current process PATH: `/usr/share/dotnet`. Note: This change will be visible only when sourcing script.
+2026-09-11T01:50:46.9977402Z dotnet-install: Note that the script does not resolve dependencies during installation.
+2026-09-11T01:50:46.9977961Z dotnet-install: To check the list of dependencies, go to https://learn.microsoft.com/dotnet/core/install, select your operating system and check the "Dependencies" section.
+2026-09-11T01:50:46.9978380Z dotnet-install: Installation finished successfully.
+2026-09-11T01:50:46.9983606Z [command]/home/runner/work/_actions/actions/setup-dotnet/v6/externals/install-dotnet.sh --skip-non-versioned-files --channel 10.0
+2026-09-11T01:50:47.2933189Z dotnet-install: Attempting to download using aka.ms link https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.401/dotnet-sdk-10.0.401-linux-x64.tar.gz
+2026-09-11T01:50:49.8168432Z dotnet-install: Remote file https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.401/dotnet-sdk-10.0.401-linux-x64.tar.gz size is 240059572 bytes.
+2026-09-11T01:50:49.8169624Z dotnet-install: Extracting archive from https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.401/dotnet-sdk-10.0.401-linux-x64.tar.gz
+2026-09-11T01:50:53.3897232Z dotnet-install: Downloaded file size is 240059572 bytes.
+2026-09-11T01:50:53.3897658Z dotnet-install: The remote and local file sizes are equal.
+2026-09-11T01:50:53.6099769Z dotnet-install: Installed version is 10.0.401
+2026-09-11T01:50:53.6149697Z dotnet-install: Adding to current process PATH: `/usr/share/dotnet`. Note: This change will be visible only when sourcing script.
+2026-09-11T01:50:53.6150404Z dotnet-install: Note that the script does not resolve dependencies during installation.
+2026-09-11T01:50:53.6151156Z dotnet-install: To check the list of dependencies, go to https://learn.microsoft.com/dotnet/core/install, select your operating system and check the "Dependencies" section.
+2026-09-11T01:50:53.6151906Z dotnet-install: Installation finished successfully.
+2026-09-11T01:50:53.6293236Z ##[group]Run astral-sh/setup-uv@v7
+2026-09-11T01:50:53.6293398Z with:
+2026-09-11T01:50:53.6293505Z   version: 0.12.1
+2026-09-11T01:50:53.6293627Z   activate-environment: false
+2026-09-11T01:50:53.6293848Z   working-directory: /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T01:50:53.6295322Z   github-token: ***
+2026-09-11T01:50:53.6295437Z   enable-cache: auto
+2026-09-11T01:50:53.6295739Z   cache-dependency-glob: **/*requirements*.txt
+**/*requirements*.in
+**/*constraints*.txt
+**/*constraints*.in
+**/pyproject.toml
+**/uv.lock
+**/*.py.lock
+
+2026-09-11T01:50:53.6296066Z   restore-cache: true
+2026-09-11T01:50:53.6296180Z   save-cache: true
+2026-09-11T01:50:53.6296289Z   prune-cache: true
+2026-09-11T01:50:53.6296398Z   cache-python: false
+2026-09-11T01:50:53.6296525Z   ignore-nothing-to-cache: false
+2026-09-11T01:50:53.6296810Z   ignore-empty-workdir: false
+2026-09-11T01:50:53.6297020Z   add-problem-matchers: true
+2026-09-11T01:50:53.6297199Z   resolution-strategy: highest
+2026-09-11T01:50:53.6297332Z env:
+2026-09-11T01:50:53.6297465Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:50:53.6297678Z   LINEUP_TEST_REDIS_RUN_ID: eec43b18734b9948859d5d028d940d45ddf45511
+2026-09-11T01:50:53.6297872Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-11T01:50:53.6298004Z ##[endgroup]
+2026-09-11T01:50:53.7455317Z Fetching version data from https://raw.githubusercontent.com/astral-sh/versions/main/v1/uv.ndjson ...
+2026-09-11T01:50:53.8375222Z Downloading uv from "https://releases.astral.sh/github/uv/releases/download/0.12.1/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+2026-09-11T01:50:54.0533683Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/b7aa6f0d-1553-4ef4-b157-ed86bdf0c934 -f /home/runner/work/_temp/a2dfdafc-8a48-4292-98d2-8ca4c56024e0
+2026-09-11T01:50:54.6123954Z Added /home/runner/.local/bin to the path
+2026-09-11T01:50:54.6125663Z Added /opt/hostedtoolcache/uv/0.12.1/x86_64 to the path
+2026-09-11T01:50:54.6126570Z Set UV_PYTHON_INSTALL_DIR to /home/runner/work/_temp/uv-python-dir
+2026-09-11T01:50:54.6127278Z Added /home/runner/work/_temp/uv-python-dir to the path
+2026-09-11T01:50:54.6137363Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+2026-09-11T01:50:54.6137881Z Successfully installed uv version 0.12.1
+2026-09-11T01:50:54.6937711Z Searching files using cache dependency glob: /home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*requirements*.txt,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*requirements*.in,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*constraints*.txt,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*constraints*.in,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/pyproject.toml,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/uv.lock,/home/runner/work/brasileirao-predictor/brasileirao-predictor/**/*.py.lock
+2026-09-11T01:50:54.8364938Z /home/runner/work/brasileirao-predictor/brasileirao-predictor/pyproject.toml
+2026-09-11T01:50:54.8541801Z /home/runner/work/brasileirao-predictor/brasileirao-predictor/uv.lock
+2026-09-11T01:50:54.8550475Z Found 2 files to hash.
+2026-09-11T01:50:54.8618892Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-pruned-5f30cb0e72f2eed540b5a45603843fe755586a8d2e9bf05b531a79f7a68c6d70
+2026-09-11T01:50:55.0830393Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-pruned-5f30cb0e72f2eed540b5a45603843fe755586a8d2e9bf05b531a79f7a68c6d70
+2026-09-11T01:50:55.6133118Z Received 84090 of 84090 (100.0%), 0.3 MBs/sec
+2026-09-11T01:50:55.6133457Z Cache Size: ~0 MB (84090 B)
+2026-09-11T01:50:55.6149753Z [command]/usr/bin/tar -xf /home/runner/work/_temp/18aa7df7-80df-40cd-b5c7-81785bb91372/cache.tzst -P -C /home/runner/work/brasileirao-predictor/brasileirao-predictor --use-compress-program unzstd
+2026-09-11T01:50:55.6242951Z Cache restored successfully
+2026-09-11T01:50:55.6246937Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-pruned-5f30cb0e72f2eed540b5a45603843fe755586a8d2e9bf05b531a79f7a68c6d70
+2026-09-11T01:50:55.6903055Z ##[group]Run actions/setup-python@v7
+2026-09-11T01:50:55.6903229Z with:
+2026-09-11T01:50:55.6903351Z   python-version: 3.13
+2026-09-11T01:50:55.6903485Z   check-latest: false
+2026-09-11T01:50:55.6904910Z   token: ***
+2026-09-11T01:50:55.6905039Z   update-environment: true
+2026-09-11T01:50:55.6905188Z   allow-prereleases: false
+2026-09-11T01:50:55.6905329Z   freethreaded: false
+2026-09-11T01:50:55.6905456Z env:
+2026-09-11T01:50:55.6905597Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:50:55.6905829Z   LINEUP_TEST_REDIS_RUN_ID: eec43b18734b9948859d5d028d940d45ddf45511
+2026-09-11T01:50:55.6906047Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-11T01:50:55.6906239Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T01:50:55.6906479Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T01:50:55.6906803Z ##[endgroup]
+2026-09-11T01:50:55.7765691Z ##[group]Installed versions
+2026-09-11T01:50:55.8107019Z Successfully set up CPython (3.13.15)
+2026-09-11T01:50:55.8107523Z ##[endgroup]
+2026-09-11T01:50:55.8257045Z ##[group]Run uv sync --all-extras --locked
+2026-09-11T01:50:55.8257401Z [36;1muv sync --all-extras --locked[0m
+2026-09-11T01:50:55.8327605Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:50:55.8328001Z env:
+2026-09-11T01:50:55.8328312Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:50:55.8328761Z   LINEUP_TEST_REDIS_RUN_ID: eec43b18734b9948859d5d028d940d45ddf45511
+2026-09-11T01:50:55.8329190Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-11T01:50:55.8329551Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T01:50:55.8329999Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T01:50:55.8330405Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:50:55.8330896Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T01:50:55.8331329Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:50:55.8331680Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:50:55.8332097Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:50:55.8332447Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T01:50:55.8332747Z ##[endgroup]
+2026-09-11T01:50:55.8523469Z Using CPython 3.13.15 interpreter at: /opt/hostedtoolcache/Python/3.13.15/x64/bin/python3
+2026-09-11T01:50:55.8523812Z Creating virtual environment at: .venv
+2026-09-11T01:50:56.4515655Z Resolved 60 packages in 597ms
+2026-09-11T01:50:56.4592981Z    Building brasileirao-predictor @ file:///home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T01:50:56.4862510Z Downloading pydantic-core (2.0MiB)
+2026-09-11T01:50:56.4923077Z Downloading numba (3.7MiB)
+2026-09-11T01:50:56.4923915Z Downloading pandas (10.4MiB)
+2026-09-11T01:50:56.4924221Z Downloading virtualenv (5.1MiB)
+2026-09-11T01:50:56.4926184Z Downloading pygments (1.2MiB)
+2026-09-11T01:50:56.4927216Z Downloading scipy (33.7MiB)
+2026-09-11T01:50:56.4928516Z Downloading lxml (5.0MiB)
+2026-09-11T01:50:56.4929604Z Downloading ruff (9.8MiB)
+2026-09-11T01:50:56.4930797Z Downloading llvmlite (57.1MiB)
+2026-09-11T01:50:56.4932173Z Downloading pyright (5.9MiB)
+2026-09-11T01:50:56.4934189Z Downloading curl-cffi (12.9MiB)
+2026-09-11T01:50:56.4936837Z Downloading numpy (15.9MiB)
+2026-09-11T01:50:56.7351143Z  Downloaded pydantic-core
+2026-09-11T01:50:56.8637857Z  Downloaded pygments
+2026-09-11T01:50:56.9285683Z  Downloaded virtualenv
+2026-09-11T01:50:56.9497520Z  Downloaded lxml
+2026-09-11T01:50:57.1057083Z  Downloaded numba
+2026-09-11T01:50:57.2711554Z  Downloaded ruff
+2026-09-11T01:50:57.4512331Z  Downloaded curl-cffi
+2026-09-11T01:50:57.5301819Z  Downloaded numpy
+2026-09-11T01:50:57.8298690Z  Downloaded scipy
+2026-09-11T01:50:57.9445243Z  Downloaded pandas
+2026-09-11T01:50:58.0859891Z  Downloaded llvmlite
+2026-09-11T01:50:58.2149682Z  Downloaded pyright
+2026-09-11T01:51:01.4844168Z       Built brasileirao-predictor @ file:///home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T01:51:01.4850966Z Prepared 56 packages in 5.03s
+2026-09-11T01:51:01.7704330Z Installed 58 packages in 285ms
+2026-09-11T01:51:01.7704781Z  + annotated-types==0.8.0
+2026-09-11T01:51:01.7705039Z  + attrs==26.1.0
+2026-09-11T01:51:01.7705324Z  + beautifulsoup4==4.15.0
+2026-09-11T01:51:01.7705984Z  + brasileirao-predictor==0.1.0 (from file:///home/runner/work/brasileirao-predictor/brasileirao-predictor)
+2026-09-11T01:51:01.7706634Z  + build==1.6.0
+2026-09-11T01:51:01.7707016Z  + certifi==2026.7.22
+2026-09-11T01:51:01.7707238Z  + cffi==2.1.1
+2026-09-11T01:51:01.7707444Z  + cfgv==3.5.0
+2026-09-11T01:51:01.7707690Z  + charset-normalizer==3.5.1
+2026-09-11T01:51:01.7707963Z  + coverage==7.15.4
+2026-09-11T01:51:01.7708214Z  + curl-cffi==0.16.3
+2026-09-11T01:51:01.7708455Z  + distlib==0.4.3
+2026-09-11T01:51:01.7708716Z  + filelock==3.32.4
+2026-09-11T01:51:01.7708932Z  + hiredis==3.4.1
+2026-09-11T01:51:01.7709126Z  + html5lib==1.1
+2026-09-11T01:51:01.7709348Z  + identify==2.6.19
+2026-09-11T01:51:01.7709567Z  + idna==3.19
+2026-09-11T01:51:01.7710161Z  + iniconfig==2.3.0
+2026-09-11T01:51:01.7710384Z  + jsonschema==4.26.0
+2026-09-11T01:51:01.7710663Z  + jsonschema-specifications==2025.9.1
+2026-09-11T01:51:01.7710994Z  + llvmlite==0.49.0
+2026-09-11T01:51:01.7711232Z  + lxml==6.1.3
+2026-09-11T01:51:01.7711447Z  + nodeenv==1.10.0
+2026-09-11T01:51:01.7711640Z  + numba==0.67.0
+2026-09-11T01:51:01.7711829Z  + numpy==2.5.2
+2026-09-11T01:51:01.7712039Z  + packaging==26.3
+2026-09-11T01:51:01.7712257Z  + pandas==3.0.5
+2026-09-11T01:51:01.7712514Z  + platformdirs==4.11.4
+2026-09-11T01:51:01.7712774Z  + pluggy==1.6.0
+2026-09-11T01:51:01.7712995Z  + pre-commit==4.6.2
+2026-09-11T01:51:01.7713711Z  + predictor-core==3.2.0 (from https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl)
+2026-09-11T01:51:01.7714757Z  + predictor-ops==4.1.0 (from https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl)
+2026-09-11T01:51:01.7715484Z  + pycparser==3.0
+2026-09-11T01:51:01.7715716Z  + pydantic==2.13.5
+2026-09-11T01:51:01.7715946Z  + pydantic-core==2.46.5
+2026-09-11T01:51:01.7716217Z  + pydantic-settings==2.15.0
+2026-09-11T01:51:01.7716489Z  + pygments==2.21.0
+2026-09-11T01:51:01.7716824Z  + pyproject-hooks==1.2.0
+2026-09-11T01:51:01.7717065Z  + pyright==1.1.411
+2026-09-11T01:51:01.7717267Z  + pytest==9.1.1
+2026-09-11T01:51:01.7717516Z  + python-dateutil==2.9.0.post0
+2026-09-11T01:51:01.7717821Z  + python-discovery==1.5.3
+2026-09-11T01:51:01.7718098Z  + python-dotenv==1.2.3
+2026-09-11T01:51:01.7718369Z  + pyyaml==6.0.3
+2026-09-11T01:51:01.7718624Z  + redis==8.1.0
+2026-09-11T01:51:01.7718832Z  + referencing==0.37.0
+2026-09-11T01:51:01.7719042Z  + requests==2.34.2
+2026-09-11T01:51:01.7719248Z  + rpds-py==2026.6.3
+2026-09-11T01:51:01.7719592Z  + ruff==0.16.6
+2026-09-11T01:51:01.7733082Z  + scipy==1.18.1
+2026-09-11T01:51:01.7733305Z  + six==1.17.0
+2026-09-11T01:51:01.7733528Z  + soupsieve==2.9.2
+2026-09-11T01:51:01.7733730Z  + truststore==0.10.4
+2026-09-11T01:51:01.7733974Z  + typing-extensions==4.16.0
+2026-09-11T01:51:01.7734229Z  + typing-inspection==0.4.4
+2026-09-11T01:51:01.7734445Z  + urllib3==2.7.0
+2026-09-11T01:51:01.7734648Z  + virtualenv==21.7.5
+2026-09-11T01:51:01.7734852Z  + webencodings==0.6.1
+2026-09-11T01:51:01.7841121Z ##[group]Run dotnet restore dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --locked-mode
+2026-09-11T01:51:01.7841770Z [36;1mdotnet restore dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --locked-mode[0m
+2026-09-11T01:51:01.7883755Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:51:01.7883998Z env:
+2026-09-11T01:51:01.7884230Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:51:01.7884596Z   LINEUP_TEST_REDIS_RUN_ID: eec43b18734b9948859d5d028d940d45ddf45511
+2026-09-11T01:51:01.7885266Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-11T01:51:01.7885571Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T01:51:01.7885913Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T01:51:01.7886244Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:01.7886621Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T01:51:01.7887227Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:01.7887577Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:01.7887924Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:01.7888271Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T01:51:01.7888577Z ##[endgroup]
+2026-09-11T01:51:03.5630163Z   Determining projects to restore...
+2026-09-11T01:51:05.6978982Z   Restored /home/runner/work/brasileirao-predictor/brasileirao-predictor/dotnet/LineupWorker/LineupWorker.csproj (in 1.78 sec).
+2026-09-11T01:51:05.6992337Z   Restored /home/runner/work/brasileirao-predictor/brasileirao-predictor/dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj (in 1.82 sec).
+2026-09-11T01:51:05.7333371Z ##[group]Run dotnet build dotnet/LineupWorker/LineupWorker.csproj --configuration Release --no-restore --warnaserror
+2026-09-11T01:51:05.7333852Z [36;1mdotnet build dotnet/LineupWorker/LineupWorker.csproj --configuration Release --no-restore --warnaserror[0m
+2026-09-11T01:51:05.7367554Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:51:05.7367710Z env:
+2026-09-11T01:51:05.7367870Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:51:05.7368099Z   LINEUP_TEST_REDIS_RUN_ID: eec43b18734b9948859d5d028d940d45ddf45511
+2026-09-11T01:51:05.7368304Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-11T01:51:05.7368488Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T01:51:05.7368855Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T01:51:05.7369101Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:05.7369358Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T01:51:05.7369747Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:05.7369965Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:05.7370176Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:05.7370391Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T01:51:05.7370574Z ##[endgroup]
+2026-09-11T01:51:07.8305376Z   LineupWorker -> /home/runner/work/brasileirao-predictor/brasileirao-predictor/dotnet/LineupWorker/bin/Release/net10.0/LineupWorker.dll
+2026-09-11T01:51:07.8483776Z 
+2026-09-11T01:51:07.8488681Z Build succeeded.
+2026-09-11T01:51:07.8489003Z     0 Warning(s)
+2026-09-11T01:51:07.8489259Z     0 Error(s)
+2026-09-11T01:51:07.8490229Z 
+2026-09-11T01:51:07.8490433Z Time Elapsed 00:00:01.90
+2026-09-11T01:51:07.8703206Z ##[group]Run export BRASILEIRAO_LAB_OUTPUT="$RUNNER_TEMP/brasileirao-runtime-lab"
+2026-09-11T01:51:07.8703821Z [36;1mexport BRASILEIRAO_LAB_OUTPUT="$RUNNER_TEMP/brasileirao-runtime-lab"[0m
+2026-09-11T01:51:07.8704224Z [36;1mmkdir -p "$BRASILEIRAO_LAB_OUTPUT"[0m
+2026-09-11T01:51:07.8704544Z [36;1mexport BRASILEIRAO_LAB_REPO="$GITHUB_WORKSPACE"[0m
+2026-09-11T01:51:07.8704863Z [36;1mexport PYTHONDONTWRITEBYTECODE=1[0m
+2026-09-11T01:51:07.8705188Z [36;1mexport NUMBA_CACHE_DIR="$BRASILEIRAO_LAB_OUTPUT/numba"[0m
+2026-09-11T01:51:07.8705546Z [36;1mexport TMPDIR="$BRASILEIRAO_LAB_OUTPUT"[0m
+2026-09-11T01:51:07.8705952Z [36;1mexport LINEUP_E2E_PYTHON="$GITHUB_WORKSPACE/.venv/bin/python"[0m
+2026-09-11T01:51:07.8706462Z [36;1mexport LINEUP_E2E_KERNEL_SCRIPT="$GITHUB_WORKSPACE/tools/runtime_lab/kernel_synthetic.py"[0m
+2026-09-11T01:51:07.8707124Z [36;1mexport LINEUP_E2E_REDIS_URL=redis://127.0.0.1:26380/13[0m
+2026-09-11T01:51:07.8707643Z [36;1mexport LINEUP_E2E_REDIS_RUN_ID="$LINEUP_TEST_REDIS_RUN_ID"[0m
+2026-09-11T01:51:07.8708966Z [36;1mdotnet test dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --configuration Release --no-restore --collect:"XPlat Code Coverage" --results-directory artifacts/dotnet-coverage[0m
+2026-09-11T01:51:07.8742099Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:51:07.8742264Z env:
+2026-09-11T01:51:07.8742416Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:51:07.8742651Z   LINEUP_TEST_REDIS_RUN_ID: eec43b18734b9948859d5d028d940d45ddf45511
+2026-09-11T01:51:07.8742859Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-11T01:51:07.8743049Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T01:51:07.8743266Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T01:51:07.8743481Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:07.8743723Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T01:51:07.8743971Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:07.8744189Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:07.8744412Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:07.8744631Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T01:51:07.8744816Z ##[endgroup]
+2026-09-11T01:51:08.5769408Z   LineupWorker -> /home/runner/work/brasileirao-predictor/brasileirao-predictor/dotnet/LineupWorker/bin/Release/net10.0/LineupWorker.dll
+2026-09-11T01:51:09.5976860Z   LineupWorker.Tests -> /home/runner/work/brasileirao-predictor/brasileirao-predictor/dotnet/LineupWorker.Tests/bin/Release/net10.0/LineupWorker.Tests.dll
+2026-09-11T01:51:09.6073607Z Test run for /home/runner/work/brasileirao-predictor/brasileirao-predictor/dotnet/LineupWorker.Tests/bin/Release/net10.0/LineupWorker.Tests.dll (.NETCoreApp,Version=v10.0)
+2026-09-11T01:51:09.7141116Z A total of 1 test files matched the specified pattern.
+2026-09-11T01:51:38.7189528Z 
+2026-09-11T01:51:38.7225137Z Passed!  - Failed:     0, Passed:   160, Skipped:     0, Total:   160, Duration: 27 s - LineupWorker.Tests.dll (net10.0)
+2026-09-11T01:51:38.8526887Z 
+2026-09-11T01:51:38.8531192Z Attachments:
+2026-09-11T01:51:38.8532129Z   /home/runner/work/brasileirao-predictor/brasileirao-predictor/artifacts/dotnet-coverage/2c9f7abe-8936-4fb4-8321-42168f9c2d3a/coverage.cobertura.xml
+2026-09-11T01:51:38.8971002Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-11T01:51:38.8971705Z ##[group]Run actions/upload-artifact@v4
+2026-09-11T01:51:38.8971856Z with:
+2026-09-11T01:51:38.8971974Z   name: dotnet-validation
+2026-09-11T01:51:38.8972184Z   path: artifacts/dotnet-coverage
+/home/runner/work/_temp/brasileirao-runtime-lab
+
+2026-09-11T01:51:38.8972416Z   if-no-files-found: warn
+2026-09-11T01:51:38.8972546Z   compression-level: 6
+2026-09-11T01:51:38.8972681Z   overwrite: false
+2026-09-11T01:51:38.8972801Z   include-hidden-files: false
+2026-09-11T01:51:38.8972934Z env:
+2026-09-11T01:51:38.8973062Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:51:38.8973298Z   LINEUP_TEST_REDIS_RUN_ID: eec43b18734b9948859d5d028d940d45ddf45511
+2026-09-11T01:51:38.8973493Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-11T01:51:38.8973670Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T01:51:38.8973878Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T01:51:38.8974078Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:38.8974308Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T01:51:38.8974534Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:38.8974748Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:38.8974959Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:38.8975341Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T01:51:38.8975514Z ##[endgroup]
+2026-09-11T01:51:39.0104301Z (node:3874) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-11T01:51:39.0104764Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-11T01:51:39.0208029Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-09-11T01:51:39.0208981Z The least common ancestor is /home/runner/work. This will be the root directory of the artifact
+2026-09-11T01:51:39.0209502Z With the provided path, there will be 4 files uploaded
+2026-09-11T01:51:39.0209982Z Artifact name is valid!
+2026-09-11T01:51:39.0210238Z Root directory input is valid!
+2026-09-11T01:51:39.3886413Z Beginning upload of artifact content to blob storage
+2026-09-11T01:51:39.4088255Z (node:3874) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-09-11T01:51:39.7061846Z Uploaded bytes 45028
+2026-09-11T01:51:39.7612421Z Finished uploading artifact content to blob storage!
+2026-09-11T01:51:39.7613050Z SHA256 digest of uploaded artifact zip is 5709e31f0285d168cc85e5b3489b589c428c383297682d8254b349c932cf925b
+2026-09-11T01:51:39.7614184Z Finalizing artifact upload
+2026-09-11T01:51:39.9913909Z Artifact dotnet-validation.zip successfully finalized. Artifact ID 10181263843
+2026-09-11T01:51:39.9914505Z Artifact dotnet-validation has been successfully uploaded! Final size is 45028 bytes. Artifact ID is 10181263843
+2026-09-11T01:51:39.9918658Z Artifact download URL: https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34552247397/artifacts/10181263843
+2026-09-11T01:51:40.0022919Z ##[group]Run python - <<'PY'
+2026-09-11T01:51:40.0023104Z [36;1mpython - <<'PY'[0m
+2026-09-11T01:51:40.0023255Z [36;1mimport glob, xml.etree.ElementTree as ET[0m
+2026-09-11T01:51:40.0023550Z [36;1mreport = glob.glob("artifacts/dotnet-coverage/**/coverage.cobertura.xml", recursive=True)[0][0m
+2026-09-11T01:51:40.0023821Z [36;1mroot = ET.parse(report).getroot()[0m
+2026-09-11T01:51:40.0024073Z [36;1mrates = {"line": float(root.attrib["line-rate"]), "branch": float(root.attrib["branch-rate"])}[0m
+2026-09-11T01:51:40.0024319Z [36;1mprint(rates)[0m
+2026-09-11T01:51:40.0024464Z [36;1massert min(rates.values()) >= 0.80, rates[0m
+2026-09-11T01:51:40.0024620Z [36;1mPY[0m
+2026-09-11T01:51:40.0054297Z shell: /usr/bin/bash -e {0}
+2026-09-11T01:51:40.0054436Z env:
+2026-09-11T01:51:40.0054578Z   LINEUP_TEST_REDIS_URL: redis://127.0.0.1:26380/15
+2026-09-11T01:51:40.0054793Z   LINEUP_TEST_REDIS_RUN_ID: eec43b18734b9948859d5d028d940d45ddf45511
+2026-09-11T01:51:40.0055013Z   DOTNET_ROOT: /usr/share/dotnet
+2026-09-11T01:51:40.0055194Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+2026-09-11T01:51:40.0055399Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-09-11T01:51:40.0055612Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:40.0055842Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+2026-09-11T01:51:40.0056071Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:40.0056280Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:40.0056491Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+2026-09-11T01:51:40.0056836Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+2026-09-11T01:51:40.0057108Z ##[endgroup]
+2026-09-11T01:51:40.2597743Z {'line': 0.8691, 'branch': 0.8190000000000001}
+2026-09-11T01:51:40.2714793Z Post job cleanup.
+2026-09-11T01:51:40.3651064Z Post job cleanup.
+2026-09-11T01:51:40.4378762Z UV_CACHE_DIR is already set to /home/runner/work/_temp/setup-uv-cache
+2026-09-11T01:51:40.4381987Z UV_PYTHON_INSTALL_DIR is already set to /home/runner/work/_temp/uv-python-dir
+2026-09-11T01:51:40.4383542Z Cache hit occurred on key setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-pruned-5f30cb0e72f2eed540b5a45603843fe755586a8d2e9bf05b531a79f7a68c6d70, not saving cache.
+2026-09-11T01:51:40.4989626Z Post job cleanup.
+2026-09-11T01:51:40.5892003Z Post job cleanup.
+2026-09-11T01:51:40.6500863Z [command]/usr/bin/git version
+2026-09-11T01:51:40.6541770Z git version 2.55.0
+2026-09-11T01:51:40.6564985Z Temporarily overriding HOME='/home/runner/work/_temp/98afffd9-b37e-4e07-b2b0-eb0885ecd576' before making global git config changes
+2026-09-11T01:51:40.6565787Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-11T01:51:40.6568361Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/brasileirao-predictor/brasileirao-predictor
+2026-09-11T01:51:40.6599477Z Removing SSH command configuration
+2026-09-11T01:51:40.6604486Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-11T01:51:40.6641305Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-11T01:51:40.6850240Z Removing HTTP extra header
+2026-09-11T01:51:40.6855673Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-11T01:51:40.6908496Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-11T01:51:40.7150556Z Removing includeIf entries pointing to credentials config files
+2026-09-11T01:51:40.7156320Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-11T01:51:40.7187179Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-11T01:51:40.7466277Z Print service container logs: 14283c11cd3148fea13687205722ac89_redis829alpine322sha25630abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d_fe4264
+2026-09-11T01:51:40.7471190Z ##[command]/usr/bin/docker logs --details 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:51:40.7572163Z  Starting Redis Server
+2026-09-11T01:51:40.7574380Z  1:C 11 Sep 2026 01:50:36.024 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+2026-09-11T01:51:40.7575809Z  1:C 11 Sep 2026 01:50:36.024 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+2026-09-11T01:51:40.7576333Z  1:C 11 Sep 2026 01:50:36.024 * Redis version=8.2.9, bits=64, commit=00000000, modified=1, pid=1, just started
+2026-09-11T01:51:40.7576871Z  1:C 11 Sep 2026 01:50:36.024 * Configuration loaded
+2026-09-11T01:51:40.7577176Z  1:M 11 Sep 2026 01:50:36.024 * monotonic clock: POSIX clock_gettime
+2026-09-11T01:51:40.7577504Z  1:M 11 Sep 2026 01:50:36.025 * Running mode=standalone, port=6379.
+2026-09-11T01:51:40.7577843Z  1:M 11 Sep 2026 01:50:36.025 * <bf> RedisBloom version 8.2.16 (Git=unknown)
+2026-09-11T01:51:40.7578185Z  1:M 11 Sep 2026 01:50:36.025 * <bf> Registering configuration options: [
+2026-09-11T01:51:40.7578533Z  1:M 11 Sep 2026 01:50:36.025 * <bf> 	{ bf-error-rate       :      0.01 }
+2026-09-11T01:51:40.7578871Z  1:M 11 Sep 2026 01:50:36.025 * <bf> 	{ bf-initial-size     :       100 }
+2026-09-11T01:51:40.7579199Z  1:M 11 Sep 2026 01:50:36.025 * <bf> 	{ bf-expansion-factor :         2 }
+2026-09-11T01:51:40.7579534Z  1:M 11 Sep 2026 01:50:36.025 * <bf> 	{ cf-bucket-size      :         2 }
+2026-09-11T01:51:40.7579856Z  1:M 11 Sep 2026 01:50:36.025 * <bf> 	{ cf-initial-size     :      1024 }
+2026-09-11T01:51:40.7580535Z  1:M 11 Sep 2026 01:50:36.025 * <bf> 	{ cf-max-iterations   :        20 }
+2026-09-11T01:51:40.7580865Z  1:M 11 Sep 2026 01:50:36.025 * <bf> 	{ cf-expansion-factor :         1 }
+2026-09-11T01:51:40.7581232Z  1:M 11 Sep 2026 01:50:36.025 * <bf> 	{ cf-max-expansions   :        32 }
+2026-09-11T01:51:40.7581531Z  1:M 11 Sep 2026 01:50:36.025 * <bf> ]
+2026-09-11T01:51:40.7581883Z  1:M 11 Sep 2026 01:50:36.025 * Module 'bf' loaded from /usr/local/lib/redis/modules//redisbloom.so
+2026-09-11T01:51:40.7582346Z  1:M 11 Sep 2026 01:50:36.028 * <search> Redis version found by RedisSearch : 8.2.9 - oss
+2026-09-11T01:51:40.7582760Z  1:M 11 Sep 2026 01:50:36.028 * <search> RediSearch version 8.2.13 (Git=e9cf9bf)
+2026-09-11T01:51:40.7583189Z  1:M 11 Sep 2026 01:50:36.028 * <search> Low level api version 1 initialized successfully
+2026-09-11T01:51:40.7584421Z  1:M 11 Sep 2026 01:50:36.028 * <search> gc: ON, prefix min length: 2, min word length to stem: 4, prefix max expansions: 200, query timeout (ms): 500, timeout policy: return, cursor read size: 1000, cursor max idle (ms): 300000, max doctable size: 1000000, max number of search results:  1000000, default scorer: BM25STD, 
+2026-09-11T01:51:40.7585577Z  1:M 11 Sep 2026 01:50:36.028 * <search> Initialized thread pools!
+2026-09-11T01:51:40.7585936Z  1:M 11 Sep 2026 01:50:36.028 * <search> Disabled workers threadpool of size 0
+2026-09-11T01:51:40.7586296Z  1:M 11 Sep 2026 01:50:36.028 * <search> Subscribe to config changes
+2026-09-11T01:51:40.7586619Z  1:M 11 Sep 2026 01:50:36.028 * <search> Enabled role change notification
+2026-09-11T01:51:40.7587075Z  1:M 11 Sep 2026 01:50:36.028 # <search> Could not create command: _FT.DROP
+2026-09-11T01:51:40.7587458Z  1:M 11 Sep 2026 01:50:36.028 * <search> Registered command _FT.DROP with flags: write
+2026-09-11T01:51:40.7587964Z  1:M 11 Sep 2026 01:50:36.028 # <search> Could not create command: _FT.DROPINDEX
+2026-09-11T01:51:40.7588587Z  1:M 11 Sep 2026 01:50:36.028 * <search> Registered command _FT.DROPINDEX with flags: write
+2026-09-11T01:51:40.7588990Z  1:M 11 Sep 2026 01:50:36.028 # <search> Could not create command: _FT._DROPIFX
+2026-09-11T01:51:40.7589261Z  1:M 11 Sep 2026 01:50:36.028 * <search> Registered command _FT._DROPIFX with flags: write
+2026-09-11T01:51:40.7589684Z  1:M 11 Sep 2026 01:50:36.028 # <search> Could not create command: _FT._DROPINDEXIFX
+2026-09-11T01:51:40.7590036Z  1:M 11 Sep 2026 01:50:36.028 * <search> Registered command _FT._DROPINDEXIFX with flags: write
+2026-09-11T01:51:40.7590369Z  1:M 11 Sep 2026 01:50:36.028 * <search> Cluster configuration: AUTO partitions, type: 0, coordinator timeout: 0ms
+2026-09-11T01:51:40.7590666Z  1:M 11 Sep 2026 01:50:36.028 * <search> Register write commands
+2026-09-11T01:51:40.7590935Z  1:M 11 Sep 2026 01:50:36.028 * Module 'search' loaded from /usr/local/lib/redis/modules//redisearch.so
+2026-09-11T01:51:40.7591330Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> RedisTimeSeries version 80210, git_sha=93993a3d3f8ab28dc2c86a3e917f5160a2617f8b
+2026-09-11T01:51:40.7591718Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> Redis version found by RedisTimeSeries : 8.2.9 - oss
+2026-09-11T01:51:40.7592002Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> Registering configuration options: [
+2026-09-11T01:51:40.7592273Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> 	{ ts-compaction-policy   :              }
+2026-09-11T01:51:40.7592535Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> 	{ ts-num-threads         :            3 }
+2026-09-11T01:51:40.7592801Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> 	{ ts-retention-policy    :            0 }
+2026-09-11T01:51:40.7593066Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> 	{ ts-duplicate-policy    :        block }
+2026-09-11T01:51:40.7593325Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> 	{ ts-chunk-size-bytes    :         4096 }
+2026-09-11T01:51:40.7593585Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> 	{ ts-encoding            :   compressed }
+2026-09-11T01:51:40.7593851Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> 	{ ts-ignore-max-time-diff:            0 }
+2026-09-11T01:51:40.7594218Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> 	{ ts-ignore-max-val-diff :     0.000000 }
+2026-09-11T01:51:40.7594440Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> ]
+2026-09-11T01:51:40.7594629Z  1:M 11 Sep 2026 01:50:36.028 * <timeseries> Detected redis oss
+2026-09-11T01:51:40.7594847Z  1:M 11 Sep 2026 01:50:36.029 * <timeseries> Enabled diskless replication
+2026-09-11T01:51:40.7595137Z  1:M 11 Sep 2026 01:50:36.029 * Module 'timeseries' loaded from /usr/local/lib/redis/modules//redistimeseries.so
+2026-09-11T01:51:40.7595433Z  1:M 11 Sep 2026 01:50:36.029 * <ReJSON> Created new data type 'ReJSON-RL'
+2026-09-11T01:51:40.7595680Z  1:M 11 Sep 2026 01:50:36.029 * <ReJSON> version: 80209 git sha: unknown branch: unknown
+2026-09-11T01:51:40.7595953Z  1:M 11 Sep 2026 01:50:36.029 * <ReJSON> Exported RedisJSON_V1 API
+2026-09-11T01:51:40.7596165Z  1:M 11 Sep 2026 01:50:36.029 * <ReJSON> Exported RedisJSON_V2 API
+2026-09-11T01:51:40.7596379Z  1:M 11 Sep 2026 01:50:36.029 * <ReJSON> Exported RedisJSON_V3 API
+2026-09-11T01:51:40.7596594Z  1:M 11 Sep 2026 01:50:36.029 * <ReJSON> Exported RedisJSON_V4 API
+2026-09-11T01:51:40.7597181Z  1:M 11 Sep 2026 01:50:36.029 * <ReJSON> Exported RedisJSON_V5 API
+2026-09-11T01:51:40.7597527Z  1:M 11 Sep 2026 01:50:36.029 * <ReJSON> Enabled diskless replication
+2026-09-11T01:51:40.7597844Z  1:M 11 Sep 2026 01:50:36.029 * <ReJSON> Initialized shared string cache, thread safe: true.
+2026-09-11T01:51:40.7598145Z  1:M 11 Sep 2026 01:50:36.029 * Module 'ReJSON' loaded from /usr/local/lib/redis/modules//rejson.so
+2026-09-11T01:51:40.7598405Z  1:M 11 Sep 2026 01:50:36.029 * <search> Acquired RedisJSON_V5 API
+2026-09-11T01:51:40.7598602Z  1:M 11 Sep 2026 01:50:36.029 * Server initialized
+2026-09-11T01:51:40.7598795Z  1:M 11 Sep 2026 01:50:36.029 * Ready to accept connections tcp
+2026-09-11T01:51:40.7599011Z  1:M 11 Sep 2026 01:51:37.042 * 10000 changes in 60 seconds. Saving...
+2026-09-11T01:51:40.7599365Z  1:M 11 Sep 2026 01:51:37.042 * Background saving started by pid 107
+2026-09-11T01:51:40.7599579Z  107:C 11 Sep 2026 01:51:37.046 * DB saved on disk
+2026-09-11T01:51:40.7599797Z  107:C 11 Sep 2026 01:51:37.046 * Fork CoW for RDB: current 0 MB, peak 0 MB, average 0 MB
+2026-09-11T01:51:40.7600049Z  1:M 11 Sep 2026 01:51:37.143 * Background saving terminated with success
+2026-09-11T01:51:40.7605979Z Stop and remove container: 14283c11cd3148fea13687205722ac89_redis829alpine322sha25630abb90e62f14b737010746def3ba99cc79fe19dcdb3d37b41f21fc62e7da19d_fe4264
+2026-09-11T01:51:40.7610406Z ##[command]/usr/bin/docker rm --force 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:51:42.0336193Z 1fddc7befaa054bfb33c66ee5232fe2b0f8fc90b80ee451a92a54b83d9160317
+2026-09-11T01:51:42.0357910Z Remove container network: github_network_52c735b43a5e4348a7dffd763bf565e2
+2026-09-11T01:51:42.0360329Z ##[command]/usr/bin/docker network rm github_network_52c735b43a5e4348a7dffd763bf565e2
+2026-09-11T01:51:42.2154815Z github_network_52c735b43a5e4348a7dffd763bf565e2
+2026-09-11T01:51:42.2210620Z Cleaning up orphan processes
+2026-09-11T01:51:42.2425590Z Terminate orphan process: pid (3243) (VBCSCompiler)
+2026-09-11T01:51:42.2446382Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

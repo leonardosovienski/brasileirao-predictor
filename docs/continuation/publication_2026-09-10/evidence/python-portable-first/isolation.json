@@ -1,0 +1,76 @@
+{
+  "tests": [
+    "test_resolution_bank.py",
+    "test_bet_log.py",
+    "test_completion_ledger.py",
+    "test_ledger_consistency.py",
+    "test_resolution_curated_versions.py",
+    "test_pit_backfill.py",
+    "test_closeout_integrity.py",
+    "test_resolution_gate_dependence.py",
+    "test_residual_gate.py",
+    "test_reconciliation_gate_contracts.py",
+    "test_resolution_restore.py",
+    "test_backup_restore.py",
+    "test_resolution_lineup_envelopes.py",
+    "test_residual_features.py",
+    "test_resolution_walkforward.py",
+    "test_residual_walkforward.py",
+    "test_resolution_residual_dataset.py",
+    "test_residual_dataset.py",
+    "test_core_integrity.py",
+    "test_resolution_player_stats.py",
+    "test_player_comp_stats_sofascore.py",
+    "test_resolution_kernel_lifecycle.py",
+    "test_resolution_kernel_params.py",
+    "test_kernel_runtime.py",
+    "test_kernel_v2_runtime.py",
+    "test_redis_contract.py",
+    "test_resolution_structural_edge.py",
+    "test_structural_edge.py",
+    "test_resolution_promotions.py",
+    "test_promotions_dataset.py::test_promotion_dataset_rejects_empty_file",
+    "test_resolution_coverage.py",
+    "test_resolution_odds_shop.py",
+    "test_odds_shop_stale.py",
+    "test_resolution_historical_import.py",
+    "test_resolution_live_settlement.py",
+    "test_settle_live_prediction.py",
+    "test_publication_isolation.py"
+  ],
+  "blocked_attempts": [
+    {
+      "event": "socket.bind",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "open",
+      "reason": "private_or_protected_data_forbidden"
+    },
+    {
+      "event": "open",
+      "reason": "private_or_protected_data_forbidden"
+    },
+    {
+      "event": "open",
+      "reason": "private_or_protected_data_forbidden"
+    },
+    {
+      "event": "open",
+      "reason": "private_or_protected_data_forbidden"
+    },
+    {
+      "event": "socket.getaddrinfo",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "subprocess.Popen",
+      "reason": "network_or_subprocess_forbidden"
+    },
+    {
+      "event": "open",
+      "reason": "write_outside_test_output"
+    }
+  ],
+  "exit_code": 0
+}

@@ -1,0 +1,3 @@
+# Raw evidence and historical copies retain their exact whitespace and hashes.
+evidence/** -text -whitespace
+archive/** -text -whitespace

@@ -1,0 +1,13 @@
+{
+  "at": "2026-09-11T02:05:06.497777+00:00",
+  "initial_local_main": "ec493c8ec263ca9c11213cf3378d436b32279c44",
+  "remote_before": "ac22c56c3318623e07a722f34d44dc6cd877ea37",
+  "tested_head": "cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f",
+  "runtime_config_tests_and_protected_trees_equal_to_tested_head": true,
+  "ci_general_unchanged_in_publication_round": true,
+  "protected_operation_not_migrated": true,
+  "push_authorized_in_original_mandate_and_latest_request": true,
+  "integration_method": "fast-forward main plus documentary commit; no force push or reset",
+  "global_ci": "not executed; skip marker required by documented protected scope",
+  "next": "push main, fast-forward fresh remote clone, compare index objects and evidence bytes, build final package and recover bundle"
+}

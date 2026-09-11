@@ -1,14 +1,17 @@
-# Índice — RES-20260910
+# Índice corrente — PUB-20260910
 
-- [Resultado](continuation/resolution_2026-09-10/RESULTADO.md)
-- [Registro central](continuation/resolution_2026-09-10/REGISTROS.md)
-- [Contratos corrigidos](continuation/resolution_2026-09-10/CONTRATOS.md)
-- [Reprodução](continuation/resolution_2026-09-10/REPRODUZIR.md)
-- [Continuação](continuation/resolution_2026-09-10/PROXIMO_PROMPT.md)
-- [Matriz integral dos mandatos na RCA](continuation/reconciliation_2026-09-10/MATRIZ_MANDATO.md)
-- [Histórico reconciliado](continuation/reconciliation_2026-09-10/HISTORICO.md)
-- [Sistema na RCA](continuation/reconciliation_2026-09-10/MAPA_SISTEMA.md)
+- [Resultado](continuation/publication_2026-09-10/RESULTADO.md)
+- [Registro corrente](continuation/publication_2026-09-10/REGISTROS.md)
+- [Releitura e decisões](continuation/publication_2026-09-10/REVISAO_DO_CHAT.md)
+- [Dados, fontes e recuperação](continuation/publication_2026-09-10/DADOS_E_FONTES.md)
+- [Reprodução](continuation/publication_2026-09-10/REPRODUZIR.md)
+- [Próximo prompt](continuation/publication_2026-09-10/PROXIMO_PROMPT.md)
+- [Todos os Markdown](continuation/publication_2026-09-10/INDICE_TODOS_MDS.md)
+- [Matriz integral do mandato](continuation/reconciliation_2026-09-10/MATRIZ_MANDATO.md)
+- [Contratos das correções RES](continuation/resolution_2026-09-10/CONTRATOS.md)
+- [Mandato consolidado preservado](continuation/publication_2026-09-10/archive/instructions/PROMPT_FINAL_REVISAO_INTEGRAL_2026-09-09.md)
+- [Mandato original preservado](continuation/publication_2026-09-10/archive/instructions/MANDATO_RECEBIDO_2026-09-09.txt)
+- [Histórico visível arquivado](continuation/publication_2026-09-10/archive/chat/chat-visible.txt)
+- [Validação Linux final](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34552247397)
 
-Documentos RCA e anteriores são fotografias datadas, preservadas. A evolução RES está no registro corrente; não são listas concorrentes de estado.
-
-Inventário base: 399 arquivos com leitura semântica e 59 protegidos limitados a contratos/metadados. Registro RES: 52 itens validados, sete bloqueados por requisitos especificados. Não significa zero bugs, CI global aprovado ou lucro demonstrado.
+Documentos anteriores e roteiros em archive são fotografias datadas. Não foram reescritos para aparentar atualização ou aprovar requisitos abertos. Estado corrente deriva de PUB/REGISTROS.json; hashes e recibos preservam as referências históricas.

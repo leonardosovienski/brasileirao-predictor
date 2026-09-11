@@ -1,0 +1,11 @@
+{
+  "thread_id": "01a088a1-e7c6-7e93-9ae6-dacd3b43b2a5",
+  "source_snapshot_bytes": 56736618,
+  "source_snapshot_sha256": "136152cbc4f1cf266704af8a423799ab373d1911c7d1a59295ecd977c40dfa7d",
+  "messages": 134,
+  "characters": 52637,
+  "visible_text_sha256": "e34e87b77033623d32c6742a2802797b29338ab4b3f11f741a16a0d813d11529",
+  "excluded": "tools, reasoning, system/developer and UI environment blocks",
+  "snapshot_at": "2026-09-10T23:48:44.930751+00:00",
+  "app_limitation": "read_thread returned 10 turns, 7 with no items; exact local task record supplied visible messages"
+}

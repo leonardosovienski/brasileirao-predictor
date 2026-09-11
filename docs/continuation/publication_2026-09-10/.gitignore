@@ -1,0 +1,2 @@
+# Reviewed immutable evidence only; operational data stays outside this directory.
+!evidence/**

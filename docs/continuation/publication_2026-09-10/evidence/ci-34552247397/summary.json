@@ -1,0 +1,97 @@
+{
+  "run_id": 34552247397,
+  "head": "cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f",
+  "url": "https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34552247397",
+  "conclusion": "success",
+  "at": "2026-09-11T01:58:37.803346+00:00",
+  "artifacts": [
+    {
+      "id": 10181302645,
+      "name": "compose-validation",
+      "bytes": 5586,
+      "sha256": "3ee5812ae80a8e52f5b520a849671106d414ceda6f39e361905c60c103b6807f",
+      "local_zip": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\ci-34552247397\\artifacts\\10181302645.zip",
+      "crc_verified": true,
+      "archived": [
+        {
+          "name": "compose-validation.log",
+          "sha256": "0ff299d438344de8c74705fd50fc52bbfba22e8c6dc52cdaa373e770bc340080"
+        }
+      ]
+    },
+    {
+      "id": 10181263843,
+      "name": "dotnet-validation",
+      "bytes": 45028,
+      "sha256": "5709e31f0285d168cc85e5b3489b589c428c383297682d8254b349c932cf925b",
+      "local_zip": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\ci-34552247397\\artifacts\\10181263843.zip",
+      "crc_verified": true,
+      "archived": [
+        {
+          "name": "brasileirao-predictor/brasileirao-predictor/artifacts/dotnet-coverage/2c9f7abe-8936-4fb4-8321-42168f9c2d3a/coverage.cobertura.xml",
+          "sha256": "e1af79f948c0d310bf28874d2de84ec081a6e8f048cbf9e8a370e95f085fdb0a"
+        }
+      ]
+    },
+    {
+      "id": 10181244805,
+      "name": "python-validation-3.13",
+      "bytes": 10607449,
+      "sha256": "4a5027cecd796229d8c6c8528bcba1836a48a9bb70c9f32cd04b87cba216f5b4",
+      "local_zip": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\ci-34552247397\\artifacts\\10181244805.zip",
+      "crc_verified": true,
+      "archived": [
+        {
+          "name": "_temp/python-synthetic/isolation.json",
+          "sha256": "e2a48a2261aa24f72a42bbc7cb61aa06a1be71bcff44d4097da84d897222f10e"
+        },
+        {
+          "name": "_temp/python-synthetic/junit.xml",
+          "sha256": "fc7bbb06bfe34100e458d2d2646002ec162fc377d7a178993714b50b222f91a2"
+        }
+      ]
+    },
+    {
+      "id": 10181243863,
+      "name": "python-validation-3.14",
+      "bytes": 10607414,
+      "sha256": "fca3bd213828a7e6d34287e3f3c10e1e5975911314d8abe18d3b650b93cecf95",
+      "local_zip": "C:\\BRASILEIRAO\\work\\publication-2026-09-10\\ci-34552247397\\artifacts\\10181243863.zip",
+      "crc_verified": true,
+      "archived": [
+        {
+          "name": "_temp/python-synthetic/isolation.json",
+          "sha256": "e2a48a2261aa24f72a42bbc7cb61aa06a1be71bcff44d4097da84d897222f10e"
+        },
+        {
+          "name": "_temp/python-synthetic/junit.xml",
+          "sha256": "8bee06cc3afb432c17c455e8ec82df169adf7b51de94e2bf0b09d0bb820e5178"
+        }
+      ]
+    }
+  ],
+  "python": {
+    "python-validation-3.13": {
+      "tests": 345,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "python-validation-3.14": {
+      "tests": 345,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "dotnet": {
+    "coverage": {
+      "line-rate": 0.8691,
+      "branch-rate": 0.8190000000000001
+    },
+    "passed": 160,
+    "skipped": 0
+  },
+  "global_ci_executed": false,
+  "financial_permission": false
+}

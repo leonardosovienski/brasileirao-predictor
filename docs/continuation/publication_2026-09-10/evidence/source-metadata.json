@@ -1,0 +1,26 @@
+{
+  "at": "2026-09-11T00:03:18.918369+00:00",
+  "scope": "hash/existence only, no outcomes, APIs, quota or operation changes",
+  "files": [
+    {
+      "path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\public_sources\\football_data_bra_origin_csv.csv",
+      "bytes": 640594,
+      "sha256": "ba3e9ea79ab4091b117a901f3914940cea07f1fe06de0deb57af5076f664ccb6"
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\followup_capture.py",
+      "bytes": 6211,
+      "sha256": "31de8315c687cc596ae3fb9aebd221701e9f6df690903248c15dfb9b84b33d88"
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\work\\data-completion-2026-09-09\\audit_followup.py",
+      "bytes": 5269,
+      "sha256": "ebce7ddeb384b347be4985b7a3812a1b83c7dfaceafdb3e2a6cb00f7e2d09a24"
+    }
+  ],
+  "followup_attempt_exists": false,
+  "followup_receipt_exists": false,
+  "followup_capture_exists": false,
+  "decision_utc": "2026-09-11T23:00:00Z",
+  "automation_active_status": "not verifiable from prior app text; not inferred from missing local definition"
+}

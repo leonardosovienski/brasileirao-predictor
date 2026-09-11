@@ -1,0 +1,1848 @@
+{
+  "round": "PUB-20260910",
+  "dated_at": "2026-09-11T01:58:38.813778+00:00",
+  "base": "ec493c8ec263ca9c11213cf3378d436b32279c44",
+  "claims": [
+    {
+      "id": "CPL-A01",
+      "claim": "ExibiÃ§Ã£o e registro usam a mesma previsÃ£o e data",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "predict.py / display.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Duas chamadas e perda da data no formatter; from_prediction recebe resultado e mercado jÃ¡ registrados",
+      "evidence": "regressions-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Teste sintÃ©tico conta chamadas e confere data; nÃ£o comprova PIT do banco",
+      "issue": "CPL-P01"
+    },
+    {
+      "id": "CPL-A02",
+      "claim": "ObservaÃ§Ãµes de protocolos e revisÃµes distintos nÃ£o se perdem",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "data/bitemporal_store.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "PK ignorava charter/event_at; hash arbitrava empate material; Chave inclui protocolo/evento; empate material recusado; filtro explÃ­cito de charter; schema legado recusado sem migrar",
+      "evidence": "regressions-before; pit-contracts-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Banco novo isolado; migraÃ§Ã£o operacional nÃ£o executada",
+      "issue": "CPL-P02"
+    },
+    {
+      "id": "CPL-A03",
+      "claim": "Cobertura Sportmonks inclui todas as pÃ¡ginas autorizadas",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "data/sportmonks_provider.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Primeira pÃ¡gina ou metadata ausente eram tratadas como coleÃ§Ã£o completa; Cursor/legado, orÃ§amento explÃ­cito, rejeiÃ§Ã£o de incompletude e cursor repetido; next_page externo ignorado",
+      "evidence": "pagination-before; integrated-python-03; sources/receipts.json",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Contrato sintÃ©tico e documentaÃ§Ã£o atual; nenhuma consulta autenticada",
+      "issue": "CPL-P03"
+    },
+    {
+      "id": "CPL-A04",
+      "claim": "Faixa configurada de edge prova confianÃ§a alta",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "display.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Interface afirmava ALTA e validaÃ§Ã£o lucrativa sem evidÃªncia correspondente; ConfianÃ§a NÃƒO VALIDADA, preÃ§os diagnÃ³sticos, capital false e comentÃ¡rios corrigidos",
+      "evidence": "confidence-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Premissa refutada; nÃ£o altera mÃ©tricas histÃ³ricas",
+      "issue": "CPL-P04"
+    },
+    {
+      "id": "CPL-A05",
+      "claim": "EscalaÃ§Ã£o recebida depois do corte pode entrar por ter publicaÃ§Ã£o anterior",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "research/residual_features.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "AusÃªncia de checagem de ingestÃ£o; empate arbitrÃ¡rio de vintages; Exige ingestÃ£o atÃ© corte e recusa versÃµes conflitantes no mesmo recibo",
+      "evidence": "source-regressions-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Extrator de linhas; envelope vazio/revisÃµes e imputaÃ§Ã£o do pipeline legado continuam fora da admissÃ£o econÃ´mica",
+      "issue": "CPL-P05"
+    },
+    {
+      "id": "CPL-A06",
+      "claim": "published_at da API-Football equivale ao relÃ³gio local",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "data/api_football_provider.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Inventava publicaÃ§Ã£o antes da requisiÃ§Ã£o e ecoava erro arbitrÃ¡rio da fonte; published_at=null; recebido apÃ³s resposta; erro sanitizado; esquema lineup/2",
+      "evidence": "source-regressions-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "PublicaÃ§Ã£o real continua desconhecida; erro HTTP da documentaÃ§Ã£o nÃ£o prova indisponibilidade da API",
+      "issue": "CPL-P06"
+    },
+    {
+      "id": "CPL-A07",
+      "claim": "Sportmonks starting_at sem sufixo Ã© necessariamente invÃ¡lido",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "data/sportmonks_provider.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Descartava data que o contrato retorna no fuso da requisiÃ§Ã£o; RequisiÃ§Ã£o fixa timezone=UTC e conversÃ£o sob esse contrato",
+      "evidence": "source-regressions-before; sources-followup/receipts.json; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "UTC confirmado na documentaÃ§Ã£o primÃ¡ria; campos de disponibilidade comercial nÃ£o existem neste adaptador",
+      "issue": "CPL-P07"
+    },
+    {
+      "id": "CPL-A08",
+      "claim": "Consenso pode avaliar a prÃ³pria casa e combinar capturas",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "data/market_anchor.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Mistura de eventos/linhas, vintages e seleÃ§Ã£o duplicada; ofertante na referÃªncia; Identidade Ãºnica, captura Ãºnica, conflito recusado, offered_by excluÃ­do da referÃªncia; mÃ©todo/v2",
+      "evidence": "anchor-period-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "DiagnÃ³stico; best_odds observado nÃ£o Ã© oferta executÃ¡vel; persist_market_observations compartilhado permaneceu igual",
+      "issue": "CPL-P08"
+    },
+    {
+      "id": "CPL-A09",
+      "claim": "Adaptador legado The Odds API admite apenas recebimento prÃ©-jogo",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "data/the_odds_api_provider.py; data/odds_api_snapshot.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Teste sintÃ©tico reproduz PROSPECTIVE_ELIGIBLE apÃ³s kickoff no legado compartilhado; Legado protegido preservado; sucessor offline guarda SHA, IDs, clocks, vazio/invÃ¡lido/incompleto, ABSTAIN e capital false",
+      "evidence": "odds-receipt-tests; integrated-python-03; package-smoke",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Sucessor independente disponÃ­vel; integraÃ§Ã£o no coletor H9 nÃ£o realizada nem autorizada",
+      "issue": "CPL-P09"
+    },
+    {
+      "id": "CPL-A10",
+      "claim": "NB do total Ã© a mesma NB das contagens individuais",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "event_models.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "CDF do total nÃ£o correspondia Ã  soma de duas NB ajustadas; entradas/fallbacks invÃ¡lidos aceitos; ConvoluÃ§Ã£o individual, contagens/feature finitas obrigatÃ³rias, distribuiÃ§Ã£o coerente e fallback identificado",
+      "evidence": "math-consumer-before; event-inputs-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Sem novo fit em dados reais ou reavaliaÃ§Ã£o de lucro",
+      "issue": "CPL-P10"
+    },
+    {
+      "id": "CPL-A11",
+      "claim": "Qualquer grade numÃ©rica e linha produz mercado vÃ¡lido",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "market_pricer.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Aceitava NaN, massas negativas/nÃ£o normalizadas e linha nÃ£o implementada; Probabilidade quadrada normalizada; AH em quartos; total inteiro/meio; placar inteiro",
+      "evidence": "math-consumer-before; pit-contracts-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "OU de quarto nÃ£o implementado e agora recusado",
+      "issue": "CPL-P11"
+    },
+    {
+      "id": "CPL-A12",
+      "claim": "Contrato live impede placar negativo e mesmo clube nos dois lados",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "prediction_protocol.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Placar negativo passava pela prontidÃ£o; ValidaÃ§Ã£o de contagens nÃ£o negativas e times distintos",
+      "evidence": "math-consumer-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "ProntidÃ£o continua baseada em declaraÃ§Ãµes do chamador, nÃ£o autentica a procedÃªncia do modelo ou dados",
+      "issue": "CPL-P12"
+    },
+    {
+      "id": "CPL-A13",
+      "claim": "CLI de previsÃ£o registra toda previsÃ£o que exibe",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "brasileirao_scripts/prever.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Recalculava; ignorava falha de log; perÃ­odo usava cache e caminho diferentes; Fluxos usam build/show comuns, data preservada; falha de registro interrompe tambÃ©m perÃ­odo",
+      "evidence": "math-consumer-before; anchor-period-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Cache compartilhado continua legado e exploratÃ³rio; fonte comercial nÃ£o admitida",
+      "issue": "CPL-P13"
+    },
+    {
+      "id": "CPL-A14",
+      "claim": "Livro manual valida valores e associa liquidaÃ§Ã£o por identidade",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "bet_log.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "NaN/Inf/bool, ID duplicado, HT impossÃ­vel; banca/lista associavam pela posiÃ§Ã£o; ValidaÃ§Ãµes antes de append, IDs estÃ¡veis, capital disponÃ­vel separado da exposiÃ§Ã£o",
+      "evidence": "ledger-before; ledger-after; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Unidades brutas atuais; custos/cÃ¢mbio nÃ£o reconciliados; journal manual nÃ£o Ã© ledger de execuÃ§Ã£o certificado",
+      "issue": "CPL-P14"
+    },
+    {
+      "id": "CPL-A15",
+      "claim": "Consulta de previsÃ£o abre armazenamento sem permissÃ£o de escrita",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "predict.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "build abria conexÃ£o RW; db.connect read_only=True no consumidor, sem alterar db compartilhado",
+      "evidence": "serving-storage-before; serving-storage-after; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Banco sintÃ©tico; nenhum banco operacional aberto",
+      "issue": "CPL-P15"
+    },
+    {
+      "id": "CPL-A16",
+      "claim": "Log aceita os mesmos parÃ¢metros que o motor",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "prediction_log.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Assumia tupla de cinco; quatro valores/dict falhavam; Aceita quatro/cinco/dict, conserva parÃ¢metros sem arredondar e valida JSON antes de criar saÃ­da",
+      "evidence": "serving-storage-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Log nÃ£o substitui artefato imutÃ¡vel de treinamento/revisÃµes",
+      "issue": "CPL-P16"
+    },
+    {
+      "id": "CPL-A17",
+      "claim": "Filtro SQL temporal e concentraÃ§Ã£o sÃ£o invariantes ao formato",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "data/pit_backfill.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "ComparaÃ§Ã£o lexical de offsets, HHI dividido por jogos e bootstrap nÃ£o finito; Corte normalizado UTC, HHI por apariÃ§Ãµes, bootstrap finito e raw criado exclusivamente",
+      "evidence": "pit-contracts-before; integrated-python-03",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Curated legado continua latest-state; nÃ£o reconstruir revisÃµes antigas ou closing executÃ¡vel com esse schema",
+      "issue": "CPL-P17"
+    },
+    {
+      "id": "CPL-A18",
+      "claim": "Kelly e recibo .NET sÃ£o vÃ¡lidos nas bordas",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "MarketStateEngine.cs; KernelContracts.cs",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Stake negativa, entradas nÃ£o finitas, fair odd invÃ¡lida e recibo futuro aceitos; Kelly em domÃ­nio vÃ¡lido com piso zero; configuraÃ§Ã£o validada; odd finita; futuro nÃ£o fresco",
+      "evidence": "runtime-before; runtime-after-02; runtime-cross-diagnostic",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "119 casos Ãºnicos passaram entre execuÃ§Ãµes; nÃ£o houve suÃ­te completa final sem falha intermitente",
+      "issue": "CPL-P18"
+    },
+    {
+      "id": "CPL-A19",
+      "claim": "Sinal Redis e T0 provam execuÃ§Ã£o/publicaÃ§Ã£o",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "LatencyRecord.cs",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Nomes sugeriam publicaÃ§Ã£o comprovada e recomendaÃ§Ã£o financeira; BetSignal explicita simulaÃ§Ã£o/capital false; T0 declara captura nÃ£o verificada, SourcePublishedAt=null",
+      "evidence": "runtime-after-02; runtime-cross-diagnostic",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "NÃ£o certifica aceitaÃ§Ã£o, liquidez ou modelo; sem ordens",
+      "issue": "CPL-P19"
+    },
+    {
+      "id": "CPL-A20",
+      "claim": "Inicializador Compose Ã© seguro ao reencontrar volumes",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "init_compose_data.py; compose.yaml",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Poderia sobrescrever parÃ¢metros existentes; data fixa parecia instante real; Recusa destinos existentes/iguais, reserva exclusiva, relÃ³gio atual, aviso de parÃ¢metros demo; Redis alinhado ao digest CI",
+      "evidence": "compose-init-before; storage-final",
+      "conclusion": "refutada na versÃ£o anterior; corrigida no escopo dos testes",
+      "impact": "Init sintÃ©tico; Docker/Compose nÃ£o executado neste Windows",
+      "issue": "CPL-P20"
+    },
+    {
+      "id": "CPL-A21",
+      "claim": "Teste cross-process Ã© estÃ¡vel no ambiente local",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "tools/runtime_lab/kernel_synthetic.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "InstrumentaÃ§Ã£o por fase, espera de import/JIT antes da cotaÃ§Ã£o sintÃ©tica, launcher instalado sem PYTHONPATH e health leve. 160/160 .NET e regressÃµes de lifecycle passaram.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "conclusion": "parcialmente confirmada no escopo corrigido; limites explÃ­citos",
+      "impact": "Causa especÃ­fica do timeout antigo continua desconhecida; falha preservada. Fechamento restrito Ã  recuperaÃ§Ã£o/diagnÃ³stico atuais, nÃ£o Ã  atribuiÃ§Ã£o retroativa.",
+      "issue": "CPL-P21"
+    },
+    {
+      "id": "CPL-A22",
+      "claim": "Serving legado prova artefato imutÃ¡vel e histÃ³rico conhecido",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "db.py; ratings.py; cron_update_models.py; model.py; xg_model.py",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Sucessores isolados de dados/replay e contratos reais de entrada implementados. Cache, treino, espelho e coletores compartilhados das coortes permanecem byte-preservados.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "conclusion": "parcialmente confirmada; requisito integral ainda nÃ£o fechado",
+      "impact": "CorreÃ§Ã£o da operaÃ§Ã£o compartilhada exige separaÃ§Ã£o demonstrada da coleta protegida; nÃ£o foi implantada.",
+      "issue": "CPL-P22"
+    },
+    {
+      "id": "CPL-A23",
+      "claim": "Feed comercial e worker representam modelo/feed efetivos",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "MarketOddsCache.cs; Worker.cs; docker/",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Removidos endpoint de exemplo e fallback silencioso de Elo/posiÃ§Ã£o; modo sintÃ©tico explÃ­cito. Feed normalizado tem clocks, revisÃµes, suspensÃ£o, limites e invalidaÃ§Ã£o. Entradas reais exigem identidade, Elo, posiÃ§Ã£o, cobertura VORP e procedÃªncia temporal. Testes .NET passaram.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "conclusion": "parcialmente confirmada; requisito integral ainda nÃ£o fechado",
+      "impact": "Contrato pronto; ponte comercial e dados de modelo autenticados nÃ£o foram fornecidos nem homologados. A parte de software estÃ¡ validada, mas o requisito comercial continua aberto.",
+      "issue": "CPL-P23"
+    },
+    {
+      "id": "CPL-A24",
+      "claim": "Agendamento configurado prova tarefa ativa e execuÃ§Ã£o futura",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "AutomaÃ§Ã£o completar-dados-do-brasileir-o",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Consulta anterior retorna cartÃ£o sem configuraÃ§Ã£o legÃ­vel; helpers DC novamente conferidos por SHA. Nenhuma agenda duplicada/alterada.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "conclusion": "parcialmente confirmada; requisito integral ainda nÃ£o fechado",
+      "impact": "Estado ativo e recibo da janela continuam nÃ£o comprovados; nÃ£o inferir ausÃªncia/atividade a partir de TOML ausente.",
+      "issue": "CPL-P24"
+    },
+    {
+      "id": "CPL-A25",
+      "claim": "Todo arquivo inventariado foi lido semanticamente",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "InventÃ¡rios RI/CPL",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Leitura semÃ¢ntica dos 399 arquivos nÃ£o protegidos do inventÃ¡rio base concluÃ­da, com notas01â€“07 e hashes; 59 arquivos protegidos permanecem em contrato/metadados sem execuÃ§Ã£o. Fontes novas e diffs revisados separadamente.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "conclusion": "alegaÃ§Ã£o anterior refutada; revisÃ£o semÃ¢ntica permitida agora concluÃ­da, com fronteiras protegidas explÃ­citas",
+      "impact": "399 fontes permitidas com leitura semÃ¢ntica; 59 protegidas em contrato/metadados. ExecuÃ§Ã£o global e correÃ§Ã£o da operaÃ§Ã£o congelada nÃ£o implÃ­citas.",
+      "issue": "CPL-P25"
+    },
+    {
+      "id": "CPL-A26",
+      "claim": "MÃ¡ximos BE jÃ¡ podem virar lucro executÃ¡vel",
+      "origin": "InspeÃ§Ã£o CPL, 10/09/2026",
+      "scope": "BE-P02; pergunta principal CPL",
+      "required": "Contrato e reproduÃ§Ã£o verificÃ¡vel conforme problema associado",
+      "found": "Tentativa pÃºblica Ãºnica de catÃ¡logo Polymarket preservada com orÃ§amento, sem credenciais/retries; ConnectionError sem resposta Ãºtil. Contratos de dados aprimorados; BE congelado e captura futura DC preservados.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "conclusion": "parcialmente confirmada; requisito integral ainda nÃ£o fechado",
+      "impact": "Nenhuma nova cotaÃ§Ã£o nominal simultÃ¢nea com condiÃ§Ãµes de execuÃ§Ã£o, custos e fills verificÃ¡veis. Erro de conexÃ£o nÃ£o prova ausÃªncia de oportunidade.",
+      "issue": "CPL-P26"
+    },
+    {
+      "id": "CLO-A01",
+      "claim": "Livro aceita apenas liquidaÃ§Ãµes reconciliadas",
+      "origin": "InspeÃ§Ã£o adicional10/09/2026",
+      "scope": "bet_log.py",
+      "required": "RegressÃ£o sintÃ©tica e contrato explÃ­cito",
+      "found": "Resumo somava duplicatas/Ã³rfÃ£os; int truncava gols; JSON aceitava NaN/chaves repetidas; Validar JSON, IDs e lucro contra aposta antes de somar; contagens inteiras; retirar CLV automÃ¡tico de banco latest-state",
+      "evidence": "before; integrated-final",
+      "conclusion": "refutada na base; corrigida e validada no escopo indicado",
+      "impact": "Manual e bruto; custos/aceite/concorrÃªncia/unidade histÃ³rica continuam sem certificaÃ§Ã£o",
+      "issue": "CLO-P01"
+    },
+    {
+      "id": "CLO-A02",
+      "claim": "Fechamento usa o Ãºltimo estado do mesmo evento e contrato",
+      "origin": "InspeÃ§Ã£o adicional10/09/2026",
+      "scope": "data/pit_backfill.py",
+      "required": "RegressÃ£o sintÃ©tica e contrato explÃ­cito",
+      "found": "Ãšltimo preÃ§o vÃ¡lido ressuscitava estado antigo e misturava eventos/linhas; closing/v2: exigir fonte/evento/perÃ­odo; rejeitar mistura, suspensÃ£o, desconhecido e conflito final; validar clocks de cura",
+      "evidence": "before; integrated-final",
+      "conclusion": "refutada na base; corrigida e validada no escopo indicado",
+      "impact": "Ãšltimo estado observado nÃ£o Ã© closing comercial nem preÃ§o executÃ¡vel; schema curated antigo nÃ£o armazena todos os estados",
+      "issue": "CLO-P02"
+    },
+    {
+      "id": "CLO-A03",
+      "claim": "DeclaraÃ§Ã£o de prontidÃ£o autentica evidÃªncia oficial",
+      "origin": "InspeÃ§Ã£o adicional10/09/2026",
+      "scope": "prediction_protocol.py",
+      "required": "RegressÃ£o sintÃ©tica e contrato explÃ­cito",
+      "found": "OFFICIAL e elegibilidade prospectiva eram emitidos apenas a partir da declaraÃ§Ã£o do chamador; Contrato/v2 com proveniÃªncia nÃ£o verificada; tipos estritos, identidade nÃ£o branca e cronologia coerente",
+      "evidence": "before; integrated-final",
+      "conclusion": "refutada na base; corrigida e validada no escopo indicado",
+      "impact": "ready significa contrato coerente; proveniÃªncia e evidÃªncia econÃ´mica continuam falsas",
+      "issue": "CLO-P03"
+    },
+    {
+      "id": "CLO-A04",
+      "claim": "Cobertura compara o mesmo universo e tolera base vazia",
+      "origin": "InspeÃ§Ã£o adicional10/09/2026",
+      "scope": "check_coverage.py",
+      "required": "RegressÃ£o sintÃ©tica e contrato explÃ­cito",
+      "found": "Universo vazio dividia por zero; Ã³rfÃ£os geravam300% de cobertura; Denominador de eventos distintos, interseÃ§Ãµes no mesmo universo e N/A quando vazio; conexÃ£o fecha em finally",
+      "evidence": "coverage-before; integrated-final",
+      "conclusion": "refutada na base; corrigida e validada no escopo indicado",
+      "impact": "PresenÃ§a em tabelas nÃ£o comprova qualidade, validade temporal ou oferta comercial",
+      "issue": "CLO-P04"
+    },
+    {
+      "id": "CLO-A05",
+      "claim": "RelatÃ³rio de estado Ã© somente leitura e informa frescor real",
+      "origin": "InspeÃ§Ã£o adicional10/09/2026",
+      "scope": "status.py",
+      "required": "RegressÃ£o sintÃ©tica e contrato explÃ­cito",
+      "found": "Abrir status podia criar/migrar banco e classificava cache existente como fresh mesmo desatualizado; ConexÃ£o RO/finally, estado stale conforme cache_is_current e ROI indefinido como N/A; rÃ³tulo bruto",
+      "evidence": "status-before; integrated-final",
+      "conclusion": "refutada na base; corrigida e validada no escopo indicado",
+      "impact": "Regra compartilhada de frescor continua baseada em contagem/config, nÃ£o hash dos dados; nÃ£o Ã© admissÃ£o econÃ´mica",
+      "issue": "CLO-P05"
+    },
+    {
+      "id": "CLO-A06",
+      "claim": "PolÃ­tica shadow recusa probabilidades/stakes invÃ¡lidos",
+      "origin": "InspeÃ§Ã£o adicional10/09/2026",
+      "scope": "research/economic_decision.py",
+      "required": "RegressÃ£o sintÃ©tica e contrato explÃ­cito",
+      "found": "NaN, stake negativo e intervalo invertido podiam gerar SHADOW_BET; Validar finitude/domÃ­nio/ordem dos limites; stake zero abstÃ©m; declarar fraÃ§Ã£o de banca de referÃªncia e evidÃªncia falsa",
+      "evidence": "research-before; integrated-final",
+      "conclusion": "refutada na base; corrigida e validada no escopo indicado",
+      "impact": "Modelo/offset e condiÃ§Ãµes comerciais nÃ£o foram revalidados; custos continuam hipÃ³teses de simulaÃ§Ã£o",
+      "issue": "CLO-P06"
+    },
+    {
+      "id": "CLO-A07",
+      "claim": "Features contextuais representam entrada e vintage declarados",
+      "origin": "InspeÃ§Ã£o adicional10/09/2026",
+      "scope": "research/pit_features/contracts.py/contextual.py",
+      "required": "RegressÃ£o sintÃ©tica e contrato explÃ­cito",
+      "found": "Booleano textual viravaTrue; coordenadas impossÃ­veis, contagens de jogos fracionÃ¡rias e recibo pÃ³s-kickoff admitidos; Tipos/limites fÃ­sicos, contagens inteiras, anÃºncio atÃ© available_at e recebimento prÃ©-jogo; GO estritamente booleano",
+      "evidence": "research-before; integrated-final",
+      "conclusion": "refutada na base; corrigida e validada no escopo indicado",
+      "impact": "Scaffold; ainda exige corte de decisÃ£o e recibo/autenticidade externos; sem novo treinamento real",
+      "issue": "CLO-P07"
+    },
+    {
+      "id": "CLO-A08",
+      "claim": "Auditoria de latÃªncia tem retenÃ§Ã£o e atualizaÃ§Ã£o consistente",
+      "origin": "InspeÃ§Ã£o adicional10/09/2026",
+      "scope": "dotnet/LineupWorker/Services/LatencyAuditService.cs",
+      "required": "RegressÃ£o sintÃ©tica e contrato explÃ­cito",
+      "found": "Sorted set crescia indefinidamente; read-modify-write perdia versÃ£o nova e admitia T4 anterior a T3; Janela por relÃ³gio Redis e capacidade, percentis atÃ´micos, CAS com KEEPTTL, rejeitar T4 anterior, excluir clocks invÃ¡lidos; namespacev2 preserva histÃ³rico",
+      "evidence": "latency-before; latency-after",
+      "conclusion": "refutada na base; corrigida e validada no escopo indicado",
+      "impact": "Telemetria diagnÃ³stica com timestamps declarados; nÃ£o homologa latÃªncia de publicaÃ§Ã£o/feed/execuÃ§Ã£o",
+      "issue": "CLO-P08"
+    },
+    {
+      "id": "LGC-A01",
+      "claim": "Escritores concorrentes preservam unicidade e bytes vÃ¡lidos",
+      "origin": "RevisÃ£o LGC, 10/09/2026",
+      "scope": "bet_log.py",
+      "required": "ReproduÃ§Ã£o sintÃ©tica antes/depois e isolamento",
+      "found": "Leitura seguida de append sem exclusÃ£o permitia duplicar ID e liquidaÃ§Ã£o; Ãºltima linha sem LF era concatenada. Trava de SO por caminho canÃ´nico, nÃ£o bloqueante, em sidecar persistente; append preserva bytes, acrescenta separador se necessÃ¡rio, flush e fsync.",
+      "evidence": "before: duas concorrÃªncias e linha sem LF falham; final: passam; process-lab-v2 prova exclusÃ£o e liberaÃ§Ã£o apÃ³s encerramento abrupto do filho prÃ³prio.",
+      "conclusion": "refutada na base CLO; corrigida e validada no escopo delimitado",
+      "impact": "Escritores cooperantes, mesmo caminho e filesystem local Windows. POSIX implementado, nÃ£o executado. Sem transaÃ§Ã£o entre livros, sem garantia contra ediÃ§Ã£o externa ou falha parcial de disco.",
+      "issue": "LGC-P01"
+    },
+    {
+      "id": "LGC-A02",
+      "claim": "Saldo manual usa um snapshot reconciliado e valores bancÃ¡rios vÃ¡lidos",
+      "origin": "RevisÃ£o LGC, 10/09/2026",
+      "scope": "bet_log.py",
+      "required": "ReproduÃ§Ã£o sintÃ©tica antes/depois e isolamento",
+      "found": "Duas leituras combinavam lucro antigo com exposiÃ§Ã£o nova; JSON bancÃ¡rio aceitava NaN, booleanos, negativos, campos repetidos e relÃ³gios sem timezone. Uma leitura de apostas antes de filtrar/somar; parser estrito compartilhado, domÃ­nios bancÃ¡rios e clocks explÃ­citos; gravaÃ§Ãµes bancÃ¡rias usam a mesma trava.",
+      "evidence": "before: snapshot e oito casos bancÃ¡rios falham; final: passam; 95 testes finais cobrem liquidaÃ§Ã£o, banca, IDs e contratos relacionados.",
+      "conclusion": "refutada na base CLO; corrigida e validada no escopo delimitado",
+      "impact": "Moeda/valores sÃ£o declarados pelo operador, sem aceitaÃ§Ã£o ou custos verificados. Saldo usa unidade atual; drawdown exclui horÃ¡rio dos fluxos. Os dois arquivos tÃªm snapshots separados.",
+      "issue": "LGC-P02"
+    },
+    {
+      "id": "LGC-A03",
+      "claim": "LiquidaÃ§Ã£o e resumo preservam contrato, mando e significado da evidÃªncia",
+      "origin": "RevisÃ£o LGC, 10/09/2026",
+      "scope": "bet_log.py",
+      "required": "ReproduÃ§Ã£o sintÃ©tica antes/depois e isolamento",
+      "found": "Contrato importado invÃ¡lido era liquidado; placar invertido ficava sob mando errado; ID estÃ¡vel exigia linha legada; NaN desativava teto; CLI afirmava CLV comprovado. Recusar contrato inconsistente, usar Ã­ndices por ID/legado, normalizar placar ao mando gravado, validar teto finito e mostrar relatos manuais brutos sem selo econÃ´mico.",
+      "evidence": "before: contrato/placar/ID/teto/CLI reproduzidos; final: passam; teto negativo e liberaÃ§Ã£o apÃ³s erro jÃ¡ passavam antes. Fixture CPL recebeu line/period antes ausentes, sem mudar resultado esperado.",
+      "conclusion": "refutada na base CLO; corrigida e validada no escopo delimitado",
+      "impact": "ImportaÃ§Ãµes sem contrato completo falham sem reescrita; fatos histÃ³ricos nÃ£o corrigidos por inferÃªncia. Registro manual nÃ£o autentica placar nem oferta. validated preservado apenas como flag legada.",
+      "issue": "LGC-P03"
+    },
+    {
+      "id": "ARI-A01",
+      "claim": "Artefatos e ajuste residual publicam somente estados numÃ©ricos coerentes",
+      "origin": "PendÃªncia CLO reavaliada em ARI, 10/09/2026",
+      "scope": "research/market_residual.py",
+      "required": "Artefato finito/escala positiva/covariÃ¢ncia vÃ¡lida; convergÃªncia; preservaÃ§Ã£o de estado; derivadas verificadas",
+      "found": "24 regressÃµes reproduzidas. ValidaÃ§Ã£o no carregamento, inferÃªncia e exportaÃ§Ã£o; cÃ³pia de arrays; fit transacional; target sem truncamento; expit estÃ¡vel e gradiente analÃ­tico da mesma funÃ§Ã£o objetivo.",
+      "evidence": "evidence/before, final e consumer; 54 casos finais Ãºnicos em duas execuÃ§Ãµes",
+      "conclusion": "refutada na base LGC; corrigida e validada apenas com fixtures sintÃ©ticas",
+      "impact": "Previne parÃ¢metros invÃ¡lidos e falsa precisÃ£o numÃ©rica; nÃ£o autentica treino, oferta, custos ou rentabilidade",
+      "issue": "ARI-P01"
+    },
+    {
+      "id": "RCA-A01",
+      "claim": "O primeiro mandato e a lista de pendÃªncias estavam integralmente concluÃ­dos",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "Guias, histÃ³rico visÃ­vel, inventÃ¡rio e registros RI/IE/BE/CPL/CLO/LGC/ARI",
+      "required": "MATRIZ_MANDATO.md, HISTORICO.md, evidence/chat-recovery.json e previous-guides.json",
+      "found": "Guias sobrepostos usavam vÃ¡rios estados vigentes; cobertura parcial e pendÃªncias apenas em mapas impediam a alegaÃ§Ã£o de conclusÃ£o. Relidos os dois mandatos e todo histÃ³rico visÃ­vel recuperado; criada matriz de todas as seÃ§Ãµes, errata datada, um estado atual e registro central ampliado.",
+      "conclusion": "refutada como alegaÃ§Ã£o geral; ver limite e estado do problema",
+      "impact": "Corrigida a representaÃ§Ã£o do estado; a revisÃ£o integral do sistema permanece aberta.",
+      "evidence": "MATRIZ_MANDATO.md, HISTORICO.md, evidence/chat-recovery.json e previous-guides.json",
+      "issue": "RCA-P01"
+    },
+    {
+      "id": "RCA-A02",
+      "claim": "O gate A10 sÃ³ decide a partir de mÃ©tricas numÃ©ricas vÃ¡lidas",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "research/calibration_gate.py; somente consumidor puro, sem replay de relatÃ³rio congelado",
+      "required": "RegressÃµes RCA before falham e final passa; nenhuma mÃ©trica histÃ³rica recalculada.",
+      "found": "float aceitava strings/bools e infinito negativo podia satisfazer melhora; estruturas invÃ¡lidas produziam exceÃ§Ãµes acidentais. Validar estrutura e nÃºmeros reais finitos sem coerÃ§Ã£o; schema v2 com procedÃªncia/evidÃªncia econÃ´mica/capital false; preservar guardrail ausente como NO_GO.",
+      "conclusion": "refutada como alegaÃ§Ã£o geral; ver limite e estado do problema",
+      "impact": "O relatÃ³rio Ã© declarado pelo chamador; v2 nÃ£o autentica amostra, treino, independÃªncia ou lucro.",
+      "evidence": "RegressÃµes RCA before falham e final passa; nenhuma mÃ©trica histÃ³rica recalculada.",
+      "issue": "RCA-P02"
+    },
+    {
+      "id": "RCA-A03",
+      "claim": "O gate residual conserva universo e usa unidade financeira coerente",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "research/residual_gate.py; Bootstrap/PSR Core existentes",
+      "required": "RCA before: GO em subconjunto incompleto; final 49 casos direcionados aprovados.",
+      "found": "Aceitava nÃºmeros/configuraÃ§Ãµes invÃ¡lidos, descartava incompletos e podia retornar GO no subconjunto; ignorava stake explÃ­cita diferente de um. Validar domÃ­nio antes da amostra; PENDING_DATA se faltarem campos; contar universo/incompletos; recusar stake nÃ£o unitÃ¡ria; declarar hipÃ³tese unitÃ¡ria e DSR fornecido; PSR indefinido vira null.",
+      "conclusion": "refutada como alegaÃ§Ã£o geral; ver limite e estado do problema",
+      "impact": "ROI continua mÃ©dia de PnL sob hipÃ³tese unitÃ¡ria declarada. NÃ£o Ã© carteira, aceitaÃ§Ã£o, autenticaÃ§Ã£o ou validaÃ§Ã£o econÃ´mica.",
+      "evidence": "RCA before: GO em subconjunto incompleto; final 49 casos direcionados aprovados.",
+      "issue": "RCA-P03"
+    },
+    {
+      "id": "RCA-A04",
+      "claim": "GO no gate residual jÃ¡ incorpora dependÃªncia e seleÃ§Ã£o de tentativas",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "research/residual_gate.py; protocolo, universo e registro de tentativas",
+      "required": "Novo protocolo com clusters/universo/tentativas e critÃ©rios prÃ©vios; testes numÃ©ricos nÃ£o fecham esta questÃ£o.",
+      "found": "Gate v3 conta eventos, identifica PSR como diagnÃ³stico e impede promoÃ§Ã£o por DSR fornecido. FavorÃ¡vel retorna PENDING_DESIGN, negativos NO_GO. RegressÃµes antes/depois passaram.",
+      "conclusion": "alegaÃ§Ã£o original refutada como geral; correÃ§Ã£o confirmada no escopo sintÃ©tico",
+      "impact": "O software nÃ£o aprova inferÃªncia sem desenho. HistÃ³rico real de tentativas e desenho temporal continuam necessÃ¡rios antes de novo desempenho; nÃ£o foram fabricados.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "issue": "RCA-P04"
+    },
+    {
+      "id": "RCA-A05",
+      "claim": "O walk-forward residual Ã© uma carteira financeira completa",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "research/residual_walkforward.py; dados/labels e quotes declarados",
+      "required": "RegressÃµes de labels/cortes e reconciliaÃ§Ã£o financeira independente em sucessor; ainda nÃ£o executadas nesta rodada.",
+      "found": "Replay v3 valida identidade/labels/cortes, treina apenas com labels maduros e usa carteira Decimal com stakes, custos, reserva, pendÃªncias e reconciliaÃ§Ã£o independente.",
+      "conclusion": "alegaÃ§Ã£o original refutada como geral; correÃ§Ã£o confirmada no escopo sintÃ©tico",
+      "impact": "Somente back binÃ¡rio com full fill hipotÃ©tico; nÃ£o representa execuÃ§Ã£o aceita. Sem desempenho real novo.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "issue": "RCA-P05"
+    },
+    {
+      "id": "RCA-A06",
+      "claim": "Curated/1 conserva os campos necessÃ¡rios ao closing/v2",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "data/pit_backfill.py; schema pit-curated/1.0 e contratos closing-v2",
+      "required": "Round-trip com suspensÃ£o, linhas/perÃ­odos e revisÃµes empatadas; ausÃªncia de reapariÃ§Ã£o de estado ativo superado.",
+      "found": "Curated v2 preserva revisÃµes, status, perÃ­odo e linha; leitura por corte evita ressuscitar preÃ§os. v1 recusado sem alteraÃ§Ã£o.",
+      "conclusion": "alegaÃ§Ã£o original refutada como geral; correÃ§Ã£o confirmada no escopo sintÃ©tico",
+      "impact": "ValidaÃ§Ã£o sintÃ©tica do sucessor; nÃ£o migra operaÃ§Ã£o nem recupera clocks que a fonte nunca forneceu.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "issue": "RCA-P06"
+    },
+    {
+      "id": "RCA-A07",
+      "claim": "O arquivo de escalaÃ§Ãµes preserva uma observaÃ§Ã£o vazia ou removida",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "data/lineup_archive.py; consumidores e protocolos de coleta precisam ser mapeados antes da substituiÃ§Ã£o",
+      "required": "Fixtures de vazio, remoÃ§Ã£o, revisÃ£o, corrupÃ§Ã£o e concorrÃªncia com consulta por corte; nÃ£o executadas nesta rodada.",
+      "found": "Envelopes v2 imutÃ¡veis com vazio/remoÃ§Ã£o/indisponÃ­vel/invÃ¡lido, hashes, criaÃ§Ã£o exclusiva, revisÃ£o e conflito. Testes antes/depois passaram.",
+      "conclusion": "alegaÃ§Ã£o original refutada como geral; correÃ§Ã£o confirmada no escopo sintÃ©tico",
+      "impact": "Sucessor opt-in, coletor legado protegido preservado; sem ingestÃ£o real nesta etapa.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "issue": "RCA-P07"
+    },
+    {
+      "id": "RCA-A08",
+      "claim": "A auditoria de latÃªncia mantÃ©m o registro com T3 mais recente por chave",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "dotnet/LineupWorker/Services/LatencyAuditService.cs, WindowScript",
+      "required": "Duas gravaÃ§Ãµes em ordem inversa preservam o registro novo e o histÃ³rico; atualizaÃ§Ã£o T4 continua CAS sem renovar TTL.",
+      "found": "Lua compara T3 por ticks UTC de 19 dÃ­gitos; chegada antiga nÃ£o substitui/renova TTL, retry preserva T4 e revisÃ£o reseta T4 sem renovar TTL.",
+      "conclusion": "alegaÃ§Ã£o original refutada como geral; correÃ§Ã£o confirmada no escopo sintÃ©tico",
+      "impact": "Redis descartÃ¡vel; formato legado de telemetria requer migraÃ§Ã£o explÃ­cita.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "issue": "RCA-P08"
+    },
+    {
+      "id": "RCA-A09",
+      "claim": "Todas as dependÃªncias e implantaÃ§Ãµes estÃ£o disponÃ­veis e homologadas",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "compose.yaml, Dockerfiles, CI e runtime compatÃ­vel isolado",
+      "required": "Executar Compose e CI no runtime suportado sem volumes/serviÃ§os protegidos; nÃ£o substituÃ­do pelo Redis portÃ¡til.",
+      "found": "Compose e cadeia Python/Redis/.NET validados em Linux no GitHub, com dados sintéticos e volumes próprios.",
+      "conclusion": "confirmada no escopo delimitado; homologação global continua não verificada",
+      "impact": "WSL nÃ£o instalado, Docker/Podman nÃ£o disponÃ­veis, sem daemon Linux. Containers e CI global desta versÃ£o nÃ£o executados. Config vÃ¡lido nÃ£o substitui homologaÃ§Ã£o Linux.",
+      "evidence": "docs/continuation/publication_2026-09-10/evidence/ci-34552247397/summary.json",
+      "issue": "RCA-P09"
+    },
+    {
+      "id": "RCA-A10",
+      "claim": "O livro manual certifica patrimÃ´nio lÃ­quido e custos reais",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "bet_log.py; fontes de saldo/fluxos/unidade/custos permitidas",
+      "required": "Casos de mudanÃ§a de unidade, ordem de fluxos, custo, simultaneidade entre arquivos e reconciliaÃ§Ã£o com fatos verificÃ¡veis.",
+      "found": "Livro coordena leitura/escrita dos dois arquivos, unidades histÃ³ricas, ordem de fluxos, ambiguidades, capital e drawdown ajustado por aportes. Testes passaram.",
+      "conclusion": "parcialmente confirmada; requisito integral ainda nÃ£o fechado",
+      "impact": "Software validado para entradas declaradas. Moeda/cÃ¢mbio/saldo/custo manual nÃ£o sÃ£o fatos comerciais autenticados; transaÃ§Ã£o global entre arquivos nÃ£o Ã© prometida.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "issue": "RCA-P10"
+    },
+    {
+      "id": "RCA-A11",
+      "claim": "O backup verificado recupera toda a operaÃ§Ã£o e os dados da mÃ¡quina anterior",
+      "origin": "ConciliaÃ§Ã£o RCA, 10/09/2026",
+      "scope": "Snapshots e arquivos recebidos; fronteiras do mandato e mÃ¡quina de origem",
+      "required": "Teste operacional especÃ­fico somente se permitido; recibo Git/ZIP desta etapa nÃ£o o substitui.",
+      "found": "Restore isolado verifica origem/destino/manifesto, preserva falhas, recusa symlinks/junctions/destinos aninhados e usa URI SQLite correta. Testes passaram.",
+      "conclusion": "parcialmente confirmada; requisito integral ainda nÃ£o fechado",
+      "impact": "RestauraÃ§Ã£o de operaÃ§Ã£o protegida e arquivos nunca recebidos nÃ£o demonstrÃ¡vel nesta autorizaÃ§Ã£o. Entrega Git/ZIP recebe recibo separado.",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence",
+      "issue": "RCA-P11"
+    },
+    {
+      "id": "RES-A01",
+      "claim": "O contrato corrige a falha descrita em RES-P01",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_residual_dataset",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "reference fixed-house, market/period, revisions, clock/skew/age and explicit abstentions",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P01"
+    },
+    {
+      "id": "RES-A02",
+      "claim": "O contrato corrige a falha descrita em RES-P02",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_kernel_lifecycle",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "kernel_cli leve, timeouts Redis, mÃ¡ximo 32 handlers PubSub e 32 poller independente",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P02"
+    },
+    {
+      "id": "RES-A03",
+      "claim": "O contrato corrige a falha descrita em RES-P03",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_kernel_params",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "domÃ­nio numÃ©rico antes de aquecimento/cliente",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P03"
+    },
+    {
+      "id": "RES-A04",
+      "claim": "O contrato corrige a falha descrita em RES-P04",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_structural_edge",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "oferta e referÃªncia com idade; cÃ³pia imutÃ¡vel; bracket expansÃ­vel e finitude",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P04"
+    },
+    {
+      "id": "RES-A05",
+      "claim": "O contrato corrige a falha descrita em RES-P05",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_promotions",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "schema estrito, chaves JSON Ãºnicas e quatro posiÃ§Ãµes/equipes por temporada",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P05"
+    },
+    {
+      "id": "RES-A06",
+      "claim": "O contrato corrige a falha descrita em RES-P06",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_player_stats",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "disponibilidade real declarada v2; ausente permanece desconhecida; valida contagens e cache",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P06"
+    },
+    {
+      "id": "RES-A07",
+      "claim": "O contrato corrige a falha descrita em RES-P07",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_coverage",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "N/A, exige arquivos/blocos/branches, inclui CLI e protocolo; .NET vindo de recibo separado",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P07"
+    },
+    {
+      "id": "RES-A08",
+      "claim": "O contrato corrige a falha descrita em RES-P08",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_historical_import",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "nova saÃ­da exclusiva apÃ³s integrity/fsync; bytes/hash da mesma fonte; rejeiÃ§Ãµes explÃ­citas",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P08"
+    },
+    {
+      "id": "RES-A09",
+      "claim": "O contrato corrige a falha descrita em RES-P09",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_odds_shop",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "somente diagnÃ³stico; mercado completo, casas Ãºnicas, clocks e preÃ§os vÃ¡lidos; sem config no import",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P09"
+    },
+    {
+      "id": "RES-A10",
+      "claim": "O contrato corrige a falha descrita em RES-P10",
+      "origin": "RES-20260910",
+      "scope": "test_resolution_live_settlement",
+      "required": "regressÃ£o falha antes e passa depois",
+      "found": "v2 com identidade, hashes de previsÃ£o/fatos/recibo e writer lock; conserva primeiro recibo; CLI e run-log de retry retornam o recibo persistido sob a mesma trava, sem novo horÃ¡rio/hash",
+      "conclusion": "confirmada no escopo sintÃ©tico",
+      "impact": "integridade do caminho isolado",
+      "evidence": "evidence/python-validation.json",
+      "issue": "RES-P10"
+    }
+  ],
+  "issues": [
+    {
+      "id": "CPL-P01",
+      "claim": "CPL-A01",
+      "problem": "Duas chamadas e perda da data no formatter",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "predict.py / display.py",
+      "action": "from_prediction recebe resultado e mercado jÃ¡ registrados",
+      "closure_test": "regressions-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "Teste sintÃ©tico conta chamadas e confere data; nÃ£o comprova PIT do banco"
+    },
+    {
+      "id": "CPL-P02",
+      "claim": "CPL-A02",
+      "problem": "PK ignorava charter/event_at; hash arbitrava empate material",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "data/bitemporal_store.py",
+      "action": "Chave inclui protocolo/evento; empate material recusado; filtro explÃ­cito de charter; schema legado recusado sem migrar",
+      "closure_test": "regressions-before; pit-contracts-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "Banco novo isolado; migraÃ§Ã£o operacional nÃ£o executada"
+    },
+    {
+      "id": "CPL-P03",
+      "claim": "CPL-A03",
+      "problem": "Primeira pÃ¡gina ou metadata ausente eram tratadas como coleÃ§Ã£o completa",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "data/sportmonks_provider.py",
+      "action": "Cursor/legado, orÃ§amento explÃ­cito, rejeiÃ§Ã£o de incompletude e cursor repetido; next_page externo ignorado",
+      "closure_test": "pagination-before; integrated-python-03; sources/receipts.json",
+      "status": "validado",
+      "limitation": "Contrato sintÃ©tico e documentaÃ§Ã£o atual; nenhuma consulta autenticada"
+    },
+    {
+      "id": "CPL-P04",
+      "claim": "CPL-A04",
+      "problem": "Interface afirmava ALTA e validaÃ§Ã£o lucrativa sem evidÃªncia correspondente",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "display.py",
+      "action": "ConfianÃ§a NÃƒO VALIDADA, preÃ§os diagnÃ³sticos, capital false e comentÃ¡rios corrigidos",
+      "closure_test": "confidence-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "Premissa refutada; nÃ£o altera mÃ©tricas histÃ³ricas"
+    },
+    {
+      "id": "CPL-P05",
+      "claim": "CPL-A05",
+      "problem": "AusÃªncia de checagem de ingestÃ£o; empate arbitrÃ¡rio de vintages",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "research/residual_features.py",
+      "action": "Exige ingestÃ£o atÃ© corte e recusa versÃµes conflitantes no mesmo recibo",
+      "closure_test": "source-regressions-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "Extrator de linhas; envelope vazio/revisÃµes e imputaÃ§Ã£o do pipeline legado continuam fora da admissÃ£o econÃ´mica"
+    },
+    {
+      "id": "CPL-P06",
+      "claim": "CPL-A06",
+      "problem": "Inventava publicaÃ§Ã£o antes da requisiÃ§Ã£o e ecoava erro arbitrÃ¡rio da fonte",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "data/api_football_provider.py",
+      "action": "published_at=null; recebido apÃ³s resposta; erro sanitizado; esquema lineup/2",
+      "closure_test": "source-regressions-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "PublicaÃ§Ã£o real continua desconhecida; erro HTTP da documentaÃ§Ã£o nÃ£o prova indisponibilidade da API"
+    },
+    {
+      "id": "CPL-P07",
+      "claim": "CPL-A07",
+      "problem": "Descartava data que o contrato retorna no fuso da requisiÃ§Ã£o",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "data/sportmonks_provider.py",
+      "action": "RequisiÃ§Ã£o fixa timezone=UTC e conversÃ£o sob esse contrato",
+      "closure_test": "source-regressions-before; sources-followup/receipts.json; integrated-python-03",
+      "status": "validado",
+      "limitation": "UTC confirmado na documentaÃ§Ã£o primÃ¡ria; campos de disponibilidade comercial nÃ£o existem neste adaptador"
+    },
+    {
+      "id": "CPL-P08",
+      "claim": "CPL-A08",
+      "problem": "Mistura de eventos/linhas, vintages e seleÃ§Ã£o duplicada; ofertante na referÃªncia",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "data/market_anchor.py",
+      "action": "Identidade Ãºnica, captura Ãºnica, conflito recusado, offered_by excluÃ­do da referÃªncia; mÃ©todo/v2",
+      "closure_test": "anchor-period-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "DiagnÃ³stico; best_odds observado nÃ£o Ã© oferta executÃ¡vel; persist_market_observations compartilhado permaneceu igual"
+    },
+    {
+      "id": "CPL-P09",
+      "claim": "CPL-A09",
+      "problem": "Teste sintÃ©tico reproduz PROSPECTIVE_ELIGIBLE apÃ³s kickoff no legado compartilhado",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "data/the_odds_api_provider.py; data/odds_api_snapshot.py",
+      "action": "Legado protegido preservado; sucessor offline guarda SHA, IDs, clocks, vazio/invÃ¡lido/incompleto, ABSTAIN e capital false",
+      "closure_test": "odds-receipt-tests; integrated-python-03; package-smoke",
+      "status": "validado",
+      "limitation": "Sucessor independente disponÃ­vel; integraÃ§Ã£o no coletor H9 nÃ£o realizada nem autorizada"
+    },
+    {
+      "id": "CPL-P10",
+      "claim": "CPL-A10",
+      "problem": "CDF do total nÃ£o correspondia Ã  soma de duas NB ajustadas; entradas/fallbacks invÃ¡lidos aceitos",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "event_models.py",
+      "action": "ConvoluÃ§Ã£o individual, contagens/feature finitas obrigatÃ³rias, distribuiÃ§Ã£o coerente e fallback identificado",
+      "closure_test": "math-consumer-before; event-inputs-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "Sem novo fit em dados reais ou reavaliaÃ§Ã£o de lucro"
+    },
+    {
+      "id": "CPL-P11",
+      "claim": "CPL-A11",
+      "problem": "Aceitava NaN, massas negativas/nÃ£o normalizadas e linha nÃ£o implementada",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "market_pricer.py",
+      "action": "Probabilidade quadrada normalizada; AH em quartos; total inteiro/meio; placar inteiro",
+      "closure_test": "math-consumer-before; pit-contracts-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "OU de quarto nÃ£o implementado e agora recusado"
+    },
+    {
+      "id": "CPL-P12",
+      "claim": "CPL-A12",
+      "problem": "Placar negativo passava pela prontidÃ£o",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "prediction_protocol.py",
+      "action": "ValidaÃ§Ã£o de contagens nÃ£o negativas e times distintos",
+      "closure_test": "math-consumer-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "ProntidÃ£o continua baseada em declaraÃ§Ãµes do chamador, nÃ£o autentica a procedÃªncia do modelo ou dados"
+    },
+    {
+      "id": "CPL-P13",
+      "claim": "CPL-A13",
+      "problem": "Recalculava; ignorava falha de log; perÃ­odo usava cache e caminho diferentes",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "brasileirao_scripts/prever.py",
+      "action": "Fluxos usam build/show comuns, data preservada; falha de registro interrompe tambÃ©m perÃ­odo",
+      "closure_test": "math-consumer-before; anchor-period-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "Cache compartilhado continua legado e exploratÃ³rio; fonte comercial nÃ£o admitida"
+    },
+    {
+      "id": "CPL-P14",
+      "claim": "CPL-A14",
+      "problem": "NaN/Inf/bool, ID duplicado, HT impossÃ­vel; banca/lista associavam pela posiÃ§Ã£o",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "bet_log.py",
+      "action": "ValidaÃ§Ãµes antes de append, IDs estÃ¡veis, capital disponÃ­vel separado da exposiÃ§Ã£o",
+      "closure_test": "ledger-before; ledger-after; integrated-python-03",
+      "status": "validado",
+      "limitation": "Unidades brutas atuais; custos/cÃ¢mbio nÃ£o reconciliados; journal manual nÃ£o Ã© ledger de execuÃ§Ã£o certificado"
+    },
+    {
+      "id": "CPL-P15",
+      "claim": "CPL-A15",
+      "problem": "build abria conexÃ£o RW",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "predict.py",
+      "action": "db.connect read_only=True no consumidor, sem alterar db compartilhado",
+      "closure_test": "serving-storage-before; serving-storage-after; integrated-python-03",
+      "status": "validado",
+      "limitation": "Banco sintÃ©tico; nenhum banco operacional aberto"
+    },
+    {
+      "id": "CPL-P16",
+      "claim": "CPL-A16",
+      "problem": "Assumia tupla de cinco; quatro valores/dict falhavam",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "prediction_log.py",
+      "action": "Aceita quatro/cinco/dict, conserva parÃ¢metros sem arredondar e valida JSON antes de criar saÃ­da",
+      "closure_test": "serving-storage-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "Log nÃ£o substitui artefato imutÃ¡vel de treinamento/revisÃµes"
+    },
+    {
+      "id": "CPL-P17",
+      "claim": "CPL-A17",
+      "problem": "ComparaÃ§Ã£o lexical de offsets, HHI dividido por jogos e bootstrap nÃ£o finito",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "data/pit_backfill.py",
+      "action": "Corte normalizado UTC, HHI por apariÃ§Ãµes, bootstrap finito e raw criado exclusivamente",
+      "closure_test": "pit-contracts-before; integrated-python-03",
+      "status": "validado",
+      "limitation": "Curated legado continua latest-state; nÃ£o reconstruir revisÃµes antigas ou closing executÃ¡vel com esse schema"
+    },
+    {
+      "id": "CPL-P18",
+      "claim": "CPL-A18",
+      "problem": "Stake negativa, entradas nÃ£o finitas, fair odd invÃ¡lida e recibo futuro aceitos",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "MarketStateEngine.cs; KernelContracts.cs",
+      "action": "Kelly em domÃ­nio vÃ¡lido com piso zero; configuraÃ§Ã£o validada; odd finita; futuro nÃ£o fresco",
+      "closure_test": "runtime-before; runtime-after-02; runtime-cross-diagnostic",
+      "status": "validado",
+      "limitation": "119 casos Ãºnicos passaram entre execuÃ§Ãµes; nÃ£o houve suÃ­te completa final sem falha intermitente"
+    },
+    {
+      "id": "CPL-P19",
+      "claim": "CPL-A19",
+      "problem": "Nomes sugeriam publicaÃ§Ã£o comprovada e recomendaÃ§Ã£o financeira",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "LatencyRecord.cs",
+      "action": "BetSignal explicita simulaÃ§Ã£o/capital false; T0 declara captura nÃ£o verificada, SourcePublishedAt=null",
+      "closure_test": "runtime-after-02; runtime-cross-diagnostic",
+      "status": "validado",
+      "limitation": "NÃ£o certifica aceitaÃ§Ã£o, liquidez ou modelo; sem ordens"
+    },
+    {
+      "id": "CPL-P20",
+      "claim": "CPL-A20",
+      "problem": "Poderia sobrescrever parÃ¢metros existentes; data fixa parecia instante real",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "init_compose_data.py; compose.yaml",
+      "action": "Recusa destinos existentes/iguais, reserva exclusiva, relÃ³gio atual, aviso de parÃ¢metros demo; Redis alinhado ao digest CI",
+      "closure_test": "compose-init-before; storage-final",
+      "status": "validado",
+      "limitation": "Init sintÃ©tico; Docker/Compose nÃ£o executado neste Windows"
+    },
+    {
+      "id": "CPL-P21",
+      "claim": "CPL-A21",
+      "problem": "runtime-after-02 excedeu inicializaÃ§Ã£o; log da causa nÃ£o existia",
+      "type": "operaÃ§Ã£o/evidÃªncia/cobertura",
+      "severity": "alta",
+      "dependencies": "tools/runtime_lab/kernel_synthetic.py",
+      "action": "InstrumentaÃ§Ã£o por fase, espera de import/JIT antes da cotaÃ§Ã£o sintÃ©tica, launcher instalado sem PYTHONPATH e health leve. 160/160 .NET e regressÃµes de lifecycle passaram.",
+      "closure_test": "runtime; latency-before; latency-after",
+      "status": "validado",
+      "limitation": "Causa especÃ­fica do timeout antigo continua desconhecida; falha preservada. Fechamento restrito Ã  recuperaÃ§Ã£o/diagnÃ³stico atuais, nÃ£o Ã  atribuiÃ§Ã£o retroativa.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "CPL-P22",
+      "claim": "CPL-A22",
+      "problem": "Cache por contagem/config; escrita separada Elo/params; placar revisado conserva primeiro relÃ³gio; xG/proveniÃªncia incompletos",
+      "type": "operaÃ§Ã£o/evidÃªncia/cobertura",
+      "severity": "alta",
+      "dependencies": "db.py; ratings.py; cron_update_models.py; model.py; xg_model.py",
+      "action": "Sucessores isolados de dados/replay e contratos reais de entrada implementados. Cache, treino, espelho e coletores compartilhados das coortes permanecem byte-preservados.",
+      "closure_test": "boundary-check.json; MAPA_SISTEMA.md",
+      "status": "bloqueado",
+      "limitation": "CorreÃ§Ã£o da operaÃ§Ã£o compartilhada exige separaÃ§Ã£o demonstrada da coleta protegida; nÃ£o foi implantada.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "CPL-P23",
+      "claim": "CPL-A23",
+      "problem": "Endpoint de exemplo, Elo1500 fixo, posiÃ§Ã£o UNKNOWN e parÃ¢metros de demonstraÃ§Ã£o",
+      "type": "operaÃ§Ã£o/evidÃªncia/cobertura",
+      "severity": "alta",
+      "dependencies": "MarketOddsCache.cs; Worker.cs; docker/",
+      "action": "Removidos endpoint de exemplo e fallback silencioso de Elo/posiÃ§Ã£o; modo sintÃ©tico explÃ­cito. Feed normalizado tem clocks, revisÃµes, suspensÃ£o, limites e invalidaÃ§Ã£o. Entradas reais exigem identidade, Elo, posiÃ§Ã£o, cobertura VORP e procedÃªncia temporal. Testes .NET passaram.",
+      "closure_test": "MAPA_SISTEMA.md; testes .NET",
+      "status": "bloqueado",
+      "limitation": "Contrato pronto; ponte comercial e dados de modelo autenticados nÃ£o foram fornecidos nem homologados. A parte de software estÃ¡ validada, mas o requisito comercial continua aberto.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "CPL-P24",
+      "claim": "CPL-A24",
+      "problem": "Ferramenta view sÃ³ devolve cartÃ£o de UI; configuraÃ§Ã£o documental nÃ£o prova ativo",
+      "type": "operaÃ§Ã£o/evidÃªncia/cobertura",
+      "severity": "alta",
+      "dependencies": "AutomaÃ§Ã£o completar-dados-do-brasileir-o",
+      "action": "Consulta anterior retorna cartÃ£o sem configuraÃ§Ã£o legÃ­vel; helpers DC novamente conferidos por SHA. Nenhuma agenda duplicada/alterada.",
+      "closure_test": "automation-view.json; continuidade DC",
+      "status": "bloqueado",
+      "limitation": "Estado ativo e recibo da janela continuam nÃ£o comprovados; nÃ£o inferir ausÃªncia/atividade a partir de TOML ausente.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "CPL-P25",
+      "claim": "CPL-A25",
+      "problem": "InventÃ¡rio/estÃ¡tica foram confundidos com revisÃ£o integral anterior",
+      "type": "operaÃ§Ã£o/evidÃªncia/cobertura",
+      "severity": "mÃ©dia",
+      "dependencies": "InventÃ¡rios RI/CPL",
+      "action": "Leitura semÃ¢ntica dos 399 arquivos nÃ£o protegidos do inventÃ¡rio base concluÃ­da, com notas01â€“07 e hashes; 59 arquivos protegidos permanecem em contrato/metadados sem execuÃ§Ã£o. Fontes novas e diffs revisados separadamente.",
+      "closure_test": "evidence/source-inventory.json; evidence/review-coverage.json; evidence/semantic-review-notes-07.json",
+      "status": "validado",
+      "limitation": "Fechamento da cobertura de leitura permitida, nÃ£o alegaÃ§Ã£o de zero bugs ou execuÃ§Ã£o global. Defeitos legados compartilhados e validaÃ§Ã£o operacional continuam nos bloqueios explÃ­citos.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "CPL-P26",
+      "claim": "CPL-A26",
+      "problem": "Casas/timestamps/aceitaÃ§Ã£o/capacidade continuam ausentes",
+      "type": "operaÃ§Ã£o/evidÃªncia/cobertura",
+      "severity": "alta",
+      "dependencies": "BE-P02; pergunta principal CPL",
+      "action": "Tentativa pÃºblica Ãºnica de catÃ¡logo Polymarket preservada com orÃ§amento, sem credenciais/retries; ConnectionError sem resposta Ãºtil. Contratos de dados aprimorados; BE congelado e captura futura DC preservados.",
+      "closure_test": "MAPA_DADOS.md; RESULTADO.md; recibos fontes",
+      "status": "bloqueado",
+      "limitation": "Nenhuma nova cotaÃ§Ã£o nominal simultÃ¢nea com condiÃ§Ãµes de execuÃ§Ã£o, custos e fills verificÃ¡veis. Erro de conexÃ£o nÃ£o prova ausÃªncia de oportunidade.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "CLO-P01",
+      "claim": "CLO-A01",
+      "problem": "Resumo somava duplicatas/Ã³rfÃ£os; int truncava gols; JSON aceitava NaN/chaves repetidas",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "bet_log.py",
+      "action": "Validar JSON, IDs e lucro contra aposta antes de somar; contagens inteiras; retirar CLV automÃ¡tico de banco latest-state",
+      "closure_test": "before; integrated-final",
+      "status": "validado",
+      "limitation": "Custos/aceite/unidade histÃ³rica sem certificaÃ§Ã£o. Escritores cooperantes corrigidos em LGC-P01; arquivos operacionais nÃ£o foram acessados."
+    },
+    {
+      "id": "CLO-P02",
+      "claim": "CLO-A02",
+      "problem": "Ãšltimo preÃ§o vÃ¡lido ressuscitava estado antigo e misturava eventos/linhas",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "data/pit_backfill.py",
+      "action": "closing/v2: exigir fonte/evento/perÃ­odo; rejeitar mistura, suspensÃ£o, desconhecido e conflito final; validar clocks de cura",
+      "closure_test": "before; integrated-final",
+      "status": "validado",
+      "limitation": "Ãšltimo estado observado nÃ£o Ã© closing comercial nem preÃ§o executÃ¡vel; schema curated antigo nÃ£o armazena todos os estados"
+    },
+    {
+      "id": "CLO-P03",
+      "claim": "CLO-A03",
+      "problem": "OFFICIAL e elegibilidade prospectiva eram emitidos apenas a partir da declaraÃ§Ã£o do chamador",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "prediction_protocol.py",
+      "action": "Contrato/v2 com proveniÃªncia nÃ£o verificada; tipos estritos, identidade nÃ£o branca e cronologia coerente",
+      "closure_test": "before; integrated-final",
+      "status": "validado",
+      "limitation": "ready significa contrato coerente; proveniÃªncia e evidÃªncia econÃ´mica continuam falsas"
+    },
+    {
+      "id": "CLO-P04",
+      "claim": "CLO-A04",
+      "problem": "Universo vazio dividia por zero; Ã³rfÃ£os geravam300% de cobertura",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "check_coverage.py",
+      "action": "Denominador de eventos distintos, interseÃ§Ãµes no mesmo universo e N/A quando vazio; conexÃ£o fecha em finally",
+      "closure_test": "coverage-before; integrated-final",
+      "status": "validado",
+      "limitation": "PresenÃ§a em tabelas nÃ£o comprova qualidade, validade temporal ou oferta comercial"
+    },
+    {
+      "id": "CLO-P05",
+      "claim": "CLO-A05",
+      "problem": "Abrir status podia criar/migrar banco e classificava cache existente como fresh mesmo desatualizado",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "status.py",
+      "action": "ConexÃ£o RO/finally, estado stale conforme cache_is_current e ROI indefinido como N/A; rÃ³tulo bruto",
+      "closure_test": "status-before; integrated-final",
+      "status": "validado",
+      "limitation": "Regra compartilhada de frescor continua baseada em contagem/config, nÃ£o hash dos dados; nÃ£o Ã© admissÃ£o econÃ´mica"
+    },
+    {
+      "id": "CLO-P06",
+      "claim": "CLO-A06",
+      "problem": "NaN, stake negativo e intervalo invertido podiam gerar SHADOW_BET",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "research/economic_decision.py",
+      "action": "Validar finitude/domÃ­nio/ordem dos limites; stake zero abstÃ©m; declarar fraÃ§Ã£o de banca de referÃªncia e evidÃªncia falsa",
+      "closure_test": "research-before; integrated-final",
+      "status": "validado",
+      "limitation": "Modelo/offset e condiÃ§Ãµes comerciais nÃ£o foram revalidados; custos continuam hipÃ³teses de simulaÃ§Ã£o"
+    },
+    {
+      "id": "CLO-P07",
+      "claim": "CLO-A07",
+      "problem": "Booleano textual viravaTrue; coordenadas impossÃ­veis, contagens de jogos fracionÃ¡rias e recibo pÃ³s-kickoff admitidos",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "research/pit_features/contracts.py/contextual.py",
+      "action": "Tipos/limites fÃ­sicos, contagens inteiras, anÃºncio atÃ© available_at e recebimento prÃ©-jogo; GO estritamente booleano",
+      "closure_test": "research-before; integrated-final",
+      "status": "validado",
+      "limitation": "Scaffold; ainda exige corte de decisÃ£o e recibo/autenticidade externos; sem novo treinamento real"
+    },
+    {
+      "id": "CLO-P08",
+      "claim": "CLO-A08",
+      "problem": "Sorted set crescia indefinidamente; read-modify-write perdia versÃ£o nova e admitia T4 anterior a T3",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "dotnet/LineupWorker/Services/LatencyAuditService.cs",
+      "action": "Janela por relÃ³gio Redis e capacidade, percentis atÃ´micos, CAS com KEEPTTL, rejeitar T4 anterior, excluir clocks invÃ¡lidos; namespacev2 preserva histÃ³rico",
+      "closure_test": "latency-before; latency-after",
+      "status": "validado",
+      "limitation": "Telemetria diagnÃ³stica com timestamps declarados; nÃ£o homologa latÃªncia de publicaÃ§Ã£o/feed/execuÃ§Ã£o"
+    },
+    {
+      "id": "LGC-P01",
+      "claim": "LGC-A01",
+      "problem": "Leitura seguida de append sem exclusÃ£o permitia duplicar ID e liquidaÃ§Ã£o; Ãºltima linha sem LF era concatenada.",
+      "type": "integridade/contabilidade/concorrÃªncia",
+      "severity": "alta",
+      "dependencies": "bet_log.py; filesystem local; _canon permanece inalterado",
+      "action": "Trava de SO por caminho canÃ´nico, nÃ£o bloqueante, em sidecar persistente; append preserva bytes, acrescenta separador se necessÃ¡rio, flush e fsync.",
+      "closure_test": "before: duas concorrÃªncias e linha sem LF falham; final: passam; process-lab-v2 prova exclusÃ£o e liberaÃ§Ã£o apÃ³s encerramento abrupto do filho prÃ³prio.",
+      "status": "validado",
+      "limitation": "Escritores cooperantes, mesmo caminho e filesystem local Windows. POSIX implementado, nÃ£o executado. Sem transaÃ§Ã£o entre livros, sem garantia contra ediÃ§Ã£o externa ou falha parcial de disco."
+    },
+    {
+      "id": "LGC-P02",
+      "claim": "LGC-A02",
+      "problem": "Duas leituras combinavam lucro antigo com exposiÃ§Ã£o nova; JSON bancÃ¡rio aceitava NaN, booleanos, negativos, campos repetidos e relÃ³gios sem timezone.",
+      "type": "integridade/contabilidade/concorrÃªncia",
+      "severity": "alta",
+      "dependencies": "bet_log.py; filesystem local; _canon permanece inalterado",
+      "action": "Uma leitura de apostas antes de filtrar/somar; parser estrito compartilhado, domÃ­nios bancÃ¡rios e clocks explÃ­citos; gravaÃ§Ãµes bancÃ¡rias usam a mesma trava.",
+      "closure_test": "before: snapshot e oito casos bancÃ¡rios falham; final: passam; 95 testes finais cobrem liquidaÃ§Ã£o, banca, IDs e contratos relacionados.",
+      "status": "validado",
+      "limitation": "Moeda/valores sÃ£o declarados pelo operador, sem aceitaÃ§Ã£o ou custos verificados. Saldo usa unidade atual; drawdown exclui horÃ¡rio dos fluxos. Os dois arquivos tÃªm snapshots separados."
+    },
+    {
+      "id": "LGC-P03",
+      "claim": "LGC-A03",
+      "problem": "Contrato importado invÃ¡lido era liquidado; placar invertido ficava sob mando errado; ID estÃ¡vel exigia linha legada; NaN desativava teto; CLI afirmava CLV comprovado.",
+      "type": "integridade/contabilidade/concorrÃªncia",
+      "severity": "alta",
+      "dependencies": "bet_log.py; filesystem local; _canon permanece inalterado",
+      "action": "Recusar contrato inconsistente, usar Ã­ndices por ID/legado, normalizar placar ao mando gravado, validar teto finito e mostrar relatos manuais brutos sem selo econÃ´mico.",
+      "closure_test": "before: contrato/placar/ID/teto/CLI reproduzidos; final: passam; teto negativo e liberaÃ§Ã£o apÃ³s erro jÃ¡ passavam antes. Fixture CPL recebeu line/period antes ausentes, sem mudar resultado esperado.",
+      "status": "validado",
+      "limitation": "ImportaÃ§Ãµes sem contrato completo falham sem reescrita; fatos histÃ³ricos nÃ£o corrigidos por inferÃªncia. Registro manual nÃ£o autentica placar nem oferta. validated preservado apenas como flag legada."
+    },
+    {
+      "id": "ARI-P01",
+      "claim": "ARI-A01",
+      "problem": "NaN/Inf/escalas e covariÃ¢ncias invÃ¡lidas eram aceitos; arrays emprestados mudavam modelo; sigmoid overflow; otimizador sem sucesso podia publicar estado; labels multinomiais truncados.",
+      "type": "integridade numÃ©rica/artefato/modelagem",
+      "severity": "alta",
+      "dependencies": "market_residual.py; scipy/numpy; consumidores exploratÃ³rios",
+      "action": "24 regressÃµes reproduzidas. ValidaÃ§Ã£o no carregamento, inferÃªncia e exportaÃ§Ã£o; cÃ³pia de arrays; fit transacional; target sem truncamento; expit estÃ¡vel e gradiente analÃ­tico da mesma funÃ§Ã£o objetivo.",
+      "closure_test": "evidence/before, final e consumer; 54 casos finais Ãºnicos em duas execuÃ§Ãµes",
+      "status": "validado",
+      "limitation": "NÃ£o hÃ¡ artefato autenticado, avaliaÃ§Ã£o econÃ´mica ou robustez estatÃ­stica demonstrada. CovariÃ¢ncia continua aproximaÃ§Ã£o Hessiana condicional. Gates exploratÃ³rios e replay legado nÃ£o homologados."
+    },
+    {
+      "id": "RCA-P01",
+      "claim": "RCA-A01",
+      "problem": "Guias sobrepostos usavam vÃ¡rios estados vigentes; cobertura parcial e pendÃªncias apenas em mapas impediam a alegaÃ§Ã£o de conclusÃ£o.",
+      "type": "documentaÃ§Ã£o/rastreabilidade",
+      "severity": "alta",
+      "dependencies": "Guias, histÃ³rico visÃ­vel, inventÃ¡rio e registros RI/IE/BE/CPL/CLO/LGC/ARI",
+      "action": "Relidos os dois mandatos e todo histÃ³rico visÃ­vel recuperado; criada matriz de todas as seÃ§Ãµes, errata datada, um estado atual e registro central ampliado.",
+      "closure_test": "MATRIZ_MANDATO.md, HISTORICO.md, evidence/chat-recovery.json e previous-guides.json",
+      "status": "validado",
+      "limitation": "Corrigida a representaÃ§Ã£o do estado; a revisÃ£o integral do sistema permanece aberta."
+    },
+    {
+      "id": "RCA-P02",
+      "claim": "RCA-A02",
+      "problem": "float aceitava strings/bools e infinito negativo podia satisfazer melhora; estruturas invÃ¡lidas produziam exceÃ§Ãµes acidentais.",
+      "type": "validaÃ§Ã£o/integridade",
+      "severity": "alta",
+      "dependencies": "research/calibration_gate.py; somente consumidor puro, sem replay de relatÃ³rio congelado",
+      "action": "Validar estrutura e nÃºmeros reais finitos sem coerÃ§Ã£o; schema v2 com procedÃªncia/evidÃªncia econÃ´mica/capital false; preservar guardrail ausente como NO_GO.",
+      "closure_test": "RegressÃµes RCA before falham e final passa; nenhuma mÃ©trica histÃ³rica recalculada.",
+      "status": "validado",
+      "limitation": "O relatÃ³rio Ã© declarado pelo chamador; v2 nÃ£o autentica amostra, treino, independÃªncia ou lucro."
+    },
+    {
+      "id": "RCA-P03",
+      "claim": "RCA-A03",
+      "problem": "Aceitava nÃºmeros/configuraÃ§Ãµes invÃ¡lidos, descartava incompletos e podia retornar GO no subconjunto; ignorava stake explÃ­cita diferente de um.",
+      "type": "validaÃ§Ã£o/universo/contabilidade",
+      "severity": "alta",
+      "dependencies": "research/residual_gate.py; Bootstrap/PSR Core existentes",
+      "action": "Validar domÃ­nio antes da amostra; PENDING_DATA se faltarem campos; contar universo/incompletos; recusar stake nÃ£o unitÃ¡ria; declarar hipÃ³tese unitÃ¡ria e DSR fornecido; PSR indefinido vira null.",
+      "closure_test": "RCA before: GO em subconjunto incompleto; final 49 casos direcionados aprovados.",
+      "status": "validado",
+      "limitation": "ROI continua mÃ©dia de PnL sob hipÃ³tese unitÃ¡ria declarada. NÃ£o Ã© carteira, aceitaÃ§Ã£o, autenticaÃ§Ã£o ou validaÃ§Ã£o econÃ´mica."
+    },
+    {
+      "id": "RCA-P04",
+      "claim": "RCA-A04",
+      "problem": "PSR usa retornos por linha sem ajuste de dependÃªncia; DSR Ã© fornecido, nÃ£o calculado de um registro de tentativas.",
+      "type": "estatÃ­stica/procedÃªncia",
+      "severity": "alta",
+      "dependencies": "research/residual_gate.py; protocolo, universo e registro de tentativas",
+      "action": "Gate v3 conta eventos, identifica PSR como diagnÃ³stico e impede promoÃ§Ã£o por DSR fornecido. FavorÃ¡vel retorna PENDING_DESIGN, negativos NO_GO. RegressÃµes antes/depois passaram.",
+      "closure_test": "Novo protocolo com clusters/universo/tentativas e critÃ©rios prÃ©vios; testes numÃ©ricos nÃ£o fecham esta questÃ£o.",
+      "status": "validado",
+      "limitation": "O software nÃ£o aprova inferÃªncia sem desenho. HistÃ³rico real de tentativas e desenho temporal continuam necessÃ¡rios antes de novo desempenho; nÃ£o foram fabricados.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "RCA-P05",
+      "claim": "RCA-A05",
+      "problem": "Calcula retorno por seleÃ§Ã£o em unidade fixa, sem aplicar stake da decisÃ£o e sem caixa/reserva/execuÃ§Ã£o; linha de resultado usa int(outcome).",
+      "type": "arquitetura/contabilidade/entrada",
+      "severity": "alta",
+      "dependencies": "research/residual_walkforward.py; dados/labels e quotes declarados",
+      "action": "Replay v3 valida identidade/labels/cortes, treina apenas com labels maduros e usa carteira Decimal com stakes, custos, reserva, pendÃªncias e reconciliaÃ§Ã£o independente.",
+      "closure_test": "RegressÃµes de labels/cortes e reconciliaÃ§Ã£o financeira independente em sucessor; ainda nÃ£o executadas nesta rodada.",
+      "status": "validado",
+      "limitation": "Somente back binÃ¡rio com full fill hipotÃ©tico; nÃ£o representa execuÃ§Ã£o aceita. Sem desempenho real novo.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "RCA-P06",
+      "claim": "RCA-A06",
+      "problem": "curated_odds nÃ£o possui status, perÃ­odo ou linha; matches tÃªm PK latest-state. NÃ£o permite reconstruÃ§Ã£o integral de revisÃµes a partir dessa tabela.",
+      "type": "schema/arquitetura/temporalidade",
+      "severity": "alta",
+      "dependencies": "data/pit_backfill.py; schema pit-curated/1.0 e contratos closing-v2",
+      "action": "Curated v2 preserva revisÃµes, status, perÃ­odo e linha; leitura por corte evita ressuscitar preÃ§os. v1 recusado sem alteraÃ§Ã£o.",
+      "closure_test": "Round-trip com suspensÃ£o, linhas/perÃ­odos e revisÃµes empatadas; ausÃªncia de reapariÃ§Ã£o de estado ativo superado.",
+      "status": "validado",
+      "limitation": "ValidaÃ§Ã£o sintÃ©tica do sucessor; nÃ£o migra operaÃ§Ã£o nem recupera clocks que a fonte nunca forneceu.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "RCA-P07",
+      "claim": "RCA-A07",
+      "problem": "persist_lineups grava somente linhas de jogadores; vazio nÃ£o registra envelope/tombstone; JSON invÃ¡lido histÃ³rico Ã© ignorado e gravaÃ§Ã£o nÃ£o coordena escritores.",
+      "type": "persistÃªncia/arquitetura",
+      "severity": "alta",
+      "dependencies": "data/lineup_archive.py; consumidores e protocolos de coleta precisam ser mapeados antes da substituiÃ§Ã£o",
+      "action": "Envelopes v2 imutÃ¡veis com vazio/remoÃ§Ã£o/indisponÃ­vel/invÃ¡lido, hashes, criaÃ§Ã£o exclusiva, revisÃ£o e conflito. Testes antes/depois passaram.",
+      "closure_test": "Fixtures de vazio, remoÃ§Ã£o, revisÃ£o, corrupÃ§Ã£o e concorrÃªncia com consulta por corte; nÃ£o executadas nesta rodada.",
+      "status": "validado",
+      "limitation": "Sucessor opt-in, coletor legado protegido preservado; sem ingestÃ£o real nesta etapa.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "RCA-P08",
+      "claim": "RCA-A08",
+      "problem": "RecordAsync usa SET incondicional no Lua; chegada atrasada pode substituir o registro da chave por versÃ£o T3 anterior.",
+      "type": "concorrÃªncia/telemetria",
+      "severity": "mÃ©dia",
+      "dependencies": "dotnet/LineupWorker/Services/LatencyAuditService.cs, WindowScript",
+      "action": "Lua compara T3 por ticks UTC de 19 dÃ­gitos; chegada antiga nÃ£o substitui/renova TTL, retry preserva T4 e revisÃ£o reseta T4 sem renovar TTL.",
+      "closure_test": "Duas gravaÃ§Ãµes em ordem inversa preservam o registro novo e o histÃ³rico; atualizaÃ§Ã£o T4 continua CAS sem renovar TTL.",
+      "status": "validado",
+      "limitation": "Redis descartÃ¡vel; formato legado de telemetria requer migraÃ§Ã£o explÃ­cita.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "RCA-P09",
+      "claim": "RCA-A09",
+      "problem": "Compose Linux e CI delimitada agora executados; CI global inclui avaliações protegidas e permanece fora do escopo autorizado.",
+      "type": "infraestrutura/reproduÃ§Ã£o",
+      "severity": "alta",
+      "dependencies": "compose.yaml, Dockerfiles, CI e runtime compatÃ­vel isolado",
+      "action": "Python 3.13/3.14 instalados com uv.lock, 345 testes por versão, .NET 160/160 e Compose build/health/hotpath/queda Redis/reconexão/desligamento aprovados em runner Linux descartável.",
+      "closure_test": "Ensaio Linux fechado no escopo sintético; homologação global exige respeitar as fronteiras específicas do mandato. Status bloqueado não foi removido por renomear a CI.",
+      "status": "bloqueado",
+      "limitation": "CI global não executada: test discovery importa avaliadores protegidos e lê registries reais. Ambiente operacional Windows e conexões comerciais não homologados por esse ensaio.",
+      "updated_in": "PUB-20260910",
+      "evidence": "docs/continuation/publication_2026-09-10/evidence/ci-34552247397/summary.json"
+    },
+    {
+      "id": "RCA-P10",
+      "claim": "RCA-A10",
+      "problem": "LGC estabilizou escritores cooperantes e reconciliaÃ§Ã£o por IDs; moeda/unidade/fluxos e custos declarados nÃ£o sÃ£o fatos comerciais autenticados nem transaÃ§Ã£o conjunta dos dois arquivos.",
+      "type": "contabilidade/procedÃªncia",
+      "severity": "alta",
+      "dependencies": "bet_log.py; fontes de saldo/fluxos/unidade/custos permitidas",
+      "action": "Livro coordena leitura/escrita dos dois arquivos, unidades histÃ³ricas, ordem de fluxos, ambiguidades, capital e drawdown ajustado por aportes. Testes passaram.",
+      "closure_test": "Casos de mudanÃ§a de unidade, ordem de fluxos, custo, simultaneidade entre arquivos e reconciliaÃ§Ã£o com fatos verificÃ¡veis.",
+      "status": "bloqueado",
+      "limitation": "Software validado para entradas declaradas. Moeda/cÃ¢mbio/saldo/custo manual nÃ£o sÃ£o fatos comerciais autenticados; transaÃ§Ã£o global entre arquivos nÃ£o Ã© prometida.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "RCA-P11",
+      "claim": "RCA-A11",
+      "problem": "Git/ZIP e manifesto recebido sÃ£o verificÃ¡veis; restauraÃ§Ã£o de bancos/serviÃ§os protegidos e conteÃºdo nÃ£o recebido nÃ£o foi demonstrada.",
+      "type": "recuperaÃ§Ã£o/escopo",
+      "severity": "alta",
+      "dependencies": "Snapshots e arquivos recebidos; fronteiras do mandato e mÃ¡quina de origem",
+      "action": "Restore isolado verifica origem/destino/manifesto, preserva falhas, recusa symlinks/junctions/destinos aninhados e usa URI SQLite correta. Testes passaram.",
+      "closure_test": "Teste operacional especÃ­fico somente se permitido; recibo Git/ZIP desta etapa nÃ£o o substitui.",
+      "status": "bloqueado",
+      "limitation": "RestauraÃ§Ã£o de operaÃ§Ã£o protegida e arquivos nunca recebidos nÃ£o demonstrÃ¡vel nesta autorizaÃ§Ã£o. Entrega Git/ZIP recebe recibo separado.",
+      "updated_in": "RES-20260910",
+      "evidence": "docs/continuation/resolution_2026-09-10/evidence"
+    },
+    {
+      "id": "RES-P01",
+      "claim": "RES-A01",
+      "problem": "PreÃ§os residuais usavam casa ofertante como referÃªncia, descartavam pendÃªncias e omitiam disponibilidade de contexto",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_residual_dataset",
+      "action": "reference fixed-house, market/period, revisions, clock/skew/age and explicit abstentions",
+      "closure_test": "test_resolution_residual_dataset",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    },
+    {
+      "id": "RES-P02",
+      "claim": "RES-A02",
+      "problem": "Health/imports pesados e PubSub sem limite de handlers",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_kernel_lifecycle",
+      "action": "kernel_cli leve, timeouts Redis, mÃ¡ximo 32 handlers PubSub e 32 poller independente",
+      "closure_test": "test_resolution_kernel_lifecycle",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    },
+    {
+      "id": "RES-P03",
+      "claim": "RES-A03",
+      "problem": "ParÃ¢metros nÃ£o finitos ou grade invÃ¡lida chegavam ao Numba",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_kernel_params",
+      "action": "domÃ­nio numÃ©rico antes de aquecimento/cliente",
+      "closure_test": "test_resolution_kernel_params",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    },
+    {
+      "id": "RES-P04",
+      "claim": "RES-A04",
+      "problem": "Detector aceitava oferta soft antiga e inputs invÃ¡lidos; raiz power limitada artificialmente",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_structural_edge",
+      "action": "oferta e referÃªncia com idade; cÃ³pia imutÃ¡vel; bracket expansÃ­vel e finitude",
+      "closure_test": "test_resolution_structural_edge",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    },
+    {
+      "id": "RES-P05",
+      "claim": "RES-A05",
+      "problem": "Promovidos tinham coerÃ§Ãµes silenciosas, duplicatas e temporadas incompletas",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_promotions",
+      "action": "schema estrito, chaves JSON Ãºnicas e quatro posiÃ§Ãµes/equipes por temporada",
+      "closure_test": "test_resolution_promotions",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    },
+    {
+      "id": "RES-P06",
+      "claim": "RES-A06",
+      "problem": "Player stats carimbava pÃ³s-jogo como prÃ©-jogo e aceitava nÃºmeros invÃ¡lidos",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_player_stats",
+      "action": "disponibilidade real declarada v2; ausente permanece desconhecida; valida contagens e cache",
+      "closure_test": "test_resolution_player_stats",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    },
+    {
+      "id": "RES-P07",
+      "claim": "RES-A07",
+      "problem": "Cobertura tratava zero denominador/arquivo ausente como aprovaÃ§Ã£o e publicava .NET antigo",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_coverage",
+      "action": "N/A, exige arquivos/blocos/branches, inclui CLI e protocolo; .NET vindo de recibo separado",
+      "closure_test": "test_resolution_coverage",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    },
+    {
+      "id": "RES-P08",
+      "claim": "RES-A08",
+      "problem": "Importador podia gravar em DB existente, publicar parcial e aceitar odds/contagens invÃ¡lidas",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_historical_import",
+      "action": "nova saÃ­da exclusiva apÃ³s integrity/fsync; bytes/hash da mesma fonte; rejeiÃ§Ãµes explÃ­citas",
+      "closure_test": "test_resolution_historical_import",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    },
+    {
+      "id": "RES-P09",
+      "claim": "RES-A09",
+      "problem": "ExibiÃ§Ã£o de odds anunciava janela validada e emitia comandos de aposta sem evidÃªncia",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_odds_shop",
+      "action": "somente diagnÃ³stico; mercado completo, casas Ãºnicas, clocks e preÃ§os vÃ¡lidos; sem config no import",
+      "closure_test": "test_resolution_odds_shop",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    },
+    {
+      "id": "RES-P10",
+      "claim": "RES-A10",
+      "problem": "LiquidaÃ§Ã£o diagnÃ³stica aceitava evento/placar/probabilidades invÃ¡lidos e concorrÃªncia/retry inseguros",
+      "type": "software/contrato",
+      "severity": "alta",
+      "dependencies": "test_resolution_live_settlement",
+      "action": "v2 com identidade, hashes de previsÃ£o/fatos/recibo e writer lock; conserva primeiro recibo; CLI e run-log de retry retornam o recibo persistido sob a mesma trava, sem novo horÃ¡rio/hash",
+      "closure_test": "test_resolution_live_settlement; settlement-cli-before (1 falha); settlement-cli-after (14 passam)",
+      "status": "validado",
+      "limitation": "Dados sintÃ©ticos; nÃ£o demonstra lucro/comÃ©rcio nem modifica pesquisa congelada."
+    }
+  ],
+  "predecessors": [
+    "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+    "../implementation_2026-09-10/REGISTROS.json",
+    "../economic_search_2026-09-10/REGISTROS.json"
+  ],
+  "states": {
+    "software": "correÃ§Ãµes delimitadas validadas; leitura semÃ¢ntica permitida concluÃ­da; homologaÃ§Ã£o global limitada",
+    "data": "parcial; disponibilidade comercial nÃ£o comprovada",
+    "economics": "lucro executÃ¡vel nÃ£o demonstrado; capital false"
+  },
+  "supersedes_current_register": true,
+  "previous_registry": "docs/continuation/resolution_2026-09-10/REGISTROS.json",
+  "mandate_complete": false,
+  "historical_reconciliation": [
+    {
+      "id": "RI-P01",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Ambiente incompleto em comparaÃ§Ã£o ao cÃ³digo declarado.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "RCA-P09"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P02",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "HistÃ³rico nÃ£o estabelece oferta executÃ¡vel em T-60.",
+      "original_status": "bloqueado",
+      "current_related_issues": [
+        "CPL-P26"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P03",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Identidade/estado contraditÃ³rio podiam admitir observaÃ§Ã£o.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "CPL-P20"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P04",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "JSON duplicado ou nÃ£o finito apagava conflito no parse.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "CPL-P20"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P05",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "PublicaÃ§Ã£o final podia substituir auditoria concorrente.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "CPL-P20"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P06",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Agrupamento misto permitia leakage dentro do mesmo dia.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "CPL-P25"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P07",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Split por linhas e treino repetido por odds enviesavam replay.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "CPL-P25"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P08",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Fallback 0,5, linha inteira e odds invÃ¡lidas podiam gerar conta falsa.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "CPL-P25"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P09",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Simulador de Copa abria banco antes de recusar liga.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "CPL-P25"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P10",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Import criava log operacional.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "CPL-P25"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P11",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Serving usa associaÃ§Ã£o aproximada de odds/cache sem admissÃ£o estrita.",
+      "original_status": "bloqueado",
+      "current_related_issues": [
+        "CPL-P22"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P12",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "IntegraÃ§Ã£o local real Redis/Compose e feed comercial ausentes.",
+      "original_status": "bloqueado",
+      "current_related_issues": [
+        "RCA-P09",
+        "CPL-P23"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P13",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Relatos de CI/lint confundem escopos.",
+      "original_status": "validado",
+      "current_related_issues": [
+        "RCA-P01",
+        "CPL-P25"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P14",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "MÃ©tricas condicionais e testes podem ser promovidos indevidamente a lucro.",
+      "original_status": "bloqueado",
+      "current_related_issues": [
+        "CPL-P26"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P15",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Estado atual da agenda nÃ£o Ã© comprovado pelo TOML histÃ³rico.",
+      "original_status": "bloqueado",
+      "current_related_issues": [
+        "CPL-P24"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P16",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "RecuperaÃ§Ã£o de dados operacionais e mÃ¡quina antiga nÃ£o comprovada nesta rodada.",
+      "original_status": "bloqueado",
+      "current_related_issues": [
+        "RCA-P11"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P17",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Cobertura de coortes/avaliadores protegidos vedada.",
+      "original_status": "bloqueado",
+      "current_related_issues": [
+        "CPL-P25"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "RI-P18",
+      "source": "../implementation_2026-09-10/REGISTROS_RI_UTF8.json",
+      "problem": "Disponibilidade histÃ³rica por feature e artefato aprendido nÃ£o demonstrada integralmente.",
+      "original_status": "bloqueado",
+      "current_related_issues": [
+        "CPL-P22"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "IE01",
+      "source": "../implementation_2026-09-10/REGISTROS.json",
+      "problem": "Cold import durante TTL do resultado no smoke",
+      "original_status": "corrigido no escopo testado",
+      "current_related_issues": [
+        "CPL-P21"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "IE02",
+      "source": "../implementation_2026-09-10/REGISTROS.json",
+      "problem": "Chaves JSON duplicadas na invocaÃ§Ã£o",
+      "original_status": "corrigido",
+      "current_related_issues": [
+        "CPL-P20"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "IE03",
+      "source": "../implementation_2026-09-10/REGISTROS.json",
+      "problem": "AusÃªncia de prova local Redis real/Python/.NET e CI pulando teste cross-process",
+      "original_status": "validado localmente; CI remota pendente",
+      "current_related_issues": [
+        "RCA-P09"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "IE04",
+      "source": "../implementation_2026-09-10/REGISTROS.json",
+      "problem": "InicializaÃ§Ã£o/JIT confundida com recuperaÃ§Ã£o de notificaÃ§Ã£o perdida",
+      "original_status": "corrigido no harness; 110.NET aprovados",
+      "current_related_issues": [
+        "CPL-P21"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "IE05",
+      "source": "../implementation_2026-09-10/REGISTROS.json",
+      "problem": "Consumidor podia omitir falha sem payload ou captura salva mais recente",
+      "original_status": "corrigido",
+      "current_related_issues": [
+        "CPL-P20"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "IE06",
+      "source": "../implementation_2026-09-10/REGISTROS.json",
+      "problem": "Mojibake em177campos dos registros RI",
+      "original_status": "corrigido por errata, sem reescrever resultados",
+      "current_related_issues": [
+        "RCA-P01"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "IE07",
+      "source": "../implementation_2026-09-10/REGISTROS.json",
+      "problem": "AusÃªncia de preÃ§o/custos/capacidade/validaÃ§Ã£o para lucro executÃ¡vel",
+      "original_status": "dependÃªncia econÃ´mica externa aberta; hipÃ³tese de suficiÃªncia refutada neste piloto",
+      "current_related_issues": [
+        "CPL-P26"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "BE-P01",
+      "source": "../economic_search_2026-09-10/REGISTROS.json",
+      "problem": "Repetir infraestrutura e piloto Ãºnico nÃ£o responde a busca ampla",
+      "original_status": "validado no escopo BE",
+      "current_related_issues": [
+        "RCA-P01"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "BE-P02",
+      "source": "../economic_search_2026-09-10/REGISTROS.json",
+      "problem": "Casas, simultaneidade e capacidade desconhecidas nos mÃ¡ximos",
+      "original_status": "bloqueado para lucro executÃ¡vel",
+      "current_related_issues": [
+        "CPL-P26"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "BE-P03",
+      "source": "../economic_search_2026-09-10/REGISTROS.json",
+      "problem": "Modelo sinaliza EV sem vantagem observada suficiente",
+      "original_status": "encerrado no cenÃ¡rio",
+      "current_related_issues": [
+        "CPL-P26"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    },
+    {
+      "id": "BE-P04",
+      "source": "../economic_search_2026-09-10/REGISTROS.json",
+      "problem": "AusÃªncia de experimento amplo reconciliado nesta rodada",
+      "original_status": "validado no escopo BE",
+      "current_related_issues": [
+        "RCA-P01"
+      ],
+      "note": "Status histÃ³rico preservado; relaÃ§Ã£o temÃ¡tica nÃ£o implica reabertura ou fechamento do experimento."
+    }
+  ],
+  "summary": {
+    "issues": 59,
+    "statuses": {
+      "validado": 52,
+      "bloqueado": 7
+    },
+    "original_14": [
+      {
+        "id": "CPL-P21",
+        "status": "validado"
+      },
+      {
+        "id": "CPL-P22",
+        "status": "bloqueado"
+      },
+      {
+        "id": "CPL-P23",
+        "status": "bloqueado"
+      },
+      {
+        "id": "CPL-P24",
+        "status": "bloqueado"
+      },
+      {
+        "id": "CPL-P25",
+        "status": "validado"
+      },
+      {
+        "id": "CPL-P26",
+        "status": "bloqueado"
+      },
+      {
+        "id": "RCA-P04",
+        "status": "validado"
+      },
+      {
+        "id": "RCA-P05",
+        "status": "validado"
+      },
+      {
+        "id": "RCA-P06",
+        "status": "validado"
+      },
+      {
+        "id": "RCA-P07",
+        "status": "validado"
+      },
+      {
+        "id": "RCA-P08",
+        "status": "validado"
+      },
+      {
+        "id": "RCA-P09",
+        "status": "bloqueado"
+      },
+      {
+        "id": "RCA-P10",
+        "status": "bloqueado"
+      },
+      {
+        "id": "RCA-P11",
+        "status": "bloqueado"
+      }
+    ],
+    "new_regressions": 10,
+    "source_review": {
+      "baseline_files": 458,
+      "depth": {
+        "semantic_read_with_recorded_findings": 399,
+        "protected_contract_only_no_execution": 59
+      },
+      "remaining_files": 0,
+      "allowed_semantic_review_complete": true,
+      "all_sources_semantically_reviewed": false,
+      "protected_contract_status_preserved": true,
+      "new_changed_files_reviewed_separately": true,
+      "execution_not_implied": true
+    }
+  },
+  "publication": {
+    "reviewed_visible_messages": 134,
+    "archived_helper_files": 155,
+    "ci_run": 34552247397,
+    "tested_head": "cc38b57bd3ba6f8c2cbdce6353eaf085d4ece14f",
+    "global_ci": false,
+    "remote_main_publication": "verify publication receipt; this registry is not a push receipt",
+    "current_work": "C:/BRASILEIRAO/work/publication-2026-09-10"
+  }
+}
