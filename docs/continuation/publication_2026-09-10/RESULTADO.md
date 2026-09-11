@@ -17,3 +17,5 @@ O arquivo do contexto contém as 134 mensagens visíveis até o checkpoint, os m
 [Reavaliação das decisões](REVISAO_DO_CHAT.md), [registro completo](REGISTROS.json), [dados/fontes](DADOS_E_FONTES.md), [reprodução](REPRODUZIR.md), [retomada](PROXIMO_PROMPT.md). Os seis guias principais apontam para este estado; os documentos antigos continuam datados e preservados.
 
 O clone Git recupera conteúdo versionado. Dados privados e raws sem redistribuição estabelecida continuam sob C:/BRASILEIRAO, com seus inventários e backups. Preservar a pasta é necessário; GitHub público não equivale a backup integral de toda a máquina. A conversa não precisa ser a fonte de continuidade depois que o recibo de recuperação estiver aprovado.
+
+[Publicação, pacote e recuperação conferidos](PUBLICADO.md).

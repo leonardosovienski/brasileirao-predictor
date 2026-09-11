@@ -40,5 +40,29 @@
     "role": "assistant",
     "phase": "commentary",
     "text": "A segunda execução no GitHub também passou, agora com a checagem de tipagem incluída. O clone de conferência está na versão antiga do `main`, pronto para receber a atualização por `pull`. Estou fazendo a última checagem dos documentos, dos arquivos publicáveis e das diferenças em relação ao código testado.\n"
+  },
+  {
+    "timestamp": "2026-09-11T02:04:08.943Z",
+    "role": "assistant",
+    "phase": "commentary",
+    "text": "O código que será publicado é igual ao aprovado no Linux; as mudanças restantes são documentação e evidências. Conferi 247 documentos Markdown e 289 links locais dos guias atuais. Também confirmei que o relógio do Windows está alinhado ao horário retornado pelo GitHub. Vou agora publicar o `main` e validar o `pull` da cópia independente.\n"
+  },
+  {
+    "timestamp": "2026-09-11T02:06:34.775Z",
+    "role": "assistant",
+    "phase": "commentary",
+    "text": "O `main` já foi publicado, e o `pull` trouxe a atualização para a cópia independente. A conferência encontrou um arquivo de cobertura referenciado no manifesto que não apareceu nessa cópia. Estou verificando se a causa é o caminho longo do Windows ou uma regra do Git; a entrega só ficará concluída quando essa conferência passar.\n"
+  },
+  {
+    "timestamp": "2026-09-11T02:10:20.554Z",
+    "role": "assistant",
+    "phase": "commentary",
+    "text": "O arquivo estava no Git; o problema era a leitura de um caminho com 272 caracteres no Windows. Corrigi o verificador, e a cópia independente passou: mesmo commit, mesma árvore, índice inteiro igual e 227 arquivos de evidência conferidos byte a byte. Estou concluindo o pacote e o backup restaurável.\n"
+  },
+  {
+    "timestamp": "2026-09-11T02:13:31.148Z",
+    "role": "assistant",
+    "phase": "commentary",
+    "text": "O pacote também passou: foi gerado a partir do clone do GitHub, os 231 módulos conferem e os 248 Markdown daquela versão estão no pacote de fontes. Estou publicando os recibos finais e fazendo a última restauração do backup. O próximo prompt e os limites dos dados locais já estão documentados.\n"
   }
 ]

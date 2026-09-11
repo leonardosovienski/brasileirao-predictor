@@ -149,6 +149,7 @@
 | [docs/continuation/publication_2026-09-09/README.md](<../publication_2026-09-09/README.md>) | histórico ou contrato: conferir data/escopo |
 | [docs/continuation/publication_2026-09-10/DADOS_E_FONTES.md](<DADOS_E_FONTES.md>) | atual |
 | [docs/continuation/publication_2026-09-10/PROXIMO_PROMPT.md](<PROXIMO_PROMPT.md>) | atual |
+| [docs/continuation/publication_2026-09-10/PUBLICADO.md](<PUBLICADO.md>) | atual |
 | [docs/continuation/publication_2026-09-10/REGISTROS.md](<REGISTROS.md>) | atual |
 | [docs/continuation/publication_2026-09-10/REPRODUZIR.md](<REPRODUZIR.md>) | atual |
 | [docs/continuation/publication_2026-09-10/RESULTADO.md](<RESULTADO.md>) | atual |

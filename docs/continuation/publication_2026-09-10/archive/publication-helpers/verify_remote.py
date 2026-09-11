@@ -1,6 +1,7 @@
 """Compare independently cloned Git objects and publication evidence after pull."""
 import hashlib
 import json
+import os
 import subprocess
 import sys
 from datetime import UTC, datetime
@@ -25,7 +26,11 @@ manifest=json.loads((repo/prefix/'evidence/manifest.json').read_text())
 checked=[]
 for relative,meta in manifest.items():
     path=clone/prefix/relative
-    content=path.read_bytes()
+    # Windows may hide a valid Git checkout path longer than MAX_PATH.
+    # Read the explicitly scoped absolute path through its extended form.
+    assert path.resolve().is_relative_to(clone.resolve())
+    readable=Path("\\\\?\\"+str(path.resolve())) if os.name=='nt' else path
+    content=readable.read_bytes()
     # Only archive/evidence files are byte-preserving; ordinary text is normalized by Git.
     if relative.startswith(('archive/','evidence/')):
         assert len(content)==meta['bytes'] and hashlib.sha256(content).hexdigest()==meta['sha256'],relative

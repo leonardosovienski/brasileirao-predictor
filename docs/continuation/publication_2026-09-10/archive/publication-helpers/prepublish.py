@@ -38,8 +38,12 @@ while pos < len(raw):
     pos = start+int(size)+1
     if kind == 'blob':
         check(names[oid], content, oid)
-for item in git('ls-files', '--others', '--exclude-standard', '-z').decode().split('\0'):
+working = set(git('ls-files', '--others', '--exclude-standard', '-z').decode().split('\0'))
+working.update(git('diff', '--name-only', 'HEAD', '-z').decode().split('\0'))
+for item in sorted(working):
     if item:
+        if item in {'config.yaml', '.env'} or item.startswith(('data/', 'research/', 'reports/')):
+            raise ValueError('protected_working_content_not_authorized_for_publication_scan')
         check(item, (repo/item).read_bytes(), None)
 receipt = {'at_utc': datetime.now(timezone.utc).isoformat(), 'base':base, 'head':git('rev-parse','HEAD').decode().strip(), 'scope':'new historical Git blobs plus untracked publication files; pattern scan does not prove absence of every secret', 'findings':findings, 'files':inventory}
 (root/'prepublish-scan.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')

@@ -1,0 +1,10 @@
+{
+  "recorded_at": "2026-09-11T02:12:40.420365+00:00",
+  "initial_check": "FileNotFoundError on an existing 272-character Windows checkout path",
+  "git_file_missing": false,
+  "normal_path_exists": false,
+  "extended_path_exists": true,
+  "proof_bytes": 280926,
+  "correction": "verify_remote.py uses the scoped extended Windows path for file reads; clone config core.longpaths=true; no source/evidence bytes moved or rewritten",
+  "after": "227 evidence files byte-verified; complete index and tree equality; both checkouts clean"
+}

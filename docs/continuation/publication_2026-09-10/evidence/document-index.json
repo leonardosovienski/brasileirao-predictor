@@ -1,7 +1,7 @@
 {
-  "at": "2026-09-11T02:00:16.002246+00:00",
-  "markdown_files": 247,
-  "indexed_excluding_self": 247,
+  "at": "2026-09-11T02:13:52.232113+00:00",
+  "markdown_files": 249,
+  "indexed_excluding_self": 248,
   "files": [
     {
       "path": "HANDOFF.md",
@@ -581,6 +581,10 @@
     },
     {
       "path": "docs/continuation/publication_2026-09-10/PROXIMO_PROMPT.md",
+      "classification": "atual"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/PUBLICADO.md",
       "classification": "atual"
     },
     {
