@@ -35,6 +35,7 @@ jobs:
         run: |
           uv run ruff check tools/publication_validation
           uv run ruff format --check tools/publication_validation
+          uv run pyright tools/publication_validation
       - name: Build distribution and verify wheel installation
         run: |
           uv build

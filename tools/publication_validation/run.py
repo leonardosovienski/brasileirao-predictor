@@ -6,6 +6,7 @@ import socket
 import sys
 import threading
 from pathlib import Path
+from typing import Never
 from urllib.parse import urlsplit
 from urllib.request import url2pathname
 
@@ -61,7 +62,7 @@ def main():
     def location(value):
         return Path(os.fsdecode(value)).resolve() if isinstance(value, str | bytes | os.PathLike) else None
 
-    def deny(event, reason):
+    def deny(event, reason) -> Never:
         blocked.append({"event": event, "reason": reason})
         raise PermissionError(reason)
 
@@ -122,7 +123,7 @@ def main():
     # Its tests may replace this with synthetic transport, never real network.
     import curl_cffi.requests
 
-    def blocked_native_http(*args, **kwargs):
+    def blocked_native_http(*args, **kwargs) -> Never:
         deny("curl_cffi.request", "native_network_forbidden")
 
     curl_cffi.requests.Session.request = blocked_native_http
