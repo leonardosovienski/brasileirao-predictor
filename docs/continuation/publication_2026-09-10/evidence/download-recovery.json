@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-11T02:13:50.368490+00:00",
+  "recorded_at": "2026-09-11T02:19:48.571473+00:00",
   "first_transport": "GitHub API authenticated with credential already used for git; values never logged",
   "failure": "ConnectionResetError 10054 while downloading the first large Python artifact; small artifacts and job logs preserved",
   "recovery": "GitHub connector materialized the two large ZIPs; downloaded using its returned file references; SHA256 and sizes match official artifact metadata; ZIP CRC verified",

@@ -1,7 +1,7 @@
 {
-  "at_utc": "2026-09-11T02:13:58.814051+00:00",
+  "at_utc": "2026-09-11T02:19:56.992428+00:00",
   "base": "ac22c56c3318623e07a722f34d44dc6cd877ea37",
-  "head": "23245635553d8be91244c48534120f0fb4eacfc1",
+  "head": "fae6e0eba2ac8bc736a336ad8359e5a25263b8f0",
   "scope": "new historical Git blobs plus untracked publication files; pattern scan does not prove absence of every secret",
   "findings": [],
   "files": [
@@ -43,9 +43,9 @@
     },
     {
       "path": "README.md",
-      "git_object": "3880e85e08b7044e6bf0e89f6b685162a8d975b7",
-      "bytes": 1633,
-      "sha256": "616e6962b411e2093506f0d1250a35309649b93eec7ee8a79c8f86733b092af4"
+      "git_object": "78d643fe75cbe8ebe86cabc45a11d9cca75511c8",
+      "bytes": 1732,
+      "sha256": "6a56bfeb95a1bab68b77d6a4a8f769941408ba12cf4da6b55963e0c57e4f67df"
     },
     {
       "path": "brasileirao_predictor/backtest_event.py",
@@ -2431,15 +2431,21 @@
     },
     {
       "path": "docs/continuation/publication_2026-09-10/INDICE_TODOS_MDS.md",
-      "git_object": "1b9baf044afaa904c341fbfba37a2b8e9211d296",
-      "bytes": 38620,
-      "sha256": "4d9a215031c03accf0c187bd0690b7d1f69bd58f96a9ebb3de8ff51ab1ee3e1e"
+      "git_object": "3fa3874eb9cb458348be144cc31145513346b649",
+      "bytes": 38704,
+      "sha256": "477ea802913fd0d9cd1469d2f75ab20f0478f40b9f6d82d96f44269be8732085"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/PROXIMO_PROMPT.md",
       "git_object": "67064db0e8aeba6216ab7156c220d707ec5ddae3",
       "bytes": 2971,
       "sha256": "ec0800a96612e9828ddd6c72f47559b263f344899e22c7f09616b6d80a7f6e02"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/PUBLICADO.md",
+      "git_object": "02914f266811c9ded31a5dadb07d9bfcf2049810",
+      "bytes": 2780,
+      "sha256": "eb39281792c5ff329c39a3c7bf05c29b451676bf95543edd1ba0cdd749849e1a"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/REGISTROS.json",
@@ -2461,9 +2467,9 @@
     },
     {
       "path": "docs/continuation/publication_2026-09-10/RESULTADO.md",
-      "git_object": "a26b1a24001960157ef18979ab36c439b592eb2b",
-      "bytes": 3388,
-      "sha256": "a39a3d045d31231c561f45421edc18c0bb0a4abdba54ac54c87cc8836564c289"
+      "git_object": "bf027295159fc201eb715546c87815a69bfce28a",
+      "bytes": 3454,
+      "sha256": "e18c72d996621385a2ac63e09ed7ef253e6906645c61ca526551c0963869676e"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/REVISAO_DO_CHAT.md",
@@ -2497,15 +2503,15 @@
     },
     {
       "path": "docs/continuation/publication_2026-09-10/archive/chat/publication-continuation-receipt.json",
-      "git_object": "c8821eca5a1828f2c6eeb7c0909716210cc8eb4b",
-      "bytes": 373,
-      "sha256": "61db4bb593eea5c1269cc8fc5a54f5dcf989174a3a3e06be68105f981bf0e619"
+      "git_object": "866267a27a42bc0d6bb613fb5752f2405c964a25",
+      "bytes": 374,
+      "sha256": "069ca49fc9b44f020129163767e12f04ea8809b30cafbb9690e88dc8b3fda24d"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/archive/chat/publication-continuation.json",
-      "git_object": "731a640f0d444f77c48a7d67c1929cd6f92c5050",
-      "bytes": 3119,
-      "sha256": "d96f648c2b6d629899dfe5ad7bd8b6b25f5c8b47a31198e0d04448a6b5ba20ee"
+      "git_object": "4605d55bc76dada52ad8ce9c48b4b28a7f71171c",
+      "bytes": 4913,
+      "sha256": "1bfd32aff4a7bee117a074b8b6037268984575214a81ab9c618ef3d702c02730"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/archive/local-helpers/artifact-integrity-2026-09-10/backup_delivery.py",
@@ -3066,6 +3072,12 @@
       "sha256": "ae33fe8e15e5705cba6a25152cb0a6a975e8562010e527dc7326f43ca913ad16"
     },
     {
+      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/backup_final.py",
+      "git_object": "dbd4fbe1ab77843d0043d1587777fab3afc4f6d5",
+      "bytes": 5196,
+      "sha256": "f0b3a0f332bb852a25f6b5b306916b747660d1db997e4bc194f977ce2f4fbf65"
+    },
+    {
       "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/build_final_package.py",
       "git_object": "0c16258eb20644ade405b2660ce180cd81765522",
       "bytes": 3263,
@@ -3076,6 +3088,12 @@
       "git_object": "064eabba52c75425156719f7a5813f19efe3f4ad",
       "bytes": 3235,
       "sha256": "932618135f8bf1212ed506c5a9646126e452f6b2ee2f08f5fc599144b8267cb3"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/close_publication.py",
+      "git_object": "b341c743ac6d0818de75ac742b377761d6994b48",
+      "bytes": 5770,
+      "sha256": "92b06cd18e43fb546cc77a235aa7a0b55ff69fb1df97decdbedab94e0920be4d"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/collect_ci.py",
@@ -3109,15 +3127,21 @@
     },
     {
       "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/prepublish.py",
-      "git_object": "e88be2a5374f41860e667c9a9b3ffebf470a3563",
-      "bytes": 2460,
-      "sha256": "cc09b185591caeeb39635fd141bcf26f6fbcff684f71eb6eb28373782d07d047"
+      "git_object": "462c4548c771db99bc036474b0889723b68f101c",
+      "bytes": 2762,
+      "sha256": "d63be265ad47686b529033865370e06ba4e316c2c96309f4e18c1201dc010299"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/seal_docs.py",
+      "git_object": "e3895ea32b6ab50b367f7008e8d223688364db80",
+      "bytes": 1412,
+      "sha256": "6073cc6ae399f8f83f5256af342a566ed8eafd37be1207a699f316171c0fa4c3"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/verify_remote.py",
-      "git_object": "cbb07c4e52b4c8d7c31779902d7cbe68c2112454",
-      "bytes": 2637,
-      "sha256": "c9717379fdcdc536c0387060ad565c2695c3421d9c3002bdc9fb83f6371e6bc9"
+      "git_object": "b6df58311f4edd0328eb614a952aae5dd928a0e4",
+      "bytes": 2930,
+      "sha256": "6c780bf69d3e59fb8a8a9850ab8760e33adec2a69081f402d283b777a7d8836b"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/archive-manifest.json",
@@ -3283,21 +3307,21 @@
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/document-index.json",
-      "git_object": "77b736822ed16891b55a127ffc2500a2e2230aff",
-      "bytes": 38159,
-      "sha256": "59b6d1f8ef7e4f9b341b7d572e332919371ba441cb40e3e425c6b641bff772d0"
+      "git_object": "64871497e061aae6a05a07f5344f614e43e4e4a3",
+      "bytes": 38275,
+      "sha256": "ff8488640832a718bef858441043c9bc6a2cd64738f30d2d21a773e5accfd801"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/document-links.json",
-      "git_object": "c2e00410d158c097e2c6c922fe87891c7922add2",
+      "git_object": "87dfded1948f976f60be104e3a7d71820adaebd0",
       "bytes": 180,
-      "sha256": "2814c6fb20e7744ee3a6020621377984deedfac6b8551e4a07096685c5bc19d2"
+      "sha256": "c8a70a81f69b19515d559fb2931e6446058a6f43f0ecc46cb568e698f6954010"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/download-recovery.json",
-      "git_object": "81a5f26c479a3b4720a60a1d35d9c8808dde8a9c",
+      "git_object": "24413b0f30d909bc25e5310fea8de4a6c192fad7",
       "bytes": 536,
-      "sha256": "8074a2d59f0bf5a12db1df376e609b02836cf143436a093218aff7246aab2099"
+      "sha256": "44b768017ad249e6545cf5caed4acd210f977de344f880b28ffb5fcbb5a7ddfd"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/folder-index.json",
@@ -3313,15 +3337,57 @@
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/manifest.json",
-      "git_object": "f8929bb31cf40d1ac5a459f35da36fe0948297a0",
-      "bytes": 41676,
-      "sha256": "8c707ddc09ddb87b14d52b0387bfdb54af1d722d83fcb30af3c84d4c45f1648b"
+      "git_object": "9b729333be215a62f1ffe836875b40e53a1d41a5",
+      "bytes": 43816,
+      "sha256": "02142c1c923848e99723eb7747e421323ae325452060e257e6ffa2f3b955e11d"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/install.log",
+      "git_object": "1ff2bf201f986c678a8d0684fbecfbc235913c2d",
+      "bytes": 280,
+      "sha256": "73de6f9b1b4c70834ca25a095750fa55ec9d15f2edcf5aa74823b36450055088"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/kernel-health-unconfigured.log",
+      "git_object": "265fda148046eb46d8753884765b46d8b92a0e23",
+      "bytes": 150,
+      "sha256": "645a7ec7dcf3c6457e15243c723f8da4d1a8a4a7462ba62748f1cec79722a872"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/kernel-help.log",
+      "git_object": "4da6f34296d3882e1e3d3810c9a0b22f626bf6f2",
+      "bytes": 216,
+      "sha256": "5ea44a22c34dcf36ca468e49a1838eb9fce17df4b58bee73a8754a2238b5b0d5"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/receipt.json",
+      "git_object": "c7b75e7fd5bdaf208f02ae7756c2bd2aff7acf4a",
+      "bytes": 13831,
+      "sha256": "563ea083e6344fa3bf1ecfd53ac291c7f3e56967ace761cfec3c05316a0dbeb9"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/sdist.log",
+      "git_object": "5288b7096cda62da042e6563c81d8d39d630ea9c",
+      "bytes": 148,
+      "sha256": "377e8e2ec5089d466f12d3990b406cc0508238d44ed883305014c4788f6c5381"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/venv.log",
+      "git_object": "30937663157e19c0698653e9a53471341e4ff06c",
+      "bytes": 185,
+      "sha256": "9b8aeb1bfd4b110dbca806605383ec731cd28b2623a7c787157d0270ae90b840"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/wheel-from-sdist.log",
+      "git_object": "7d8e189b1b036b6ff8eae6d126a042f82687139c",
+      "bytes": 112,
+      "sha256": "7342a86cc47d1146aefb311f1e29491f6cf5fde40dffd539d4aac75b4d741d66"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/prepublish-scan.json",
-      "git_object": "fb9d212b1c638cb09d9a1387d04751345a0b365b",
-      "bytes": 273452,
-      "sha256": "115439368f40d526058e42c711bbdd3e5b18450a240b30df55c512ebdd41d8c6"
+      "git_object": "caa38e308ff013351a33ac05cfb065ef43fe4da2",
+      "bytes": 266685,
+      "sha256": "62755dc4e7b906685b9fe5dfadae04f7888e57f2f7f24dd307036ee5087e9497"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/publication-plan.json",
@@ -3372,10 +3438,28 @@
       "sha256": "99a76c265a9a4196e52ebb4195a84e1d945c5abf50afaba0b511a2724d20d6be"
     },
     {
+      "path": "docs/continuation/publication_2026-09-10/evidence/remote-first.json",
+      "git_object": "5c32de96f81ec99e8942fd0e86c9e9a8692bffa0",
+      "bytes": 16574,
+      "sha256": "15ff93a21f853def93a8f723d3ebbc985e4c330d2e8ad75f59a69976b2a03fc4"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/sdist-document-check.json",
+      "git_object": "750cd28d53c73541915500b8ef5db4edcf9a59e6",
+      "bytes": 313,
+      "sha256": "d761f1358ef2606ca16dc8d657141d9def0697fe2273a311e9194e545e879b65"
+    },
+    {
       "path": "docs/continuation/publication_2026-09-10/evidence/source-metadata.json",
       "git_object": "ae209a94ae1582e69a832c53feae45209c183bc1",
       "bytes": 1077,
       "sha256": "11c6c2570b2e86816bd17b0d3cdec40965dde5b366004ffb4d711432ad878f0d"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/windows-path-verification.json",
+      "git_object": "5477aaf817e8f0fe5a6e8b8cc7ba089aa2851dcc",
+      "bytes": 545,
+      "sha256": "d00dfc0397a89b81517424039e12b963175641828dbb65fd0dbb5418f55a2a07"
     },
     {
       "path": "docs/continuation/reconciliation_2026-09-10/HISTORICO.md",
@@ -4344,18 +4428,6 @@
       "sha256": "f2a58e02a64e629965216398e758b019650ba8ea9cae3916cd7a43d3a8e85f4b"
     },
     {
-      "path": "docs/continuation/resolution_2026-09-10/evidence/package-final-02/kernel-health-unconfigured.log",
-      "git_object": "265fda148046eb46d8753884765b46d8b92a0e23",
-      "bytes": 150,
-      "sha256": "645a7ec7dcf3c6457e15243c723f8da4d1a8a4a7462ba62748f1cec79722a872"
-    },
-    {
-      "path": "docs/continuation/resolution_2026-09-10/evidence/package-final-02/kernel-help.log",
-      "git_object": "4da6f34296d3882e1e3d3810c9a0b22f626bf6f2",
-      "bytes": 216,
-      "sha256": "5ea44a22c34dcf36ca468e49a1838eb9fce17df4b58bee73a8754a2238b5b0d5"
-    },
-    {
       "path": "docs/continuation/resolution_2026-09-10/evidence/package-final-02/module-location.log",
       "git_object": "d24e5825063aa0bab37dd10c4af91c542d51a2ce",
       "bytes": 130,
@@ -4390,12 +4462,6 @@
       "git_object": "9f7c26be676459509bd75cfe634babea14ef5ed8",
       "bytes": 626,
       "sha256": "0c52da4c7e2d14d02a1fba9c606b62f8f53e3f3a88e6089a3b9d31217fb09572"
-    },
-    {
-      "path": "docs/continuation/resolution_2026-09-10/evidence/package-final-02/wheel-from-sdist.log",
-      "git_object": "7d8e189b1b036b6ff8eae6d126a042f82687139c",
-      "bytes": 112,
-      "sha256": "7342a86cc47d1146aefb311f1e29491f6cf5fde40dffd539d4aac75b4d741d66"
     },
     {
       "path": "docs/continuation/resolution_2026-09-10/evidence/package-final-cli/health-invalid-endpoint-no-network.log",
@@ -5226,6 +5292,78 @@
       "sha256": "90a9997848ff28c439a275079e3c1aad981016f8174adf4d2d0e96bd13ecb307"
     },
     {
+      "path": "README.md",
+      "git_object": "3880e85e08b7044e6bf0e89f6b685162a8d975b7",
+      "bytes": 1633,
+      "sha256": "616e6962b411e2093506f0d1250a35309649b93eec7ee8a79c8f86733b092af4"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/INDICE_TODOS_MDS.md",
+      "git_object": "1b9baf044afaa904c341fbfba37a2b8e9211d296",
+      "bytes": 38620,
+      "sha256": "4d9a215031c03accf0c187bd0690b7d1f69bd58f96a9ebb3de8ff51ab1ee3e1e"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/RESULTADO.md",
+      "git_object": "a26b1a24001960157ef18979ab36c439b592eb2b",
+      "bytes": 3388,
+      "sha256": "a39a3d045d31231c561f45421edc18c0bb0a4abdba54ac54c87cc8836564c289"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/chat/publication-continuation-receipt.json",
+      "git_object": "c8821eca5a1828f2c6eeb7c0909716210cc8eb4b",
+      "bytes": 373,
+      "sha256": "61db4bb593eea5c1269cc8fc5a54f5dcf989174a3a3e06be68105f981bf0e619"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/chat/publication-continuation.json",
+      "git_object": "731a640f0d444f77c48a7d67c1929cd6f92c5050",
+      "bytes": 3119,
+      "sha256": "d96f648c2b6d629899dfe5ad7bd8b6b25f5c8b47a31198e0d04448a6b5ba20ee"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/prepublish.py",
+      "git_object": "e88be2a5374f41860e667c9a9b3ffebf470a3563",
+      "bytes": 2460,
+      "sha256": "cc09b185591caeeb39635fd141bcf26f6fbcff684f71eb6eb28373782d07d047"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/verify_remote.py",
+      "git_object": "cbb07c4e52b4c8d7c31779902d7cbe68c2112454",
+      "bytes": 2637,
+      "sha256": "c9717379fdcdc536c0387060ad565c2695c3421d9c3002bdc9fb83f6371e6bc9"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/document-index.json",
+      "git_object": "77b736822ed16891b55a127ffc2500a2e2230aff",
+      "bytes": 38159,
+      "sha256": "59b6d1f8ef7e4f9b341b7d572e332919371ba441cb40e3e425c6b641bff772d0"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/document-links.json",
+      "git_object": "c2e00410d158c097e2c6c922fe87891c7922add2",
+      "bytes": 180,
+      "sha256": "2814c6fb20e7744ee3a6020621377984deedfac6b8551e4a07096685c5bc19d2"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/download-recovery.json",
+      "git_object": "81a5f26c479a3b4720a60a1d35d9c8808dde8a9c",
+      "bytes": 536,
+      "sha256": "8074a2d59f0bf5a12db1df376e609b02836cf143436a093218aff7246aab2099"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/manifest.json",
+      "git_object": "f8929bb31cf40d1ac5a459f35da36fe0948297a0",
+      "bytes": 41676,
+      "sha256": "8c707ddc09ddb87b14d52b0387bfdb54af1d722d83fcb30af3c84d4c45f1648b"
+    },
+    {
+      "path": "docs/continuation/publication_2026-09-10/evidence/prepublish-scan.json",
+      "git_object": "fb9d212b1c638cb09d9a1387d04751345a0b365b",
+      "bytes": 273452,
+      "sha256": "115439368f40d526058e42c711bbdd3e5b18450a240b30df55c512ebdd41d8c6"
+    },
+    {
       "path": "HANDOFF.md",
       "git_object": "5bfdfd1f2df04c6a197bdaed73bc3696df45ec1f",
       "bytes": 1002,
@@ -5712,148 +5850,70 @@
       "sha256": "e6043c649951046566817485ff82805ba56165d4ee16a3e7b2a423a9770b61b0"
     },
     {
-      "path": "README.md",
-      "git_object": null,
-      "bytes": 1732,
-      "sha256": "6a56bfeb95a1bab68b77d6a4a8f769941408ba12cf4da6b55963e0c57e4f67df"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/INDICE_TODOS_MDS.md",
-      "git_object": null,
-      "bytes": 38704,
-      "sha256": "477ea802913fd0d9cd1469d2f75ab20f0478f40b9f6d82d96f44269be8732085"
-    },
-    {
       "path": "docs/continuation/publication_2026-09-10/PUBLICADO.md",
       "git_object": null,
-      "bytes": 2780,
-      "sha256": "eb39281792c5ff329c39a3c7bf05c29b451676bf95543edd1ba0cdd749849e1a"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/RESULTADO.md",
-      "git_object": null,
-      "bytes": 3454,
-      "sha256": "e18c72d996621385a2ac63e09ed7ef253e6906645c61ca526551c0963869676e"
+      "bytes": 3430,
+      "sha256": "9a80b3d5dbcdf0ff670fa2ac3eb0aa8666be5070fbf1d6d59f430621c7c6fc78"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/archive/chat/publication-continuation-receipt.json",
       "git_object": null,
       "bytes": 374,
-      "sha256": "069ca49fc9b44f020129163767e12f04ea8809b30cafbb9690e88dc8b3fda24d"
+      "sha256": "98dfeeefaf3519b49b6ac0f112f8128dfa216e1140fb66770c0eec957e45b265"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/archive/chat/publication-continuation.json",
       "git_object": null,
-      "bytes": 4913,
-      "sha256": "1bfd32aff4a7bee117a074b8b6037268984575214a81ab9c618ef3d702c02730"
+      "bytes": 6212,
+      "sha256": "f77ce2ecf2bcf8e2591e19d1261b1052c28ff92063796dd44be2316f44169620"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/backup_final.py",
       "git_object": null,
-      "bytes": 5196,
-      "sha256": "f0b3a0f332bb852a25f6b5b306916b747660d1db997e4bc194f977ce2f4fbf65"
+      "bytes": 5248,
+      "sha256": "c8da22706e5a83e1b05e57f05ea4d7f5cd3eea033a0a4649f8b5a75171fc5ea4"
     },
     {
-      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/close_publication.py",
+      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/check_source_archive.py",
       "git_object": null,
-      "bytes": 5770,
-      "sha256": "92b06cd18e43fb546cc77a235aa7a0b55ff69fb1df97decdbedab94e0920be4d"
+      "bytes": 1845,
+      "sha256": "31e1be6806572210db47ad651b9234927a23f8da4f47214a6e125e533fc6ef87"
     },
     {
-      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/prepublish.py",
+      "path": "docs/continuation/publication_2026-09-10/evidence/archive-eol-check.json",
       "git_object": null,
-      "bytes": 2762,
-      "sha256": "d63be265ad47686b529033865370e06ba4e316c2c96309f4e18c1201dc010299"
+      "bytes": 382,
+      "sha256": "0ba78bd81b3e88c155dbaafaf456231fa1ce4dc6a5d67d5f1d5e459cfa537786"
     },
     {
-      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/seal_docs.py",
+      "path": "docs/continuation/publication_2026-09-10/evidence/archive-eol-final.json",
       "git_object": null,
-      "bytes": 1412,
-      "sha256": "6073cc6ae399f8f83f5256af342a566ed8eafd37be1207a699f316171c0fa4c3"
+      "bytes": 243,
+      "sha256": "d1e85ccdc9e24f085495842a385eb9f686b1880cc4ff1b6df58a11dc3750f1cf"
     },
     {
-      "path": "docs/continuation/publication_2026-09-10/archive/publication-helpers/verify_remote.py",
+      "path": "docs/continuation/publication_2026-09-10/evidence/archive-full-eol.json",
       "git_object": null,
-      "bytes": 2930,
-      "sha256": "6c780bf69d3e59fb8a8a9850ab8760e33adec2a69081f402d283b777a7d8836b"
+      "bytes": 323,
+      "sha256": "e07c75aef2bda2d84e8063360f7ccba14edccc4b6e4207a6be999457767298d6"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/document-index.json",
       "git_object": null,
       "bytes": 38275,
-      "sha256": "ff8488640832a718bef858441043c9bc6a2cd64738f30d2d21a773e5accfd801"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/document-links.json",
-      "git_object": null,
-      "bytes": 180,
-      "sha256": "c8a70a81f69b19515d559fb2931e6446058a6f43f0ecc46cb568e698f6954010"
+      "sha256": "06755b10ac514908e1c97af1dc0a0faaaa654b6aeb1bee799b6eec64ee5d699d"
     },
     {
       "path": "docs/continuation/publication_2026-09-10/evidence/download-recovery.json",
       "git_object": null,
       "bytes": 536,
-      "sha256": "44b768017ad249e6545cf5caed4acd210f977de344f880b28ffb5fcbb5a7ddfd"
+      "sha256": "7d94347ac0393d5fa3f2b73ce068216a7b36f016ca27a43f0cbd235239aa9dc4"
     },
     {
-      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/install.log",
+      "path": "docs/continuation/publication_2026-09-10/evidence/web-and-folder.json",
       "git_object": null,
-      "bytes": 280,
-      "sha256": "73de6f9b1b4c70834ca25a095750fa55ec9d15f2edcf5aa74823b36450055088"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/kernel-health-unconfigured.log",
-      "git_object": null,
-      "bytes": 150,
-      "sha256": "645a7ec7dcf3c6457e15243c723f8da4d1a8a4a7462ba62748f1cec79722a872"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/kernel-help.log",
-      "git_object": null,
-      "bytes": 216,
-      "sha256": "5ea44a22c34dcf36ca468e49a1838eb9fce17df4b58bee73a8754a2238b5b0d5"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/receipt.json",
-      "git_object": null,
-      "bytes": 13831,
-      "sha256": "563ea083e6344fa3bf1ecfd53ac291c7f3e56967ace761cfec3c05316a0dbeb9"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/sdist.log",
-      "git_object": null,
-      "bytes": 148,
-      "sha256": "377e8e2ec5089d466f12d3990b406cc0508238d44ed883305014c4788f6c5381"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/venv.log",
-      "git_object": null,
-      "bytes": 185,
-      "sha256": "9b8aeb1bfd4b110dbca806605383ec731cd28b2623a7c787157d0270ae90b840"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/package-final/wheel-from-sdist.log",
-      "git_object": null,
-      "bytes": 112,
-      "sha256": "7342a86cc47d1146aefb311f1e29491f6cf5fde40dffd539d4aac75b4d741d66"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/remote-first.json",
-      "git_object": null,
-      "bytes": 16574,
-      "sha256": "15ff93a21f853def93a8f723d3ebbc985e4c330d2e8ad75f59a69976b2a03fc4"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/sdist-document-check.json",
-      "git_object": null,
-      "bytes": 313,
-      "sha256": "d761f1358ef2606ca16dc8d657141d9def0697fe2273a311e9194e545e879b65"
-    },
-    {
-      "path": "docs/continuation/publication_2026-09-10/evidence/windows-path-verification.json",
-      "git_object": null,
-      "bytes": 545,
-      "sha256": "d00dfc0397a89b81517424039e12b963175641828dbb65fd0dbb5418f55a2a07"
+      "bytes": 255,
+      "sha256": "a8eb6fff30a3aa71f496aebd2bbe9bada7a59d3776a3e030ec3476134c898223"
     }
   ]
 }

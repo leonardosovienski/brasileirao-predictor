@@ -1,0 +1,8 @@
+{
+  "head": "fae6e0eba2ac8bc736a336ad8359e5a25263b8f0",
+  "blob_count": 2362,
+  "mismatches": [],
+  "crc_valid": true,
+  "sha256": "2928ad0eb2fe80b97514b595284c191bf74ad688f05b44083149f3d6faa2e064",
+  "fix": "core.autocrlf=false AND core.eol=lf, only for this export; archive/evidence -text attributes preserved"
+}

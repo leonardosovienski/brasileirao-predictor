@@ -13,3 +13,7 @@ No Windows, clone em caminho curto ou use `git -c core.longpaths=true clone ...`
 O histórico visível, mandatos, decisões, códigos, roteiros, resultados e próximas ações estão persistidos. A continuidade não precisa desta conversa, **desde que C:/BRASILEIRAO seja preservada**. Dados privados/operacionais e raws sem redistribuição estabelecida permanecem locais, com seus mapas e backups anteriores; GitHub público não substitui esse acervo. Não apagar a tarefa proprietária da automação DC junto com este chat.
 
 Os sete requisitos externos/protegidos continuam no registro, a CI global não foi executada e lucro executável não foi demonstrado. A publicação recuperável não altera essas conclusões nem autoriza capital.
+
+A conferência completa do ZIP revelou conversão de LF para CRLF no Windows. O exportador agora usa core.autocrlf=false e core.eol=lf somente na criação desse arquivo, preservando os atributos -text das evidências. O teste corrigido comparou os 2.362 blobs da versão fae6e0e sem divergências; as tentativas anteriores permanecem em work/publication-2026-09-10/backup-attempt-01. A regra é aplicada novamente ao ZIP definitivo.
+
+A organização da pasta foi conferida pelo sistema de arquivos. A abertura do Explorador foi recusada pela revisão automática de permissões (blocked by policy); não foi declarada inspeção visual da janela.

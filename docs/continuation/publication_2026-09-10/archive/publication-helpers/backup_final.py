@@ -13,7 +13,7 @@ repo=base/'brasileirao-predictor'
 clone=root/'remote-clone'
 bundle=base/'BACKUPS/brasileirao-predictor-PUB-20260910.bundle'
 archive=base/'ENTREGAS/BRASILEIRAO_PUB_20260910_entrega.zip'
-restored=root/'restored-bundle.git'
+restored=root/'restored-bundle-final.git'
 for target in (bundle,archive,restored):
     assert target.resolve().is_relative_to(base.resolve()) and not target.exists(),str(target)
 def git(path,*args):
@@ -26,7 +26,7 @@ git(repo,'bundle','verify',str(bundle))
 subprocess.run(['git','clone','--bare',str(bundle),str(restored)],capture_output=True,check=True)
 assert git(restored,'rev-parse','refs/heads/main')==head
 git(restored,'fsck','--full')
-git(repo,'archive','--format=zip','--prefix=brasileirao-predictor/','--output',str(archive),'HEAD')
+git(repo,'-c','core.autocrlf=false','-c','core.eol=lf','archive','--format=zip','--prefix=brasileirao-predictor/','--output',str(archive),'HEAD')
 listing=subprocess.check_output(['git','-C',str(repo),'ls-tree','-r','-z','HEAD'])
 entries=[]
 for row in listing.split(b'\0'):

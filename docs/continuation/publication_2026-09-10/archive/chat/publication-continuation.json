@@ -64,5 +64,23 @@
     "role": "assistant",
     "phase": "commentary",
     "text": "O pacote também passou: foi gerado a partir do clone do GitHub, os 231 módulos conferem e os 248 Markdown daquela versão estão no pacote de fontes. Estou publicando os recibos finais e fazendo a última restauração do backup. O próximo prompt e os limites dos dados locais já estão documentados.\n"
+  },
+  {
+    "timestamp": "2026-09-11T02:15:32.954Z",
+    "role": "assistant",
+    "phase": "commentary",
+    "text": "O `main` final está publicado no commit `fae6e0e`, e o `pull` já o trouxe para a cópia independente. A conferência final e a restauração do backup estão terminando.\n\nA revisão automática de permissões bloqueou a abertura do Explorador de Arquivos, retornando “blocked by policy”. Vou concluir a conferência da pasta pelo sistema de arquivos e abrir a documentação no painel do Codex.\n"
+  },
+  {
+    "timestamp": "2026-09-11T02:16:43.793Z",
+    "role": "assistant",
+    "phase": "commentary",
+    "text": "A restauração do bundle Git passou. Na conferência do ZIP, apareceu uma diferença causada pela conversão automática de quebras de linha do Windows. Estou corrigindo a geração do arquivo para que ele preserve exatamente os bytes versionados; a tentativa anterior ficará guardada para auditoria.\n"
+  },
+  {
+    "timestamp": "2026-09-11T02:19:25.354Z",
+    "role": "assistant",
+    "phase": "commentary",
+    "text": "A correção do ZIP passou na comparação completa: os 2.362 arquivos versionados conferem byte a byte, sem divergências. Vou registrar essa correção no GitHub e gerar o backup definitivo com a mesma regra de exportação.\n"
   }
 ]
