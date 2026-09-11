@@ -1,5 +1,9 @@
 # Handoff — PUB-20260910
 
+## Entrega arquitetural publicada — 11/09/2026
+
+Versão **0.2.0** publicada: [release e artefatos](https://github.com/leonardosovienski/brasileirao-predictor/releases/tag/v0.2.0). [CI de engenharia aprovada](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34630041002) para a fonte `4dbd35332344000d116ea2ac56903c77e73f9aa2`. Consulte [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md) para comportamento, migração e limites. Este registro atualiza a entrega de software; estados científicos e registros datados abaixo conservam sua autoridade e contexto histórico.
+
 ## Exportação local de relatos para Cain — 11/09/2026
 
 [tools/export_cain_status.py](tools/export_cain_status.py) é um exportador stdlib
