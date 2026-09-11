@@ -32,6 +32,15 @@ class ExportChecks(unittest.TestCase):
             with patch.object(exporter.subprocess, "check_output", side_effect=git):
                 result = exporter.export(root, expected, base / "publication.json")
                 self.assertEqual(result["records"], 3)
+                stable = base / "stable.json"
+                stamp = "2026-09-11T00:00:00Z"
+                first = exporter.export(root, expected, stable, stamp)
+                self.assertEqual(first, exporter.export(root, expected, stable, stamp))
+                with patch.object(exporter.os, "link", side_effect=OSError("synthetic interruption")):
+                    with self.assertRaises(OSError):
+                        exporter.export(root, expected, base / "interrupted.json", stamp)
+                self.assertFalse((base / "interrupted.json").exists())
+                self.assertFalse(list(base.glob(".publication-*")))
                 with self.assertRaises(FileExistsError):
                     exporter.export(root, expected, base / "publication.json")
                 with self.assertRaises(ValueError):

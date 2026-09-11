@@ -12,8 +12,9 @@ from predictor_core.data.contracts import DataUnavailableError
 
 from brasileirao_predictor.data.bookmaker_stability import append_smoke, bookmaker_type, stability_report
 from brasileirao_predictor.data.the_odds_api_provider import ADAPTER_VERSION, SOURCE, TheOddsApiProvider
+from brasileirao_predictor.paths import project_root
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = project_root()
 LEDGER = ROOT / "data" / "odds_source_smokes.jsonl"
 
 

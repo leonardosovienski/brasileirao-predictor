@@ -88,3 +88,20 @@ class TeamAliases(CanonicalTeamResolver):
 
     def __init__(self, path: Path, canonical_teams_path: Path | None = None) -> None:
         super().__init__(path, canonical_teams_path or path.with_name("teams_brasileirao.json"))
+
+
+_ALIASES = {
+    "south korea": "korea republic",
+    "united states": "usa",
+    "ir iran": "iran",
+    "china pr": "china",
+    "czechia": "czech republic",
+    "cabo verde": "cape verde",
+    "côte d'ivoire": "ivory coast",
+    "bosnia & herzegovina": "bosnia and herzegovina",  # Sofascore usa '&', base usa 'and'
+}
+
+
+def legacy_canonical_name(name):
+    n = name.lower().strip()
+    return _ALIASES.get(n, n)

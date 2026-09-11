@@ -9,14 +9,17 @@ produção monta em mode=ro, não aceitaria uma tabela nova), auditável linha a
 e versionável. Destino: $PREDICTIONS_LOG_PATH ou data/predictions.jsonl.
 """
 
+import hashlib
 import json
 import os
 from datetime import UTC, datetime
 from pathlib import Path
 
+from .paths import project_root
+
 ENV_PATH = "PREDICTIONS_LOG_PATH"
 ENV_PERIOD_PATH = "PERIOD_LOG_PATH"
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = project_root()
 _DEFAULT = ROOT / "data" / "predictions.jsonl"
 _PERIOD_DEFAULT = ROOT / "data" / "period_predictions.jsonl"
 
@@ -41,6 +44,7 @@ def log_prediction(
     path=None,
     logged_at=None,
     market=None,
+    formal_context=None,
 ) -> dict:
     """Serializa UMA predição como uma linha JSONL — o PACOTE COMPLETO que o motor
     gera para o confronto. `pred` é o dict de model.predict_match. `market` (opcional)
@@ -113,6 +117,12 @@ def log_prediction(
                     "edge_under_vs_price": round((1.0 - p_over) - (1.0 / market["odds_under"]), 4),
                 }
             )
+    if formal_context is not None:
+        record["formal_context"] = formal_context
+        record["event_id"] = formal_context["event_id"]
+        record["prediction_id"] = hashlib.sha256(
+            json.dumps(record, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()
+        ).hexdigest()
     encoded = json.dumps(record, ensure_ascii=False, allow_nan=False)
     dest = _resolve(path)
     dest.parent.mkdir(parents=True, exist_ok=True)

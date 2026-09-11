@@ -12,11 +12,12 @@ import os
 from datetime import UTC, datetime
 from pathlib import Path
 
-from .predict import _canon  # reusa os aliases (South Korea/Korea Republic,
+from .identity import legacy_canonical_name as _canon
+from .paths import project_root
 
 # USA/United States, etc.) — não duplica a lista
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = project_root()
 PRED_PATH = ROOT / "data" / "predictions.jsonl"
 RESULTS_PATH = ROOT / "data" / "results.jsonl"
 ENV_RESULTS = "RESULTS_LOG_PATH"
@@ -39,22 +40,37 @@ STAT_KEYS = (
 )
 
 
-def _find_prediction(home, away, match_date=None, pred_path=None):
+def _find_prediction(home, away, match_date=None, pred_path=None, *, prediction_id=None):
     """Última predição congelada para o confronto (por nomes + data, se dada).
     Casa por CONJUNTO de times, não por ordem — em campo neutro (toda a Copa) a
     ordem casa/fora é arbitrária; exigir a mesma ordem faz o palpite existente
     "sumir" (falso negativo) se o resultado for registrado na ordem invertida."""
     p = Path(pred_path or PRED_PATH)
     if not p.exists():
+        if prediction_id is not None:
+            raise ValueError("prediction_id not found")
         return None
     target = frozenset((_canon(home), _canon(away)))
     hit = None
     for line in p.read_text(encoding="utf-8").splitlines():
         r = json.loads(line)
+        if prediction_id is not None:
+            if r.get("prediction_id") != prediction_id:
+                continue
+            if hit is not None:
+                raise ValueError("ambiguous duplicate prediction_id")
+            if frozenset((_canon(r["home"]), _canon(r["away"]))) != target:
+                raise ValueError("prediction_id belongs to different teams")
+            if match_date and r.get("match_date") != match_date:
+                raise ValueError("prediction_id belongs to a different date")
+            hit = r
+            continue
         if frozenset((_canon(r["home"]), _canon(r["away"]))) == target:
             if match_date and r.get("match_date") != match_date:
                 continue
             hit = r  # fica com a mais recente
+    if prediction_id is not None and hit is None:
+        raise ValueError("prediction_id not found")
     return hit
 
 
@@ -120,6 +136,7 @@ def record_result(
     path=None,
     pred_path=None,
     recorded_at=None,
+    prediction_id=None,
 ) -> dict:
     """Grava uma linha em results.jsonl: palpite + resultado + nota + stats crus.
     `stats` = dict com chaves de STAT_KEYS, cada valor [casa, fora]."""
@@ -129,7 +146,7 @@ def record_result(
         # digitação — sem isto a nota (winner/OU/BTTS) saía sem sentido e
         # entrava calada no results.jsonl (auditoria hostil 2026-07-18)
         raise ValueError(f"placar negativo não existe: {hs}x{as_} — erro de digitação")
-    pred = _find_prediction(home, away, match_date, pred_path)
+    pred = _find_prediction(home, away, match_date, pred_path, prediction_id=prediction_id)
     if pred is not None:
         pred = _orient(pred, home, away)
         # sem --date do operador, herda a data que o palpite congelou — antes
@@ -164,6 +181,9 @@ def record_result(
         },
         "grades": None if pred is None else grade(pred, hs, as_),
     }
+    if prediction_id is not None:
+        record["prediction_id"] = prediction_id
+        record["event_id"] = pred["event_id"]
     if pred is None:
         record["warning"] = "sem palpite congelado para este confronto (não avaliado)"
     dest = Path(path or os.environ.get(ENV_RESULTS) or RESULTS_PATH)
@@ -199,6 +219,7 @@ def main():
     ap.add_argument("home_score", type=int, nargs="?")
     ap.add_argument("away_score", type=int, nargs="?")
     ap.add_argument("--date", help="data do jogo (YYYY-MM-DD) p/ casar o palpite certo")
+    ap.add_argument("--prediction-id", help="identidade exata da previsão formal congelada")
     ap.add_argument(
         "--stats",
         help='JSON dos stats, cada valor [casa,fora] (ex: \'{"corners":[2,12],"yellow":[0,3]}\')',
@@ -215,7 +236,15 @@ def main():
     if None in (args.home, args.away, args.home_score, args.away_score):
         ap.error("informe: home away home_score away_score  (ou use --summary)")
     stats = json.loads(args.stats) if args.stats else None
-    rec = record_result(args.home, args.away, args.home_score, args.away_score, match_date=args.date, stats=stats)
+    rec = record_result(
+        args.home,
+        args.away,
+        args.home_score,
+        args.away_score,
+        match_date=args.date,
+        stats=stats,
+        prediction_id=args.prediction_id,
+    )
     if rec["grades"] is None:
         print("resultado gravado, mas SEM palpite congelado p/ este confronto (não avaliado)")
     else:

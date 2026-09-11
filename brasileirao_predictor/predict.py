@@ -1,10 +1,13 @@
 import argparse
+import json
 import sys
 from datetime import date
+from pathlib import Path
 
 from predictor_core.kernel.obs import emit_event
 
 from . import db, model
+from .identity import legacy_canonical_name as _canon
 from .ingest import ROOT, load_config
 
 _DOMAIN = "brasileirao"
@@ -50,18 +53,6 @@ def build(cfg):
     return conn, elo, (a, b, alpha, rho)
 
 
-_ALIASES = {
-    "south korea": "korea republic",
-    "united states": "usa",
-    "ir iran": "iran",
-    "china pr": "china",
-    "czechia": "czech republic",
-    "cabo verde": "cape verde",
-    "côte d'ivoire": "ivory coast",
-    "bosnia & herzegovina": "bosnia and herzegovina",  # Sofascore usa '&', base usa 'and'
-}
-
-
 def upcoming_fixtures(conn, limit: int, *, as_of: str | None = None):
     """Return only fixtures that have not yet reached their scheduled date.
 
@@ -77,11 +68,6 @@ def upcoming_fixtures(conn, limit: int, *, as_of: str | None = None):
            WHERE home_score IS NULL AND date >= ? ORDER BY date LIMIT ?""",
         (cutoff, limit),
     ).fetchall()
-
-
-def _canon(name):
-    n = name.lower().strip()
-    return _ALIASES.get(n, n)
 
 
 def _market_probs(conn, name_a, name_b, match_date=None):
@@ -101,6 +87,12 @@ def _market_probs(conn, name_a, name_b, match_date=None):
     p_* (Shin) ficam só como leitura da "probabilidade real" do mercado."""
     from datetime import date
 
+    target = None
+    if match_date:
+        try:
+            target = date.fromisoformat(str(match_date)[:10])
+        except ValueError as exc:
+            raise ValueError("invalid match_date") from exc
     try:
         rows = conn.execute(
             "SELECT date, home_team, away_team, odds_home, odds_draw, odds_away, "
@@ -110,12 +102,6 @@ def _market_probs(conn, name_a, name_b, match_date=None):
     except Exception:
         return None
     na, nb = _canon(name_a), _canon(name_b)
-    target = None
-    if match_date:
-        try:
-            target = date.fromisoformat(str(match_date)[:10])
-        except ValueError:
-            target = None  # data ilegível: cai no modo sem data
     # odd decimal REAL é finita e > 1.0 — a base tem linhas-placeholder do
     # Sofascore com 1X2 = 1.0/1.0/1.0 (mercado suspenso/voidado); passá-las
     # ao Shin fabricava p_home=p_draw=p_away=1/3 em silêncio (auditoria
@@ -194,6 +180,8 @@ def show(
     quiet=False,
     corners=False,
     cards=False,
+    formal_context=None,
+    identity_resolver=None,
 ):
     """quiet=True computa e registra a predição (log obrigatório) sem
     imprimir os blocos — usado por `--resumo` no modo lote, que só quer a
@@ -203,6 +191,13 @@ def show(
     corners/cards: injeta o bloco de eventos (SEM validação de CLV) mesmo
     fora do --full — pede odd de decisão rápida sem forçar o operador a
     engolir o resto do Nível 3 junto."""
+    formal = None
+    if formal_context is not None:
+        from .formal_prediction import prepare_context
+
+        if identity_resolver is None or match_date is None:
+            raise ValueError("formal prediction requires identity resolver and match_date")
+        formal = prepare_context(formal_context, name_a, name_b, match_date, identity_resolver)
     for t in (name_a, name_b):
         if t not in elo:
             sys.exit(f"time desconhecido: {t}")
@@ -211,14 +206,17 @@ def show(
     from .xg_model import maybe_blend
 
     r = maybe_blend(r, conn, cfg, name_a, name_b, neutral)
-    mk = _market_probs(conn, name_a, name_b, match_date=match_date) if conn is not None else None
+    if formal is not None:
+        mk = None if formal["quote"] is None else formal["quote"]["market"]
+    else:
+        mk = _market_probs(conn, name_a, name_b, match_date=match_date) if conn is not None else None
 
     # OBRIGATÓRIO: congela o PACOTE COMPLETO da predição no momento em que é feita
     # (append-only). Sem esse registro não existe auditoria/replay confiável.
     try:
         from .prediction_log import log_prediction
 
-        log_prediction(
+        logged = log_prediction(
             name_a,
             name_b,
             neutral,
@@ -228,6 +226,7 @@ def show(
             r,
             match_date=match_date,
             market=mk,
+            formal_context=formal,
         )
     except Exception as e:
         raise RuntimeError("prediction audit log persistence failed") from e
@@ -252,6 +251,9 @@ def show(
     from . import display
 
     data = display.from_prediction(name_a, name_b, elo, params, cfg, neutral, r, mk, match_date=match_date)
+    if formal is not None:
+        data["prediction_id"] = logged["prediction_id"]
+        data["event_id"] = logged["event_id"]
     if not quiet:
         display.render(data, level=level, as_json=as_json)
         if not as_json and conn is not None:
@@ -268,6 +270,10 @@ def main():
     ap = argparse.ArgumentParser(description="Preditor de partidas internacionais")
     ap.add_argument("teams", nargs="*", help="TIME_A TIME_B (em inglês, ex: Brazil)")
     ap.add_argument("--neutral", action="store_true", help="campo neutro")
+    ap.add_argument("--date", help="data UTC do jogo (YYYY-MM-DD)")
+    ap.add_argument("--formal-context", type=Path)
+    ap.add_argument("--team-aliases", type=Path)
+    ap.add_argument("--team-catalog", type=Path)
     ap.add_argument("--fixtures", type=int, metavar="N", help="prevê os próximos N fixtures da base")
     ap.add_argument("--rankings", type=int, metavar="N", help="top N do Elo")
     ap.add_argument(
@@ -304,6 +310,14 @@ def main():
         help="injeta cartões (SEM validação de CLV) sem precisar de --full",
     )
     args = ap.parse_args()
+    formal_context = resolver = None
+    if args.formal_context:
+        from .identity import CanonicalTeamResolver
+
+        if args.fixtures or args.rankings or not (args.date and args.team_aliases and args.team_catalog):
+            ap.error("formal context requires one match, --date, --team-aliases and --team-catalog")
+        formal_context = json.loads(args.formal_context.read_text(encoding="utf-8"))
+        resolver = CanonicalTeamResolver(args.team_aliases, args.team_catalog)
     level = 3 if args.full else 2 if args.stats else 1 if args.expand else 0
 
     cfg = load_config()
@@ -356,6 +370,9 @@ def main():
         cfg,
         args.neutral,
         conn,
+        match_date=args.date,
+        formal_context=formal_context,
+        identity_resolver=resolver,
         level=level,
         as_json=args.json,
         corners=args.corners,

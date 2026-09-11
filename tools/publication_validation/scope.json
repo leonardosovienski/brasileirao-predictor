@@ -37,6 +37,12 @@
     "tests/test_resolution_historical_import.py",
     "tests/test_resolution_live_settlement.py",
     "tests/test_settle_live_prediction.py",
-    "tools/publication_validation/guard_probes.py"
+    "tools/publication_validation/guard_probes.py",
+    "tests/test_formal_prediction.py",
+    "tests/test_prediction_protocol.py",
+    "tests/test_identity.py",
+    "tests/test_prediction_log.py",
+    "tests/test_operational_provenance.py",
+    "tests/test_sombra_runtime_paths.py"
   ]
 }

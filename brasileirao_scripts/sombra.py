@@ -42,7 +42,9 @@ import sys
 from datetime import UTC, datetime
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+from brasileirao_predictor.paths import project_root
+
+ROOT = project_root()
 sys.path.insert(0, str(ROOT))
 
 from predictor_core.contracts.registry import TrialRegistry  # noqa: E402

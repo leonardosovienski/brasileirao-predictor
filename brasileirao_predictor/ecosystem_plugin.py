@@ -15,7 +15,7 @@ class BrasileiraoPredictorPlugin:
         return {
             "domain": self.domain,
             "status": "WAITING",
-            "version": "0.1.0",
+            "version": "0.2.0",
             "details": {
                 "mode": "shadow",
                 "adapter": "plugin-v1",

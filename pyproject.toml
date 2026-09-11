@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "brasileirao-predictor"
-version = "0.1.0"
+version = "0.2.0"
 description = "Scientific and operational prediction services for Brasileirão Série A"
 readme = "README.md"
 requires-python = ">=3.13,<3.15"
@@ -39,8 +39,8 @@ brasileirao = "brasileirao_predictor.ecosystem_plugin:PLUGIN"
 packages = ["brasileirao_predictor", "brasileirao_scripts"]
 
 [tool.uv.sources]
-predictor-core = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.0/predictor_core-3.2.0-py3-none-any.whl" }
-predictor-ops = { url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.1.0/predictor_ops-4.1.0-py3-none-any.whl" }
+predictor-core = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.1/predictor_core-3.2.1-py3-none-any.whl" }
+predictor-ops = { url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.0/predictor_ops-4.2.0-py3-none-any.whl" }
 
 [tool.ruff]
 target-version = "py313"

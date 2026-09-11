@@ -5,11 +5,11 @@ from __future__ import annotations
 import argparse
 import json
 import sqlite3
-from pathlib import Path
 
 from brasileirao_predictor.data.collection_only_archive import collect
+from brasileirao_predictor.paths import project_root
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = project_root()
 
 
 def main() -> int:

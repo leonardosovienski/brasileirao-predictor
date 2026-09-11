@@ -38,3 +38,8 @@ O histórico visível, os mandatos e os roteiros locais estão arquivados na ent
 Registro: 52 itens validados e sete bloqueados; Compose Linux fechado dentro de RCA-P09, CI global ainda não executada por incluir avaliações protegidas. Inventário base: 399 arquivos com leitura semântica e 59 protegidos restritos a contratos/metadados. H14/H15/H9/A1 permanecem preservados. Trabalho local em C:/BRASILEIRAO, solo. Não confundir testes sintéticos com oferta aceita ou autorização financeira.
 
 [Publicação e recuperação conferidas](docs/continuation/publication_2026-09-10/PUBLICADO.md).
+
+
+## Implementação arquitetural local — 2026-09-11
+
+As alterações candidatas, seus limites, verificações e rollback estão em [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md). Esta implementação local não publica releases, não atualiza automaticamente os consumidores e não altera os vereditos científicos históricos.

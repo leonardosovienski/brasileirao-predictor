@@ -32,3 +32,8 @@ Comece por [resultado](docs/continuation/publication_2026-09-10/RESULTADO.md), [
 345 testes Python por versão, 160 .NET e Compose Linux passaram no workflow delimitado. CI global não executada; seus critérios foram preservados. Não executar avaliadores protegidos ou pytest global. Publicação e recuperação são atestadas por seus próprios recibos, não apenas por esta afirmação documental.
 
 Mantenha C:/BRASILEIRAO: código em brasileirao-predictor; acervo em DADOS_PRESERVADOS; roteiros/evidências em work; pacotes em ENTREGAS; bundles em BACKUPS; recibos em AUDITORIA. Sete requisitos externos/protegidos continuam no registro. Capital false; lucro executável não demonstrado. A automação DC pertence a outra tarefa identificada no próximo prompt; não a excluir junto com esta conversa.
+
+
+## Implementação arquitetural local — 2026-09-11
+
+As alterações candidatas, seus limites, verificações e rollback estão em [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md). Esta implementação local não publica releases, não atualiza automaticamente os consumidores e não altera os vereditos científicos históricos.

@@ -13,11 +13,12 @@ from predictor_core.kernel.obs import emit_event
 from . import db
 from .net import retry
 from .obs import get_logger, setup_logging
+from .paths import project_root
 
 log = get_logger()
 _DOMAIN = "brasileirao"
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = project_root()
 
 
 def load_config() -> dict:
