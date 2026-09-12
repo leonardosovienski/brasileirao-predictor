@@ -20,3 +20,8 @@ As etapas posteriores de E2E instalado, restore offline, testes dos produtores e
 Foram inventariados 275 Markdown versionados antes da atualização, com hashes e verificação de leitura UTF-8. Inventário local: `C:\BRASILEIRAO\work\documentation-sync-20260912`.
 Inventário não é recertificação semântica de cada relatório histórico nem prova de backup dos arquivos ignorados pelo Git. Relatórios datados, fontes, bancos, manifests e snapshots congelados conservam seus bytes e contexto. Outros worktrees são checkouts de outras branches; não devem receber cópia cega desta branch.
 Leia os documentos de entrada deste checkout e seus protocolos antes de executar trabalho de domínio. Para verificar publicação após novos commits: `git status --short`, `git rev-parse HEAD` e `git ls-remote origin refs/heads/publication-validation-architecture-20260911`; os dois SHAs devem coincidir e o status deve estar vazio.
+
+
+## Encerramento e retomada da sessão
+
+Registro consolidado: [decisões, acertos, erros, pendências e próximo prompt](https://github.com/leonardosovienski/cain/blob/feature/research-bundle-v1/docs/research/SESSION_HANDOFF_20260912.md). O gate Linux permanece reprovado. A conferência documental não foi uma revisão semântica integral dos relatórios históricos. Os dois skips conferidos no XML Linux 3.13 são testes exclusivos do launcher Windows; não incluem o teste obrigatório de symlink, que passou.
