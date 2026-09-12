@@ -1,5 +1,14 @@
 # Exportação ResearchBundleV1 — candidato local
 
+Estado corrente 12/09/2026: remediação local, perfil `local-research/2`.
+Origem e restrições são definidas pelo produtor. `exporter_revision` identifica
+evidence `exporter-provenance/1`, com hashes dos bytes efetivos do exportador,
+contratos e helper, versões e Python. CAIN exige aprovação administrativa do
+pacote exato antes da importação. O replay opcional continua retrospectivo,
+sem certificação PIT/prediction/settlement. Recibos abaixo são históricos;
+evidência nova fica em `C:/BRASILEIRAO/work/bundle-remediation-20260912-real`.
+Sem push, release, instalação operacional ou execução de coorte protegida.
+
 Este incremento é aditivo ao exportador ResearchSnapshotV1, que permanece intacto.
 O produtor usa somente o pacote independente predictor-research-bundle 1.0.0 do Ecosystem;
 não importa CAIN nem executa o runtime científico. Instale o wheel compartilhado em ambiente
@@ -23,7 +32,7 @@ exportador não abre observações/coortes H14/H15/H9/A1 nem reavalia holdout.
 Testes: `python tools/test_export_cain_bundle.py`. E2E em
 C:/BRASILEIRAO/bundle-v1-final-e2e; logs em C:/BRASILEIRAO/work/bundle-installed-tests.log.
 
-Validação: 9 testes específicos com fixtures fictícias e fontes commitadas: determinismo,
+Validação: 10 testes específicos com fixtures fictícias e fontes commitadas: determinismo,
 UNKNOWN/null, leitura sem alteração, fonte inesperada/ausente/alterada, hash incorreto,
 destino existente/checkout, entrada malformada e credencial fictícia. Wheels e E2E foram
 exercitados separadamente; isso não é validação científica ou econômica.

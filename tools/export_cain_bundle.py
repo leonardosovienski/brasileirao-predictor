@@ -3,8 +3,8 @@
 import argparse
 from pathlib import Path
 
-from research_bundle import digest, loads
-from research_bundle.export import Builder, admitted_sources
+from research_bundle import canonical, digest, loads
+from research_bundle.export import Builder, admitted_sources, exporter_provenance
 
 SOURCE = "docs/EVIDENCE_REGISTRY.md"
 REPLAY = "reports/replay_round_2026_08_22.json"
@@ -12,7 +12,12 @@ REPLAY = "reports/replay_round_2026_08_22.json"
 
 def export(root, expected, destination, exported_at):
     revision, sources = admitted_sources(root, expected, {SOURCE, REPLAY})
-    builder = Builder("brasileirao", revision, "sha256:" + digest(Path(__file__).read_bytes()), expected, exported_at)
+    provenance = exporter_provenance({"export_cain_bundle.py": Path(__file__)})
+    builder = Builder(dict(domain="brasileirao", repository="https://github.com/leonardosovienski/brasileirao-predictor",
+                           publisher="brasileirao-local", stream="research-bundle", code_revision=revision,
+                           exporter_revision="sha256:" + digest(canonical(provenance)), inputs=expected),
+                      dict(policy="brasileirao-research-bundle/1", read=True, disclose=False, generate=False),
+                      exported_at, provenance=provenance)
     artifact = builder.resource(SOURCE, "producer:" + SOURCE, raw=sources[SOURCE], media_type="text/markdown")
     header, count = None, 0
     for line in sources[SOURCE].decode("utf-8").splitlines():

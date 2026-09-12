@@ -2,7 +2,7 @@
 
 ## Candidato local ResearchBundleV1
 
-[Exportador aditivo de claims/lineage](docs/RESEARCH_BUNDLE_V1.md), com nove testes
+[Exportador aditivo de claims/lineage](docs/RESEARCH_BUNDLE_V1.md), com dez testes
 e E2E de backup/restore. Prediction/settlement/PIT não foram fabricados nem reexecutados;
 coortes protegidas preservadas. Sem instalação operacional ou publicação nesta tarefa.
 
