@@ -28,3 +28,7 @@ Use Windows Git core.longpaths=true for clean checkout (archived evidence paths 
 Install CAIN at the pinned revision into a separate venv using its vendor wheels: `python -m pip install --find-links CAIN/vendor "CAIN[dev]"`. Then use that installed Python for `tools/integration_validation/run.py PRODUCER_CHECKOUT NEW_OUTPUT`. Output must be outside the producer checkout and under its parent. This creates isolated policy/DB/object stores and imports only the committed public evidence registry. Run each case into a new directory. No production credentials or LLM are needed.
 
 Local evidence root: C:/BRASILEIRAO/work/integration-main-20260912. It preserves commands, failed attempts, corrected harness boundary explanations, baseline and final results. Final publication/CI status must be recorded after checking the actual delivered SHA; the existence of this document is not an approval.
+
+## RPS technical gate renewal
+Executed both existing synthetic controls without real match data, at clean code 18d7ce212f7c659356019e72d21e8ee7f86fd989 under Core 3.2.1. Prior receipt preserved byte-for-byte in docs/history/attestations/trials-core-3.2.0-before-20260912.json. New receipt retains the existing pipeline fingerprint and control definitions, has a fresh seven-day validity, and does not change trials.json/trials.v2.json, hypotheses, predictions or economic decisions. No operational task was started. This restores the technical prerequisite; it is not authorization to run an experiment or production operation.
+

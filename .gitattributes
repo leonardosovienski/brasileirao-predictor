@@ -25,3 +25,5 @@ docs/continuation/implementation_2026-09-10/evidence/before-receipt-universe.xml
 docs/continuation/economic_search_2026-09-10/** -text whitespace=cr-at-eol
 brasileirao_predictor/research/price_strength/economic_search.py text eol=lf
 tests/test_economic_search.py text eol=lf
+
+docs/history/attestations/** -text
