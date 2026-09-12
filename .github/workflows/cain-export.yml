@@ -1,7 +1,9 @@
 name: Cain report exporter
 on:
   push:
-    branches: ["integration/cain-status-20260911"]
+    branches: [main, "publication-validation-*"]
+  pull_request:
+    branches: [main]
 permissions:
   contents: read
 jobs:
@@ -17,3 +19,24 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: python tools/test_export_cain_status.py
       - run: python -m py_compile tools/export_cain_status.py
+  documentary-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install the pinned consumer and its vendored contracts in an isolated environment
+        run: |
+          git clone --no-checkout https://github.com/leonardosovienski/cain.git "$RUNNER_TEMP/cain-source"
+          git -C "$RUNNER_TEMP/cain-source" checkout --detach 5ba4177a11b9312900e5035517aa5ef25d509859
+          python -m venv "$RUNNER_TEMP/cain-env"
+          "$RUNNER_TEMP/cain-env/bin/python" -m pip install --find-links "$RUNNER_TEMP/cain-source/vendor" "$RUNNER_TEMP/cain-source[dev]"
+      - name: Verify real documentary input through isolated CAIN CLI API and Historian
+        run: |
+          "$RUNNER_TEMP/cain-env/bin/python" tools/integration_validation/run.py "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE/../brasileirao-cain-case"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: brasileirao-cain-documentary-integration
+          path: ${{ github.workspace }}/../brasileirao-cain-case

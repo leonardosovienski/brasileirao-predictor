@@ -2,7 +2,7 @@ name: Scoped synthetic publication validation
 
 on:
   push:
-    branches: ['publication-validation-*']
+    branches: [main, 'publication-validation-*']
   workflow_dispatch:
 
 permissions:

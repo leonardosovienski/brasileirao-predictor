@@ -1,3 +1,5 @@
+> Consolidação BR-CAIN-MAIN-20260912: a referência canônica alvo é `main`. Estado, combinação CAIN/ecossistema, reprodução e limites em [INTEGRATION_MAIN_20260912.md](INTEGRATION_MAIN_20260912.md). As branches e resultados datados abaixo são histórico; não substituem a verificação do SHA entregue.
+
 # Exportação ResearchBundleV1 — candidato local
 
 <!-- DOC-SYNC-20260912 -->

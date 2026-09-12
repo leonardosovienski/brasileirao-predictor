@@ -1,3 +1,5 @@
+> Consolidação BR-CAIN-MAIN-20260912: a referência canônica alvo é `main`. Estado, combinação CAIN/ecossistema, reprodução e limites em [docs/INTEGRATION_MAIN_20260912.md](docs/INTEGRATION_MAIN_20260912.md). As branches e resultados datados abaixo são histórico; não substituem a verificação do SHA entregue.
+
 # Handoff — PUB-20260910
 
 <!-- DOC-SYNC-20260912 -->
@@ -33,7 +35,7 @@ canônica, importação/reimportação, consulta na interface, referências e re
 sem acesso ao produtor. É integração de relatos públicos selecionados, sem nova
 validação científica/econômica. O estado do runtime e os protocolos anteriores permanecem.
 Mudança restrita a ferramentas de intercâmbio; não altera pacote ou recibos R8/operacionais.
-Branch de continuidade deste incremento: `integration/cain-status-20260911`.
+Continuidade vigente deste exportador: `main`; a branch de integração original é histórica.
 
 
 Comece por [resultado](docs/continuation/publication_2026-09-10/RESULTADO.md), [retomada](docs/continuation/publication_2026-09-10/PROXIMO_PROMPT.md), [registro](docs/continuation/publication_2026-09-10/REGISTROS.json) e [revisão do chat](docs/continuation/publication_2026-09-10/REVISAO_DO_CHAT.md). O contexto visível e os dois mandatos integrais estão arquivados na mesma pasta; não é necessário depender da conversa para saber o que foi feito ou o que continua pendente.

@@ -1,3 +1,5 @@
+> Consolidação BR-CAIN-MAIN-20260912: a referência canônica alvo é `main`. Estado, combinação CAIN/ecossistema, reprodução e limites em [docs/INTEGRATION_MAIN_20260912.md](docs/INTEGRATION_MAIN_20260912.md). As branches e resultados datados abaixo são histórico; não substituem a verificação do SHA entregue.
+
 # brasileirao-predictor
 
 <!-- DOC-SYNC-20260912 -->
@@ -39,7 +41,7 @@ canônica, importação/reimportação, consulta na interface, referências e re
 sem acesso ao produtor. É integração de relatos públicos selecionados, sem nova
 validação científica/econômica. O estado do runtime e os protocolos anteriores permanecem.
 Mudança restrita a ferramentas de intercâmbio; não altera pacote ou recibos R8/operacionais.
-Branch de continuidade deste incremento: `integration/cain-status-20260911`.
+Continuidade vigente deste exportador: `main`; a branch de integração original é histórica.
 
 
 Pesquisa de capacidades **OSR-20260911-01 a 03** preservada: [retomada sem o chat, código offline, evidências e decisões](docs/open_source_research/README.md). Integração somente de pesquisa; nenhuma nova evidência preditiva/econômica ou ativação operacional.
