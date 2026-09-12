@@ -1,5 +1,11 @@
 # brasileirao-predictor
 
+## Candidato local ResearchBundleV1
+
+[Exportador aditivo de claims/lineage](docs/RESEARCH_BUNDLE_V1.md), com nove testes
+e E2E de backup/restore. Prediction/settlement/PIT não foram fabricados nem reexecutados;
+coortes protegidas preservadas. Sem instalação operacional ou publicação nesta tarefa.
+
 ## Entrega arquitetural publicada — 11/09/2026
 
 Versão **0.2.0** publicada: [release e artefatos](https://github.com/leonardosovienski/brasileirao-predictor/releases/tag/v0.2.0). [CI de engenharia aprovada](https://github.com/leonardosovienski/brasileirao-predictor/actions/runs/34630041002) para a fonte `4dbd35332344000d116ea2ac56903c77e73f9aa2`. Consulte [ARCHITECTURE_IMPLEMENTATION.md](ARCHITECTURE_IMPLEMENTATION.md) para comportamento, migração e limites. Este registro atualiza a entrega de software; estados científicos e registros datados abaixo conservam sua autoridade e contexto histórico.
