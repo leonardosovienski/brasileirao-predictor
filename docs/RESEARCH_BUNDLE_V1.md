@@ -1,5 +1,10 @@
 # Exportação ResearchBundleV1 — candidato local
 
+<!-- DOC-SYNC-20260912 -->
+> **Estado de publicação em 12/09/2026:** leia [a continuidade atual](../PUBLICATION_STATUS_20260912.md). Branch `publication-validation-architecture-20260911`. O código deste projeto foi publicado na branch indicada. O candidato CAIN Supply permanece sem aprovação de estabilização. Afirmações anteriores de “sem push” descrevem a etapa histórica anterior à autorização.
+<!-- /DOC-SYNC-20260912 -->
+
+
 Estado corrente 12/09/2026: remediação local, perfil `local-research/2`.
 Origem e restrições são definidas pelo produtor. `exporter_revision` identifica
 evidence `exporter-provenance/1`, com hashes dos bytes efetivos do exportador,
