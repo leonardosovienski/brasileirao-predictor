@@ -43,6 +43,11 @@
     "tests/test_identity.py",
     "tests/test_prediction_log.py",
     "tests/test_operational_provenance.py",
-    "tests/test_sombra_runtime_paths.py"
+    "tests/test_sombra_runtime_paths.py",
+    "tests/test_settle.py",
+    "tests/test_settlement_input_integrity.py",
+    "tests/test_ci_dependency_pins.py",
+    "tests/test_completion_pit_contracts.py",
+    "tests/test_market_probs_date.py"
   ]
 }

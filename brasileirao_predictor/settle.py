@@ -90,9 +90,24 @@ def _orient(pred, home, away):
     return swapped
 
 
+def _score(value):
+    """A goal count cannot be a boolean, fraction or non-finite number."""
+    if isinstance(value, bool):
+        raise ValueError("placar deve ser um inteiro não negativo")
+    try:
+        result = int(value)
+    except (ValueError, TypeError, OverflowError) as exc:
+        raise ValueError("placar deve ser um inteiro não negativo") from exc
+    if not isinstance(value, str) and value != result:
+        raise ValueError("placar deve ser um inteiro não negativo")
+    if result < 0:
+        raise ValueError("placar negativo não existe")
+    return result
+
+
 def grade(pred, home_score, away_score):
     """Nota do palpite vs placar real. Puro/testável. Devolve dict de mercados."""
-    hs, as_ = int(home_score), int(away_score)
+    hs, as_ = _score(home_score), _score(away_score)
     res = "home" if hs > as_ else ("away" if as_ > hs else "draw")
     total = hs + as_
     ph, pd, pa = pred["p_home"], pred["p_draw"], pred["p_away"]
@@ -140,12 +155,7 @@ def record_result(
 ) -> dict:
     """Grava uma linha em results.jsonl: palpite + resultado + nota + stats crus.
     `stats` = dict com chaves de STAT_KEYS, cada valor [casa, fora]."""
-    hs, as_ = int(home_score), int(away_score)
-    if hs < 0 or as_ < 0:
-        # mesmo guarda do bet_log.settle_bet: placar negativo é erro de
-        # digitação — sem isto a nota (winner/OU/BTTS) saía sem sentido e
-        # entrava calada no results.jsonl (auditoria hostil 2026-07-18)
-        raise ValueError(f"placar negativo não existe: {hs}x{as_} — erro de digitação")
+    hs, as_ = _score(home_score), _score(away_score)
     pred = _find_prediction(home, away, match_date, pred_path, prediction_id=prediction_id)
     if pred is not None:
         pred = _orient(pred, home, away)
@@ -182,6 +192,8 @@ def record_result(
         "grades": None if pred is None else grade(pred, hs, as_),
     }
     if prediction_id is not None:
+        if pred is None:
+            raise ValueError("prediction_id not found")
         record["prediction_id"] = prediction_id
         record["event_id"] = pred["event_id"]
     if pred is None:

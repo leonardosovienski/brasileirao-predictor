@@ -6,7 +6,13 @@ from datetime import UTC, datetime
 import pytest
 
 from brasileirao_predictor.data.bitemporal_store import BitemporalObservation, append, as_known_at, connect
-from brasileirao_predictor.data.pit_backfill import cluster_bootstrap_mean, evaluation_view, quality_gate
+from brasileirao_predictor.data.pit_backfill import (
+    cluster_bootstrap_mean,
+    connect_curated,
+    curate_match,
+    evaluation_view,
+    quality_gate,
+)
 from brasileirao_predictor.market_pricer import over_under
 
 
@@ -44,12 +50,27 @@ def test_legacy_schema_is_refused_without_modifying_its_bytes(tmp_path):
     assert hashlib.sha256(path.read_bytes()).hexdigest() == before
 
 
-def test_sql_decision_uses_utc_not_lexical_offset():
-    conn = sqlite3.connect(":memory:")
-    conn.execute("CREATE TABLE curated_matches(kickoff_at TEXT, ingested_at TEXT, canonical_match_id TEXT)")
-    conn.execute("INSERT INTO curated_matches VALUES ('2020-01-01T13:00:00+00:00','2020-01-01T10:00:00+00:00','x')")
-    assert len(evaluation_view(conn, predicted_at="2020-01-01T09:00:00-03:00")) == 1
-    conn.close()
+def test_sql_decision_uses_utc_not_lexical_offset(tmp_path):
+    # Use the versioned producer schema; the old three-column fixture omitted
+    # the source identity required for revision-safe selection.
+    with connect_curated(tmp_path / "curated.db") as conn:
+        curate_match(
+            conn,
+            {
+                "source": "synthetic",
+                "source_match_id": "x",
+                "kickoff_at": "2020-01-01T13:00:00+00:00",
+                "home_team": "A",
+                "away_team": "B",
+            },
+            aliases={},
+            known={"A", "B"},
+            batch_id="synthetic",
+            ingested_at="2020-01-01T10:00:00+00:00",
+        )
+        assert len(evaluation_view(conn, predicted_at="2020-01-01T09:00:00-03:00")) == 1
+        assert evaluation_view(conn, predicted_at="2020-01-01T09:59:59+00:00") == []
+        assert evaluation_view(conn, predicted_at="2020-01-01T13:00:00+00:00") == []
 
 
 def test_club_concentration_uses_club_appearances_denominator():

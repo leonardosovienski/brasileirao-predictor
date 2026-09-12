@@ -59,9 +59,10 @@ def test_orientacao_preservada(conn):
     assert mk["odds_home"] == 3.80 and mk["odds_away"] == 2.00
 
 
-def test_data_ilegivel_nao_trava(conn):
-    mk = _market_probs(conn, "France", "Morocco", match_date="quarta-feira")
-    assert mk is not None and mk["odds_home"] == 1.60
+def test_data_ilegivel_nao_seleciona_outro_jogo(conn):
+    # A specified but invalid date cannot fall back to a different event.
+    with pytest.raises(ValueError, match="invalid match_date"):
+        _market_probs(conn, "France", "Morocco", match_date="quarta-feira")
 
 
 def test_confronto_inexistente(conn):
