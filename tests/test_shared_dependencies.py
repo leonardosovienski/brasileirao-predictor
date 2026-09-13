@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_shared_dependencies_load_from_site_packages() -> None:
     assert importlib.metadata.version("predictor-core") == "3.2.1"
-    assert importlib.metadata.version("predictor-ops") == "4.2.0"
+    assert importlib.metadata.version("predictor-ops") == "4.2.1"
     assert "site-packages" in str(predictor_core.__file__)
     assert "site-packages" in str(predictor_ops.__file__)
 
@@ -30,7 +30,7 @@ def test_shared_wheel_hashes_are_pinned() -> None:
     records = (ROOT / "constraints" / "shared-wheels.sha256").read_text(encoding="utf-8")
     # Published 3.2.1 / 4.2.0 assets, independently checked by uv's locked install.
     assert "10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3" in records
-    assert "a6108ee1c6fe9c14752766a435109f9b6bcf98102ee178330512efbcac984000" in records
+    assert "da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e" in records
 
 
 def test_python_images_verify_shared_wheels_before_install() -> None:

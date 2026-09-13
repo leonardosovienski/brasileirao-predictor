@@ -1,3 +1,5 @@
+> **Ops dependency update:** source/CI pins now use published Ops 4.2.1 (SHA256 da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e). The installed real sombra_diaria --check entrypoint and repeat execution passed with synthetic inputs. The independent passive launcher and operational installations remain unchanged. No domain code, scientific protocol or consumer release changed. Evidence: predictor-ops docs/stabilization-20260912/REPORT.md.
+
 > **Entrega concluída em main:** runtime validado `abdd965c98c228d73ae416944eb7531bed9ab197`; 3 workflows/12 jobs aprovados. Integração documental, backups restaurados e branches antigas reconciliadas. Veja [o registro de aceite](docs/INTEGRATION_MAIN_20260912.md) e [o registro no ecossistema](https://github.com/leonardosovienski/ecosystem-predictor/blob/main/BRASILEIRAO_INTEGRATION_20260912.md).
 
 # Handoff — PUB-20260910
