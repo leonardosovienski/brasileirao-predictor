@@ -1,6 +1,6 @@
-> Consolidação BR-CAIN-MAIN-20260912: a referência canônica alvo é `main`. Estado, combinação CAIN/ecossistema, reprodução e limites em [docs/INTEGRATION_MAIN_20260912.md](docs/INTEGRATION_MAIN_20260912.md). As branches e resultados datados abaixo são histórico; não substituem a verificação do SHA entregue.
+> **Entrega concluída em main:** runtime validado `abdd965c98c228d73ae416944eb7531bed9ab197`; 3 workflows/12 jobs aprovados. Integração documental, backups restaurados e branches antigas reconciliadas. Veja [o registro de aceite](docs/INTEGRATION_MAIN_20260912.md) e [o registro no ecossistema](https://github.com/leonardosovienski/ecosystem-predictor/blob/main/BRASILEIRAO_INTEGRATION_20260912.md).
 
-# Estado de publicação e continuidade — Brasileirao
+# Registro histórico de publicação — Brasileirao
 
 Conferência documental de 12/09/2026. Este registro complementa os protocolos científicos e substitui apenas afirmações anteriores de que o candidato ainda não teve commit/push.
 

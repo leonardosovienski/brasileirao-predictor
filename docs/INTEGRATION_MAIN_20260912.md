@@ -32,3 +32,11 @@ Local evidence root: C:/BRASILEIRAO/work/integration-main-20260912. It preserves
 ## RPS technical gate renewal
 Executed both existing synthetic controls without real match data, at clean code 18d7ce212f7c659356019e72d21e8ee7f86fd989 under Core 3.2.1. Prior receipt preserved byte-for-byte in docs/history/attestations/trials-core-3.2.0-before-20260912.json. New receipt retains the existing pipeline fingerprint and control definitions, has a fresh seven-day validity, and does not change trials.json/trials.v2.json, hypotheses, predictions or economic decisions. No operational task was started. This restores the technical prerequisite; it is not authorization to run an experiment or production operation.
 
+
+## Completed acceptance and publication
+
+The canonical main was delivered at abdd965c98c228d73ae416944eb7531bed9ab197. All three workflows (34726769988, 34726770019, 34726770025) and 12 jobs succeeded. The real documentary scenario was repeated at that published SHA with PASS; original bytes, three claims, CLI/API content and offline recovery were verified. Both obsolete branches were deleted locally/remotely using expected-SHA transactions after backup restoration. Only main remained in the canonical checkout and remote at 2026-09-13T00:11:00Z.
+
+Local report and 134-entry evidence archive: C:/BRASILEIRAO/ENTREGAS/integration-main-20260912. Backup: C:/BRASILEIRAO/BACKUPS/integration-main-20260912. Later documentation commits do not replace the runtime acceptance SHA or extend validation to newer CAIN versions.
+
+The ecosystem contract revision a9f6594 is now an ancestor of its main, observed at 73111a1d13adfa09dd4928cae3b75ae28e4ea7e6. The original pinned combination above remains the provenance of the executed case. Current cross-project continuity: [Brasileirão integration record](https://github.com/leonardosovienski/ecosystem-predictor/blob/main/BRASILEIRAO_INTEGRATION_20260912.md).
