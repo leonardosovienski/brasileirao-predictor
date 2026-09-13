@@ -28,7 +28,7 @@ def test_distribution_requires_core_with_strict_deflation_api() -> None:
 
 def test_shared_wheel_hashes_are_pinned() -> None:
     records = (ROOT / "constraints" / "shared-wheels.sha256").read_text(encoding="utf-8")
-    # Published 3.2.1 / 4.2.0 assets, independently checked by uv's locked install.
+    # Published 3.2.1 / 4.2.1 assets, independently checked by uv's locked install.
     assert "10ef42f34ace8bb2df5f83ff7de2ceec79b035a25ea0a690e8942bd60d2fb4e3" in records
     assert "da4fa540703879669caba919521ec7d3c33734b5d57781122823df8817346f0e" in records
 
