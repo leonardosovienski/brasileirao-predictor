@@ -45,7 +45,7 @@ jobs:
           uv pip install --python "$RUNNER_TEMP/installed/bin/python" --no-deps dist/*.whl
           test -f "$RUNNER_TEMP/installed/lib/python${{ matrix.python-version }}/site-packages/brasileirao_predictor/kernel_cli.py"
           "$RUNNER_TEMP/installed/bin/python" -I tools/publication_validation/installed_shadow.py "$RUNNER_TEMP/installed-shadow"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: python-validation-${{ matrix.python-version }}
@@ -104,7 +104,7 @@ jobs:
           export LINEUP_E2E_REDIS_URL=redis://127.0.0.1:26380/13
           export LINEUP_E2E_REDIS_RUN_ID="$LINEUP_TEST_REDIS_RUN_ID"
           dotnet test dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --configuration Release --no-restore --collect:"XPlat Code Coverage" --results-directory artifacts/dotnet-coverage
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: dotnet-validation
@@ -182,7 +182,7 @@ jobs:
         run: docker compose logs --no-color > compose-validation.log
       - if: always()
         run: docker compose down --volumes
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: compose-validation

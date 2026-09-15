@@ -13,8 +13,8 @@ jobs:
       matrix:
         python: ["3.12", "3.13", "3.14"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
       - run: python tools/test_export_cain_status.py
@@ -22,8 +22,8 @@ jobs:
   documentary-integration:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
       - name: Install the pinned consumer and its vendored contracts in an isolated environment
@@ -37,7 +37,7 @@ jobs:
           case_output="$(dirname "$GITHUB_WORKSPACE")/brasileirao-cain-case"
           echo "CAIN_CASE_OUTPUT=$case_output" >> "$GITHUB_ENV"
           "$RUNNER_TEMP/cain-env/bin/python" tools/integration_validation/run.py "$GITHUB_WORKSPACE" "$case_output"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: brasileirao-cain-documentary-integration
