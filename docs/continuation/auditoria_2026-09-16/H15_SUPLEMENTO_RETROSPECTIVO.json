@@ -1,0 +1,168 @@
+{
+  "classification": "RETROSPECTIVE_RECONSTRUCTION_NOT_ORIGINAL_FORECAST",
+  "original_sha256": "f3337e0567c53ac3af15b2e8ef3113470a5c7e854e3b69f269418fa38230a46f",
+  "outcomes_used": false,
+  "original_code_identity_proven": false,
+  "prospective_eligibility_restored": false,
+  "model_source_sha256": "5b974eab0027275b829c3adfe41125fbad6ff4e0055578d7191167d5d65c4f2e",
+  "configuration_candidates": [
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor\\config.yaml",
+      "sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009",
+      "config_hash": "e1198098bbc0f16f",
+      "home_adv": 100.0
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\work\\retomada_backup\\config.yaml",
+      "sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009",
+      "config_hash": "e1198098bbc0f16f",
+      "home_adv": 100.0
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\tarefa\\work\\integration-repo\\config.yaml",
+      "sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009",
+      "config_hash": "e1198098bbc0f16f",
+      "home_adv": 100.0
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\tarefa\\work\\pending_closure\\before\\config.yaml",
+      "sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009",
+      "config_hash": "e1198098bbc0f16f",
+      "home_adv": 100.0
+    }
+  ],
+  "state_candidates": [
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor\\data\\research\\h15_state_control_refit100.json",
+      "sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+      "arm": "control_refit100"
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor\\data\\research\\h15_state_treatment_refit10.json",
+      "sha256": "dfe34043d80cdcb1bd7b925aa2e7aa5738f2755138aee69d3f543420210555bf",
+      "arm": "treatment_refit10"
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\work\\retomada_backup\\data\\research\\h15_state_control_refit100.json",
+      "sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+      "arm": "control_refit100"
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor-sessoes\\2026-09-07\\work\\retomada_backup\\data\\research\\h15_state_treatment_refit10.json",
+      "sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+      "arm": "treatment_refit10"
+    }
+  ],
+  "records": [
+    {
+      "event_id": 15235455,
+      "predicted_at": "2026-09-04T19:01:09+00:00",
+      "arms": {
+        "control_refit100": {
+          "status": "UNRECOVERED",
+          "p_over_2_5": null,
+          "matching_provenance": []
+        },
+        "treatment_refit10": {
+          "status": "UNRECOVERED",
+          "p_over_2_5": null,
+          "matching_provenance": []
+        }
+      }
+    },
+    {
+      "event_id": 15235459,
+      "predicted_at": "2026-09-04T21:46:15+00:00",
+      "arms": {
+        "control_refit100": {
+          "status": "UNRECOVERED",
+          "p_over_2_5": null,
+          "matching_provenance": []
+        },
+        "treatment_refit10": {
+          "status": "UNRECOVERED",
+          "p_over_2_5": null,
+          "matching_provenance": []
+        }
+      }
+    },
+    {
+      "event_id": 15235465,
+      "predicted_at": "2026-09-07T18:33:32+00:00",
+      "arms": {
+        "control_refit100": {
+          "status": "RECONSTRUCTED_RETROSPECTIVE",
+          "p_over_2_5": 0.4442837268151394,
+          "matching_provenance": [
+            {
+              "p_over_2_5": 0.4442837268151394,
+              "state_sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4442837268151394,
+              "state_sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4442837268151394,
+              "state_sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4442837268151394,
+              "state_sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4442837268151394,
+              "state_sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4442837268151394,
+              "state_sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4442837268151394,
+              "state_sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4442837268151394,
+              "state_sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            }
+          ]
+        },
+        "treatment_refit10": {
+          "status": "RECONSTRUCTED_RETROSPECTIVE",
+          "p_over_2_5": 0.4434805808726347,
+          "matching_provenance": [
+            {
+              "p_over_2_5": 0.4434805808726347,
+              "state_sha256": "dfe34043d80cdcb1bd7b925aa2e7aa5738f2755138aee69d3f543420210555bf",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4434805808726347,
+              "state_sha256": "dfe34043d80cdcb1bd7b925aa2e7aa5738f2755138aee69d3f543420210555bf",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4434805808726347,
+              "state_sha256": "dfe34043d80cdcb1bd7b925aa2e7aa5738f2755138aee69d3f543420210555bf",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            },
+            {
+              "p_over_2_5": 0.4434805808726347,
+              "state_sha256": "dfe34043d80cdcb1bd7b925aa2e7aa5738f2755138aee69d3f543420210555bf",
+              "config_sha256": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

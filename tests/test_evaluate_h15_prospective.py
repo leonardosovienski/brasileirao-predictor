@@ -12,7 +12,18 @@ MIN_N = 21
 
 def _trials_json(path: Path, min_n: int = MIN_N) -> None:
     path.write_text(
-        json.dumps([{"name": job.TRIAL, "params": {"min_n_avaliacao": min_n}}]),
+        json.dumps(
+            [
+                {
+                    "name": job.TRIAL,
+                    "params": {
+                        "min_n_avaliacao": min_n,
+                        "primary_metric": "rps",
+                        "guardrails": list(job.GUARDRAIL_METRICS),
+                    },
+                }
+            ]
+        ),
         encoding="utf-8",
     )
 

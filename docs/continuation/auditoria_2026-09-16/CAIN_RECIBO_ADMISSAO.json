@@ -1,0 +1,493 @@
+{
+  "admissions": [
+    {
+      "at": "2026-09-16T00:20:40.796423+00:00",
+      "status": "ADMITTED_AND_VERIFIED",
+      "database": "C:\\CAIN\\dados\\research.db",
+      "user": "leo",
+      "collection": "brasileirao",
+      "receipts": [
+        {
+          "receipt_id": "b55574ad2f5f487c9c80b5f70335c5f4",
+          "publication_id": "64fdc74a95e395dfc94020c6551e0ec8219b756393d68a60aab97827a594b4c8",
+          "status": "admitted",
+          "records": 30
+        },
+        {
+          "receipt_id": "f2ded66c5df04c4a96320e8c21c2642e",
+          "publication_id": "76b747d8ab20ade3d04ee8a2a28f545d4ab6dba07e62e3ebb12d093ab44dfb29",
+          "status": "admitted",
+          "records": 26
+        }
+      ],
+      "new_records": 56,
+      "checks": [
+        {
+          "id": "BR-AUDIT-RESUMO",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-01",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-02",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-03",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-04",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-05",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-06",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-07",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-08",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-09",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-10",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-11",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-12",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-13",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-14",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-15",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-16",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-17",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-18",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-19",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-20",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-21",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-22",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-23",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-24",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-25",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-26",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-27",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-28",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-TRIAL-29",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-CLAIM-BR-MARKET-001",
+          "status": "literal_claim_table",
+          "fields_verified": 11
+        },
+        {
+          "id": "BR-AUDIT-CLAIM-BR-MARKET-002",
+          "status": "literal_claim_table",
+          "fields_verified": 11
+        },
+        {
+          "id": "BR-AUDIT-CLAIM-BR-MARKET-003",
+          "status": "literal_claim_table",
+          "fields_verified": 11
+        },
+        {
+          "id": "BR-AUDIT-H11-IDENTIDADE",
+          "status": "literal_claim_table",
+          "fields_verified": 5
+        },
+        {
+          "id": "BR-AUDIT-H14-15235455-serving_v2",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H14-15235455-climatology",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H14-15235459-serving_v2",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H14-15235459-climatology",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H14-15235465-serving_v2",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H14-15235465-climatology",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H15-15235455-control_refit100",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H15-15235455-treatment_refit10",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H15-15235459-control_refit100",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H15-15235459-treatment_refit10",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H15-15235465-control_refit100",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-H15-15235465-treatment_refit10",
+          "status": "literal_claim_table",
+          "fields_verified": 13
+        },
+        {
+          "id": "BR-AUDIT-PROTOCOLO-V2",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-EXP001-COVERAGE-IDENTITY-ASSESSMENT",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-EXP001-FEATURE-PIT-AUDIT",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-EXP001-READINESS-DECISION",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-FALTA-H14-OU25",
+          "status": "literal_claim_table",
+          "fields_verified": 6
+        },
+        {
+          "id": "BR-AUDIT-FALTA-H15-OU25",
+          "status": "literal_claim_table",
+          "fields_verified": 6
+        },
+        {
+          "id": "BR-AUDIT-FALTA-EXP001-PILOT",
+          "status": "literal_claim_table",
+          "fields_verified": 6
+        },
+        {
+          "id": "BR-AUDIT-FALTA-EXP001-COVERAGE",
+          "status": "literal_claim_table",
+          "fields_verified": 6
+        },
+        {
+          "id": "BR-AUDIT-FALTA-INTEGRATED-XG-V2",
+          "status": "literal_claim_table",
+          "fields_verified": 6
+        },
+        {
+          "id": "BR-AUDIT-FALTA-FEATURE-PIT",
+          "status": "literal_claim_table",
+          "fields_verified": 6
+        }
+      ],
+      "all_preexisting_database_rows_preserved": true,
+      "database_integrity": "ok",
+      "old_policy_sha256": "fb287ecdf358bd5c32d3a9d874c330317efabe62c90a5bd8525a6543acd95777",
+      "new_policy_sha256": "e1b412d2c324d6f059138ef464a792ce97dc8ba751ace48fac8d7e619f85280b",
+      "only_policy_change": "one exact audit-stream grant",
+      "model_calls": 0,
+      "primary_total_records": 59,
+      "scientific_evaluation_executed": false,
+      "original_forecasts_preserved": true
+    },
+    {
+      "at": "2026-09-16T00:27:26.125017+00:00",
+      "status": "ADMITTED_AND_VERIFIED",
+      "database": "C:\\CAIN\\dados\\research.db",
+      "user": "leo",
+      "collection": "brasileirao",
+      "receipts": [
+        {
+          "receipt_id": "f864961bfb9d4c319767210257d4256f",
+          "publication_id": "c85d80476cda913f7ed20c88a00b753f3f2de3092770136b786a52c128e489e8",
+          "status": "admitted",
+          "records": 26
+        }
+      ],
+      "new_records": 26,
+      "checks": [
+        {
+          "id": "BR-AUDIT-DADOS-HISTORICOS-FALTANTES",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-PROTOCOLO-DETALHE-1",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-PROTOCOLO-DETALHE-2",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-PROTOCOLO-DETALHE-3",
+          "status": "literal_claim_table",
+          "fields_verified": 5
+        },
+        {
+          "id": "BR-AUDIT-PROTOCOLO-DETALHE-4",
+          "status": "literal_claim_table",
+          "fields_verified": 10
+        },
+        {
+          "id": "BR-AUDIT-PROTOCOLO-DETALHE-5",
+          "status": "literal_claim_table",
+          "fields_verified": 16
+        },
+        {
+          "id": "BR-AUDIT-DOC-COVERAGE-IDENTITY-ASSESSMENT-1",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-COVERAGE-IDENTITY-ASSESSMENT-2",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-COVERAGE-IDENTITY-ASSESSMENT-3",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-COVERAGE-IDENTITY-ASSESSMENT-4-P1",
+          "status": "literal_claim_table",
+          "fields_verified": 9
+        },
+        {
+          "id": "BR-AUDIT-DOC-COVERAGE-IDENTITY-ASSESSMENT-4-P2",
+          "status": "literal_claim_table",
+          "fields_verified": 4
+        },
+        {
+          "id": "BR-AUDIT-DOC-COVERAGE-IDENTITY-ASSESSMENT-5-P1",
+          "status": "literal_claim_table",
+          "fields_verified": 7
+        },
+        {
+          "id": "BR-AUDIT-DOC-COVERAGE-IDENTITY-ASSESSMENT-5-P2",
+          "status": "literal_claim_table",
+          "fields_verified": 4
+        },
+        {
+          "id": "BR-AUDIT-DOC-COVERAGE-IDENTITY-ASSESSMENT-6",
+          "status": "literal_claim_table",
+          "fields_verified": 11
+        },
+        {
+          "id": "BR-AUDIT-DOC-FEATURE-PIT-AUDIT-1",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-FEATURE-PIT-AUDIT-2",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-FEATURE-PIT-AUDIT-3-P1",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-FEATURE-PIT-AUDIT-3-P2",
+          "status": "literal_claim_table",
+          "fields_verified": 5
+        },
+        {
+          "id": "BR-AUDIT-DOC-FEATURE-PIT-AUDIT-4",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-FEATURE-PIT-AUDIT-5",
+          "status": "literal_claim_table",
+          "fields_verified": 7
+        },
+        {
+          "id": "BR-AUDIT-DOC-READINESS-DECISION-1",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-READINESS-DECISION-2",
+          "status": "literal_claim_table",
+          "fields_verified": 11
+        },
+        {
+          "id": "BR-AUDIT-DOC-READINESS-DECISION-3",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-READINESS-DECISION-4",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-READINESS-DECISION-5",
+          "status": "literal_claim_table",
+          "fields_verified": 8
+        },
+        {
+          "id": "BR-AUDIT-DOC-READINESS-DECISION-6",
+          "status": "literal_claim_table",
+          "fields_verified": 7
+        }
+      ],
+      "all_preexisting_database_rows_preserved": true,
+      "database_integrity": "ok",
+      "old_policy_sha256": "e1b412d2c324d6f059138ef464a792ce97dc8ba751ace48fac8d7e619f85280b",
+      "new_policy_sha256": "cabf5dae35ba91c748c36223c5993876a221d4bd51ea9ecf86cc6f0520d95f69",
+      "only_policy_change": "one exact audit-stream grant",
+      "model_calls": 0,
+      "primary_total_records": 85,
+      "scientific_evaluation_executed": false,
+      "original_forecasts_preserved": true
+    }
+  ],
+  "new_records": 82,
+  "primary_records_total": 85,
+  "verified_per_record_queries": 82,
+  "natural_language_cases_passed": 6,
+  "remote_head": "460a397adc2f0dbe11ed6bda83aa9a8009d04549",
+  "original_hashes": {
+    "C:\\Users\\leona\\Documents\\Codex\\2026-09-15\\lea\\outputs\\LEDGER_DERIVADO.json": "84acce55c43f939cc03746059cb391244831ad798ba28a052425cb252815b962",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\docs\\EVIDENCE_REGISTRY.md": "206898ed8b303455ce1e02e5dcf22c6edf873585fc6a43d438609cfd456c0b66",
+    "C:\\Users\\leona\\Documents\\Codex\\2026-09-15\\lea\\outputs\\H15_SUPLEMENTO_RETROSPECTIVO_V3.json": "4476af22be55ee7d8eab925fa8baf002c5776b90b3857b06bf35035d413d0f61",
+    "C:\\BRASILEIRAO\\work\\audit-fixes-20260915\\forecast-recovery\\originals\\h14_serving_vs_climatologia.jsonl": "00030c961a3b42760a9f8d41fde096c213b75b5ec65e9b74f3f0809898789d99",
+    "C:\\BRASILEIRAO\\work\\audit-fixes-20260915\\forecast-recovery\\originals\\h15_refit10_vs_100.jsonl": "f3337e0567c53ac3af15b2e8ef3113470a5c7e854e3b69f269418fa38230a46f",
+    "C:\\Users\\leona\\Documents\\Codex\\2026-09-15\\lea\\outputs\\PROTOCOLO_SUCESSOR_V2.json": "af8e417c31da24163a4c603b4fe632f97e278a32ed0258c55c1c7dd3c7b9e3ce"
+  },
+  "original_ou_forecasts_recovered": 0,
+  "retrospective_ou_reconstructions": 2,
+  "unrecovered_ou_arm_forecasts": 10,
+  "complementary_reports_obtained": 3,
+  "unrecovered_original_reports": 2,
+  "all_bugs_absence_certified": false
+}

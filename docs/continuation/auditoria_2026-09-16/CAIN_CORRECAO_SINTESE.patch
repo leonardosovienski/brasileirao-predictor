@@ -1,0 +1,35 @@
+--- a/src/cain/research/analysis.py
++++ b/src/cain/research/analysis.py
+@@ -250,7 +250,11 @@
+         "Each row is about its own subject; the separate header supplies only its column labels. "
+         "JSON paths distinguish status from trial names. Preserve their exact identities. "
+         "Preserve quantities, signs and negations: a limitation does not turn presence into absence. "
+-        "Distinguish hypotheses from observed results. A blocked or unexecuted comparison supports no observed effect. "
++        "Explicitly label a source's hypothesis/enunciado as a hypothesis in the answer, "
++        "even when attributing it to a report. Never state its content as an observed result. "
++        "Keep technical feature terminology: features means model input variables, not resources. "
++        "An unproven feature availability timestamp does not establish a resource shortage. "
++        "A blocked or unexecuted comparison supports no observed effect. "
+         "But insufficient evidence or interrupted collection does NOT mean nothing was executed: "
+         "say unexecuted only when that source explicitly says so. "
+         "Date historical statements using their quoted headings/text; earlier non-execution is not current non-execution. "
+@@ -313,7 +317,7 @@
+                   "analysis": {"type": "string"}}}
+     prompt = context_text()
+     metadata = {"called": True, "model": getattr(provider, "model", None),
+-                "prompt_version": "addressable-review/14", "prompt_hash": digest((instruction + prompt).encode())}
++                "prompt_version": "addressable-review/15", "prompt_hash": digest((instruction + prompt).encode())}
+     try:
+         guard(service, scope, snapshot)
+         raw = provider.generate_json(prompt, instruction, schema)
+--- a/src/cain/research/workflows.py
++++ b/src/cain/research/workflows.py
+@@ -15,7 +15,7 @@
+ 
+ STEPS = ("inspect", "search", "entities", "support", "challenge", "synthesis")
+ GENERATION = set(STEPS[2:])
+-PROTOCOL = "research-workflow/18"
++PROTOCOL = "research-workflow/19"
+ 
+ 
+ def model_identity(provider):

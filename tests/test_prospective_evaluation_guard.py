@@ -21,6 +21,7 @@ COMPLETE = {"status": "INCONCLUSIVA", "n": 900, "capital_enabled": False, "synth
 @pytest.fixture(autouse=True)
 def isolate_default_cohorts(tmp_path, monkeypatch):
     for job, prefix in JOBS:
+        monkeypatch.setattr(job, "_require_supported_protocol", lambda path: None)
         monkeypatch.setattr(job, "LEDGER_PATH", tmp_path / "inputs" / prefix / "ledger.jsonl")
         monkeypatch.setattr(job, "TRIALS_PATH", tmp_path / "inputs" / prefix / "trials.json")
         monkeypatch.setattr(job, "REPORTS_DIR", tmp_path / "defaults" / prefix / "reports")

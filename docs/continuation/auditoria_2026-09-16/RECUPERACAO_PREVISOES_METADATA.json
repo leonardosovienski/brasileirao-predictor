@@ -1,0 +1,102 @@
+{
+  "scope": "archived_prediction_schema_only",
+  "outcomes_read": false,
+  "files": [
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor\\data\\research\\h14_serving_vs_climatologia.jsonl",
+      "sha256": "00030c961a3b42760a9f8d41fde096c213b75b5ec65e9b74f3f0809898789d99",
+      "schemas": [
+        {
+          "arm_keys": {
+            "climatology": [
+              "n_prior",
+              "p_away",
+              "p_draw",
+              "p_home"
+            ],
+            "serving_v2": [
+              "elo_away",
+              "elo_home",
+              "p_away",
+              "p_draw",
+              "p_home"
+            ]
+          },
+          "top_level_keys": [
+            "away",
+            "climatology",
+            "code_fingerprint",
+            "event_id",
+            "home",
+            "kickoff_at",
+            "predicted_at",
+            "serving_v2"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor\\data\\research\\h15_refit10_vs_100.jsonl",
+      "sha256": "f3337e0567c53ac3af15b2e8ef3113470a5c7e854e3b69f269418fa38230a46f",
+      "schemas": [
+        {
+          "arm_keys": {
+            "control_refit100": [
+              "code_fingerprint",
+              "elo_away",
+              "elo_home",
+              "n_matches_at_refit",
+              "p_away",
+              "p_draw",
+              "p_home",
+              "refit_at"
+            ],
+            "treatment_refit10": [
+              "code_fingerprint",
+              "elo_away",
+              "elo_home",
+              "n_matches_at_refit",
+              "p_away",
+              "p_draw",
+              "p_home",
+              "refit_at"
+            ]
+          },
+          "top_level_keys": [
+            "away",
+            "control_refit100",
+            "event_id",
+            "home",
+            "kickoff_at",
+            "predicted_at",
+            "treatment_refit10"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor\\data\\research\\h15_state_control_refit100.json",
+      "sha256": "901a02ae7456e256899cc021f65ff777e7c86c9328d6f709d7712b5fe1c29f1c",
+      "top_level_keys": [
+        "elo",
+        "n_matches_at_refit",
+        "params",
+        "refit_at"
+      ],
+      "refit_at": "2026-09-04T08:01:09+00:00",
+      "limitation": "single current state; not proof of every original forecast state"
+    },
+    {
+      "path": "C:\\BRASILEIRAO\\DADOS_PRESERVADOS\\projetos\\brasileirao-predictor\\data\\research\\h15_state_treatment_refit10.json",
+      "sha256": "dfe34043d80cdcb1bd7b925aa2e7aa5738f2755138aee69d3f543420210555bf",
+      "top_level_keys": [
+        "elo",
+        "n_matches_at_refit",
+        "params",
+        "refit_at"
+      ],
+      "refit_at": "2026-09-07T18:33:32+00:00",
+      "limitation": "single current state; not proof of every original forecast state"
+    }
+  ]
+}

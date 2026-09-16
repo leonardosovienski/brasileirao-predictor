@@ -1,0 +1,65 @@
+{
+  "baseline": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+  "candidate": "C:\\BRASILEIRAO\\work\\audit-fixes-20260915\\candidate",
+  "original_checkout_clean": true,
+  "producer_hashes_computed_and_unchanged": {
+    "docs/EVIDENCE_REGISTRY.md": "206898ed8b303455ce1e02e5dcf22c6edf873585fc6a43d438609cfd456c0b66",
+    "data/trials.json": "e5af7c0ffd79298a66a446b02973b0be9827c0fe987e94185b0b9a035f4e1199",
+    "data/trials.v2.json": "fbad9c0cf5af78016b5480ab2384db0bb356f4b07c79a08628aba23ba10e7d90"
+  },
+  "runtime": "C:\\BRASILEIRAO\\work\\im26\\.venv\\Scripts\\python.exe",
+  "python": "3.13.12 (main, Mar  3 2026, 15:00:12) [MSC v.1944 64 bit (AMD64)]",
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "69",
+    "time": "27.470",
+    "timestamp": "2026-09-15T19:34:29.353447-03:00",
+    "hostname": "isolated-qa"
+  },
+  "scope": "synthetic_software_only",
+  "attempts": [
+    {
+      "id": 1,
+      "outcome": "setup_failed_pytest_not_installed_in_primary_runtime"
+    },
+    {
+      "id": 2,
+      "outcome": "setup_blocked_stdlib_outside_qa_allowlist"
+    },
+    {
+      "id": 3,
+      "outcome": "setup_blocked_pytest_null_device_log"
+    },
+    {
+      "id": 4,
+      "outcome": "setup_blocked_local_hostname_metadata"
+    },
+    {
+      "id": 5,
+      "outcome": "59_passed"
+    },
+    {
+      "id": 6,
+      "outcome": "reporting_failed_platform_windows_shell_fallback_blocked"
+    },
+    {
+      "id": 7,
+      "outcome": "69_passed_final"
+    }
+  ],
+  "lint": "initial_2_line_length_errors_corrected; final_pass",
+  "isolation": "separate_source_export; temporary_synthetic_files; Python audit hook blocks external writes, protected BR reads, socket network and subprocesses; not an OS sandbox",
+  "protected_evaluation_executed": false,
+  "production_installation_changed": false,
+  "candidate_files_sha256": {
+    "brasileirao_scripts/evaluate_h14_prospective.py": "23d6bfa50aacd85619bcbce21ccafa57e65aab708cdc4fd42927410933c5cf8a",
+    "brasileirao_scripts/evaluate_h15_prospective.py": "8a73b26a60f6511cea3d7ad27fa7c2f6999d7dd40563e497b01a124dacfbff87",
+    "tests/test_evaluate_h14_prospective.py": "d0049a4ec9d452b39c08f9ce4f709de66072e52d595e7bbf23182ee0a02de246",
+    "tests/test_evaluate_h15_prospective.py": "0271867d0837f2af9b35da5837e7ee2bb69fdbeeadfa01aaaefe385a093c3782",
+    "tests/test_prospective_evaluation_guard.py": "6a4f0871bc2d3abc9be262de97df3fbabfe80f9334e0063aa5155ee70c26ffe6",
+    "tests/test_prospective_protocol_compatibility.py": "ccbaf0fbdcc60fde1f52d124838710e908ad4c9feb8c59fb5689cb76b3037156"
+  }
+}

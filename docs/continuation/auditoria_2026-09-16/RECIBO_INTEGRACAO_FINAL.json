@@ -1,0 +1,49 @@
+{
+  "brasileirao_tests": 108,
+  "cain_tests": 48,
+  "runtime_installation_changed": false,
+  "source_integrated": true,
+  "scientific_evaluation_executed": false,
+  "repositories": {
+    "brasileirao": {
+      "head": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "files": {
+        "brasileirao_scripts/evaluate_h14_prospective.py": "a85465058d0b7c5d730bf0a28dee6cfed1c9216447ea296e2766a39c03705091",
+        "brasileirao_scripts/evaluate_h15_prospective.py": "2b0d45ba03245d64da24967bd35c6a3f3288bd49a2234bb321ad9bab019c937e",
+        "brasileirao_scripts/prospective_metrics.py": "1a8837651825ad4b7bdf923a50d44f7841061b0883cf4243a295585e01aea074",
+        "tests/test_evaluate_h14_prospective.py": "d0049a4ec9d452b39c08f9ce4f709de66072e52d595e7bbf23182ee0a02de246",
+        "tests/test_evaluate_h15_prospective.py": "0271867d0837f2af9b35da5837e7ee2bb69fdbeeadfa01aaaefe385a093c3782",
+        "tests/test_prospective_evaluation_guard.py": "6a4f0871bc2d3abc9be262de97df3fbabfe80f9334e0063aa5155ee70c26ffe6",
+        "tests/test_prospective_protocol_compatibility.py": "ccbaf0fbdcc60fde1f52d124838710e908ad4c9feb8c59fb5689cb76b3037156",
+        "tests/test_prospective_metrics.py": "14b96dd47abd50e06071f232851e6e5e8006b369c4498ef6f6288aec5d00a107",
+        "tests/test_audit_hardening.py": "ae11c12b831360c22e098ca2e81e56fa6ad0f58884875f61894f4a09470aaf2b"
+      },
+      "preexisting_changes_preserved": true
+    },
+    "cain": {
+      "head": "24f784c5dde1fa66c262ad5899f4fd8d02526adf",
+      "files": {
+        "src/cain/research/analysis.py": "b986615e48111efbeb6a9ecc19fce6b034b1b4199da8172562aae0651e0adf21",
+        "src/cain/research/workflows.py": "b80b9d5e48a135d09c7ed74b48a1f2c5b5cce93143c3cd0d0333f052c2528edf",
+        "src/cain/research/claim_tables.py": "44d5673dc9616c02c996e33f7522432e43fe8ecedcaed8631aea22411e91033e",
+        "tests/integration/qa_br_fixture.py": "507ed77826469abf7cb5a00e4f9c08a6939cf70844b1d83b2578345ab0369b8d",
+        "tests/integration/test_br_audit_instructions.py": "67f02c4667472adbd4eac6d868a97c1b9fb136158f89a10311b4709118f90c12",
+        "tests/integration/test_literal_claim_tables.py": "dc84681210c86953b8b40526105d784015cb7a9e54985f56514df7be1e05641e",
+        "tests/integration/test_grounded_analysis.py": "e1c775ae3115009c5e973632b2856ed6185b6420b09aa1ffbe2aa750dcbade20",
+        "src/cain/research/grounding.py": "a8593dd8adad9b85597208bb2af5578d06ef15f8f02a8ca12d34b377a4f743c7"
+      },
+      "preexisting_changes_preserved": true
+    }
+  },
+  "real_generation_attempts": {
+    "single": "generated",
+    "all": "generated",
+    "reverse": "generation_failed"
+  },
+  "literal_confirmation": {
+    "single": "literal_claim_table",
+    "all": "literal_claim_table",
+    "reverse": "literal_claim_table"
+  },
+  "original_forecast_hashes_unchanged": true
+}
