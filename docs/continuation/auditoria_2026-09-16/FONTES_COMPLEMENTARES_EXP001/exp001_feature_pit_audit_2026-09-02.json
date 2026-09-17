@@ -1,0 +1,49 @@
+{
+  "schema_version": "exp001-feature-pit-audit/1.0",
+  "audited_at": "2026-09-02",
+  "incumbent": {
+    "ensemble_xg_enabled": false,
+    "primary_historical_inputs": [
+      "prior match score",
+      "prior match kickoff",
+      "home and away team identity",
+      "neutral venue flag"
+    ]
+  },
+  "database_evidence": {
+    "sofascore_played": 2125,
+    "sofascore_played_with_kickoff_at": 2125,
+    "sofascore_paired_xg": 2124,
+    "match_statistics_rows": 439764,
+    "player_comp_stats_rows": 5210,
+    "player_comp_stats_with_available_at": 5210
+  },
+  "critical_timestamp_gaps": [
+    {
+      "table": "sofascore_matches",
+      "fields": ["home_score", "away_score", "home_xg", "away_xg"],
+      "missing_provenance": "result_published_at or completed_at",
+      "impact": "a prior kickoff proves when a match began, not when its result became available"
+    },
+    {
+      "table": "match_statistics",
+      "fields": ["value"],
+      "missing_provenance": "available_at and ingested_at",
+      "impact": "statistics cannot be admitted into an exact historical cutoff reconstruction"
+    },
+    {
+      "table": "sofascore_matches",
+      "fields": ["odds_home", "odds_draw", "odds_away"],
+      "missing_provenance": "bookmaker identity and quote timestamp",
+      "impact": "embedded aggregate odds are not an admissible EXP-001 market baseline"
+    }
+  ],
+  "horizon_verdicts": {
+    "H-24h": "NOT_PROVEN",
+    "H-6h": "NOT_PROVEN",
+    "H-1h": "NOT_PROVEN"
+  },
+  "decision": "FAIL_CLOSED",
+  "reason": "the repository can reject explicitly late observations, but the preserved historical score rows do not carry an availability timestamp sufficient to prove that every model input existed at each requested cutoff",
+  "allowed_next_step": "obtain source publication timestamps or define a prospectively collected bitemporal cohort; do not impute historical availability and call it observed"
+}

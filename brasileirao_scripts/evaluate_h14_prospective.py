@@ -17,7 +17,7 @@ IC95 nem nada: só informa quantos faltam. `avaliacoes_intermediarias=false`
 
 PONTO ÚNICO
 -----------
-Um claim exclusivo precede toda leitura ou cálculo, tanto no CLI quanto na
+Uma checagem de contrato precede o claim; o claim precede leituras da coorte e cálculos, tanto no CLI quanto na
 API evaluate(). Com n<900 o claim é liberado; sucesso, erro ou crash o retêm
 e bloqueiam nova tentativa automática. O relatório exclusivo é persistido
 antes de retornar/imprimir. Resolver claim retido exige governança; não
@@ -30,6 +30,7 @@ Uso:
 from __future__ import annotations
 
 import json
+import math
 import sys
 from pathlib import Path
 from typing import Any
@@ -77,7 +78,8 @@ def _outcome_1x2(home_goals: int, away_goals: int) -> int:
 
 def _results_by_event(conn) -> dict[int, tuple[int, int]]:
     rows = conn.execute(
-        "SELECT event_id, home_score, away_score FROM sofascore_matches WHERE home_score IS NOT NULL"
+        "SELECT event_id, home_score, away_score FROM sofascore_matches "
+        "WHERE home_score IS NOT NULL AND away_score IS NOT NULL"
     ).fetchall()
     return {eid: (int(hs), int(as_)) for eid, hs, as_ in rows}
 
@@ -109,17 +111,31 @@ def _paired_gain(control: list[float], treatment: list[float]) -> dict[str, Any]
     }
 
 
+def _valid_interval(interval: Any) -> bool:
+    return (
+        isinstance(interval, (list, tuple))
+        and len(interval) == 2
+        and all(type(value) in (int, float) and math.isfinite(value) for value in interval)
+        and interval[0] <= interval[1]
+    )
+
+
 def _verdict(primary: dict[str, Any], guardrails: dict[str, dict[str, Any]]) -> tuple[str, str]:
-    lo, hi = primary["ci95"]
-    if lo is None or hi is None:
-        return "inconclusiva", "bootstrap não produziu IC95 — amostra insuficiente"
+    interval = primary.get("ci95")
+    if not _valid_interval(interval):
+        return "inconclusiva", "IC95 primário ausente ou inválido — aprovação não permitida"
+    lo, hi = interval
     if lo <= 0:
         detail = (
-            "IC95 do ganho de RPS cruza zero — bater a climatologia é indistinguível de sorte"
-            if hi > 0
+            "IC95 do ganho de RPS inclui zero — superioridade não demonstrada; não prova equivalência"
+            if hi >= 0
             else "IC95 do ganho de RPS estritamente negativo — serving-v2 PIOR que a climatologia"
         )
         return "refutada", detail
+    for metric in GUARDRAIL_METRICS:
+        interval = guardrails.get(metric, {}).get("ci95")
+        if not _valid_interval(interval):
+            return "inconclusiva", f"guardrail {metric} sem IC95 válido — aprovação não permitida"
     piorados = [
         f"{m} (IC95=[{g['ci95'][0]:.6f}, {g['ci95'][1]:.6f}])"
         for m, g in guardrails.items()
@@ -132,6 +148,33 @@ def _verdict(primary: dict[str, Any], guardrails: dict[str, dict[str, Any]]) -> 
     return "comprovada", "IC95 do ganho de RPS estritamente positivo e nenhum guardrail materialmente pior"
 
 
+def _require_supported_protocol(trials_path: Path) -> None:
+    """Read contract metadata only; reject unsupported metrics before a claim.
+
+    This does not authorize a cohort evaluation or modify the frozen protocol.
+    In particular, absent OU2.5 forecasts cannot be reconstructed from 1X2.
+    """
+    trials = [t for t in TrialRegistry(trials_path).load() if t["name"] == TRIAL]
+    if len(trials) != 1:
+        raise EvaluationBlocked(f"{TRIAL}: expected exactly one registered protocol")
+    params = trials[0].get("params", {})
+    declared = params.get("guardrails")
+    if (
+        params.get("primary_metric") != "rps"
+        or not isinstance(declared, list)
+        or any(not isinstance(metric, str) for metric in declared)
+        or len(declared) != len(GUARDRAIL_METRICS)
+        or set(declared) != set(GUARDRAIL_METRICS)
+    ):
+        raise EvaluationBlocked(
+            f"{TRIAL}: protocol/evaluator metric mismatch; "
+            f"declared primary={params.get('primary_metric')!r}, guardrails={declared!r}; "
+            f"implemented primary='rps', guardrails={GUARDRAIL_METRICS!r}. "
+            "No cohort read or metric calculation authorized. "
+            "Preserve the frozen protocol and resolve the missing implementation/data."
+        )
+
+
 def evaluate(
     *,
     trials_path: Path | None = None,
@@ -139,12 +182,14 @@ def evaluate(
     db_path: Path | None = None,
     reports_dir: Path | None = None,
 ) -> dict[str, Any]:
-    """Claim before reading; persist success before returning, without auto retry."""
+    """Check contract before claiming; claim before cohort reads; never auto retry."""
     ledger = Path(ledger_path if ledger_path is not None else LEDGER_PATH).resolve()
     claim_dir = claim_directory(trial=TRIAL, ledger_path=ledger)
     if ledger == LEDGER_PATH.resolve():
         # Legacy reports for the default cohort still block a changed output folder.
         require_available(REPORTS_DIR, "h14", claim_dir=claim_dir)
+    require_available(reports_dir if reports_dir is not None else REPORTS_DIR, "h14", claim_dir=claim_dir)
+    _require_supported_protocol(trials_path if trials_path is not None else TRIALS_PATH)
     return evaluate_once(
         lambda: _evaluate_claimed(trials_path=trials_path, ledger_path=ledger_path, db_path=db_path),
         reports_dir=reports_dir if reports_dir is not None else REPORTS_DIR,
@@ -157,6 +202,7 @@ def evaluate(
 def _evaluate_claimed(*, trials_path: Path | None, ledger_path: Path | None, db_path: Path | None) -> dict[str, Any]:
     trials_path = trials_path or TRIALS_PATH
     ledger_path = ledger_path or LEDGER_PATH
+    _require_supported_protocol(trials_path)
     trial = next((t for t in TrialRegistry(trials_path).load() if t["name"] == TRIAL), None)
     if trial is None:
         sys.exit(f"trial {TRIAL!r} não registrada")
@@ -171,6 +217,8 @@ def _evaluate_claimed(*, trials_path: Path | None, ledger_path: Path | None, db_
 
     ledger = _load_jsonl(ledger_path)
     matured = [row for row in ledger if row["event_id"] in results]
+    if len({row["event_id"] for row in ledger}) != len(ledger):
+        raise EvaluationBlocked("Duplicate event IDs in the ledger; no metrics calculated")
     n = len(matured)
 
     if n < min_n:
@@ -203,6 +251,8 @@ def _evaluate_claimed(*, trials_path: Path | None, ledger_path: Path | None, db_
         "primary_rps": primary,
         "guardrails": guardrails,
         "trial": TRIAL,
+        "decision_scope": "individual_trial_only",
+        "portfolio_claim_authorized": False,
         "capital_enabled": False,
     }
 

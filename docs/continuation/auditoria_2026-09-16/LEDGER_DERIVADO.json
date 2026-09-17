@@ -1,0 +1,1130 @@
+{
+  "noncanonical": true,
+  "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+  "entries": [
+    {
+      "project": "brasileirao-predictor",
+      "id": "h1-ou25-edge-2-15-walkforward",
+      "source": "data/trials.json#name=h1-ou25-edge-2-15-walkforward",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h1-ou25-edge-2-15-walkforward",
+        "registered_at": "2026-07-11T00:55:18Z",
+        "status": "refutada",
+        "params": {
+          "market": "ou25",
+          "min_edge": 0.02,
+          "max_edge": 0.15,
+          "stake": "fixo-1u",
+          "params_mode": "walk_forward",
+          "walk_forward_window_rounds": 19,
+          "league": "Brasileirão Série A",
+          "seasons": [
+            "2024",
+            "2025"
+          ]
+        },
+        "test_period": [
+          "2024-01-01T00:00:00Z",
+          "2025-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Backtest retrospectivo declarado; n=455, ROI +7,9%, IC inclui zero, DSR 0,94; regra de GO não satisfeita",
+      "next_minimum_check": "Recuperar painel/preços e convenções antes de eventual reprodução",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h2-periodo-1t-conf60",
+      "source": "data/trials.json#name=h2-periodo-1t-conf60",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h2-periodo-1t-conf60",
+        "registered_at": "2026-07-11T00:55:18Z",
+        "status": "informativa",
+        "params": {
+          "market": "ou_1T",
+          "lines": [
+            1.5,
+            2.5
+          ],
+          "min_conf": 0.6,
+          "fracao": "ht_goal_fraction forward-only",
+          "league": "Brasileirão Série A",
+          "seasons": [
+            "2024",
+            "2025"
+          ]
+        },
+        "test_period": [
+          "2024-01-01T00:00:00Z",
+          "2025-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Avaliação histórica n=1493; acurácia ~79%; não demonstra retorno sem preços",
+      "next_minimum_check": "Demonstrar elegibilidade temporal dos preços para uma claim econômica",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h3-ou25-sombra-2026",
+      "source": "data/trials.json#name=h3-ou25-sombra-2026",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h3-ou25-sombra-2026",
+        "registered_at": "2026-07-11T05:55:57Z",
+        "status": "substituida",
+        "params": {
+          "market": "ou25",
+          "min_edge": 0.02,
+          "max_edge": 0.15,
+          "stake": "sombra-0u",
+          "mode": "paper",
+          "captura": "odds correntes pré-apito via scripts/sombra.py --capture (após ingest); settle pós-jogo com CLV vs Shin do fechamento",
+          "league": "Brasileirão Série A",
+          "season": "2026-returno"
+        },
+        "test_period": [
+          "2026-07-16T00:00:00Z",
+          "2026-09-30T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Configuração antiga de shadow substituída",
+      "next_minimum_check": "Preservar relação de supersessão, sem reativar",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "H4_DIXON_COLES_CALIBRATED",
+      "source": "data/trials.json#name=H4_DIXON_COLES_CALIBRATED",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "H4_DIXON_COLES_CALIBRATED",
+        "registered_at": "2026-07-12T01:50:24Z",
+        "status": "refutada",
+        "params": {
+          "model": "dixon_coles_wnll",
+          "half_life_days": 360,
+          "min_history": 200,
+          "retrain_every": 100,
+          "max_goals": 8,
+          "grid": [
+            30,
+            60,
+            90,
+            120,
+            180,
+            360
+          ],
+          "cutoff": "2026-07-11"
+        }
+      },
+      "documentary_assessment": "Histórico n=737; ganho RPS 0,00235, IC [-0,00216; 0,00684]; superioridade não demonstrada",
+      "next_minimum_check": "Recuperar trilha das seis variantes antes de nova alegação",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h5-ensemble-xg-sombra-2026",
+      "source": "data/trials.json#name=h5-ensemble-xg-sombra-2026",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h5-ensemble-xg-sombra-2026",
+        "registered_at": "2026-07-17T04:01:36Z",
+        "status": "substituida",
+        "params": {
+          "market": "ou25",
+          "min_edge": 0.02,
+          "max_edge": 0.15,
+          "stake": "sombra-0u",
+          "mode": "paper",
+          "model": "ensemble 0.5·baseline(Elo+cosh) + 0.5·atkdef-xG (w_xg=0.85, half_life=0.75a, ridge=1.0) — src/xg_model.py, blend das grades de placar, cache do cron_update_models",
+          "captura": "scripts/sombra.py --capture — população paralela à H3 (mesmos jogos, mesma janela, mesmas odds correntes pré-apito), arquivos sombra_h5_*.jsonl",
+          "league": "Brasileirão Série A",
+          "season": "2026-returno"
+        },
+        "test_period": [
+          "2026-07-17T00:00:00Z",
+          "2026-09-30T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Shadow antigo substituído",
+      "next_minimum_check": "Resolver versão/preços, sem transferir desempenho",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h3-ou25-sombra-pinnacle-2026",
+      "source": "data/trials.json#name=h3-ou25-sombra-pinnacle-2026",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h3-ou25-sombra-pinnacle-2026",
+        "registered_at": "2026-07-26T00:28:58Z",
+        "status": "inconclusiva",
+        "params": {
+          "market": "ou25",
+          "min_edge": 0.02,
+          "max_edge": 0.15,
+          "stake": "sombra-0u",
+          "mode": "paper",
+          "modelo": "baseline (Elo+cosh)",
+          "league": "Brasileirão Série A",
+          "season": "2026-returno",
+          "odds_source": "the_odds_api",
+          "bookmaker": "pinnacle",
+          "market_key": "totals",
+          "closing_definition": "closing-v1:last-valid-pre-kickoff-by-bookmaker",
+          "identity_mapping": "brasileirao-bookmaker-identity/1.0"
+        }
+      },
+      "documentary_assessment": "Shadow documentado; encerramento/limites operacionais não equivalem a refutação",
+      "next_minimum_check": "Reconciliar recibos históricos já liberados",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h5-ensemble-xg-sombra-pinnacle-2026",
+      "source": "data/trials.json#name=h5-ensemble-xg-sombra-pinnacle-2026",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h5-ensemble-xg-sombra-pinnacle-2026",
+        "registered_at": "2026-07-26T00:28:58Z",
+        "status": "inconclusiva",
+        "params": {
+          "market": "ou25",
+          "min_edge": 0.02,
+          "max_edge": 0.15,
+          "stake": "sombra-0u",
+          "mode": "paper",
+          "modelo": "ensemble 0.5xbaseline + 0.5xatkdef-xG (src/xg_model.py)",
+          "league": "Brasileirão Série A",
+          "season": "2026-returno",
+          "odds_source": "the_odds_api",
+          "bookmaker": "pinnacle",
+          "market_key": "totals",
+          "closing_definition": "closing-v1:last-valid-pre-kickoff-by-bookmaker",
+          "identity_mapping": "brasileirao-bookmaker-identity/1.0"
+        }
+      },
+      "documentary_assessment": "Ensemble shadow, suporte insuficiente para conclusão econômica",
+      "next_minimum_check": "Reconciliar versão e denominadores históricos",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h1-ou25-walkforward-2023-2026-exploratoria",
+      "source": "data/trials.json#name=h1-ou25-walkforward-2023-2026-exploratoria",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h1-ou25-walkforward-2023-2026-exploratoria",
+        "registered_at": "2026-07-26T01:09:25Z",
+        "status": "exploratoria",
+        "params": {
+          "market": "ou25",
+          "min_edge": 0.02,
+          "max_edge": 0.15,
+          "stake": "fixo-1u",
+          "params_mode": "walk_forward",
+          "walk_forward_window_rounds": 19,
+          "league": "Brasileirão Série A",
+          "seasons": [
+            "2023",
+            "2024",
+            "2025",
+            "2026"
+          ],
+          "odds_source": "sofascore-aggregate",
+          "registro": "exploratorio-com-observacao-previa-do-baseline"
+        },
+        "test_period": [
+          "2023-01-01T00:00:00Z",
+          "2026-07-25T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "n=567, ROI 11,48%; ampliação após resultado conhecido",
+      "next_minimum_check": "Manter seleção no denominador; não chamar confirmação",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h7-clv-prospectivo-pinnacle-2026",
+      "source": "data/trials.json#name=h7-clv-prospectivo-pinnacle-2026",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h7-clv-prospectivo-pinnacle-2026",
+        "registered_at": "2026-07-26T02:58:15Z",
+        "status": "inconclusiva",
+        "params": {
+          "market": "ou25",
+          "min_edge": 0.02,
+          "max_edge": 0.15,
+          "populacao": "picks prospectivos da coorte h3-ou25-sombra-pinnacle-2026",
+          "metrica": "clv_por_pick = odd_capturada * p_fechamento_shin - 1",
+          "fechamento": "closing-v1:last-valid-pre-kickoff-by-bookmaker",
+          "odds_source": "the_odds_api",
+          "bookmaker": "pinnacle",
+          "criterio_go": "IC95_lower(CLV medio) > 0",
+          "n_minimo": 50,
+          "stake": "sombra-0u",
+          "mode": "paper"
+        },
+        "test_period": [
+          "2026-07-26T00:00:00Z",
+          "2027-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Protocolo de CLV, mínimo específico 50; CLV não prova lucro líquido",
+      "next_minimum_check": "Conferir recibo de fechamento e regra própria de acesso",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h8-ou25-train-2023-2025-test-2026-observed",
+      "source": "data/trials.json#name=h8-ou25-train-2023-2025-test-2026-observed",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h8-ou25-train-2023-2025-test-2026-observed",
+        "registered_at": "2026-08-09T04:15:02Z",
+        "status": "exploratoria",
+        "params": {
+          "market": "ou25",
+          "min_edge": 0.02,
+          "max_edge": 0.15,
+          "stake": "fixed-1u-shadow",
+          "train_seasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "test_season": "2026",
+          "price_definition": "sofascore-postgame-close-approximation",
+          "model": "elo+negative-binomial+dixon-coles",
+          "capital_enabled": false
+        },
+        "test_period": [
+          "2026-01-01T00:00:00Z",
+          "2026-08-09T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Recorte observado n=76, ROI 9,93%, IC [-14,70%; 35,39%]",
+      "next_minimum_check": "Estabelecer nova separação temporal para futura replicação",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h9-ou25-prospective-replication",
+      "source": "data/trials.json#name=h9-ou25-prospective-replication",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h9-ou25-prospective-replication",
+        "registered_at": "2026-08-09T05:08:43Z",
+        "status": "inconclusiva",
+        "params": {
+          "schema_version": "frozen-candidate/1",
+          "candidate_id": "h9-ou25-prospective-replication",
+          "parent_observation": "h8-ou25-train-2023-2025-test-2026-observed",
+          "registration_semantics": "prospective-before-first-decision",
+          "market": "ou2.5",
+          "model": {
+            "family": "elo+negative-binomial+dixon-coles",
+            "a": 0.18738271287016714,
+            "b": 0.6898188040233675,
+            "alpha": 0.0008571707189526184,
+            "rho": 0.00848757203219351,
+            "max_goals": 12,
+            "parameter_changes_create_new_trial": true
+          },
+          "selection_policy": {
+            "minimum_edge_exclusive": 0.02,
+            "maximum_edge_inclusive": 0.15,
+            "stake": "fixed-1u-shadow"
+          },
+          "decision_horizon_hours": 1.5,
+          "required_sources": [
+            "the_odds_api",
+            "stable_official_results"
+          ],
+          "optional_feature_sources": [
+            "api_football_lineups"
+          ],
+          "price": {
+            "source": "the_odds_api",
+            "bookmaker": "named-and-stability-approved",
+            "must_be_captured_no_later_than_decision": true
+          },
+          "closing": "last-valid-pre-kickoff-same-bookmaker",
+          "clv_formula": "(executed_odds-closing_odds_same_book)/closing_odds_same_book",
+          "milestones": [
+            100,
+            200,
+            300,
+            500
+          ],
+          "no_go_at_200": {
+            "roi_maximum": 0.0
+          },
+          "gates": {
+            "roi_ci95_lower_strictly_above": 0.0,
+            "clv_ci95_lower_strictly_above": 0.0,
+            "minimum_psr": 0.8,
+            "minimum_dsr": 0.95
+          },
+          "scientific_state": "HYPOTHESIS_REGISTERED",
+          "capital_enabled": false
+        },
+        "test_period": [
+          "2026-08-09T00:00:00Z",
+          "2027-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Protocolo prospectivo; resultados não examinados por proteção",
+      "next_minimum_check": "Cumprir contrato H9 e liberação específica",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h11-refit-cadence-rodada-vs-100jogos",
+      "source": "data/trials.json#name=h11-refit-cadence-rodada-vs-100jogos",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h11-refit-cadence-rodada-vs-100jogos",
+        "registered_at": "2026-08-21T05:17:36Z",
+        "status": "refutada",
+        "params": {
+          "market": "1x2",
+          "variable": "retrain_every",
+          "control": 100,
+          "treatment": 10,
+          "model": "H4_DIXON_COLES_CALIBRATED",
+          "min_history": 200,
+          "block_guard": "kickoff (jogos simultâneos fora do treino um do outro)",
+          "bootstrap": {
+            "scheme": "moving",
+            "block_length": 21,
+            "n_boot": 10000,
+            "seed": 42
+          },
+          "league": "Brasileirão Série A",
+          "period": [
+            "2021-01-01",
+            "2024-12-31"
+          ]
+        },
+        "test_period": [
+          "2021-01-01T00:00:00Z",
+          "2024-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Retrospectivo n=1318, ganho RPS 0,001764, IC [-0,001650; 0,004750]",
+      "next_minimum_check": "Preservar ausência de superioridade demonstrada, sem inferir efeito zero",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h11-v2-refit10-vs-100-retrospective-reanalysis",
+      "source": "data/trials.json#name=h11-v2-refit10-vs-100-retrospective-reanalysis",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h11-v2-refit10-vs-100-retrospective-reanalysis",
+        "registered_at": "2026-08-26T23:40:00Z",
+        "status": "inconclusiva",
+        "params": {
+          "market": "1x2",
+          "variable": "retrain_every",
+          "control": 100,
+          "treatment": 10,
+          "engine": "serving",
+          "algorithm_version": "nbdc-normalized-elo-horizon-v2",
+          "period": [
+            "2021-01-01",
+            "2024-12-31"
+          ],
+          "family": "refit_cadence_10_vs_100_same_historical_panel",
+          "family_realized_cadences": [
+            10,
+            100
+          ],
+          "family_look_index": 2,
+          "multiplicity_sensitivity": {
+            "method": "bonferroni_two_looks",
+            "simultaneous_confidence_level": 0.975,
+            "rps_delta_treatment_minus_control_ci": [
+              -0.0042492821711557355,
+              -0.00033439976952178655
+            ]
+          },
+          "capital_enabled": false
+        },
+        "test_period": [
+          "2021-01-01T00:00:00Z",
+          "2024-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Segunda análise do mesmo painel; não é réplica independente",
+      "next_minimum_check": "Preservar duas olhadas e separar H15 futuro",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h15-refit10-vs-100-serving-v2-prospectivo",
+      "source": "data/trials.json#name=h15-refit10-vs-100-serving-v2-prospectivo",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h15-refit10-vs-100-serving-v2-prospectivo",
+        "registered_at": "2026-08-26T23:41:00Z",
+        "status": "pre-registrada",
+        "params": {
+          "market": "1x2",
+          "hypothesis": "refit a cada 10 jogos reduz RPS contra refit a cada 100 jogos numa coorte futura pareada",
+          "engine": "serving",
+          "algorithm_version": "nbdc-normalized-elo-horizon-v2",
+          "control_retrain_every": 100,
+          "treatment_retrain_every": 10,
+          "cohort_start": null,
+          "earliest_eligible_date": "2026-08-27",
+          "collection_status": "NOT_STARTED",
+          "activation_condition": "persist both 10-game and 100-game predictions append-only before kickoff with code fingerprint",
+          "primary_metric": "rps",
+          "guardrails": [
+            "log_loss",
+            "brier_1x2",
+            "brier_ou25"
+          ],
+          "bootstrap": {
+            "scheme": "moving",
+            "block_length": 21,
+            "n_boot": 10000,
+            "seed": 42
+          },
+          "min_n_avaliacao": 900,
+          "avaliacoes_intermediarias": false,
+          "historical_family_looks": 2,
+          "prospective_family_id": "track-a-future-2026-08-27",
+          "familywise_rule": "Holm step-down across H14 and H15 at alpha=0.05 for any portfolio-level claim",
+          "capital_enabled": false
+        },
+        "test_period": [
+          "2026-08-27T00:00:00Z",
+          null
+        ]
+      },
+      "documentary_assessment": "Desenho prospectivo, resultados protegidos; incompatibilidade de guardrail",
+      "next_minimum_check": "Resolver contrato versus implementação antes de acesso à coorte",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h12-ensemble-xg-ligado-vs-desligado",
+      "source": "data/trials.json#name=h12-ensemble-xg-ligado-vs-desligado",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h12-ensemble-xg-ligado-vs-desligado",
+        "registered_at": "2026-08-22T06:43:15Z",
+        "status": "comprovada",
+        "params": {
+          "market": "1x2",
+          "variable": "ensemble_xg.enabled",
+          "control": true,
+          "treatment": false,
+          "engine": "serving",
+          "model": "H4_DIXON_COLES_CALIBRATED",
+          "retrain_every": 100,
+          "min_history": 200,
+          "block_guard": "kickoff (jogos simultâneos fora do treino um do outro)",
+          "bootstrap": {
+            "scheme": "moving",
+            "block_length": 21,
+            "n_boot": 10000,
+            "seed": 42
+          },
+          "league": "Brasileirão Série A",
+          "period": [
+            "2021-01-01",
+            "2024-12-31"
+          ]
+        },
+        "test_period": [
+          "2021-01-01T00:00:00Z",
+          "2024-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Histórico n=1318: desligado melhor em RPS, ganho 0,004410, IC [0,001436; 0,007741]",
+      "next_minimum_check": "Conferir identidade dos painéis para reprodução futura, sem generalização",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h13-serving-vs-climatologia-prospectivo",
+      "source": "data/trials.json#name=h13-serving-vs-climatologia-prospectivo",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h13-serving-vs-climatologia-prospectivo",
+        "registered_at": "2026-08-22T13:57:33Z",
+        "status": "substituida",
+        "params": {
+          "market": "1x2",
+          "hypothesis": "a pilha de serving bate a climatologia em RPS numa coorte prospectiva",
+          "engine": "serving",
+          "ensemble_xg_enabled": false,
+          "model": "H4_DIXON_COLES_CALIBRATED",
+          "baseline": "climatology",
+          "retrain_every": 100,
+          "min_history": 200,
+          "block_guard": "kickoff (jogos simultâneos fora do treino um do outro)",
+          "bootstrap": {
+            "scheme": "moving",
+            "block_length": 21,
+            "n_boot": 10000,
+            "seed": 42
+          },
+          "primary_metric": "rps",
+          "guardrails": [
+            "log_loss",
+            "brier_1x2",
+            "brier_ou25"
+          ],
+          "min_n_avaliacao": 900,
+          "avaliacoes_intermediarias": false,
+          "league": "Brasileirão Série A",
+          "cohort_start": "2026-08-22"
+        },
+        "test_period": [
+          "2026-08-22T00:00:00Z",
+          null
+        ]
+      },
+      "documentary_assessment": "Protocolo substituído após correções matemáticas",
+      "next_minimum_check": "Preservar sucessão para H14, sem mesclar coortes",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "market-03-edge-ordering-sofascore-diagnostic",
+      "source": "data/trials.json#name=market-03-edge-ordering-sofascore-diagnostic",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "market-03-edge-ordering-sofascore-diagnostic",
+        "registered_at": "2026-08-24T06:30:00Z",
+        "status": "refutada",
+        "params": {
+          "market": "1x2",
+          "hypothesis": "a divergencia p_modelo-p_mercado_sem_vig ordena resultados fora da amostra",
+          "engine": "serving",
+          "ensemble_xg_enabled": false,
+          "odds_source": "sofascore-aggregate-unnamed",
+          "economic_evidence_eligible": false,
+          "development": [
+            "2021-01-01",
+            "2023-12-31"
+          ],
+          "validation": [
+            "2024-01-01",
+            "2024-12-31"
+          ],
+          "sealed_holdout": "2025",
+          "diagnostic_2026_touched": false,
+          "declared_family_trials": 60,
+          "selections": [
+            "away",
+            "draw",
+            "home"
+          ],
+          "divergence_bins_pp": [
+            "lt_-5",
+            "-5_0",
+            "0_5",
+            "5_10",
+            "ge_10"
+          ],
+          "odds_bins": [
+            "1_2",
+            "2_3",
+            "3_5",
+            "ge_5"
+          ],
+          "multiplicity": "DSR with historical ledger plus 60 declared trials; no correlation discount",
+          "negative_control": "permute outcomes within calendar-month x abs-effective-Elo-diff band",
+          "exit": "2024 draw ROI monotonic; power minimums met; permutation null monotonic rate below 5pct",
+          "stake": "fixed-1u-diagnostic-only",
+          "capital_enabled": false
+        },
+        "test_period": [
+          "2021-01-01T00:00:00Z",
+          "2024-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Diagnóstico histórico; 60 células; comparações selecionadas",
+      "next_minimum_check": "Preservar conjunto de tentativas e encerramento",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "market-04-ou25-btts-resolution-and-ordering",
+      "source": "data/trials.json#name=market-04-ou25-btts-resolution-and-ordering",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "market-04-ou25-btts-resolution-and-ordering",
+        "registered_at": "2026-08-24T12:00:00Z",
+        "status": "refutada",
+        "params": {
+          "markets": [
+            "ou25",
+            "btts"
+          ],
+          "engine": "serving",
+          "ensemble_xg_enabled": false,
+          "development": [
+            "2021-01-01",
+            "2023-12-31"
+          ],
+          "validation": [
+            "2024-01-01",
+            "2024-12-31"
+          ],
+          "threshold_var": {
+            "ou25": 0.02,
+            "btts": 0.02
+          },
+          "minimum_odds_coverage": 0.8,
+          "permutations": 1000,
+          "target_roi": 0.05,
+          "power": 0.8,
+          "alpha": 0.05,
+          "sealed_holdout": "2025",
+          "capital_enabled": false
+        },
+        "test_period": [
+          "2021-01-01T00:00:00Z",
+          "2023-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Dev: OU passa resolução, BTTS falha; validação 2024 não aberta",
+      "next_minimum_check": "Não transformar gate de resolução em refutação universal",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "pit-absences-new-information",
+      "source": "data/trials.json#name=pit-absences-new-information",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "pit-absences-new-information",
+        "registered_at": "2026-08-24T12:01:00Z",
+        "status": "pre-registrada",
+        "params": {
+          "feature_family": "absences",
+          "mechanism": "indisponibilidade declarada altera força esperada da equipe",
+          "pit_requirement": "available_at strictly before kickoff",
+          "training_gate": "phase0b_go OR live_viability_go",
+          "capital_enabled": false
+        }
+      },
+      "documentary_assessment": "Hipótese de informação incremental; execução não comprovada",
+      "next_minimum_check": "Demonstrar disponibilidade temporal das ausências",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "pit-lineup-strength-new-information",
+      "source": "data/trials.json#name=pit-lineup-strength-new-information",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "pit-lineup-strength-new-information",
+        "registered_at": "2026-08-24T12:02:00Z",
+        "status": "pre-registrada",
+        "params": {
+          "feature_family": "lineup",
+          "mechanism": "composição provável ou confirmada altera força e continuidade esperadas",
+          "pit_requirement": "available_at strictly before kickoff",
+          "training_gate": "phase0b_go OR live_viability_go",
+          "capital_enabled": false
+        }
+      },
+      "documentary_assessment": "Hipótese de escalações; execução não comprovada",
+      "next_minimum_check": "Demonstrar publicação/recebimento antes do cutoff",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "pit-isolated-xg-new-lineage",
+      "source": "data/trials.json#name=pit-isolated-xg-new-lineage",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "pit-isolated-xg-new-lineage",
+        "registered_at": "2026-08-24T12:03:00Z",
+        "status": "pre-registrada",
+        "params": {
+          "feature_family": "isolated_xg",
+          "architecture": "ISOLATED_XG_NEW_LINEAGE",
+          "forbidden": [
+            "H12_ENSEMBLE_REUSE",
+            "PROBABILITY_BLEND",
+            "GRID_BLEND_WITH_SERVING"
+          ],
+          "pit_requirement": "provider publication before cutoff and kickoff",
+          "training_gate": "phase0b_go OR live_viability_go",
+          "capital_enabled": false
+        }
+      },
+      "documentary_assessment": "Nova linhagem proposta; não resolve automaticamente integrated_xg_v2",
+      "next_minimum_check": "Resolver identidade e disponibilidade das revisões de xG",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "pit-hierarchical-team-home-advantage",
+      "source": "data/trials.json#name=pit-hierarchical-team-home-advantage",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "pit-hierarchical-team-home-advantage",
+        "registered_at": "2026-08-24T12:04:00Z",
+        "status": "pre-registrada",
+        "params": {
+          "feature_family": "hierarchical_home_advantage",
+          "mechanism": "efeito de mando por equipe parcialmente agrupado ao prior da liga",
+          "pit_requirement": "only results published before asof cutoff",
+          "training_gate": "phase0b_go OR live_viability_go",
+          "capital_enabled": false
+        }
+      },
+      "documentary_assessment": "Hipótese de efeito hierárquico; execução não comprovada",
+      "next_minimum_check": "Localizar protocolo/versionamento anterior à avaliação",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "live-backtest-viability-gate",
+      "source": "data/trials.json#name=live-backtest-viability-gate",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "live-backtest-viability-gate",
+        "registered_at": "2026-08-24T12:05:00Z",
+        "status": "inconclusiva",
+        "params": {
+          "required": [
+            "timestamped_historical_events",
+            "timestamped_live_odds",
+            "real_margin",
+            "suspensions",
+            "acceptance_delay",
+            "execution_cost"
+          ],
+          "invalid_without_execution_cost": true,
+          "capital_enabled": false
+        }
+      },
+      "documentary_assessment": "Gate de viabilidade; não é resultado de superioridade",
+      "next_minimum_check": "Localizar dados elegíveis para o contrato concreto",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "prospective-paper-validation-governance",
+      "source": "data/trials.json#name=prospective-paper-validation-governance",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "prospective-paper-validation-governance",
+        "registered_at": "2026-08-24T12:06:00Z",
+        "status": "informativa",
+        "params": {
+          "mode": "paper_trading_only",
+          "stake": "fixed-1u",
+          "metrics": [
+            "clv",
+            "roi_bootstrap_ci95",
+            "calibration",
+            "coverage",
+            "psr",
+            "dsr"
+          ],
+          "minimum_dsr": 0.95,
+          "allowed_capital_outputs": [
+            "CAPITAL_GATE: LOCKED",
+            "CAPITAL_GATE: ELIGIBLE_FOR_REVIEW"
+          ],
+          "capital_decision_authority": "human_outside_code"
+        }
+      },
+      "documentary_assessment": "Entrada de governança; métricas preditivas não aplicáveis",
+      "next_minimum_check": "Conferir mecanismo de bloqueio e recibos autorizados",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "market-05-pinnacle-soft-structural-edge",
+      "source": "data/trials.json#name=market-05-pinnacle-soft-structural-edge",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "market-05-pinnacle-soft-structural-edge",
+        "registered_at": "2026-08-24T18:00:00Z",
+        "status": "pre-registrada",
+        "params": {
+          "mode": "shadow_only",
+          "reference_book": "pinnacle",
+          "primary_devig": "shin",
+          "sensitivity_devig": "power",
+          "ev_threshold": 0.03,
+          "max_reference_staleness_seconds": 300,
+          "collection_gate": "5+ named BR books, 7 consecutive days, PIT coverage >= 90%, 50-match manual audit",
+          "capital_enabled": false
+        }
+      },
+      "documentary_assessment": "Protocolo de referência Pinnacle versus softbooks; resultados protegidos",
+      "next_minimum_check": "Resolver versão do contrato e fricções antes de qualquer claim",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "market-06-ou25-dev-only-ordering-triage",
+      "source": "data/trials.json#name=market-06-ou25-dev-only-ordering-triage",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "market-06-ou25-dev-only-ordering-triage",
+        "registered_at": "2026-08-24T14:00:00Z",
+        "status": "refutada",
+        "params": {
+          "market": "ou2.5",
+          "mechanism": "OU2.5 passou isoladamente o gate de resolução do MARKET-04; testar se divergência modelo menos mercado ordena retorno no desenvolvimento antes de decidir qualquer consumo de 2024",
+          "engine": "serving",
+          "ensemble_xg_enabled": false,
+          "development": [
+            "2021-01-01",
+            "2023-12-31"
+          ],
+          "validation_2024_allowed": false,
+          "sealed_holdout": "2025",
+          "diagnostic_2026_touched": false,
+          "sides": [
+            "over",
+            "under"
+          ],
+          "divergence_bins_pp": [
+            "lt_-5",
+            "-5_0",
+            "0_5",
+            "5_10",
+            "ge_10"
+          ],
+          "primary_devig": "shin",
+          "sensitivity_devig": "power",
+          "permutations": 1000,
+          "permutation_strata": "calendar-month x abs-effective-Elo-diff band",
+          "target_validation_n": 380,
+          "power": 0.8,
+          "alpha": 0.05,
+          "triage_go": "same-side ROI nondecreasing across at least 3 populated bins under Shin and power; top-minus-bottom ROI >= 0.15; permutation null monotonic rate < 0.05; strongest positive bin ROI >= MDE estimated for n=380",
+          "capital_enabled": false
+        },
+        "test_period": [
+          "2021-01-01T00:00:00Z",
+          "2023-12-31T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Dev n=808 com odds; extremo n=3, sem monotonicidade; sem validação 2024",
+      "next_minimum_check": "Preservar NO_GO dentro do desenho",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "observation-2026-inter-bahia-slow-reactivity",
+      "source": "data/trials.json#name=observation-2026-inter-bahia-slow-reactivity",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "observation-2026-inter-bahia-slow-reactivity",
+        "registered_at": "2026-08-24T15:00:00Z",
+        "status": "informativa",
+        "params": {
+          "record_type": "observation_not_hypothesis",
+          "teams": [
+            "Internacional",
+            "Bahia"
+          ],
+          "season": "2026",
+          "errors_each": 16,
+          "mechanism_candidate": "força escalar com baixa reatividade pode atrasar quebras de elenco, técnico ou regime",
+          "activation_condition": "somente se live morrer e o projeto retornar ao pré-jogo com informação PIT nova",
+          "forbidden_now": [
+            "new_sweep",
+            "threshold_rescue",
+            "training",
+            "capital"
+          ],
+          "capital_enabled": false
+        },
+        "test_period": [
+          "2026-01-01T00:00:00Z",
+          "2026-08-24T23:59:59Z"
+        ]
+      },
+      "documentary_assessment": "Observação, não experimento confirmatório",
+      "next_minimum_check": "Localizar registro temporal e não generalizar o caso",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "market05-a1-shadow",
+      "source": "data/trials.json#name=market05-a1-shadow",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "market05-a1-shadow",
+        "registered_at": "2026-08-24T21:00:00Z",
+        "status": "pre-registrada",
+        "params": {
+          "source_id": "oddspapi_v4",
+          "mode": "economic_rehearsal",
+          "cadence": [
+            "T-24h",
+            "T-6h",
+            "T-1h",
+            "T-10m"
+          ],
+          "homologation_clock_started_at": null,
+          "start_blocker": "rotated_ODDSPAPI_KEY_not_confirmed",
+          "reference": "pinnacle",
+          "minimum_soft_books": 5,
+          "consecutive_days": 7,
+          "maximum_gap_seconds": 3600,
+          "minimum_event_coverage": 0.9,
+          "minimum_market_coverage": 0.95,
+          "minimum_continuity": 0.95,
+          "minimum_identity_resolution_rate": 0.99,
+          "maximum_conflict_rate": 0.001,
+          "minimum_manual_audit_events": 50,
+          "failure_policy": "FAIL_RESTART_CLOCK_FROM_ZERO",
+          "economic_mode_verdict": "REHEARSAL_ONLY",
+          "historical_endpoint_allowed": false,
+          "capital_enabled": false
+        }
+      },
+      "documentary_assessment": "Calibração operacional sem labels; resultados protegidos",
+      "next_minimum_check": "Gates A1, freeze e liberação específica; não consultar P&L",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    },
+    {
+      "project": "brasileirao-predictor",
+      "id": "h14-serving-v2-vs-climatologia-prequential-prospectivo",
+      "source": "data/trials.json#name=h14-serving-v2-vs-climatologia-prequential-prospectivo",
+      "source_revision": "f87806900d2aa3c5e267259a67f27ce56e18dc03",
+      "native_metadata": {
+        "name": "h14-serving-v2-vs-climatologia-prequential-prospectivo",
+        "registered_at": "2026-08-26T22:35:33Z",
+        "status": "pre-registrada",
+        "params": {
+          "market": "1x2",
+          "hypothesis": "a pilha serving v2 corrigida bate climatologia prequential em RPS numa coorte futura",
+          "engine": "serving",
+          "algorithm_version": "nbdc-normalized-elo-horizon-v2",
+          "ensemble_xg_enabled": false,
+          "baseline": "prequential_climatology_dirichlet_1_by_date_block",
+          "retrain_every": 100,
+          "min_history": 200,
+          "block_guard": "kickoff estrito no modelo; climatologia congelada por bloco de data",
+          "bootstrap": {
+            "scheme": "moving",
+            "block_length": 21,
+            "n_boot": 10000,
+            "seed": 42
+          },
+          "primary_metric": "rps",
+          "guardrails": [
+            "log_loss",
+            "brier_1x2",
+            "brier_ou25"
+          ],
+          "min_n_avaliacao": 900,
+          "avaliacoes_intermediarias": false,
+          "league": "Brasileirão Série A",
+          "cohort_start": null,
+          "earliest_eligible_date": "2026-08-27",
+          "collection_status": "NOT_STARTED",
+          "activation_condition": "persist serving-v2 and prequential-climatology predictions append-only before kickoff with code fingerprint",
+          "prospective_family_id": "track-a-future-2026-08-27",
+          "familywise_rule": "Holm step-down across H14 and H15 at alpha=0.05 for any portfolio-level claim",
+          "capital_enabled": false
+        },
+        "test_period": [
+          "2026-08-27T00:00:00Z",
+          null
+        ]
+      },
+      "documentary_assessment": "Desenho prospectivo; resultados protegidos; guardrail OU2.5 ausente do avaliador",
+      "next_minimum_check": "Resolver incompatibilidade sem reconstruir previsões ou mudar contrato",
+      "reproduction_this_audit": "not_executed",
+      "new_data_replication_this_audit": "not_executed",
+      "operational_installation": "not_tested"
+    }
+  ],
+  "count": 29,
+  "native_status_counts": {
+    "refutada": 6,
+    "informativa": 3,
+    "substituida": 3,
+    "inconclusiva": 6,
+    "exploratoria": 2,
+    "pre-registrada": 8,
+    "comprovada": 1
+  },
+  "additional_resolved_identities": [
+    "CLAIM-BR-MARKET-001",
+    "CLAIM-BR-MARKET-002",
+    "CLAIM-BR-MARKET-003",
+    "h11-ensemble-xg-1x2-prospective-2026"
+  ],
+  "unresolved_identity": "integrated_xg_v2"
+}

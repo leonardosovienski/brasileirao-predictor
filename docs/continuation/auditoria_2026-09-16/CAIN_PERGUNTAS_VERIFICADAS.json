@@ -1,0 +1,50 @@
+[
+  {
+    "question": "Quais dados históricos ainda faltam?",
+    "passed": true,
+    "missing": [],
+    "status": "literal_claim_table",
+    "answer": "Campos registrados na fonte [S1]:\nID: BR-AUDIT-DADOS-HISTORICOS-FALTANTES\nHipótese registrada: Dados históricos faltantes: quais dados históricos ainda faltam e quais existem\nEstado: DOCUMENTARY_DETAIL\nDisponível: 29 entradas de trials, 3 claims, 12 previsões 1X2 originais, 2 OU2.5 H15 reconstruídos, 3 relatórios complementares obtidos\nAinda falta: 6 OU2.5 H14; 4 OU2.5 H15; 2 relatórios originais EXP-001; identidade integrated_xg_v2; ligação H11; timestamps históricos PIT\nRelatórios originais ausentes: exp001_data_pilot_2026-09-02.json e exp001_coverage_audit_2026-09-02.json\nReconstrução: 2 de 6 braços H15 e 0 de 6 H14; nenhum OU2.5 original registrado; originais preservados\nLimite: Ausente nas fontes consultadas; não declarar inexistência global nem imputar informação como observada\nTranscrição dos campos selecionados; não valida o experimento nem resolve conflitos entre revisões.",
+    "model_calls": 0
+  },
+  {
+    "question": "O que foi recuperado das previsões H15?",
+    "passed": true,
+    "missing": [],
+    "status": "literal_claim_table",
+    "answer": "Campos registrados na fonte [S1]:\nID: BR-AUDIT-RESUMO\nHipótese registrada: Inventário documental e recuperação histórica\nEstado: PARTIAL_RECOVERY\nO que tem: 29 entradas de trials; 3 claims; 12 previsões por braço originais; 2 OU2.5 retrospectivos H15\nO que falta: OU2.5 não recuperável em 10 braços; 2 relatórios EXP-001 originais ausentes; OU2.5 original ausente em todos os 12 braços\nDistinção: 2 de 6 braços H15 reconstruídos; 0 de 6 braços H14; nenhum OU2.5 foi registrado originalmente\nLimites: As 2 reconstruções não são previsões originais e não restauram elegibilidade prospectiva\nAvaliação científica: Nenhuma nesta auditoria; testes de software não demonstram ganho preditivo\nCampos registrados na fonte [S2]:\nID: BR-AUDIT-DADOS-HISTORICOS-FALTANTES\nHipótese registrada: Dados históricos faltantes: quais dados históricos ainda faltam e quais existem\nEstado: DOCUMENTARY_DETAIL\nDisponível: 29 entradas de trials, 3 claims, 12 previsões 1X2 originais, 2 OU2.5 H15 reconstruídos, 3 relatórios complementares obtidos\nAinda falta: 6 OU2.5 H14; 4 OU2.5 H15; 2 relatórios originais EXP-001; identidade integrated_xg_v2; ligação H11; timestamps históricos PIT\nRelatórios originais ausentes: exp001_data_pilot_2026-09-02.json e exp001_coverage_audit_2026-09-02.json\nReconstrução: 2 de 6 braços H15 e 0 de 6 H14; nenhum OU2.5 original registrado; originais preservados\nLimite: Ausente nas fontes consultadas; não declarar inexistência global nem imputar informação como observada\nCampos registrados na fonte [S3]:\nID: BR-AUDIT-FALTA-H15-OU25\nHipótese registrada: Quatro OU2.5 históricos H15\nEstado: NOT_RECOVERED_IN_REVIEWED_SOURCES\nO que foi buscado: Arquivos preservados, 16 ZIPs, 12 revisões de configuração e Git remoto atualizado\nLimite: Estados e configurações não satisfazem toda a proveniência exigida\nPreenchimento automático: NÃO; não inventar números, timestamps ou equivalências\nTranscrição dos campos selecionados; não valida o experimento nem resolve conflitos entre revisões.",
+    "model_calls": 0
+  },
+  {
+    "question": "O protocolo BR-AUDIT-PROTOCOLO-V2 já está ativado?",
+    "passed": true,
+    "missing": [],
+    "status": "literal_claim_table",
+    "answer": "Campos registrados na fonte [S1]:\nID: BR-AUDIT-PROTOCOLO-V2\nHipótese registrada: Especificação sucessora separada das coortes antigas\nEstado: SPECIFIED_NOT_ACTIVATED\nID do protocolo: br-prospective-repair-v2-20260915\nInstalação: Biblioteca instalada; 155 testes passaram\nColeta nova: NÃO ATIVADA\nInscrição canônica: NÃO EFETUADA\nCoortes antigas: Não elegíveis para o protocolo sucessor; contratos antigos preservados\nCapital: DESABILITADO\nFonte: PROTOCOLO_SUCESSOR_V2.json\nTranscrição dos campos selecionados; não valida o experimento nem resolve conflitos entre revisões.",
+    "model_calls": 0
+  },
+  {
+    "question": "Qual baseline está definida no BR-AUDIT-PROTOCOLO-DETALHE-3?",
+    "passed": true,
+    "missing": [],
+    "status": "literal_claim_table",
+    "answer": "Campos registrados na fonte [S1]:\nID: BR-AUDIT-PROTOCOLO-DETALHE-3\nHipótese registrada: Protocolo sucessor: definições completas; ainda não ativado\nEstado: DOCUMENTARY_DETAIL\nRegra: h14_baseline: {\"cutoff\": \"00:00 UTC on the preceding calendar date\", \"date_block\": \"UTC fixture date\", \"eligibility\": \"final_at and available_at strictly before cutoff\", \"late_arrivals\": \"not included retrospectively; same frozen snapshot per block\", \"minimum_history\": 200, \"one_x_two\": \"Dirichlet(1,1,1)\", \"over_2_5\": \"Beta(1,1); (over_count + 1)/(n + 2)\"}\nRegra: required_escrow: [\"full_model_state\", \"model_source\", \"relevant_configuration\", \"full_precision_1x2_and_ou25\", \"training_cutoff\", \"prediction_receipt\"]\nTranscrição dos campos selecionados; não valida o experimento nem resolve conflitos entre revisões.",
+    "model_calls": 0
+  },
+  {
+    "question": "O que falta no BR-AUDIT-FALTA-EXP001-PILOT?",
+    "passed": true,
+    "missing": [],
+    "status": "literal_claim_table",
+    "answer": "Campos registrados na fonte [S1]:\nID: BR-AUDIT-FALTA-EXP001-PILOT\nHipótese registrada: reports/exp001_data_pilot_2026-09-02.json\nEstado: NOT_RECOVERED_IN_REVIEWED_SOURCES\nO que foi buscado: Arquivos preservados, 16 ZIPs, 12 revisões de configuração e Git remoto atualizado\nLimite: Ausente nos arquivos e histórico remoto consultados\nPreenchimento automático: NÃO; não inventar números, timestamps ou equivalências\nTranscrição dos campos selecionados; não valida o experimento nem resolve conflitos entre revisões.",
+    "model_calls": 0
+  },
+  {
+    "question": "Os relatórios complementares substituem os originais ausentes?",
+    "passed": true,
+    "missing": [],
+    "status": "literal_claim_table",
+    "answer": "Campos registrados na fonte [S1]:\nID: BR-AUDIT-RESUMO\nHipótese registrada: Inventário documental e recuperação histórica\nEstado: PARTIAL_RECOVERY\nO que tem: 29 entradas de trials; 3 claims; 12 previsões por braço originais; 2 OU2.5 retrospectivos H15\nO que falta: OU2.5 não recuperável em 10 braços; 2 relatórios EXP-001 originais ausentes; OU2.5 original ausente em todos os 12 braços\nDistinção: 2 de 6 braços H15 reconstruídos; 0 de 6 braços H14; nenhum OU2.5 foi registrado originalmente\nLimites: As 2 reconstruções não são previsões originais e não restauram elegibilidade prospectiva\nAvaliação científica: Nenhuma nesta auditoria; testes de software não demonstram ganho preditivo\nCampos registrados na fonte [S2]:\nID: BR-AUDIT-DADOS-HISTORICOS-FALTANTES\nHipótese registrada: Dados históricos faltantes: quais dados históricos ainda faltam e quais existem\nEstado: DOCUMENTARY_DETAIL\nDisponível: 29 entradas de trials, 3 claims, 12 previsões 1X2 originais, 2 OU2.5 H15 reconstruídos, 3 relatórios complementares obtidos\nAinda falta: 6 OU2.5 H14; 4 OU2.5 H15; 2 relatórios originais EXP-001; identidade integrated_xg_v2; ligação H11; timestamps históricos PIT\nRelatórios originais ausentes: exp001_data_pilot_2026-09-02.json e exp001_coverage_audit_2026-09-02.json\nReconstrução: 2 de 6 braços H15 e 0 de 6 H14; nenhum OU2.5 original registrado; originais preservados\nLimite: Ausente nas fontes consultadas; não declarar inexistência global nem imputar informação como observada\nCampos registrados na fonte [S3]:\nID: BR-AUDIT-DOC-COVERAGE-IDENTITY-ASSESSMENT-1\nHipótese registrada: Relatório complementar histórico de 2026-09-02; bloco 1 de 6\nEstado: DOCUMENTARY_DETAIL\nArquivo: exp001_coverage_identity_assessment_2026-09-02.json\nschema_version: exp001-coverage-identity-assessment/1.0\naudited_at: 2026-09-02\nRessalva da auditoria: Estado declarado em 2026-09-02; cobertura antiga não prova validade no cutoff; não substitui originais ausentes\nSHA256 do documento completo: 215e92932b6763ede1aa563ecc06bbc8641b59e077ff4277f96e37a90441bfc4\nTranscrição dos campos selecionados; não valida o experimento nem resolve conflitos entre revisões.",
+    "model_calls": 0
+  }
+]

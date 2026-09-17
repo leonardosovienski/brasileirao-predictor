@@ -1,0 +1,95 @@
+{
+  "at": "2026-09-15T23:43:20.721736+00:00",
+  "rollback": false,
+  "kind": "local auditable patch; not a new published package release",
+  "files": {
+    "br": {
+      "site": "C:/BRASILEIRAO/brasileirao-predictor/.venv/Lib/site-packages",
+      "source": "C:/BRASILEIRAO/work/audit-fixes-20260915/candidate",
+      "packages": [
+        "brasileirao_scripts",
+        "brasileirao_predictor"
+      ],
+      "files": [
+        "brasileirao_scripts/evaluate_h14_prospective.py",
+        "brasileirao_scripts/evaluate_h15_prospective.py",
+        "brasileirao_scripts/prospective_metrics.py"
+      ],
+      "manifest": [
+        {
+          "path": "brasileirao_scripts/evaluate_h14_prospective.py",
+          "before": "4b02a3e4c3fe5f4764cae5eb46eea5beca4950533b7498f2d35af02921eb8470",
+          "after": "a85465058d0b7c5d730bf0a28dee6cfed1c9216447ea296e2766a39c03705091"
+        },
+        {
+          "path": "brasileirao_scripts/evaluate_h15_prospective.py",
+          "before": "35890c2cd4dc0eef52843ba364125efd69b7dad9dfe93e23bf2ff1b68850aa45",
+          "after": "2b0d45ba03245d64da24967bd35c6a3f3288bd49a2234bb321ad9bab019c937e"
+        },
+        {
+          "path": "brasileirao_scripts/prospective_metrics.py",
+          "before": null,
+          "after": "1a8837651825ad4b7bdf923a50d44f7841061b0883cf4243a295585e01aea074"
+        }
+      ]
+    },
+    "cain": {
+      "site": "C:/CAIN/.venv/Lib/site-packages",
+      "source": "C:/CAIN/work/brasileirao-audit-20260915/src",
+      "packages": [
+        "cain"
+      ],
+      "files": [
+        "cain/research/analysis.py",
+        "cain/research/grounding.py",
+        "cain/research/workflows.py",
+        "cain/research/claim_tables.py"
+      ],
+      "manifest": [
+        {
+          "path": "cain/research/analysis.py",
+          "before": "446ec760dce610b6bbceacf67e355d1f9cd176818ff7018c78f8901300cde901",
+          "after": "b986615e48111efbeb6a9ecc19fce6b034b1b4199da8172562aae0651e0adf21"
+        },
+        {
+          "path": "cain/research/grounding.py",
+          "before": "52bf5c65d6148ea392acc99879491b2b01365527e6441fe2c285269370a84a9c",
+          "after": "a8593dd8adad9b85597208bb2af5578d06ef15f8f02a8ca12d34b377a4f743c7"
+        },
+        {
+          "path": "cain/research/workflows.py",
+          "before": "3b1a3bc028295588d060a4dfbdb061fa946f1cbb96f69e19483a596dae065f46",
+          "after": "b80b9d5e48a135d09c7ed74b48a1f2c5b5cce93143c3cd0d0333f052c2528edf"
+        },
+        {
+          "path": "cain/research/claim_tables.py",
+          "before": null,
+          "after": "44d5673dc9616c02c996e33f7522432e43fe8ecedcaed8631aea22411e91033e"
+        }
+      ]
+    }
+  },
+  "records": {
+    "br": "63a1fbe2b507e8cbd4d71b5e9760a249d3f0ccf371c7318b85e6b8e489ae1aec",
+    "cain": "fca1a8631a142cfb23584f4ef55555ac423deb9fee1524f522248b24039e65a2"
+  },
+  "installed_package_py_files_verified": {
+    "br": 234,
+    "cain": 56
+  },
+  "installed_code_tests": {
+    "brasileirao": 108,
+    "cain": 48
+  },
+  "preserved_hashes_verified": {
+    "C:/CAIN/projeto/cain.toml": "5d0c8e505cd32404371942c6bf2c9c048307c3352af95cc4da65fad52a770e3e",
+    "C:/CAIN/projeto/.cain.local.json": "c190965f4fe56fbe7cf2cce0473b304326ddfd9f54dd7d71ba6a25cbe3d8fe5f",
+    "C:/BRASILEIRAO/brasileirao-predictor/config.yaml": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009",
+    "C:/BRASILEIRAO/DADOS_PRESERVADOS/projetos/brasileirao-predictor/data/research/h14_serving_vs_climatologia.jsonl": "00030c961a3b42760a9f8d41fde096c213b75b5ec65e9b74f3f0809898789d99",
+    "C:/BRASILEIRAO/DADOS_PRESERVADOS/projetos/brasileirao-predictor/data/research/h15_refit10_vs_100.jsonl": "f3337e0567c53ac3af15b2e8ef3113470a5c7e854e3b69f269418fa38230a46f"
+  },
+  "scientific_evaluation_executed": false,
+  "personal_database_opened": false,
+  "dependency_changes": false,
+  "cain_dependency_deprecation_warnings": 2
+}

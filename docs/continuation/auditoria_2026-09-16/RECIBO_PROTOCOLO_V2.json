@@ -1,0 +1,34 @@
+{
+  "at": "2026-09-16T00:05:07.468366+00:00",
+  "module_sha256": "fe7a91765b5d04e0768fbf07c1bb0f5e2be3ef961085be7b2bb7648d4a4c8446",
+  "installed": "C:\\BRASILEIRAO\\brasileirao-predictor\\.venv\\Lib\\site-packages\\brasileirao_scripts\\prospective_protocol_v2.py",
+  "record_before_sha256": "63a1fbe2b507e8cbd4d71b5e9760a249d3f0ccf371c7318b85e6b8e489ae1aec",
+  "record_after_sha256": "cce01f17bdf7036ce4202025a2a470a0adea9da581f0ba1ad907d154e0314a08",
+  "collection_activated": false,
+  "legacy_protocol_changed": false,
+  "dependencies_changed": false,
+  "source_files": {
+    "brasileirao_scripts/prospective_protocol_v2.py": "fe7a91765b5d04e0768fbf07c1bb0f5e2be3ef961085be7b2bb7648d4a4c8446",
+    "tests/test_prospective_protocol_v2.py": "9b577c64b6c2a67cb478a0b1c0218c544f8e7fb15d9d0ebf0be22119f2a348d1"
+  },
+  "installed_tests": 155,
+  "new_test_cases": 47,
+  "random_scoring_cases": 200,
+  "lint": "passed",
+  "installed_module": "C:\\BRASILEIRAO\\brasileirao-predictor\\.venv\\Lib\\site-packages\\brasileirao_scripts\\prospective_protocol_v2.py",
+  "protocol_sha256": "19b1e5136761c8d574bad5367dd8433dc1cb44aabe13e781e10c4aa503cff1f9",
+  "preserved_hashes": {
+    "C:/CAIN/projeto/cain.toml": "5d0c8e505cd32404371942c6bf2c9c048307c3352af95cc4da65fad52a770e3e",
+    "C:/CAIN/projeto/.cain.local.json": "c190965f4fe56fbe7cf2cce0473b304326ddfd9f54dd7d71ba6a25cbe3d8fe5f",
+    "C:/BRASILEIRAO/brasileirao-predictor/config.yaml": "a0ddbb4353839fc31231ac159fdc48a9e87378f43effb65b1f02dfb9642e6009",
+    "C:/BRASILEIRAO/DADOS_PRESERVADOS/projetos/brasileirao-predictor/data/research/h14_serving_vs_climatologia.jsonl": "00030c961a3b42760a9f8d41fde096c213b75b5ec65e9b74f3f0809898789d99",
+    "C:/BRASILEIRAO/DADOS_PRESERVADOS/projetos/brasileirao-predictor/data/research/h15_refit10_vs_100.jsonl": "f3337e0567c53ac3af15b2e8ef3113470a5c7e854e3b69f269418fa38230a46f",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\data\\trials.json": "e5af7c0ffd79298a66a446b02973b0be9827c0fe987e94185b0b9a035f4e1199",
+    "C:\\BRASILEIRAO\\brasileirao-predictor\\data\\trials.v2.json": "fbad9c0cf5af78016b5480ab2384db0bb356f4b07c79a08628aba23ba10e7d90"
+  },
+  "historical_arms_reconstructed": 2,
+  "historical_arms_total": 6,
+  "new_historical_arms_recovered": 0,
+  "scientific_evaluation_executed": false,
+  "bug_absence_proven": false
+}

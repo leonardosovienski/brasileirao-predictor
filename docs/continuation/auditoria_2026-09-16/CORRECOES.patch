@@ -1,0 +1,387 @@
+--- a/brasileirao_scripts/evaluate_h14_prospective.py
++++ b/brasileirao_scripts/evaluate_h14_prospective.py
+@@ -17,7 +17,7 @@
+ 
+ PONTO ÚNICO
+ -----------
+-Um claim exclusivo precede toda leitura ou cálculo, tanto no CLI quanto na
++Uma checagem de contrato precede o claim; o claim precede leituras da coorte e cálculos, tanto no CLI quanto na
+ API evaluate(). Com n<900 o claim é liberado; sucesso, erro ou crash o retêm
+ e bloqueiam nova tentativa automática. O relatório exclusivo é persistido
+ antes de retornar/imprimir. Resolver claim retido exige governança; não
+@@ -30,6 +30,7 @@
+ from __future__ import annotations
+ 
+ import json
++import math
+ import sys
+ from pathlib import Path
+ from typing import Any
+@@ -111,15 +112,24 @@
+ 
+ def _verdict(primary: dict[str, Any], guardrails: dict[str, dict[str, Any]]) -> tuple[str, str]:
+     lo, hi = primary["ci95"]
+-    if lo is None or hi is None:
++    if lo is None or hi is None or not math.isfinite(lo) or not math.isfinite(hi) or lo > hi:
+         return "inconclusiva", "bootstrap não produziu IC95 — amostra insuficiente"
+     if lo <= 0:
+         detail = (
+-            "IC95 do ganho de RPS cruza zero — bater a climatologia é indistinguível de sorte"
+-            if hi > 0
++            "IC95 do ganho de RPS inclui zero — superioridade não demonstrada; não prova equivalência"
++            if hi >= 0
+             else "IC95 do ganho de RPS estritamente negativo — serving-v2 PIOR que a climatologia"
+         )
+         return "refutada", detail
++    for metric in GUARDRAIL_METRICS:
++        interval = guardrails.get(metric, {}).get("ci95")
++        if (
++            not isinstance(interval, (list, tuple))
++            or len(interval) != 2
++            or any(value is None or not math.isfinite(value) for value in interval)
++            or interval[0] > interval[1]
++        ):
++            return "inconclusiva", f"guardrail {metric} sem IC95 válido — aprovação não permitida"
+     piorados = [
+         f"{m} (IC95=[{g['ci95'][0]:.6f}, {g['ci95'][1]:.6f}])"
+         for m, g in guardrails.items()
+@@ -132,6 +142,33 @@
+     return "comprovada", "IC95 do ganho de RPS estritamente positivo e nenhum guardrail materialmente pior"
+ 
+ 
++def _require_supported_protocol(trials_path: Path) -> None:
++    """Read contract metadata only; reject unsupported metrics before a claim.
++
++    This does not authorize a cohort evaluation or modify the frozen protocol.
++    In particular, absent OU2.5 forecasts cannot be reconstructed from 1X2.
++    """
++    trials = [t for t in TrialRegistry(trials_path).load() if t["name"] == TRIAL]
++    if len(trials) != 1:
++        raise EvaluationBlocked(f"{TRIAL}: expected exactly one registered protocol")
++    params = trials[0].get("params", {})
++    declared = params.get("guardrails")
++    if (
++        params.get("primary_metric") != "rps"
++        or not isinstance(declared, list)
++        or any(not isinstance(metric, str) for metric in declared)
++        or len(declared) != len(GUARDRAIL_METRICS)
++        or set(declared) != set(GUARDRAIL_METRICS)
++    ):
++        raise EvaluationBlocked(
++            f"{TRIAL}: protocol/evaluator metric mismatch; "
++            f"declared primary={params.get('primary_metric')!r}, guardrails={declared!r}; "
++            f"implemented primary='rps', guardrails={GUARDRAIL_METRICS!r}. "
++            "No cohort read or metric calculation authorized. "
++            "Preserve the frozen protocol and resolve the missing implementation/data."
++        )
++
++
+ def evaluate(
+     *,
+     trials_path: Path | None = None,
+@@ -139,12 +176,14 @@
+     db_path: Path | None = None,
+     reports_dir: Path | None = None,
+ ) -> dict[str, Any]:
+-    """Claim before reading; persist success before returning, without auto retry."""
++    """Check contract before claiming; claim before cohort reads; never auto retry."""
+     ledger = Path(ledger_path if ledger_path is not None else LEDGER_PATH).resolve()
+     claim_dir = claim_directory(trial=TRIAL, ledger_path=ledger)
+     if ledger == LEDGER_PATH.resolve():
+         # Legacy reports for the default cohort still block a changed output folder.
+         require_available(REPORTS_DIR, "h14", claim_dir=claim_dir)
++    require_available(reports_dir if reports_dir is not None else REPORTS_DIR, "h14", claim_dir=claim_dir)
++    _require_supported_protocol(trials_path if trials_path is not None else TRIALS_PATH)
+     return evaluate_once(
+         lambda: _evaluate_claimed(trials_path=trials_path, ledger_path=ledger_path, db_path=db_path),
+         reports_dir=reports_dir if reports_dir is not None else REPORTS_DIR,
+@@ -157,6 +196,7 @@
+ def _evaluate_claimed(*, trials_path: Path | None, ledger_path: Path | None, db_path: Path | None) -> dict[str, Any]:
+     trials_path = trials_path or TRIALS_PATH
+     ledger_path = ledger_path or LEDGER_PATH
++    _require_supported_protocol(trials_path)
+     trial = next((t for t in TrialRegistry(trials_path).load() if t["name"] == TRIAL), None)
+     if trial is None:
+         sys.exit(f"trial {TRIAL!r} não registrada")
+@@ -203,6 +243,8 @@
+         "primary_rps": primary,
+         "guardrails": guardrails,
+         "trial": TRIAL,
++        "decision_scope": "individual_trial_only",
++        "portfolio_claim_authorized": False,
+         "capital_enabled": False,
+     }
+ 
+--- a/brasileirao_scripts/evaluate_h15_prospective.py
++++ b/brasileirao_scripts/evaluate_h15_prospective.py
+@@ -7,7 +7,7 @@
+ bootstrap de bloco móvel, e falha fechado (sem calcular nada) se n<900.
+ 
+ GATE DE PODER — NÃO NEGOCIÁVEL: ver docstring de evaluate_h14_prospective.py.
+-PONTO ÚNICO: claim exclusivo antes de qualquer leitura/cálculo, no CLI e na
++PONTO ÚNICO: checagem de contrato antes do claim; claim antes da coorte/cálculo, no CLI e na
+ API evaluate(). Só a resposta abaixo do n mínimo libera o claim; sucesso,
+ erro ou crash bloqueiam nova tentativa automática. O relatório é persistido
+ antes de retornar/imprimir. Testes devem usar reports_dir temporário.
+@@ -19,6 +19,7 @@
+ from __future__ import annotations
+ 
+ import json
++import math
+ import sys
+ from pathlib import Path
+ from typing import Any
+@@ -101,15 +102,24 @@
+ 
+ def _verdict(primary: dict[str, Any], guardrails: dict[str, dict[str, Any]]) -> tuple[str, str]:
+     lo, hi = primary["ci95"]
+-    if lo is None or hi is None:
++    if lo is None or hi is None or not math.isfinite(lo) or not math.isfinite(hi) or lo > hi:
+         return "inconclusiva", "bootstrap não produziu IC95 — amostra insuficiente"
+     if lo <= 0:
+         detail = (
+-            "IC95 do ganho de RPS cruza zero — refit10 é indistinguível de refit100"
+-            if hi > 0
++            "IC95 do ganho de RPS inclui zero — superioridade não demonstrada; não prova equivalência"
++            if hi >= 0
+             else "IC95 do ganho de RPS estritamente negativo — refit10 PIORA frente a refit100"
+         )
+         return "refutada", detail
++    for metric in GUARDRAIL_METRICS:
++        interval = guardrails.get(metric, {}).get("ci95")
++        if (
++            not isinstance(interval, (list, tuple))
++            or len(interval) != 2
++            or any(value is None or not math.isfinite(value) for value in interval)
++            or interval[0] > interval[1]
++        ):
++            return "inconclusiva", f"guardrail {metric} sem IC95 válido — aprovação não permitida"
+     piorados = [
+         f"{m} (IC95=[{g['ci95'][0]:.6f}, {g['ci95'][1]:.6f}])"
+         for m, g in guardrails.items()
+@@ -122,6 +132,33 @@
+     return "comprovada", "IC95 do ganho de RPS estritamente positivo e nenhum guardrail materialmente pior"
+ 
+ 
++def _require_supported_protocol(trials_path: Path) -> None:
++    """Read contract metadata only; reject unsupported metrics before a claim.
++
++    This does not authorize a cohort evaluation or modify the frozen protocol.
++    In particular, absent OU2.5 forecasts cannot be reconstructed from 1X2.
++    """
++    trials = [t for t in TrialRegistry(trials_path).load() if t["name"] == TRIAL]
++    if len(trials) != 1:
++        raise EvaluationBlocked(f"{TRIAL}: expected exactly one registered protocol")
++    params = trials[0].get("params", {})
++    declared = params.get("guardrails")
++    if (
++        params.get("primary_metric") != "rps"
++        or not isinstance(declared, list)
++        or any(not isinstance(metric, str) for metric in declared)
++        or len(declared) != len(GUARDRAIL_METRICS)
++        or set(declared) != set(GUARDRAIL_METRICS)
++    ):
++        raise EvaluationBlocked(
++            f"{TRIAL}: protocol/evaluator metric mismatch; "
++            f"declared primary={params.get('primary_metric')!r}, guardrails={declared!r}; "
++            f"implemented primary='rps', guardrails={GUARDRAIL_METRICS!r}. "
++            "No cohort read or metric calculation authorized. "
++            "Preserve the frozen protocol and resolve the missing implementation/data."
++        )
++
++
+ def evaluate(
+     *,
+     trials_path: Path | None = None,
+@@ -129,12 +166,14 @@
+     db_path: Path | None = None,
+     reports_dir: Path | None = None,
+ ) -> dict[str, Any]:
+-    """Claim before reading; persist success before returning, without auto retry."""
++    """Check contract before claiming; claim before cohort reads; never auto retry."""
+     ledger = Path(ledger_path if ledger_path is not None else LEDGER_PATH).resolve()
+     claim_dir = claim_directory(trial=TRIAL, ledger_path=ledger)
+     if ledger == LEDGER_PATH.resolve():
+         # Legacy reports for the default cohort still block a changed output folder.
+         require_available(REPORTS_DIR, "h15", claim_dir=claim_dir)
++    require_available(reports_dir if reports_dir is not None else REPORTS_DIR, "h15", claim_dir=claim_dir)
++    _require_supported_protocol(trials_path if trials_path is not None else TRIALS_PATH)
+     return evaluate_once(
+         lambda: _evaluate_claimed(trials_path=trials_path, ledger_path=ledger_path, db_path=db_path),
+         reports_dir=reports_dir if reports_dir is not None else REPORTS_DIR,
+@@ -147,6 +186,7 @@
+ def _evaluate_claimed(*, trials_path: Path | None, ledger_path: Path | None, db_path: Path | None) -> dict[str, Any]:
+     trials_path = trials_path or TRIALS_PATH
+     ledger_path = ledger_path or LEDGER_PATH
++    _require_supported_protocol(trials_path)
+     trial = next((t for t in TrialRegistry(trials_path).load() if t["name"] == TRIAL), None)
+     if trial is None:
+         sys.exit(f"trial {TRIAL!r} não registrada")
+@@ -193,6 +233,8 @@
+         "primary_rps": primary,
+         "guardrails": guardrails,
+         "trial": TRIAL,
++        "decision_scope": "individual_trial_only",
++        "portfolio_claim_authorized": False,
+         "capital_enabled": False,
+     }
+ 
+--- a/tests/test_evaluate_h14_prospective.py
++++ b/tests/test_evaluate_h14_prospective.py
+@@ -13,7 +13,18 @@
+ 
+ def _trials_json(path: Path, min_n: int = MIN_N) -> None:
+     path.write_text(
+-        json.dumps([{"name": job.TRIAL, "params": {"min_n_avaliacao": min_n}}]),
++        json.dumps(
++            [
++                {
++                    "name": job.TRIAL,
++                    "params": {
++                        "min_n_avaliacao": min_n,
++                        "primary_metric": "rps",
++                        "guardrails": list(job.GUARDRAIL_METRICS),
++                    },
++                }
++            ]
++        ),
+         encoding="utf-8",
+     )
+ 
+--- a/tests/test_evaluate_h15_prospective.py
++++ b/tests/test_evaluate_h15_prospective.py
+@@ -12,7 +12,18 @@
+ 
+ def _trials_json(path: Path, min_n: int = MIN_N) -> None:
+     path.write_text(
+-        json.dumps([{"name": job.TRIAL, "params": {"min_n_avaliacao": min_n}}]),
++        json.dumps(
++            [
++                {
++                    "name": job.TRIAL,
++                    "params": {
++                        "min_n_avaliacao": min_n,
++                        "primary_metric": "rps",
++                        "guardrails": list(job.GUARDRAIL_METRICS),
++                    },
++                }
++            ]
++        ),
+         encoding="utf-8",
+     )
+ 
+--- a/tests/test_prospective_evaluation_guard.py
++++ b/tests/test_prospective_evaluation_guard.py
+@@ -21,6 +21,7 @@
+ @pytest.fixture(autouse=True)
+ def isolate_default_cohorts(tmp_path, monkeypatch):
+     for job, prefix in JOBS:
++        monkeypatch.setattr(job, "_require_supported_protocol", lambda path: None)
+         monkeypatch.setattr(job, "LEDGER_PATH", tmp_path / "inputs" / prefix / "ledger.jsonl")
+         monkeypatch.setattr(job, "TRIALS_PATH", tmp_path / "inputs" / prefix / "trials.json")
+         monkeypatch.setattr(job, "REPORTS_DIR", tmp_path / "defaults" / prefix / "reports")
+--- /dev/null
++++ b/tests/test_prospective_protocol_compatibility.py
+@@ -0,0 +1,102 @@
++"""Contract regressions: synthetic metadata only, never protected cohorts."""
++
++import json
++from unittest.mock import Mock
++
++import pytest
++
++from brasileirao_scripts import evaluate_h14_prospective as h14
++from brasileirao_scripts import evaluate_h15_prospective as h15
++from brasileirao_scripts._prospective_evaluation_guard import EvaluationBlocked, claim_directory
++
++
++@pytest.mark.parametrize("job", [h14, h15])
++@pytest.mark.parametrize(
++    "declared",
++    [
++        ["log_loss", "brier_1x2", "brier_ou25"],
++        None,
++        [],
++        ["log_loss"],
++        ["log_loss", "log_loss"],
++        [[], "brier_1x2"],
++    ],
++)
++def test_incompatible_protocol_blocks_before_claim_or_cohort_reads(job, declared, tmp_path, monkeypatch):
++    registry = tmp_path / "trials.json"
++    registry.write_text(
++        json.dumps(
++            [
++                {
++                    "name": job.TRIAL,
++                    "params": {"primary_metric": "rps", "guardrails": declared, "min_n_avaliacao": 900},
++                }
++            ]
++        ),
++        encoding="utf-8",
++    )
++    ledger = tmp_path / "unread-cohort.jsonl"
++    database = tmp_path / "unread-results.db"
++    forbidden = Mock(side_effect=AssertionError("cohort access forbidden"))
++    monkeypatch.setattr(job, "_load_jsonl", forbidden)
++    monkeypatch.setattr(job.db, "connect", forbidden)
++    monkeypatch.setattr(job, "load_config", forbidden)
++    with pytest.raises(EvaluationBlocked, match="metric mismatch"):
++        job.evaluate(trials_path=registry, ledger_path=ledger, db_path=database, reports_dir=tmp_path / "reports")
++    forbidden.assert_not_called()
++    assert not claim_directory(trial=job.TRIAL, ledger_path=ledger).exists()
++    assert list(tmp_path.iterdir()) == [registry]
++
++
++@pytest.mark.parametrize("job", [h14, h15])
++def test_cli_blocks_unsupported_protocol_without_output_or_claim(job, tmp_path, monkeypatch, capsys):
++    registry = tmp_path / "trials.json"
++    registry.write_text(
++        json.dumps(
++            [
++                {
++                    "name": job.TRIAL,
++                    "params": {
++                        "primary_metric": "rps",
++                        "guardrails": ["log_loss", "brier_1x2", "brier_ou25"],
++                    },
++                }
++            ]
++        ),
++        encoding="utf-8",
++    )
++    monkeypatch.setattr(job, "TRIALS_PATH", registry)
++    monkeypatch.setattr(job, "LEDGER_PATH", tmp_path / "ledger.jsonl")
++    monkeypatch.setattr(job, "REPORTS_DIR", tmp_path / "reports")
++    assert job.main() == 1
++    captured = capsys.readouterr()
++    assert captured.out == ""
++    assert "brier_ou25" in captured.err
++    assert list(tmp_path.iterdir()) == [registry]
++
++
++@pytest.mark.parametrize("job", [h14, h15])
++@pytest.mark.parametrize("interval", [[-0.1, 0.1], [-0.1, 0.0], [0.0, 0.0]])
++def test_zero_interval_does_not_assert_equivalence_or_strict_negativity(job, interval):
++    status, detail = job._verdict({"ci95": interval}, {})
++    assert status == "refutada"  # Existing native decision rule is preserved.
++    assert "não prova equivalência" in detail
++    assert "estritamente negativo" not in detail
++
++
++@pytest.mark.parametrize("job", [h14, h15])
++@pytest.mark.parametrize("interval", [None, [None, None], [float("nan"), 0.1], [0.2, 0.1]])
++def test_missing_or_invalid_guardrail_cannot_approve(job, interval):
++    guardrails = {"log_loss": {"ci95": [0.01, 0.1]}}
++    if interval is not None:
++        guardrails["brier_1x2"] = {"ci95": interval}
++    status, _ = job._verdict({"ci95": [0.01, 0.1]}, guardrails)
++    assert status == "inconclusiva"
++
++
++@pytest.mark.parametrize("job", [h14, h15])
++def test_complete_guardrails_keep_existing_individual_decision(job):
++    guardrails = {metric: {"ci95": [0.01, 0.1]} for metric in job.GUARDRAIL_METRICS}
++    assert job._verdict({"ci95": [0.01, 0.1]}, guardrails)[0] == "comprovada"
++    guardrails["log_loss"]["ci95"] = [-0.2, -0.1]
++    assert job._verdict({"ci95": [0.01, 0.1]}, guardrails)[0] == "refutada"
