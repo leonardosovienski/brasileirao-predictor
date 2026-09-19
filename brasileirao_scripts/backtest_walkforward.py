@@ -108,6 +108,8 @@ def run_walkforward(cfg, conn):
     cal_years = cfg["model"].get("calibration_window_years", 4)
 
     rows = db.completed_matches_with_kickoff(conn)
+    # Keep outcomes aligned with the temporal order used by compute_ratings.
+    rows = [row for _key, row in sorted(zip(ratings.temporal_keys(rows), rows), key=lambda item: item[0])]
     if len(rows) < 2 * block_games:
         sys.exit(f"base insuficiente: {len(rows)} jogos < 2 blocos de {block_games}")
 
@@ -153,7 +155,7 @@ def run_walkforward(cfg, conn):
         frac1, n_frac = _ht_fraction(rows_ht, first_date)
 
         for i in range(lo, hi):
-            d, home, away, hs, as_, tournament, neutral = rows[i]
+            d, home, away, hs, as_, tournament, neutral = rows[i][:7]
             diff = history[i][0]
             r = model.predict_match(diff, 0.0, params, 0.0, max_goals=max_goals)
             total = hs + as_
