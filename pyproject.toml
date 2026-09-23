@@ -47,6 +47,16 @@ target-version = "py313"
 line-length = 120
 exclude = []
 
+[tool.ruff.format]
+# Bytes congelados: o sha256 destes arquivos está em
+# docs/continuation/auditoria_2026-09-16/RECIBO_PROTOCOLO_V2.json e RECIBO_INTEGRACAO_FINAL.json.
+# Continuam sob `ruff check`.
+exclude = [
+  "brasileirao_scripts/prospective_protocol_v2.py",
+  "tests/test_prospective_protocol_v2.py",
+  "tests/test_audit_hardening.py",
+]
+
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP"]
 

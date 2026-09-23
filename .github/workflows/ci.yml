@@ -55,24 +55,26 @@ jobs:
           run_id=$(docker exec "${{ job.services.redis.id }}" redis-cli INFO server | tr -d '\r' | sed -n 's/^run_id://p')
           test -n "$run_id"
           echo "LINEUP_TEST_REDIS_RUN_ID=$run_id" >> "$GITHUB_ENV"
-      - run: uv run python brasileirao_scripts/validate_env_example.py
-      - run: uv run python brasileirao_scripts/seed_test_fixtures.py
-      - run: uv run ruff check brasileirao_predictor brasileirao_scripts tests
-      - run: uv run ruff format --check brasileirao_predictor brasileirao_scripts tests
+      - run: uv run --locked python brasileirao_scripts/validate_env_example.py
+      - run: uv run --locked python brasileirao_scripts/seed_test_fixtures.py
+      - run: uv run --locked ruff check brasileirao_predictor brasileirao_scripts tests
+      - run: uv run --locked ruff format --check brasileirao_predictor brasileirao_scripts tests
       - run: >-
-          uv run pyright brasileirao_predictor
-      - run: uv run coverage run -m pytest
-      - run: uv run coverage run --append -m pytest -m integration
+          uv run --locked pyright brasileirao_predictor
+      - run: uv run --locked coverage run -m pytest
+      - run: uv run --locked coverage run --append -m pytest -m integration
       # Baseline global real em 2026-08-24: 46%; categorias homologadas >80%.
-      - run: uv run coverage report --fail-under=45
-      - run: uv run coverage json -o coverage.json
-      - run: uv run python brasileirao_scripts/coverage_report.py coverage.json --output coverage-by-category.md
+      - run: uv run --locked coverage report --fail-under=45
+      - run: uv run --locked coverage json -o coverage.json
+      - run: uv run --locked python brasileirao_scripts/coverage_report.py coverage.json --output coverage-by-category.md
       - run: uv build
-      - run: >-
-          uv run --isolated --with dist/*.whl
-          --with "predictor-core @ https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.1/predictor_core-3.2.1-py3-none-any.whl"
-          --with "predictor-ops @ https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.1/predictor_ops-4.2.1-py3-none-any.whl"
-          brasileirao-predict --help
+      - name: Installed wheel smoke (dependências só do lock, com hash)
+        run: |
+          uv export --locked --no-dev --no-emit-project --format requirements-txt --output-file "$RUNNER_TEMP/runtime.txt"
+          uv venv "$RUNNER_TEMP/installed" --python ${{ matrix.python-version }}
+          uv pip install --python "$RUNNER_TEMP/installed/bin/python" --require-hashes --no-deps -r "$RUNNER_TEMP/runtime.txt"
+          uv pip install --python "$RUNNER_TEMP/installed/bin/python" --no-deps dist/*.whl
+          cd "$RUNNER_TEMP" && "$RUNNER_TEMP/installed/bin/brasileirao-predict" --help
 
   dotnet:
     name: .NET 10 build and test
