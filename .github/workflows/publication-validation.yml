@@ -33,9 +33,9 @@ jobs:
         run: .venv/bin/python -I -B tools/publication_validation/run.py "$RUNNER_TEMP/python-synthetic"
       - name: Validate publication tools
         run: |
-          uv run ruff check tools/publication_validation
-          uv run ruff format --check tools/publication_validation
-          uv run pyright tools/publication_validation
+          uv run --locked ruff check tools/publication_validation
+          uv run --locked ruff format --check tools/publication_validation
+          uv run --locked pyright tools/publication_validation
       - name: Build distribution and verify wheel installation
         run: |
           uv build
