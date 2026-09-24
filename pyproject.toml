@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "brasileirao-predictor"
-version = "0.2.0"
+version = "0.3.0rc1"
 description = "Scientific and operational prediction services for Brasileirão Série A"
 readme = "README.md"
 requires-python = ">=3.13,<3.15"
@@ -31,6 +31,7 @@ dev = ["build>=1.3,<2", "coverage[toml]>=7.10,<8", "pre-commit>=4.3,<5", "pyrigh
 brasileirao-predict = "brasileirao_predictor.predict:main"
 brasileirao-kernel = "brasileirao_predictor.kernel_cli:main"
 brasileirao-shadow = "brasileirao_scripts.sombra_diaria:main"
+brasileirao-research = "brasileirao_predictor.research_runtime.runner:main"
 
 [project.entry-points."predictor.plugins"]
 brasileirao = "brasileirao_predictor.ecosystem_plugin:PLUGIN"
