@@ -44,7 +44,7 @@ def _effects(lab: Lab) -> list[Path]:
 
 
 def _single_experiment(lab: Lab) -> Path:
-    created = list((lab.state / "x" / "e").iterdir())
+    created = [p for p in (lab.state / "x" / "e").iterdir() if p.is_dir()]  # .lock files are not experiments
     assert len(created) == 1
     return created[0]
 
