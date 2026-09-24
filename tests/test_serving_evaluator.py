@@ -41,7 +41,8 @@ def _obs(n_rodadas: int = 60, *, simultaneo: bool = False, com_xg: bool = True) 
         if r % 2:
             pares = [(a, h) for h, a in pares]
         for j, (casa, fora) in enumerate(pares):
-            kickoff = dia if simultaneo else dia + timedelta(hours=2 * j)
+            # 4 h: o resultado do jogo anterior já existe (kickoff + 180 min, BR-F004)
+            kickoff = dia if simultaneo else dia + timedelta(hours=4 * j)
             hg, ag = (r + j) % 3, r % 3
             out.append(
                 {

@@ -46,6 +46,7 @@ from predictor_core.contracts.points import PredictionPoint
 from predictor_core.testing.prequential import PrequentialEvaluator
 
 from brasileirao_predictor.dixon_coles import DixonColesMatrix, fit_dixon_coles_parameters
+from brasileirao_predictor.pit import observation_available_at
 
 __all__ = ["BrasileiraoDixonColesEvaluator"]
 
@@ -95,8 +96,9 @@ class BrasileiraoDixonColesEvaluator(PrequentialEvaluator):
         self._pending_history = list(history)
 
     def _fit(self, history: list[dict[str, Any]], horizon: datetime) -> None:
-        """Ajusta (α, β, γ, ρ) por WNLL sobre os jogos com kickoff < `horizon`."""
-        usable = [h for h in history if h["kickoff"] < horizon]
+        """Ajusta (α, β, γ, ρ) por WNLL sobre os jogos cujo resultado já existia em `horizon`
+        (BR-F004: `kickoff < horizon` deixava entrar jogo ainda em andamento)."""
+        usable = [h for h in history if observation_available_at(h) < horizon]
         if len({h["home"] for h in usable} | {h["away"] for h in usable}) < 2:
             # Bloco engoliu o histórico inteiro (ou quase): mantém o ajuste
             # anterior e tenta de novo no próximo passo, em vez de estourar.

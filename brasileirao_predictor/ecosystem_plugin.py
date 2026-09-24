@@ -6,6 +6,16 @@ científico, não gera aposta e não autoriza capital.
 
 from __future__ import annotations
 
+from importlib.metadata import PackageNotFoundError, version
+
+
+def _installed_version() -> str:
+    """Versão da distribuição instalada (BR-F011: nunca um literal que envelhece)."""
+    try:
+        return version("brasileirao-predictor")
+    except PackageNotFoundError:
+        return "UNINSTALLED"
+
 
 class BrasileiraoPredictorPlugin:
     name = "brasileirao-predictor"
@@ -15,7 +25,7 @@ class BrasileiraoPredictorPlugin:
         return {
             "domain": self.domain,
             "status": "WAITING",
-            "version": "0.2.0",
+            "version": _installed_version(),
             "details": {
                 "mode": "shadow",
                 "adapter": "plugin-v1",

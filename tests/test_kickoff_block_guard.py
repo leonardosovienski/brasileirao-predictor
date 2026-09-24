@@ -29,7 +29,8 @@ def _round_robin_blocks(n_blocks: int, *, simultaneous: bool) -> list[dict]:
         if b % 2:
             pairs = [(a, h) for h, a in pairs]
         for j, (home, away) in enumerate(pairs):
-            kickoff = block_start if simultaneous else block_start + timedelta(hours=2 * j)
+            # 4 h: o resultado do jogo anterior já existe (kickoff + 180 min, BR-F004)
+            kickoff = block_start if simultaneous else block_start + timedelta(hours=4 * j)
             obs.append(
                 {
                     "home": home,

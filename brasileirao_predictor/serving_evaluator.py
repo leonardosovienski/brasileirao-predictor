@@ -48,6 +48,7 @@ from predictor_core.contracts.points import PredictionPoint
 from predictor_core.testing.prequential import PrequentialEvaluator
 
 from brasileirao_predictor import dynamic_strength, model, ratings, xg_model
+from brasileirao_predictor.pit import observation_available_at
 
 __all__ = ["DynamicStrengthServingEvaluator", "ServingStackEvaluator"]
 
@@ -175,7 +176,8 @@ class ServingStackEvaluator(PrequentialEvaluator):
     # --- ajuste ---------------------------------------------------------------
 
     def _fit(self, history: list[dict[str, Any]], horizon: datetime) -> None:
-        usable = [h for h in history if h["kickoff"] < horizon]
+        # BR-F004: resultado disponível (kickoff + latência), não só kickoff anterior ao alvo.
+        usable = [h for h in history if observation_available_at(h) < horizon]
         if len(usable) < 2:
             self.deferred_refits += 1
             if self.params is None:
@@ -283,7 +285,7 @@ class H9FrozenPolicyEvaluator(ServingStackEvaluator):
         self.ensemble_enabled = False
 
     def _fit(self, history: list[dict[str, Any]], horizon: datetime) -> None:
-        usable = [h for h in history if h["kickoff"] < horizon]
+        usable = [h for h in history if observation_available_at(h) < horizon]  # BR-F004
         if len(usable) < 2:
             self.deferred_refits += 1
             if self.params is None:

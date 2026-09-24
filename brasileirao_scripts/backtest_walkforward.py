@@ -33,7 +33,7 @@ import csv
 import json
 import statistics as st
 import sys
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 from predictor_core.measurement.bootstrap import bootstrap_ci
@@ -53,6 +53,7 @@ from brasileirao_predictor.backtest import (
 )
 from brasileirao_predictor.ingest import load_config
 from brasileirao_predictor.math_utils import shin_probabilities
+from brasileirao_predictor.pit import result_available_at
 from brasileirao_predictor.research.temporal_replay import build_temporal_manifest
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -79,13 +80,34 @@ def _aligned_blocks(rows, target_games: int) -> list[tuple[int, int]]:
     return blocks
 
 
-def _ht_fraction(rows_ht, cut_date):
-    """Fração média de gols no 1T usando SÓ jogos com HT anteriores a cut_date.
-    Espelha display.ht_goal_fraction, mas forward-only (sem lookahead).
+def _kickoff_or_date(row):
+    """Kickoff aware da linha canônica; sem kickoff, a data UTC (regra conservadora do pit)."""
+    kickoff = row[7] if len(row) > 7 else None
+    if kickoff:
+        return datetime.fromisoformat(str(kickoff).replace("Z", "+00:00")).astimezone(UTC)
+    return str(row[0])[:10]
+
+
+def _result_available(when) -> datetime:
+    return result_available_at(when) if isinstance(when, datetime) else result_available_at(None, when)
+
+
+def _decision_time(row) -> datetime:
+    """Instante da previsão do primeiro jogo do bloco: o kickoff (sem kickoff, 00:00Z da data)."""
+    when = _kickoff_or_date(row)
+    return when if isinstance(when, datetime) else datetime.fromisoformat(when).replace(tzinfo=UTC)
+
+
+def _ht_fraction(rows_ht, cut):
+    """Fração média de gols no 1T usando SÓ jogos cujo resultado já existia em `cut`
+    (kickoff + 180 min, brasileirao_predictor.pit; BR-F004 — o corte por data deixava
+    entrar jogo em andamento). Espelha display.ht_goal_fraction, forward-only.
     None se n < 50 (mesmo piso do serving)."""
+    if not isinstance(cut, datetime):  # data sem hora: 00:00Z daquele dia
+        cut = datetime.fromisoformat(str(cut)[:10]).replace(tzinfo=UTC)
     tot_ht = tot_ft = n = 0
-    for d, hs, as_, hht, aht in rows_ht:
-        if d >= cut_date or hht is None or aht is None:
+    for when, hs, as_, hht, aht in rows_ht:
+        if _result_available(when) >= cut or hht is None or aht is None:
             continue
         ft = hs + as_
         if ft == 0:
@@ -133,7 +155,7 @@ def run_walkforward(cfg, conn):
         "FROM sofascore_matches WHERE home_score_ht IS NOT NULL"
     ):
         ht[(d, h, a)] = (hht, aht)
-    rows_ht = [(r[0], r[3], r[4], *ht.get((r[0], r[1], r[2]), (None, None))) for r in rows]
+    rows_ht = [(_kickoff_or_date(r), r[3], r[4], *ht.get((r[0], r[1], r[2]), (None, None))) for r in rows]
 
     # blocos: o primeiro é burn-in (Elo converge, calibração acumula), nunca testado
     aligned = _aligned_blocks(rows, block_games)
@@ -142,8 +164,14 @@ def run_walkforward(cfg, conn):
     ledger, h2_picks = [], []
     for bi, (lo, hi) in enumerate(blocks, 1):
         first_date = rows[lo][0]
+        block_start = _decision_time(rows[lo])
         cal_cut = (date.fromisoformat(first_date) - timedelta(days=int(cal_years * 365.25))).isoformat()
-        cal_pairs = [(h, r) for h, r in zip(history, rows) if cal_cut <= r[0] < first_date]
+        # BR-F004: só resultado já disponível no primeiro kickoff do bloco (não "data anterior").
+        cal_pairs = [
+            (h, r)
+            for h, r in zip(history, rows)
+            if cal_cut <= r[0] and _result_available(_kickoff_or_date(r)) < block_start
+        ]
         hist_cal = [h for h, _r in cal_pairs]
         if len(hist_cal) < 100:
             print(f"bloco {bi}: só {len(hist_cal)} jogos de calibração — pulado")
@@ -152,7 +180,7 @@ def run_walkforward(cfg, conn):
             [r[0] for _h, r in cal_pairs], first_date, cfg["model"]["goal_half_life_days"]
         )
         params = model.fit_goal_model(hist_cal, sample_weights=weights)
-        frac1, n_frac = _ht_fraction(rows_ht, first_date)
+        frac1, n_frac = _ht_fraction(rows_ht, block_start)
 
         for i in range(lo, hi):
             d, home, away, hs, as_, tournament, neutral = rows[i][:7]
