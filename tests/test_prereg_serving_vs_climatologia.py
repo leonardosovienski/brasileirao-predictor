@@ -10,12 +10,19 @@ from __future__ import annotations
 import json
 import pathlib
 import tempfile
+import warnings
 from datetime import UTC, datetime
 
 import pytest
 from predictor_core.contracts.registry import TrialRegistry, validate_trials
+from predictor_core.measurement import trials as core_trials
 
 from brasileirao_scripts import prereg_serving_vs_climatologia as prereg
+
+
+class ExpiredHarnessAttestationWarning(UserWarning):
+    """O atestado de poder versionado no repo expirou (A-04): visível no resumo do pytest."""
+
 
 # ---------- o script não pode olhar dados ----------
 
@@ -94,7 +101,26 @@ def test_registro_conforma_ao_schema_do_core(monkeypatch) -> None:
     real = pathlib.Path(prereg.ROOT) / "data" / "trials.harness_attestation.json"
     atestado = json.loads(real.read_text(encoding="utf-8"))
     if datetime.fromisoformat(atestado["expires_at"]) <= datetime.now(UTC):
-        pytest.skip("atestado do repo expirado — renove com attest_rps_power()")
+        # A-04: o atestado real do repo é artefato protegido da qualificação (data/trials*.json) e
+        # expirou; renová-lo (attest_rps_power()) altera esse artefato e é decisão do dono. Em vez de
+        # pular em silêncio, o teste AVISA de forma visível e continua exercitando a conformidade do
+        # registro com o MESMO atestado real, avaliado no instante em que ele era válido: o relógio do
+        # registro do core fica congelado em passed_at só neste teste. Nada é fabricado.
+        warnings.warn(
+            f"A-04: data/trials.harness_attestation.json expirou em {atestado['expires_at']}; o registro "
+            "foi exercitado com o relógio do core em passed_at. Renovar com attest_rps_power() altera um "
+            "artefato protegido (decisão do dono).",
+            ExpiredHarnessAttestationWarning,
+            stacklevel=1,
+        )
+        frozen = datetime.fromisoformat(atestado["passed_at"])
+
+        class _RelogioNoAtestado(datetime):
+            @classmethod
+            def now(cls, tz=None):  # type: ignore[override]
+                return frozen if tz is None else frozen.astimezone(tz)
+
+        monkeypatch.setattr(core_trials, "datetime", _RelogioNoAtestado)
     (alvo.parent / "trials.harness_attestation.json").write_text(
         json.dumps(atestado, ensure_ascii=False), encoding="utf-8"
     )
