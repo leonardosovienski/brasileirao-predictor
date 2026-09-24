@@ -39,6 +39,8 @@ from typing import Any
 from predictor_core.contracts.points import PredictionPoint
 from predictor_core.testing.prequential import PrequentialEvaluator
 
+from brasileirao_predictor.pit import observation_available_at
+
 __all__ = ["EloBaselineEvaluator"]
 
 _INITIAL_RATING = 1500.0
@@ -75,7 +77,7 @@ class EloBaselineEvaluator(PrequentialEvaluator):
         """Reconstrói os ratings do zero sobre os jogos com kickoff < `horizon`
         (determinístico: mesma história → mesmos ratings) e mede a taxa de
         empates do treino."""
-        usable = [h for h in history if h["kickoff"] < horizon]
+        usable = [h for h in history if observation_available_at(h) < horizon]  # BR-F004
         if not usable:
             # Bloco engoliu o histórico inteiro: mantém os ratings anteriores e
             # tenta de novo no próximo passo, em vez de dividir por zero em

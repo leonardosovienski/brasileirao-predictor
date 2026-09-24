@@ -31,7 +31,8 @@ def _blocks(n_blocks: int, *, simultaneous: bool) -> list[dict]:
                 {
                     "home": home,
                     "away": away,
-                    "kickoff": start if simultaneous else start + timedelta(hours=2 * j),
+                    # 4 h: o resultado do jogo anterior já existe (kickoff + 180 min, BR-F004)
+                    "kickoff": start if simultaneous else start + timedelta(hours=4 * j),
                     "result": {"home_goals": (b + j) % 3, "away_goals": (b + 2 * j) % 3},
                 }
             )
