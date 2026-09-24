@@ -76,6 +76,60 @@ jobs:
           uv pip install --python "$RUNNER_TEMP/installed/bin/python" --no-deps dist/*.whl
           cd "$RUNNER_TEMP" && "$RUNNER_TEMP/installed/bin/brasileirao-predict" --help
 
+  # BR-F018: o ajuste do modelo de gols tem de dar o mesmo resultado em Linux e Windows. Cada SO roda
+  # os testes de determinismo/último bit e o walk-forward sobre os vetores sintéticos congelados
+  # (tests/conformance/fixtures.py); o job seguinte compara os dois relatórios com as tolerâncias
+  # declaradas antes de medir (tools/crossos_fit_compare.py).
+  crossos-fit:
+    name: Cross-OS fit (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.12.1"
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - run: uv sync --all-extras --locked
+      - name: Determinism and last-bit tests
+        run: uv run --locked python -m pytest -p no:cacheprovider -o addopts="" -q tests/test_fit_numerical_stability.py tests/test_fit_objective_gradient.py
+      - name: Fit report on the frozen synthetic vectors
+        run: uv run --locked python tools/crossos_fit_report.py --out crossos-${{ matrix.os }}.json
+      - uses: actions/upload-artifact@v7
+        with:
+          name: crossos-fit-${{ matrix.os }}
+          path: crossos-${{ matrix.os }}.json
+          if-no-files-found: error
+
+  crossos-compare:
+    name: Cross-OS fit comparison (ubuntu-latest x windows-latest)
+    runs-on: ubuntu-latest
+    needs: [crossos-fit]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - uses: actions/download-artifact@v8
+        with:
+          name: crossos-fit-ubuntu-latest
+          path: reports
+      - uses: actions/download-artifact@v8
+        with:
+          name: crossos-fit-windows-latest
+          path: reports
+      - run: python tools/crossos_fit_compare.py reports/crossos-ubuntu-latest.json reports/crossos-windows-latest.json --out crossos-compare.json
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: crossos-fit-compare
+          path: crossos-compare.json
+
   dotnet:
     name: .NET 10 build and test
     runs-on: ubuntu-latest
