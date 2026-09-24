@@ -15,6 +15,7 @@ import stat
 import subprocess
 import threading
 import time
+from contextlib import closing
 from pathlib import Path
 
 import pytest
@@ -35,7 +36,7 @@ def _ops_successes(lab: Lab) -> int:
 
 
 def _results(lab: Lab) -> int:
-    with sqlite3.connect(lab.state / "results.sqlite") as db:
+    with closing(sqlite3.connect(lab.state / "results.sqlite")) as db, db:
         return db.execute("SELECT count(*) FROM results").fetchone()[0]
 
 
@@ -63,7 +64,7 @@ def test_process_death_at_each_point_recovers_exactly_once(lab: Lab, point: str)
     code, _lines, stderr = lab.process(path, env={FAULT_ENV: point})
     assert code == FAULT_EXIT, stderr[-500:]
     if point == "before_admission_commit":
-        with sqlite3.connect(lab.state / "admission.sqlite") as db:
+        with closing(sqlite3.connect(lab.state / "admission.sqlite")) as db, db:
             assert db.execute("SELECT count(*) FROM request_inbox").fetchone()[0] == 0
             assert db.execute("SELECT count(*) FROM admissions").fetchone()[0] == 0
     code, lines, stderr = lab.process(path)
@@ -275,7 +276,7 @@ def test_db_says_result_exists_but_file_is_gone() -> None:
 def test_file_exists_but_index_lost_the_result() -> None:
     lab, path, _work = _completed("brasileirao:REQ-CORRUPT-002")
     try:
-        with sqlite3.connect(lab.state / "results.sqlite") as db:
+        with closing(sqlite3.connect(lab.state / "results.sqlite")) as db, db:
             db.execute("DELETE FROM results")
         code, lines, _ = lab.process(path)
         assert code == 5 and lines[-1]["status"] == "RECONCILIATION_REQUIRED"

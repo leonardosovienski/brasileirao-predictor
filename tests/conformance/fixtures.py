@@ -90,7 +90,7 @@ COST_MODEL = {
 }
 ODDS = {
     "schema": "brasileirao-odds/1",
-    "source": "sofascore_matches",
+    "source": "sofascore_matches (1X2) + odds_lines ou 2.5 (O/U)",
     "price": "close",
     "use": "ex post evaluation only",
 }
@@ -278,10 +278,16 @@ def build_dataset(
                     e["hs"],
                     e["as"],
                     *e["odds_close"],
-                    *e["odds_ou"],
+                    None,  # odds_over: vazio como no dado real (BR-F015)
+                    None,  # odds_under
                     *e["odds_open"],
                     e["superseded_by"],
                 ),
+            )
+            # O/U 2.5 de fechamento na forma canônica (odds_lines: odd_a = over, odd_b = under).
+            conn.execute(
+                "INSERT INTO odds_lines (event_id, market, line, odd_a, odd_b) VALUES (?, 'ou', 2.5, ?, ?)",
+                (e["event_id"], *e["odds_ou"]),
             )
             for version, (when, status) in enumerate(e["versions"], start=1):
                 conn.execute(

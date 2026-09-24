@@ -278,3 +278,15 @@ def test_entrypoint_needs_no_checkout_or_project_root(tmp_path: Path) -> None:
             "matches.db",
         ):
             assert forbidden not in source, (module.name, forbidden)
+
+
+def test_ou25_is_evaluated_against_the_canonical_closing_line(lab: Lab) -> None:
+    """BR-F015: O/U 2.5 closing prices live in odds_lines (the flat columns are empty in the real data)."""
+    request = fixtures.request("brasileirao:REQ-OU25-LINES-001", target="OU25", baseline="market")
+    code, outcome = lab.submit(request)
+    assert code == 0 and outcome["status"] == "RESULT", outcome
+    result = lab.show(request["request_id"])[1]["result"]
+    domain = result["domain_facts"]
+    assert domain["data_quality"]["missing_market"] == 0
+    assert result["result_state"] != "INCONCLUSIVE_DATA_QUALITY"
+    assert domain["evaluation"]["n_evaluated"] >= 30 and domain["economics"]["n_bets"] > 0

@@ -151,9 +151,10 @@ ORDER BY m.date, m.home_team, m.away_team
 
 TARGET_SQL = """
 SELECT s.event_id, s.competition, s.season, s.date, s.kickoff_at, s.home_team, s.away_team,
-       s.superseded_by_event_id, s.odds_home, s.odds_draw, s.odds_away, s.odds_over, s.odds_under,
+       s.superseded_by_event_id, s.odds_home, s.odds_draw, s.odds_away, l.odd_a, l.odd_b,
        m.home_score, m.away_score, m.neutral
 FROM sofascore_matches s LEFT JOIN matches m ON m.event_id = s.event_id
+LEFT JOIN odds_lines l ON l.event_id = s.event_id AND l.market = 'ou' AND l.line = 2.5
 WHERE s.season = ?
 ORDER BY s.event_id
 """
