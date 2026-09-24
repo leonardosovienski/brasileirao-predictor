@@ -103,6 +103,8 @@ def _ht_fraction(rows_ht, cut):
     (kickoff + 180 min, brasileirao_predictor.pit; BR-F004 — o corte por data deixava
     entrar jogo em andamento). Espelha display.ht_goal_fraction, forward-only.
     None se n < 50 (mesmo piso do serving)."""
+    if not isinstance(cut, datetime):  # data sem hora: 00:00Z daquele dia
+        cut = datetime.fromisoformat(str(cut)[:10]).replace(tzinfo=UTC)
     tot_ht = tot_ft = n = 0
     for when, hs, as_, hht, aht in rows_ht:
         if _result_available(when) >= cut or hht is None or aht is None:
