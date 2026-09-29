@@ -22,7 +22,18 @@ ROOT = project_root()
 
 
 def load_config() -> dict:
-    config_path = Path(os.environ.get("BRASILEIRAO_CONFIG_PATH", ROOT / "config.yaml"))
+    """Read config.yaml: `BRASILEIRAO_CONFIG_PATH`, else `<BRASILEIRAO_PROJECT_ROOT>/config.yaml`.
+
+    An installed wheel has no config.yaml next to the package, so one of the two variables is required
+    there; the error names them instead of a bare FileNotFoundError inside site-packages.
+    """
+    explicit = os.environ.get("BRASILEIRAO_CONFIG_PATH")
+    config_path = Path(explicit) if explicit else ROOT / "config.yaml"
+    if not config_path.is_file():
+        raise FileNotFoundError(
+            f"config.yaml não encontrado em {config_path}; defina BRASILEIRAO_CONFIG_PATH (caminho do arquivo) "
+            "ou BRASILEIRAO_PROJECT_ROOT (diretório de dados/configuração fora do pacote instalado)"
+        )
     with config_path.open() as f:
         return yaml.safe_load(f)
 

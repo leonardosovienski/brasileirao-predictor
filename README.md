@@ -7,6 +7,16 @@
 <!-- /DOC-SYNC-20260912 -->
 
 
+## Estado atual do pacote (2026-09-29)
+
+`brasileirao-predictor 0.3.0rc5` (pré-release; a `0.3.0rc4` é o `final_commit` da missão `integration-brasileirao`).
+Mudanças da rc5: `load_config()` falha com mensagem que nomeia as variáveis quando não há `config.yaml`, e o
+extra opcional `research-v2` fixa o transporte V2 (`predictor-research-transport`/`-protocol`) para o lado
+consumidor do CAIN. **Instalado por wheel, o daemon do kernel exige `BRASILEIRAO_CONFIG_PATH` (caminho do
+`config.yaml`) ou `BRASILEIRAO_PROJECT_ROOT`** (o `compose.yaml` já injeta a primeira); `brasileirao-kernel
+--healthcheck` só precisa de `--db`/`SPORTS_DB_PATH` e `--redis`/`REDIS_URL`. As entradas datadas abaixo são
+históricas (a versão `0.2.0` de 11/09 é uma entrega anterior).
+
 ## Candidato local ResearchBundleV1
 
 [Exportador aditivo de claims/lineage](docs/RESEARCH_BUNDLE_V1.md), com dez testes
