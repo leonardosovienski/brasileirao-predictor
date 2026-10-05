@@ -1,4 +1,4 @@
-FROM python:3.14.7-slim-bookworm AS builder
+FROM python:3.14.8-slim-bookworm AS builder
 RUN pip install --no-cache-dir uv==0.12.1
 WORKDIR /build
 COPY pyproject.toml uv.lock README.md ./
@@ -13,7 +13,7 @@ RUN python -c "import urllib.request; urllib.request.urlretrieve('https://github
     && uv pip sync --python /opt/venv/bin/python --require-hashes requirements.lock \
     && uv pip install --python /opt/venv/bin/python --no-deps dist/*.whl
 
-FROM python:3.14.7-slim-bookworm
+FROM python:3.14.8-slim-bookworm
 RUN useradd --system --uid 10001 --create-home app
 COPY --from=builder /opt/venv /opt/venv
 USER 10001
