@@ -9,6 +9,11 @@
 !uv.lock
 !constraints/
 !constraints/shared-wheels.sha256
+!STACK_WHEELS.json
+!tools/
+!tools/stack_wheels.py
+!.stack-wheels/
+!.stack-wheels/*.whl
 !brasileirao_predictor/
 !brasileirao_predictor/**
 !brasileirao_scripts/

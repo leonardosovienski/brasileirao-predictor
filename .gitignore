@@ -59,3 +59,6 @@ logs/
 !docs/continuation/implementation_2026-09-10/evidence/*.log
 
 !docs/continuation/economic_search_2026-09-10/evidence/coverage.json
+
+# Flat index of the published stack wheels (tools/stack_wheels.py fetch), never versioned
+.stack-wheels/
