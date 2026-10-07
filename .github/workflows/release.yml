@@ -34,7 +34,7 @@ jobs:
       SOURCE_DATE_EPOCH: "1758240000"
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref || inputs.tag || github.ref }}
           fetch-depth: 0
@@ -51,10 +51,10 @@ jobs:
             gh api --method POST "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/$TAG" -f sha="$ref" >/dev/null
             git fetch -q origin "refs/tags/$TAG:refs/tags/$TAG"; git checkout -q "refs/tags/$TAG"
           fi
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v7
         with:
           version: "0.12.1"
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
       - name: Tag must match the project version
