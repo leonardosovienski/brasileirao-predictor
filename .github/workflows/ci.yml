@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  # predictor-core / predictor-ops are GitHub Release assets of private repositories (STACK_WHEELS.json).
+  # STACK_READ_TOKEN: fine-grained token, Contents: read on core-predictor and predictor-ops. Without it the
+  # fetch step fails closed with the reason; GITHUB_TOKEN cannot read another repository's releases.
+  STACK_READ_TOKEN: ${{ secrets.STACK_READ_TOKEN }}
+
 jobs:
   python:
     name: Python ${{ matrix.python-version }}
@@ -38,18 +44,12 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Verify canonical shared wheel hashes
+      - name: Stack wheels from the registry (published core/ops assets, sha256-verified; private producers)
         run: |
-          mkdir wheelhouse
-          curl --fail --silent --show-error --location \
-            "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.1/predictor_core-3.2.1-py3-none-any.whl" \
-            --output wheelhouse/predictor_core-3.2.1-py3-none-any.whl
-          curl --fail --silent --show-error --location \
-            "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.2rc1/predictor_ops-4.2.2rc1-py3-none-any.whl" \
-            --output wheelhouse/predictor_ops-4.2.2rc1-py3-none-any.whl
-          cd wheelhouse
-          sha256sum --check ../constraints/shared-wheels.sha256
+          uv run --no-project --python 3.13 python tools/stack_wheels.py fetch
+          cd .stack-wheels && sha256sum --check ../constraints/shared-wheels.sha256
       - run: uv sync --all-extras --locked
+      - run: uv run --locked python tools/stack_wheels.py check
       - name: Identify this job's disposable Redis
         run: |
           run_id=$(docker exec "${{ job.services.redis.id }}" redis-cli INFO server | tr -d '\r' | sed -n 's/^run_id://p')
@@ -71,8 +71,9 @@ jobs:
       - name: Installed wheel smoke (dependências só do lock, com hash)
         run: |
           uv export --locked --no-dev --no-emit-project --format requirements-txt --output-file "$RUNNER_TEMP/runtime.txt"
+          uv run --locked python tools/stack_wheels.py requirements --input "$RUNNER_TEMP/runtime.txt" --output "$RUNNER_TEMP/runtime.hashed.txt"
           uv venv "$RUNNER_TEMP/installed" --python ${{ matrix.python-version }}
-          uv pip install --python "$RUNNER_TEMP/installed/bin/python" --require-hashes --no-deps -r "$RUNNER_TEMP/runtime.txt"
+          uv pip install --python "$RUNNER_TEMP/installed/bin/python" --require-hashes --no-deps -r "$RUNNER_TEMP/runtime.hashed.txt"
           uv pip install --python "$RUNNER_TEMP/installed/bin/python" --no-deps dist/*.whl
           cd "$RUNNER_TEMP" && "$RUNNER_TEMP/installed/bin/brasileirao-predict" --help
 
@@ -99,6 +100,8 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
+      - name: Stack wheels from the registry
+        run: uv run --no-project --python 3.13 python tools/stack_wheels.py fetch
       - run: uv sync --all-extras --locked
       - name: Determinism and last-bit tests
         run: uv run --locked python -m pytest -p no:cacheprovider -o addopts="" -q tests/test_fit_numerical_stability.py tests/test_fit_objective_gradient.py
@@ -166,7 +169,9 @@ jobs:
         with:
           python-version: "3.13"
       - name: Prepare the synthetic cross-process kernel
-        run: uv sync --all-extras --locked
+        run: |
+          uv run --no-project --python 3.13 python tools/stack_wheels.py fetch
+          uv sync --all-extras --locked
       - run: dotnet restore dotnet/LineupWorker.Tests/LineupWorker.Tests.csproj --locked-mode
       - run: dotnet build dotnet/LineupWorker/LineupWorker.csproj --configuration Release --no-restore --warnaserror
       - name: Test Worker and Python processes against this job's Redis
@@ -204,17 +209,13 @@ jobs:
       LINEUP_ALLOW_SYNTHETIC_INPUTS: "true"
     steps:
       - uses: actions/checkout@v7
-      - name: Verify canonical shared wheel hashes
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.12.1"
+      - name: Stack wheels from the registry (published core/ops assets, sha256-verified; private producers)
         run: |
-          mkdir .wheelhouse-e2e
-          curl --fail --silent --show-error --location \
-            "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.1/predictor_core-3.2.1-py3-none-any.whl" \
-            --output .wheelhouse-e2e/predictor_core-3.2.1-py3-none-any.whl
-          curl --fail --silent --show-error --location \
-            "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.2rc1/predictor_ops-4.2.2rc1-py3-none-any.whl" \
-            --output .wheelhouse-e2e/predictor_ops-4.2.2rc1-py3-none-any.whl
-          cd .wheelhouse-e2e
-          sha256sum --check ../constraints/shared-wheels.sha256
+          uv run --no-project --python 3.13 python tools/stack_wheels.py fetch
+          cd .stack-wheels && sha256sum --check ../constraints/shared-wheels.sha256
       - run: docker compose config --quiet
       - run: docker compose build
       - run: docker compose up --detach --wait --wait-timeout 180

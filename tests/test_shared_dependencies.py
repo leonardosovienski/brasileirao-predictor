@@ -37,7 +37,11 @@ def test_python_images_verify_shared_wheels_before_install() -> None:
     for name in ("Dockerfile.cli", "Dockerfile.kernel"):
         dockerfile = (ROOT / name).read_text(encoding="utf-8")
         assert "COPY constraints/shared-wheels.sha256" in dockerfile
-        verify_at = dockerfile.index("sha256sum -c constraints/shared-wheels.sha256")
+        # The wheels enter the build context from the registry index (.stack-wheels, R01 2026-10-07): the
+        # image verifies the pinned sha256 before anything is installed, and never downloads from GitHub.
+        assert "releases/download" not in dockerfile
+        assert "COPY .stack-wheels .stack-wheels" in dockerfile
+        verify_at = dockerfile.index("sha256sum -c ../constraints/shared-wheels.sha256")
         install_at = dockerfile.index("uv pip install")
         assert verify_at < install_at
 

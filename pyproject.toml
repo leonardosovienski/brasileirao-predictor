@@ -39,9 +39,13 @@ brasileirao = "brasileirao_predictor.ecosystem_plugin:PLUGIN"
 [tool.hatch.build.targets.wheel]
 packages = ["brasileirao_predictor", "brasileirao_scripts"]
 
-[tool.uv.sources]
-predictor-core = { url = "https://github.com/leonardosovienski/core-predictor/releases/download/v3.2.1/predictor_core-3.2.1-py3-none-any.whl" }
-predictor-ops = { url = "https://github.com/leonardosovienski/predictor-ops/releases/download/v4.2.2rc1/predictor_ops-4.2.2rc1-py3-none-any.whl" }
+# predictor-core / predictor-ops: published GitHub Release wheels registered in STACK_WHEELS.json (repository,
+# tag, asset, sha256) and fetched into this local flat index by `python tools/stack_wheels.py fetch` before
+# `uv sync --locked` (the producers are private; the fetch verifies the sha256). Never versioned (R01, 2026-10-07).
+[[tool.uv.index]]
+name = "stack-wheels"
+url = ".stack-wheels"
+format = "flat"
 
 [tool.ruff]
 target-version = "py313"
