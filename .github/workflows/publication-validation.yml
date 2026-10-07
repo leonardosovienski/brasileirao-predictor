@@ -10,7 +10,7 @@ permissions:
 
 env:
   # predictor-core / predictor-ops are GitHub Release assets of private repositories (STACK_WHEELS.json).
-  STACK_READ_TOKEN: ${{ secrets.STACK_READ_TOKEN }}
+  STACK_READ_TOKEN: ${{ secrets.STACK_READ_TOKEN || github.token }}
 
 jobs:
   python:
