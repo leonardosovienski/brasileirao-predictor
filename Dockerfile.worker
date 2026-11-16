@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:11.0 AS build
 WORKDIR /src
 COPY dotnet/LineupWorker/LineupWorker.csproj dotnet/LineupWorker/
 COPY dotnet/LineupWorker/packages.lock.json dotnet/LineupWorker/
@@ -6,7 +6,7 @@ RUN dotnet restore dotnet/LineupWorker/LineupWorker.csproj --locked-mode
 COPY dotnet/LineupWorker dotnet/LineupWorker
 RUN dotnet publish dotnet/LineupWorker/LineupWorker.csproj -c Release --no-restore -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/runtime:10.0
+FROM mcr.microsoft.com/dotnet/runtime:11.0
 WORKDIR /app
 COPY --from=build /app/publish .
 USER app
